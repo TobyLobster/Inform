@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,42 +2212,62 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Printing real numbers" -->
+            <!-- SEARCH SECTION "16.5" -->
+            <!-- SEARCH SORT "001-016-005-000" -->
             <h3><span>Section 16.5: Printing real numbers</span></h3>
             <p>     </p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(real number) to (number) decimal places]&quot;</p>
+                <!-- START PHRASE "defn228" -->
+                <p class="defnprototype"><a id="defn228"></a>say &quot;[(real number) to (number) decimal places]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number to the given number of decimal places. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The semicircle is roughly </span><span class="syntaxextract">[pi to 3 decimal places]</span><span class="syntaxstring"> paces around.&quot;</span>
+                <!-- START CODE "code1014" -->
+                <blockquote class="extract-inform7"><a id="code1014"></a><span class="indexdullblue"><span class="string-syntax">&quot;The semicircle is roughly [pi to 3 decimal places] paces around.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinetranscript">The semicircle is roughly 3.142 paces around.</code> The number of places can only usefully be from 1 to 8. Note that, for example, <code class="inlinesourcetext">&quot;[1.235 x 10^-7 to 3 decimal places]&quot;</code> produces <code class="inlinetranscriptcommand">0.0</code>; <code class="inlinesourcetext">&quot;[1.235678 x 10^8 to 3 decimal places]&quot;</code> produces <code class="inlinetranscript">1.236 x 10^8</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(real number) in decimal notation]&quot;</p>
+                <!-- START PHRASE "defn229" -->
+                <p class="defnprototype"><a id="defn229"></a>say &quot;[(real number) in decimal notation]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in decimal form, that is, avoiding <code class="inlinetranscript">x 10^n</code> even for very large or very small quantities. For example,</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[1.23457 x 10^8 in decimal notation]</span><span class="syntaxstring">&quot;</span>
+                <!-- START CODE "code1015" -->
+                <blockquote class="extract-inform7"><a id="code1015"></a><span class="indexdullblue"><span class="string-syntax">&quot;[1.23457 x 10^8 in decimal notation]&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinetranscriptcommand">123457000.0</code> rather than <code class="inlinetranscript">1.23457 x 10^8</code>. This can look pretty extreme: for example, <code class="inlinesourcetext">&quot;[1.8983 x 10^27 in decimal notation]&quot;</code>, the mass of the planet Jupiter in kilograms, produces <code class="inlinetranscriptcommand">1898296960000000000000000000.0</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(real number) to (number) decimal places in decimal notation]&quot;</p>
+                <!-- START PHRASE "defn230" -->
+                <p class="defnprototype"><a id="defn230"></a>say &quot;[(real number) to (number) decimal places in decimal notation]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in decimal form, but rounding to the accuracy given.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(real number) in scientific notation]&quot;</p>
+                <!-- START PHRASE "defn231" -->
+                <p class="defnprototype"><a id="defn231"></a>say &quot;[(real number) in scientific notation]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in scientific form, that is, using <code class="inlinetranscript">x 10^n</code> even for easy-to-judge quantities. For example,</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[the reciprocal of 137 in scientific notation]</span><span class="syntaxstring">&quot;</span>
+                <!-- START CODE "code1016" -->
+                <blockquote class="extract-inform7"><a id="code1016"></a><span class="indexdullblue"><span class="string-syntax">&quot;[the reciprocal of 137 in scientific notation]&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinetranscript">7.29927 x 10^-3</code> rather than <code class="inlinetranscriptcommand">0.0073</code>. This can look odd: for example, <code class="inlinesourcetext">&quot;[pi in scientific notation]&quot;</code> comes out as <code class="inlinetranscript">3.14159 x 10^0</code> rather than <code class="inlinetranscriptcommand">3.14159</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(real number) to (number) decimal places in scientific notation]&quot;</p>
+                <!-- START PHRASE "defn232" -->
+                <p class="defnprototype"><a id="defn232"></a>say &quot;[(real number) to (number) decimal places in scientific notation]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in scientific form, but rounding to the accuracy given.</p>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_4.html"><span class="markdowncontent">Section 16.4: Real number conversions</span></a> &bull; <a href="WI_16_6.html"><span class="markdowncontent">Section 16.6: Arithmetic</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

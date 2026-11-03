@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,24 +2212,30 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Go! button" -->
+            <!-- SEARCH SECTION "1.4" -->
+            <!-- SEARCH SORT "001-001-004-000" -->
             <h3><span>Section 1.4: The Go! button</span></h3>
             <p> </p>
             <p>Clicking the Go button translates the text in the Source panel into a computer program which enacts the interactive fiction, and automatically sets it going (in the Story panel, which opens as needed).</p>
             <p>All Inform stories take place in one or more &quot;rooms&quot;. These need not be indoor locations, and can represent anything from grassy fields to states of mind. If we click Go when there's no text at all in the Source panel, Inform will perhaps surprisingly still make a story, though a very empty one. It will create a room for the story to take place in, and put the player in it, but nothing else will exist and there will be nothing to do or look at.</p>
             <p>So instead we'll supply a title and a name for the opening room:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Midsummer Day[=0x0022=][=0x000A=][=0x000A=]The Gazebo is a room.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Midsummer Day&quot;</span>
+            <!-- START CODE "code1" -->
+            <blockquote class="extract-inform7"><a id="code1"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Midsummer Day[=0x0022=][=0x000A=][=0x000A=]The Gazebo is a room.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Midsummer Day&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Gazebo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gazebo</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Clicking Go with this text in the Source panel will result in a short delay, after which the Story panel will appear, from which we can explore this newly created world: an interactive fiction called &quot;Midsummer Day&quot;. It will not be very exciting, since Inform has only five words to go on, but we can add more detail to the source at any point and then click Go again to try out the changes. (Note that there is no need to &quot;quit&quot; these explorations in the Story panel. When Go is clicked, any story already in progress is discarded in favour of the new version.)</p>
             <p>The keyboard shortcut Command-R (on Mac OS X), F5 (on Windows), or Ctrl-R (on Linux GNOME) has the same effect as clicking Go.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_1_3.html"><span class="markdowncontent">Section 1.3: The facing pages</span></a> &bull; <a href="WI_1_5.html"><span class="markdowncontent">Section 1.5: The Replay button</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

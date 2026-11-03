@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,138 +2193,83 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg313><a style="text-decoration: none" href="WI_18_18.html"><span class="extensionexampleletter">313</span></a></span></div>
+                <span id=eg313><a style="text-decoration: none" href="WI_19_1.html"><span class="extensionexampleletter">313</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Food Network Interactive</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Using a menu system from an extension, but adding our own material to it for this game.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">XYZZY</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Basics of adding a new command reviewed, for the case of the simple magic word <code class="inlinetranscriptcommand">xyzzy</code>.</span></span></div>
             <div class="exampleright">
-                <span id=eg313><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg313><a style="text-decoration: none" href="RB_6_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p><code class="inlinesourcetext">Basic Help Menu</code> is an extension that uses tables to provide a menu of instructions. Suppose we wanted to include this menu in our own game, but add a few custom menu items of our own:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Food Network Interactive[=0x0022=][=0x000A=][=0x000A=]Include Basic Screen Effects by Emily Short. Include Menus by Emily Short. Include Basic Help Menu by Emily Short.[=0x000A=][=0x000A=]Table of Basic Help Options (continued)[=0x000A=]title[=0x0009=]subtable[=0x0009=]description[=0x0009=]toggle[=0x000A=][=0x0022=]Recipes in This Game[=0x0022=][=0x0009=]Table of Recipes[=0x0009=]--[=0x0009=]--[=0x000A=][=0x0022=]Contacting the Author[=0x0022=][=0x0009=]--[=0x0009=][=0x0022=]If you have any difficulties with [story title], please contact me at fakeaddress@gmail.com.[=0x0022=][=0x0009=]--[=0x000A=][=0x000A=]Table of Recipes[=0x000A=]title[=0x0009=]subtable[=0x0009=]description[=0x0009=]toggle[=0x000A=][=0x0022=]Salmon Tartare[=0x0022=][=0x0009=]--[=0x0009=][=0x0022=]First, be sure to buy extremely fresh salmon. Raw fish should be served on the day it was caught, if possible. To guarantee this, visit an Asian supermarket or specialty store, and buy salmon marked [=0x0027=]sashimi grade[=0x0027=]...[=0x0022=][=0x0009=]--[=0x000A=][=0x0022=]Pecan Brownies[=0x0022=][=0x0009=]--[=0x0009=][=0x0022=]Begin by shelling half a pound of pecans...[=0x0022=][=0x0009=]--[=0x000A=][=0x000A=]Whole Foods is a room.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Food Network Interactive&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "XYZZY" -->
+        <!-- SEARCH SECTION "Example 313" -->
+        <!-- SEARCH SORT "003-313-000-000" -->
+        <p>  </p>
+        <p>We have seen before how to define a new action from scratch, but we may want to review here, using a simple command that requires no objects.</p>
+        <!-- START CODE "code2353" -->
+        <blockquote class="extract-inform7"><a id="code2353"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]XYZZY[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]xyzzy[=0x0022=] or [=0x0022=]say xyzzy[=0x0022=] or [=0x0022=]cast xyzzy[=0x0022=] as casting xyzzy.[=0x000A=][=0x000A=]Casting xyzzy is an action applying to nothing.[=0x000A=][=0x000A=]Check casting xyzzy:[=0x000A=][=0x0009=]if the player does not wear the amulet of elocution, say [=0x0022=]You are unable to articulate the second [=0x0027=]z[=0x0027=] separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player has the plate, say [=0x0022=]The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out casting xyzzy:[=0x000A=][=0x0009=]move the plate to the player.[=0x000A=][=0x000A=]Report casting xyzzy:[=0x000A=][=0x0009=]say [=0x0022=]Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears![=0x0022=][=0x000A=][=0x000A=]The amulet of elocution is a wearable thing. It is carried by the player. The description is [=0x0022=]A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, [=0x0027=]Moses Supposes His Toeses Are Roses.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]The plate is a portable supporter. On the plate is a very ripe ooze. Instead of smelling the ooze, say [=0x0022=]It smells like socks. This is going to be wonderful.[=0x0022=] The ooze is edible. The printed name of the plate is [=0x0022=]plate[if the plate supports the ooze] of cheese[end if][=0x0022=]. The description of the ooze is [=0x0022=]Definitely genuinely cheese.[=0x0022=] Understand [=0x0022=]cheese[=0x0022=] as the ooze.[=0x000A=][=0x000A=]Instead of eating the ooze: now the ooze is nowhere; say [=0x0022=]You are transported...[=0x0022=]; move the player to Paradise.[=0x000A=][=0x000A=]The Cheez Factory is a room. [=0x0022=]All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.[=0x0022=] The squares of pressed orange polymer are scenery in the Factory. The description is [=0x0022=]You see nothing special about the squares of pressed orange polymer. Nothing special at all.[=0x0022=] Understand [=0x0022=]square[=0x0022=] or [=0x0022=]cheez[=0x0022=] as the squares.[=0x000A=][=0x000A=]Paradise is a room. The description is [=0x0022=]Well, it might just be one of the posh upper rings of purgatory, if you[=0x0027=]re entirely honest with yourself.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;XYZZY&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Basic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Screen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Effects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Menus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Basic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Menu</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;xyzzy&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;say xyzzy&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cast xyzzy&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">casting</span><span class="plain-syntax"> </span><span class="identifier-syntax">xyzzy</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Basic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Options</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">title</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">subtable</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">description</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">toggle</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Recipes in This Game&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recipes</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Contacting the Author&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;If you have any difficulties with </span><span class="syntaxextract">[story title]</span><span class="syntaxstring">, please contact me at fakeaddress@gmail.com.&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-        </table>
-        <span class="indexdullblue"></span></blockquote>
-        <p>This table is one that is pre-defined by the extension. By continuing it, we add a few additional items to the list.</p>
-        <p>And since we've promised a sub-menu of recipes:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recipes</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">title</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">subtable</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">description</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">toggle</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Salmon Tartare&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;First, be sure to buy extremely fresh salmon. Raw fish should be served on the day it was caught, if possible. To guarantee this, visit an Asian supermarket or specialty store, and buy salmon marked 'sashimi grade'...&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Pecan Brownies&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Begin by shelling half a pound of pecans...&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-            <br>
-        </table>
-        <span class="indexdullblue">
+        <span class="identifier-syntax">Casting</span><span class="plain-syntax"> </span><span class="identifier-syntax">xyzzy</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
         <br>
-        <span class="syntaxidentifier">Whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Foods</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">casting</span><span class="plain-syntax"> </span><span class="identifier-syntax">xyzzy</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">wear</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">amulet</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">elocution</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are unable to articulate the second 'z' separately from the first, and the spell fails in a disdainful puff. Must be Parisian magic.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plate</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The plate of cheeses twitches uncomfortably, aware that it should be doing something, but not sure what.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">casting</span><span class="plain-syntax"> </span><span class="identifier-syntax">xyzzy</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plate</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">casting</span><span class="plain-syntax"> </span><span class="identifier-syntax">xyzzy</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Under the influence of the Amulet of Elocution, you pronounce this as Xhi-zee. And lo, from nowhere, a [plate] appears!&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">amulet</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">elocution</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearable</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A heavy gold ring on a chain. If heated in an ordinary house fire, it glows with the words, 'Moses Supposes His Toeses Are Roses.'&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">plate</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">portable</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax">. </span><span class="identifier-syntax">On</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plate</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">very</span><span class="plain-syntax"> </span><span class="identifier-syntax">ripe</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax">. </span><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">smelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It smells like socks. This is going to be wonderful.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plate</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;plate[if the plate supports the ooze] of cheese[end if]&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Definitely genuinely cheese.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cheese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax">: </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ooze</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">; </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are transported...&quot;</span><span class="plain-syntax">; </span><span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Paradise</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cheez</span><span class="plain-syntax"> </span><span class="identifier-syntax">Factory</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;All around you are squares of pressed orange polymer, or possibly cheez. Your only hope is the magic word your uncle taught you: XYZZY.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">squares</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pressed</span><span class="plain-syntax"> </span><span class="identifier-syntax">orange</span><span class="plain-syntax"> </span><span class="identifier-syntax">polymer</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Factory</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You see nothing special about the squares of pressed orange polymer. Nothing special at all.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;square&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cheez&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">squares</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Paradise</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Well, it might just be one of the posh upper rings of purgatory, if you're entirely honest with yourself.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x squares / x amulet / x cheese / xyzzy / wear amulet / xyzzy / x ooze / smell ooze /  eat ooze&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>To test it, type <code class="inlinetranscriptcommand">help</code> and then experiment.</p>
+        <!-- END CODE -->
+        <p>XYZZY is a magic word from the original Adventure, and many other games respond to it with some sort of amusing message.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_18_18.html>Section 18.18: Table continuations</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_19_1.html>Section 19.1: Understand</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

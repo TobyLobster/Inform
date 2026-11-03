@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,13 +2212,17 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Fire" -->
+            <!-- SEARCH SECTION "10.8" -->
+            <!-- SEARCH SORT "002-010-008-000" -->
             <h3><span>Section 10.8: Fire</span></h3>
             <p>
             Fire exhibits some of the properties of a gas: it is only vaguely located and tends to spread out, though it passes by touch rather than on the air. It is hazardous to life, through direct contact, heat, and smoke. Better governed, it provides light and warmth. Worse governed, it consumes almost anything it comes into contact with. Here the problem with &quot;debris&quot; is not so much that we need potentially hundreds of new objects to represent broken items: instead, fire could sweep through a work of IF destroying so much that no play is possible any longer. Setting up a problem in which the player must defeat a fully-capable fire is difficult to balance.</p>
-            <p>As with liquids, it is best to simulate the least amount of fire that the design will allow. <a href="eg_156.html">Bruneseau's Journey</a> provides a single candle which can be lit, or blown out, but where fire can never transfer from the candle's end to anything else–or vice versa: the player's source of fire, with which to light the candle, is discreetly neglected.</p>
-            <p>In the more realistic <a href="eg_124.html">Thirst 2</a>, a campfire is lit using a tinderbox, so that fire does transfer from one thing (tinder) to another (the campfire): but it is always confined to just these two items, and can be used only for light and warmth.</p>
-            <p><a href="eg_446.html">The Cow Exonerated</a> provides a class of matches that can light any flammable object, but assumes that burning objects requires only one turn; lighting one thing does not burn another.</p>
-            <p><a href="eg_429.html">In Fire or in Flood</a> provides a complete simulation of what we might call &quot;wild-fire&quot;: combustion which spreads through arbitrary objects and rooms, destroying all in its path.</p>
+            <p>As with liquids, it is best to simulate the least amount of fire that the design will allow. <a href="eg_153.html">Bruneseau's Journey</a> provides a single candle which can be lit, or blown out, but where fire can never transfer from the candle's end to anything else–or vice versa: the player's source of fire, with which to light the candle, is discreetly neglected.</p>
+            <p>In the more realistic <a href="eg_121.html">Thirst 2</a>, a campfire is lit using a tinderbox, so that fire does transfer from one thing (tinder) to another (the campfire): but it is always confined to just these two items, and can be used only for light and warmth.</p>
+            <p><a href="eg_443.html">The Cow Exonerated</a> provides a class of matches that can light any flammable object, but assumes that burning objects requires only one turn; lighting one thing does not burn another.</p>
+            <p><a href="eg_426.html">In Fire or in Flood</a> provides a complete simulation of what we might call &quot;wild-fire&quot;: combustion which spreads through arbitrary objects and rooms, destroying all in its path.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_6_5.html" title="Section 6.5: Examining">Examining</a> for a way to describe objects as charred once they have been partly burnt.</li>
@@ -2144,45 +2233,45 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg124><a style="text-decoration: none" href="eg_124.html"><span class="extensionexampleletter">124</span></a></span></div>
+                    <span id=eg121><a style="text-decoration: none" href="eg_121.html"><span class="extensionexampleletter">121</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_124.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Thirst 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_121.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Thirst 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A campfire added to the camp site, which can be lit using tinder.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg124><a style="text-decoration: none" href="WI_8_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg121><a style="text-decoration: none" href="WI_8_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg156><a style="text-decoration: none" href="eg_156.html"><span class="extensionexampleletter">156</span></a></span></div>
+                    <span id=eg153><a style="text-decoration: none" href="eg_153.html"><span class="extensionexampleletter">153</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_156.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bruneseau's Journey</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_153.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bruneseau's Journey</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A candle which reacts to lighting and blowing actions differently depending on whether it has already been lit once.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg156><a style="text-decoration: none" href="WI_9_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg153><a style="text-decoration: none" href="WI_9_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg446><a style="text-decoration: none" href="eg_446.html"><span class="extensionexampleletter">446</span></a></span></div>
+                    <span id=eg443><a style="text-decoration: none" href="eg_443.html"><span class="extensionexampleletter">443</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_446.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Cow Exonerated</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_443.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Cow Exonerated</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a class of matches that burn for a time and then go out, with elegant reporting when several matches go out at once.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg446><a style="text-decoration: none" href="WI_22_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg443><a style="text-decoration: none" href="WI_22_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg429><a style="text-decoration: none" href="eg_429.html"><span class="extensionexampleletter">429</span></a></span></div>
+                    <span id=eg426><a style="text-decoration: none" href="eg_426.html"><span class="extensionexampleletter">426</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_429.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">In Fire or in Flood</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_426.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">In Fire or in Flood</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">burn</code> command; flammable objects which light other items in their vicinity and can burn for different periods of time; the possibility of having parts or contents of a flaming item which survive being burnt.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg429><a style="text-decoration: none" href="WI_21_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg426><a style="text-decoration: none" href="WI_21_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_7.html"><span class="markdowncontent">Section 10.7: Electricity and Magnetism</span></a> &bull; <a href="RB_10_9.html"><span class="markdowncontent">Section 10.9: Heat</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

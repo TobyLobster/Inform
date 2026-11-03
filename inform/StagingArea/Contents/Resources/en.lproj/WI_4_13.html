@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,54 +2212,76 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Values that vary" -->
+            <!-- SEARCH SECTION "4.13" -->
+            <!-- SEARCH SORT "001-004-013-000" -->
             <h3><span>Section 4.13: Values that vary</span></h3>
             <p>           </p>
             <p>Sometimes a value important to the simulated world will not naturally belong to any <code class="inlinesourcetext">thing</code> or <code class="inlinesourcetext">room</code>, because it is not a property of anything in particular. In fact, we have seen a value that varies already: <code class="inlinesourcetext">location</code>, which holds the <code class="inlinesourcetext">room</code> in which the story is presently taking place (properly speaking, which encloses the player's body). Here's how we might make a new one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevailing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevailing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">southwest</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code193" -->
+            <blockquote class="extract-inform7"><a id="code193"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevailing</span><span class="plain-syntax"> </span><span class="identifier-syntax">wind</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevailing</span><span class="plain-syntax"> </span><span class="identifier-syntax">wind</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or <code class="inlinesourcetext">which varies</code> would also be allowed, as would the more traditional computing term <code class="inlinesourcetext">variable</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevailing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">variable</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevailing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">southwest</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code194" -->
+            <blockquote class="extract-inform7"><a id="code194"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevailing</span><span class="plain-syntax"> </span><span class="identifier-syntax">wind</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax"> </span><span class="identifier-syntax">variable</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevailing</span><span class="plain-syntax"> </span><span class="identifier-syntax">wind</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>A briefer way to do this is to use the word <code class="inlinesourcetext">initially</code>, which alerts Inform to the possibility that the value will change in future:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevailing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">southwest</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code195" -->
+            <blockquote class="extract-inform7"><a id="code195"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevailing</span><span class="plain-syntax"> </span><span class="identifier-syntax">wind</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This <em>both</em> creates the variable <em>and</em> gives it an initial value, in a single sentence.</p>
             <p>It's not compulsory to give an initial value. If we do not, Inform will use the default value for its kind. (For more on that, see <a href="WI_4_12.html" title="Section 4.12: Default values of kinds">Default values of kinds</a>.) For example, writing just</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code196" -->
+            <blockquote class="extract-inform7"><a id="code196"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">grand</span><span class="plain-syntax"> </span><span class="identifier-syntax">tally</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will start it at the value 0, because that's the default value for the kind <code class="inlinesourcetext">number</code>.</p>
             <p>We can have variables of any of the kinds of value, including new ones, but should watch out for a potential error. If we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">receptacle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code197" -->
+            <blockquote class="extract-inform7"><a id="code197"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">receptacle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>in a world which has no <code class="inlinesourcetext">containers</code> at all, Inform will object, because it will be unable to put any initial value into the <code class="inlinesourcetext">receptacle</code> variable. A similar complaint will be made if we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fashionable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code198" -->
+            <blockquote class="extract-inform7"><a id="code198"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">fashionable</span><span class="plain-syntax"> </span><span class="identifier-syntax">shade</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>without ever having defined any <code class="inlinesourcetext">colours</code>. Something else we are not permitted is:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">receptacle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code199" -->
+            <blockquote class="extract-inform7"><a id="code199"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">receptacle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because the openness of a given <code class="inlinesourcetext">container</code> may change during play, so that the value in the variable might suddenly become invalid even though the variable itself had not changed.</p>
             <p>As a final note on kinds, when Inform reads something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accursed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code200" -->
+            <blockquote class="extract-inform7"><a id="code200"></a><span class="indexdullblue"><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">accursed</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>it has to make a decision about the kind of <code class="inlinesourcetext">accursed one</code>. Peter is a <code class="inlinesourcetext">man</code>, so Inform makes this a <code class="inlinesourcetext">man that varies</code>. But this means it can't later to change to a woman called Jane, say, or a black hat. So Inform allows us to be override its guesses:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accursed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code201" -->
+            <blockquote class="extract-inform7"><a id="code201"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">accursed</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accursed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">accursed</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg60><a style="text-decoration: none" href="eg_60.html"><span class="extensionexampleletter">60</span></a></span></div>
+                    <span id=eg59><a style="text-decoration: none" href="eg_59.html"><span class="extensionexampleletter">59</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_60.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Real Adventurers Need No Help</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_59.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Real Adventurers Need No Help</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to turn off all access to hints for the duration of a game, in order to avoid the temptation to rely on them overmuch.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg60><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg59><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_4_12.html"><span class="markdowncontent">Section 4.12: Default values of kinds</span></a> &bull; <a href="WI_4_14.html"><span class="markdowncontent">Section 4.14: Values that never vary</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,121 +2212,125 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Disenchantment Bay" -->
+            <!-- SEARCH SECTION "1.3" -->
+            <!-- SEARCH SORT "002-001-003-000" -->
             <h3><span>Section 1.3: Disenchantment Bay</span></h3>
             <p>&quot;Disenchantment Bay&quot; is a simple work of IF used as a running example in the chapter on <a href="WI_3_1.html" title="Chapter 3: Things">Things</a> of <em>Writing with Inform</em>–not so much a tutorial as a convenient hook on which to hang some demonstrations of the basics. Because the resulting examples only use basic features and in the most straightforward way, they make for uninteresting &quot;recipes&quot;–so they are not included in the <em>Recipe Book</em> proper. But some readers might like to have all twelve stages of the example gathered on a single page: this is that page.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg20><a style="text-decoration: none" href="eg_20.html"><span class="extensionexampleletter">20</span></a></span></div>
+                    <span id=eg19><a style="text-decoration: none" href="eg_19.html"><span class="extensionexampleletter">19</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_20.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_19.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A running example in this chapter, Disenchantment Bay, involves chartering a boat. This is the first step: creating the cabin.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg20><a style="text-decoration: none" href="WI_3_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg19><a style="text-decoration: none" href="WI_3_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg38><a style="text-decoration: none" href="eg_38.html"><span class="extensionexampleletter">38</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_38.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 10</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: things for the player and the characters to wear and carry.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg38><a style="text-decoration: none" href="WI_3_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg39><a style="text-decoration: none" href="eg_39.html"><span class="extensionexampleletter">39</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_39.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 10</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: things for the player and the characters to wear and carry.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg39><a style="text-decoration: none" href="WI_3_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg40><a style="text-decoration: none" href="eg_40.html"><span class="extensionexampleletter">40</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_40.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 11</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_39.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 11</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: making a holdall of the backpack.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg40><a style="text-decoration: none" href="WI_3_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg39><a style="text-decoration: none" href="WI_3_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg21><a style="text-decoration: none" href="eg_21.html"><span class="extensionexampleletter">21</span></a></span></div>
+                    <span id=eg20><a style="text-decoration: none" href="eg_20.html"><span class="extensionexampleletter">20</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_21.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_20.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: creating some of the objects in the cabin's description.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg21><a style="text-decoration: none" href="WI_3_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg20><a style="text-decoration: none" href="WI_3_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg22><a style="text-decoration: none" href="eg_22.html"><span class="extensionexampleletter">22</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_22.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 3</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: adding a view of the glacier.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg22><a style="text-decoration: none" href="WI_3_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg23><a style="text-decoration: none" href="eg_23.html"><span class="extensionexampleletter">23</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_23.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 3</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: adding a view of the glacier.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg23><a style="text-decoration: none" href="WI_3_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg24><a style="text-decoration: none" href="eg_24.html"><span class="extensionexampleletter">24</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_24.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 4</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_23.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 4</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: fleshing out the descriptions of things on the boat.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg24><a style="text-decoration: none" href="WI_3_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg23><a style="text-decoration: none" href="WI_3_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg26><a style="text-decoration: none" href="eg_26.html"><span class="extensionexampleletter">26</span></a></span></div>
+                    <span id=eg25><a style="text-decoration: none" href="eg_25.html"><span class="extensionexampleletter">25</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_26.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 5</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_25.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 5</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: adding the door and the deck to our charter boat.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg26><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg25><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg29><a style="text-decoration: none" href="eg_29.html"><span class="extensionexampleletter">29</span></a></span></div>
+                    <span id=eg28><a style="text-decoration: none" href="eg_28.html"><span class="extensionexampleletter">28</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_29.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 6</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_28.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 6</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: locking up the charter boat's fishing rods.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg29><a style="text-decoration: none" href="WI_3_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg28><a style="text-decoration: none" href="WI_3_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg31><a style="text-decoration: none" href="eg_31.html"><span class="extensionexampleletter">31</span></a></span></div>
+                    <span id=eg30><a style="text-decoration: none" href="eg_30.html"><span class="extensionexampleletter">30</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_31.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 7</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_30.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 7</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: making the radar and instruments switch on and off.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg31><a style="text-decoration: none" href="WI_3_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg30><a style="text-decoration: none" href="WI_3_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg36><a style="text-decoration: none" href="eg_36.html"><span class="extensionexampleletter">36</span></a></span></div>
+                    <span id=eg35><a style="text-decoration: none" href="eg_35.html"><span class="extensionexampleletter">35</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_36.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 9</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_35.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 9</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: enter the charter boat's Captain.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg36><a style="text-decoration: none" href="WI_3_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg35><a style="text-decoration: none" href="WI_3_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg34><a style="text-decoration: none" href="eg_34.html"><span class="extensionexampleletter">34</span></a></span></div>
+                    <span id=eg33><a style="text-decoration: none" href="eg_33.html"><span class="extensionexampleletter">33</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_34.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 8</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_33.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 8</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: a pushable chest of ice for the boat.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg34><a style="text-decoration: none" href="WI_3_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg33><a style="text-decoration: none" href="WI_3_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg43><a style="text-decoration: none" href="eg_43.html"><span class="extensionexampleletter">43</span></a></span></div>
+                    <span id=eg42><a style="text-decoration: none" href="eg_42.html"><span class="extensionexampleletter">42</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_43.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 12</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_42.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 12</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A final trip to Disenchantment Bay: the scenario turned into a somewhat fuller scene, with various features that have not yet been explained.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg43><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg42><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_1_2.html"><span class="markdowncontent">Section 1.2: Acknowledgements</span></a> &bull; <a href="RB_1_4.html"><span class="markdowncontent">Section 1.4: Information Only</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

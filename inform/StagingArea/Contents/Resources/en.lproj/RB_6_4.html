@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,15 +2212,21 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Looking" -->
+            <!-- SEARCH SECTION "6.4" -->
+            <!-- SEARCH SORT "002-006-004-000" -->
             <h3><span>Section 6.4: Looking</span></h3>
             <p>   
             Looking is quite a complicated command, since the production of a room description takes many steps. A detailed description of this process may be found in the Room Descriptions section.</p>
             <p>By convention, a player sees full descriptions of rooms they enter more than once, but may type <code class="inlinetranscriptcommand">brief</code> in order to see shorter descriptions, and <code class="inlinetranscriptcommand">superbrief</code> tells the story never to print room descriptions at all. <code class="inlinetranscriptcommand">verbose</code> restores the default behaviour.</p>
             <p>These conventions are not always appropriate, however, especially in works where experiencing a changing environment is essential. The use option</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2090" -->
+            <blockquote class="extract-inform7"><a id="code2090"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>changes the default behaviour so that rooms are not always described fully to the player. <a href="eg_10.html">Verbosity 1</a> demonstrates how this works.</p>
-            <p>The player always has the option of turning room descriptions to <code class="inlinetranscriptcommand">brief</code> or <code class="inlinetranscriptcommand">superbrief</code> mode. <a href="eg_424.html">Verbosity 2</a> demonstrates how we might remove the player's ability to change the default behaviour.</p>
+            <!-- END CODE -->
+            <p>changes the default behaviour so that rooms are not always described fully to the player. <a href="eg_9.html">Verbosity 1</a> demonstrates how this works.</p>
+            <p>The player always has the option of turning room descriptions to <code class="inlinetranscriptcommand">brief</code> or <code class="inlinetranscriptcommand">superbrief</code> mode. <a href="eg_421.html">Verbosity 2</a> demonstrates how we might remove the player's ability to change the default behaviour.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_1.html" title="Section 3.1: Room Descriptions">Room Descriptions</a> for a detailed description of how Inform creates room descriptions and how to change the results.</li>
@@ -2144,27 +2235,27 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg10><a style="text-decoration: none" href="eg_10.html"><span class="extensionexampleletter">10</span></a></span></div>
+                    <span id=eg9><a style="text-decoration: none" href="eg_9.html"><span class="extensionexampleletter">9</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_10.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_9.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making rooms give brief room descriptions when revisited.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg10><a style="text-decoration: none" href="WI_3_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg9><a style="text-decoration: none" href="WI_3_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg424><a style="text-decoration: none" href="eg_424.html"><span class="extensionexampleletter">424</span></a></span></div>
+                    <span id=eg421><a style="text-decoration: none" href="eg_421.html"><span class="extensionexampleletter">421</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_424.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_421.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making rooms give full descriptions each time we enter, even if we have visited before, and disallowing player use of <code class="inlinetranscriptcommand">brief</code> and <code class="inlinetranscriptcommand">superbrief</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg424><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg421><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_3.html"><span class="markdowncontent">Section 6.3: Modifying Existing Commands</span></a> &bull; <a href="RB_6_5.html"><span class="markdowncontent">Section 6.5: Examining</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

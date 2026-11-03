@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,54 +2193,139 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg221><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleletter">221</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Removal</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">take</code> expanded to give responses such as &quot;You take the book from the shelf.&quot; or &quot;You pick up the toy from the ground.&quot;</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Croft</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Adding special reporting and handling for objects dropped when the player is on a supporter, and special entering rules for moving from one supporter to another.</span></span></div>
             <div class="exampleright">
                 <span id=eg221><a style="text-decoration: none" href="RB_6_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Croft" -->
+        <!-- SEARCH SECTION "Example 221" -->
+        <!-- SEARCH SORT "003-221-000-000" -->
         <p></p>
-        <p>Suppose that we want to change the reporting of <code class="inlinetranscriptcommand">take</code> so that the player is always told something like <code class="inlinetranscript">You take the book from the shelf.</code> or <code class="inlinetranscript">You pick up the toy from the ground.</code> In order to generate these reports, we will need to know where the object started, even though by the time we are printing the output, the object will have moved.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Removal[=0x0022=][=0x000A=][=0x000A=]The Pharmacy is a room. A desk and a trash can are in the Pharmacy. The pill-counter, a prescription, and a computer are on the desk. The computer is fixed in place. The pill-counter contains some Vicodin. The trash can contains an empty box.[=0x000A=][=0x000A=]The taking action has an object called previous locale (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x000A=]Setting action variables for taking:[=0x000A=][=0x0009=]now previous locale is the holder of the noun.[=0x000A=][=0x000A=]Report taking something from the location:[=0x000A=][=0x0009=]say [=0x0022=]You pick up [the noun] from the ground.[=0x0022=] instead.[=0x000A=][=0x000A=]Report taking something:[=0x000A=][=0x0009=]say [=0x0022=]You take [the noun] from [the previous locale].[=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]get all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Removal&quot;</span>
+        <p>Suppose that we have a design in which the player spends lots of time on enterable supporters, and in which we want to report certain actions – dropping things onto those supporters, or leaping from one to another – in a new way. We might begin by adding some action variables to help us keep track of the situation:</p>
+        <!-- START CODE "code3217" -->
+        <blockquote class="extract-inform7"><a id="code3217"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Croft[=0x0022=][=0x000A=][=0x000A=]The dropping action has an object called the container dropped into (matched as [=0x0022=]into[=0x0022=]).[=0x000A=][=0x000A=]The dropping action has an object called the supporter dropped onto (matched as [=0x0022=]onto[=0x0022=]).[=0x000A=][=0x000A=]Rule for setting action variables for dropping:[=0x000A=][=0x0009=]if the actor is in a container (called C), now the container dropped into is C;[=0x000A=][=0x0009=]if the actor is on a supporter (called C), now the supporter dropped onto is C.[=0x000A=][=0x000A=]Report dropping a heavy thing onto a metallic thing:[=0x000A=][=0x0009=]say [=0x0022=]You drop [the noun], and [the supporter dropped onto] clangs protestingly.[=0x0022=] instead.[=0x000A=][=0x000A=]Report someone dropping a heavy thing onto a metallic thing:[=0x000A=][=0x0009=]say [=0x0022=][The actor] drops [the noun] onto [the supporter dropped onto], which clangs protestingly.[=0x0022=] instead.[=0x000A=][=0x000A=]A thing can be heavy or light. A thing can be metallic or ordinary. A thing is usually ordinary. A thing is usually light.[=0x000A=][=0x000A=]The Ancient Cambodian Temple is a room. [=0x0022=]A vast space built for ancient and forgotten rituals. The stone floor crawls with vermin. Well above the floor, and separated by some feet, are twin platforms built into the wall: the one carved of jointed wood, the other of sheets of graven bronze.[=0x0022=][=0x000A=][=0x000A=]A platform is a kind of supporter. A platform is always enterable. A platform is usually scenery.[=0x000A=][=0x000A=]The bronze platform is a metallic platform in the Temple. Lara is a woman. She is on the bronze platform. She wears safari pants and a tank top. She carries a gun and a map. The gun is heavy.[=0x000A=][=0x000A=]The wood platform is an ordinary platform in the Temple. The player is on the wood platform. The player carries a rope, an Ancient Cambodian/English Phrasebook, a pickaxe, and a precious idol. The idol and the pickaxe are heavy.[=0x000A=][=0x000A=]Persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]The entering action has an object called the place left (matched as [=0x0022=]from[=0x0022=]).[=0x000A=][=0x0009=]Check entering a platform from a platform:[=0x000A=][=0x0009=][=0x0009=]if actor is the player, say [=0x0022=]You leap into midair to cross the distance...[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=][The actor] leaps gracefully across the distance...[=0x0022=];[=0x000A=][=0x0009=]move the actor to the holder of the noun, without printing a room description.[=0x000A=][=0x000A=]Rule for setting action variables for entering:[=0x000A=][=0x0009=]now the place left is the holder of the actor.[=0x000A=][=0x000A=]Report entering a platform from a platform:[=0x000A=][=0x0009=]say [=0x0022=]You land in a cat-like crouch on [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Report Lara entering a platform from a platform:[=0x000A=][=0x0009=]say [=0x0022=]Lara lands soundlessly on [the noun][if the noun supports the player] beside you[end if].[=0x0022=] instead.[=0x000A=][=0x000A=]Report entering a platform from the location:[=0x000A=][=0x0009=]say [=0x0022=]You jump, catch the edge of [the noun] in your hands, and -- exerting considerable upper-body strength -- pull yourself up onto it.[=0x0022=] instead.[=0x000A=][=0x000A=]Report Lara entering a platform from a location:[=0x000A=][=0x0009=]say [=0x0022=]Lara jumps, catches the edge of [the noun], and is standing upright on it, all in less time than it takes to tell.[=0x0022=][=0x000A=][=0x000A=]Instead of examining a person who is not the player:[=0x000A=][=0x0009=]say [=0x0022=][The noun] carries [list of things carried by the noun] and wears [list of things worn by the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of climbing a platform, try entering the noun.[=0x000A=][=0x000A=]Test me with [=0x0022=]Lara, drop map / lara, drop gun / drop idol / enter bronze platform / drop pickaxe / get off / climb wood[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Croft&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pharmacy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trash</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pharmacy</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pill</span><span class="syntaxplain">-</span><span class="syntaxidentifier">counter</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prescription</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">computer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">computer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pill</span><span class="syntaxplain">-</span><span class="syntaxidentifier">counter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Vicodin</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trash</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropped</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> (</span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;into&quot;</span><span class="plain-syntax">).</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">previous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">matched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;from&quot;</span><span class="syntaxplain">).</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropped</span><span class="plain-syntax"> </span><span class="identifier-syntax">onto</span><span class="plain-syntax"> (</span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;onto&quot;</span><span class="plain-syntax">).</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">variables</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">actor</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax">), </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropped</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">actor</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax">), </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropped</span><span class="plain-syntax"> </span><span class="identifier-syntax">onto</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">heavy</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">onto</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">metallic</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You drop [the noun], and [the supporter dropped onto] clangs protestingly.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">heavy</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">onto</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">metallic</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The actor] drops [the noun] onto [the supporter dropped onto], which clangs protestingly.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">heavy</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">metallic</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">ordinary</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">ordinary</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ancient</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cambodian</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A vast space built for ancient and forgotten rituals. The stone floor crawls with vermin. Well above the floor, and separated by some feet, are twin platforms built into the wall: the one carved of jointed wood, the other of sheets of graven bronze.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">always</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">metallic</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax">. </span><span class="identifier-syntax">Lara</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax">. </span><span class="identifier-syntax">She</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">. </span><span class="identifier-syntax">She</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">safari</span><span class="plain-syntax"> </span><span class="identifier-syntax">pants</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">tank</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax">. </span><span class="identifier-syntax">She</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">gun</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">gun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">heavy</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wood</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">ordinary</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wood</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rope</span><span class="plain-syntax">, </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ancient</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cambodian</span><span class="plain-syntax">/</span><span class="identifier-syntax">English</span><span class="plain-syntax"> </span><span class="identifier-syntax">Phrasebook</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">pickaxe</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">precious</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pickaxe</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">heavy</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">left</span><span class="plain-syntax"> (</span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;from&quot;</span><span class="plain-syntax">).</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">actor</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You leap into midair to cross the distance...&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The actor] leaps gracefully across the distance...&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">actor</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">holder</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">, </span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>The previous locale could in theory be either a thing or a room, so we make it <code class="inlinesourcetext">an object</code> – that is, the most generic possible kind, to which both things and rooms belong. Now we record what the previous locale is at the beginning of each taking action:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">variables</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">:</span>
+        <!-- END CODE -->
+        <p>Because this rule occurs before the <code class="inlinesourcetext">implicitly pass through other barriers rule</code>, that rule will not occur when we move from platform to platform; we'll use our own custom rule instead.</p>
+        <!-- START CODE "code3218" -->
+        <blockquote class="extract-inform7"><a id="code3218"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">variables</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">previous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You pick up </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> from the ground.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">left</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">holder</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">actor</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You take </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> from </span><span class="syntaxextract">[the previous locale]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You land in a cat-like crouch on [the noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;get all&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lara</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lara lands soundlessly on [the noun][if the noun supports the player] beside you[end if].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You jump, catch the edge of [the noun] in your hands, and -- exerting considerable upper-body strength -- pull yourself up onto it.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lara</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lara jumps, catches the edge of [the noun], and is standing upright on it, all in less time than it takes to tell.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">who</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] carries [list of things carried by the noun] and wears [list of things worn by the noun].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">climbing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">platform</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lara, drop map / lara, drop gun / drop idol / enter bronze platform / drop pickaxe / get off / climb wood&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_10.html>Section 13.10: Action variables</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

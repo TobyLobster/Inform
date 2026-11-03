@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.6: Displaying the figures</span></title>
+    <title><span class="markdowncontent">Section 25.6: Dividing the screen into windows</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_25_5.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.6: Displaying the figures</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.6: Dividing the screen into windows</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_7.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,25 +2212,111 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.6: Displaying the figures</span></h3>
-            <p> </p>
-            <p>Inform's basic picture support simply allows figures to be shown at particular times. Once seen, they scroll away, just as text does once it has been printed. These pictures are really part of the stream of narrative. (If we would like icons or other images to be permanently present on screen, and divide the screen up in pictorial ways to achieve interesting layouts, we need to use special extensions to access Glulx's more exotic features.)</p>
-            <p>Displaying a picture is therefore like printing some text. Rather than</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The woodlands stretch from here to the horizon.&quot;</span><span class="syntaxplain">;</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dividing the screen into windows" -->
+            <!-- SEARCH SECTION "25.6" -->
+            <!-- SEARCH SORT "001-025-006-000" -->
+            <h3><span>Section 25.6: Dividing the screen into windows</span></h3>
+            <p>On Glulx, but not the Z-machine, the screen can be divided up in many different ways.</p>
+            <p>The windows into which it is divided must all be declared explicitly in the source text, except that three are declared for us already in Basic Inform. Readers of the previous section might have expected just two, the main window and the status window, but there's also an ephemeral window to hold boxed quotations, which sometimes pops up for a while and then scrolls away. That counts as an <code class="inlinesourcetext">IO window</code>, too.</p>
+            <p>So by default, <code class="inlinesourcetext">showme the list of IO windows</code> produces:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&quot;list of IO windows&quot; = list of IO windows: {main window, status window, boxed quotation window}<br></code></pre></div>
+            <p>In fact, <code class="inlinesourcetext">IO window</code> has three subkinds, which represent the different sorts of window we might need: <code class="inlinesourcetext">text buffer window</code>, <code class="inlinesourcetext">text grid window</code> and <code class="inlinesourcetext">graphics window</code>; and it is itself a kind of <code class="inlinesourcetext">abstract object</code>, which is a kind of <code class="inlinesourcetext">object</code>. Thus we have:</p>
+            <ul>
+            <li>
+            <p><code class="inlinesourcetext">object</code> ▸ <code class="inlinesourcetext">abstract object</code> ▸ <code class="inlinesourcetext">IO window</code> ▸ <code class="inlinesourcetext">text buffer window</code> ▹ main window, boxed quotation window</p>
+            </li>
+            <li>
+            <p><code class="inlinesourcetext">object</code> ▸ <code class="inlinesourcetext">abstract object</code> ▸ <code class="inlinesourcetext">IO window</code> ▸ <code class="inlinesourcetext">text grid window</code> ▹ status window</p>
+            </li>
+            </ul>
+            <p>So we could write, say, <code class="inlinesourcetext">if W is a text grid window</code> to test which kind the window <code class="inlinesourcetext">W</code> is. But it's also sometimes convenient to use a property of <code class="inlinesourcetext">IO window</code> called <code class="inlinesourcetext">glk window type</code>. If we run:</p>
+            <!-- START CODE "code1725" -->
+            <blockquote class="extract-inform7"><a id="code1725"></a><span class="indexdullblue"><span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">IO</span><span class="plain-syntax"> </span><span class="identifier-syntax">windows</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[W]: [window type of W].&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
-            <p>we would use:</p>
+            <!-- END CODE -->
+            <p>then we get, assuming we haven't created any extra windows,</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">main window: text buffer window type.<br>status window: text grid window type.<br>boxed quotation window: text buffer window type.<br></code></pre></div>
+            <p>So, what goes on here?</p>
+            <ul>
+            <li>
+            <p>The <code class="inlinesourcetext">main window</code> is a <code class="inlinesourcetext">text buffer window</code>. This is where the bulk of textual input and output goes on. This is where room descriptions are printed, where commands are typed, and so on. Being a <code class="inlinesourcetext">text buffer window</code> means that characters (letters, digits and such) do not have to appear on grid positions. Glk is free to write this text in a pleasantly legible font in which a &quot;w&quot;, for example, is wider than an &quot;i&quot;.</p>
+            </li>
+            <li>
+            <p>The <code class="inlinesourcetext">status window</code> is a <code class="inlinesourcetext">text grid window</code>. This is traditionally a bar across the top line or two of the screen, which is a sort of summary of the situation. In an IF story it might show the current room name, and/or the score, number of turns played, or time of day. Being a <code class="inlinesourcetext">text grid window</code> means that text appears on it at regularly-spaced grid positions, rather like typewritten letters. Here a &quot;w&quot; will be the same width as an &quot;i&quot;, or a space, or anything else.</p>
+            </li>
+            <li>
+            <p>The <code class="inlinesourcetext">boxed quotation window</code> is a <code class="inlinesourcetext">text buffer window</code>. This can overlay the <code class="inlinesourcetext">main window</code> for a time, and was historically used to display an apposite quotation, which is why it's so named. (See <a href="WI_5_12.html" title="Section 5.12: Displaying quotations">Displaying quotations</a>.)</p>
+            </li>
+            </ul>
+            <p>There's also a third glk window type, <code class="inlinesourcetext">graphics window</code>, but in the default setup stories are pure textual and no window exists with this type. That doesn't mean that the main window can't display pictures, or emoji: but only a <code class="inlinesourcetext">graphics</code> window can plot arbitrary shapes or designs. Inform doesn't provide phrases for doing that in its basic installation, but extensions do.</p>
             <div class="definition">
-                <p class="defnprototype">display (figure name)</p>
-                <p>This phrase causes the figure to be displayed in a way visible to the player. If the option <code class="inlinesourcetext">one time only</code> is used, it will have no effect if the figure has been displayed before. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Figure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Woodlands</span><span class="syntaxplain">;</span>
-                </span></blockquote>
+                <!-- START PHRASE "defn446" -->
+                <p class="defnprototype"><a id="defn446"></a>height of (IO window) ... number</p>
+                <!-- END PHRASE -->
+                <p>The current height of the window. For an open <code class="inlinesourcetext">graphics window</code> this is measured in pixels, and for <code class="inlinesourcetext">text grid window</code> or <code class="inlinesourcetext">text buffer window</code> in characters, though in the latter case the value will only be approximate because characters vary in size.</p>
+                <p>If the window is closed, this returns 0 whatever the type.</p>
+                <p>Unlike most phrases to do with IO windows, this one works on the Z-machine as well as Glulx.</p>
+                <blockquote class="alertwarning">
+                <p class="alertheading">⚠ Warning</p>
+                <p>A known bug in the MacOS Inform app's Story panel version of Glk means that it reports <code class="inlinesourcetext">text buffer window</code> widths in pixels, not characters. That likely affects the story only when running in the app, not when Released.</p>
+                </blockquote>
             </div>
-            <p>Once again, note that the <code class="inlinesourcetext">display</code> phrase does nothing unless the Settings for the project are set to the Glulx story file format. When a Glulx work is released as a blorb (the default setting for the way releases occur: see the chapter on <a href="WI_28_1.html" title="Chapter 28: Publishing">Publishing</a>), all the images used are automatically included.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn447" -->
+                <p class="defnprototype"><a id="defn447"></a>width of (IO window) ... number</p>
+                <!-- END PHRASE -->
+                <p>The current width of the window. For an open <code class="inlinesourcetext">graphics window</code> this is measured in pixels, and for <code class="inlinesourcetext">text grid window</code> or <code class="inlinesourcetext">text buffer window</code> in characters, though in the latter case the value will only be approximate because characters vary in size.</p>
+                <p>If the window is closed, this returns 0 whatever the type.</p>
+                <p>Unlike most phrases to do with IO windows, this one works on the Z-machine as well as Glulx.</p>
+                <blockquote class="alertwarning">
+                <p class="alertheading">⚠ Warning</p>
+                <p>A known bug in the MacOS Inform app's Story panel version of Glk means that it reports <code class="inlinesourcetext">text buffer window</code> widths in pixels, not characters. That likely affects the story only when running in the app, not when Released.</p>
+                </blockquote>
+            </div>
+            <p>The basic installation of Inform does not contain phrases to open or close windows. The <code class="inlinesourcetext">main window</code> and <code class="inlinesourcetext">status window</code> are open throughout play, and the <code class="inlinesourcetext">boxed quotation window</code> is opened automatically if needed. So Inform does not, out of the box, provide ways to open or close other windows at other times. This is not because Glk can't do that: Glk contains elegant mechanisms for creating a cascade of Glk windows, panelling the screen in a variety of different ways. But since most users never need that, the functionality is left for extensions to provide for. In particular, see Flexible Windows.</p>
+            <p>However, even an unextended Inform allows the following:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn448" -->
+                <p class="defnprototype"><a id="defn448"></a>clear (IO window)</p>
+                <!-- END PHRASE -->
+                <p>If the window is closed, nothing happens. If it is open, then what happens depends on the window type. A text grid is erased to a grid of spaces. A graphics window is filled with its background colour. Exactly what happens to a text buffer depends on the platform. In most modern situations that too will be erased, but a story playing in a so-called dumb terminal may do something more primitive, such as throwing many blank lines of output.</p>
+                <p>Unlike most phrases to do with IO windows, this one works on the Z-machine as well as Glulx. Thus, <code class="inlinesourcetext">clear main window</code> and <code class="inlinesourcetext">clear status window</code> behave similarly on both platforms.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn449" -->
+                <p class="defnprototype"><a id="defn449"></a>focus (IO window)</p>
+                <!-- END PHRASE -->
+                <p>When a <code class="inlinesourcetext">say</code> text is printed, which window is it printed into? The answer is whichever window has the <em>focus</em>. That's normally the <code class="inlinesourcetext">main window</code>, of course, but this phrase allows a switch. (For example, this is used when updating the status window.) The window must be open, or a run-time problem will be thrown.</p>
+                <p>While it is technically legal to focus a <code class="inlinesourcetext">graphics window</code>, any text sent to it will be humanely destroyed, so in practice this phrase should be used only with <code class="inlinesourcetext">text grid windows</code> or <code class="inlinesourcetext">text buffer windows</code>.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn450" -->
+                <p class="defnprototype"><a id="defn450"></a>set (IO window) cursor to row (number) and column (number)</p>
+                <!-- END PHRASE -->
+                <p>The window must be open and must be a <code class="inlinesourcetext">text grid window</code>, or else run-time problems are thrown. The <em>cursor</em> for such a window is the position where the next character is printed, and like all cursors, it moves forward with each printing.</p>
+                <p>The top left position in a grid is row 1, column 1. For example, if the grid is, say, 80 characters wide by 3 characters high then the top right is row 1, column 1, and the bottom right is row 3, column 80. If the row and column supplied lie within the rectangle, that's where the cursor moves to. If not:</p>
+                <ul>
+                <li>if the column is a negative value or zero, it's rounded up to 1, the leftmost position;</li>
+                <li>if the column exceeds the width of the grid, the cursor moves to column 1 on the <em>next</em> row;</li>
+                <li>if the row is a negative value or zero, a run-time problem is thrown;</li>
+                <li>if the row exceeds the height of the grid, the cursor is allowed to occupy this off-the-bottom position, but any text printed there is thrown away without being displayed.</li>
+                </ul>
+            </div>
+            <p>IO windows have two <code class="inlinesourcetext">number</code> properties, <code class="inlinesourcetext">rock number</code> and <code class="inlinesourcetext">glk window handle</code>: see the Glk reference documentation for what they mean. <code class="inlinesourcetext">glk window handle</code> is what the Glk spec calls the window ID, and it therefore exists only for open windows. An IO window has handle 0 if and only if it is closed.</p>
+            <blockquote class="alertnote">
+            <p class="alertheading">ⓘ Note</p>
+            <p>The Z-machine supports very little of the above, so a project for the Z-machine cannot use it. There <em>is</em> still a kind called <code class="inlinesourcetext">IO window</code>, but it is a fixed enumeration, not an abstract object: it has just two values, <code class="inlinesourcetext">main window</code> and <code class="inlinesourcetext">status window</code>.</p>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_5.html"><span class="markdowncontent">Section 25.5: Declaring and previewing the figures</span></a> &bull; <a href="WI_25_7.html"><span class="markdowncontent">Section 25.7: Recorded sounds</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_5.html"><span class="markdowncontent">Section 25.5: The main screen and the status window</span></a> &bull; <a href="WI_25_7.html"><span class="markdowncontent">Section 25.7: Pausing for keystrokes or commands</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

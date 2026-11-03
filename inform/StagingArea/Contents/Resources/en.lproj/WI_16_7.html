@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,115 +2212,153 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Powers and logarithms" -->
+            <!-- SEARCH SECTION "16.7" -->
+            <!-- SEARCH SORT "001-016-007-000" -->
             <h3><span>Section 16.7: Powers and logarithms</span></h3>
             <p>     </p>
             <p>If the last section provided a basic office calculator, this section and the next provide the more exotic rows of buttons found on a scientific calculator. All of these are done using real number arithmetic. To start with some dull ones, here are two ways to round off numbers:</p>
             <div class="definition">
-                <p class="defnprototype">ceiling of (real number) ... real number</p>
+                <!-- START PHRASE "defn247" -->
+                <p class="defnprototype"><a id="defn247"></a>ceiling of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Produces the smallest integer value greater than or equal to the one given. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">ceiling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> = </span><span class="syntaxconstant">4</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1029" -->
+                <blockquote class="extract-inform7"><a id="code1029"></a><span class="indexdullblue"><span class="identifier-syntax">ceiling</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pi</span><span class="plain-syntax"> = </span><span class="constant-syntax">4</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">ceiling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -16.315 = -16.0</span>
+                <span class="identifier-syntax">ceiling</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -16.315 = -16.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>(Note that the result is still a real number; it simply has no fractional part any more.)</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">floor of (real number) ... real number</p>
+                <!-- START PHRASE "defn248" -->
+                <p class="defnprototype"><a id="defn248"></a>floor of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Produces the largest integer value less than or equal to the one given. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">floor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> = </span><span class="syntaxconstant">3</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1030" -->
+                <blockquote class="extract-inform7"><a id="code1030"></a><span class="indexdullblue"><span class="identifier-syntax">floor</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pi</span><span class="plain-syntax"> = </span><span class="constant-syntax">3</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">floor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -16.315 = -17.0</span>
+                <span class="identifier-syntax">floor</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -16.315 = -17.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>(Note that the result is still a real number; it simply has no fractional part any more.)</p>
             </div>
             <p>Two more easy functions:</p>
             <div class="definition">
-                <p class="defnprototype">absolute value of (real number) ... real number</p>
+                <!-- START PHRASE "defn249" -->
+                <p class="defnprototype"><a id="defn249"></a>absolute value of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Removes the sign from a value, leaving positive numbers alone but making negative ones positive. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">absolute</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">62</span><span class="syntaxplain">.1 = </span><span class="syntaxconstant">62</span><span class="syntaxplain">.1</span>
+                <!-- START CODE "code1031" -->
+                <blockquote class="extract-inform7"><a id="code1031"></a><span class="indexdullblue"><span class="identifier-syntax">absolute</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">62</span><span class="plain-syntax">.1 = </span><span class="constant-syntax">62</span><span class="plain-syntax">.1</span>
                 <br>
-                <span class="syntaxidentifier">absolute</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">absolute</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">absolute</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -62.1 = </span><span class="syntaxconstant">62</span><span class="syntaxplain">.1</span>
+                <span class="identifier-syntax">absolute</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -62.1 = </span><span class="constant-syntax">62</span><span class="plain-syntax">.1</span>
                 <br>
-                <span class="syntaxidentifier">absolute</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infinity</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infinity</span>
+                <span class="identifier-syntax">absolute</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">minus</span><span class="plain-syntax"> </span><span class="identifier-syntax">infinity</span><span class="plain-syntax"> = </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">infinity</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">reciprocal of (real number) ... real number</p>
+                <!-- START PHRASE "defn250" -->
+                <p class="defnprototype"><a id="defn250"></a>reciprocal of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Calculates 1/x, that is, divides up 1 into this many pieces. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">reciprocal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -2 = -0.5</span>
+                <!-- START CODE "code1032" -->
+                <blockquote class="extract-inform7"><a id="code1032"></a><span class="indexdullblue"><span class="identifier-syntax">reciprocal</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -2 = -0.5</span>
                 <br>
-                <span class="syntaxidentifier">reciprocal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.1 = </span><span class="syntaxconstant">10</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">reciprocal</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">.1 = </span><span class="constant-syntax">10</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">reciprocal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.14286</span>
+                <span class="identifier-syntax">reciprocal</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.14286</span>
                 <br>
-                <span class="syntaxidentifier">reciprocal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infinity</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">reciprocal</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">infinity</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Now for taking powers. In general we have:</p>
             <div class="definition">
-                <p class="defnprototype">(real number) to the power (real number) ... real number</p>
+                <!-- START PHRASE "defn251" -->
+                <p class="defnprototype"><a id="defn251"></a>(real number) to the power (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Computes x to the power y. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">power</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> = </span><span class="syntaxconstant">16</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1033" -->
+                <blockquote class="extract-inform7"><a id="code1033"></a><span class="indexdullblue"><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">power</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> = </span><span class="constant-syntax">16</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxconstant">100</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">power</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.5 = </span><span class="syntaxconstant">10</span><span class="syntaxplain">.0</span>
+                <span class="constant-syntax">100</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">power</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">.5 = </span><span class="constant-syntax">10</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">power</span><span class="syntaxplain"> -1 = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.14286</span>
+                <span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">power</span><span class="plain-syntax"> -1 = </span><span class="constant-syntax">0</span><span class="plain-syntax">.14286</span>
                 <br>
-                <span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">power</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">power</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>In the words of the Glulx specification document (section 2.12), &quot;the special cases are breathtaking&quot;: if you need to know exactly what, say, <code class="inlinesourcetext">minus infinity to the power Y</code> will do for different cases of Y, refer to the details of the <code class="inlinecode">pow</code> opcode.</p>
             </div>
             <p>To compute square roots, it's more efficient to use <code class="inlinesourcetext">real square root of X</code> function than <code class="inlinesourcetext">X to the power 0.5</code>, though both work. To obtain the Nth root of X, we might use:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">power</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">reciprocal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">)</span>
+            <!-- START CODE "code1034" -->
+            <blockquote class="extract-inform7"><a id="code1034"></a><span class="indexdullblue"><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">power</span><span class="plain-syntax"> (</span><span class="identifier-syntax">reciprocal</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>being careful to use <code class="inlinesourcetext">reciprocal of N</code> rather than <code class="inlinesourcetext">1 divided by N</code> to make sure we're using real and not integer arithmetic.</p>
             <p>Similarly, the following is more efficient than <code class="inlinesourcetext">e to the power ...</code>, but equivalent to it:</p>
             <div class="definition">
-                <p class="defnprototype">exponential of (real number) ... real number</p>
+                <!-- START PHRASE "defn252" -->
+                <p class="defnprototype"><a id="defn252"></a>exponential of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Computes e to the given power, where e is the base of natural logarithms. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1035" -->
+                <blockquote class="extract-inform7"><a id="code1035"></a><span class="indexdullblue"><span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">e</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.7182818</span>
+                <span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> = </span><span class="identifier-syntax">e</span><span class="plain-syntax"> = </span><span class="constant-syntax">2</span><span class="plain-syntax">.7182818</span>
                 <br>
-                <span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -10 = </span><span class="syntaxconstant">4</span><span class="syntaxplain">.53999 </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">^-5</span>
+                <span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -10 = </span><span class="constant-syntax">4</span><span class="plain-syntax">.53999 </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">^-5</span>
                 <br>
-                <span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> = </span><span class="syntaxconstant">22026</span><span class="syntaxplain">.46484</span>
+                <span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> = </span><span class="constant-syntax">22026</span><span class="plain-syntax">.46484</span>
                 <br>
-                <span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.12 = </span><span class="syntaxconstant">7</span><span class="syntaxplain">.12</span>
+                <span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.12 = </span><span class="constant-syntax">7</span><span class="plain-syntax">.12</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>The reverse of taking powers is taking logarithms.</p>
             <div class="definition">
-                <p class="defnprototype">logarithm to base (number) of (real number) ... real number</p>
+                <!-- START PHRASE "defn253" -->
+                <p class="defnprototype"><a id="defn253"></a>logarithm to base (number) of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Finds what power the base would have to be raised to in order to get this value. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">base</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1000000</span><span class="syntaxplain"> = </span><span class="syntaxconstant">6</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1036" -->
+                <blockquote class="extract-inform7"><a id="code1036"></a><span class="indexdullblue"><span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">base</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">1000000</span><span class="plain-syntax"> = </span><span class="constant-syntax">6</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">base</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">350</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.54407</span>
+                <span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">base</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">350</span><span class="plain-syntax"> = </span><span class="constant-syntax">2</span><span class="plain-syntax">.54407</span>
                 <br>
-                <span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">base</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">256</span><span class="syntaxplain"> = </span><span class="syntaxconstant">8</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">base</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">256</span><span class="plain-syntax"> = </span><span class="constant-syntax">8</span><span class="plain-syntax">.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Logarithms of zero or negative numbers are nonexistent. Note that <code class="inlinesourcetext">logarithm to base 10 of ...</code> is what most calculators call simply &quot;log&quot;, but Inform doesn't: it uses &quot;log&quot; for natural logarithms.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">natural/-- logarithm of (real number) ... real number</p>
+                <!-- START PHRASE "defn254" -->
+                <p class="defnprototype"><a id="defn254"></a>natural/-- logarithm of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>Finds what power e would have to be raised to in order to get this value. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">e</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1037" -->
+                <blockquote class="extract-inform7"><a id="code1037"></a><span class="indexdullblue"><span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">e</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1000</span><span class="syntaxplain"> = </span><span class="syntaxconstant">6</span><span class="syntaxplain">.90776</span>
+                <span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">1000</span><span class="plain-syntax"> = </span><span class="constant-syntax">6</span><span class="plain-syntax">.90776</span>
                 <br>
-                <span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exponential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.12 = </span><span class="syntaxconstant">7</span><span class="syntaxplain">.12</span>
+                <span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">exponential</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.12 = </span><span class="constant-syntax">7</span><span class="plain-syntax">.12</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Logarithms of zero or negative numbers are nonexistent. This is the function which most calculators label as &quot;ln&quot;, for &quot;log natural&quot;, but in mathematical and scientific papers it's more often written &quot;log&quot;, and Inform follows that convention.</p>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_6.html"><span class="markdowncontent">Section 16.6: Arithmetic</span></a> &bull; <a href="WI_16_8.html"><span class="markdowncontent">Section 16.8: Trigonometry</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

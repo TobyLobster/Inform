@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,90 +2193,192 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg330><a style="text-decoration: none" href="WI_19_7.html"><span class="extensionexampleletter">330</span></a></span></div>
+                <span id=eg330><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleletter">330</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One of Those Mornings</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">find</code> command that allows the player to find a lost object anywhere</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Down in Oodville</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Offering the player a choice of numbered options at certain times, without otherwise interfering with their ability to give regular commands.</span></span></div>
             <div class="exampleright">
-                <span id=eg330><a style="text-decoration: none" href="RB_5_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg330><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Down in Oodville" -->
+        <!-- SEARCH SECTION "Example 330" -->
+        <!-- SEARCH SORT "003-330-000-000" -->
         <p></p>
-        <p>Suppose that, contrary to the usual rules of interactive fiction, we want to allow the player to discover the locations of things they haven't actually seen yet:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]One of Those Mornings[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]find [any thing][=0x0022=] as finding.[=0x000A=][=0x000A=]Finding is an action applying to one visible thing.[=0x000A=][=0x000A=]Carry out finding:[=0x000A=][=0x0009=]if the player is carrying the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re holding [the noun]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You left [the noun] [if the noun is on a supporter]on[otherwise]in[end if] [the holder of the noun].[=0x0022=][=0x000A=][=0x000A=]The Exhibition Room is a room. It contains a closed locked lockable transparent openable container called the display case. The display case contains a priceless pearl. The display case is scenery. The description of the Exhibition Room is [=0x0022=]By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours[if key is not visible], if only you can remember where you hid the key[end if].[=0x0022=][=0x000A=][=0x000A=]The silver key unlocks the display case.[=0x000A=][=0x000A=]A jade vase, a teak chest, a bronze teakettle, and a child[=0x0027=]s burial casket are openable closed containers in the Exhibition Room.[=0x000A=][=0x000A=]After taking the pearl:[=0x000A=][=0x0009=]say [=0x0022=]The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.[=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let the space be a random container which is not the display case;[=0x000A=][=0x0009=]move the silver key to the space.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]say [=0x0022=]Your watch ticks with maddening loudness.[=0x0022=][=0x000A=][=0x000A=]The time of day is 1:02 AM.[=0x000A=][=0x000A=]At 1:08 AM: say [=0x0022=]The security guard arrives to find you fumbling about with keys. Curses.[=0x0022=]; end the story.[=0x000A=][=0x000A=]Test me with [=0x0022=]find pearl / find teakettle / get teakettle / find teakettle / find key[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;One of Those Mornings&quot;</span>
+        <p>Now and then in IF there is a situation where we need to ask the player for a numbered choice rather than an ordinary action command. What's more, that numbered choice might change during the game, so we don't want to just hard-wire the meanings of <code class="inlinetranscriptcommand">1</code>, <code class="inlinetranscriptcommand">2</code>, and <code class="inlinetranscriptcommand">3</code> whenever the player types them.</p>
+        <p>A better trick is to keep a list or table (we'll use a table here because it involves slightly less overhead) recording what the player's numerical choices currently mean. Then every time the player selects a number, the table is consulted, and if the number corresponds to something, the player's choice is acted on.</p>
+        <p>In our example, we'll have a transporter pad that can take the player to any room in the story that they've already visited. (Just for the sake of example, we'll start him off with a few pre-visited rooms.)</p>
+        <!-- START CODE "code2673" -->
+        <blockquote class="extract-inform7"><a id="code2673"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Down in Oodville[=0x0022=][=0x000A=][=0x000A=]Section 1 - Method[=0x000A=][=0x000A=]Understand [=0x0022=][number][=0x0022=] as selecting.[=0x000A=][=0x000A=]Selecting is an action applying to one number.[=0x000A=][=0x000A=]Check selecting: [assuming we don[=0x0027=]t want to be able to transport from just anywhere][=0x000A=][=0x0009=]if the player is not on the transporter pad:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]empty the transport options instead.[=0x000A=][=0x000A=]Check selecting:[=0x000A=][=0x0009=]if the number understood is greater than the number of filled rows in the Table of Transport Options or the number understood is less than one:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The number understood] is not a valid option. [=0x0022=];[=0x000A=][=0x0009=][=0x0009=]list the transport options instead.[=0x000A=][=0x000A=]Carry out selecting:[=0x000A=][=0x0009=]let N be the number understood; [not actually a necessary step, but it makes the next line easier to understand][=0x000A=][=0x0009=]choose row N in the Table of Transport Options;[=0x000A=][=0x0009=]if the transport entry is a room:[=0x000A=][=0x0009=][=0x0009=]move the player to the transport entry;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]*** BUG: Improperly filled table of transport options ***[=0x0022=] [It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code][=0x000A=][=0x000A=]To list the transport options:[=0x000A=][=0x0009=]let N be 1;[=0x000A=][=0x0009=]say [=0x0022=]From here you could choose to go to: [line break][=0x0022=];[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]  [N]: [transport entry][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment N.[=0x000A=][=0x000A=]To empty the transport options:[=0x000A=][=0x0009=]repeat through the Table of Transport Options:[=0x000A=][=0x0009=][=0x0009=]blank out the whole row; [first we empty the table][=0x000A=][=0x000A=]To load the transport options:[=0x000A=][=0x0009=]repeat with interesting room running through visited rooms which are not the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]choose a blank row in the Table of Transport Options;[=0x000A=][=0x0009=][=0x0009=]now the transport entry is the interesting room.[=0x000A=][=0x000A=]Table of Transport Options[=0x000A=]transport[=0x000A=]an object[=0x000A=]with 3 blank rows. [In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.][=0x000A=][=0x000A=]Understand [=0x0022=]home[=0x0022=] as homing. Homing is an action applying to nothing.[=0x000A=][=0x000A=]Check homing:[=0x000A=][=0x0009=]if the player is in the Transporter Room:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re already here![=0x0022=] instead.[=0x000A=][=0x000A=]Carry out homing:[=0x000A=][=0x0009=]move the player to the transporter room.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Transporter Room is a room.[=0x000A=][=0x000A=]Oodville is a visited room.[=0x000A=][=0x000A=]Midnight is a visited room. The Diamond City is west of Midnight.[=0x000A=][=0x000A=]The transporter pad is an enterable supporter in the Transporter Room. [=0x0022=]The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.[=0x0022=][=0x000A=][=0x000A=]After entering the transporter pad:[=0x000A=][=0x0009=]say [=0x0022=]The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]empty the transport options;[=0x000A=][=0x0009=]load the transport options;[=0x000A=][=0x0009=]list the transport options.[=0x000A=][=0x000A=]Test me with [=0x0022=]get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Down in Oodville&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;find </span><span class="syntaxextract">[any thing]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finding</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Method</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Finding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[number]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">selecting</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finding</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Selecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carrying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You're holding </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">!&quot;</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">selecting</span><span class="plain-syntax">: </span><span class="comment-syntax">[assuming we don't want to be able to transport from just anywhere]</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">pad</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You left </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[if the noun is on a supporter]</span><span class="syntaxstring">on</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">in</span><span class="syntaxextract">[end if]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the holder of the noun]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can transport only from the transporter pad. From other places than the transporter room, you can HOME to your base ship, but not leap sideways to other locations.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">selecting</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">filled</span><span class="plain-syntax"> </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The number understood] is not a valid option. &quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">selecting</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">; </span><span class="comment-syntax">[not actually a necessary step, but it makes the next line easier to understand]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;*** BUG: Improperly filled table of transport options ***&quot;</span><span class="plain-syntax"> </span><span class="comment-syntax">[It should not be possible for this to occur, but we add an error message for it so that, if it ever does, we will know what is causing the programming error in our code]</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;From here you could choose to go to: [line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;  [N]: [transport entry][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increment</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax">; </span><span class="comment-syntax">[first we empty the table]</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">load</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">interesting</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">visited</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">interesting</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span></span><br>
+        <table border="0" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">transport</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">rows</span><span class="plain-syntax">. </span><span class="comment-syntax">[In the current scenario, the number of blank rows need never be greater than the number of rooms in the game, minus the transport room itself.]</span></span>
+                </td>
+            </tr>
+
+            <br>
+        </table>
+        <span class="indexdullblue">
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;home&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">homing</span><span class="plain-syntax">. </span><span class="identifier-syntax">Homing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">homing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You're already here!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">homing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Oodville</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">visited</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Midnight</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">visited</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Diamond</span><span class="plain-syntax"> </span><span class="identifier-syntax">City</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Midnight</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">pad</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The transporter pad in the middle of the floor is currently dull blue: powered but unoccupied.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">pad</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The transporter beeps and glows amber as you step onto its surface. A moment later a hologram displays your options. [run paragraph on]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">load</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">transport</span><span class="plain-syntax"> </span><span class="identifier-syntax">options</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;get on pad / 0 / -1 / 8 / 2 / look / w / home / get on pad / get off pad / 3&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>The holder of the noun can be a room, a supporter, or a container: the phrase is not picky. We would want to be a little more careful if it were ever possible for an item to have been <code class="inlinesourcetext">removed from play</code> in our game, since then the holder could be nothing, and that would have odd results. In this particular example, though, that will not arise.</p>
-        <p>And that's it, as far as the <code class="inlinetranscriptcommand">find</code> command goes. The rest is local colour.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Exhibition</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lockable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">transparent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">priceless</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pearl</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Exhibition</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;By far the finest thing in the room is a priceless pearl in a glass display case. It should of course be yours</span><span class="syntaxextract">[if key is not visible]</span><span class="syntaxstring">, if only you can remember where you hid the key</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silver</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vase</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">teak</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chest</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bronze</span><span class="syntaxplain"> </span><span class="syntaxidentifier">teakettle</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">child</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">casket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">containers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Exhibition</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pearl</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The pearl rolls into your hand, gleaming in the oblique light; your fortune is made.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>If we want to have the key found in different places when the game is replayed:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">space</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silver</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">space</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Your watch ticks with maddening loudness.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">day</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:02 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">At</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:08 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The security guard arrives to find you fumbling about with keys. Curses.&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;find pearl / find teakettle / get teakettle / find teakettle / find key&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <p>If we wanted to replace the regular command structure entirely with numbered menus, or use menus to hold conversation options, we could: several Inform extensions provide these functions.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_19_7.html>Section 19.7: Scope</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_19_10.html>Section 19.10: Understanding kinds of value</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

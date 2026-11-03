@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,13 +2212,17 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Saying Simple Things" -->
+            <!-- SEARCH SECTION "7.7" -->
+            <!-- SEARCH SORT "002-007-007-000" -->
             <h3><span>Section 7.7: Saying Simple Things</span></h3>
             <p>  
-            There are times when even the commands <code class="inlinetranscriptcommand">ask</code> and <code class="inlinetranscriptcommand">tell</code> are overkill: sometimes the player doesn't have much information to offer, so <code class="inlinetranscriptcommand">tell</code> is never useful, for instance. If we don't want to make any distinction between modes of conversation, we can conflate the actions so that <code class="inlinetranscriptcommand">ask lucius about ollivander</code>, <code class="inlinetranscriptcommand">tell lucius about ollivander</code> and <code class="inlinetranscriptcommand">lucius, ollivander</code> all do the same thing: see <a href="eg_98.html">Sybil 1</a>.</p>
+            There are times when even the commands <code class="inlinetranscriptcommand">ask</code> and <code class="inlinetranscriptcommand">tell</code> are overkill: sometimes the player doesn't have much information to offer, so <code class="inlinetranscriptcommand">tell</code> is never useful, for instance. If we don't want to make any distinction between modes of conversation, we can conflate the actions so that <code class="inlinetranscriptcommand">ask lucius about ollivander</code>, <code class="inlinetranscriptcommand">tell lucius about ollivander</code> and <code class="inlinetranscriptcommand">lucius, ollivander</code> all do the same thing: see <a href="eg_97.html">Sybil 1</a>.</p>
             <p>If we are frequently permitting the player to say things like <code class="inlinetranscriptcommand">lucius, ollivander</code> as shorthand for <code class="inlinetranscriptcommand">talk to lucius about ollivander</code>, then we may also want to allow <code class="inlinetranscriptcommand">lucius, ollivander?</code> This makes the player character seem a bit slow (or at least Laconic), but it is an effective interface in some cases. The trick is that the question mark at the end of the command may prevent Inform from recognising the keyword; should that problem arise, we may want to use <code class="inlinesourcetext">Punctuation Removal</code> to erase question marks from the player's command before attempting to interpret it.</p>
             <p>Along the same lines, there are situations in conversation where similar commands do not correspond to the same actions within Inform; if we're careless about this, we may force the player to guess which vocabulary we want them to use, which is always vexing. Some cases to look out for:</p>
-            <p>Inform has actions for <code class="inlinesourcetext">saying yes</code> and <code class="inlinesourcetext">saying no</code>. Sometimes this is useful, but sometimes we want <code class="inlinetranscriptcommand">yes</code> and <code class="inlinetranscriptcommand">say yes to fred</code> to do the same thing. <a href="eg_99.html">Sybil 2</a> shows how to roll these responses into one; <a href="eg_193.html">Proposal</a> expands on the idea to show more ways in which a player could reasonably answer a question put by another character.</p>
-            <p>Again, if we want <code class="inlinetranscriptcommand">ask sybil about cake</code> to do the same thing as <code class="inlinetranscriptcommand">show cake to sybil</code>, we might use the technique in <a href="eg_329.html">Nameless</a> to make objects into valid topics of conversation, and to make <code class="inlinetranscriptcommand">ask</code> and <code class="inlinetranscriptcommand">show</code> behave the same way.</p>
+            <p>Inform has actions for <code class="inlinesourcetext">saying yes</code> and <code class="inlinesourcetext">saying no</code>. Sometimes this is useful, but sometimes we want <code class="inlinetranscriptcommand">yes</code> and <code class="inlinetranscriptcommand">say yes to fred</code> to do the same thing. <a href="eg_98.html">Sybil 2</a> shows how to roll these responses into one; <a href="eg_190.html">Proposal</a> expands on the idea to show more ways in which a player could reasonably answer a question put by another character.</p>
+            <p>Again, if we want <code class="inlinetranscriptcommand">ask sybil about cake</code> to do the same thing as <code class="inlinetranscriptcommand">show cake to sybil</code>, we might use the technique in <a href="eg_326.html">Nameless</a> to make objects into valid topics of conversation, and to make <code class="inlinetranscriptcommand">ask</code> and <code class="inlinetranscriptcommand">show</code> behave the same way.</p>
             <p>Finally, if we want to be able to <code class="inlinetranscriptcommand">ask</code> and <code class="inlinetranscriptcommand">tell</code> an inanimate object – say, a computer – about something, we may use the extension Inanimate Listeners to add this capability.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2142,54 +2231,54 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
+                    <span id=eg97><a style="text-decoration: none" href="eg_97.html"><span class="extensionexampleletter">97</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_97.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sybil 1</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Direct all <code class="inlinetranscriptcommand">ask</code>, <code class="inlinetranscriptcommand">tell</code>, and <code class="inlinetranscriptcommand">answer</code> commands to <code class="inlinetranscriptcommand">ask</code>, and accept multiple words for certain cases.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg97><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg326><a style="text-decoration: none" href="eg_326.html"><span class="extensionexampleletter">326</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_326.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nameless</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">ASKing someone about an object rather than about a topic.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg326><a style="text-decoration: none" href="WI_19_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg190><a style="text-decoration: none" href="eg_190.html"><span class="extensionexampleletter">190</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_190.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Asking the player a yes/no question which they must answer, and another which they may answer or not as they choose.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg190><a style="text-decoration: none" href="WI_12_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg182><a style="text-decoration: none" href="eg_182.html"><span class="extensionexampleletter">182</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_182.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal Revisited</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Mr Spruce proposes again, this time using the dialogue system.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg182><a style="text-decoration: none" href="WI_11_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
                     <span id=eg98><a style="text-decoration: none" href="eg_98.html"><span class="extensionexampleletter">98</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_98.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sybil 1</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Direct all <code class="inlinetranscriptcommand">ask</code>, <code class="inlinetranscriptcommand">tell</code>, and <code class="inlinetranscriptcommand">answer</code> commands to <code class="inlinetranscriptcommand">ask</code>, and accept multiple words for certain cases.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_98.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sybil 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Making the character understand <code class="inlinetranscriptcommand">yes</code>, <code class="inlinetranscriptcommand">say yes to character</code>, <code class="inlinetranscriptcommand">tell character yes</code>, <code class="inlinetranscriptcommand">answer yes</code>, and <code class="inlinetranscriptcommand">character, yes</code>.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg98><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg329><a style="text-decoration: none" href="eg_329.html"><span class="extensionexampleletter">329</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_329.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nameless</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">ASKing someone about an object rather than about a topic.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg329><a style="text-decoration: none" href="WI_19_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg193><a style="text-decoration: none" href="eg_193.html"><span class="extensionexampleletter">193</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_193.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Asking the player a yes/no question which they must answer, and another which they may answer or not as they choose.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg193><a style="text-decoration: none" href="WI_12_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg185><a style="text-decoration: none" href="eg_185.html"><span class="extensionexampleletter">185</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_185.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal Revisited</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Mr Spruce proposes again, this time using the dialogue system.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg185><a style="text-decoration: none" href="WI_11_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg99><a style="text-decoration: none" href="eg_99.html"><span class="extensionexampleletter">99</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_99.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sybil 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Making the character understand <code class="inlinetranscriptcommand">yes</code>, <code class="inlinetranscriptcommand">say yes to character</code>, <code class="inlinetranscriptcommand">tell character yes</code>, <code class="inlinetranscriptcommand">answer yes</code>, and <code class="inlinetranscriptcommand">character, yes</code>.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg99><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_6.html"><span class="markdowncontent">Section 7.6: Getting Started with Conversation</span></a> &bull; <a href="RB_7_8.html"><span class="markdowncontent">Section 7.8: Saying Complicated Things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

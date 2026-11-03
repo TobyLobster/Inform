@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,13 +2212,19 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Including extensions" -->
+            <!-- SEARCH SECTION "2.10" -->
+            <!-- SEARCH SORT "001-002-010-000" -->
             <h3><span>Section 2.10: Including extensions</span></h3>
             <p>     </p>
             <p><em>Extensions</em> are additional packets of rules or other facilities which provide additional features to an Inform story. Writing and sharing extensions has always been a flourishing part of Inform culture. For the user of an extension, the advantage is clear: why go to great trouble to (say) work out how to make doors open automatically as needed, when somebody else has already perfected this? For the writer of an extension, there is the satisfaction of producing a good solution to a ticklish problem, and contributing to the public good.</p>
             <p>As a typical example of what extensions do, <code class="inlinesourcetext">Locksmith by Emily Short</code> provides a more detailed handling of locks and sets of keys. It would be invaluable for a story which a lot of locked doors, such as a murder mystery, but plenty of other stories would have no need of it. Because of that, these features are left to an extension to provide, rather than being built in.</p>
             <p>Extension names consist of a title, then <code class="inlinesourcetext">by</code>, then the name of an author. For example, this is a valid extension name:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Following</span><span class="syntaxplain"> </span><span class="syntaxidentifier">People</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Brown</span>
+            <!-- START CODE "code34" -->
+            <blockquote class="extract-inform7"><a id="code34"></a><span class="indexdullblue"><span class="identifier-syntax">Following</span><span class="plain-syntax"> </span><span class="identifier-syntax">People</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Brown</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>To be used, an extension must first be got hold of. There are several ways to do that:</p>
             <ol>
             <li>download it from, say, Mary Brown's website;</li>
@@ -2144,16 +2235,18 @@
             <p>In case (3), installation happens automatically when the download completes.</p>
             <p>Either way, an important change made to Inform in 2023 was that each project now has its own independent set of extensions. In the past, it was possible to download an extension to a central pool kept on the user's computer somewhere, and then they would be shared by all of that user's stories. This is no longer true. <strong>Each project now has its own independent set of extensions.</strong> The Extensions tab in the Inform app shows what is currently installed in a project.</p>
             <p>Once an extension is installed, it still needs to be <em>included</em>. This is done with a sentence in the source text for the project, usually somewhere at the top. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Locksmith</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code35" -->
+            <blockquote class="extract-inform7"><a id="code35"></a><span class="indexdullblue"><span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Locksmith</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Emily</span><span class="plain-syntax"> </span><span class="identifier-syntax">Short</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that it is compulsory to name both extension and author.</p>
             <p>Many extensions come with their own documentation. Again, the Extensions tab in the app shows this.</p>
-            <p>Newcomers will probably not need extensions for quite some while, let alone need to write new ones, but they're quite straightforward to make. The final chapter of this book, <a href="WI_29_1.html" title="Chapter 29: Extensions">Extensions</a>, covers the writing of new extensions.</p>
+            <p>Newcomers will probably not need extensions for quite some while, let alone need to write new ones, but they're quite straightforward to make. The final chapter of this book, <a href="WI_31_1.html" title="Chapter 31: Extensions">Extensions</a>, covers the writing of new extensions.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_9.html"><span class="markdowncontent">Section 2.9: Material not for release</span></a> &bull; <a href="WI_2_11.html"><span class="markdowncontent">Section 2.11: Use options</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

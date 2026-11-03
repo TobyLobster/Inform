@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,37 +2212,41 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Varying What Is Written" -->
+            <!-- SEARCH SECTION "2.1" -->
+            <!-- SEARCH SORT "002-002-001-000" -->
             <h2><span>Chapter 2: Adaptive Prose</span></h2>
             <h3><span>Section 2.1: Varying What Is Written</span></h3>
             <p>
             Before getting to actual recipes, many recipe books begin with intimidating lists of high-end kitchen equipment (carbon-steel pans, a high-temperature range, a Provencal shallot-grater, a set of six pomegranate juicers): fortunately, readers who have downloaded Inform already have the complete kitchen used by the authors. But the other traditional preliminaries, about universal skills such as chopping vegetables, boiling water and measuring quantities, do have an equivalent.</p>
             <p>For us, the most basic technique of IF is to craft the text so that it smoothly and elegantly adapts to describe the situation, disguising the machine which is never far beneath the surface. This means using text substitutions so that any response likely to be seen more than once or twice will vary.</p>
-            <p><a href="eg_200.html">M. Melmoth's Duel</a> demonstrates three basic techniques: an ever-changing random variation, a random variation changing only after the player has been absent for a while, and a message tweaked to add an extra comment in one special case. (Random choices can be quite specifically constrained, as <a href="eg_191.html">Ahem</a> shows in passing.) <a href="eg_77.html">Fifty Ways to Leave Your Larva</a> and <a href="eg_78.html">Fifty Times Fifty Ways</a> show how a generic message can be given a tweak to make it a better fit for the person it currently talks about. <a href="eg_467.html">Curare</a> picks out an item carried by the player to work into a message, trying to make an apt rather than random choice. <a href="eg_334.html">Straw Into Gold</a> demonstrates how to have Inform parrot back the player's choice of name for an object.</p>
-            <p>Another reason to vary messages is to avoid unnatural phrasing. <a href="eg_66.html">Ballpark</a> turns needlessly precise numbers–another computerish trait–into more idiomatic English. (Likewise <a href="eg_196.html">Numberless</a>, though it is really an example demonstrating how to split behaviour into many cases.) <a href="eg_372.html">Prolegomena</a> shows how to use these vaguer quantifiers any time Inform describes a group of objects (as in <code class="inlinetranscript">You can see 27 paper clips here.</code>).</p>
-            <p><a href="eg_478.html">Blink</a>, a short but demanding example from the extreme end of <em>Writing with Inform</em>, shows how the basic text variation mechanisms of Inform can themselves be extended. <a href="eg_447.html">Blackout</a> demonstrates text manipulation at a lower level, replacing every letter of a room name with &quot;*&quot; when the player is in darkness.</p>
-            <p>For how to change printed text to upper, lower, sentence, or title casing, see <a href="eg_441.html">Rocket Man</a>.</p>
-            <p><a href="eg_267.html">Variety</a> and <a href="eg_268.html">Variety 2</a> use a relation between actions and verbs so that, for example, the verb <code class="inlinesourcetext">to eat</code> could be associated with the action <code class="inlinesourcetext">eating</code>. This enables some fancy tricks in describing actions. <a href="eg_271.html">History Lab</a> uses such tricks to show how items could be made to remember an appropriate verb to describe whatever last happened to them.</p>
-            <p><a href="eg_270.html">Olfactory Settings</a> shows some basic but powerful ways to make text fully adaptive, in the sense that it can change tense or person dynamically in play. <a href="eg_269.html">Narrative Register</a> shows how to make adaptive verbs adapt still further, by becoming more slangy, or more upbeat, and so on.</p>
-            <p><a href="eg_273.html">Responsive</a> modifies one of the standard &quot;responses&quot; from the Standard Rules — <code class="inlinetranscript">You are carrying nothing.</code> <a href="eg_374.html">Wesponses</a> goes very much further, modifying every response to write them as if read out with an exaggerated lisp.</p>
-            <p><a href="eg_272.html">Relevant Relations</a> provides a general way to present room descriptions in terms of what relationships exist between the things seen. Inform's regular method is excellent for human-scaled spatial situations, but what about a more abstract story, where things being <code class="inlinesourcetext">on</code> or <code class="inlinesourcetext">in</code> other things might not matter, whereas other relationships might?</p>
-            <p><a href="eg_266.html">Fun with Participles</a> also has some fun with room descriptions, making the sentences about what is present change during play.</p>
+            <p><a href="eg_197.html">M. Melmoth's Duel</a> demonstrates three basic techniques: an ever-changing random variation, a random variation changing only after the player has been absent for a while, and a message tweaked to add an extra comment in one special case. (Random choices can be quite specifically constrained, as <a href="eg_188.html">Ahem</a> shows in passing.) <a href="eg_76.html">Fifty Ways to Leave Your Larva</a> and <a href="eg_77.html">Fifty Times Fifty Ways</a> show how a generic message can be given a tweak to make it a better fit for the person it currently talks about. <a href="eg_464.html">Curare</a> picks out an item carried by the player to work into a message, trying to make an apt rather than random choice. <a href="eg_331.html">Straw Into Gold</a> demonstrates how to have Inform parrot back the player's choice of name for an object.</p>
+            <p>Another reason to vary messages is to avoid unnatural phrasing. <a href="eg_65.html">Ballpark</a> turns needlessly precise numbers–another computerish trait–into more idiomatic English. (Likewise <a href="eg_193.html">Numberless</a>, though it is really an example demonstrating how to split behaviour into many cases.) <a href="eg_369.html">Prolegomena</a> shows how to use these vaguer quantifiers any time Inform describes a group of objects (as in <code class="inlinetranscript">You can see 27 paper clips here.</code>).</p>
+            <p><a href="eg_478.html">Blink</a>, a short but demanding example from the extreme end of <em>Writing with Inform</em>, shows how the basic text variation mechanisms of Inform can themselves be extended. <a href="eg_444.html">Blackout</a> demonstrates text manipulation at a lower level, replacing every letter of a room name with &quot;*&quot; when the player is in darkness.</p>
+            <p>For how to change printed text to upper, lower, sentence, or title casing, see <a href="eg_438.html">Rocket Man</a>.</p>
+            <p><a href="eg_264.html">Variety</a> and <a href="eg_265.html">Variety 2</a> use a relation between actions and verbs so that, for example, the verb <code class="inlinesourcetext">to eat</code> could be associated with the action <code class="inlinesourcetext">eating</code>. This enables some fancy tricks in describing actions. <a href="eg_268.html">History Lab</a> uses such tricks to show how items could be made to remember an appropriate verb to describe whatever last happened to them.</p>
+            <p><a href="eg_267.html">Olfactory Settings</a> shows some basic but powerful ways to make text fully adaptive, in the sense that it can change tense or person dynamically in play. <a href="eg_266.html">Narrative Register</a> shows how to make adaptive verbs adapt still further, by becoming more slangy, or more upbeat, and so on.</p>
+            <p><a href="eg_270.html">Responsive</a> modifies one of the standard &quot;responses&quot; from the Standard Rules — <code class="inlinetranscript">You are carrying nothing.</code> <a href="eg_371.html">Wesponses</a> goes very much further, modifying every response to write them as if read out with an exaggerated lisp.</p>
+            <p><a href="eg_269.html">Relevant Relations</a> provides a general way to present room descriptions in terms of what relationships exist between the things seen. Inform's regular method is excellent for human-scaled spatial situations, but what about a more abstract story, where things being <code class="inlinesourcetext">on</code> or <code class="inlinesourcetext">in</code> other things might not matter, whereas other relationships might?</p>
+            <p><a href="eg_263.html">Fun with Participles</a> also has some fun with room descriptions, making the sentences about what is present change during play.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg191><a style="text-decoration: none" href="eg_191.html"><span class="extensionexampleletter">191</span></a></span></div>
+                    <span id=eg188><a style="text-decoration: none" href="eg_188.html"><span class="extensionexampleletter">188</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_191.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ahem</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_188.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ahem</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Writing a phrase, with several variant forms, whose function is to follow a rule several times.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg191><a style="text-decoration: none" href="WI_12_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg188><a style="text-decoration: none" href="WI_12_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg447><a style="text-decoration: none" href="eg_447.html"><span class="extensionexampleletter">447</span></a></span></div>
+                    <span id=eg444><a style="text-decoration: none" href="eg_444.html"><span class="extensionexampleletter">444</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_447.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Blackout</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_444.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Blackout</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Filtering the names of rooms printed while in darkness.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg447><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg444><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
@@ -2166,175 +2255,175 @@
                     <a style="text-decoration: none" href="eg_478.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Blink</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making a <code class="inlinesourcetext">by atmosphere</code> token, allowing us to design our own text variations such as <code class="inlinesourcetext">&quot;[one of]normal[or]gloomy[or]scary[by atmosphere]&quot;</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg478><a style="text-decoration: none" href="WI_31_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg478><a style="text-decoration: none" href="WI_33_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg467><a style="text-decoration: none" href="eg_467.html"><span class="extensionexampleletter">467</span></a></span></div>
+                    <span id=eg464><a style="text-decoration: none" href="eg_464.html"><span class="extensionexampleletter">464</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_467.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Curare</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_464.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Curare</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A phrase that chooses and names the least-recently selected item from the collection given, allowing the text to cycle semi-randomly through a group of objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg467><a style="text-decoration: none" href="WI_24_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg464><a style="text-decoration: none" href="WI_24_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg77><a style="text-decoration: none" href="eg_77.html"><span class="extensionexampleletter">77</span></a></span></div>
+                    <span id=eg76><a style="text-decoration: none" href="eg_76.html"><span class="extensionexampleletter">76</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_77.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fifty Ways to Leave Your Larva</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_76.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fifty Ways to Leave Your Larva</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using text substitution to make characters reply differently under the same circumstances.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg77><a style="text-decoration: none" href="WI_5_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg76><a style="text-decoration: none" href="WI_5_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg200><a style="text-decoration: none" href="eg_200.html"><span class="extensionexampleletter">200</span></a></span></div>
+                    <span id=eg197><a style="text-decoration: none" href="eg_197.html"><span class="extensionexampleletter">197</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_200.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">M. Melmoth's Duel</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_197.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">M. Melmoth's Duel</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Three basic ways to inject random or not-so-random variations into text.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg200><a style="text-decoration: none" href="WI_12_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg197><a style="text-decoration: none" href="WI_12_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg196><a style="text-decoration: none" href="eg_196.html"><span class="extensionexampleletter">196</span></a></span></div>
+                    <span id=eg193><a style="text-decoration: none" href="eg_193.html"><span class="extensionexampleletter">193</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_196.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Numberless</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_193.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Numberless</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A simple exercise in printing the names of random numbers, comparing the use of &quot;otherwise if...&quot;, a switch statement, or a table-based alternative.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg196><a style="text-decoration: none" href="WI_12_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg270><a style="text-decoration: none" href="eg_270.html"><span class="extensionexampleletter">270</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_270.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Some adaptive text for smelling the flowers, or indeed, anything else.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg270><a style="text-decoration: none" href="WI_15_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg372><a style="text-decoration: none" href="eg_372.html"><span class="extensionexampleletter">372</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_372.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prolegomena</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Replacing precise numbers with &quot;some&quot; or other quantifiers when too many objects are clustered together for the player to count at a glance.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg372><a style="text-decoration: none" href="WI_20_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg273><a style="text-decoration: none" href="eg_273.html"><span class="extensionexampleletter">273</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_273.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Responsive</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Altering the standard inventory text for when the player is carrying nothing.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg273><a style="text-decoration: none" href="WI_15_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg441><a style="text-decoration: none" href="eg_441.html"><span class="extensionexampleletter">441</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_441.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rocket Man</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Using case changes on any text produced by a &quot;to say...&quot; phrase.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg441><a style="text-decoration: none" href="WI_22_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg374><a style="text-decoration: none" href="eg_374.html"><span class="extensionexampleletter">374</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_374.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wesponses</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Parser messages that are delivered with a speech impediment.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg374><a style="text-decoration: none" href="WI_20_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg266><a style="text-decoration: none" href="eg_266.html"><span class="extensionexampleletter">266</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_266.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fun with Participles</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Creating dynamic room descriptions that contain sentences such as &quot;Clark is here, wasting time&quot; or &quot;Clark is here, looking around&quot; depending on Clark's idle activity.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg266><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg271><a style="text-decoration: none" href="eg_271.html"><span class="extensionexampleletter">271</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_271.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">History Lab</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">We create phrases such as &quot;the box we took&quot; and &quot;the newspaper Clark looked at&quot; based on what has already happened in the story.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg271><a style="text-decoration: none" href="WI_15_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg272><a style="text-decoration: none" href="eg_272.html"><span class="extensionexampleletter">272</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_272.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Relevant Relations</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">An example of how to create room descriptions that acknowledge particular relations using their assigned verbs, rather than by the heavily special-cased code used by the standard library.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg272><a style="text-decoration: none" href="WI_15_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg193><a style="text-decoration: none" href="WI_12_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg267><a style="text-decoration: none" href="eg_267.html"><span class="extensionexampleletter">267</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_267.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to display some randomised variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_267.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Some adaptive text for smelling the flowers, or indeed, anything else.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg267><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg267><a style="text-decoration: none" href="WI_15_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg369><a style="text-decoration: none" href="eg_369.html"><span class="extensionexampleletter">369</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_369.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prolegomena</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Replacing precise numbers with &quot;some&quot; or other quantifiers when too many objects are clustered together for the player to count at a glance.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg369><a style="text-decoration: none" href="WI_20_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg270><a style="text-decoration: none" href="eg_270.html"><span class="extensionexampleletter">270</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_270.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Responsive</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Altering the standard inventory text for when the player is carrying nothing.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg270><a style="text-decoration: none" href="WI_15_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg438><a style="text-decoration: none" href="eg_438.html"><span class="extensionexampleletter">438</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_438.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rocket Man</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Using case changes on any text produced by a &quot;to say...&quot; phrase.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg438><a style="text-decoration: none" href="WI_22_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg371><a style="text-decoration: none" href="eg_371.html"><span class="extensionexampleletter">371</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_371.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wesponses</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Parser messages that are delivered with a speech impediment.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg371><a style="text-decoration: none" href="WI_20_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg263><a style="text-decoration: none" href="eg_263.html"><span class="extensionexampleletter">263</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_263.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fun with Participles</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating dynamic room descriptions that contain sentences such as &quot;Clark is here, wasting time&quot; or &quot;Clark is here, looking around&quot; depending on Clark's idle activity.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg263><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg268><a style="text-decoration: none" href="eg_268.html"><span class="extensionexampleletter">268</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_268.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">This builds on the Variety example to add responses such as &quot;You are now carrying the fedora&quot; that describe relations that result from a given verb, as alternate responses.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_268.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">History Lab</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">We create phrases such as &quot;the box we took&quot; and &quot;the newspaper Clark looked at&quot; based on what has already happened in the story.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg268><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg66><a style="text-decoration: none" href="eg_66.html"><span class="extensionexampleletter">66</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_66.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ballpark</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A new <code class="inlinesourcetext">to say</code> definition which allows the author to say <code class="inlinesourcetext">&quot;[a number in round numbers]&quot;</code> and get verbal descriptions like <code class="inlinetranscript">a couple of</code> or <code class="inlinetranscript">a few</code> as a result.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg66><a style="text-decoration: none" href="WI_5_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg78><a style="text-decoration: none" href="eg_78.html"><span class="extensionexampleletter">78</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_78.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fifty Times Fifty Ways</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Writing your own rules for how to carry out substitutions.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg78><a style="text-decoration: none" href="WI_5_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg268><a style="text-decoration: none" href="WI_15_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg269><a style="text-decoration: none" href="eg_269.html"><span class="extensionexampleletter">269</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_269.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Narrative Register</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_269.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Relevant Relations</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">An example of how to create room descriptions that acknowledge particular relations using their assigned verbs, rather than by the heavily special-cased code used by the standard library.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg269><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg269><a style="text-decoration: none" href="WI_15_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg334><a style="text-decoration: none" href="eg_334.html"><span class="extensionexampleletter">334</span></a></span></div>
+                    <span id=eg264><a style="text-decoration: none" href="eg_264.html"><span class="extensionexampleletter">264</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_334.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Straw Into Gold</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_264.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to display some randomised variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg264><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg265><a style="text-decoration: none" href="eg_265.html"><span class="extensionexampleletter">265</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_265.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">This builds on the Variety example to add responses such as &quot;You are now carrying the fedora&quot; that describe relations that result from a given verb, as alternate responses.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg265><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg65><a style="text-decoration: none" href="eg_65.html"><span class="extensionexampleletter">65</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_65.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ballpark</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A new <code class="inlinesourcetext">to say</code> definition which allows the author to say <code class="inlinesourcetext">&quot;[a number in round numbers]&quot;</code> and get verbal descriptions like <code class="inlinetranscript">a couple of</code> or <code class="inlinetranscript">a few</code> as a result.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg65><a style="text-decoration: none" href="WI_5_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg77><a style="text-decoration: none" href="eg_77.html"><span class="extensionexampleletter">77</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_77.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fifty Times Fifty Ways</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Writing your own rules for how to carry out substitutions.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg77><a style="text-decoration: none" href="WI_5_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg266><a style="text-decoration: none" href="eg_266.html"><span class="extensionexampleletter">266</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_266.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Narrative Register</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg266><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg331><a style="text-decoration: none" href="eg_331.html"><span class="extensionexampleletter">331</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_331.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Straw Into Gold</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a Rumpelstiltskin character who is always referred to as &quot;dwarf&quot;, &quot;guy&quot;, &quot;dude&quot;, or &quot;man&quot; -- depending on which the player last used -- until the first time the player refers to him as &quot;Rumpelstiltskin&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg334><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg331><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_1_4.html"><span class="markdowncontent">Section 1.4: Information Only</span></a> &bull; <a href="RB_2_2.html"><span class="markdowncontent">Section 2.2: Varying What Is Read</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

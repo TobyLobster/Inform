@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,83 +2193,57 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg197><a style="text-decoration: none" href="WI_12_10.html"><span class="extensionexampleletter">197</span></a></span></div>
+                <span id=eg197><a style="text-decoration: none" href="WI_12_15.html"><span class="extensionexampleletter">197</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wonka's Revenge</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A lottery drum which redistributes the tickets inside whenever the player spins it.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">M. Melmoth's Duel</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Three basic ways to inject random or not-so-random variations into text.</span></span></div>
             <div class="exampleright">
-                <span id=eg197><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg197><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "M. Melmoth's Duel" -->
+        <!-- SEARCH SECTION "Example 197" -->
+        <!-- SEARCH SORT "003-197-000-000" -->
         <p></p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Wonka[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The Caribou Lodge is a room. [=0x0022=]Hundreds of expectant faces are turned your way from every table.[=0x0022=] A lottery drum is in the Lodge. [=0x0022=]Before you is the lottery drum[if we have spun the drum], ready to disgorge a ticket[otherwise], waiting to be spun[end if].[=0x0022=] In the drum are a red ticket, an orange ticket, a yellow ticket, a green ticket, a blue ticket, a purple ticket, and a ticket of pure gold. The drum is closed and openable.[=0x000A=][=0x000A=]Understand [=0x0022=]spin [something][=0x0022=] as spinning.[=0x000A=][=0x000A=]Spinning is an action applying to one thing.[=0x000A=][=0x000A=]Check spinning: if the noun is an open container which contains something, say [=0x0022=][The list of things in the noun] would fly out.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out spinning a container:[=0x000A=][=0x0009=]shuffle the contents of the noun.[=0x000A=][=0x000A=]Report spinning:[=0x000A=][=0x0009=]if the noun contains something, say [=0x0022=]You rattle [if the noun is transparent][the list of things in the noun][otherwise]the stuff[end if] in [the noun].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing results of your shaking [the noun].[=0x0022=][=0x000A=][=0x000A=]To shuffle the contents of (basket - a container):[=0x000A=][=0x0009=]let moves be the number of things in the basket;[=0x000A=][=0x0009=]repeat with counter running from 1 to moves:[=0x000A=][=0x0009=][=0x0009=]move a random thing in the basket to the basket.[=0x000A=][=0x000A=]After opening the drum when we have spun the drum for the first time:[=0x000A=][=0x0009=]if something (called the pick) is in the drum:[=0x000A=][=0x0009=][=0x0009=]try searching the drum;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The pick] it is, then.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]silently try taking the pick;[=0x000A=][=0x0009=][=0x0009=]if the pick is the ticket of pure gold, end the story finally;[=0x000A=][=0x0009=][=0x0009=]otherwise end the story saying [=0x0022=]Oh well, better luck next time.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open drum / look in drum / close drum / spin drum / open drum[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Wonka's Revenge&quot;</span>
+        <!-- START CODE "code3041" -->
+        <blockquote class="extract-inform7"><a id="code3041"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]M. Melmoth[=0x0027=]s Duel[=0x0022=][=0x000A=][=0x000A=]Saint-Germain-des-Prés is a room. [=0x0022=]Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth[=0x0027=]s hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.[=0x0022=][=0x000A=][=0x000A=]The Hôtel d[=0x0027=]Alsace is inside from Saint-Germain-des-Prés. [=0x0022=]Typical. Oscar writes you a letter announcing his own imminent demise - [=0x0027=]My wallpaper and I are fighting a duel to the death. One or other of us has got to go.[=0x0027=] - and then you get there and he[=0x0027=]s out, no doubt procuring paint the colour of absinthe, if he isn[=0x0027=]t procuring the painter.[=0x0022=][=0x000A=][=0x000A=]Tint is a kind of value. The tints are green, aquamarine and darkish purple.[=0x000A=][=0x000A=]The wallpaper is fixed in place in the Hôtel. The wallpaper has a tint. [=0x0022=]In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if][=0x0022=][=0x000A=][=0x000A=]Before going to the Hôtel: now the wallpaper is a random tint.[=0x000A=][=0x000A=]After going from the Hôtel, say [=0x0022=]You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / look / in / out / look[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;M. Melmoth's Duel&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Caribou</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lodge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Hundreds of expectant faces are turned your way from every table.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lottery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lodge</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Before you is the lottery drum</span><span class="syntaxextract">[if we have spun the drum]</span><span class="syntaxstring">, ready to disgorge a ticket</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">, waiting to be spun</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">orange</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">purple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gold</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Saint</span><span class="plain-syntax">-</span><span class="identifier-syntax">Germain</span><span class="plain-syntax">-</span><span class="identifier-syntax">des</span><span class="plain-syntax">-</span><span class="identifier-syntax">Pr</span><span class="plain-syntax">é</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Haunt of artists, of the coffee-drinking sort, and of cafés, of the artist-haunted sort, you once again find yourself outside M. Melmoth's hotel. Today [one of]the recently-fallen rain runs down the gutters of the 6th[or]sunlight glints even off the blackened windows of the Abbey[or]crowds of vulgar children play chase around the lampposts[at random], and you long to be indoors.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;spin </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spinning</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax">ô</span><span class="identifier-syntax">tel</span><span class="plain-syntax"> </span><span class="identifier-syntax">d</span><span class="plain-syntax">'</span><span class="identifier-syntax">Alsace</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saint</span><span class="plain-syntax">-</span><span class="identifier-syntax">Germain</span><span class="plain-syntax">-</span><span class="identifier-syntax">des</span><span class="plain-syntax">-</span><span class="identifier-syntax">Pr</span><span class="plain-syntax">é</span><span class="identifier-syntax">s</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Typical. Oscar writes you a letter announcing his own imminent demise - 'My wallpaper and I are fighting a duel to the death. One or other of us has got to go.' - and then you get there and he's out, no doubt procuring paint the colour of absinthe, if he isn't procuring the painter.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Spinning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Tint</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">tints</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">aquamarine</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">darkish</span><span class="plain-syntax"> </span><span class="identifier-syntax">purple</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spinning</span><span class="syntaxplain">: </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The list of things in the noun]</span><span class="syntaxstring"> would fly out.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax">ô</span><span class="identifier-syntax">tel</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">tint</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;In this light, the wallpaper has a distinctly [tint of the wallpaper] wash. [if the tint of the wallpaper is darkish purple]You particularly dislike purple.[end if]&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spinning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">shuffle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax">ô</span><span class="identifier-syntax">tel</span><span class="plain-syntax">: </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">tint</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spinning</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax">ô</span><span class="identifier-syntax">tel</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You leave, shaking your head. But within twenty-four hours, you are back, as you always knew you would be.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You rattle </span><span class="syntaxextract">[if the noun is transparent][the list of things in the noun][otherwise]</span><span class="syntaxstring">the stuff</span><span class="syntaxextract">[end if]</span><span class="syntaxstring"> in </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Nothing results of your shaking </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;in / out / look / in / out / look&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Inform keeps track of the order in which things have been put into a container. If we want to change that order without the player's intervention, we can move the things ourselves.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shuffle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">basket</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">moves</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">basket</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">counter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">moves</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">basket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">basket</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">have</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pick</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">searching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drum</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The pick]</span><span class="syntaxstring"> it is, then.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pick</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pick</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gold</span><span class="syntaxplain">, </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Oh well, better luck next time.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;open drum / look in drum / close drum / spin drum / open drum&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_12_10.html>Section 12.10: Repeat</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_12_15.html>Section 12.15: Let and temporary variables</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

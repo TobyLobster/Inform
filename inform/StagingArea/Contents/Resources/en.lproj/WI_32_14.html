@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.14: Neptune and optionals</span></title>
+    <title><span class="markdowncontent">Section 32.14: Full list of testing options</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_13.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.14: Neptune and optionals</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.14: Full list of testing options</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_15.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,108 +2212,60 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.14: Neptune and optionals</span></h3>
-            <p>As a second worked example, the following implements <code class="inlinesourcetext">optional K</code>, a kind which can hold <em>either</em> a value of the kind <code class="inlinesourcetext">K</code>, <em>or</em> a special &quot;no value&quot; value. Using this, it's possible to design phrases which produce valid answers even when the task they perform is sometimes impossible.</p>
-            <p>As usual, we start with the Neptune definition:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Full list of testing options" -->
+            <!-- SEARCH SECTION "32.14" -->
+            <!-- SEARCH SORT "001-032-014-000" -->
+            <h3><span>Section 32.14: Full list of testing options</span></h3>
+            <p>As was mentioned earlier, the header for an example normally specifies <code class="inlinecode">Example:</code>, <code class="inlinecode">Location:</code> and <code class="inlinecode">Description:</code>, while the header for a test case specifies <code class="inlinecode">Test:</code>.</p>
+            <p>But further options are available. For example, the previous section suggested having two variants of the same test, one using the Z-machine and one Glulx. How is this to be done? The answer is that they are the same, but with different header options:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">new constructor OPTIONAL_TY {</span><br><span class="syntaxidentifier">    conforms-to: POINTER_VALUE_TY</span><br><span class="syntaxidentifier">    conforms-to: SAYABLE_VALUE_TY</span><br><span class="syntaxidentifier">    singular: optional k</span><br><span class="syntaxidentifier">    plural: optional k</span><br><span class="syntaxidentifier">    terms: covariant</span><br><span class="syntaxidentifier">    </span><br><span class="syntaxidentifier">    short-block-size: 3</span><br><span class="syntaxidentifier">    long-block-size: 0</span><br><br><span class="syntaxidentifier">    say-function: OPTIONAL_TY_Say</span><br><span class="syntaxidentifier">    compare-function: OPTIONAL_TY_Compare</span><br><span class="syntaxidentifier">    create-function: OPTIONAL_TY_Create</span><br><span class="syntaxidentifier">    copy-function: OPTIONAL_TY_Copy</span><br><span class="syntaxidentifier">    destroy-function: OPTIONAL_TY_Destroy</span><br><br><span class="syntaxidentifier">    index-priority: 2</span><br><span class="syntaxidentifier">    index-default-value: 0</span><br><span class="syntaxidentifier">    specification-text: A way to hold either a value, or a &quot;no value&quot; alternative.</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>These are very small: no long block, and the short block holds just one word of data. In fact, though, it also makes use of the memory manager's four bits of spare data in the short block header: or at least, it makes use of one of them.</p>
+                <pre><code class="language-code">Test: DismantleLarge-Z<br>For: Z-machine<br></code></pre></div>
+            <p>versus</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Constant OPTIONAL_CONTENT_SF = 2;</span><br><span class="syntaxidentifier">Constant OPTIONAL_TY_NO_VALUE_SBF = 1;</span><br><br><span class="syntaxidentifier">[ OPTIONAL_TY_Say opt scalar_kind_id;</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) {</span><br><span class="syntaxidentifier">        print &quot;no value&quot;;</span><br><span class="syntaxidentifier">    } else {</span><br><span class="syntaxidentifier">        scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(opt), 0);</span><br><span class="syntaxidentifier">        SayKindValuePair(scalar_kind_id, opt--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>As this may suggest, four bits are stored with every short block of a short-block-only kind, and they are free for us to use as we would like, with the following pair of functions:</p>
-            <blockquote>
-            <hr />
-            <p><code class="inlinecode">ShortBlockOnlyPVFlags(pv)</code></p>
-            <p>Returns the current state of the 4-bit bitmap for the short-block-only pointer value <code class="inlinecode">pv</code>. By definition, can only return a number from 0 to 15, i.e., binary 0000 to 1111, and for a newly created value it will be 0000. This call is potentially disastrous if <code class="inlinecode">pv</code> is a pointer value which does have a long block, so use with care.</p>
-            <hr />
-            <p><code class="inlinecode">WriteShortBlockOnlyPVFlags(pv, flags)</code></p>
-            <p>Writes <code class="inlinecode">flags</code> to become the current state of the 4-bit bitmap for the short-block-only pointer value <code class="inlinecode">pv</code>. <code class="inlinecode">flags</code> must be between 0 and 15, i.e., binary 0000 to 1111. This call is potentially disastrous if <code class="inlinecode">pv</code> is a pointer value which does have a long block, so use with care.</p>
-            <hr />
-            </blockquote>
-            <p>We are going to use only the least significant bit of the four. When this is set, the optional will be &quot;no value&quot;, and the content field will hold 0. When it is clear, the optional will have a value, stored in the content field.</p>
-            <p>The following performs comparisons. &quot;No value&quot; is considered to be less than all existing values.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ OPTIONAL_TY_Compare opt1 opt2 scalar_kind_id;</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt1, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) {</span><br><span class="syntaxidentifier">        if (ShortBlockOnlyPVFlags(opt2, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) return 0;</span><br><span class="syntaxidentifier">        return -1;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt2, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) return 1;</span><br><span class="syntaxidentifier">    scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(opt1), 0);</span><br><span class="syntaxidentifier">    return CompareKindValuePairs(</span><br><span class="syntaxidentifier">        scalar_kind_id, opt1--&gt;OPTIONAL_CONTENT_SF,</span><br><span class="syntaxidentifier">        scalar_kind_id, opt2--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>We create an optional as having no value:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ OPTIONAL_TY_Create kind_id sb_address</span><br><span class="syntaxidentifier">    short_block scalar_kind_id;</span><br><span class="syntaxidentifier">    scalar_kind_id = KindConstructorTerm(kind_id, 0);</span><br><br><span class="syntaxidentifier">    short_block = CreatePVShortBlock(sb_address, kind_id);</span><br><span class="syntaxidentifier">    WriteShortBlockOnlyPVFlags(short_block, OPTIONAL_TY_NO_VALUE_SBF);</span><br><span class="syntaxidentifier">    short_block--&gt;OPTIONAL_CONTENT_SF = 0;</span><br><span class="syntaxidentifier">    </span><br><span class="syntaxidentifier">    return short_block;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Destruction is instant except in the one case where the optional does hold a
-            value, and it's of a kind which needs to be destroyed:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ OPTIONAL_TY_Destroy opt scalar_kind_id;</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) return;</span><br><span class="syntaxidentifier">    scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(opt), 0);</span><br><span class="syntaxidentifier">    if (KindConformsTo_POINTER_VALUE_TY(scalar_kind_id))</span><br><span class="syntaxidentifier">        DestroyPV(opt--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>The copy mechanism is the most laborious, because it may mean destruction if
-            no value is copied into an optional with a value, or creation if the other
-            way around:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ OPTIONAL_TY_Copy optto optfrom scalar_kind_id;</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(optfrom, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) {</span><br><span class="syntaxidentifier">        if (ShortBlockOnlyPVFlags(optto, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF == 0) {</span><br><span class="syntaxidentifier">            scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(optto), 0);</span><br><span class="syntaxidentifier">            if (KindConformsTo_POINTER_VALUE_TY(scalar_kind_id))</span><br><span class="syntaxidentifier">                DestroyPV(optto--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">            optto--&gt;OPTIONAL_CONTENT_SF = 0;</span><br><span class="syntaxidentifier">            WriteShortBlockOnlyPVFlags(optto, OPTIONAL_TY_NO_VALUE_SBF);</span><br><span class="syntaxidentifier">        }</span><br><span class="syntaxidentifier">    } else {</span><br><span class="syntaxidentifier">        scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(optto), 0);</span><br><span class="syntaxidentifier">        if (KindConformsTo_POINTER_VALUE_TY(scalar_kind_id)) {</span><br><span class="syntaxidentifier">            if (ShortBlockOnlyPVFlags(optto, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF)</span><br><span class="syntaxidentifier">                optto--&gt;OPTIONAL_CONTENT_SF = CreatePV(scalar_kind_id);</span><br><span class="syntaxidentifier">            CopyPV(optto--&gt;OPTIONAL_CONTENT_SF, optfrom--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">        } else {</span><br><span class="syntaxidentifier">            optto--&gt;OPTIONAL_CONTENT_SF = optfrom--&gt;OPTIONAL_CONTENT_SF;</span><br><span class="syntaxidentifier">        }</span><br><span class="syntaxidentifier">        WriteShortBlockOnlyPVFlags(optto, 0);</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    return false;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>That sets up the kind. We want to perform three basic operations on it: wrapping a value as an optional, unwrapping an optional into a value, and detecting whether an optional does or doesn't have a value.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ OPTIONAL_TY_Wrap opt x scalar_kind_id;</span><br><span class="syntaxidentifier">    scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(opt), 0);</span><br><span class="syntaxidentifier">    WriteShortBlockOnlyPVFlags(opt, 0);</span><br><span class="syntaxidentifier">    if (KindConformsTo_POINTER_VALUE_TY(scalar_kind_id)) {</span><br><span class="syntaxidentifier">        if (opt--&gt;OPTIONAL_CONTENT_SF == 0)</span><br><span class="syntaxidentifier">            opt--&gt;OPTIONAL_CONTENT_SF = CreatePV(scalar_kind_id);</span><br><span class="syntaxidentifier">        CopyPV(opt--&gt;OPTIONAL_CONTENT_SF, x);</span><br><span class="syntaxidentifier">    } else {</span><br><span class="syntaxidentifier">        opt--&gt;OPTIONAL_CONTENT_SF = x;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    return opt;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">[ OPTIONAL_TY_Unwrap val opt scalar_kind_id;</span><br><span class="syntaxidentifier">    scalar_kind_id = KindConstructorTerm(KindOfShortBlockOnlyPV(opt), 0);</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF) {</span><br><span class="syntaxidentifier">        BlkValueError(&quot;unwrapped an optional value with no value&quot;);</span><br><span class="syntaxidentifier">        val = KindDefaultValue(scalar_kind_id);</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    if (KindConformsTo_POINTER_VALUE_TY(scalar_kind_id)) {</span><br><span class="syntaxidentifier">        CopyPV(val, opt--&gt;OPTIONAL_CONTENT_SF);</span><br><span class="syntaxidentifier">    } else {</span><br><span class="syntaxidentifier">        val = opt--&gt;OPTIONAL_CONTENT_SF;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    return val;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">[ OPTIONAL_TY_Exists opt;</span><br><span class="syntaxidentifier">    if (ShortBlockOnlyPVFlags(opt, 0) &amp; OPTIONAL_TY_NO_VALUE_SBF)</span><br><span class="syntaxidentifier">        rfalse;</span><br><span class="syntaxidentifier">    rtrue;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>And finally we need some phrases:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">) </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">OPTIONAL_TY_Wrap</span><span class="syntaxplain">({-</span><span class="syntaxidentifier">new</span><span class="syntaxplain">: </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">X</span><span class="syntaxplain">})) -).</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">) </span><span class="syntaxidentifier">exists</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">OPTIONAL_TY_Exists</span><span class="syntaxplain">({-</span><span class="syntaxidentifier">by</span><span class="syntaxplain">-</span><span class="syntaxidentifier">reference</span><span class="syntaxplain">:</span><span class="syntaxidentifier">X</span><span class="syntaxplain">})) -).</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">) </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">OPTIONAL_TY_Unwrap</span><span class="syntaxplain">({-</span><span class="syntaxidentifier">new</span><span class="syntaxplain">: </span><span class="syntaxidentifier">K</span><span class="syntaxplain">}, {-</span><span class="syntaxidentifier">by</span><span class="syntaxplain">-</span><span class="syntaxidentifier">reference</span><span class="syntaxplain">:</span><span class="syntaxidentifier">X</span><span class="syntaxplain">})) -).</span>
-            </span></blockquote>
-            <p>With all of that done:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Pie!&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exists</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exists</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">e</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">;</span>
-            </span></blockquote>
-            <p>produces:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;&quot;Pie!&quot; as optional&quot; = optional texts: Pie!</span><br><span class="syntaxidentifier">&quot;Q&quot; = optional real numbers: no value</span><br><span class="syntaxidentifier">&quot;whether or not Q exists&quot; = truth state: false</span><br><span class="syntaxidentifier">&quot;Q&quot; = optional real numbers: 3.14159</span><br><span class="syntaxidentifier">&quot;whether or not Q exists&quot; = truth state: true</span><br><span class="syntaxidentifier">&quot;Q as value&quot; = real number: 3.14159</span><br><span class="syntaxidentifier">&quot;e as optional as value&quot; = real number: 2.71828</span><br></code></pre></div>
-            <p>So here is how <code class="inlinesourcetext">optional K</code> might be used to make a phrase &quot;type-safe&quot; even though it sometimes has no good answer:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">L</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">non</span><span class="syntaxplain">-</span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">non</span><span class="syntaxplain">-</span><span class="syntaxidentifier">entry</span><span class="syntaxplain">;</span>
-            </span></blockquote>
-            <p>and then:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> { </span><span class="syntaxstring">&quot;alpha&quot;</span><span class="syntaxplain">, </span><span class="syntaxstring">&quot;beta&quot;</span><span class="syntaxplain">, </span><span class="syntaxstring">&quot;gamma&quot;</span><span class="syntaxplain"> };</span>
-            <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
-            </span></blockquote>
-            <p>produces:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;first entry of { &quot;alpha&quot;, &quot;beta&quot;, &quot;gamma&quot; }&quot; = optional texts: alpha</span><br><span class="syntaxidentifier">&quot;first entry of L&quot; = optional numbers: no value</span><br></code></pre></div>
+                <pre><code class="language-code">Test: DismantleLarge-G<br>For: Glulx<br></code></pre></div>
+            <p>The full list of legal options is given below, though users will rarely if ever need most of them.</p>
+            <ol>
+            <li>
+            <p><code class="inlinecode">RecipeLocation: Heading</code>. This is ignored for examples in extensions, but is used by examples in the main Inform documentation, and indicate which section of <em>The Recipe Book</em> they should be filed in. (Inform examples use an identical file format to extension examples, but are present in two books at once, so they need two different location indicators.)</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">Index: Text</code>. Again, this is used for Inform documentation examples but ignored for extension examples. It gives a brief descriptive text to appear in the A-Z index of documentation examples.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">Description: Text</code>. This is the strap-line underneath an example title, usually giving a brief explanation of what is being demonstrated. While it is not strictly compulsory, an example should really provide this. It's ignored for test cases.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">Language: Basic` or `Language: Inform</code>. The default here is <code class="inlinecode">Language: Inform</code>, which means the example/test should be run using the normal Inform programming language. <code class="inlinecode">Language: Basic</code> says that it is a Basic Inform example, that is, uses the pared-down version of the language with all interactive fiction features removed.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">CompatibleWith: Description</code>. This can be used to mark an example as being compatible only with certain platforms. Most examples work on any platform, so the default <code class="inlinecode">CompatibleWith: all</code> is fine.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">For: Z-Machine</code> or <code class="inlinecode">For: Glulx</code> or <code class="inlinecode">For: C</code> or <code class="inlinecode">For: Untestable</code>. Which platform the code should be compiled to when this example/test is tested. The default is <code class="inlinecode">For: Glulx</code> provided that Glulx is compatible with the <code class="inlinecode">CompatibleWith</code> description, and <code class="inlinecode">For: Z-Machine</code> if it is not. If an even finer distinction is needed, <code class="inlinecode">For:</code> can be set equal to any format text which Inform recognises: in fact, <code class="inlinecode">For: Glulx</code> is a synonym for <code class="inlinecode">For: inform6/32</code>.</p>
+            <p><code class="inlinecode">For: Untestable</code> says that an example doesn't really contain code which can usefully be tested, and that Intest can therefore ignore this example; test cases are not allowed to say this, since a test case which cannot be tested is a contradiction in terms.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">CompileOnly: Yes</code> or <code class="inlinecode">CompileOnly: No</code> (the default is <code class="inlinecode">No</code>). This can specify that a test should be compiled but not played. The test is considered a success if no Problem messages are issued. Extension tests just might need to set this if an example is too complex to test fully, for example if it involves complicated screen effects.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">TestCompilerInternals: Yes</code> or <code class="inlinecode">TestCompilerInternals: No</code> (the default is <code class="inlinecode">No</code>). This is only used for unit tests internal to the <code class="inlinecode">inform7</code> compiler. Switching this on makes it possible to use the otherwise forbidden <code class="inlinetranscript">Test ... (internal) with ...</code> in source text, which makes the compiler reveal its innermost thoughts. Extension tests will not need this.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">TestReleaseMetadata: Yes</code> or <code class="inlinecode">TestReleaseMetadata: No</code> (the default is <code class="inlinecode">No</code>). This is only used for testing the Inform compiler, and specifically verifying the blurb and iFiction files it outputs on a release run. Extension tests will not need this.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">GenerateIndex: Yes</code> or <code class="inlinecode">GenerateIndex: No</code> (the default is <code class="inlinecode">No</code>). Tests of an example or a test case are carried out in a throwaway Inform project, so that there is usually no point rebuilding the Index at the end of compilation — nobody will ever see it. But if the point of the test is exactly to check that the Index has been written correctly, then of course we do need to generate it, and it's for those test cases that this option exists. Extension tests will not need this.</p>
+            </li>
+            <li>
+            <p><code class="inlinecode">GenerateDiagnostics: Yes</code> or <code class="inlinecode">GenerateDiagnostics: No</code> (the default is <code class="inlinecode">No</code>). Used only by one Inform compiler test case, and only to output certain files which show diagrams of internal data structures for use in the technical documentation on the website. Extension tests will not need this.</p>
+            </li>
+            </ol>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_13.html"><span class="markdowncontent">Section 32.13: Neptune and kind constructors</span></a> &bull; <a href="WI_32_15.html"><span class="markdowncontent">Section 32.15: Neptune and arithmetic</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_13.html"><span class="markdowncontent">Section 32.13: Test cases which are not examples</span></a> &bull; <a href="WI_32_15.html"><span class="markdowncontent">Section 32.15: Providing an index</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

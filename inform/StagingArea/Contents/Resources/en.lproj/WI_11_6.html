@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,107 +2212,131 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Entrances and exits" -->
+            <!-- SEARCH SECTION "11.6" -->
+            <!-- SEARCH SORT "001-011-006-000" -->
             <h3><span>Section 11.6: Entrances and exits</span></h3>
+            <p>
+             
+
+             </p>
             <p>It's possible to write an entire story made of nothing but dialogue, beginning with a starting beat being performed, and then more beats flowing from that until the story ends. In a story like that, there's no need even to create any rooms. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Not much to say&quot;</span>
+            <!-- START CODE "code633" -->
+            <blockquote class="extract-inform7"><a id="code633"></a><span class="indexdullblue"><span class="string-syntax">&quot;Not much to say&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxheading">Section of conversation (dialogue)</span>
+            <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversation</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(This is the starting beat.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Welcome!&quot;</span>
+            <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Welcome!&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Hello!&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Hello!&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; end the story saying &quot;A world full of promise.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A world full of promise.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Goodbye.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Goodbye.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; end the story saying &quot;A missed opportunity.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A missed opportunity.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is a complete story, though not much of one, of course. It does take place in a room, because Inform automatically creates a room called <code class="inlinesourcetext">Stage</code> where the above takes place, but this is never visible to the player since the <code class="inlinesourcetext">Use nameless room descriptions</code> option is automatically selected.</p>
             <p>Characters can be created and introduced by being moved to the <code class="inlinesourcetext">Stage</code> as needed. Here, <code class="inlinesourcetext">Raphael</code> is off-stage at the start of play, but is moved into play by the opening line of narration, thanks to the stage direction <code class="inlinesourcetext">now Raphael is on-stage</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Perugia 1508&quot;</span>
+            <!-- START CODE "code634" -->
+            <blockquote class="extract-inform7"><a id="code634"></a><span class="indexdullblue"><span class="string-syntax">&quot;Perugia 1508&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Raphael</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxheading">Section of conversation (dialogue)</span>
+            <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversation</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(This is the starting beat.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge.&quot;</span>
+            <span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Raphael</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;No, no, I really can't take on one more thing. The Holy Father wants another Madonna by Friday.&quot;</span>
+            <span class="identifier-syntax">Raphael</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;No, no, I really can't take on one more thing. The Holy Father wants another Madonna by Friday.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;And I want an Adoration of the Magi right now.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;And I want an Adoration of the Magi right now.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; end the story saying &quot;You somehow end up 852 ducats the poorer.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You somehow end up 852 ducats the poorer.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Be reasonable, Raff.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Be reasonable, Raff.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Raphael</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You couldn't afford me, Primo.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Raphael</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You couldn't afford me, Primo.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; end the story saying &quot;You somehow end up with a chalk sketch of three indeterminate-aged women which is, nevertheless, another casual work of genius.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You somehow end up with a chalk sketch of three indeterminate-aged women which is, nevertheless, another casual work of genius.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If <code class="inlinesourcetext">Raphael</code> had not been moved to the <code class="inlinesourcetext">Stage</code>, he could not have spoken, because he wasn't in earshot. Multiple people can enter at the same moment:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Leonardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge, arguing intensely with Leonardo di ser Piero da Vinci.&quot;</span>
+            <!-- START CODE "code635" -->
+            <blockquote class="extract-inform7"><a id="code635"></a><span class="indexdullblue"><span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leonardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge, arguing intensely with Leonardo di ser Piero da Vinci.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or indeed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">everyone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge, flanked by a knot of his pupils and rivals.&quot;</span>
+            <!-- START CODE "code636" -->
+            <blockquote class="extract-inform7"><a id="code636"></a><span class="indexdullblue"><span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">everyone</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Raffaello Sanzio da Urbino approaches from the Tiber bridge, flanked by a knot of his pupils and rivals.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Similarly, <code class="inlinesourcetext">now X is off-stage</code> is equivalent to an exit for <code class="inlinesourcetext">X</code>.</p>
             <p>The timing here is a little important. This does not work as expected:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Michelangelo</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Michelangelo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Sorry, didn't mean to drip paint on you.&quot;</span>
+            <!-- START CODE "code637" -->
+            <blockquote class="extract-inform7"><a id="code637"></a><span class="indexdullblue"><span class="identifier-syntax">Michelangelo</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Michelangelo</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Sorry, didn't mean to drip paint on you.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The trouble is that Michelangelo can only perform the line if he is on-stage, but he only becomes on-stage through the line being performed: catch-22. He had better arrive in some earlier narration, or after somebody else has spoken. On the other hand, this does work:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
+            <!-- START CODE "code638" -->
+            <blockquote class="extract-inform7"><a id="code638"></a><span class="indexdullblue"><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">-</span><span class="identifier-syntax">stage</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here the timing works in our favour, because Raphael performs the line and is then taken off-stage by the <code class="inlinesourcetext">now</code>.</p>
             <p>This way of marshalling our characters is probably best suited to single-room stories, or those which (as in the examples above) don't even specify a single room. If we have a world of multiple locations, it's better to say exactly where the characters go to and come from:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Saint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nicholas</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
+            <!-- START CODE "code639" -->
+            <blockquote class="extract-inform7"><a id="code639"></a><span class="indexdullblue"><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saint</span><span class="plain-syntax"> </span><span class="identifier-syntax">Nicholas</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And if we have joined multiple rooms together into a map, we can even have the actors walk around this map:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Raphael</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">northwest</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
+            <!-- START CODE "code640" -->
+            <blockquote class="extract-inform7"><a id="code640"></a><span class="indexdullblue"><span class="identifier-syntax">Raphael</span><span class="plain-syntax"> (</span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">northwest</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'I'm expected in Città di Castello,' Raff says, turning on his heel and striding away.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_5.html"><span class="markdowncontent">Section 11.5: When the director is active</span></a> &bull; <a href="WI_11_7.html"><span class="markdowncontent">Section 11.7: Managing dialogue beats</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

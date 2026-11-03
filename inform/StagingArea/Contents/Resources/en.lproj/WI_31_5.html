@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 31.5: Defining generic phrases in I6</span></title>
+    <title><span class="markdowncontent">Section 31.5: JSON metadata</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_31_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.5: Defining generic phrases in I6</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.5: JSON metadata</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_31_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,57 +2212,48 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 31.5: Defining generic phrases in I6</span></h3>
-            <p>   </p>
-            <p>We have already seen so-called <em>generics</em>: see <a href="WI_24_6.html" title="Section 24.6: Generic phrases">Generic phrases</a> and <a href="WI_24_7.html" title="Section 24.7: Kind variables">Kind variables</a> for details. But for example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tripled</span><span class="syntaxplain">-</span><span class="syntaxidentifier">up</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ks</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "JSON metadata" -->
+            <!-- SEARCH SECTION "31.5" -->
+            <!-- SEARCH SORT "001-031-005-000" -->
+            <h3><span>Section 31.5: JSON metadata</span></h3>
+            <p> </p>
+            <p>Having got the <code class="inlinesourcetext">Ducking Action</code> extension working, in a minimal sort of way, we might now look again at the files being stored under the surface.</p>
+            <div class="extract-code">
+                <pre><code class="language-code">Ducking Test.inform<br>Ducking Test.materials<br>    Extensions<br>        Peter Drake<br>            Ducking Action-v1.i7xd<br>                extension_metadata.json<br>                Source<br>                    Ducking Action.i7x<br>        Reserved<br>    Release<br></code></pre></div>
+            <p>This is as before except that a new file, <code class="inlinecode">extension_metadata.json</code>, has appeared out of nowhere. JSON is an interchange format for computer programs to use when sending information to each other. If we look at this file, it reads:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">{<br>    &quot;is&quot;: {<br>        &quot;type&quot;: &quot;extension&quot;,<br>        &quot;title&quot;: &quot;Ducking Action&quot;,<br>        &quot;author&quot;: &quot;Peter Drake&quot;,<br>        &quot;version&quot;: &quot;1&quot;<br>    }<br>}<br></code></pre></div>
+            <p>In practice, extension authors can just forget that this file exists most of the time. Some low-level extensions will need to add various other pieces of information to it, but most extensions won't. If the extension title, author or version are changed, Inform will automatically correct <code class="inlinecode">extension_metadata.json</code> to match the change.</p>
+            <p>The commonest way that happens, in fact, is when the version number changes. Suppose we want to make an update to version 2. Suppose we correct the extension source so that it reads as follows:</p>
+            <!-- START CODE "code1848" -->
+            <blockquote class="extract-inform7"><a id="code1848"></a><span class="indexdullblue"><span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;duck&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">ducking</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tripled</span><span class="syntaxplain">-</span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxconstant">23</span><span class="syntaxplain">;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tripled</span><span class="syntaxplain">-</span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fish&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">ducking</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You duck! Twice!&quot;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tripled</span><span class="syntaxplain">-</span><span class="syntaxidentifier">up</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">7</span><span class="syntaxplain">, </span><span class="syntaxconstant">9</span><span class="syntaxplain">};</span>
+
+            <br>
+            <span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>This shows the lists:</p>
+            <!-- END CODE -->
+            <p>When we run the test project again, it once again works:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;tripled-up 23&quot; = list of numbers: {23, 23, 23}</span><br><span class="syntaxidentifier">&quot;tripled-up &quot;fish&quot;&quot; = list of texts: {&quot;fish&quot;, &quot;fish&quot;, &quot;fish&quot;}</span><br><span class="syntaxidentifier">&quot;tripled-up { 3, 7, 9 }&quot; = list of lists of numbers: {{3, 7, 9}, {3, 7, 9}, {3, 7, 9}}</span><br></code></pre></div>
-            <p>How might we replicate this if we were defining the same phrase using I6? Like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tripled</span><span class="syntaxplain">-</span><span class="syntaxidentifier">up</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">LIST_OF_TY_InsertItem</span><span class="syntaxplain">(</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">LIST_OF_TY_InsertItem</span><span class="syntaxplain">(</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">LIST_OF_TY_InsertItem</span><span class="syntaxplain">(</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">{-</span><span class="syntaxidentifier">new</span><span class="syntaxplain">:</span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">},</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">{</span><span class="syntaxidentifier">V</span><span class="syntaxplain">}),</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">{</span><span class="syntaxidentifier">V</span><span class="syntaxplain">}),</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">{</span><span class="syntaxidentifier">V</span><span class="syntaxplain">})) -).</span>
-            </span></blockquote>
-            <p>And note that the kind variable <code class="inlinesourcetext">K</code> is available inside the I6 definition, where it is used in <code class="inlinesourcetext">{-new:list of K}</code>.</p>
+                <pre><code class="language-transcript">&gt; TEST ME<br>(Testing.)<br><br>&gt;[1] DUCK<br>You duck! Twice!<br></code></pre></div>
+            <p>But if we then look back at the files under the hood, we find that the folder previously called <code class="inlinecode">Ducking Action-v1.i7xd</code>, which held the extension, has now been renamed <code class="inlinecode">Ducking Action-v2.i7xd</code>, and also that the JSON metadata has become:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">{<br>    &quot;is&quot;: {<br>        &quot;type&quot;: &quot;extension&quot;,<br>        &quot;title&quot;: &quot;Ducking Action&quot;,<br>        &quot;author&quot;: &quot;Peter Drake&quot;,<br>        &quot;version&quot;: &quot;2&quot;<br>    }<br>}<br></code></pre></div>
+            <p>So the upshot of this technical little section is... that we can basically forget about the JSON metadata for the moment, and let it do its own thing.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_31_4.html"><span class="markdowncontent">Section 31.4: By value and by reference</span></a> &bull; <a href="WI_31_6.html"><span class="markdowncontent">Section 31.6: Repeat loops and their variables</span></a></em></p>
+        <p><em> &bull; <a href="WI_31_4.html"><span class="markdowncontent">Section 31.4: Creating a new extension</span></a> &bull; <a href="WI_31_6.html"><span class="markdowncontent">Section 31.6: Begins here and ends here</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

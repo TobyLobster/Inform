@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,27 +2212,35 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Regions and the index map" -->
+            <!-- SEARCH SECTION "3.4" -->
+            <!-- SEARCH SORT "001-003-004-000" -->
             <h3><span>Section 3.4: Regions and the index map</span></h3>
             <p>        </p>
             <p>Rooms represent individual places to which one can go, but we tend to think of the world around us in larger pieces: we think of a house and a garden, rather than each of the single rooms of the house and all corners of its garden. To Inform a collection of rooms is called a <em>region</em>, and we can create one like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Arboretum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Botanical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Gardens</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Northwest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Gardens</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tropical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Greenhouse</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code65" -->
+            <blockquote class="extract-inform7"><a id="code65"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Arboretum</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Botanical</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gardens</span><span class="plain-syntax">. </span><span class="identifier-syntax">Northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gardens</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tropical</span><span class="plain-syntax"> </span><span class="identifier-syntax">Greenhouse</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Public</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">region</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Arboretum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Gardens</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Public</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Public</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">region</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Arboretum</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gardens</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Public</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The real usefulness of creating regions like <code class="inlinesourcetext">Public Area</code> will only appear later, when we begin defining rules of play which apply in some areas but not others, but in the mean time we can see the effect by turning to the World tab of the Index. In the World Index, Inform draws a map – or at least a stylised attempt at a diagram of the rooms and their connections: this will not always correspond to how we imagine things, but with any luck it should mostly be right.</p>
             <p>Rooms are represented by coloured squares, and the colour-coding is done by region. In the above example, the two Public Area rooms are coloured green (as it happens); the Greenhouse, since it belongs to no region, is a neutral grey.</p>
             <p>Regions can be put inside each other:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">University</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Parks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">region</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Public</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">University</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Parks</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code66" -->
+            <blockquote class="extract-inform7"><a id="code66"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">University</span><span class="plain-syntax"> </span><span class="identifier-syntax">Parks</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">region</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Public</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">University</span><span class="plain-syntax"> </span><span class="identifier-syntax">Parks</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>but they are not allowed to overlap other than by one being entirely inside the other.</p>
             <p>The effect of writing <code class="inlinesourcetext">The Arboretum is in the Public Area.</code> is that the Arboretum has a <em>property</em> called its <code class="inlinesourcetext">map region</code> set to the <code class="inlinesourcetext">Public Area</code>.
             (More on properties later.) Every room has a <code class="inlinesourcetext">map region</code> property, but this is just set to <code class="inlinesourcetext">nowhere</code> unless the source text explicitly says otherwise: that is, by default rooms are not in any region at all. Where a room is in multiple regions, as in the case of the <code class="inlinesourcetext">Arboretum</code> being in both the <code class="inlinesourcetext">Public Area</code> and the <code class="inlinesourcetext">University Parks</code>, its <code class="inlinesourcetext">map region</code> is the innermost region it belongs to: so, in this case, <code class="inlinesourcetext">map region of the Arboretum</code> evaluates during play as <code class="inlinesourcetext">Public Area</code>. But the tests <code class="inlinesourcetext">if the Arboretum is in the Public Area</code> and <code class="inlinesourcetext">if the Arboretum is in the University Parks</code> are both true.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li>
-            <p><a href="WI_27_18.html" title="Section 27.18: Improving the index map">Improving the index map</a> for ways to adjust the way the index map is drawn or exported for publication.</p>
+            <p><a href="WI_29_18.html" title="Section 29.18: Improving the index map">Improving the index map</a> for ways to adjust the way the index map is drawn or exported for publication.</p>
             </li>
             <li>
             <p><a href="WI_6_10.html" title="Section 6.10: A word about in">A word about in</a> for a fuller explanation of how Inform decides whether something is or isn't <code class="inlinesourcetext">in</code> something else, which has some special cases to handle regions.</p>
@@ -2155,18 +2248,18 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg17><a style="text-decoration: none" href="eg_17.html"><span class="extensionexampleletter">17</span></a></span></div>
+                    <span id=eg16><a style="text-decoration: none" href="eg_16.html"><span class="extensionexampleletter">16</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_17.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 3</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_16.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 3</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Division of Port Royal into regions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg17><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg16><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_3.html"><span class="markdowncontent">Section 3.3: One-way connections</span></a> &bull; <a href="WI_3_5.html"><span class="markdowncontent">Section 3.5: Kinds</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

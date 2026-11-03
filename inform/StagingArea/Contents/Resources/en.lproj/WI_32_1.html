@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Chapter 32: Kits</span></title>
+    <title><span class="markdowncontent">Chapter 32: Extension Documentation and Testing</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,16 +2193,15 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
                 <tr>
                     <td class="midnightbannerleftcell">
-                        <a href="WI_31_14.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
+                        <a href="WI_31_17.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 32: Kits</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 32: Extension Documentation and Testing</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_2.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,16 +2212,74 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h2><span>Chapter 32: Kits</span></h2>
-            <h3><span>Section 32.1: About kits</span></h3>
-            <p>A <em>kit</em> is a body of code written entirely in I6 syntax. It is compiled independently from the source text of a story which uses it, and the two are then merged together (or <em>linked</em>). Kits can be quite large: <code class="inlinecode">BasicInformKit</code>, which sits inside the <code class="inlinesourcetext">Basic Inform</code> extension, runs to over 12,000 lines. Equally, they do not have to be. It's fine to write a kit containing just a single function or two.</p>
-            <p>Kits sit inside extensions, and provide them with support services. An extension can contain multiple kits, but of course does not need to contain any. Kits increase the power of extensions in a number of ways. They can access memory directly, and are not constrained by the kind-safety rules which would apply to higher-level code. For example, all the code to build, sort and dismantle lists is done by functions in <code class="inlinecode">BasicInformKit</code>. Kits can also create new fundamental kinds of value for Inform.</p>
-            <p>This chapter is the most technical in the book. It's aimed at writers of extensions who need more power, and it assumes the reader is comfortable with the material in the <a href="WI_29_1.html" title="Chapter 29: Extensions">Extensions</a> and <a href="WI_31_1.html" title="Chapter 31: Low-Level Programming">Low-Level Programming</a> chapters, together with at least a passing knowledge of Inform 6 syntax, since that's essentially the same thing as writing I6.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Making a documentation set for an extension" -->
+            <!-- SEARCH SECTION "32.1" -->
+            <!-- SEARCH SORT "001-032-001-000" -->
+            <h2><span>Chapter 32: Extension Documentation and Testing</span></h2>
+            <h3><span>Section 32.1: Making a documentation set for an extension</span></h3>
+            <p></p>
+            <p>Every extension intended to be used by anybody other than its author needs <em>documentation</em>. This is a brief manual explaining what it does, and how to use it. Some extensions are simple enough that a single page of notes is enough, but others benefit from examples.</p>
+            <p>In the previous chapter we followed the story of an extension called <code class="inlinesourcetext">Ducking Action by Peter Drake</code>, which was held in a directory called <code class="inlinecode">Ducking Action-v1.i7xd</code>. (That in turn sat installed into the <code class="inlinecode">.materials</code> folder of a test project called <code class="inlinecode">Ducking Test.inform</code>.) Since there is only so much one can write about the act of ducking, this chapter will suppose that we are now documenting a larger and more capable extension for stamp collectors, called <code class="inlinesourcetext">Philately</code>.</p>
+            <p>So we start with the extension looking like so:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">Philately-v1.i7xd<br>    extension_metadata.json<br>    Source<br>        Philately.i7x<br></code></pre></div>
+            <p>We now add a new subdirectory alongside <code class="inlinecode">Source</code>: <code class="inlinecode">Documentation</code>.</p>
+            <div class="extract-code">
+                <pre><code class="language-code">Philately-v1.i7xd<br>    extension_metadata.json<br>    Documentation<br>        Documentation.md<br>    Source<br>        Philately.i7x<br></code></pre></div>
+            <p>So in other words, we need to create a new subdirectory called <code class="inlinecode">Documentation</code> and create a new text file inside it called <code class="inlinecode">Documentation.md</code>. That new directory is called a <em>documentation set</em>, and although it will start in a minimal way, with a single file and hardly any text, it can scale up considerably. The entire in-app documentation for Inform, with the two books <em>Writing with Inform</em> and <em>The Recipe Book</em>, and all their examples and indexes, are constructed as a single documentation set. It's very unlikely that an extension will ever need so huge a manual, but it could if we wanted it to.</p>
+            <p>Once again, <code class="inlinecode">Documentation.md</code> is a plain text file encoded as UTF-8, just like <code class="inlinecode">Philately.i7x</code>: a text editor which can edit one can also edit the other. It can start like this:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">## Introduction<br><br>The &quot;Philately&quot; extension provides ways to manage stamp collections.<br>Contact stampbuff1837@gmail.com with any bug reports.<br><br>Individual stamps can be declared, and given prices:<br><br>    The Harding Memorial 1923 Issue is a stamp.<br>    &quot;Note the black border of this US 2 cents issue.&quot;<br><br>    The price of the Harding Memorial is $25.50.<br></code></pre></div>
+            <p>As the filename ending <code class="inlinecode">.md</code> will already have signalled to some readers, <code class="inlinecode">Documentation.md</code> is written in a notation called <em>Markdown</em>. It is in fact a way to mark text <em>up</em>, but an easy, low-fuss one, at least compared to many other syntaxes which have been tried. The little file above contains two markings-up: the <code class="inlinecode">##</code> marks the word <code class="inlinecode">Introduction</code> as a section heading, and the fact that the <code class="inlinecode">The Harding Memorial ...</code> line is indented by one tab step means that it is presented as a source text extract, syntax-coloured as Inform 7 source.</p>
+            <p>Extension documentation is presented exactly like this manual: so, for example,</p>
+            <blockquote>
+            <h4><span>Introduction</span></h4>
+            <p>The &quot;Philately&quot; extension provides ways to manage stamp collections.
+            Contact <a href="mailto:stampbuff1837@gmail.com">stampbuff1837@gmail.com</a> with any bug reports.</p>
+            <p>Individual stamps can be declared, and given prices:</p>
+            <!-- START CODE "code1920" -->
+            <blockquote class="extract-inform7"><a id="code1920"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Harding</span><span class="plain-syntax"> </span><span class="identifier-syntax">Memorial</span><span class="plain-syntax"> </span><span class="constant-syntax">1923</span><span class="plain-syntax"> </span><span class="identifier-syntax">Issue</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">stamp</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="string-syntax">&quot;Note the black border of this US 2 cents issue.&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">price</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Harding</span><span class="plain-syntax"> </span><span class="identifier-syntax">Memorial</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> $25.50.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            </blockquote>
+            <p>Markdown is a widely-used Internet standard, so modern text editors often offer special facilities for editing Markdown content, and will for example syntax-colour it nicely.</p>
+            <h4><span>Technical footnote</span></h4>
+            <p>There are many dialects of Markdown. The one Inform uses is called <em>Inform-flavored Markdown</em>, as follows:</p>
+            <ul>
+            <li>
+            <p>All CommonMark features are supported, i.e.: emphasis, strong emphasis, backticked code snippets, links, images, web autolinks, email autolinks, block quotes, ordered lists, unordered lists, thematic breaks, indented code samples, fenced code samples with optional info strings, ATX headings (i.e. using <code class="inlinecode">#</code> characters), setext underlined headings (i.e. using a second line of <code class="inlinecode">----</code> characters), backslashed escapes, and HTML entities; <em>except that</em></p>
+            </li>
+            <li>
+            <p>For security reasons, raw HTML blocks are not passed through as HTML,
+            and similarly raw HTML tags are not allowed. So <code class="inlinecode">this is &lt;b&gt;bold&lt;/b&gt;</code>
+            does not place the word &quot;bold&quot; in boldface, and instead passes the angle-bracket
+            notations through into the resulting text.</p>
+            </li>
+            <li>
+            <p>All GitHub-flavored Markdown's extensions to CommonMark are supported: strikethrough, tables, task list items and extended autolinks.</p>
+            </li>
+            <li>
+            <p>An extension syntax allows marking-up documentation for indexing: see [Indexing documentation].</p>
+            </li>
+            <li>
+            <p>And one further extension is made for compatibility with old-style headings: see <a href="WI_32_2.html" title="Section 32.2: Headings and organisation">Headings and organisation</a>.</p>
+            </li>
+            </ul>
+            <p>Inform's documentation engine passes the entire suite of validation tests for both CommonMark and Github-flavored Markdown, so it is fair to call this an extended but highly standard Markdown.</p>
+            <h4><span>Historical footnote</span></h4>
+            <p>In releases of Inform before 2024, extension documentation was tacked on to the end of the extension source after a tear-off-slip like line reading <code class="inlinesourcetext">---- DOCUMENTATION ----</code>; and it was then written in its own non-standard markup notation, although this was very minimal. The results were not very appealing, and there was no proper syntax colouring.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_31_14.html"><span class="markdowncontent">Section 31.14: How I6 differs from Inform 6</span></a> &bull; <a href="WI_32_2.html"><span class="markdowncontent">Section 32.2: Adding a kit to an extension</span></a></em></p>
+        <p><em> &bull; <a href="WI_31_17.html"><span class="markdowncontent">Section 31.17: Style and best practice guide</span></a> &bull; <a href="WI_32_2.html"><span class="markdowncontent">Section 32.2: Headings and organisation</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

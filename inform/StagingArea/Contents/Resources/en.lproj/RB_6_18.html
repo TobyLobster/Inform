@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,12 +2212,16 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Alternatives To Standard Parsing" -->
+            <!-- SEARCH SECTION "6.18" -->
+            <!-- SEARCH SORT "002-006-018-000" -->
             <h3><span>Section 6.18: Alternatives To Standard Parsing</span></h3>
             <p>
             Very occasionally, for out-of-the-ordinary games, we want to make major changes to the way that Inform ordinarily understands commands.</p>
-            <p><a href="eg_402.html">Cloves</a> shows how we might read adverbs in the player's command: adverbs are challenging because they can legitimately appear anywhere in a command structure, so must be found and accounted for before the rest of the command is understood.</p>
-            <p><a href="eg_403.html">Fragment of a Greek Tragedy</a> goes further, substituting a keyword-recognition parser for the usual structure of commands and objects.</p>
-            <p>Less drastically, menus of numbered options can temporarily replace or augment standard commands. <a href="eg_333.html">Down in Oodville</a> demonstrates how to add a list of transporter destinations from which the player may choose by numeral.</p>
+            <p><a href="eg_399.html">Cloves</a> shows how we might read adverbs in the player's command: adverbs are challenging because they can legitimately appear anywhere in a command structure, so must be found and accounted for before the rest of the command is understood.</p>
+            <p><a href="eg_400.html">Fragment of a Greek Tragedy</a> goes further, substituting a keyword-recognition parser for the usual structure of commands and objects.</p>
+            <p>Less drastically, menus of numbered options can temporarily replace or augment standard commands. <a href="eg_330.html">Down in Oodville</a> demonstrates how to add a list of transporter destinations from which the player may choose by numeral.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_5_2.html" title="Section 5.2: Traits Determined By the Player">Traits Determined By the Player</a> for ways to ask the player a question at the beginning of play.</li>
@@ -2140,54 +2229,54 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg175><a style="text-decoration: none" href="eg_175.html"><span class="extensionexampleletter">175</span></a></span></div>
+                    <span id=eg172><a style="text-decoration: none" href="eg_172.html"><span class="extensionexampleletter">172</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_175.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pure Choice</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_172.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pure Choice</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a branching text with no world model to speak of.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg175><a style="text-decoration: none" href="WI_11_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg172><a style="text-decoration: none" href="WI_11_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg402><a style="text-decoration: none" href="eg_402.html"><span class="extensionexampleletter">402</span></a></span></div>
+                    <span id=eg399><a style="text-decoration: none" href="eg_399.html"><span class="extensionexampleletter">399</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_402.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloves</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_399.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloves</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Accepting adverbs anywhere in a command, registering what the player typed but then cutting them out before interpreting the command.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg402><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg399><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg333><a style="text-decoration: none" href="eg_333.html"><span class="extensionexampleletter">333</span></a></span></div>
+                    <span id=eg330><a style="text-decoration: none" href="eg_330.html"><span class="extensionexampleletter">330</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_333.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Down in Oodville</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_330.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Down in Oodville</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Offering the player a choice of numbered options at certain times, without otherwise interfering with their ability to give regular commands.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg333><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg330><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg403><a style="text-decoration: none" href="eg_403.html"><span class="extensionexampleletter">403</span></a></span></div>
+                    <span id=eg400><a style="text-decoration: none" href="eg_400.html"><span class="extensionexampleletter">400</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_403.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fragment of a Greek Tragedy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_400.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fragment of a Greek Tragedy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Responding to the player's input based on keywords only, and overriding the original parser entirely.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg403><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg400><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg190><a style="text-decoration: none" href="eg_190.html"><span class="extensionexampleletter">190</span></a></span></div>
+                    <span id=eg187><a style="text-decoration: none" href="eg_187.html"><span class="extensionexampleletter">187</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_190.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Testing Pure Choice</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_187.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Testing Pure Choice</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Modifying the offering activity so that it follows a test script rather than stopping to ask for player input.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg190><a style="text-decoration: none" href="WI_11_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg187><a style="text-decoration: none" href="WI_11_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_17.html"><span class="markdowncontent">Section 6.17: Clarification and Correction</span></a> &bull; <a href="RB_7_1.html"><span class="markdowncontent">Chapter 7: Other Characters</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

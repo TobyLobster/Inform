@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,45 +2193,78 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg340><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleletter">340</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aspect</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Understanding aspect ratios (a unit) in the names of televisions.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peers</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">The peers of the English realm come in six flavours - Baron, Viscount, Earl, Marquess, Duke and Prince - and must always be addressed properly. While a peerage is for life, it may at the royal pleasure be promoted.</span></span></div>
             <div class="exampleright">
-                <span id=eg340><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg340><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Named properties are not the only kind that Inform is able to understand referring to an object. We can also use unit and number properties to distinguish things from one another, as here, where televisions have aspect ratios:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Aspect[=0x0022=][=0x000A=][=0x000A=]An aspect ratio is a kind of value. 16:9 specifies an aspect ratio.[=0x000A=][=0x000A=]A television is a kind of device. A television has an aspect ratio. Understand the aspect ratio property as referring to a television. Understand [=0x0022=]European standard[=0x0022=] as 16:9.[=0x000A=][=0x000A=]The Office is a room.[=0x000A=][=0x000A=]The widescreen TV is a television in the Office. The fifties TV is a television in the Office. The widescreen TV is 16:9. The fifties TV is 4:3.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine european standard tv / x 16:9 tv / x 4:3 tv[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Aspect&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Peers" -->
+        <!-- SEARCH SECTION "Example 340" -->
+        <!-- SEARCH SORT "003-340-000-000" -->
+        <p>   </p>
+        <p>Almost all of this example is the flummery of pomp and circumstance: only the first two paragraphs really do anything.</p>
+        <!-- START CODE "code2179" -->
+        <blockquote class="extract-inform7"><a id="code2179"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Peers[=0x0022=] by Elizabeth II R[=0x000A=][=0x000A=]A title is a kind of value. The titles are Baron, Viscount, Earl, Marquess, Duke and Prince.[=0x000A=][=0x000A=]A peer is a kind of man. A peer has a title. A peer is usually a Baron. Before printing the name of a peer, say [=0x0022=][title] [=0x0022=]. Understand the title property as describing a peer.[=0x000A=][=0x000A=]The House of Lords is a room. Maltravers, Pollifax, Omnium and St Vincent are peers in the House of Lords. Omnium is a Duke. St Vincent is an Earl.[=0x000A=][=0x000A=]Ennobling is an action applying to one thing and one title.[=0x000A=][=0x000A=]Check ennobling:[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]The Sovereign is the fountain of honour, and may not be ennobled.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is not a peer, say [=0x0022=]Commoners should remain so.[=0x0022=] instead;[=0x000A=][=0x0009=]if the title of the noun is the title understood, say [=0x0022=]But that is his title already.[=0x0022=] instead;[=0x000A=][=0x0009=]if the title of the noun is greater than the title understood, say [=0x0022=]As he is already of the rank of [title of the noun], any such letters patent are liable to be deemed invalid, following the precedent of the Buckhurst Peerage Case (1876). Best not.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out ennobling:[=0x000A=][=0x0009=]now the title of the noun is the title understood.[=0x000A=][=0x000A=]Report ennobling:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Whereas Our Parliament for arduous and urgent affairs concerning Us the state and defence of Our United Kingdom and the Church is now met at Our City of Westminster We strictly enjoining Command you upon the faith and allegiance by which you are bound to Us that the weightness of the said affairs and imminent perils considered (waiving all excuses) you be at the said day and place personally present with Us and with the said Prelates Great Men and Peers to treat and give your counsel upon the affairs aforesaid And this as you regard Us and Our honour and the safety and defence of the said Kingdom and Church and dispatch of the said affairs in nowise do you omit Witness Ourself at Westminster the Fifth day of November in the 43rd year of Our Reign,[=0x0027=] you say, with unpunctuated serenity. The new [noun] bows stiffly.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]dub [someone] a/an [title][=0x0022=] as ennobling.[=0x000A=][=0x000A=]Test me with [=0x0022=]dub st vincent a baron / dub maltravers a marquess / look / examine marquess[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Peers&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elizabeth</span><span class="plain-syntax"> </span><span class="identifier-syntax">II</span><span class="plain-syntax"> </span><span class="identifier-syntax">R</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">16</span><span class="syntaxplain">:9 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">titles</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">Baron</span><span class="plain-syntax">, </span><span class="identifier-syntax">Viscount</span><span class="plain-syntax">, </span><span class="identifier-syntax">Earl</span><span class="plain-syntax">, </span><span class="identifier-syntax">Marquess</span><span class="plain-syntax">, </span><span class="identifier-syntax">Duke</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Prince</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">referring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;European standard&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span><span class="syntaxplain">:9.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Baron</span><span class="plain-syntax">. </span><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[title] &quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lords</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Maltravers</span><span class="plain-syntax">, </span><span class="identifier-syntax">Pollifax</span><span class="plain-syntax">, </span><span class="identifier-syntax">Omnium</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">St</span><span class="plain-syntax"> </span><span class="identifier-syntax">Vincent</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">peers</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lords</span><span class="plain-syntax">. </span><span class="identifier-syntax">Omnium</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Duke</span><span class="plain-syntax">. </span><span class="identifier-syntax">St</span><span class="plain-syntax"> </span><span class="identifier-syntax">Vincent</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">Earl</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">widescreen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">TV</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fifties</span><span class="syntaxplain"> </span><span class="syntaxidentifier">TV</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">widescreen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">TV</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span><span class="syntaxplain">:9. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fifties</span><span class="syntaxplain"> </span><span class="syntaxidentifier">TV</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">:3.</span>
+        <span class="identifier-syntax">Ennobling</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;examine european standard tv / x 16:9 tv / x 4:3 tv&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennobling</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Sovereign is the fountain of honour, and may not be ennobled.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">peer</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Commoners should remain so.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;But that is his title already.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;As he is already of the rank of [title of the noun], any such letters patent are liable to be deemed invalid, following the precedent of the Buckhurst Peerage Case (1876). Best not.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennobling</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennobling</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;'Whereas Our Parliament for arduous and urgent affairs concerning Us the state and defence of Our United Kingdom and the Church is now met at Our City of Westminster We strictly enjoining Command you upon the faith and allegiance by which you are bound to Us that the weightness of the said affairs and imminent perils considered (waiving all excuses) you be at the said day and place personally present with Us and with the said Prelates Great Men and Peers to treat and give your counsel upon the affairs aforesaid And this as you regard Us and Our honour and the safety and defence of the said Kingdom and Church and dispatch of the said affairs in nowise do you omit Witness Ourself at Westminster the Fifth day of November in the 43rd year of Our Reign,' you say, with unpunctuated serenity. The new [noun] bows stiffly.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;dub [someone] a/an [title]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennobling</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;dub st vincent a baron / dub maltravers a marquess / look / examine marquess&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_19_16.html>Section 19.16: Understanding things by their properties</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

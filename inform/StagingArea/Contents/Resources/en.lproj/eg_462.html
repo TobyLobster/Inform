@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,81 +2193,82 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg462><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleletter">462</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">I Didn't Come All The Way From Great Portland Street</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">In this fiendishly difficult puzzle, which may perhaps owe some inspiration to a certain BBC Radio panel game (1967-), a list is used as a set of actions to help enforce the rule that the player must keep going for ten turns without hesitation, repetition, or deviating from the subject on the card.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">The modest Leonardo Fibonacci of Pisa will be only too happy to construct his sequence on request, using an array.</span></span></div>
             <div class="exampleright">
-                <span id=eg462><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg462><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "The Fibonacci Sequence" -->
+        <!-- SEARCH SECTION "Example 462" -->
+        <!-- SEARCH SORT "003-462-000-000" -->
         <p></p>
-        <p>There is very little to this, in fact. The tricky rule to enforce is Repetition: the player is forbidden to repeat any previously tried action. We keep track of this by keeping a set of past actions, which for want of a better term is called the <code class="inlinesourcetext">tally</code>. All we need to do is:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain">, </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Repetition of </span><span class="syntaxextract">[the current action]</span><span class="syntaxstring">!&quot;</span><span class="syntaxplain">;</span>
+        <p>Fibonacci (a posthumous nickname) spread Arabic mathematical learning across Europe in the 13th century, and it's curious that his name lives on only for a single sequence.</p>
+        <!-- START CODE "code2885" -->
+        <blockquote class="extract-inform7"><a id="code2885"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Fibonacci Sequence[=0x0022=][=0x000A=][=0x000A=]Pisa is a room. Leonardo Fibonacci is a man in Pisa. [=0x0022=]The modest Italian mathematician, Leonardo Fibonacci (1170-1250), beams at you.[=0x0022=][=0x000A=][=0x000A=]Sequencing is an action applying to one number. Understand [=0x0022=]sequence [number][=0x0022=] as sequencing.[=0x000A=][=0x000A=]Instead of sequencing, say [=0x0022=]You make a feeble attempt, sketching in the sand, but it goes nowhere. Leonardo is sympathetic. [=0x0027=]Often goes wrong for me, too, actually. I didn[=0x0027=]t even invent the thing - the ancient Indians knew about it first.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking Leonardo to try sequencing: persuasion succeeds.[=0x000A=][=0x000A=]Report Leonardo sequencing:[=0x000A=][=0x0009=]let N be the number understood;[=0x000A=][=0x0009=]say [=0x0022=]Leonardo scratches his head and makes self-deprecating remarks, before coming up with [the first N terms of the Fibonacci sequence].[=0x0022=][=0x000A=][=0x000A=]To decide what list of numbers is the first (F - a number) terms of the Fibonacci sequence:[=0x000A=][=0x0009=]let the Fibonacci sequence be {1, 1};[=0x000A=][=0x0009=]let N be 3;[=0x000A=][=0x0009=]while N [=0x003C=] F:[=0x000A=][=0x0009=][=0x0009=]let the last term be entry (N - 1) of the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]let the penultimate term be entry (N - 2) of the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]let the next term be the last term plus the penultimate term;[=0x000A=][=0x0009=][=0x0009=]add the next term to the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]increment N;[=0x000A=][=0x0009=]decide on the Fibonacci sequence.[=0x000A=][=0x000A=]Test me with [=0x0022=]sequence 20 / leonardo, sequence 20[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;The Fibonacci Sequence&quot;</span>
         <br>
-        <span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Pisa</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Leonardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pisa</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The modest Italian mathematician, Leonardo Fibonacci (1170-1250), beams at you.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Sequencing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sequence [number]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequencing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequencing</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You make a feeble attempt, sketching in the sand, but it goes nowhere. Leonardo is sympathetic. 'Often goes wrong for me, too, actually. I didn't even invent the thing - the ancient Indians knew about it first.'&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leonardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequencing</span><span class="plain-syntax">: </span><span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leonardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequencing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Leonardo scratches his head and makes self-deprecating remarks, before coming up with [the first N terms of the Fibonacci sequence].&quot;</span>
         </span></blockquote>
-        <p>Note that the tally can never contain duplicates, and that when, at the end of the round, we print it out, we sort it first–this makes a more natural-looking sentence. (Sorting a list of actions uses the natural order for actions: compare the sequence on the Actions page of the Index.) The full text, then, is:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]I Didn[=0x0027=]t Come All The Way From Great Portland Street[=0x0022=][=0x000A=][=0x000A=]The Paris Theatre is a room. An instrument is a kind of thing. The violin, the tuba, the xylophone and the triangle are instruments. The violin is inside the case. The tuba, the xylophone, the radish, the case, the bust of Nicholas Parsons, the purple felt hat and the triangle are in the Paris Theatre.[=0x000A=][=0x000A=]The Round is a scene. The Round begins when play begins. The Round ends when the turn count is 10.[=0x000A=][=0x000A=]The tally is a list of stored actions that varies.[=0x000A=][=0x000A=]When the Round begins:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]And the subject on the card is... musical instruments. Will you carry out for us something to do with that, please, for ten turns starting - now![=0x0027=][=0x0022=][=0x000A=][=0x000A=]When the Round ends:[=0x000A=][=0x0009=]sort the tally;[=0x000A=][=0x0009=]say [=0x0022=]Phweeep![paragraph break][=0x0027=]So, when the whistle goes ten turns are up, you get a point for acting when the whistle blows, and in that round you entertained us by [the tally], and you also get a bonus point for keeping going until the whistle went.[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]end the story finally.[=0x000A=][=0x000A=]To challenge for (infraction - text):[=0x000A=][=0x0009=]say [=0x0022=]Bzzzzt! [=0x0027=]And [one of]Clement Freud[or]Derek Nimmo[or]Kenneth Williams[or]Peter Jones[at random] has challenged.[=0x0027=][paragraph break][=0x0027=][infraction][=0x0027=][paragraph break][=0x0027=]Well, as it[=0x0027=]s your first time playing the game, and the audience was enjoying your contribution so much, I will disallow the challenge, you have [10 minus the turn count] turn[s] left on musical instruments, starting... now![=0x0022=][=0x000A=][=0x000A=]Before doing something:[=0x000A=][=0x0009=]if the current action is listed in the tally, challenge for [=0x0022=]Repetition of [the current action]![=0x0022=] instead;[=0x000A=][=0x0009=]otherwise add the current action to the tally;[=0x000A=][=0x0009=]if waiting, challenge for [=0x0022=]Hesitation![=0x0022=] instead;[=0x000A=][=0x0009=]if not looking and not waiting and the noun is not an instrument and the second noun is not an instrument, challenge for [=0x0022=]Deviation![=0x0022=] instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]look / wait / examine bust / take tuba / get triangle / hit xylophone / get tuba / examine tuba / get violin[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;I Didn't Come All The Way From Great Portland Street&quot;</span>
+        <!-- END CODE -->
+        <p>An array need not be fixed in length, as the following example shows:</p>
+        <!-- START CODE "code2886" -->
+        <blockquote class="extract-inform7"><a id="code2886"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> (</span><span class="identifier-syntax">F</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">terms</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {1, </span><span class="constant-syntax">1</span><span class="plain-syntax">};</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> &lt; </span><span class="identifier-syntax">F</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="constant-syntax">1</span><span class="plain-syntax">) </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">penultimate</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="constant-syntax">2</span><span class="plain-syntax">) </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax"> </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">penultimate</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">term</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increment</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fibonacci</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Paris</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Theatre</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instrument</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violin</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tuba</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">xylophone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">triangle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instruments</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tuba</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">xylophone</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">radish</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bust</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nicholas</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Parsons</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">purple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">felt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">triangle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Paris</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Theatre</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stored</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'And the subject on the card is... musical instruments. Will you carry out for us something to do with that, please, for ten turns starting - now!'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Phweeep!</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">'So, when the whistle goes ten turns are up, you get a point for acting when the whistle blows, and in that round you entertained us by </span><span class="syntaxextract">[the tally]</span><span class="syntaxstring">, and you also get a bonus point for keeping going until the whistle went.'&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">infraction</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">text</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bzzzzt! 'And </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Clement Freud</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Derek Nimmo</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Kenneth Williams</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Peter Jones</span><span class="syntaxextract">[at random]</span><span class="syntaxstring"> has challenged.'</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">'</span><span class="syntaxextract">[infraction]</span><span class="syntaxstring">'</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">'Well, as it's your first time playing the game, and the audience was enjoying your contribution so much, I will disallow the challenge, you have </span><span class="syntaxextract">[10 minus the turn count]</span><span class="syntaxstring"> turn</span><span class="syntaxextract">[s]</span><span class="syntaxstring"> left on musical instruments, starting... now!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain">, </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Repetition of </span><span class="syntaxextract">[the current action]</span><span class="syntaxstring">!&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tally</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain">, </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Hesitation!&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instrument</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instrument</span><span class="syntaxplain">, </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Deviation!&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;look / wait / examine bust / take tuba / get triangle / hit xylophone / get tuba / examine tuba / get violin&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sequence 20 / leonardo, sequence 20&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>(The Paris Theatre in Lower Regent Street, London, was for many years the home of BBC radio panel games.)</p>
+        <!-- END CODE -->
+        <p>The result of &quot;the first 20 terms of the Fibonacci sequence&quot; is &quot;1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584 and 4181&quot;. This is a sequence which has a knack of turning up in odd places–it was found in the 1970s to be related to the rings of florets in a sunflower, for instance–and here it is in a book about interactive fiction.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_23_11.html>Section 23.11: Variations: arrays, logs, queues, stacks, sets, sieves and rings</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

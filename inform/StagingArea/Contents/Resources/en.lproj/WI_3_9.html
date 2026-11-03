@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,26 +2212,36 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Backdrops" -->
+            <!-- SEARCH SECTION "3.9" -->
+            <!-- SEARCH SORT "001-003-009-000" -->
             <h3><span>Section 3.9: Backdrops</span></h3>
             <p>       </p>
             <p>It is a cardinal rule that nothing can be in more than one place at the same time, but rules were made to be broken, and an exception is allowed for a special kind of thing called a <code class="inlinesourcetext">backdrop</code>. For instance:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Streaming[=0x0022=][=0x000A=][=0x000A=]The Upper Cave is above the Rock Pool.[=0x000A=][=0x000A=]The stream is a backdrop. It is in the Upper Cave and the Rock Pool.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Streaming&quot;</span>
+            <!-- START CODE "code76" -->
+            <blockquote class="extract-inform7"><a id="code76"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Streaming[=0x0022=][=0x000A=][=0x000A=]The Upper Cave is above the Rock Pool.[=0x000A=][=0x000A=]The stream is a backdrop. It is in the Upper Cave and the Rock Pool.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Streaming&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cave</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">above</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pool</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Upper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cave</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">above</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Rock</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pool</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stream</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">backdrop</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cave</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pool</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">stream</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">backdrop</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Upper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cave</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Rock</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pool</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Backdrops are ordinarily in the background: if the sky needed to be referred to in the course of play, it might be represented by a backdrop, for instance. Here we have a stream of water running through two rooms, though it might be any number. Backdrops are always fixed in place.</p>
             <p>Backdrops can be put in regions as well as rooms, and if so, then they are present at every room in the given region (or regions), as well as any specific rooms they may also be put into. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Outdoors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">region</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Moon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">backdrop</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Moon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Outdoors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Moon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Skylight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code77" -->
+            <blockquote class="extract-inform7"><a id="code77"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Outdoors</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">region</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Moon</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">backdrop</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Moon</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Outdoors</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Moon</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Skylight</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The special place <code class="inlinesourcetext">everywhere</code> can be given as the location of a backdrop to make it omnipresent:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">backdrop</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">everywhere</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code78" -->
+            <blockquote class="extract-inform7"><a id="code78"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sky</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">backdrop</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sky</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">everywhere</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform assumes that backdrops are also scenery unless told otherwise, so this will not result in messages like <code class="inlinetranscript">You can also see the sky here.</code> being included in room descriptions. In the case of the stream above, we could artfully mention it in passing in the room descriptions of the Upper Cave and the Rock Pool.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2154,18 +2249,18 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg23><a style="text-decoration: none" href="eg_23.html"><span class="extensionexampleletter">23</span></a></span></div>
+                    <span id=eg22><a style="text-decoration: none" href="eg_22.html"><span class="extensionexampleletter">22</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_23.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 3</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_22.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 3</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: adding a view of the glacier.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg23><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg22><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_8.html"><span class="markdowncontent">Section 3.8: Scenery</span></a> &bull; <a href="WI_3_10.html"><span class="markdowncontent">Section 3.10: Properties holding text</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

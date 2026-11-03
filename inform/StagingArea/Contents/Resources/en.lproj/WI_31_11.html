@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 31.11: Use options from I6</span></title>
+    <title><span class="markdowncontent">Section 31.11: Compatibility with story file formats</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_31_10.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.11: Use options from I6</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.11: Compatibility with story file formats</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_31_12.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,34 +2212,82 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 31.11: Use options from I6</span></h3>
-            <p></p>
-            <p>A phrase with an I6 definition can access the settings of use options directly provided that they have been declared with a view to that. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drifting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lilypads</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DRIFTING_LILYPADS</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">horny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">frog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">FROG_COUNT</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">JUMP_HEIGHT</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Compatibility with story file formats" -->
+            <!-- SEARCH SECTION "31.11" -->
+            <!-- SEARCH SORT "001-031-011-000" -->
+            <h3><span>Section 31.11: Compatibility with story file formats</span></h3>
+            <p>     </p>
+            <p>The Inform app gives each project a Settings panel, and the most consequential setting by far looks like this:</p>
+            <blockquote>
+            <p><strong>Story File Format</strong></p>
+            <p>Inform translates the source text into a story file which can have either of two standard formats. You can change your mind about the format at any time, but some language features require Glulx to be used.</p>
+            <ul>
+            <li>
+            <p>Z-Code version 8 (medium-sized textual projects: most portable)</p>
+            </li>
+            <li>
+            <p>Glulx (large and multimedia projects: most capable)</p>
+            </li>
+            </ul>
+            </blockquote>
+            <p>The default is Glulx, and that is what almost all users accept, but there are certainly still users creating small Z-machine story files. The setting matters a great deal because Z-code story files are not only small, they handle data in smaller chunks: it's a 16-bit virtual computer, not a 32-bit one like Glulx. This is why <code class="inlinesourcetext">number</code> values can be so much larger in Glulx. Glulx also offers the <code class="inlinesourcetext">real number</code> kind, which is not available with the Z-code setting, and so on. There are further differences to do with visual effects.</p>
+            <p>Though it is not offered as a setting in the Inform apps, there's a third platform too: command-line Inform tools can compile to a C program which can then be compiled as a binary program on almost any computer. C behaves very like Glulx as a platform for Inform, but there are a handful of differences.</p>
+            <p>So although an extension should ideally work fine on all platforms, some inevitably can't, and they need to signal that to Inform.</p>
+            <p>So let's suppose that <code class="inlinesourcetext">Ducking Action</code> needs to compute the precise head velocity of the player in meters per second, and needs real arithmetic to do that. If so, it cannot run on the Z-machine, and the extension header ought to say so. To do that, it can optionally contain a <em>compatibility note</em>, like the one here:</p>
+            <!-- START CODE "code1865" -->
+            <blockquote class="extract-inform7"><a id="code1865"></a><span class="indexdullblue"><span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax">-</span><span class="identifier-syntax">machine</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>See <a href="WI_29_15.html" title="Section 29.15: Use options for extensions">Use options for extensions</a> for more on how to define these: the important point here is that, because the declarations supplied identifier names for the values, those values are now accessible from I6. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">H</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">height</span><span class="syntaxplain">):</span>
+            <!-- END CODE -->
+            <p>Historically, Inform only supported four compatibility notes:</p>
+            <!-- START CODE "code1866" -->
+            <blockquote class="extract-inform7"><a id="code1866"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax">-</span><span class="identifier-syntax">machine</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(-  </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> ({</span><span class="syntaxidentifier">H</span><span class="syntaxplain">} &gt; </span><span class="syntaxidentifier">JUMP_HEIGHT</span><span class="syntaxplain">) </span><span class="syntaxidentifier">print</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Jumping &quot;</span><span class="syntaxplain">, </span><span class="syntaxidentifier">JUMP_HEIGHT</span><span class="syntaxplain">, </span><span class="syntaxstring">&quot; feet.^&quot;</span><span class="syntaxplain">;</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glulx</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">else</span><span class="syntaxplain"> </span><span class="syntaxidentifier">print</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Jumping &quot;</span><span class="syntaxplain">, {</span><span class="syntaxidentifier">H</span><span class="syntaxplain">}, </span><span class="syntaxstring">&quot; feet.^&quot;</span><span class="syntaxplain">;</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax">-</span><span class="identifier-syntax">machine</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-).</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glulx</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">)</span>
             </span></blockquote>
-            <p>Note that <code class="inlinesourcetext">DRIFTING_LILYPADS</code>, <code class="inlinesourcetext">SKIN_TYPE</code>, <code class="inlinesourcetext">FROG_COUNT</code> and <code class="inlinesourcetext">JUMP_HEIGHT</code> are all constants, not variables.</p>
+            <!-- END CODE -->
+            <p>But it now supports quite a variety of compatibility notes. As noted above, there's now a third platform, <code class="inlinesourcetext">C</code>, so these are possible too:</p>
+            <!-- START CODE "code1867" -->
+            <blockquote class="extract-inform7"><a id="code1867"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax">)</span>
+            <br>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">)</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Inform also accepts <code class="inlinesourcetext">16-bit</code> and <code class="inlinesourcetext">32-bit</code> to mean any platform where values occupy that many bits: the Z-machine is 16-bit and C and Glulx are 32-bit. Moreover, for backwards compatibility reasons, Inform in fact interprets the terms <code class="inlinesourcetext">Z-machine</code> and <code class="inlinesourcetext">Glulx</code> as synonyms for <code class="inlinesourcetext">16-bit</code> and <code class="inlinesourcetext">32-bit</code>, rather than as requiring these specific platforms. So these all have the same practical effect:</p>
+            <!-- START CODE "code1868" -->
+            <blockquote class="extract-inform7"><a id="code1868"></a><span class="indexdullblue"><span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax">-</span><span class="identifier-syntax">machine</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="constant-syntax">16</span><span class="plain-syntax">-</span><span class="identifier-syntax">bit</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glulx</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="constant-syntax">32</span><span class="plain-syntax">-</span><span class="identifier-syntax">bit</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>If more platforms are added in future, it seems likely that this system will be made more flexible still. In general, good advice is to choose the simplest compatibility note possible. Here this seems clearest:</p>
+            <!-- START CODE "code1869" -->
+            <blockquote class="extract-inform7"><a id="code1869"></a><span class="indexdullblue"><span class="identifier-syntax">Version</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ducking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Action</span><span class="plain-syntax"> (</span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="constant-syntax">16</span><span class="plain-syntax">-</span><span class="identifier-syntax">bit</span><span class="plain-syntax">) </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drake</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>An alternative to restricting <code class="inlinesourcetext">Ducking Action</code> like this is for it to provide two different versions of its functionality, one which works on each platform — then anybody can use it. This is the feature we will explore next.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg476><a style="text-decoration: none" href="eg_476.html"><span class="extensionexampleletter">476</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_476.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 3</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Displaying the card suits from our deck of cards with red and black coloured unicode symbols.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg476><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_31_10.html"><span class="markdowncontent">Section 31.10: Inform values from I6</span></a> &bull; <a href="WI_31_12.html"><span class="markdowncontent">Section 31.12: Phrase options from I6</span></a></em></p>
+        <p><em> &bull; <a href="WI_31_10.html"><span class="markdowncontent">Section 31.10: Licence</span></a> &bull; <a href="WI_31_12.html"><span class="markdowncontent">Section 31.12: Extensions which vary with use</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

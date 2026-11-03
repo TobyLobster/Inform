@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.2: Review of how extensions are used</span></title>
+    <title><span class="markdowncontent">Section 29.2: Bibliographic data</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.2: Review of how extensions are used</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.2: Bibliographic data</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,38 +2212,89 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.2: Review of how extensions are used</span></h3>
-            <p> 
-             
-             
-                 </p>
-            <p>Extensions are identified by the combination of their title and author name, and sometimes by a version number as well. <code class="inlinesourcetext">Locksmith by Emily Short</code> is an extension; version 11 is one of the various versions it has had over the years.</p>
-            <p>An extension becomes part of a story by being <em>included</em>. Three extensions are usually included by Inform, in a silent and automatic sort of way:</p>
-            <ul>
-            <li>
-            <p><code class="inlinesourcetext">Basic Inform by Graham Nelson</code>. This sets up the fundamentals of the Inform language, and defines phrases for dealing with data like text, lists and real numbers.</p>
-            </li>
-            <li>
-            <p><code class="inlinesourcetext">English Language by Graham Nelson</code>. This is needed for the story to use English as its language of story-telling with the player. If the story were to be in some other language, a different extension would be substituted.</p>
-            </li>
-            <li>
-            <p><code class="inlinesourcetext">Standard Rules by Graham Nelson</code>. This sets up the kinds and properties used in the world model for interactive fiction: rooms, doors, directions and so on. In so-called &quot;basic projects&quot;, which do not have a command parser and are not games, the Standard Rules are not included.</p>
-            </li>
-            </ul>
-            <p>Other extensions are included only because the source text calls for them:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Locksmith</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Bibliographic data" -->
+            <!-- SEARCH SECTION "29.2" -->
+            <!-- SEARCH SORT "001-029-002-000" -->
+            <h3><span>Section 29.2: Bibliographic data</span></h3>
+            <p>        </p>
+            <p>Almost all printed books have a title page and a so-called &quot;imprint&quot; page, often its verso, which make up a description of the contents. The title page gives the name of the book and of the author, while an imprint page contains a variety of details about the edition, the printing, and so on. An ISBN number is allocated so that, from the number alone, any book seller or cataloguer can identify exactly this work. Sometimes other cataloguing information is added, such as the Library of Congress classification. This set of information is called &quot;bibliographic data&quot;, and without it libraries and booksellers would be at a total loss.</p>
+            <p>IF has bibliographic data, too. Inform has a number of special named values to hold this – who wrote the work being created, what it is called, what headline it has, what genre it has and what its release number is, and so on.</p>
+            <p>These can be set as follows:</p>
+            <!-- START CODE "code1788" -->
+            <blockquote class="extract-inform7"><a id="code1788"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mansfield Perk&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">author</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Janet Austen&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">headline</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;An Interactive Romance&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">genre</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Romance&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">release</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;In Miss Austen's new interactive novella, Miss Henrietta Pollifax is adopted by the tempestuous landowner Sir Tankerley Mordant, and must make a new life for herself on the rugged moors.&quot;</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">creation</span><span class="plain-syntax"> </span><span class="identifier-syntax">year</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">2005</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Note, though, that extensions contain source text too, and can also have <code class="inlinesourcetext">Include</code> instructions like this: so one extension can call for another one to be included as well. It's not an error to make multiple requests for the same extension, but that extension is then included only once. This means it is quite safe for extension A to ask to include extension B, and for extension B to ask to include extension A. This will not cause infinite regress: it will simply mean that both are included.</p>
-            <p>The one restriction here is that the same project cannot simultaneously include two different versions of the same extension. If Inform has both version 13 and version 15 of <code class="inlinesourcetext">Locksmith by Emily Short</code> available to it, it will make a choice of which to include, and will not include both. (Unless told otherwise, it will choose the one with the higher version number.)</p>
-            <p>Where do these extensions live? Except for the three special cases above, Inform now always looks for them in the <code class="inlinecode">Extensions</code> subdirectory of the project's &quot;materials&quot; folder. Extensions filed there are said to be <em>installed in the project</em>. Long-time Inform users might be expecting extensions to be installed in some cache stored elsewhere on the computer, but as of 2023 we no longer do that, and all extensions used by a story should be installed in the project. (A project can have extensions installed which it is not currently using, and can even have multiple versions of the same extension installed.)</p>
-            <p>Experienced users might also be expecting to see the extension as a single file with a filename like <code class="inlinecode">Locksmith-v15.i7x</code>. That's still supported, but now deprecated. Modern extensions occupy directories — the <code class="inlinecode">d</code> at the end of <code class="inlinecode">Locksmith-v15.i7xd</code> stands for &quot;directory&quot;.</p>
-            <p>When distributed on the Internet, this may well be zipped up as <code class="inlinesourcetext">Locksmith.zip</code> or similar. The Inform app has the ability to download such a file, unzip it, identify its identity and version, and install it. But this can also be done by hand, of course.</p>
-            <p>The Extensions tab in the Inform app displays details of all of the extensions installed in a project, and whether they are currently being used or not. It's accompanied by the Public Library tab, which allows other extensions to be downloaded directly from the Public Library into the project.</p>
+            <!-- END CODE -->
+            <p>Most of these are self-explanatory. The <code class="inlinesourcetext">story creation year</code> is provided so that if we need to revise the work to fix some bugs a year later – by no means an uncommon occurrence – then we can make sure it is correctly identified as still being basically a 2005 work. (Just as a book which has had innumerable revised printings may say &quot;First published 1988&quot; on its imprint page.) The <code class="inlinesourcetext">story description</code> is a piece of text, analogous to the back cover blurb on a book: it might be two or three paragraphs long, so the example above is rather minimal, but it should not be epic in length.</p>
+            <p>As we have already seen, a convenient abbreviation provides that if the first sentence of the source text consists solely of text in quotation marks, then that is considered the title. Thus if the source begins:</p>
+            <!-- START CODE "code1789" -->
+            <blockquote class="extract-inform7"><a id="code1789"></a><span class="indexdullblue"><span class="string-syntax">&quot;Mansfield Perk&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>then that will be the <code class="inlinesourcetext">story title</code>. Further, we can write</p>
+            <!-- START CODE "code1790" -->
+            <blockquote class="extract-inform7"><a id="code1790"></a><span class="indexdullblue"><span class="string-syntax">&quot;Mansfield Perk&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Janet</span><span class="plain-syntax"> </span><span class="identifier-syntax">Austen</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>with the obvious effect: quotation marks around the author's name are optional here, for convenience, but note that we'd better have them in cases like:</p>
+            <p></p>
+            <!-- START CODE "code1791" -->
+            <blockquote class="extract-inform7"><a id="code1791"></a><span class="indexdullblue"><span class="string-syntax">&quot;Three Men in a Boat&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Jerome K. Jerome&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>as otherwise the full stop after the K will end the sentence prematurely.</p>
+            <p>The text of these bibliographic descriptions cannot normally include text substitutions, since they are written into external descriptions of the story file as part of its &quot;binding&quot;. Two exceptions are allowed, though: <code class="inlinesourcetext">&quot;[']&quot;</code> makes a literal apostrophe, and can be used if we need to override Inform's normal conventions to do with converting apostrophes at the ends of words to double-quotes. For instance:</p>
+            <!-- START CODE "code1792" -->
+            <blockquote class="extract-inform7"><a id="code1792"></a><span class="indexdullblue"><span class="string-syntax">&quot;Summer of [']69&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Buzz</span><span class="plain-syntax"> </span><span class="identifier-syntax">Aldrin</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>The other exception is that the <code class="inlinesourcetext">&quot;[unicode ...]&quot;</code> text substitution works, so for example:</p>
+            <!-- START CODE "code1793" -->
+            <blockquote class="extract-inform7"><a id="code1793"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;This is a sentence[unicode 8212]with a parenthetical in dashes[unicode 8212]because 8212 is the Unicode number for an em-dash. But for example, 'pawn to [unicode black chess bishop]4' draws in a black chess bishop, so it works with names, too.&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>If the bibliographic named values are not set by the source text, Inform will still need to say something. Unset text and number variables evaluate to <code class="inlinesourcetext">&quot;&quot;</code> and <code class="inlinesourcetext">0</code> respectively, but this would make for a very unhelpful record. So Inform uses the following table instead of any value which is unset:</p>
+            <!-- START CODE "code1794" -->
+            <blockquote class="extract-inform7"><a id="code1794"></a><span class="indexdullblue"><span class="identifier-syntax">Story</span><span class="plain-syntax"> </span><span class="identifier-syntax">title</span><span class="plain-syntax">: </span><span class="identifier-syntax">Untitled</span>
+            <br>
+            <span class="identifier-syntax">Story</span><span class="plain-syntax"> </span><span class="identifier-syntax">author</span><span class="plain-syntax">: </span><span class="identifier-syntax">Anonymous</span>
+            <br>
+            <span class="identifier-syntax">Story</span><span class="plain-syntax"> </span><span class="identifier-syntax">headline</span><span class="plain-syntax">: </span><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">Interactive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fiction</span>
+            <br>
+            <span class="identifier-syntax">Story</span><span class="plain-syntax"> </span><span class="identifier-syntax">genre</span><span class="plain-syntax">: </span><span class="identifier-syntax">Fiction</span>
+            <br>
+            <span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">: </span><span class="constant-syntax">1</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>It is also possible to provide copyright and licencing details for a project. This follows the same syntax and conventions as for extensions, except that the word <code class="inlinesourcetext">story</code> is used instead of <code class="inlinesourcetext">extension</code>. See <a href="WI_31_10.html" title="Section 31.10: Licence">Licence</a> for more.</p>
+            <!-- START CODE "code1795" -->
+            <blockquote class="extract-inform7"><a id="code1795"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">licence</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;CC-BY-4.0&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">copyright</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bartholomew Hendricks 2006-2024&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">origin</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;https://www.loosecannonif.com/bh&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">rights</span><span class="plain-syntax"> </span><span class="identifier-syntax">history</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Adapted by permission from Jennifer Pond's novel 'The Transfinite Kitten' (2003).&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Finally, the text variables <code class="inlinesourcetext">story serial code</code> and <code class="inlinesourcetext">project IFID</code> are automatically set by Inform to the IFID for a project, which is intended to be permanent, and to the serial code it's got today, which is more ephemeral since it is computed from the date (in the form <code class="inlinesourcetext">YYMMDD</code>). These variables cannot be changed at run-time, and cannot be set from assertion sentences, although there is a use option to set the IFID.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_1.html"><span class="markdowncontent">Chapter 29: Extensions</span></a> &bull; <a href="WI_29_3.html"><span class="markdowncontent">Section 29.3: Title and authorship</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_1.html"><span class="markdowncontent">Chapter 29: Releasing</span></a> &bull; <a href="WI_29_3.html"><span class="markdowncontent">Section 29.3: Genres</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,75 +2193,53 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg465><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleletter">465</span></a></span></div>
+                <span id=eg465><a style="text-decoration: none" href="WI_26_3.html"><span class="extensionexampleletter">465</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">The modest Leonardo Fibonacci of Pisa will be only too happy to construct his sequence on request, using an array.</span></span></div>
-            <div class="exampleright">
-                <span id=eg465><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lost In My Thoughts</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Create and handle timer events.</span></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Lost In My Thoughts" -->
+        <!-- SEARCH SECTION "Example 465" -->
+        <!-- SEARCH SORT "003-465-000-000" -->
         <p></p>
-        <p>Fibonacci (a posthumous nickname) spread Arabic mathematical learning across Europe in the 13th century, and it's curious that his name lives on only for a single sequence.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Fibonacci Sequence[=0x0022=][=0x000A=][=0x000A=]Pisa is a room. Leonardo Fibonacci is a man in Pisa. [=0x0022=]The modest Italian mathematician, Leonardo Fibonacci (1170-1250), beams at you.[=0x0022=][=0x000A=][=0x000A=]Sequencing is an action applying to one number. Understand [=0x0022=]sequence [number][=0x0022=] as sequencing.[=0x000A=][=0x000A=]Instead of sequencing, say [=0x0022=]You make a feeble attempt, sketching in the sand, but it goes nowhere. Leonardo is sympathetic. [=0x0027=]Often goes wrong for me, too, actually. I didn[=0x0027=]t even invent the thing - the ancient Indians knew about it first.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Persuasion rule for asking Leonardo to try sequencing: persuasion succeeds.[=0x000A=][=0x000A=]Report Leonardo sequencing:[=0x000A=][=0x0009=]let N be the number understood;[=0x000A=][=0x0009=]say [=0x0022=]Leonardo scratches his head and makes self-deprecating remarks, before coming up with [the first N terms of the Fibonacci sequence].[=0x0022=][=0x000A=][=0x000A=]To decide what list of numbers is the first (F - a number) terms of the Fibonacci sequence:[=0x000A=][=0x0009=]let the Fibonacci sequence be {1, 1};[=0x000A=][=0x0009=]let N be 3;[=0x000A=][=0x0009=]while N [=0x003C=] F:[=0x000A=][=0x0009=][=0x0009=]let the last term be entry (N - 1) of the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]let the penultimate term be entry (N - 2) of the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]let the next term be the last term plus the penultimate term;[=0x000A=][=0x0009=][=0x0009=]add the next term to the Fibonacci sequence;[=0x000A=][=0x0009=][=0x0009=]increment N;[=0x000A=][=0x0009=]decide on the Fibonacci sequence.[=0x000A=][=0x000A=]Test me with [=0x0022=]sequence 20 / leonardo, sequence 20[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;The Fibonacci Sequence&quot;</span>
+        <p>While Inform does track the time of day, it doesn't, by default, show the time in the status line. So we'll first set that up.</p>
+        <!-- START CODE "code2422" -->
+        <blockquote class="extract-inform7"><a id="code2422"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Lost In My Thoughts[=0x0022=][=0x000A=][=0x000A=]Lost in my thoughts is a room. [=0x0022=]All day long I sit here, lost in my thoughts.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Time: [time of day][=0x0022=].[=0x000A=][=0x000A=]Glk event handling rule for a timer event:[=0x000A=][=0x0009=]increase the time of day by 1 minute;[=0x000A=][=0x0009=]draw the status window;[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]request timer events every 500 milliseconds.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Lost In My Thoughts&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Pisa</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Leonardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pisa</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The modest Italian mathematician, Leonardo Fibonacci (1170-1250), beams at you.&quot;</span>
+        <span class="identifier-syntax">Lost</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">my</span><span class="plain-syntax"> </span><span class="identifier-syntax">thoughts</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;All day long I sit here, lost in my thoughts.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Sequencing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;sequence </span><span class="syntaxextract">[number]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequencing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequencing</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You make a feeble attempt, sketching in the sand, but it goes nowhere. Leonardo is sympathetic. 'Often goes wrong for me, too, actually. I didn't even invent the thing - the ancient Indians knew about it first.'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Leonardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequencing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Leonardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequencing</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Leonardo scratches his head and makes self-deprecating remarks, before coming up with </span><span class="syntaxextract">[the first N terms of the Fibonacci sequence]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">right</span><span class="plain-syntax"> </span><span class="identifier-syntax">hand</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Time: [time of day]&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>An array need not be fixed in length, as the following example shows:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">F</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">terms</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain">:</span>
+        <!-- END CODE -->
+        <p>Now all we need to do is create an event handler, and then start the timer. 500ms is of course a half-second, so the game minutes will tick by very rapidly during this daydream.</p>
+        <!-- START CODE "code2423" -->
+        <blockquote class="extract-inform7"><a id="code2423"></a><span class="indexdullblue"><span class="identifier-syntax">Glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {1, </span><span class="syntaxconstant">1</span><span class="syntaxplain">};</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increase</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">day</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">minute</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> &lt; </span><span class="syntaxidentifier">F</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxconstant">1</span><span class="syntaxplain">) </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penultimate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxconstant">2</span><span class="syntaxplain">) </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penultimate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">term</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fibonacci</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sequence</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">draw</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span><span class="plain-syntax">;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;sequence 20 / leonardo, sequence 20&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">request</span><span class="plain-syntax"> </span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">events</span><span class="plain-syntax"> </span><span class="identifier-syntax">every</span><span class="plain-syntax"> </span><span class="constant-syntax">500</span><span class="plain-syntax"> </span><span class="identifier-syntax">milliseconds</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>The result of &quot;the first 20 terms of the Fibonacci sequence&quot; is &quot;1, 1, 2, 3, 5, 8, 13, 21, 34, 55, 89, 144, 233, 377, 610, 987, 1597, 2584 and 4181&quot;. This is a sequence which has a knack of turning up in odd places–it was found in the 1970s to be related to the rings of florets in a sunflower, for instance–and here it is in a book about interactive fiction.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_23_11.html>Section 23.11: Variations: arrays, logs, queues, stacks, sets, sieves and rings</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_26_3.html>Section 26.3: Timer events</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

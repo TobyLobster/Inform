@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.5: JSON metadata</span></title>
+    <title><span class="markdowncontent">Section 29.5: The Treaty of Babel and the IFID</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.5: JSON metadata</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.5: The Treaty of Babel and the IFID</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,41 +2212,50 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.5: JSON metadata</span></h3>
-            <p>Having got the <code class="inlinesourcetext">Ducking Action</code> extension working, in a minimal sort of way, we might now look again at the files being stored under the surface.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Ducking Test.inform</span><br><span class="syntaxidentifier">Ducking Test.materials</span><br><span class="syntaxidentifier">    Extensions</span><br><span class="syntaxidentifier">        Peter Drake</span><br><span class="syntaxidentifier">            Ducking Action-v1.i7xd</span><br><span class="syntaxidentifier">                extension_metadata.json</span><br><span class="syntaxidentifier">                Source</span><br><span class="syntaxidentifier">                    Ducking Action.i7x</span><br><span class="syntaxidentifier">        Reserved</span><br><span class="syntaxidentifier">    Release</span><br></code></pre></div>
-            <p>This is as before except that a new file, <code class="inlinecode">extension_metadata.json</code>, has appeared out of nowhere. JSON is an interchange format for computer programs to use when sending information to each other. If we look at this file, it reads:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;extension&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;Ducking Action&quot;,</span><br><span class="syntaxidentifier">        &quot;author&quot;: &quot;Peter Drake&quot;,</span><br><span class="syntaxidentifier">        &quot;version&quot;: &quot;1&quot;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>In practice, extension authors can just forget that this file exists most of the time. Some low-level extensions will need to add various other pieces of information to it, but most extensions won't. If the extension title, author or version are changed, Inform will automatically correct <code class="inlinecode">extension_metadata.json</code> to match the change.</p>
-            <p>The commonest way that happens, in fact, is when the version number changes. Suppose we want to make an update to version 2. Suppose we correct the extension source so that it reads as follows:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck! Twice!&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Treaty of Babel and the IFID" -->
+            <!-- SEARCH SECTION "29.5" -->
+            <!-- SEARCH SORT "001-029-005-000" -->
+            <h3><span>Section 29.5: The Treaty of Babel and the IFID</span></h3>
+            <p>  </p>
+            <p>During March and April 2006, an agreement was reached between the IF archive and most of the different systems for creating IF – of which Inform is only one – called the Treaty of Babel. While these different systems create computer programs which are quite different internally, the Treaty provides for works of IF to come with bibliographic data which identifies them in a standard way.</p>
+            <p>Inform is fully compliant with the Treaty. In particular, each new project created by Inform is allocated a unique identification number called its IFID. The IFID is the equivalent for IF of the ISBN of a printed book. Inform copies it onto the &quot;library card&quot; for the benefit of Internet-based libraries which may eventually accession the work. Of course many projects start but never see the light of day, so many possible IFIDs are &quot;wasted&quot;: but that hardly matters, as there are plenty more numbers in the world. To see the IFID of your project, see the Library Card in the Index, or type the command <code class="inlinetranscriptcommand">version</code>.</p>
+            <blockquote class="alertimportant">
+            <p class="alertheading">☞ Important</p>
+            <p>The important thing is that <strong>the IFID number must be unique to this one work out of all the IF ever created.</strong></p>
+            <p>The Inform apps will try to make sure this is true, <strong>unless</strong> we do something to break this ourselves. For instance, if we take an existing project, copy it as a file, then work divergently on the original and on the copy so that they become two radically different works, they will still each have the same ID. This is a bad thing: if we want to duplicate a project but then turn it into something new, the best way to do that is to create a new project, and to copy and paste the source from the old to the new.</p>
+            <p>In particular, be aware that using &quot;Save as...&quot; in the Inform apps generally saves a clone of the current project <em>but with a fresh IFID</em>. This is intended so that people who use &quot;Save as...&quot; on an old project to begin a new one do not accidentally reuse its IFID.</p>
+            </blockquote>
+            <hr />
+            <p>Inform does provide a way to specify the IFID within the source text, but it should be used only with care. A special use option is needed:</p>
+            <!-- START CODE "code1797" -->
+            <blockquote class="extract-inform7"><a id="code1797"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">project</span><span class="plain-syntax"> </span><span class="identifier-syntax">IFID</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;c20500c5-495d-47dd-8706-c1bb66d077ed&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>When we run the test project again, it once again works:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TEST ME</span><br><span class="syntaxidentifier">(Testing.)</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract">[1] DUCK</span><br><span class="syntaxidentifier">You duck! Twice!</span><br></code></pre></div>
-            <p>But if we then look back at the files under the hood, we find that the folder previously called <code class="inlinecode">Ducking Action-v1.i7xd</code>, which held the extension, has now been renamed <code class="inlinecode">Ducking Action-v2.i7xd</code>, and also that the JSON metadata has become:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;extension&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;Ducking Action&quot;,</span><br><span class="syntaxidentifier">        &quot;author&quot;: &quot;Peter Drake&quot;,</span><br><span class="syntaxidentifier">        &quot;version&quot;: &quot;2&quot;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>So the upshot of this technical little section is... that we can basically forget about the JSON metadata for the moment, and let it do its own thing.</p>
+            <!-- END CODE -->
+            <p>The IFID cannot be just any piece of text. To quote the Treaty of Babel, at §2.2:</p>
+            <blockquote>
+            <p>The IFID shall be a sequence of between 8 and 63 characters, each of which shall be a digit, a capital letter or a hyphen.</p>
+            </blockquote>
+            <p>Inform enforces this by issuing problem messages for any attempt to use an illegal IFID, except that it silently converts lower-case <code class="inlinesourcetext">a</code> to <code class="inlinesourcetext">z</code> into capitals. The above example thus actually produces the IFID <code class="inlinesourcetext">C20500C5-495D-47DD-8706-C1BB66D077ED</code>.</p>
+            <blockquote class="alertwarning">
+            <p class="alertheading">⚠ Warning</p>
+            <p>So, then, there are two ways an IFID can be specified: in a special <code class="inlinesourcetext">uuid.txt</code> file tucked away inside the project, usually put there by the Inform apps; or in the source text, with <code class="inlinesourcetext">Use project IFID</code>. But since both are optional, and it's legal to give either, both, or neither, Inform sometimes needs to make a choice. This is how:</p>
+            <ul>
+            <li>
+            <p>If neither is given, the IFID is <code class="inlinesourcetext">00000000-0000-0000-0000-000000000000</code>.</p>
+            </li>
+            <li>
+            <p>If both are given and they disagree, then the <code class="inlinesourcetext">Use project IFID</code> version as the answer.
+            Unless the version being overridden is <code class="inlinesourcetext">00000000-0000-0000-0000-000000000000</code>, a warning message is generated.</p>
+            </li>
+            </ul>
+            <p>As this suggests, the IFID <code class="inlinesourcetext">00000000-0000-0000-0000-000000000000</code> is special. Inform uses it only for throwaway test projects. A story should never actually be released with this IFID, and Inform will issue a warning if this is tried.</p>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_4.html"><span class="markdowncontent">Section 29.4: Creating a new extension</span></a> &bull; <a href="WI_29_6.html"><span class="markdowncontent">Section 29.6: Begins here and ends here</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_4.html"><span class="markdowncontent">Section 29.4: The Library Card</span></a> &bull; <a href="WI_29_6.html"><span class="markdowncontent">Section 29.6: The Release button and the Materials folder</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

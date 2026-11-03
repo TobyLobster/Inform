@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,8 +2212,12 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Standard tokens of grammar" -->
+            <!-- SEARCH SECTION "19.4" -->
+            <!-- SEARCH SORT "001-019-004-000" -->
             <h3><span>Section 19.4: Standard tokens of grammar</span></h3>
-            <p>          </p>
+            <p>             </p>
             <p>The square-bracketed parts of <code class="inlinesourcetext">Understand</code> grammar are called <em>tokens</em>. Rather than matching a single specific word, they will normally match a range of possibilities. For example, the grammar <code class="inlinesourcetext">&quot;[number]&quot;</code> will match <code class="inlinetranscriptcommand">six</code> or <code class="inlinetranscriptcommand">1935</code>, whereas <code class="inlinesourcetext">&quot;number&quot;</code> only matches the word <code class="inlinetranscriptcommand">number</code>.</p>
             <p>Any description of an object can be used as a token: <code class="inlinesourcetext">&quot;[a door]&quot;</code> matches the name of any door in scope, for example, and <code class="inlinesourcetext">&quot;[an open door]&quot;</code> matches only those which are currently open. But it is usually not a good idea to write overly specific tokens like this. The command <code class="inlinetranscriptcommand">detonate</code> might be intended to be used only with things of the kind <code class="inlinesourcetext">bomb</code>, for example, but we would still want to <em>understand</em> the command <code class="inlinetranscriptcommand">detonate banana</code>, in order to reject it with a better reply than just <code class="inlinetranscript">You can't see any such thing.</code></p>
             <p>Inform also has a miscellaneous range of useful tokens with special wordings, which the command parser is particularly good at handling well. Between them, they handle all of the commonly-needed cases, so these are the tokens most often used by authors (and by the Standard Rules) in practice. For the most part, they match what their wordings suggest, but command parsing is a finicky business and there are some subtleties which experts occasionally need to be aware of.</p>
@@ -2141,8 +2230,10 @@
             <li>
             <p><code class="inlinesourcetext">&quot;[something preferably held]&quot;</code>. Matches the name of any object in scope, but where there is some ambiguity about which object is being named, prefer something the player is holding.</p>
             <p>For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wear </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1230" -->
+            <blockquote class="extract-inform7"><a id="code1230"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wear [something preferably held]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If the player types <code class="inlinetranscriptcommand">wear hat</code>, and is carrying a black hat while there is also a white hat on the table, this command will now be read as referring to the black hat. Otherwise, the command might have been replied to with a <code class="inlinetranscript">Which do you mean...?</code> question.</p>
             </li>
             <li>
@@ -2158,8 +2249,10 @@
             <li>
             <p><code class="inlinesourcetext">&quot;[things inside]&quot;</code>. Meaningful only in grammar for actions applying to two things. Matches only what is contained in the thing referred to by the <em>other</em> name in the command.</p>
             <p>Inform's built-in set of actions use this to recognise <code class="inlinetranscriptcommand">take all from the box</code> so that the <code class="inlinetranscriptcommand">all</code> matches only items which are in the box (and in scope: if the box is opaque and closed, <code class="inlinetranscriptcommand">all</code> would match nothing in this case, because the contents would not be in scope). If the Standard Rules had written:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;take </span><span class="syntaxextract">[things inside]</span><span class="syntaxstring"> from </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">removing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1231" -->
+            <blockquote class="extract-inform7"><a id="code1231"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;take [things inside] from [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">removing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then <code class="inlinetranscriptcommand">take all from the box</code> would produce matches including the box itself, which is clearly not what the player intended.</p>
             </li>
             <li>
@@ -2181,27 +2274,27 @@
             </ol>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg323><a style="text-decoration: none" href="eg_323.html"><span class="extensionexampleletter">323</span></a></span></div>
+                    <span id=eg320><a style="text-decoration: none" href="eg_320.html"><span class="extensionexampleletter">320</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_323.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shawn's Bad Day</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_320.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shawn's Bad Day</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to <code class="inlinetranscriptcommand">examine all</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg323><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg320><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg324><a style="text-decoration: none" href="eg_324.html"><span class="extensionexampleletter">324</span></a></span></div>
+                    <span id=eg321><a style="text-decoration: none" href="eg_321.html"><span class="extensionexampleletter">321</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_324.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Left Hand of Autumn</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_321.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Left Hand of Autumn</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The possibility of using a [things] token opens up some interesting complications, because we may want actions on multiple items to be reported differently from actions on just one. Here we look at how to make a multiple examination command that describes groups in special ways.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg324><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg321><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_3.html"><span class="markdowncontent">Section 19.3: Overriding existing commands</span></a> &bull; <a href="WI_19_5.html"><span class="markdowncontent">Section 19.5: Actions applying to kinds of value</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

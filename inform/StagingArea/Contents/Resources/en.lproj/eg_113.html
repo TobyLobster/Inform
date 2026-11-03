@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,68 +2193,165 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg113><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleletter">113</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Provenance Unknown</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Allowing something like <code class="inlinetranscriptcommand">push television east</code> to push the cart on which the television rests.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorb</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Replacing the message the player receives when attempting to push something that isn't pushable, and also to remove the restriction that objects cannot be pushed up or down.</span></span></div>
             <div class="exampleright">
                 <span id=eg113><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Zorb" -->
+        <!-- SEARCH SECTION "Example 113" -->
+        <!-- SEARCH SORT "003-113-000-000" -->
         <p></p>
-        <p>Suppose we have a series of items that might be stacked on top of one another – say a heavy television on a rolling cart, and we want the player to be able to move the cart with <code class="inlinetranscriptcommand">push television east</code> just as well as with <code class="inlinetranscriptcommand">push cart east</code>.</p>
-        <p>This takes a little redirection, using a setting action variables rule. This is not a kind of rule we've encountered yet, and in fact we won't meet it until the <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a> chapter; it is included here for the convenience of authors who want to modify the effect of pushing without reading that far ahead:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Provenance Unknown[=0x0022=][=0x000A=][=0x000A=]Setting action variables for pushing something to:[=0x000A=][=0x0009=]if the noun is enclosed by a pushable between rooms thing (called the pushed item) which is in the location:[=0x000A=][=0x0009=][=0x0009=]now the noun is the pushed item instead.[=0x000A=][=0x000A=]The heavy golden idol is on a roller board. The roller board is on a hovercraft.[=0x000A=][=0x000A=]The hovercraft, the tea trolley, and the skateboard are pushable between rooms.[=0x000A=][=0x000A=]The hovercraft is in Zeta Proximan Dig Field.[=0x000A=][=0x000A=]Zeta Proximan Dig Field is a room. [=0x0022=]During the day, the field is massed with sweating native workers, overseers, and officials from central command. Now the spades, trowels, brushes, metal detectors, ground probes, plumb lines, and sighting tripods have been laid aside.[=0x000A=][=0x000A=]All that remains are the trenches and the fine grey dust that blows slowly across them; the moonlight; and the just-emerging outlines of an ancient and alien wall.[=0x0022=][=0x000A=][=0x000A=]The Hover-Road is west of the Dig Field. [=0x0022=]A long road hastily laid down, stretching east to west, from the dig site toward the safety of the city.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You have, at last, loaded your illicit cargo without setting off any of the many and sensitive alarms set here; now it remains only to sneak out of the area, under the light of Zeta Proxima[=0x0027=]s lone green moon.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]push idol west / look / push roller board east / look[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Provenance Unknown&quot;</span>
+        <p>There are two aspects of Inform's handling of pushable objects that are particularly prime for modification. One is that we may want to change the language used to refuse the pushing of unpushable objects.</p>
+        <p>Second, Inform by default assumes that it is impossible to push objects in up or down directions. This makes lots of sense if the player is trying to push a wheelbarrow up a ladder; it makes less sense if instead we're pushing a ball up a slope.</p>
+        <p>We solve both problems with some syntax borrowed from the chapter on <a href="WI_21_1.html" title="Chapter 21: Rulebooks">Rulebooks</a>: in the first case, we replace the old rule with a new one with more friendly phrasing; in the second, we remove the rule entirely. More about how to do this is described in the rulebooks chapter; and in general we can find out what rules contribute to any given action by looking at the Actions index. In this case, the action is <code class="inlinesourcetext">pushing it to</code>, which has its own set of prerequisites (called check rules) that make sure the object can safely be pushed, before turning processing over to the going action.</p>
+        <!-- START CODE "code2279" -->
+        <blockquote class="extract-inform7"><a id="code2279"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Zorb[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The new can[=0x0027=]t push unpushable things rule is listed instead of the can[=0x0027=]t push unpushable things rule in the check pushing it to rules.[=0x000A=][=0x000A=]This is the new can[=0x0027=]t push unpushable things rule:[=0x000A=][=0x0009=]if the noun is not pushable between rooms:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The noun] [are] not amenable to being pushed from place to place.[=0x0022=] instead.[=0x000A=][=0x000A=]The can[=0x0027=]t push vertically rule is not listed in any rulebook.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Steep Hill is a room. The Crest is above Steep Hill. The Valley is below Steep Hill.[=0x000A=][=0x000A=]The flat rock is a fixed in place thing in the Steep Hill.[=0x000A=][=0x000A=]The Zorb is a transparent open enterable container in the Steep Hill. [=0x0022=][if the player props the Zorb]The Zorb rests here, kept from further rolling by your support[otherwise]The Zorb is here[end if].[=0x0022=]. It is pushable between rooms. The description of the Zorb is [=0x0022=]A giant plastic inflatable ball, like a hamster ball for humans[if someone is in the Zorb]. Inside [is-are list of people in the Zorb][end if].[=0x0022=][=0x000A=][=0x000A=]Lucy is a woman in the Zorb.[=0x000A=][=0x000A=]Carry out going with the Zorb when the Zorb contains Lucy:[=0x000A=][=0x0009=]say [=0x0022=]Lucy whoops delightedly as she rides along in the Zorb.[=0x0022=][=0x000A=][=0x000A=]Every turn when the Zorb is not in the Valley and the player does not prop the Zorb:[=0x000A=][=0x0009=]let next room be the room down from the location of the Zorb;[=0x000A=][=0x0009=]if the player is not in the Zorb and the player can see the Zorb:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The Zorb succumbs to gravity and rolls down toward [the next room].[=0x0022=];[=0x000A=][=0x0009=]move the Zorb to the next room;[=0x000A=][=0x0009=]if the player is in the Zorb:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The Zorb rolls you down the hill![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]try looking;[=0x000A=][=0x0009=]otherwise if the player can see the Zorb:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The Zorb rolls ponderously but inevitably into the vicinity.[=0x0022=];[=0x000A=][=0x000A=]Propping relates one person to one thing. The verb to prop means the propping relation.[=0x000A=][=0x000A=]Carry out going with the Zorb:[=0x000A=][=0x0009=]now the player props the Zorb.[=0x000A=][=0x000A=]Before doing something when the action requires a touchable noun:[=0x000A=][=0x0009=]if the noun is not the Zorb, now the player does not prop the Zorb.[=0x000A=][=0x000A=]Check waving hands when the player is propping something (called casualty):[=0x000A=][=0x0009=]try the player releasing the casualty.[=0x000A=][=0x000A=]Carry out entering the Zorb:[=0x000A=][=0x0009=]now the player does not prop the Zorb.[=0x000A=][=0x000A=]Understand [=0x0022=]let go of [something][=0x0022=] or [=0x0022=]let [something] go[=0x0022=] or [=0x0022=]release [something][=0x0022=] or [=0x0022=]free [something][=0x0022=] as releasing. Releasing is an action applying to one thing.[=0x000A=][=0x000A=]Check releasing:[=0x000A=][=0x0009=]if the player carries the noun:[=0x000A=][=0x0009=][=0x0009=]try dropping the noun instead.[=0x000A=][=0x000A=]Check releasing:[=0x000A=][=0x0009=]if the player does not prop the noun:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You are not supporting [the noun].[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out releasing:[=0x000A=][=0x0009=]now the player does not prop the noun.[=0x000A=][=0x000A=]Report releasing:[=0x000A=][=0x0009=]say [=0x0022=]You let go of [the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]d / push zorb up / look / push zorb up / wave / d / d / push zorb up / release zorb / d / push zorb up / touch rock / push the flat rock south[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Zorb&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">variables</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Procedure</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enclosed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">between</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rooms</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain">) </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">:</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">push</span><span class="plain-syntax"> </span><span class="identifier-syntax">unpushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">push</span><span class="plain-syntax"> </span><span class="identifier-syntax">unpushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">push</span><span class="plain-syntax"> </span><span class="identifier-syntax">unpushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">between</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] [are] not amenable to being pushed from place to place.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">push</span><span class="plain-syntax"> </span><span class="identifier-syntax">vertically</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>This rule says that any time we push an object that is on top of a stack of pushable objects, we should transfer the action to the item at the bottom of the stack.</p>
-        <p>The rest is merely a test case.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">heavy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">golden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roller</span><span class="syntaxplain"> </span><span class="syntaxidentifier">board</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roller</span><span class="syntaxplain"> </span><span class="syntaxidentifier">board</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hovercraft</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>And now to provide a scenario where the player can push something up and down a hillside. Most of the rest of the example is there for local colour and to provide a way to demonstrate these rule adjustments:</p>
+        <!-- START CODE "code2280" -->
+        <blockquote class="extract-inform7"><a id="code2280"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hovercraft</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skateboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">between</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rooms</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hill</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Crest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">above</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hill</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Valley</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">below</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hill</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hovercraft</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Zeta</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Proximan</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dig</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Field</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">flat</span><span class="plain-syntax"> </span><span class="identifier-syntax">rock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hill</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Zeta</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Proximan</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dig</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Field</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;During the day, the field is massed with sweating native workers, overseers, and officials from central command. Now the spades, trowels, brushes, metal detectors, ground probes, plumb lines, and sighting tripods have been laid aside.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">transparent</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hill</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;[if the player props the Zorb]The Zorb rests here, kept from further rolling by your support[otherwise]The Zorb is here[end if].&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">between</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A giant plastic inflatable ball, like a hamster ball for humans[if someone is in the Zorb]. Inside [is-are list of people in the Zorb][end if].&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxstring">All that remains are the trenches and the fine grey dust that blows slowly across them; the moonlight; and the just-emerging outlines of an ancient and alien wall.&quot;</span>
+        <span class="identifier-syntax">Lucy</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hover</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Road</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dig</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Field</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A long road hastily laid down, stretching east to west, from the dig site toward the safety of the city.&quot;</span>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lucy</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lucy whoops delightedly as she rides along in the Zorb.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Valley</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You have, at last, loaded your illicit cargo without setting off any of the many and sensitive alarms set here; now it remains only to sneak out of the area, under the light of Zeta Proxima's lone green moon.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">down</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Zorb succumbs to gravity and rolls down toward [the next room].&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Zorb rolls you down the hill!&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Zorb rolls ponderously but inevitably into the vicinity.&quot;</span><span class="plain-syntax">;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;push idol west / look / push roller board east / look&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Propping</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">propping</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">props</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">requires</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">touchable</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">, </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">waving</span><span class="plain-syntax"> </span><span class="identifier-syntax">hands</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">propping</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">casualty</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">casualty</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zorb</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;let go of [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;let [something] go&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;release [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;free [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax">. </span><span class="identifier-syntax">Releasing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are not supporting [the noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">prop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">releasing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You let go of [the noun].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;d / push zorb up / look / push zorb up / wave / d / d / push zorb up / release zorb / d / push zorb up / touch rock / push the flat rock south&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_15.html>Section 7.15: Going by, going through, going with</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

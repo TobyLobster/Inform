@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,92 +2212,116 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Writing New Commands" -->
+            <!-- SEARCH SECTION "6.2" -->
+            <!-- SEARCH SORT "002-006-002-000" -->
             <h3><span>Section 6.2: Writing New Commands</span></h3>
             <p>  
             Once we've considered all the design issues pertaining to a new action, we're ready to start writing the source text. First we need to give the player a way to issue the command:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;smile&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smiling</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2072" -->
+            <blockquote class="extract-inform7"><a id="code2072"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;smile&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">smiling</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fold </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">folding</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fold [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">folding</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;shoot </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring"> at </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shooting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [something preferably held] at [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wrap </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring"> in </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wrapping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wrap [something preferably held] in [something preferably held]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">wrapping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Note how <code class="inlinesourcetext">it</code> stands in for the first item when we have an action requiring two objects.) The things that go in square brackets are called &quot;tokens&quot;: they are blank spaces for the player to fill in with story objects. The different kinds of tokens are explained in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>.</p>
             <p>We can add synonyms with</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;grin&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;smile&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2073" -->
+            <blockquote class="extract-inform7"><a id="code2073"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;grin&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;smile&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and we can create reversed versions of commands with</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;shoot </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shooting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nouns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reversed</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code2074" -->
+            <blockquote class="extract-inform7"><a id="code2074"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [something] with [something preferably held]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These variations are also covered in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>. If the action needs to work on things that aren't within the player's sight or reach in the normal way, we may need to use an [any thing] token (see the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>), as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;contemplate </span><span class="syntaxextract">[any thing]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">considering</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2075" -->
+            <blockquote class="extract-inform7"><a id="code2075"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;contemplate [any thing]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">considering</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We may also need to modify reach or light levels (see Changing reachability and Changing visibility in the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>), or rely on the <code class="inlinesourcetext">Deciding the scope of...</code> activity.</p>
             <p>As for guessing the player's intention when a command isn't clear, we may want to consult the <code class="inlinesourcetext">Does the player mean rules</code> (to help Inform make guesses between multiple possible targets) and the activities <code class="inlinesourcetext">Supplying a missing noun</code> and <code class="inlinesourcetext">Supplying a missing second noun</code> (to help Inform guess an appropriate item when the player leaves something entirely out of his command). For instance, if the player typed <code class="inlinetranscriptcommand">shoot henry</code>, it is the supplying a missing noun/second noun activity that would allow us to make Inform draw the obvious conclusion that they shoot Henry with the pistol they are carrying. The <code class="inlinesourcetext">Does the player mean</code> rules are discussed in the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>; the activities in the chapter on <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a>.</p>
             <p>Next we need to define our new action, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Smiling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2076" -->
+            <blockquote class="extract-inform7"><a id="code2076"></a><span class="indexdullblue"><span class="identifier-syntax">Smiling</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Folding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Folding</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Wrapping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Wrapping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In cases where we're using an <code class="inlinesourcetext">&quot;[any thing]&quot;</code> token to let the player affect objects that aren't normally visible or reachable, we'll need to define the action to apply to <em>visible objects</em>. This tells Inform that the player doesn't have to be able to touch the object for it to work. So for instance</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Considering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2077" -->
+            <blockquote class="extract-inform7"><a id="code2077"></a><span class="indexdullblue"><span class="identifier-syntax">Considering</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">visible</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>For more on this topic, see Visible vs. touchable vs. carried in the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>.</p>
             <p>The next step is to create rules for Inform to follow when the action happens. These can be <code class="inlinesourcetext">check</code> rules (which make sure that the conditions for the action to occur are fulfilled); <code class="inlinesourcetext">carry out</code> rules (which perform the action); and <code class="inlinesourcetext">report</code> rules (which describe the results of the action to the player). Any new action should have at least a <code class="inlinesourcetext">report</code> rule to let the player know what has happened (if anything), and a <code class="inlinesourcetext">carry out</code> rule if there are any ramifications for the world model. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">folding</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2078" -->
+            <blockquote class="extract-inform7"><a id="code2078"></a><span class="indexdullblue"><span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">folding</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">swan</span><span class="syntaxplain">-</span><span class="syntaxidentifier">like</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">swan</span><span class="plain-syntax">-</span><span class="identifier-syntax">like</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">folding</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">folding</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You deftly fold </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> into the shape of a swan.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You deftly fold [the noun] into the shape of a swan.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It's important to remember that <code class="inlinesourcetext">report</code> rules may be describing something whose name is plural, such as papers or shoes, and write our text so that it sounds right either way; see the chapter on <a href="WI_15_1.html" title="Chapter 15: Adaptive Text and Responses">Adaptive Text and Responses</a>.</p>
             <p>More about defining actions and creating <code class="inlinesourcetext">carry out</code> and <code class="inlinesourcetext">report</code> rules may be found in the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>.</p>
             <p>Meanwhile, the <code class="inlinesourcetext">check</code> rules give us a chance to provide sensible restrictions on how the command works, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">folding</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2079" -->
+            <blockquote class="extract-inform7"><a id="code2079"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">folding</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">napkin</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">napkin</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> won't bend.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shooting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is incapable of aiming at itself.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] won't bend.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You're not quite desperate enough to make a funeral pyre for yourself just yet.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] is incapable of aiming at itself.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">burning</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You're not quite desperate enough to make a funeral pyre for yourself just yet.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a> explains how <code class="inlinesourcetext">check</code> rules work. In the special case where we want the player to take things automatically before using them, we may want to define the action to work only on carried objects, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Wrapping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2080" -->
+            <blockquote class="extract-inform7"><a id="code2080"></a><span class="indexdullblue"><span class="identifier-syntax">Wrapping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The activity Implicitly taking something (documented in the chapter on <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a>) allows us to modify what should happen during this process.</p>
             <p>Lastly, a word or two about trouble-shooting. If a newly created command seems not to be working, we can discover what action Inform is really generating with the <code class="inlinetranscriptcommand">actions</code> testing command, as in</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> ACTIONS</span><br><span class="syntaxidentifier">Actions listing on.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> I</span><br><span class="syntaxidentifier">[taking inventory]</span><br><span class="syntaxidentifier">You are carrying nothing.</span><br><br><span class="syntaxidentifier">[taking inventory - succeeded]</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; ACTIONS<br>Actions listing on.<br><br>&gt; I<br>[taking inventory]<br>You are carrying nothing.<br><br>[taking inventory - succeeded]<br></code></pre></div>
             <p>If the desired command is not happening, we may need to review our understand lines. A common problem is that our new action conflicts with one already defined by default. In that case, we may want to check the Actions index and see whether there are already-defined actions which might conflict with it. If so, we may need to redefine a command with a line like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;stand&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2081" -->
+            <blockquote class="extract-inform7"><a id="code2081"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;stand&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If that's not enough, we can get a comprehensive view of everything that happens during an action with <code class="inlinetranscriptcommand">rules</code>: this will list all the <code class="inlinesourcetext">check</code>, <code class="inlinesourcetext">carry out</code>, and <code class="inlinesourcetext">report</code> rules that Inform is using to perform the command.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_5_5.html" title="Section 5.5: Memory and Knowledge">Memory and Knowledge</a> for more about the any token and the concept of scope to control what the player may refer to in a command.</li>
             </ul>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_1.html"><span class="markdowncontent">Chapter 6: Commands</span></a> &bull; <a href="RB_6_3.html"><span class="markdowncontent">Section 6.3: Modifying Existing Commands</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

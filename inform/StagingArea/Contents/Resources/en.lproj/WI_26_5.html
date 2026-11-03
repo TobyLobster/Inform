@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 26.5: Low-level testing commands</span></title>
+    <title><span class="markdowncontent">Section 26.5: New types of hyperlink</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_26_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.5: Low-level testing commands</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.5: New types of hyperlink</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,24 +2212,154 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 26.5: Low-level testing commands</span></h3>
-            <p>             </p>
-            <p>The remaining commands are for expert users only, and are very miscellaneous.</p>
-            <p><code class="inlinetranscriptcommand">random</code> sets the random number generator to a predictable seed. If we include this in a test command, it will guarantee that the subsequent behaviour of the story is consistent across multiple playthroughs, which is helpful if we're trying to test something to do with, say, randomly wandering non-player characters.</p>
-            <p><code class="inlinetranscriptcommand">verify</code> checks that the story file is intact rather than damaged, but it is hard to think of an occasion when this would be likely to arise within the Inform application. The command is a holdover from a time when data transfer was much slower and more error-prone, and it was plausible to have a story file of just a few hundred KB corrupted during transmission.</p>
-            <p><code class="inlinetranscriptcommand">showtree</code> creates a list of object containment. It is similar to <code class="inlinetranscriptcommand">showme</code>, but less elegant and thorough. (At one time, this command was <code class="inlinetranscriptcommand">tree</code>, but that proved to be too ambiguous a word to use for a debugging command.)</p>
-            <p><code class="inlinetranscriptcommand">scope</code> lists the objects that are currently in scope for the player, which is to say, things that could be referred to when we're typing a typical command. Thus:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New types of hyperlink" -->
+            <!-- SEARCH SECTION "26.5" -->
+            <!-- SEARCH SORT "001-026-005-000" -->
+            <h3><span>Section 26.5: New types of hyperlink</span></h3>
+            <p>Inform's system of hyperlinks is designed to be <em>incomplete</em>. The forms of link above will cover many common needs, but inevitably authors and extension writers will want to create others.</p>
+            <p>As a first example, this section will create a sort of examine-this hyperlink: one where clicking on the link causes something in the room to be examined. Of course, the built-in system can already imitate this, more or less:</p>
+            <!-- START CODE "code1736" -->
+            <blockquote class="extract-inform7"><a id="code1736"></a><span class="indexdullblue"><span class="identifier-syntax">Professor</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chromo</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Paint</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Laboratory</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The sinister machine hums, just waiting for someone to press the [link to follow examine-me rule]big red button[end link].&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">big</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Paint</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;So shiny!&quot;</span><span class="plain-syntax">;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">examine</span><span class="plain-syntax">-</span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">big</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>But this is clumsy. What we want is this:</p>
+            <!-- START CODE "code1737" -->
+            <blockquote class="extract-inform7"><a id="code1737"></a><span class="indexdullblue"><span class="identifier-syntax">Professor</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chromo</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Paint</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Laboratory</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The sinister machine hums, just waiting for someone to press the [link to examine button]big red button[end link].&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">big</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Paint</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;So shiny!&quot;</span><span class="plain-syntax">;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Firstly, since this will mean a new type of hyperlink, we will have to assign a fresh tag to hyperlinks of this type:</p>
+            <!-- START CODE "code1738" -->
+            <blockquote class="extract-inform7"><a id="code1738"></a><span class="indexdullblue"><span class="identifier-syntax">Examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">tag</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Now we need a way to create hyperlinks of this type:</p>
+            <!-- START CODE "code1739" -->
+            <blockquote class="extract-inform7"><a id="code1739"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">link</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">examine</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">thing</span><span class="plain-syntax">):</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">link</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">token</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Internally, a hyperlink token consists of a <em>tag</em> plus (usually) a <em>value</em>. Here, the tag was <code class="inlinesourcetext">examination hyperlink</code> and the value was <code class="inlinesourcetext">X</code>, except that of course in the case of the Paint Machine, that will end up being the object <code class="inlinesourcetext">big red button</code>. We've used one of these creation phrases:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn471" -->
+                <p class="defnprototype"><a id="defn471"></a>hyperlink token of (hyperlink tag) for/of/with (value) ... hyperlink token</p>
+                <!-- END PHRASE -->
+                <p>Creates a new hyperlink token by combining a tag with a value.</p>
+                <blockquote class="alertcaution">
+                <p class="alertheading">⚠ Caution</p>
+                <p>Hyperlink tokens can contain values of many of the kinds found in Inform, but there are exceptions (such as <code class="inlinesourcetext">real number</code>), and authors must be careful not to try to put an ephemeral value into a hyperlink, such as some local variables. It is not enough for the value to exist when a hyperlink is created: it must still exist when the link is clicked. This phrase produces a run-time problem if it is asked to attach such a value to a token.</p>
+                </blockquote>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn472" -->
+                <p class="defnprototype"><a id="defn472"></a>hyperlink token of (hyperlink tag)</p>
+                <!-- END PHRASE -->
+                <p>Creates a new hyperlink token which has a tag, but no value.</p>
+            </div>
+            <p>We want to give Inform the ability to say tokens like this:</p>
+            <!-- START CODE "code1740" -->
+            <blockquote class="extract-inform7"><a id="code1740"></a><span class="indexdullblue"><span class="identifier-syntax">Hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;examination hyperlink token for [value of current hyperlink token as a thing]&quot;</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>The <code class="inlinesourcetext">hyperlink printing rulebook</code> is run whenever Inform wants to print out a hyperlink token as text. There's actually not very need to do this, except perhaps as a debugging aid (for example, adding the line <code class="inlinesourcetext">showme the outcome</code> to a handling rule like the ones below); but in general all Inform values ought to be sayable whenever possible. In this rulebook, the variable <code class="inlinesourcetext">current hyperlink token</code> is the token to be printed: the focus of the rulebook is just the tag part, which is why the rule above applies to all hyperlink tokens whose tag is <code class="inlinesourcetext">examination hyperlink</code>.</p>
+            <p>By convention, though it is not compulsory, the textual representation produced by the <code class="inlinesourcetext">hyperlink printing rulebook</code> should be Inform source text which, if used somewhere in the story source, would recreate the same token. Now, the rule above produces text such as <code class="inlinetranscript">examination hyperlink token for big red button</code>: so it would be good to be able to recognise that...</p>
+            <!-- START CODE "code1741" -->
+            <blockquote class="extract-inform7"><a id="code1741"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">token</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">token</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">thing</span><span class="plain-syntax">):</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">token</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Lastly, Inform needs to know what to do when a link of this type is clicked. In general, when any link is clicked, Glk sends a <code class="inlinesourcetext">hyperlink event</code>, but Inform handles this by then following the <code class="inlinesourcetext">hyperlink handling rules</code>. The basis of this rule book is the hyperlink tag of the event.</p>
+            <p>To handle our new action links, all we need to do is write a new rule for this rulebook:</p>
+            <!-- START CODE "code1742" -->
+            <blockquote class="extract-inform7"><a id="code1742"></a><span class="indexdullblue"><span class="identifier-syntax">Hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">outcome</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>This rulebook has a variable called <code class="inlinesourcetext">outcome</code>, which is the token belonging to the link which was clicked. In the same way that an address in a link on a web page tells a web browser where to go next, the token contains information within it which tells the handling rule what should happen. Firstly, it contains a tag saying broadly what kind of link this is:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn473" -->
+                <p class="defnprototype"><a id="defn473"></a>tag of (hyperlink token) ... hyperlink tag</p>
+                <!-- END PHRASE -->
+                <p>Extracts the hyperlink tag from a token.</p>
+            </div>
+            <p>For example, in the body of the <code class="inlinesourcetext">Hyperlink handling rule for examination hyperlink</code> above, <code class="inlinesourcetext">tag of the outcome</code> would always be <code class="inlinesourcetext">examination hyperlink</code>.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn474" -->
+                <p class="defnprototype"><a id="defn474"></a>value of (hyperlink token) as a (name of kind of value K) ... K</p>
+                <!-- END PHRASE -->
+                <p>Extracts the value out of a hyperlink.</p>
+                <blockquote class="alertcaution">
+                <p class="alertheading">⚠ Caution</p>
+                <p>This must be used with great care so that the kind of value matches the kind used when the token was created, since Inform cannot check that the value is of that actual type. For example, if the token <code class="inlinesourcetext">T</code> was created by <code class="inlinesourcetext">hyperlink token of command replacement with &quot;EXAMINE WALL&quot;</code>, and then Inform is later asked for <code class="inlinesourcetext">value of T as an object</code>, a crash will likely ensue.</p>
+                </blockquote>
+            </div>
+            <p>So, for example, this rule would not be safe:</p>
+            <!-- START CODE "code1743" -->
+            <blockquote class="extract-inform7"><a id="code1743"></a><span class="indexdullblue"><span class="identifier-syntax">Hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">outcome</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>This rule casually assumes that the value attached to the hyperlink clicked is a thing, and it might not be. On the other hand, this <em>would</em> be safe:</p>
+            <!-- START CODE "code1744" -->
+            <blockquote class="extract-inform7"><a id="code1744"></a><span class="indexdullblue"><span class="identifier-syntax">Hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">outcome</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>because now the rule applies only to links tagged as <code class="inlinesourcetext">examination hyperlink</code>, and we know that all of those links have tokens with things attached.</p>
+            <p>In effect, hyperlinks bypass and sometimes replace the usual way that commands are typed in. Because of that, they work best if the usual command prompt is removed. Inform normally prints the prompt each time it waits for keyboard input, but that means it's still present if the player clicks on a link which enters a command instead, like a question forever left unanswered. So stories making heavy use of hypertext normally remove the prompt, like so:</p>
+            <!-- START CODE "code1745" -->
+            <blockquote class="extract-inform7"><a id="code1745"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">prompt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>On the other hand, that may mean that the textual transcript of play contains no evidence that a command has taken place at all. So this amendment might be wise:</p>
+            <!-- START CODE "code1746" -->
+            <blockquote class="extract-inform7"><a id="code1746"></a><span class="indexdullblue"><span class="identifier-syntax">Hyperlink</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">examination</span><span class="plain-syntax"> </span><span class="identifier-syntax">hyperlink</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">outcome</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;(examining [the item])[command clarification break]&quot;</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Which would result in a transcript like so:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Bar</span><br><span class="syntaxidentifier">You can see a table here.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SCOPE</span><br><span class="syntaxidentifier">1: yourself (574631)</span><br><span class="syntaxidentifier">2: a table (574759)</span><br></code></pre></div>
-            <p>The bracketed numbers are object IDs for these objects, which can distinguish items with identical names. It is likely that the output of this will not be terribly interesting or different from checking <code class="inlinetranscriptcommand">showme</code>, except in cases where the author is deliberately changing the scope to be something other than <code class="inlinesourcetext">the set of things that are visible in the room with the player right now</code>. This usually involves the <code class="inlinesourcetext">Deciding the scope of something</code> activity (see the chapter on <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a>).</p>
-            <p><code class="inlinetranscriptcommand">showheap</code> shows how many bytes are currently free. This can sometimes to be helpful to tell when memory is slowly leaking due to a bug.</p>
-            <p><code class="inlinetranscriptcommand">showverb [verb]</code> lists the Understand information associated with a particular verb: for example, <code class="inlinetranscriptcommand">showverb take</code>. Similar information, in a vastly more palatable form, is available in Index / Actions / Commands, so the one time <code class="inlinetranscriptcommand">showverb</code> becomes useful is when Inform is considering the understand lines in the wrong order and producing a result we didn't want: <code class="inlinetranscriptcommand">showverb</code> will show us the order in which the lines are being assessed. The challenge will then be to add conditions to the <code class="inlinesourcetext">Understand</code> lines to move them into the correct order.</p>
-            <p>Finally, <code class="inlinetranscriptcommand">trace</code> (and its more advanced stages <code class="inlinetranscriptcommand">trace 2</code>, <code class="inlinetranscriptcommand">trace 3</code> and so on up to <code class="inlinetranscriptcommand">trace 6</code>) will reveal things, more things than we ever wanted to know, about the assumptions being made by the command parser when it takes in a command. In practice this information is almost never useful to an Inform author.</p>
+                <pre><code class="language-transcript">Churchyard<br>You can see a sturdy oak here.<br><br>(examining the sturdy oak)<br>You see nothing special about the sturdy oak.<br></code></pre></div>
+            <p>Although no prompt or typing is visible, it's now clear that the story was given a command, and what that command was.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_26_4.html"><span class="markdowncontent">Section 26.4: Testing commands for cheating</span></a> &bull; <a href="WI_26_6.html"><span class="markdowncontent">Section 26.6: Adding new testing verbs and Release for Testing</span></a></em></p>
+        <p><em> &bull; <a href="WI_26_4.html"><span class="markdowncontent">Section 26.4: Hyperlinks</span></a> &bull; <a href="WI_26_6.html"><span class="markdowncontent">Section 26.6: Suspending text input while handling events</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

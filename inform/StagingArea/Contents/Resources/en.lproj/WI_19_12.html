@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,53 +2212,67 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Understanding values" -->
+            <!-- SEARCH SECTION "19.12" -->
+            <!-- SEARCH SORT "001-019-012-000" -->
             <h3><span>Section 19.12: Understanding values</span></h3>
             <p>     </p>
             <p><code class="inlinesourcetext">Understand</code> can be used to supply new ways to talk about both things and other values. For instance, if we create:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lantern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Building</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1252" -->
+            <blockquote class="extract-inform7"><a id="code1252"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">lantern</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Building</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then it can be called <code class="inlinetranscriptcommand">brass</code>, or <code class="inlinetranscriptcommand">lantern</code>, but not <code class="inlinetranscriptcommand">lamp</code>: Inform does not really know what these words mean, and has no grasp of synonyms. We can arrange for <code class="inlinetranscriptcommand">lamp</code> to work as well like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lamp&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lantern</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1253" -->
+            <blockquote class="extract-inform7"><a id="code1253"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;lamp&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lantern</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;old lamp&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lantern</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;old lamp&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lantern</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It is not ordinarily the case that a thing can be called by the name of its kind: if we put a woman called April into a room, then she can usually be called <code class="inlinetranscriptcommand">april</code>, but not <code class="inlinetranscriptcommand">woman</code>. (The exception is when we do not specify any name for her – in that case, Inform will give up and call her just <code class="inlinetranscriptcommand">woman</code>. Also, Inform <em>does</em> allow the plural name of a kind to be used. <code class="inlinetranscriptcommand">take three coins</code> would pick up three different things of the kind <code class="inlinesourcetext">coin</code>, if that were a kind, and if there were three of them to hand.)</p>
             <p>With care, we can do the same trick for entire kinds of thing at once. So there is not usually any form of words which can refer to anything of a given kind. If we should want this, we have to say so explicitly:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;machine&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1254" -->
+            <blockquote class="extract-inform7"><a id="code1254"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;machine&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">device</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Device is a kind, so now the word <code class="inlinetranscriptcommand">machine</code> can be used to refer to any device: if there are two in the same place, the result might play out like so:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SWITCH MACHINE ON</span><br><span class="syntaxidentifier">Which do you mean, the bale twiner or the grain thresher?</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TWINER</span><br><span class="syntaxidentifier">You watch absorbed as a perfect cube of hay is trussed up like a parcel.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; SWITCH MACHINE ON<br>Which do you mean, the bale twiner or the grain thresher?<br><br>&gt; TWINER<br>You watch absorbed as a perfect cube of hay is trussed up like a parcel.<br></code></pre></div>
             <p>Similarly, we might conceivably want to allow new ways to recognise values – in this case, a number:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;eleventy-one&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxconstant">111</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1255" -->
+            <blockquote class="extract-inform7"><a id="code1255"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;eleventy-one&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="constant-syntax">111</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>When making complicated names, we need to watch out for the possibility of writing a definition which will cause Inform to go around in circles (something which will show up as a &quot;Too many activities at once&quot; run-time problem). For instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[thing]</span><span class="syntaxstring"> substitute&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">placebo</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1256" -->
+            <blockquote class="extract-inform7"><a id="code1256"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[thing] substitute&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">placebo</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will fail because Inform, working left to right, needs to look for every possible object name before it can progress: one possibility is the placebo itself: to check that, it needs to look for every possible object name: and so on, never finishing. A definition like this one very likely matches too much in any case (would we really want to accept <code class="inlinetranscriptcommand">placebo substitute</code> or <code class="inlinetranscriptcommand">cigarette substitute substitute substitute</code> here, as the definition implies?).</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg337><a style="text-decoration: none" href="eg_337.html"><span class="extensionexampleletter">337</span></a></span></div>
+                    <span id=eg334><a style="text-decoration: none" href="eg_334.html"><span class="extensionexampleletter">334</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_337.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Palette</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_334.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Palette</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An artist's workshop in which the canvas can be painted in any colour, and where painterly names for pigments (&quot;cerulean&quot;) are accepted alongside everyday ones (&quot;blue&quot;).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg337><a style="text-decoration: none" href="RB_9_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg334><a style="text-decoration: none" href="RB_9_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg338><a style="text-decoration: none" href="eg_338.html"><span class="extensionexampleletter">338</span></a></span></div>
+                    <span id=eg335><a style="text-decoration: none" href="eg_335.html"><span class="extensionexampleletter">335</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_338.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Baritone, Bass</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_335.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Baritone, Bass</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Letting the player pick a vocal range (or perhaps other characteristics) before starting play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg338><a style="text-decoration: none" href="RB_5_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg335><a style="text-decoration: none" href="RB_5_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_11.html"><span class="markdowncontent">Section 19.11: Commands consisting only of nouns</span></a> &bull; <a href="WI_19_13.html"><span class="markdowncontent">Section 19.13: This/that</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

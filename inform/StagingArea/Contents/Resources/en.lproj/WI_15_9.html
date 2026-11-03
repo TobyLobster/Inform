@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Verbs as values" -->
+            <!-- SEARCH SECTION "15.9" -->
+            <!-- SEARCH SORT "001-015-009-000" -->
             <h3><span>Section 15.9: Verbs as values</span></h3>
             <p>        </p>
             <p>Each verb known to Inform is actually a value of the kind <code class="inlinesourcetext">verb</code>. To refer to this value, we put the word <code class="inlinesourcetext">verb</code> in front of its first-person plural. So for example:</p>
@@ -2138,109 +2227,141 @@
             <p>For irregular verbs this might be different from the infinitive form, but to avoid confusion Inform accepts either. Thus <code class="inlinesourcetext">the verb are</code> and <code class="inlinesourcetext">the verb be</code> are both ways to write the same value — the verb &quot;to be&quot; in value form.</p>
             <p>Two adjectives are provided for use with verbs: <code class="inlinesourcetext">modal</code> (or <code class="inlinesourcetext">non-modal</code>) to pick out verbs like might, could, should, and so on; and <code class="inlinesourcetext">meaningful</code> (or <code class="inlinesourcetext">meaningless</code>) to pick out verbs which have a defined meaning as an Inform relation. For example, in the Standard Rules, the verb contain is meaningful, the verb might is modal, and the verb provoke is meaningless.</p>
             <p>If V has a meaning as a relation of objects, then <code class="inlinesourcetext">meaning of V</code> produces that relation. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contain</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code983" -->
+            <blockquote class="extract-inform7"><a id="code983"></a><span class="indexdullblue"><span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">meaning</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">contain</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">provoke</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">meaning</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">provoke</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;meaning of the verb contain&quot; = relation of objects: containment relation</span><br><span class="syntaxidentifier">&quot;meaning of the verb provoke&quot; = relation of objects: never-holding relation</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;meaning of the verb contain&quot; = relation of objects: containment relation<br>&quot;meaning of the verb provoke&quot; = relation of objects: never-holding relation<br></code></pre></div>
             <p>As this demonstrates, if a verb has no meaning, or its meaning doesn't relate to objects, we get just the <code class="inlinesourcetext">never-holding relation</code>. This is a relation which, as the name suggests, never holds, and can't be made to hold, between any two values.</p>
             <p>In fact, Inform even defines a verb <code class="inlinesourcetext">to mean</code>: it's meaningful, and its meaning is the meaning relation. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">...</span>
+            <!-- START CODE "code984" -->
+            <blockquote class="extract-inform7"><a id="code984"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">mean</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">meaning</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is true. More usefully, we can search our vocabulary like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">containment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span>
+            <!-- START CODE "code985" -->
+            <blockquote class="extract-inform7"><a id="code985"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">verbs</span><span class="plain-syntax"> </span><span class="identifier-syntax">meaning</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">containment</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which, unless any non-Standard Rules definitions have been added, produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">list of verbs: {verb contain}</span><br></code></pre></div>
+                <pre><code class="language-transcript">list of verbs: {verb contain}<br></code></pre></div>
             <p>Note that the meaning relation can't be changed at run-time: it is not clear what it would even mean to do something like –</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contain</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code986" -->
+            <blockquote class="extract-inform7"><a id="code986"></a><span class="indexdullblue"><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">contain</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>with the story already started, so this will produce a problem message.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[adapt (verb)]&quot;</p>
+                <!-- START PHRASE "defn210" -->
+                <p class="defnprototype"><a id="defn210"></a>say &quot;[adapt (verb)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the current story tense and story viewpoint. For example, <code class="inlinesourcetext">&quot;you [adapt the verb provoke]&quot;</code> might produce <code class="inlinetranscript">you provoke</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[adapt (verb) from (narrative viewpoint)]&quot;</p>
+                <!-- START PHRASE "defn211" -->
+                <p class="defnprototype"><a id="defn211"></a>say &quot;[adapt (verb) from (narrative viewpoint)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the current story tense but the given viewpoint. For example, &quot;he [adapt the verb provoke from the third person singular]&quot; might produce &quot;he provokes&quot;.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[adapt (verb) in (grammatical tense)]&quot;</p>
+                <!-- START PHRASE "defn212" -->
+                <p class="defnprototype"><a id="defn212"></a>say &quot;[adapt (verb) in (grammatical tense)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the given tense but the current story viewpoint. For example, <code class="inlinesourcetext">&quot;you [adapt the verb provoke in the past tense]&quot;</code> might produce <code class="inlinetranscript">you provoked</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[adapt (verb) in (grammatical tense) from (narrative viewpoint)]&quot;</p>
+                <!-- START PHRASE "defn213" -->
+                <p class="defnprototype"><a id="defn213"></a>say &quot;[adapt (verb) in (grammatical tense) from (narrative viewpoint)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the given tense and viewpoint. For example, <code class="inlinesourcetext">&quot;we [adapt the verb provoke in the future tense from the first person plural]&quot;</code> might produce <code class="inlinetranscript">we will provoke</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[negate (verb)]&quot;</p>
+                <!-- START PHRASE "defn214" -->
+                <p class="defnprototype"><a id="defn214"></a>say &quot;[negate (verb)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the current story tense and story viewpoint, giving it a negative sense. For example, <code class="inlinesourcetext">&quot;you [negate the verb provoke]&quot;</code> might produce <code class="inlinetranscript">you do not provoke</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[negate (verb) from (narrative viewpoint)]&quot;</p>
+                <!-- START PHRASE "defn215" -->
+                <p class="defnprototype"><a id="defn215"></a>say &quot;[negate (verb) from (narrative viewpoint)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the current story tense but the given viewpoint, giving it a negative sense. For example, <code class="inlinesourcetext">&quot;she [negate the verb provoke from the third person singular]&quot;</code> might produce <code class="inlinetranscript">she does not provoke</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[negate (verb) in (grammatical tense)]&quot;</p>
+                <!-- START PHRASE "defn216" -->
+                <p class="defnprototype"><a id="defn216"></a>say &quot;[negate (verb) in (grammatical tense)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the given tense but the current story viewpoint, giving it a negative sense. For example, <code class="inlinesourcetext">&quot;you [negate the verb provoke in the past tense]&quot;</code> might produce <code class="inlinetranscript">you did not provoke</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[negate (verb) in (grammatical tense) from (narrative viewpoint)]&quot;</p>
+                <!-- START PHRASE "defn217" -->
+                <p class="defnprototype"><a id="defn217"></a>say &quot;[negate (verb) in (grammatical tense) from (narrative viewpoint)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Adapts the given verb to the given tense and viewpoint, giving it a negative sense. For example, <code class="inlinesourcetext">&quot;we [negate the verb provoke in the future tense from the first person plural]&quot;</code> might produce <code class="inlinetranscript">we will not provoke</code>.</p>
             </div>
             <p>Note that the verb doesn't have to be named explicitly for use by the adapt or negate phrases, so for example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">my</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code987" -->
+            <blockquote class="extract-inform7"><a id="code987"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">rendering</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">V</span><span class="plain-syntax"> - </span><span class="identifier-syntax">verb</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">my</span><span class="plain-syntax"> </span><span class="identifier-syntax">rendering</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[negate V in the past perfect tense]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[negate V in the past perfect tense]&quot;</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">my</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaningful</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">my</span><span class="plain-syntax"> </span><span class="identifier-syntax">rendering</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">meaningful</span><span class="plain-syntax"> </span><span class="identifier-syntax">verbs</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;my rendering applied to the list of meaningful verbs&quot; = list of texts: {&quot;had not had&quot;, &quot;had not related&quot;, &quot;had not meant&quot;, &quot;had not provided&quot;, &quot;had not contained&quot;, &quot;had not supported&quot;, &quot;had not incorporated&quot;, &quot;had not enclosed&quot;, &quot;had not carried&quot;, &quot;had not held&quot;, &quot;had not worn&quot;, &quot;had not been able to see&quot;, &quot;had not been able to touch&quot;, &quot;had not concealed&quot;, &quot;had not unlocked&quot;}</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;my rendering applied to the list of meaningful verbs&quot; = list of texts: {&quot;had not had&quot;, &quot;had not related&quot;, &quot;had not meant&quot;, &quot;had not provided&quot;, &quot;had not contained&quot;, &quot;had not supported&quot;, &quot;had not incorporated&quot;, &quot;had not enclosed&quot;, &quot;had not carried&quot;, &quot;had not held&quot;, &quot;had not worn&quot;, &quot;had not been able to see&quot;, &quot;had not been able to touch&quot;, &quot;had not concealed&quot;, &quot;had not unlocked&quot;}<br></code></pre></div>
             <p>Lastly, we can get at three other useful parts of a verb, too. These aren't adaptive, of course: a verb only has one infinitive form.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[infinitive of (verb)]&quot;</p>
+                <!-- START PHRASE "defn218" -->
+                <p class="defnprototype"><a id="defn218"></a>say &quot;[infinitive of (verb)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Produces the infinitive of the given verb. Note that this is without a <code class="inlinetranscript">to</code>: for example, <code class="inlinesourcetext">&quot;[infinitive of the verb carry]&quot;</code> is <code class="inlinetranscript">carry</code>, not <code class="inlinetranscript">to carry</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[past participle of (verb)]&quot;</p>
+                <!-- START PHRASE "defn219" -->
+                <p class="defnprototype"><a id="defn219"></a>say &quot;[past participle of (verb)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Produces the past participle of the given verb. For example, <code class="inlinesourcetext">&quot;[past participle of the verb carry]&quot;</code> is <code class="inlinetranscript">carried</code>. Warning: because modal verbs like &quot;should&quot; or &quot;might&quot; are defective in English, this will produce odd results on them – <code class="inlinetranscript">shoulded</code> and <code class="inlinetranscript">mighted</code>, for example.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[present participle of (verb)]&quot;</p>
+                <!-- START PHRASE "defn220" -->
+                <p class="defnprototype"><a id="defn220"></a>say &quot;[present participle of (verb)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>Produces the present participle of the given verb. For example, <code class="inlinesourcetext">&quot;[present participle of the verb carry]&quot;</code> is <code class="inlinetranscript">carrying</code>. Warning: because modal verbs like &quot;should&quot; or &quot;might&quot; are defective in English, this will produce odd results on them – <code class="inlinetranscript">shoulding</code> and <code class="inlinetranscript">mighting</code>, for example.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg271><a style="text-decoration: none" href="eg_271.html"><span class="extensionexampleletter">271</span></a></span></div>
+                    <span id=eg268><a style="text-decoration: none" href="eg_268.html"><span class="extensionexampleletter">268</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_271.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">History Lab</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_268.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">History Lab</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">We create phrases such as &quot;the box we took&quot; and &quot;the newspaper Clark looked at&quot; based on what has already happened in the story.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg271><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg268><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg272><a style="text-decoration: none" href="eg_272.html"><span class="extensionexampleletter">272</span></a></span></div>
+                    <span id=eg269><a style="text-decoration: none" href="eg_269.html"><span class="extensionexampleletter">269</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_272.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Relevant Relations</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_269.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Relevant Relations</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An example of how to create room descriptions that acknowledge particular relations using their assigned verbs, rather than by the heavily special-cased code used by the standard library.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg272><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg269><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_8.html"><span class="markdowncontent">Section 15.8: Adapting contractions</span></a> &bull; <a href="WI_15_10.html"><span class="markdowncontent">Section 15.10: Responses</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

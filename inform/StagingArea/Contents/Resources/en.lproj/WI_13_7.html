@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,70 +2212,92 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New actions" -->
+            <!-- SEARCH SECTION "13.7" -->
+            <!-- SEARCH SORT "001-013-007-000" -->
             <h3><span>Section 13.7: New actions</span></h3>
             <p>              </p>
             <p>It is not often that we need to create new actions, but a large work of interactive fiction with no novelty actions is a flavourless dish. Here we shall create an action for photographing things.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ruins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;You find this clearing in the rainforest oddly familiar.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ruins</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Your elephantine camera hangs from a convenient branch.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carved</span><span class="syntaxplain"> </span><span class="syntaxidentifier">post</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code825" -->
+            <blockquote class="extract-inform7"><a id="code825"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ruins</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;You find this clearing in the rainforest oddly familiar.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ruins</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Your elephantine camera hangs from a convenient branch.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">carved</span><span class="plain-syntax"> </span><span class="identifier-syntax">post</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Photographing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">requiring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Photographing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">requiring</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In theory that text is already sufficient to make the new action, but what we have so far is rudimentary to say the least. The two qualifications give Inform the useful information that we cannot photograph in the dark, and that we need to be photographing something – not, as in the case of waiting or taking inventory, acting without reference to any particular thing external to ourselves.</p>
             <p>The word <code class="inlinesourcetext">visible</code> here tells Inform that we do not need to be able to touch the thing in question: a line of sight is good enough. These two stipulations were necessary because the default arrangement is that any object must be in touching range, and that most actions can be performed in darkness. (Also, note that if you invent an action which needs to apply to directions like <code class="inlinesourcetext">north</code> or <code class="inlinesourcetext">south</code>, you need to make this apply to visible things, because the object used inside Inform to represent the idea of <code class="inlinesourcetext">north</code> can be seen but not touched. So for understanding purposes, <code class="inlinesourcetext">visible thing</code> is understood as meaning any visible thing or direction: it's more general than <code class="inlinesourcetext">thing</code>, not more specific.)</p>
             <p>Occasionally, when writing general rules about actions, it can be useful to find out what the current action's requirements are: the following conditions do what they suggest.</p>
             <div class="definition">
-                <p class="defnprototype">if action requires a/-- touchable noun:</p>
+                <!-- START PHRASE "defn181" -->
+                <p class="defnprototype"><a id="defn181"></a>if action requires a/-- touchable noun:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the action being processed is one whose (first) noun is an object which needs to be touchable by the actor. For example, it's true for <code class="inlinesourcetext">taking</code>, but false for <code class="inlinesourcetext">examining</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if action requires a/-- touchable second noun:</p>
+                <!-- START PHRASE "defn182" -->
+                <p class="defnprototype"><a id="defn182"></a>if action requires a/-- touchable second noun:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the action being processed is one whose second noun is an object which needs to be touchable by the actor. For example, it's true for <code class="inlinesourcetext">putting the brick in the sack</code>, but false for <code class="inlinesourcetext">throwing the brick at the window</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if action requires a/-- carried noun:</p>
+                <!-- START PHRASE "defn183" -->
+                <p class="defnprototype"><a id="defn183"></a>if action requires a/-- carried noun:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the action being processed is one whose (first) noun is an object which needs to be carried by the actor. For example, it's true for <code class="inlinesourcetext">dropping</code>, but false for <code class="inlinesourcetext">taking</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if action requires a/-- carried second noun:</p>
+                <!-- START PHRASE "defn184" -->
+                <p class="defnprototype"><a id="defn184"></a>if action requires a/-- carried second noun:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the action being processed is one whose second noun is an object which needs to be carried by the actor.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if action requires light:</p>
+                <!-- START PHRASE "defn185" -->
+                <p class="defnprototype"><a id="defn185"></a>if action requires light:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the action being processed is one which can only be performed if the actor has light to see by. For example, it's true for <code class="inlinesourcetext">examining</code>, but false for <code class="inlinesourcetext">dropping</code>.</p>
             </div>
             <p>Here are two further examples, one involving no nouns, and one involving two:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Blinking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code826" -->
+            <blockquote class="extract-inform7"><a id="code826"></a><span class="indexdullblue"><span class="identifier-syntax">Blinking</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These actions now exist, but are not yet useful because (1) they never happen, and (2) even they did happen, nothing would follow, because Inform has not yet been given rules for what they should say and do.</p>
             <p>Problem (1) is easily overcome:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;blink&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blinking</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code827" -->
+            <blockquote class="extract-inform7"><a id="code827"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;blink&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">blinking</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;scrape </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;scrape [something] with [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Now when the player types <code class="inlinetranscriptcommand">blink</code>, the blinking action will be generated, and <code class="inlinetranscriptcommand">scrape potato with brush</code> similarly. We will return to the whole subject of parsing, as this process of understanding the player's commands is called, later on, but this gives the gist of it. As for problem (2), see the next section.</p>
             <p>But it's worth pausing first to establish that there are three different ways to write about actions in Inform. Suppose we run this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Kitchen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sweet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">potato</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brush</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code828" -->
+            <blockquote class="extract-inform7"><a id="code828"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Inform</span><span class="plain-syntax"> </span><span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">Kitchen</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sweet</span><span class="plain-syntax"> </span><span class="identifier-syntax">potato</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wire</span><span class="plain-syntax"> </span><span class="identifier-syntax">brush</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">potato</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brush</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">potato</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">brush</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This shows two subtly different values, with different kinds:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">action name: scraping it with</span><br><span class="syntaxidentifier">action: scraping the sweet potato with the wire brush</span><br></code></pre></div>
+                <pre><code class="language-transcript">action name: scraping it with<br>action: scraping the sweet potato with the wire brush<br></code></pre></div>
             <ol>
             <li>
             <p><code class="inlinesourcetext">scraping it with action</code> refers to the action without thinking about any particular use of it. It means the business of scraping in general, not any one instance of scraping. The word <code class="inlinesourcetext">it</code> stands in for the position of the first noun. (This is why we wrote <code class="inlinesourcetext">Scraping it with is...</code> in the declaration, and why the <code class="inlinesourcetext">Understand</code> line ended with <code class="inlinesourcetext">as scraping it with</code>.) This is a value with the kind <code class="inlinesourcetext">action name</code>. Similarly for our other examples: <code class="inlinesourcetext">photographing action</code> and <code class="inlinesourcetext">blinking action</code> are also values of the kind <code class="inlinesourcetext">action name</code>.</p>
@@ -2200,17 +2307,21 @@
             </li>
             </ol>
             <p>The third way to talk about actions is to generalise about them with a so-called &quot;action pattern&quot;. These are not values, but are conditions which actions might or might meet. (It's the difference between numbers like 2, 7 or -40, and requirements like &quot;being between 1 and 10&quot;.) For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code829" -->
+            <blockquote class="extract-inform7"><a id="code829"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> swings away.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] swings away.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You give </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> a good scrape.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You give [the noun] a good scrape.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The rule is set to run only if the current action matches the pattern <code class="inlinesourcetext">scraping a door with something</code>; the <code class="inlinesourcetext">if</code> produces the text about swinging away only if the current action matches <code class="inlinesourcetext">scraping an open door with something</code>. This, on the other hand, does not work:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scraping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code830" -->
+            <blockquote class="extract-inform7"><a id="code830"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">scraping</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">...</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And that is because <code class="inlinesourcetext">scraping it with</code> is not a pattern: <code class="inlinesourcetext">it</code> does not say anything about what goes in the first position.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2218,36 +2329,36 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg213><a style="text-decoration: none" href="eg_213.html"><span class="extensionexampleletter">213</span></a></span></div>
+                    <span id=eg210><a style="text-decoration: none" href="eg_210.html"><span class="extensionexampleletter">210</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_213.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Red Cross</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_210.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Red Cross</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">diagnose</code> command which allows the player to check on the health of someone.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg213><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg210><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg214><a style="text-decoration: none" href="eg_214.html"><span class="extensionexampleletter">214</span></a></span></div>
+                    <span id=eg211><a style="text-decoration: none" href="eg_211.html"><span class="extensionexampleletter">211</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_214.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">3 AM</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_211.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">3 AM</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A shake command which agitates soda and makes items thump around in boxes.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg214><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg211><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg215><a style="text-decoration: none" href="eg_215.html"><span class="extensionexampleletter">215</span></a></span></div>
+                    <span id=eg212><a style="text-decoration: none" href="eg_212.html"><span class="extensionexampleletter">212</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_215.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Frizz</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_212.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Frizz</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Liquid flows within containers and soaks objects that are not waterproof; any contact with a wet object can dampen our gloves.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg215><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg212><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_6.html"><span class="markdowncontent">Section 13.6: Spontaneous actions by other people</span></a> &bull; <a href="WI_13_8.html"><span class="markdowncontent">Section 13.8: Irregular English verbs</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

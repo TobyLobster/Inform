@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,44 +2193,69 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg95><a style="text-decoration: none" href="WI_7_5.html"><span class="extensionexampleletter">95</span></a></span></div>
+                <span id=eg95><a style="text-decoration: none" href="WI_7_6.html"><span class="extensionexampleletter">95</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hayseed</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A refinement of our staircase kind which can be climbed.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Morning After</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">When the player picks something up which they haven't already examined, the object is described.</span></span></div>
             <div class="exampleright">
-                <span id=eg95><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg95><a style="text-decoration: none" href="RB_6_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Morning After" -->
+        <!-- SEARCH SECTION "Example 95" -->
+        <!-- SEARCH SORT "003-095-000-000" -->
         <p></p>
-        <p>Presumably all staircase-type connections between rooms should respond when the player says <code class="inlinetranscriptcommand">climb stairs</code> (or the equivalent). So</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Hayseed[=0x0022=][=0x000A=][=0x000A=]A staircase is a kind of door. A staircase is usually open. A staircase is seldom openable.[=0x000A=][=0x000A=]The ladder is a staircase. It is above the Barn and below the Hayloft.[=0x000A=][=0x000A=]Instead of climbing a staircase:[=0x000A=][=0x0009=]try entering the noun.[=0x000A=][=0x000A=]Test me with [=0x0022=]climb ladder / g[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Hayseed&quot;</span>
+        <p>Suppose we want to make the player's life slightly easier by examining everything they pick up, if they haven't already examined it.</p>
+        <!-- START CODE "code2426" -->
+        <blockquote class="extract-inform7"><a id="code2426"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Morning After[=0x0022=][=0x000A=][=0x000A=]A thing can be examined or unexamined.[=0x000A=][=0x000A=]After taking something unexamined:[=0x000A=][=0x0009=]say [=0x0022=]Taken. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]try examining the noun.[=0x000A=][=0x000A=]Carry out examining something:[=0x000A=][=0x0009=]now the noun is examined.[=0x000A=][=0x000A=]The Red Door Saloon is a room. [=0x0022=]This old place is in pretty bad shape since the mine shut down. Now there[=0x0027=]s not much to see but the pair of deep gouges in the floorboards where they dragged away the Sheriff[=0x0027=]s corpse with the spurs still on.[=0x0022=][=0x000A=][=0x000A=]Jed is a man in the Red Door Saloon. [=0x0022=]At 8:30 AM the only person around is old Jed, collecting his hangover cure.[=0x0022=][=0x000A=][=0x000A=]The pistol is a thing in the Red Door Saloon. The description of the pistol is [=0x0022=]It ain[=0x0027=]t too accurate, but for two dollars you can[=0x0027=]t expect much.[=0x0022=][=0x000A=][=0x000A=]The hangover cure is a thing in the Red Door Saloon. The description of the hangover cure is [=0x0022=]Two yellow egg-yolks unbroken in a red-brown liquid. Yep.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x pistol / get all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Morning After&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">staircase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">staircase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">staircase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">seldom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">examined</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">unexamined</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ladder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">staircase</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">above</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Barn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">below</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hayloft</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">unexamined</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Taken. [run paragraph on]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">climbing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">staircase</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;climb ladder / g&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">examined</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Attempts to climb other types of door will still be treated as useless.</p>
+        <!-- END CODE -->
+        <p>Carry out rules are explained in more detail in the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>. For now, it may be enough to know that what we put into this carry out rule for examining will happen any time anything is examined, but that it will not interfere with the rest of the predefined behaviour of the action. The player will still see the object description and so on, as usual.</p>
+        <!-- START CODE "code2427" -->
+        <blockquote class="extract-inform7"><a id="code2427"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Door</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saloon</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;This old place is in pretty bad shape since the mine shut down. Now there's not much to see but the pair of deep gouges in the floorboards where they dragged away the Sheriff's corpse with the spurs still on.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Jed</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Door</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saloon</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;At 8:30 AM the only person around is old Jed, collecting his hangover cure.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">pistol</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Door</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saloon</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pistol</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It ain't too accurate, but for two dollars you can't expect much.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">hangover</span><span class="plain-syntax"> </span><span class="identifier-syntax">cure</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Door</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saloon</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hangover</span><span class="plain-syntax"> </span><span class="identifier-syntax">cure</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Two yellow egg-yolks unbroken in a red-brown liquid. Yep.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x pistol / get all&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_5.html>Section 7.5: Try and try silently</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_6.html>Section 7.6: After rules</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

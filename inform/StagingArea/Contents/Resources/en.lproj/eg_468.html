@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,90 +2193,290 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg468><a style="text-decoration: none" href="WI_25_13.html"><span class="extensionexampleletter">468</span></a></span></div>
+                <span id=eg468><a style="text-decoration: none" href="WI_27_12.html"><span class="extensionexampleletter">468</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alien Invasion Part 23</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Keeping a preference file that could be loaded by any game in a series.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rubies</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A scoreboard that keeps track of the ten highest-scoring players from one playthrough to the next, adding the player's name if they have done well enough.</span></span></div>
             <div class="exampleright">
-                <span id=eg468><a style="text-decoration: none" href="RB_11_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg468><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose that we have a series of games each of which allows the player to select a puzzle difficulty level. When the player plays a new game in the series, we want them to start out by default with the same difficulty level they faced earlier on, so we store this information in a small preferences file, as follows:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Alien Invasion Part 23[=0x0022=][=0x000A=][=0x000A=]A difficulty is a kind of value. The difficulties are easy, moderate, hard, and fiendish.[=0x000A=][=0x000A=]Understand [=0x0022=]use [difficulty] puzzles[=0x0022=] as selecting difficulty. Selecting difficulty is an action out of world, applying to one difficulty.[=0x000A=][=0x000A=]Carry out selecting difficulty:[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]now challenge level entry is difficulty understood;[=0x000A=][=0x0009=]say [=0x0022=]Puzzles will be [challenge level entry] from now on.[=0x0022=][=0x000A=][=0x000A=]The File of Preferences is called [=0x0022=]prefs[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if File of Preferences exists:[=0x000A=][=0x0009=][=0x0009=]read File of Preferences into the Table of Preference Settings;[=0x000A=][=0x0009=]choose row 1 in the Table of Preference Settings;[=0x000A=][=0x0009=]say [=0x0022=](The current puzzle difficulty is set to [challenge level entry].)[=0x0022=][=0x000A=][=0x000A=]Check quitting the game:[=0x000A=][=0x0009=]write File of Preferences from the Table of Preference Settings.[=0x000A=][=0x000A=]Table of Preference Settings[=0x000A=]challenge level[=0x000A=]easy[=0x000A=][=0x000A=]The Sewer Junction is a room.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Alien Invasion Part 23&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Rubies" -->
+        <!-- SEARCH SECTION "Example 468" -->
+        <!-- SEARCH SORT "003-468-000-000" -->
+        <p>   </p>
+        <p>The trick here is that we need a table with text in order to keep track of the players' names.</p>
+        <p>Part 1 largely replicates the source from <a href="eg_441.html">Identity Theft</a>; new material starts at Part 2.</p>
+        <!-- START CODE "code2434" -->
+        <blockquote class="extract-inform7"><a id="code2434"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Rubies[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Part 1 - Collecting Names[=0x000A=][=0x000A=]The player[=0x0027=]s forename is a text that varies. The player[=0x0027=]s full name is a text that varies.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=].[=0x000A=][=0x000A=]To decide whether collecting names:[=0x000A=][=0x0009=]if the command prompt is [=0x0022=]What is your name? [=0x003E=] [=0x0022=], yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]After reading a command when collecting names:[=0x000A=][=0x0009=]if the number of words in the player[=0x0027=]s command is greater than 5:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][paragraph break]Who are you, a member of the British royal family? No one has that many names. Let[=0x0027=]s try this again.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s full name is the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the player[=0x0027=]s forename is word number 1 in the player[=0x0027=]s command;[=0x000A=][=0x0009=]now the command prompt is [=0x0022=][=0x003E=][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Hi, [player[=0x0027=]s forename]![=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][banner text][=0x0022=];[=0x000A=][=0x0009=]move the player to the location;[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Instead of looking when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for printing the banner text when collecting names: do nothing.[=0x000A=][=0x000A=]Rule for constructing the status line when collecting names: do nothing.[=0x000A=][=0x000A=]Part 2 - Adding the Leaderboard[=0x000A=][=0x000A=]File of Leaderboard is called [=0x0022=]leaderboard[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]if the File of Leaderboard exists:[=0x000A=][=0x0009=][=0x0009=]read File of Leaderboard into the Table of Leaders;[=0x000A=][=0x0009=][=0x0009=]sort the Table of Leaders in reverse scored amount order.[=0x000A=][=0x000A=]When play ends:[=0x000A=][=0x0009=]choose row 10 in the Table of Leaders; [we[=0x0027=]ve sorted the table, so the lowest score will be the one at the bottom][=0x000A=][=0x0009=]if the score is greater than scored amount entry:[=0x000A=][=0x0009=][=0x0009=]now name entry is the player[=0x0027=]s forename;[=0x000A=][=0x0009=][=0x0009=]now the scored amount entry is the score;[=0x000A=][=0x0009=]show leaderboard;[=0x000A=][=0x0009=]write the File of Leaderboard from the Table of Leaders.[=0x000A=][=0x000A=]To show leaderboard:[=0x000A=][=0x0009=]sort the Table of Leaders in reverse scored amount order;[=0x000A=][=0x0009=]say [=0x0022=]Current leading scores: [paragraph break][=0x0022=];[=0x000A=][=0x0009=]say fixed letter spacing;[=0x000A=][=0x0009=]repeat through Table of Leaders:[=0x000A=][=0x0009=][=0x0009=]if scored amount entry is greater than 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]  [name entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]let N be 25 minus the number of characters in name entry; [here we want to space out the scores so they make a neat column][=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is less than 1, now N is 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say N spaces;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][scored amount entry][line break][=0x0022=];[=0x000A=][=0x0009=]say variable letter spacing.[=0x000A=][=0x000A=]To say (N - a number) spaces:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Table of Leaders[=0x000A=]scored amount[=0x0009=]name[=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=]0[=0x0009=][=0x0022=]Smithee[=0x0022=][=0x000A=][=0x000A=]Part 3 - Scenario[=0x000A=][=0x000A=]Carry out taking something which is not handled:[=0x000A=][=0x0009=]increment score.[=0x000A=][=0x000A=]The Big Treasure Chamber is a room. It contains a ruby, an emerald, a gold tooth, an antique katana, and a silver coin.[=0x000A=][=0x000A=]Instead of waiting, end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ruby / z[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Rubies&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulties</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">easy</span><span class="syntaxplain">, </span><span class="syntaxidentifier">moderate</span><span class="syntaxplain">, </span><span class="syntaxidentifier">hard</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fiendish</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">scoring</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;use </span><span class="syntaxextract">[difficulty]</span><span class="syntaxstring"> puzzles&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">selecting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Selecting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain">, </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Part</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">Names</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">selecting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Settings</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Puzzles will be </span><span class="syntaxextract">[challenge level entry]</span><span class="syntaxstring"> from now on.&quot;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">forename</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">full</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">File</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preferences</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;prefs&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">prompt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;What is your name? &gt; &quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">whether</span><span class="plain-syntax"> </span><span class="identifier-syntax">collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">names</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">File</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preferences</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exists</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">prompt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;What is your name? &gt; &quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">yes</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">read</span><span class="syntaxplain"> </span><span class="syntaxidentifier">File</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preferences</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Settings</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Settings</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(The current puzzle difficulty is set to </span><span class="syntaxextract">[challenge level entry]</span><span class="syntaxstring">.)&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quitting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">names</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">write</span><span class="syntaxplain"> </span><span class="syntaxidentifier">File</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preferences</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Settings</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">words</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[paragraph break]Who are you, a member of the British royal family? No one has that many names. Let's try this again.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">reject</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">full</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">forename</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">word</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">prompt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&gt;&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Hi, [player's forename]!&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[banner text]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">reject</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Preference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Settings</span></span><br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">names</span><span class="plain-syntax">: </span><span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">banner</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">names</span><span class="plain-syntax">: </span><span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">constructing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">collecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">names</span><span class="plain-syntax">: </span><span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Part</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Adding</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaderboard</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaderboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;leaderboard&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaderboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">exists</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">read</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaderboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">reverse</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax">; </span><span class="comment-syntax">[we've sorted the table, so the lowest score will be the one at the bottom]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">forename</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">show</span><span class="plain-syntax"> </span><span class="identifier-syntax">leaderboard</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">write</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaderboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">show</span><span class="plain-syntax"> </span><span class="identifier-syntax">leaderboard</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">reverse</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Current leading scores: [paragraph break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">letter</span><span class="plain-syntax"> </span><span class="identifier-syntax">spacing</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;  [name entry]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">25</span><span class="plain-syntax"> </span><span class="identifier-syntax">minus</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">characters</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">; </span><span class="comment-syntax">[here we want to space out the scores so they make a neat column]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">spaces</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[scored amount entry][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">variable</span><span class="plain-syntax"> </span><span class="identifier-syntax">letter</span><span class="plain-syntax"> </span><span class="identifier-syntax">spacing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">spaces</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot; &quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leaders</span></span><br>
         <table border="0" cellspacing="0" cellpadding="0">
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">challenge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span></span>
+                    <span class="indexdullblue"><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">amount</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">name</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">easy</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
                 </td>
             </tr>
 
-            <br>
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Smithee&quot;</span></span>
+                </td>
+            </tr>
+
         </table>
-        <span class="indexdullblue">
+        <span class="indexdullblue"></span></blockquote>
+        <!-- END CODE -->
+        <p>And now we introduce a scenario that allows different players to come up with different scores – admittedly not a very interesting scenario, but it will do for now:</p>
+        <!-- START CODE "code2435" -->
+        <blockquote class="extract-inform7"><a id="code2435"></a><span class="indexdullblue"><span class="identifier-syntax">Part</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sewer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Junction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">handled</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increment</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Big</span><span class="plain-syntax"> </span><span class="identifier-syntax">Treasure</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chamber</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">ruby</span><span class="plain-syntax">, </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">emerald</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">tooth</span><span class="plain-syntax">, </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">antique</span><span class="plain-syntax"> </span><span class="identifier-syntax">katana</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">coin</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax">, </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;get ruby / z&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Our preference file is restricted to a single option here for simplicity's sake, but we could keep track of more information – whether the player preferred verbose or brief room descriptions, screen configurations, and so on.</p>
-        <p>If we were disposed to be somewhat crueler, we could use a similar method to make the player finish each episode of the series in order to unlock the next. All we would need to do is store a numerical password in our preferences file when the player finished a given level; the next level would check, say, the Table of Completed Levels for that password, and refuse to play unless the right number were present.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_25_13.html>Section 25.13: Writing and reading tables to external files</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_27_12.html>Section 27.12: Writing and reading tables to external files</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

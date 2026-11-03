@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,56 +2193,72 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg54><a style="text-decoration: none" href="WI_4_9.html"><span class="extensionexampleletter">54</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Would you...?</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Adding new properties to objects, and checking for their presence.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Straw Boater</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Using text properties that apply only to some things and are not defined for others.</span></span></div>
             <div class="exampleright">
-                <span id=eg54><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg54><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Straw Boater" -->
+        <!-- SEARCH SECTION "Example 54" -->
+        <!-- SEARCH SORT "003-054-000-000" -->
         <p></p>
-        <p>For instance, if we want to give some objects a flavour:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Would you...?[=0x0022=][=0x000A=][=0x000A=]The House is a room. The mouse is an animal in the House.[=0x000A=][=0x000A=]The player carries some green eggs and a ham.[=0x000A=][=0x000A=]A food is a kind of thing that is edible. Food has some text called flavor. The flavor of food is usually [=0x0022=]Tolerable.[=0x0022=][=0x000A=][=0x000A=]The ham and the green eggs are food. The flavor of the green eggs is [=0x0022=]Delicious![=0x0022=][=0x000A=][=0x000A=]After eating something:[=0x000A=][=0x0009=]if the noun provides the property flavor, say [=0x0022=][the flavor of the noun][paragraph break][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]It[=0x0027=]s [noun]-flavored.[=0x0022=][=0x000A=][=0x000A=]The player carries some paper. The paper is edible.[=0x000A=][=0x000A=]Test me with [=0x0022=]eat ham / eat green eggs / eat paper[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Would you...?&quot;</span>
+        <p>Sometimes we like to give properties to kinds of thing, but not fill them in in all cases. For instance, we might have vehicles that optionally make noise, and those might have a <code class="inlinesourcetext">movement sound</code>.</p>
+        <p>All properties have a default value, which we can find by looking in the Kinds tab of the index. This is what the property will be set to automatically, if we do not change it ourselves. In the case of a text property, that is <code class="inlinesourcetext">&quot;&quot;</code>; so for instance we might use our <code class="inlinesourcetext">movement sound</code> thus:</p>
+        <!-- START CODE "code3356" -->
+        <blockquote class="extract-inform7"><a id="code3356"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Straw Boater[=0x0022=][=0x000A=][=0x000A=]Boathouse is a room. [=0x0022=]A boathouse circa 1915, which -- though in poor repair -- still suggests Sunday afternoon jaunts taken by women in white gowns and men in straw hats.[=0x0022=][=0x000A=][=0x000A=]North of the Boathouse is the Shallow Water. The description of Shallow Water is [=0x0022=]Just south is the boathouse, and beyond it are trees and the marble terrace of the house above. The water deepens to the north.[=0x0022=][=0x000A=][=0x000A=]North of Shallow Water is Deep Water. The description of Deep Water is [=0x0022=]From here the boathouse has dwindled invisibly to the south, and you have a broad panorama of the shoreline, all the way down to the Skeleton Point Lighthouse in the southeast.[=0x0022=][=0x000A=][=0x000A=]A vehicle has some text called the movement sound. The sailboat and the motorboat are vehicles in the Boathouse. The movement sound of the motorboat is [=0x0022=]VRRRROOOMMMM...[=0x0022=] Understand [=0x0022=]boat[=0x0022=] as the sailboat. Understand [=0x0022=]boat[=0x0022=] as the motorboat.[=0x000A=][=0x000A=]After going somewhere by a vehicle (called cart):[=0x000A=][=0x0009=]if the movement sound of the cart is not [=0x0022=][=0x0022=], say [=0x0022=][the movement sound of the cart][paragraph break][=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Instead of exiting when the player is in a vehicle and the location is not the Boathouse:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]re not dressed for a swim.[=0x0022=][=0x000A=][=0x000A=]Instead of going somewhere when the player is not in a vehicle:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d rather not try to make this journey by swimming alone.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]n / get in sailboat / n / get out / s / get in motorboat / n / n[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Straw Boater&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mouse</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Boathouse</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A boathouse circa 1915, which -- though in poor repair -- still suggests Sunday afternoon jaunts taken by women in white gowns and men in straw hats.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eggs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ham</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Boathouse</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shallow</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shallow</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Just south is the boathouse, and beyond it are trees and the marble terrace of the house above. The water deepens to the north.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">food</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Food</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flavor</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flavor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">food</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Tolerable.&quot;</span>
+        <span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shallow</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deep</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;From here the boathouse has dwindled invisibly to the south, and you have a broad panorama of the shoreline, all the way down to the Skeleton Point Lighthouse in the southeast.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">movement</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sailboat</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">motorboat</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicles</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Boathouse</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">movement</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">motorboat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;VRRRROOOMMMM...&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;boat&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">sailboat</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;boat&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">motorboat</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Things are, in general, not <code class="inlinesourcetext">edible</code> by default, so we have to give them that property in order to allow them to be eaten by the player. Here we've defined food to be <code class="inlinesourcetext">edible</code> by default, and we have given it a standard piece of flavour text.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eggs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">food</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flavor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eggs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Delicious!&quot;</span>
+        <!-- END CODE -->
+        <p>Note that we haven't given the sailboat any <code class="inlinesourcetext">movement sound</code> at all.</p>
+        <!-- START CODE "code3357" -->
+        <blockquote class="extract-inform7"><a id="code3357"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">somewhere</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">cart</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">movement</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cart</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[the movement sound of the cart][paragraph break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">continue</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">exiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Boathouse</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">provides</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flavor</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[the flavor of the noun][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's </span><span class="syntaxextract">[noun]</span><span class="syntaxstring">-flavored.&quot;</span>
-        </span></blockquote>
-        <p>Note that we use <code class="inlinesourcetext">if the noun provides a flavour...</code> to make sure that the property exists before attempting to use it. Otherwise, there is the risk that we will try to print a property that does not exist, resulting in errors in the game.</p>
-        <p>We will only get the <code class="inlinesourcetext">&quot;It's [noun]-flavoured.&quot;</code> response if we successfully eat something that is not a food and does not have flavour text. To test this feature, let's suppose something that isn't exactly food but can theoretically be chewed on:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paper</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You're not dressed for a swim.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;eat ham / eat green eggs / eat paper&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">somewhere</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You'd rather not try to make this journey by swimming alone.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n / get in sailboat / n / get out / s / get in motorboat / n / n&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_4_9.html>Section 4.9: New value properties</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

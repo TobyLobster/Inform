@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,87 +2193,64 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg267><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleletter">267</span></a></span></div>
+                <span id=eg267><a style="text-decoration: none" href="WI_15_6.html"><span class="extensionexampleletter">267</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to display some randomised variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Some adaptive text for smelling the flowers, or indeed, anything else.</span></span></div>
             <div class="exampleright">
                 <span id=eg267><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Olfactory Settings" -->
+        <!-- SEARCH SECTION "Example 267" -->
+        <!-- SEARCH SORT "003-267-000-000" -->
         <p></p>
-        <p>Verbs can be related to other things by relations. We've seen that it's possible for a verb to <code class="inlinesourcetext">mean</code> a relationship. But we can also create a relation between verbs and action names. For instance, we can tell Inform that <code class="inlinetranscriptcommand">take</code>, <code class="inlinetranscriptcommand">get</code>, and <code class="inlinetranscriptcommand">acquire</code> are all valid ways to describe taking, and then allow it to pick a verb randomly to describe whatever action just occurred, based on its action name.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Variety[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb.[=0x000A=][=0x000A=]The verb take describes the taking action. The verb acquire describes the taking action. The verb get describes the taking action.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. The verb drop describes the dropping action. The verb put down describes the dropping action. The verb discard describes the dropping action.[=0x000A=][=0x000A=]To sniff is a verb. To smell is a verb. The verb sniff describes the smelling action. The verb smell describes the smelling action.[=0x000A=][=0x000A=]To jump is a verb. To leap is a verb. To pirouette is a verb. The verb jump describes the jumping action. The verb leap describes the jumping action. The verb pirouette describes the jumping action.[=0x000A=][=0x000A=]After an actor doing something when the noun is nothing and a verb describes (the action name part of the current action) (this is the apply random verbs to describing nounless actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to a random verb that describes (the action name part of the current action)] [the noun].[=0x0022=];[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / smell ball[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Variety&quot;</span>
+        <p>While this isn't very interesting as IF, it runs through most of the adaptive-text tricks.</p>
+        <!-- START CODE "code3382" -->
+        <blockquote class="extract-inform7"><a id="code3382"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Olfactory Settings[=0x0022=][=0x000A=][=0x000A=]The Doghouse is a room. [=0x0022=]Not so much a place as a state of being.[=0x0022=][=0x000A=][=0x000A=]The player carries a ticket to the opera, some papers, and a bouquet of flowers. The bouquet is ambiguously plural.[=0x000A=][=0x000A=]Instead of eating something inedible, say [=0x0022=][The noun] [don[=0x0027=]t] seem likely to agree with [us] at all. [We][[=0x0027=]]d be wiser to leave [regarding the noun][them] alone.[=0x0022=][=0x000A=][=0x000A=]Instead of touching something: say [=0x0022=][regarding the noun][Those] [are] all prickly.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling something: say [=0x0022=][Our] nose [regarding nothing][are] too weak to get much smell from [regarding the noun][those].[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the bouquet: say [=0x0022=][regarding the noun][They][[=0x0027=]re] lovely.[=0x0022=][=0x000A=][=0x000A=]Instead of tasting something:[=0x000A=][=0x0009=]say [=0x0022=]Whew, [regarding the noun][are] [those] ever nasty![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x ticket / eat it / eat them / touch it / touch them / smell it / smell them / taste it / taste them / x papers / eat it / eat them / touch them / smell them / taste them / x bouquet / eat it / eat them / touch them / smell them / taste them[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Olfactory Settings&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Descriptive Functionality</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Doghouse</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Not so much a place as a state of being.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">names</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describe</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">ticket</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">opera</span><span class="plain-syntax">, </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">papers</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">bouquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowers</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">bouquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ambiguously</span><span class="plain-syntax"> </span><span class="identifier-syntax">plural</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">take</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acquire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">get</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">inedible</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] [don't] seem likely to agree with [us] at all. [We][']d be wiser to leave [regarding the noun][them] alone.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">take</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acquire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">get</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">touching</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[regarding the noun][Those] [are] all prickly.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">put</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">discard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">put</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">discard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">smelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[Our] nose [regarding nothing][are] too weak to get much smell from [regarding the noun][those].&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sniff</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smell</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sniff</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smell</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">smelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bouquet</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[regarding the noun][They]['re] lovely.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leap</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pirouette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leap</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pirouette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">tasting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Whew, [regarding the noun][are] [those] ever nasty!&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nounless</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[verb rendering applied to a random verb that describes (the action name part of the current action)]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[verb rendering applied to a random verb that describes (the action name part of the current action)]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[adapt V]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - Scenario</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Lab</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;get ball / drop ball / get bat / drop bat / smell ball&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x ticket / eat it / eat them / touch it / touch them / smell it / smell them / taste it / taste them / x papers / eat it / eat them / touch them / smell them / taste them / x bouquet / eat it / eat them / touch them / smell them / taste them&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_3.html>Section 15.3: More on adapting verbs</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_6.html>Section 15.6: Adapting demonstratives and possessives</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

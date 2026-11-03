@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Designing New Commands" -->
+            <!-- SEARCH SECTION "6.1" -->
+            <!-- SEARCH SORT "002-006-001-000" -->
             <h2><span>Chapter 6: Commands</span></h2>
             <h3><span>Section 6.1: Designing New Commands</span></h3>
             <p>
@@ -2140,36 +2229,44 @@
             <p>To take these one one by one:</p>
             <p>(1) We may have a general idea of the phrasing we want the player to use – say we want to add a <code class="inlinetranscriptcommand">shoot</code> command which allows the player to fire a gun at something. (This is an intentionally tricky choice of verb, because it shows off so many possibilities.) So we might decide the base form of the action will be</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT THE PISTOL AT HENRY</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; SHOOT THE PISTOL AT HENRY<br></code></pre></div>
             <p>So now we're going to need an action that applies to two objects – the pistol as the noun, and Henry as the second noun. The problem is, though, that there are lots of other ways that the player could reasonably formulate the command, some of which leave out information:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT HENRY</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT PISTOL</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> FIRE PISTOL</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT AT HENRY</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT AT HENRY WITH GUN</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; SHOOT HENRY<br>&gt; SHOOT PISTOL<br>&gt; FIRE PISTOL<br>&gt; SHOOT AT HENRY<br>&gt; SHOOT AT HENRY WITH GUN<br></code></pre></div>
             <p>To avoid frustrating the player, we should make a guess about what the player means whenever we're sure that guess will be reliable (we might, for instance, have only one gun in the story, so we know that <code class="inlinetranscriptcommand">shoot henry</code> will always mean <code class="inlinetranscriptcommand">shoot henry with pistol</code>), but ask the player for clarification whenever there might be ambiguity (<code class="inlinetranscriptcommand">shoot pistol</code> gives no clue about the target, nor can we safely guess, so we want Inform to ask &quot;What do you want to shoot the pistol at?&quot;). The next section goes into more detail about how to handle these variations.</p>
             <p>Conversely, there are cases where the player is offering too <em>much</em> information for the command we've defined–say we have a <code class="inlinetranscriptcommand">burn</code> command which doesn't look for a specified fire source, but the player is trying to <code class="inlinetranscriptcommand">burn box with match</code>. We probably don't want to throw away the extraneous information as though it had never been typed, because the player might have typed something quite specific. <code class="inlinetranscriptcommand">burn box with acid</code>, say, should not be cavalierly reinterpreted as <code class="inlinetranscriptcommand">burn box</code> (with a fire source). Instead, we want to give the player a bit of gentle guidance, perhaps using &quot;Understand as a mistake&quot;, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[text]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mistake</span><span class="syntaxplain"> (</span><span class="syntaxstring">&quot;Your choice of lighter isn't important in this story: BURN SOMETHING will suffice.&quot;</span><span class="syntaxplain">)</span>
+            <!-- START CODE "code2068" -->
+            <blockquote class="extract-inform7"><a id="code2068"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;burn [something] with [text]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">mistake</span><span class="plain-syntax"> (</span><span class="string-syntax">&quot;Your choice of lighter isn't important in this story: BURN SOMETHING will suffice.&quot;</span><span class="plain-syntax">)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Finally, there are some cases where we want to understand a phrase to mean a specific form of a more general action. For instance, we might want <code class="inlinetranscriptcommand">turn down the music</code> to mean the same thing as <code class="inlinetranscriptcommand">set volume knob to 1</code>. In this case, we may want to make a sort of dummy action which converts into the main action, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;turn down volume&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;turn down music&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;turn down the volume&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;turn down the music&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lowering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">volume</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Lowering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">volume</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2069" -->
+            <blockquote class="extract-inform7"><a id="code2069"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;turn down volume&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;turn down music&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;turn down the volume&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;turn down the music&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">lowering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">volume</span><span class="plain-syntax">. </span><span class="identifier-syntax">Lowering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">volume</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lowering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">volume</span><span class="syntaxplain">, </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">volume</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knob</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">lowering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">volume</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">volume</span><span class="plain-syntax"> </span><span class="identifier-syntax">knob</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>More about this can be found later in this chapter, under Remembering, Converting and Combining Actions.</p>
             <p>Sometimes these kinds of details can be caught in play-testing, but it's a good idea to think about them specifically and in advance rather than leaving them to our beta-testers to sort out.</p>
             <p>(2) To generalise very broadly, there are two possible kinds of command in IF: those that only exist to give the player new information (like <code class="inlinetranscriptcommand">examine</code>, <code class="inlinetranscriptcommand">inventory</code>, <code class="inlinetranscriptcommand">look</code>, <code class="inlinetranscriptcommand">taste</code>), and those that change the world model (like <code class="inlinetranscriptcommand">take fish</code>, <code class="inlinetranscriptcommand">open door</code>, <code class="inlinetranscriptcommand">unlock gate with blue key</code>). The Inform library has some commands that really do none of these things by default–commands like <code class="inlinetranscriptcommand">jump</code> that do nothing interesting at all most of the time–but those exist as hooks, in case there is ever something important for them to do.</p>
             <p>Commands that ask for information are usually easier to implement. Very often we're looking to offer the player a new kind of information about specific objects, and these can be handled by adding new text properties, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sacred</span><span class="syntaxplain"> </span><span class="syntaxidentifier">emanation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2070" -->
+            <blockquote class="extract-inform7"><a id="code2070"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">sacred</span><span class="plain-syntax"> </span><span class="identifier-syntax">emanation</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">perceiving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">perceiving</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[sacred emanation of the noun][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[sacred emanation of the noun][paragraph break]&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Commands that affect the world model, on the other hand, can range from simple to very complex indeed. Sometimes we need to do nothing more than add an attribute to an object, like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">folded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flat</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flat</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2071" -->
+            <blockquote class="extract-inform7"><a id="code2071"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">folded</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">flat</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">flat</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>so that our <code class="inlinetranscriptcommand">fold</code> command can change the object into its folded form. At other times, we need quite intricate rules to account for a subtle multi-stage process–how fire is burning and spreading to objects, say, or how a conversation is progressing. Other parts of the Recipe Book offer solutions to some of these challenges.</p>
             <p>(Strictly, we might count a third kind of command: the kind that controls the story itself. The chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a> discusses how to add actions out of world, as these are called, but the difficult ones are already built into Inform–saving, restoring, restarting, undoing a turn, and so on. Mostly when we need to add new actions out of world, they will be help or hint systems of some kind. More about these can be found in the Helping and Hinting section of the Recipe Book, under Out of World Actions and Effects.)</p>
             <p>(3) Most commands that change the world require certain preconditions: the player needs to be holding the gun before it can be fired; the gun must be loaded with ammunition; if we're being especially detailed in our simulation, the safety must be off.</p>
@@ -2189,13 +2286,13 @@
             </ul>
             <p>For instance, we might have written code so that if the gun is fired at anything but a person or a fragile object, the default response is <code class="inlinesourcetext">&quot;The bullet bounces harmlessly off [the second noun].&quot;</code> Our checklist would remind us to write special cases to prevent</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT GUN AT MY SHOE</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT GUN AT ME</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOOT GUN AT GUN</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; SHOOT GUN AT MY SHOE<br>&gt; SHOOT GUN AT ME<br>&gt; SHOOT GUN AT GUN<br></code></pre></div>
             <p>and so on. Actions that destroy objects are especially tricky, because there are many things that aren't safe to destroy without carefully adjusting the world model. (What happens if we burn a door connecting two rooms? a wooden desk with a drawer containing an asbestos vest? the armchair Cousin Fred is sitting on?)</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_5_6.html"><span class="markdowncontent">Section 5.6: Viewpoint</span></a> &bull; <a href="RB_6_2.html"><span class="markdowncontent">Section 6.2: Writing New Commands</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

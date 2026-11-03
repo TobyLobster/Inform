@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,36 +2212,51 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Range and number base of notation parts" -->
+            <!-- SEARCH SECTION "17.4" -->
+            <!-- SEARCH SORT "001-017-004-000" -->
             <h3><span>Section 17.4: Range and number base of notation parts</span></h3>
+            <p>    </p>
             <p>The <em>range</em> of a part is the set of values it can hold. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">$1.99 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cents</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1117" -->
+            <blockquote class="extract-inform7"><a id="code1117"></a><span class="indexdullblue"><span class="plain-syntax">$1.99 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">cents</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">dollars</code> part can be 0, 1, 2, ... with no upper limit (except what will fit in the storage available for the data), but <code class="inlinesourcetext">cents</code> has the narrower range 0 to 99 inclusive.</p>
             <p>In this notation, <code class="inlinesourcetext">$2.09</code> is legal but <code class="inlinesourcetext">$02.09</code> and <code class="inlinesourcetext">$2.9</code> are not. This is because the <code class="inlinesourcetext">cents</code> part has to be written with leading zeros so that it occupies exactly two digits. By default, the first part of a notation appears without leading zeros, and all subsequent parts with, but this is controllable. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">16</span><span class="syntaxplain">:20 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">width</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">zeros</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1118" -->
+            <blockquote class="extract-inform7"><a id="code1118"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">16</span><span class="plain-syntax">:20 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">width</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">height</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">leading</span><span class="plain-syntax"> </span><span class="identifier-syntax">zeros</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This ensures that <code class="inlinesourcetext">4:3</code> is a legal <code class="inlinesourcetext">aspect ratio</code>, and that <code class="inlinesourcetext">4:03</code> is not. The option <code class="inlinesourcetext">with leading zeros</code> is also provided, for completeness.</p>
             <p>The option <code class="inlinesourcetext">N to M</code> overrides the default range for a part. The default is for the range to be unlimited on the first part and to be 0 up to whatever number is used to write the part, for the subsequent ones. In the <code class="inlinesourcetext">$1.99</code> notation, therefore, the <code class="inlinesourcetext">dollars</code> part is unlimited, but the <code class="inlinesourcetext">cents</code> part is <code class="inlinesourcetext">0 to 99</code>.</p>
             <p><code class="inlinesourcetext">N</code> is required to be a whole number which is at least 0, and <code class="inlinesourcetext">M</code> is required to be a whole number which is greater than <code class="inlinesourcetext">N</code>. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">50</span><span class="syntaxplain">° </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain">° </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">latitude</span><span class="syntaxplain"> (7 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">85</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">longitude</span><span class="syntaxplain"> (20 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">179</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1119" -->
+            <blockquote class="extract-inform7"><a id="code1119"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">50</span><span class="plain-syntax">° </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="constant-syntax">100</span><span class="plain-syntax">° </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">latitude</span><span class="plain-syntax"> (7 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">85</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">longitude</span><span class="plain-syntax"> (20 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">179</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that with these options set, the <code class="inlinesourcetext">50</code> and <code class="inlinesourcetext">100</code> in the specification become unimportant — they are just example values now.</p>
             <p>An alternative way to give the range is to write <code class="inlinesourcetext">D digits</code> or <code class="inlinesourcetext">up to D digits</code>. These are really just convenient synonyms for options we already have. <code class="inlinesourcetext">up to 4 digits</code> is the same thing as <code class="inlinesourcetext">0 to 9999</code>, while <code class="inlinesourcetext">4 digits</code> is the same thing as <code class="inlinesourcetext">0 to 9999, with leading zeros</code>, so that the possible values are <code class="inlinesourcetext">0000</code> to <code class="inlinesourcetext">9999</code>.</p>
             <p>If a part uses both ways to give a range, e.g., <code class="inlinesourcetext">0 to 39, 2 digits</code>, then the explicit range, in this case 0 to 39, wins out. An impossible combination such as <code class="inlinesourcetext">0 to 199, 2 digits</code> is rejected with a problem message.</p>
-            <p>The <em>number base</em> of a part is ordinarily 10, that is, it is written in decimal. This can be set with the options <code class="inlinesourcetext">in binary</code>, <code class="inlinesourcetext">in octal</code>, <code class="inlinesourcetext">in decimal</code>, <code class="inlinesourcetext">in hexadecimal</code> or <code class="inlinesourcetext">in base B</code>, where <code class="inlinesourcetext">B</code> can be anything from 2 to 36. Note that only one part is affected: see [Notations including more than one number] for how to set a number base for all the parts at once. If the base is greater than 10 then digits 10 to 35 are recognised as either <code class="inlinesourcetext">a</code> to <code class="inlinesourcetext">z</code> or <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Z</code>, but print back as <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Z</code>. So <code class="inlinesourcetext">2af</code> and <code class="inlinesourcetext">2AF</code> are both valid hexadecimal numbers to Inform, and are equal, but would be printed back as <code class="inlinetranscriptcommand">2af</code>.</p>
+            <p>The <em>number base</em> of a part is ordinarily 10, that is, it is written in decimal. This can be set with the options <code class="inlinesourcetext">in binary</code>, <code class="inlinesourcetext">in octal</code>, <code class="inlinesourcetext">in decimal</code>, <code class="inlinesourcetext">in hexadecimal</code> or <code class="inlinesourcetext">in base B</code>, where <code class="inlinesourcetext">B</code> can be anything from 2 to 36. Note that only one part is affected: see <a href="WI_17_1.html" title="Section 17.1: Notations with multiple parts">Notations with multiple parts</a> for how to set a number base for all the parts at once. If the base is greater than 10 then digits 10 to 35 are recognised as either <code class="inlinesourcetext">a</code> to <code class="inlinesourcetext">z</code> or <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Z</code>, but print back as <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Z</code>. So <code class="inlinesourcetext">2af</code> and <code class="inlinesourcetext">2AF</code> are both valid hexadecimal numbers to Inform, and are equal, but would be printed back as <code class="inlinetranscriptcommand">2af</code>.</p>
             <p>And we can combine the range and number base settings with the options <code class="inlinesourcetext">D BASE digit/digits</code> and <code class="inlinesourcetext">up to D BASE digit/digits</code>.</p>
             <p>For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DIP</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">_</span><span class="syntaxplain">&lt;</span><span class="syntaxidentifier">dip</span><span class="syntaxplain">&gt;</span><span class="syntaxidentifier">_</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DIP</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bitmap</span><span class="syntaxplain"> (5 </span><span class="syntaxidentifier">binary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digits</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1120" -->
+            <blockquote class="extract-inform7"><a id="code1120"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">DIP</span><span class="plain-syntax"> </span><span class="identifier-syntax">switch</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">_</span><span class="plain-syntax">&lt;</span><span class="identifier-syntax">dip</span><span class="plain-syntax">&gt;</span><span class="identifier-syntax">_</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">DIP</span><span class="plain-syntax"> </span><span class="identifier-syntax">switch</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">bitmap</span><span class="plain-syntax"> (5 </span><span class="identifier-syntax">binary</span><span class="plain-syntax"> </span><span class="identifier-syntax">digits</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is equivalent to:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DIP</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">_</span><span class="syntaxplain">&lt;</span><span class="syntaxidentifier">dip</span><span class="syntaxplain">&gt;</span><span class="syntaxidentifier">_</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DIP</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">setting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bitmap</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">binary</span><span class="syntaxplain">, </span><span class="syntaxconstant">0</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">31</span><span class="syntaxplain">, </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">zeros</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1121" -->
+            <blockquote class="extract-inform7"><a id="code1121"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">DIP</span><span class="plain-syntax"> </span><span class="identifier-syntax">switch</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">_</span><span class="plain-syntax">&lt;</span><span class="identifier-syntax">dip</span><span class="plain-syntax">&gt;</span><span class="identifier-syntax">_</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">DIP</span><span class="plain-syntax"> </span><span class="identifier-syntax">switch</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">bitmap</span><span class="plain-syntax"> (</span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">binary</span><span class="plain-syntax">, </span><span class="constant-syntax">0</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">31</span><span class="plain-syntax">, </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">leading</span><span class="plain-syntax"> </span><span class="identifier-syntax">zeros</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and means that, for example, <code class="inlinesourcetext">_01101_</code> is a valid <code class="inlinesourcetext">DIP switch setting</code>.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_17_3.html"><span class="markdowncontent">Section 17.3: Optional notation parts</span></a> &bull; <a href="WI_17_5.html"><span class="markdowncontent">Section 17.5: Angle-bracketed part names</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

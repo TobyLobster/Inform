@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,90 +2212,130 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Beginning and ending activities manually" -->
+            <!-- SEARCH SECTION "20.7" -->
+            <!-- SEARCH SORT "001-020-007-000" -->
             <h3><span>Section 20.7: Beginning and ending activities manually</span></h3>
             <p> </p>
             <p>If we have declared a new activity, like <code class="inlinesourcetext">analysing</code>, what we should almost always use to run the activity is the standard phrase <code class="inlinesourcetext">carry out</code>, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1328" -->
+            <blockquote class="extract-inform7"><a id="code1328"></a><span class="indexdullblue"><span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>See <a href="WI_20_5.html" title="Section 20.5: New activities">New activities</a>. This goes through the whole machinery of rules – before, for, after – in the normal way.</p>
             <p>However, as was mentioned earlier in this chapter, Inform has low-level features making it possible to run activities in non-standard ways. These features should only be used when absolutely necessary (for example for performance reasons), and even then, care should be taken to preserve the usual conventions for how the three activity stages are run. To reiterate: Inform authors will never need the features in this section, and will only ever need <code class="inlinesourcetext">carry out</code>.</p>
             <p>But with that said, here goes.</p>
             <div class="definition">
-                <p class="defnprototype">begin the (activity) activity</p>
+                <!-- START PHRASE "defn302" -->
+                <p class="defnprototype"><a id="defn302"></a>begin the (activity) activity</p>
+                <!-- END PHRASE -->
                 <p>This phrase causes the named activity to become active, and runs its <code class="inlinesourcetext">before</code> rulebook. The activity must be one which applies to nothing. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">begin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1329" -->
+                <blockquote class="extract-inform7"><a id="code1329"></a><span class="indexdullblue"><span class="identifier-syntax">begin</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>It is the user's responsibility to ensure that in all cases a matching <code class="inlinesourcetext">end the ... activity</code> or else <code class="inlinesourcetext">abandon the ... activity</code> phrase is subsequently reached.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">begin the (activity on values) activity with (value)</p>
+                <!-- START PHRASE "defn303" -->
+                <p class="defnprototype"><a id="defn303"></a>begin the (activity on values) activity with (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase causes the named activity to become active, and runs its <code class="inlinesourcetext">before</code> rulebook. The activity must be one which applies to a value of a matching kind. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">begin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1330" -->
+                <blockquote class="extract-inform7"><a id="code1330"></a><span class="indexdullblue"><span class="identifier-syntax">begin</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>It is the user's responsibility to ensure that in all cases a matching <code class="inlinesourcetext">end the ... activity</code> or else <code class="inlinesourcetext">abandon the ... activity</code> phrase is subsequently reached.</p>
             </div>
             <p>And when we are done:</p>
             <div class="definition">
-                <p class="defnprototype">end the (activity) activity</p>
+                <!-- START PHRASE "defn304" -->
+                <p class="defnprototype"><a id="defn304"></a>end the (activity) activity</p>
+                <!-- END PHRASE -->
                 <p>This phrase runs the <code class="inlinesourcetext">after</code> rulebook of the activity and then causes it to become inactive. The activity must be one which applies to nothing. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1331" -->
+                <blockquote class="extract-inform7"><a id="code1331"></a><span class="indexdullblue"><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>It is the user's responsibility to ensure that this only ever happens in a way which matches an earlier <code class="inlinesourcetext">begin the ... activity</code> phrase.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">end the (activity on values) activity with (value)</p>
+                <!-- START PHRASE "defn305" -->
+                <p class="defnprototype"><a id="defn305"></a>end the (activity on values) activity with (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase runs the <code class="inlinesourcetext">after</code> rulebook of the activity and then causes it to become inactive. The activity must be one which applies to a value of a matching kind. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1332" -->
+                <blockquote class="extract-inform7"><a id="code1332"></a><span class="indexdullblue"><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>It is the user's responsibility to ensure that this only ever happens in a way which matches an earlier <code class="inlinesourcetext">begin the ... activity</code> phrase.</p>
             </div>
             <p>So the usual structure is like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">begin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1333" -->
+            <blockquote class="extract-inform7"><a id="code1333"></a><span class="indexdullblue"><span class="identifier-syntax">begin</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             <br>
-            <span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This time the activity is ongoing throughout as many phrases as we care to write between the <code class="inlinesourcetext">begin</code> and <code class="inlinesourcetext">end</code>. The before rules are considered at the time of the <code class="inlinesourcetext">begin ...</code> phrase; the after rules at the <code class="inlinesourcetext">end ...</code>.</p>
             <p>What, then, of the <code class="inlinesourcetext">for</code> rules? In the above setup, they would simply be ignored. But we can make them effectual thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">begin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1334" -->
+            <blockquote class="extract-inform7"><a id="code1334"></a><span class="indexdullblue"><span class="identifier-syntax">begin</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">...</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">...</span>
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             <br>
-            <span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We place the activity's normal behaviour inside the <code class="inlinesourcetext">if</code>; the condition, <code class="inlinesourcetext">if handling...</code>, is true only if no rule has intervened. This means that we (or other authors using our activity) can create their own for rules to substitute here. If we elsewhere write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sober</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1335" -->
+            <blockquote class="extract-inform7"><a id="code1335"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">sober</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can't seem to focus.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can't seem to focus.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>that rule will intervene and take the place of whatever we have placed inside the condition.</p>
             <div class="definition">
-                <p class="defnprototype">if handling (activity) activity:</p>
+                <!-- START PHRASE "defn306" -->
+                <p class="defnprototype"><a id="defn306"></a>if handling (activity) activity:</p>
+                <!-- END PHRASE -->
                 <p>This should be used only where the given activity has been started with <code class="inlinesourcetext">begin ...</code> and will be finished with <code class="inlinesourcetext">end ...</code>. It runs the <code class="inlinesourcetext">for</code> rules for the activity, and then comes out true if none of those for rules intervened in the handling of that activity. (The activity must be one which doesn't apply to any value.)</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if handling (activity on values) activity with (value):</p>
+                <!-- START PHRASE "defn307" -->
+                <p class="defnprototype"><a id="defn307"></a>if handling (activity on values) activity with (value):</p>
+                <!-- END PHRASE -->
                 <p>This should be used only where the given activity has been started with <code class="inlinesourcetext">begin ...</code> and will be finished with <code class="inlinesourcetext">end ...</code>. It runs the <code class="inlinesourcetext">for</code> rules for the activity, and then comes out true if none of those for rules intervened in the handling of that activity. (The given value must be the one it is being applied to.)</p>
             </div>
             <p>It is also legal to force an early end to an activity with:</p>
             <div class="definition">
-                <p class="defnprototype">abandon the (activity) activity</p>
+                <!-- START PHRASE "defn308" -->
+                <p class="defnprototype"><a id="defn308"></a>abandon the (activity) activity</p>
+                <!-- END PHRASE -->
                 <p>This phrase ends an activity at once (without consulting any further rulebooks, including its <code class="inlinesourcetext">after</code> rulebook). It can only be used with an activity which has had its <code class="inlinesourcetext">begin</code> but not yet its <code class="inlinesourcetext">end</code> phrase; it is a drastic remedy best taken only if it is clear that circumstances have changed so that the activity now seems inappropriate. It must not be used during one of the rules for the activity: it can only be used between the begin and for stages, or between the for and end stages.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">abandon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1336" -->
+                <blockquote class="extract-inform7"><a id="code1336"></a><span class="indexdullblue"><span class="identifier-syntax">abandon</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">abandon the (activity on values) activity with (value)</p>
+                <!-- START PHRASE "defn309" -->
+                <p class="defnprototype"><a id="defn309"></a>abandon the (activity on values) activity with (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase ends an activity at once (without consulting any further rulebooks, including its <code class="inlinesourcetext">after</code> rulebook). It can only be used with an activity which has had its <code class="inlinesourcetext">begin</code> but not yet its <code class="inlinesourcetext">end</code> phrase; it is a drastic remedy best taken only if it is clear that circumstances have changed so that the activity now seems inappropriate. It must not be used during one of the rules for the activity: it can only be used between the begin and for stages, or between the for and end stages.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">abandon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1337" -->
+                <blockquote class="extract-inform7"><a id="code1337"></a><span class="indexdullblue"><span class="identifier-syntax">abandon</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Bad things may happen if we do not follow the golden rules:</p>
             <ul>
@@ -2230,11 +2355,11 @@
             </li>
             </ul>
             <p>Inform does <em>not</em> police these golden rules. If we want to use these somewhat hazardous features, we need to be careful doing so.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_6.html"><span class="markdowncontent">Section 20.6: Activity variables</span></a> &bull; <a href="WI_20_8.html"><span class="markdowncontent">Section 20.8: Introduction to the list of built-in activities</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

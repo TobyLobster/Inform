@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,47 +2193,107 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg216><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleletter">216</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Dark Ages Revisited</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">An electric light kind of device which becomes lit when switched on and dark when switched off.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Noisemaking</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Creating a stage after the report stage of an action, during which other characters may observe and react.</span></span></div>
             <div class="exampleright">
-                <span id=eg216><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg216><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Noisemaking" -->
+        <!-- SEARCH SECTION "Example 216" -->
+        <!-- SEARCH SORT "003-216-000-000" -->
         <p></p>
-        <p>This will be explored more in subsequent examples, but one of the things we can do with carry out rules is extend the function of existing commands so that they do more, or have special effects in specific situations. For instance, suppose we want to have a class of electric light:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Dark Ages Revisited[=0x0022=][=0x000A=][=0x000A=]An electric light is a kind of device. Carry out switching on an electric light: now the noun is lit. Carry out switching off an electric light: now the noun is unlit.[=0x000A=][=0x000A=]The Stooped Corridor is a room. [=0x0022=]A low, square-cut corridor, running north to south, stooping you over.[=0x0022=][=0x000A=][=0x000A=]The sodium lamp is an electric light in the Stooped Corridor. [=0x0022=][if switched on]The sodium lamp squats on the ground, burning away.[otherwise]The sodium lamp squats heavily on the ground.[end if][=0x0022=]. The description is [=0x0022=]It is a heavy-duty archaeologist[=0x0027=]s lamp, [if switched off]currently off.[otherwise]blazing with brilliant yellow light.[end if][=0x0022=][=0x000A=][=0x000A=]Instead of burning the sodium lamp, try switching on the lamp.[=0x000A=][=0x000A=]The examine devices rule is not listed in the carry out examining rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]x lamp / switch lamp on / look / x lamp[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;The Dark Ages Revisited&quot;</span>
+        <p>Suppose the current sequence of action handling is not quite enough for us: we'd also like to have a stage after reporting, where other characters can react to the player character's behaviour after it has already happened and been reported on screen. Having such a stage is unlike using <code class="inlinesourcetext">after</code>, because after occurs before reports and prevents them from being printed. So, for instance, we could allow the player to do any of a range of different actions that make loud noises, and have a nervous bird that reacts to all of them by flying away afterward.</p>
+        <p>To do this, we can add a new rule into the specific action-processing rules. (For a list of these, see the Rules index.) Moving rules around and adding new ones requires syntax that we will learn in the chapter on <a href="WI_21_1.html" title="Chapter 21: Rulebooks">Rulebooks</a>, but the present example is fairly straightforward:</p>
+        <!-- START CODE "code2835" -->
+        <blockquote class="extract-inform7"><a id="code2835"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Noisemaking[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The other-player response rule is listed after the report stage rule in the specific action-processing rules.[=0x000A=][=0x000A=]This is the other-player response rule:[=0x000A=][=0x0009=]follow the observation rules.[=0x000A=][=0x000A=]The observation rules is a rulebook.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]Country Lane is a room. West of Country Lane is Outside the Farmhouse. East of Country Lane is Village Center. North of Country Lane is Open Field.[=0x000A=][=0x000A=]The player carries a drum.[=0x000A=][=0x000A=]The black crow is an animal in Country Lane.[=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]You hum a little ditty.[=0x0022=][=0x000A=][=0x000A=]Singing is a loud action.[=0x000A=][=0x000A=]Attacking the drum is a loud action.[=0x000A=][=0x000A=]The block attacking rule is not listed in any rulebook.[=0x000A=][=0x000A=]Report attacking something:[=0x000A=][=0x0009=]say [=0x0022=]THWACK![=0x0022=][=0x000A=][=0x000A=]An observation rule for loud action in the presence of the black crow:[=0x000A=][=0x0009=]let N be a random adjacent room;[=0x000A=][=0x0009=]if N is a room, move the black crow to N;[=0x000A=][=0x0009=]say [=0x0022=]The crow, startled, flies off to [N].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]sing / g / n / hit drum[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Noisemaking&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">electric</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">electric</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">electric</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlit</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Procedure</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax">-</span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">response</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">report</span><span class="plain-syntax"> </span><span class="identifier-syntax">stage</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">specific</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">-</span><span class="identifier-syntax">processing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax">-</span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">response</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">observation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">observation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Country</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">West</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Country</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Outside</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Farmhouse</span><span class="plain-syntax">. </span><span class="identifier-syntax">East</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Country</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Village</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax">. </span><span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Country</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Open</span><span class="plain-syntax"> </span><span class="identifier-syntax">Field</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">drum</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">black</span><span class="plain-syntax"> </span><span class="identifier-syntax">crow</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Country</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Singing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sing&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You hum a little ditty.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Singing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">loud</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Attacking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">drum</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">loud</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">block</span><span class="plain-syntax"> </span><span class="identifier-syntax">attacking</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">attacking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;THWACK!&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">observation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">loud</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">black</span><span class="plain-syntax"> </span><span class="identifier-syntax">crow</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjacent</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">, </span><span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">black</span><span class="plain-syntax"> </span><span class="identifier-syntax">crow</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The crow, startled, flies off to [N].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sing / g / n / hit drum&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>This will not affect the behaviour of any other devices when switched; it will also not change the way in which switching lights on and off is reported. The player will still see <code class="inlinetranscript">You switch the sodium lamp on.</code> or the like. In this case that is probably what we want. If we wanted a special way of describing turning on electric lights as opposed to all other devices, we could also add an after rule for the electric light class. Adding this rule to the carry out train does guarantee, though, that in no case will we manage to make the lamp lit without actually making it switched on (or vice versa).</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stooped</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corridor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A low, square-cut corridor, running north to south, stooping you over.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sodium</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lamp</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">electric</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stooped</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corridor</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if switched on]</span><span class="syntaxstring">The sodium lamp squats on the ground, burning away.</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">The sodium lamp squats heavily on the ground.</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It is a heavy-duty archaeologist's lamp, </span><span class="syntaxextract">[if switched off]</span><span class="syntaxstring">currently off.</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">blazing with brilliant yellow light.</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sodium</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lamp</span><span class="syntaxplain">, </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lamp</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>So far so easy. Since we've built the description of its light or darkness into the lamp's description, though, we may want to get rid of the <code class="inlinetranscript">...is switched on</code> line that automatically follows when we look at something. For this we do need to borrow from a later chapter:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">devices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x lamp / switch lamp on / look / x lamp&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_9.html>Section 13.9: Check, carry out, report</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

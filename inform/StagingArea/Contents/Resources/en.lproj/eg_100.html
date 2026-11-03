@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,108 +2193,74 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg100><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleletter">100</span></a></span></div>
+                <span id=eg100><a style="text-decoration: none" href="WI_7_8.html"><span class="extensionexampleletter">100</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Costa Rican Ornithology</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A fully-implemented book, answering questions from a table of data, and responding to failed consultation with a custom message such as <code class="inlinetranscript">You flip through the Guide to Central American Birds, but find no reference to penguins.</code></span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Art of Noise</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Things are all assigned their own noise (or silence). Listening to the room in general reports on all the things that are currently audible.</span></span></div>
             <div class="exampleright">
-                <span id=eg100><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg100><a style="text-decoration: none" href="RB_3_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "The Art of Noise" -->
+        <!-- SEARCH SECTION "Example 100" -->
+        <!-- SEARCH SORT "003-100-000-000" -->
         <p></p>
-        <p>The following relies on quite a number of features we haven't met yet: tables, rules for printing names, instructions for understanding the player's commands. It is offered simply as an example of how a fully implemented book might be handled in Inform.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Costa Rican Ornithology[=0x0022=][=0x000A=][=0x000A=]A book is a kind of thing. Understand [=0x0022=]book[=0x0022=] as a book. A book has a table name called the contents.[=0x000A=][=0x000A=]Instead of consulting a book about a topic listed in the contents of the noun:[=0x000A=][=0x0009=]say [=0x0022=][reply entry][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Report consulting a book about:[=0x000A=][=0x0009=]say [=0x0022=]You flip through [the noun], but find no reference to [the topic understood].[=0x0022=] instead.[=0x000A=][=0x000A=]The Guide to Central American Birds is a book carried by the player. The contents of the Guide is the Table of Listed Birds.[=0x000A=][=0x000A=]Table of Listed Birds[=0x000A=]topic[=0x0009=]reply[=0x000A=][=0x0022=][red][=0x0022=] or [=0x0022=][red] bird/macaw[=0x0022=][=0x0009=][=0x0022=]You flip through the Guide for a while and eventually discover a reference to the [scarlet macaw], which appears to correspond with what you see before you.[=0x0022=][=0x000A=][=0x0022=]quetzal/trogon[=0x0022=] or [=0x0022=]resplendent trogon[=0x0022=][=0x0009=][=0x0022=]The entry on the quetzal is quite lyrical, describing its brilliant plumage, flashing and igniting in the sunshine, which is supposedly sufficient to lure birdwatchers from all over the world. Unfortunately, the quetzal is described as being bright emerald in color, with a pink fuzz on its head and a long soft tail [=0x0027=]like a feather boa[=0x0027=]. None of these describes your visitor.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]red-orange[=0x0022=] or [=0x0022=]bird[=0x0022=] or [=0x0022=]red[=0x0022=] or [=0x0022=]orange[=0x0022=] as the scarlet macaw. Understand [=0x0022=]red-orange[=0x0022=] or [=0x0022=]red[=0x0022=] or [=0x0022=]orange[=0x0022=] or [=0x0022=]scarlet[=0x0022=] as [=0x0022=][red][=0x0022=].[=0x000A=][=0x000A=]The Veranda is a room. [=0x0022=]From here you can see a considerable expanse of dense-growing jungle plants, and eventually the open water beyond.[=0x0022=][=0x000A=][=0x000A=]The scarlet macaw is an animal in the veranda. [=0x0022=]A vibrantly-colored [scarlet macaw] perches on the rail.[=0x0022=][=0x000A=][=0x000A=]A thing can be known or unknown.[=0x000A=][=0x000A=]Before printing the name of the scarlet macaw while consulting:[=0x000A=][=0x0009=]now the scarlet macaw is known.[=0x000A=][=0x000A=]Rule for printing the name of the unknown scarlet macaw: if the macaw is unknown, say [=0x0022=]red-orange bird of unknown species[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look up penguins in the guide / look up quetzal in guide / look up silver nuthatches in the guide / look / look up red bird in the book / look[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Costa Rican Ornithology&quot;</span>
+        <p>This example involves redesigning the <code class="inlinetranscriptcommand">listen</code> command, removing its built-in function and replacing that with something more ambitious. We will learn more about how to do this later on.</p>
+        <!-- START CODE "code2352" -->
+        <blockquote class="extract-inform7"><a id="code2352"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Art of Noise[=0x0022=][=0x000A=][=0x000A=]A thing has some text called sound. The sound of a thing is usually [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]The report listening rule is not listed in the report listening to rules.[=0x000A=][=0x000A=]Carry out listening to something:[=0x000A=][=0x0009=]say [=0x0022=]From [the noun] you hear [the sound of the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of listening to a room:[=0x000A=][=0x0009=]if an audible thing can be touched by the player, say [=0x0022=]You hear [the list of audible things which can be touched by the player].[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Nothing of note.[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is audible if the sound of it is not [=0x0022=]silence[=0x0022=].[=0x000A=][=0x000A=]Before printing the name of something audible while listening to a room:[=0x000A=][=0x0009=]say [=0x0022=][sound] from the [=0x0022=][=0x000A=][=0x000A=]The Sharper Image is a room. The pet rock is a thing in the Sharper Image. The toy car is a thing in the Sharper Image. The sound of the car is [=0x0022=]whirring and zooming[=0x0022=]. The plastic widget is a thing in the Sharper Image. The sound of the plastic widget is [=0x0022=]bleeps and bloops[=0x0022=]. The pointless gadget is a thing in Sharper Image. The sound of the pointless gadget is [=0x0022=]buzzbuzzbuzz[=0x0022=].[=0x000A=][=0x000A=]The soundproof case is a transparent openable container in the Sharper Image. It is closed and fixed in place.[=0x000A=][=0x000A=]Test me with [=0x0022=]listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;The Art of Noise&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;book&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;silence&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">consulting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[reply entry][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">report</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">report</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">consulting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You flip through </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">, but find no reference to </span><span class="syntaxextract">[the topic understood]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;From [the noun] you hear [the sound of the noun].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">audible</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">touched</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You hear [the list of audible things which can be touched by the player].&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Nothing of note.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Definition</span><span class="plain-syntax">: </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">audible</span><span class="plain-syntax"> </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;silence&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">audible</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[sound] from the &quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">pet</span><span class="plain-syntax"> </span><span class="identifier-syntax">rock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">toy</span><span class="plain-syntax"> </span><span class="identifier-syntax">car</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">car</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;whirring and zooming&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">plastic</span><span class="plain-syntax"> </span><span class="identifier-syntax">widget</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plastic</span><span class="plain-syntax"> </span><span class="identifier-syntax">widget</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;bleeps and bloops&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">pointless</span><span class="plain-syntax"> </span><span class="identifier-syntax">gadget</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pointless</span><span class="plain-syntax"> </span><span class="identifier-syntax">gadget</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;buzzbuzzbuzz&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">soundproof</span><span class="plain-syntax"> </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">transparent</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sharper</span><span class="plain-syntax"> </span><span class="identifier-syntax">Image</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;listen / listen to rock / listen to car / get all / open case / put all in case / listen / close case / listen / listen to car&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>With this &quot;topic understood&quot; phrase, we're telling Inform to print back the word or phrase that the player was attempting to look up. This overrides the more general default response, &quot;You discover nothing of interest in the book.&quot;</p>
-        <p>We now have the essential elements to construct whatever books we like. Now let's have an example of a specific book:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Guide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Central</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Birds</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Guide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Birds</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>We will come back to the idea of tables and table names later, but for now the important thing is that we have instructed Inform to look up its answers to consulting the bird guide in this form:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Birds</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">topic</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">reply</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[red]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[red]</span><span class="syntaxstring"> bird/macaw&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;You flip through the Guide for a while and eventually discover a reference to the </span><span class="syntaxextract">[scarlet macaw]</span><span class="syntaxstring">, which appears to correspond with what you see before you.&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;quetzal/trogon&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;resplendent trogon&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;The entry on the quetzal is quite lyrical, describing its brilliant plumage, flashing and igniting in the sunshine, which is supposedly sufficient to lure birdwatchers from all over the world. Unfortunately, the quetzal is described as being bright emerald in color, with a pink fuzz on its head and a long soft tail 'like a feather boa'. None of these describes your visitor.&quot;</span></span>
-                </td>
-            </tr>
-
-        </table>
-        <span class="indexdullblue"></span></blockquote>
-        <p>The topic column is a bit special: it matches the player's input, and is not meant to be printed out again. Topic columns will be discussed further in the chapter on <a href="WI_18_1.html" title="Chapter 18: Tables">Tables</a>. (Note also that, however it may appear in the documentation, the topic column should not be spanning multiple lines in our source text.)</p>
-        <p>We may also compress long or complicated topics by creating bracketed abbreviations, and in fact it's useful to do so now, to explain the red token we just used:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;red-orange&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;bird&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;red&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;orange&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;red-orange&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;red&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;orange&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;scarlet&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[red]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>This technique is discussed further in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>.</p>
-        <p>If we wanted more books, we could define those in the same way, giving each its own separate contents table to be used for consultation. But for the sake of the example we will keep it simple, and move on to the scenario itself:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Veranda</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;From here you can see a considerable expanse of dense-growing jungle plants, and eventually the open water beyond.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">veranda</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A vibrantly-colored </span><span class="syntaxextract">[scarlet macaw]</span><span class="syntaxstring"> perches on the rail.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">known</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unknown</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">consulting</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">known</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unknown</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain">: </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">macaw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unknown</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;red-orange bird of unknown species&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;look up penguins in the guide / look up quetzal in guide / look up silver nuthatches in the guide / look / look up red bird in the book / look&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_7.html>Section 7.7: Reading and talking</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_8.html>Section 7.8: The other four senses</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Line breaks and paragraph breaks" -->
+            <!-- SEARCH SECTION "5.8" -->
+            <!-- SEARCH SORT "001-005-008-000" -->
             <h3><span>Section 5.8: Line breaks and paragraph breaks</span></h3>
             <p>    </p>
             <p>Inform controls the flow of text being said so that it will read, to the player, in a natural way. There are two principles:</p>
@@ -2140,87 +2229,115 @@
             </ol>
             <p>The effect is that authors can forget about paragraph spacing most of the time, but the mechanism is not impossible to fool, so text substitutions are provided to override the usual principles. First, to manipulate line breaks:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[line break]&quot;</p>
+                <!-- START PHRASE "defn51" -->
+                <p class="defnprototype"><a id="defn51"></a>say &quot;[line break]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a line break. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;There is an endless sense of</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">falling and</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">falling.&quot;</span>
+                <!-- START CODE "code284" -->
+                <blockquote class="extract-inform7"><a id="code284"></a><span class="indexdullblue"><span class="string-syntax">&quot;There is an endless sense of[line break]falling and[line break]falling.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Line breaks are not paragraph breaks, so the result is:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">There is an endless sense of</span><br><span class="syntaxidentifier">falling and</span><br><span class="syntaxidentifier">falling.</span><br></code></pre></div>
+                    <pre><code class="language-transcript">There is an endless sense of<br>falling and<br>falling.<br></code></pre></div>
                 <p>with no extra vertical spacing between these lines.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[no line break]&quot;</p>
+                <!-- START PHRASE "defn52" -->
+                <p class="defnprototype"><a id="defn52"></a>say &quot;[no line break]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it prevents a line break where Inform might otherwise assume one. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The chorus sing </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Jerusalem</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Rule, Britannia!</span><span class="syntaxextract">[no line break][at random]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code285" -->
+                <blockquote class="extract-inform7"><a id="code285"></a><span class="indexdullblue"><span class="string-syntax">&quot;The chorus sing [one of]Jerusalem[or]Rule, Britannia![no line break][at random].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Here the <code class="inlinesourcetext">&quot;[no line break]&quot;</code> stops Inform from thinking that the exclamation mark means a sentence ending – it's part of the name of the song <em>Rule, Britannia!</em> (1740). So we get</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chorus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rule</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Britannia</span><span class="syntaxplain">!.</span>
+                <!-- START CODE "code286" -->
+                <blockquote class="extract-inform7"><a id="code286"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">chorus</span><span class="plain-syntax"> </span><span class="identifier-syntax">sing</span><span class="plain-syntax"> </span><span class="identifier-syntax">Rule</span><span class="plain-syntax">, </span><span class="identifier-syntax">Britannia</span><span class="plain-syntax">!.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>with no line break between the <code class="inlinetranscriptcommand">!</code> and <code class="inlinetranscriptcommand">.</code>.</p>
             </div>
             <p>And similarly for paragraph breaks. Because Inform can be pretty trigger-happy with these, the first need is for a way to stop them:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[run paragraph on]&quot;</p>
+                <!-- START PHRASE "defn53" -->
+                <p class="defnprototype"><a id="defn53"></a>say &quot;[run paragraph on]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it prevents a paragraph break occurring after the present text is printed, in case Inform might be tempted to place one there. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Very well. </span><span class="syntaxextract">[run paragraph on]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code287" -->
+                <blockquote class="extract-inform7"><a id="code287"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Very well. [run paragraph on]&quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This allows the reply to, say, <code class="inlinetranscriptcommand">take envelope</code> to be</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">Very well. Taken.</span><br></code></pre></div>
+                    <pre><code class="language-transcript">Very well. Taken.<br></code></pre></div>
                 <p>rather than</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">Very well.</span><br><br><span class="syntaxidentifier">Taken.</span><br></code></pre></div>
+                    <pre><code class="language-transcript">Very well.<br><br>Taken.<br></code></pre></div>
                 <p>which is how texts produced by different rules would normally be shown. (It's a traditional printer's term. See <em>Oldfield's Manual of Typography</em>, 1892, under &quot;When two paragraphs are required to be made into one, or, in technical language, 'to run on'.&quot;)</p>
             </div>
             <p>But sometimes we actually want paragraph breaks in unexpected places. One way is to force them outright:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[paragraph break]&quot;</p>
+                <!-- START PHRASE "defn54" -->
+                <p class="defnprototype"><a id="defn54"></a>say &quot;[paragraph break]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a paragraph break. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;This is not right.</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">No, something is terribly wrong.&quot;</span>
+                <!-- START CODE "code288" -->
+                <blockquote class="extract-inform7"><a id="code288"></a><span class="indexdullblue"><span class="string-syntax">&quot;This is not right.[paragraph break]No, something is terribly wrong.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Paragraph breaks have a little vertical spacing in them, unlike mere line breaks, so the result is:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">This is not right.</span><br><br><span class="syntaxidentifier">No, something is terribly wrong.</span><br></code></pre></div>
+                    <pre><code class="language-transcript">This is not right.<br><br>No, something is terribly wrong.<br></code></pre></div>
             </div>
             <p>More subtly, we can give Inform the option:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[conditional paragraph break]&quot;</p>
+                <!-- START PHRASE "defn55" -->
+                <p class="defnprototype"><a id="defn55"></a>say &quot;[conditional paragraph break]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution either produces a paragraph break, or no text at all. It marks a place where Inform can put a paragraph break if necessary; in effect it simulates what Inform does every time a <code class="inlinesourcetext">before</code> or similar rule finishes. If there is text already printed, and text then follows on, a paragraph break is made. But if not, nothing is done. This is sometimes useful when producing a large amount of text which changes with the circumstances so that it is hard to predict in advance whether a paragraph break is needed or not.</p>
             </div>
             <p>Really finicky authors might possibly want to know this:</p>
             <div class="definition">
-                <p class="defnprototype">if a paragraph break is pending:</p>
+                <!-- START PHRASE "defn56" -->
+                <p class="defnprototype"><a id="defn56"></a>if a paragraph break is pending:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if text has recently been said in such a way that Inform expects to add a paragraph break at the next opportunity (for instance when the present rule ends and another one says something, or when a <code class="inlinesourcetext">&quot;[conditional paragraph break]&quot;</code> is made).</p>
             </div>
             <p>Finally, there are two special sorts of paragraph break for special circumstances. They are mainly used by the Standard Rules, and imitate the textual layout styles of traditional IF.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[command clarification break]&quot;</p>
+                <!-- START PHRASE "defn57" -->
+                <p class="defnprototype"><a id="defn57"></a>say &quot;[command clarification break]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a line break, and then also a paragraph break if the text immediately following is a room description brought about by having gone to to a different room and looking around, in which case a line break should be added. In traditional IF, this is used when clarifying what Inform thinks the player intended by a given command. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(first opening </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">)</span><span class="syntaxextract">[command clarification break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code289" -->
+                <blockquote class="extract-inform7"><a id="code289"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;(first opening [the noun])[command clarification break]&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>might result in</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">(first opening the valise)</span><br><span class="syntaxidentifier">You rummage through the valise for tickets, but find nothing.</span><br></code></pre></div>
+                    <pre><code class="language-transcript">(first opening the valise)<br>You rummage through the valise for tickets, but find nothing.<br></code></pre></div>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[run paragraph on with special look spacing]&quot;</p>
+                <!-- START PHRASE "defn58" -->
+                <p class="defnprototype"><a id="defn58"></a>say &quot;[run paragraph on with special look spacing]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it indicates that the current printing position does not follow a skipped line, and that further material is expected which will run on from the previous paragraph, but that if no further material turns up then a skipped line would be needed before the next command prompt. (It's very likely that only the Standard Rules will ever need this.)</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg74><a style="text-decoration: none" href="eg_74.html"><span class="extensionexampleletter">74</span></a></span></div>
+                    <span id=eg73><a style="text-decoration: none" href="eg_73.html"><span class="extensionexampleletter">73</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_74.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beekeeper's Apprentice</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_73.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beekeeper's Apprentice</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making the <code class="inlinetranscriptcommand">search</code> command examine all the scenery in the current location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg74><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg73><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_7.html"><span class="markdowncontent">Section 5.7: Text with random alternatives</span></a> &bull; <a href="WI_5_9.html"><span class="markdowncontent">Section 5.9: Text with type styles</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

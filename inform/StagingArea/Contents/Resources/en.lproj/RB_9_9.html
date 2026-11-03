@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,61 +2212,65 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Televisions and Radios" -->
+            <!-- SEARCH SECTION "9.9" -->
+            <!-- SEARCH SORT "002-009-009-000" -->
             <h3><span>Section 9.9: Televisions and Radios</span></h3>
             <p>
-            IF authors often provide clues or background information to the player by means of radio broadcasts, TV shows or video tapes because they can talk to the player without needing to listen back, or to react to what the player does. The simplest radio set, like the one in <a href="eg_365.html">Aftershock</a>, really only has one thing to say: which is serendipitously being broadcast just at the moment the player tunes in (regardless of when that is). The next simplest approach is to spool a broadcast on an endless loop taking several turns to play through, as in <a href="eg_72.html">Radio Daze</a>.</p>
-            <p>Televisions come in all shapes and sizes, and <a href="eg_340.html">Aspect</a> allows their shape (&quot;aspect ratio&quot;) to be described by the player.</p>
-            <p>In <a href="eg_342.html">Channel 1</a>, we can also refer to the television by what it is currently showing: thus <code class="inlinetranscriptcommand">watch channel 4</code> will work if the set is indeed tuned to 4. In <a href="eg_345.html">Channel 2</a>, numbered channel changing is taken further: we can now <code class="inlinetranscriptcommand">tune tv to channel 3</code>, as well. <a href="eg_345.html">Channel 2</a> is a reasonable base implementation of a television for many purposes.</p>
+            IF authors often provide clues or background information to the player by means of radio broadcasts, TV shows or video tapes because they can talk to the player without needing to listen back, or to react to what the player does. The simplest radio set, like the one in <a href="eg_362.html">Aftershock</a>, really only has one thing to say: which is serendipitously being broadcast just at the moment the player tunes in (regardless of when that is). The next simplest approach is to spool a broadcast on an endless loop taking several turns to play through, as in <a href="eg_71.html">Radio Daze</a>.</p>
+            <p>Televisions come in all shapes and sizes, and <a href="eg_337.html">Aspect</a> allows their shape (&quot;aspect ratio&quot;) to be described by the player.</p>
+            <p>In <a href="eg_339.html">Channel 1</a>, we can also refer to the television by what it is currently showing: thus <code class="inlinetranscriptcommand">watch channel 4</code> will work if the set is indeed tuned to 4. In <a href="eg_342.html">Channel 2</a>, numbered channel changing is taken further: we can now <code class="inlinetranscriptcommand">tune tv to channel 3</code>, as well. <a href="eg_342.html">Channel 2</a> is a reasonable base implementation of a television for many purposes.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg340><a style="text-decoration: none" href="eg_340.html"><span class="extensionexampleletter">340</span></a></span></div>
+                    <span id=eg337><a style="text-decoration: none" href="eg_337.html"><span class="extensionexampleletter">337</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_340.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aspect</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_337.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aspect</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Understanding aspect ratios (a unit) in the names of televisions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg340><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg337><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg72><a style="text-decoration: none" href="eg_72.html"><span class="extensionexampleletter">72</span></a></span></div>
+                    <span id=eg71><a style="text-decoration: none" href="eg_71.html"><span class="extensionexampleletter">71</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_72.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Radio Daze</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_71.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Radio Daze</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A radio that produces a cycle of output using varying text.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg72><a style="text-decoration: none" href="WI_5_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg71><a style="text-decoration: none" href="WI_5_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg339><a style="text-decoration: none" href="eg_339.html"><span class="extensionexampleletter">339</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_339.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 1</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg339><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg362><a style="text-decoration: none" href="eg_362.html"><span class="extensionexampleletter">362</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_362.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aftershock</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Modifying the rules for examining a device so that all devices have some specific behaviour when switched on, which is described at various times.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg362><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg342><a style="text-decoration: none" href="eg_342.html"><span class="extensionexampleletter">342</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_342.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 1</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_342.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions, with more sophisticated parsing of the change channel action.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg342><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg365><a style="text-decoration: none" href="eg_365.html"><span class="extensionexampleletter">365</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_365.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aftershock</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Modifying the rules for examining a device so that all devices have some specific behaviour when switched on, which is described at various times.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg365><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg345><a style="text-decoration: none" href="eg_345.html"><span class="extensionexampleletter">345</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_345.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions, with more sophisticated parsing of the change channel action.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg345><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_8.html"><span class="markdowncontent">Section 9.8: Simple Machines</span></a> &bull; <a href="RB_9_10.html"><span class="markdowncontent">Section 9.10: Telephones</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

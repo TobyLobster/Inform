@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,14 +2212,22 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "How many turns?" -->
+            <!-- SEARCH SECTION "9.15" -->
+            <!-- SEARCH SORT "001-009-015-000" -->
             <h3><span>Section 9.15: How many turns?</span></h3>
             <p>        </p>
             <p>So much for <code class="inlinesourcetext">times</code> – spells in which a condition is true. We can also test the length of time, in turns of play, that something has been true. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> ... </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code569" -->
+            <blockquote class="extract-inform7"><a id="code569"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> ... </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>means that the condition holds now, and held at the start of this turn, at the start of last turn, and at the start of the turn before that. In particular:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">floppy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">been</span><span class="syntaxplain"> </span><span class="syntaxidentifier">worn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain"> ...</span>
+            <!-- START CODE "code570" -->
+            <blockquote class="extract-inform7"><a id="code570"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">floppy</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">been</span><span class="plain-syntax"> </span><span class="identifier-syntax">worn</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax"> ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will be false if the hat is not currently worn (even if it has been often in the past) and, on the other hand, will be true if the hat has been worn for twenty turns. Here again we can be more specific. These are synonymous:</p>
             <ul>
             <li><code class="inlinesourcetext">if the floppy hat is worn for the third turn ...</code></li>
@@ -2143,24 +2236,26 @@
             </ul>
             <p>all requiring that the hat wasn't worn four turns ago. As before, <code class="inlinesourcetext">more than</code>, <code class="inlinesourcetext">less than</code>, <code class="inlinesourcetext">at least</code> and <code class="inlinesourcetext">at most</code> so forth can also be used – say, <code class="inlinesourcetext">for at least 21 turns</code>.</p>
             <p>A warning: we must be careful when writing something like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">been</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> ...</span>
+            <!-- START CODE "code571" -->
+            <blockquote class="extract-inform7"><a id="code571"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">been</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>since this tests whether it has ever been true that the noun of the then action was open: not whether the current noun-object has ever been open.</p>
             <p>Lastly, note that the beginning of play – when (usually) initial text and a banner is printed, followed by a room description – counts towards these counts. In effect, this is a turn: one in which the player compulsorily performs the looking action, rather than being asked for a command. (By convention it is numbered as turn number 0, and doesn't contribute towards the turn count.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg159><a style="text-decoration: none" href="eg_159.html"><span class="extensionexampleletter">159</span></a></span></div>
+                    <span id=eg156><a style="text-decoration: none" href="eg_156.html"><span class="extensionexampleletter">156</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_159.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Annoyotron Jr</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_156.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Annoyotron Jr</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A child who after a certain period in the car starts asking annoying questions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg159><a style="text-decoration: none" href="RB_7_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg156><a style="text-decoration: none" href="RB_7_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_9_14.html"><span class="markdowncontent">Section 9.14: How many times?</span></a> &bull; <a href="WI_10_1.html"><span class="markdowncontent">Chapter 10: Scenes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

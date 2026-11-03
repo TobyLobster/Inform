@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,7 +2212,16 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "When the director is passive" -->
+            <!-- SEARCH SECTION "11.4" -->
+            <!-- SEARCH SORT "001-011-004-000" -->
             <h3><span>Section 11.4: When the director is passive</span></h3>
+            <p>
+
+
+             
+            </p>
             <p>Dialogue is managed during play by a component of Inform called the <em>director</em>, which we think of as being like the director of a play. It sometimes has to manage quite a complex situation, so the testing command <code class="inlinetranscriptcommand">dialogue</code> causes the director to explain itself as it goes along; and <code class="inlinetranscriptcommand">dialogue all</code> even more so.</p>
             <p>At any given time the director is either <em>passive</em> or <em>active</em>. Passive means that the director performs dialogue as it's asked to do so, but not otherwise. The director is always passive at the start of play and becomes active only if we explicitly ask it to: see <a href="WI_11_5.html" title="Section 11.5: When the director is active">When the director is active</a>.</p>
             <p>When the director is passive, beats are performed only as follows:</p>
@@ -2150,50 +2244,52 @@
             </li>
             <li>
             <p>When the action <code class="inlinesourcetext">talking about</code> is tried. This action represents somebody trying to raise a subject in conversation. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Romance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code631" -->
+            <blockquote class="extract-inform7"><a id="code631"></a><span class="indexdullblue"><span class="identifier-syntax">Romance</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kissing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Princess</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">kissing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Princess</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">talking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">romance</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">talking</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">romance</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If there's a suitable beat of dialogue available which is <code class="inlinesourcetext">about romance</code>, it will then be performed. The same will happen if the player types commands like <code class="inlinetranscriptcommand">ask about romance</code> or <code class="inlinetranscriptcommand">talk about romance</code>, because those commands are understood as the action <code class="inlinesourcetext">talking about romance</code>.</p>
             <p>Note that <code class="inlinesourcetext">talking about</code> is just one way to nudge the dialogue director into action. A rule like <code class="inlinesourcetext">Instead of talking about romance</code> would block attempts to do this which arose from the <code class="inlinesourcetext">talking about</code> action, but would not block such dialogue arising from some other cause.</p>
             </li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg175><a style="text-decoration: none" href="eg_175.html"><span class="extensionexampleletter">175</span></a></span></div>
+                    <span id=eg172><a style="text-decoration: none" href="eg_172.html"><span class="extensionexampleletter">172</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_175.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pure Choice</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_172.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pure Choice</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a branching text with no world model to speak of.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg175><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg172><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg176><a style="text-decoration: none" href="eg_176.html"><span class="extensionexampleletter">176</span></a></span></div>
+                    <span id=eg173><a style="text-decoration: none" href="eg_173.html"><span class="extensionexampleletter">173</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_176.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sweeney Revisited</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_173.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sweeney Revisited</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An innocent conversation about the meat products on sale in Bell Yard, London, in 1847.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg176><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg173><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg177><a style="text-decoration: none" href="eg_177.html"><span class="extensionexampleletter">177</span></a></span></div>
+                    <span id=eg174><a style="text-decoration: none" href="eg_174.html"><span class="extensionexampleletter">174</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_177.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Top of Your Lungs</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_174.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Top of Your Lungs</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a <code class="inlinetranscriptcommand">yell at</code> verb that selects only yelled dialogue beats.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg177><a style="text-decoration: none" href="RB_7_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg174><a style="text-decoration: none" href="RB_7_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_3.html"><span class="markdowncontent">Section 11.3: Dialogue beats and their cues</span></a> &bull; <a href="WI_11_5.html"><span class="markdowncontent">Section 11.5: When the director is active</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

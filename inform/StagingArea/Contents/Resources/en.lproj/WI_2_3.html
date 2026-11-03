@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,98 +2212,130 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Punctuation" -->
+            <!-- SEARCH SECTION "2.3" -->
+            <!-- SEARCH SORT "001-002-003-000" -->
             <h3><span>Section 2.3: Punctuation</span></h3>
             <p>                </p>
             <p>The first thing we all learn about punctuation is that full stops finish a sentence. So this is read as two sentences, not one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jones</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">croquet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mallet</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code8" -->
+            <blockquote class="extract-inform7"><a id="code8"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Jones</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">croquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">mallet</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But a full stop also closes a sentence in Inform even when it occurs inside quotation marks, provided there is no indication to the contrary. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Shiny.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code9" -->
+            <blockquote class="extract-inform7"><a id="code9"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">apple</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Shiny.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is read as three sentences, not two. It is equivalent to:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Shiny.&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code10" -->
+            <blockquote class="extract-inform7"><a id="code10"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">apple</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Shiny.&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(which also works). Sentence breaks like this occur only when the final character of the quoted text is a full stop <code class="inlinesourcetext">.</code>, question mark <code class="inlinesourcetext">?</code> or exclamation mark <code class="inlinesourcetext">!</code>, or one of these three followed by a close bracket <code class="inlinesourcetext">)</code>; and only when the next word of the source text begins with a capital letter. (So in this example, the <code class="inlinesourcetext">I</code> of <code class="inlinesourcetext">It</code> is the letter in question.)</p>
             <p>A paragraph break also divides sentences, behaving as if it were a full stop. So this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jones</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span>
+            <!-- START CODE "code11" -->
+            <blockquote class="extract-inform7"><a id="code11"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Jones</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">croquet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mallet</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">croquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">mallet</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is two sentences, not one with a strange vertical gap in it. But this is not good style, and authors should try to use normal English punctuation when possible. Also, note that a single line break is not a paragraph break. This:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jones</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span>
+            <!-- START CODE "code12" -->
+            <blockquote class="extract-inform7"><a id="code12"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Jones</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">croquet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mallet</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">croquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">mallet</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...is read as one sentence, not two, even though it doesn't make very good sense that way. All of this is to say that punctuation is not just decoration in Inform: it affects what the source text means.</p>
             <p>Material in square brackets <code class="inlinesourcetext">[like so]</code> is <em>comment</em>, in computing jargon: it is considered as being an aside, a private note by the author, and not read in by Inform. This allows us to make notes to ourselves like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">China</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxcomment">[Remember to work out what happens if the bull gets in here!]</span>
+            <!-- START CODE "code13" -->
+            <blockquote class="extract-inform7"><a id="code13"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">China</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shop</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="comment-syntax">[Remember to work out what happens if the bull gets in here!]</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform is all about text, so pieces of text are often quoted in Inform source. This example is typical:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Shiny.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code14" -->
+            <blockquote class="extract-inform7"><a id="code14"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">apple</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Shiny.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Quotations always use double-quotation marks, which aren't part of the text. So the description here is just the five letters and full stop in between the marks.</p>
             <p>That seems straightforward, but there are three conventions to watch out for.</p>
             <ol>
             <li>
             <p>Square brackets <code class="inlinesourcetext">[</code> and <code class="inlinesourcetext">]</code> inside quoted text don't literally mean &quot;[&quot; and &quot;]&quot;. They're used to describe what Inform should say, but in a non-literal way. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Your watch reads </span><span class="syntaxextract">[time of day]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code15" -->
+            <blockquote class="extract-inform7"><a id="code15"></a><span class="indexdullblue"><span class="string-syntax">&quot;Your watch reads [time of day].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might produce <code class="inlinetranscript">Your watch reads 9:02 AM.</code> These are called <em>text substitutions</em>. They're highly flexible, and can take many different forms.</p>
             </li>
             <li>
             <p>Single quotation marks at the edges of words are printed as double. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Simon says, 'It's far too heavy to lift.'&quot;</span>
+            <!-- START CODE "code16" -->
+            <blockquote class="extract-inform7"><a id="code16"></a><span class="indexdullblue"><span class="string-syntax">&quot;Simon says, 'It's far too heavy to lift.'&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces <code class="inlinetranscript">Simon says, &quot;It's far too heavy to lift.&quot;</code></p>
             </li>
             <li>
             <p>Texts which end with sentence-ending punctuation – full stop, question mark, exclamation mark – are printed with a line break after them. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I don't know how this ends&quot;</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code17" -->
+            <blockquote class="extract-inform7"><a id="code17"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I don't know how this ends&quot;</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I know just how this ends!&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I know just how this ends!&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would come out quite differently – this doesn't affect the appearance of the text, but only the position where the next text will appear. Something to be careful about is that this only applies when the punctuation occurs at the end of a <code class="inlinesourcetext">say</code>, as in these examples. (It doesn't apply when a varying textual value is printed, using some text substitution, because then the pattern of where line breaks occur would be unpredictable – sometimes the value might end in a punctuation mark, sometimes not.)</p>
             </li>
             </ol>
             <p>These three punctuation rules for texts feel very natural with practice, and Inform users sometimes don't realise the third rule is even there, because it just seems the right thing to happen. But occasionally the rules get in the way of what we want to do. (For instance, how do we get a literal <code class="inlinetranscriptcommand">[</code> or <code class="inlinetranscriptcommand">]</code>? What if we want a single quote mark where Inform thinks we want a double, or vice versa?) So we'll come back to these rules in more detail in the chapter on <a href="WI_5_1.html" title="Chapter 5: Text">Text</a>.</p>
             <p>Inform also reads other punctuation marks. Colon <code class="inlinesourcetext">:</code> and semicolon <code class="inlinesourcetext">;</code> turned up in the previous section, in the writing of rules.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code18" -->
+            <blockquote class="extract-inform7"><a id="code18"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;As you stoop down, your hat falls into the crate.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;As you stoop down, your hat falls into the crate.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The colon <code class="inlinesourcetext">:</code> indicates that a run of instructions (called <em>phrases</em> in Inform, for traditional reasons) follows, and note that there are two of them in this definition. The semicolon <code class="inlinesourcetext">;</code> divides one phrase from another. But this would be wrong:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code19" -->
+            <blockquote class="extract-inform7"><a id="code19"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;As you stoop down, your hat falls into the crate.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;As you stoop down, your hat falls into the crate.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The only difference is the full stop <code class="inlinesourcetext">.</code> at the end of the third line. That ends the rule, so Inform then tries to read the <code class="inlinesourcetext">say</code> line is if it were a new sentence or rule, which will not make any sense.</p>
             <p>Rules can leave out the colon and replace it with a comma <code class="inlinesourcetext">,</code> in just one case, when there is only one phrase which follows. So this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's far too heavy to lift.&quot;</span>
+            <!-- START CODE "code20" -->
+            <blockquote class="extract-inform7"><a id="code20"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's far too heavy to lift.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>means the same as:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crate</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code21" -->
+            <blockquote class="extract-inform7"><a id="code21"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crate</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's far too heavy to lift.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's far too heavy to lift.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="WI_5_2.html" title="Section 5.2: How Inform reads quoted text">How Inform reads quoted text</a> for a fuller exploration of the punctuation rules for text.</li>
             </ul>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_2.html"><span class="markdowncontent">Section 2.2: Making rules</span></a> &bull; <a href="WI_2_4.html"><span class="markdowncontent">Section 2.4: Problems</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

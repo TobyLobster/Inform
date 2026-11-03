@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Counting while comparing" -->
+            <!-- SEARCH SECTION "6.15" -->
+            <!-- SEARCH SORT "001-006-015-000" -->
             <h3><span>Section 6.15: Counting while comparing</span></h3>
             <p>          </p>
             <p>Lastly we can also ask for a more specific number of possibilities, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">women</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carrying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animals</span>
+            <!-- START CODE "code374" -->
+            <blockquote class="extract-inform7"><a id="code374"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">women</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">animals</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">most</span><span class="syntaxplain"> </span><span class="syntaxidentifier">three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">most</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fewer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">portable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">containers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">fewer</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">portable</span><span class="plain-syntax"> </span><span class="identifier-syntax">containers</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">but</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">devices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">all</span><span class="plain-syntax"> </span><span class="identifier-syntax">but</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">devices</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">there</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">more</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">six</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">there</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">six</span><span class="plain-syntax"> </span><span class="identifier-syntax">locked</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Likewise for <code class="inlinesourcetext">less than</code>, <code class="inlinesourcetext">at least</code>, <code class="inlinesourcetext">all except</code>. Something to watch out for is that</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span>
+            <!-- START CODE "code375" -->
+            <blockquote class="extract-inform7"><a id="code375"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will be found true if there are (say) three open doors: after all, if three doors are open, then certainly two doors are. So this is not quite counting. We can be more precise by writing</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exactly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span>
+            <!-- START CODE "code376" -->
+            <blockquote class="extract-inform7"><a id="code376"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">exactly</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">all but</code> counts – say, <code class="inlinesourcetext">if all but two doors are open</code> – are exact: if, in fact, all of the doors are open then this will be found false.</p>
             <p>We can often use these counting forms with values, too. As with the use of <code class="inlinesourcetext">all</code>, this is allowed only if the kind of value is one which can reasonably be searched through. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">more</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">happening</span>
+            <!-- START CODE "code377" -->
+            <blockquote class="extract-inform7"><a id="code377"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenes</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">happening</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">there</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">more</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">non</span><span class="syntaxplain">-</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenes</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">there</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">non</span><span class="plain-syntax">-</span><span class="identifier-syntax">recurring</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenes</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>are allowed because the built-in kind of value <code class="inlinesourcetext">scene</code> (of which much more later on) has only a small number of possible values.</p>
             <p>Lastly, note that the <code class="inlinesourcetext">the</code> in text like <code class="inlinesourcetext">two of the doors</code> matters: without it, the phrase will not be recognised as a requirement on the number. (This is to make sure that names of things like <code class="inlinesourcetext">two of hearts</code> are not misinterpreted.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg89><a style="text-decoration: none" href="eg_89.html"><span class="extensionexampleletter">89</span></a></span></div>
+                    <span id=eg88><a style="text-decoration: none" href="eg_88.html"><span class="extensionexampleletter">88</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_89.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Yolk of Gold</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_88.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Yolk of Gold</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Set of drawers where the item the player seeks is always in the last drawer they open, regardless of the order of opening.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg89><a style="text-decoration: none" href="RB_8_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg88><a style="text-decoration: none" href="RB_8_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_6_14.html"><span class="markdowncontent">Section 6.14: All, each and every</span></a> &bull; <a href="WI_7_1.html"><span class="markdowncontent">Chapter 7: Basic Actions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

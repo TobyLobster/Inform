@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,117 +2193,141 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg214><a style="text-decoration: none" href="WI_13_7.html"><span class="extensionexampleletter">214</span></a></span></div>
+                <span id=eg214><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleletter">214</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">3 AM</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A shake command which agitates soda and makes items thump around in boxes.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Paddington</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">cut [something] with [something]</code> command which acts differently on different types of objects.</span></span></div>
             <div class="exampleright">
-                <span id=eg214><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg214><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Paddington" -->
+        <!-- SEARCH SECTION "Example 214" -->
+        <!-- SEARCH SORT "003-214-000-000" -->
         <p></p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]3 AM[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]shake [something preferably held][=0x0022=] as shaking.[=0x000A=][=0x000A=]Shaking is an action applying to one carried thing.[=0x000A=][=0x000A=]Carry out shaking:[=0x000A=][=0x0009=]say [=0x0022=]Nothing results of your shaking [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of shaking a closed container when something is in the noun:[=0x000A=][=0x0009=]say [=0x0022=]Something rattles inside [the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of shaking a closed transparent container when something is in the noun:[=0x000A=][=0x0009=]say [=0x0022=]Inside [the noun] there are banging noises produced by [the list of things contained by the noun].[=0x0022=][=0x000A=][=0x000A=]Instead of shaking an open container which contains something:[=0x000A=][=0x0009=]say [=0x0022=][The list of things contained by the noun] might fly out.[=0x0022=][=0x000A=][=0x000A=]The Wawa is a room. [=0x0022=]A convenience store, if you like to call it that, vending the usual assortment of chips, donuts, soda, and beer. There is something of a line at the sandwich counter.[=0x0022=][=0x000A=][=0x000A=]The box of enrobed cakes is in the Wawa. [=0x0022=]A box of Tastykake Enrobed Cakes has fallen off its shelf.[=0x0022=] The description is [=0x0022=][=0x0027=]Enrobed Cakes[=0x0027=] is a fancy term for [=0x0027=]strange sponge-like baked good, covered in a thin shell of waxy chocolate[=0x0027=]. They are addictive, but not in a way that lets you respect yourself in the morning.[=0x0022=] The box is a closed openable container. In the box is a cake.[=0x000A=][=0x000A=]Instead of opening the box, say [=0x0022=]The Wawa clerks frown on the consumption of unpurchased foodstuffs.[=0x0022=][=0x000A=][=0x000A=]The can of root beer is a closed openable container carried by the player. The can of root beer is either agitated or calm.[=0x000A=][=0x000A=]Instead of shaking the can of root beer:[=0x000A=][=0x0009=]the can calms down in five turns from now;[=0x000A=][=0x0009=]say [=0x0022=]You give the can a good hard shake.[=0x0022=];[=0x000A=][=0x0009=]now the can is agitated.[=0x000A=][=0x000A=]Instead of listening to the can: say [=0x0022=]It sounds [if agitated]fizzy[otherwise]calm[end if]![=0x0022=][=0x000A=][=0x000A=]At the time when the can calms down:[=0x000A=][=0x0009=]now the can is calm.[=0x000A=][=0x000A=]The sticky mess is fixed in place. [=0x0022=]There is a sticky mess on the ground.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the agitated can of root beer:[=0x000A=][=0x0009=]now the can of root beer is nowhere;[=0x000A=][=0x0009=]now the sticky mess is in the location;[=0x000A=][=0x0009=]say [=0x0022=]You open the can and fizzing sweet soda goes absolutely everywhere.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the calm can of root beer when the can has been agitated:[=0x000A=][=0x0009=]now the can of root beer is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]The root beer is disappointingly flat. That[=0x0027=]s what you get for shaking it up![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get box / shake box / open box / shake box / listen to can / shake can / listen to can / wait / wait / wait / wait / wait / listen to can / open can[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;3 AM&quot;</span>
+        <p>Suppose we intend a game in which the player needs to cut things open on a regular basis. We'll want to check whether they have the proper tools handy, and deal graciously with commands such as <code class="inlinetranscript">CUT [something]</code> when no tool is specified. So:</p>
+        <!-- START CODE "code3119" -->
+        <blockquote class="extract-inform7"><a id="code3119"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Paddington[=0x0022=][=0x000A=][=0x000A=]A blade is a kind of thing.[=0x000A=][=0x000A=]Understand [=0x0022=]cut [something] with [something][=0x0022=] as cutting it with.[=0x000A=][=0x000A=]Instead of cutting something:[=0x000A=][=0x0009=]if a blade (called the edge) is held by the player,[=0x000A=][=0x0009=][=0x0009=]try cutting the noun with the edge;[=0x000A=][=0x0009=]otherwise say [=0x0022=]Your fingernails are not sharp enough.[=0x0022=][=0x000A=][=0x000A=]Cutting it with is an action applying to two things.[=0x000A=][=0x000A=]Check cutting it with:[=0x000A=][=0x0009=]if the noun is a person, say [=0x0022=]That would hurt.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not a blade, say [=0x0022=][The second noun] has not got enough of a blade.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out cutting it with:[=0x000A=][=0x0009=]increment the count of rips of the noun.[=0x000A=][=0x000A=]Report cutting it with:[=0x000A=][=0x0009=]say [=0x0022=]You slash [the noun] with [the second noun].[=0x0022=][=0x000A=][=0x000A=]Definition: a thing is ripped if the count of rips of it [=0x003E=] 0.  A thing has a number called the count of rips. After examining something ripped, say [=0x0022=]You see [the count of rips of the noun in words] rip[s] in [the noun][if something is in the noun], revealing [a list of things in the noun][end if].[=0x0022=][=0x000A=][=0x000A=]The examine containers rule does nothing when examining the teddy bear.[=0x000A=][=0x000A=]Carry out cutting a container with something:[=0x000A=][=0x0009=]now the noun is open;[=0x000A=][=0x0009=]now the noun is unopenable.[=0x000A=][=0x000A=]Carry out cutting something which is part of something with something:[=0x000A=][=0x0009=]move the noun to the player.[=0x000A=][=0x000A=]Carry out cutting the quilt with something:[=0x000A=][=0x0009=]now the description of the quilt is [=0x0022=]Horribly tattered.[=0x0022=][=0x000A=][=0x000A=]Report cutting it with:[=0x000A=][=0x0009=]if the noun is open and the noun contains something,[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Visible within [is-are a list of things in the noun].[=0x0022=][=0x000A=][=0x000A=]The Safehouse is a room.[=0x000A=][=0x000A=]The teddy bear is a closed thing in the Safehouse. The description is [=0x0022=]Fluffy[if the head is part of the bear], with an outsized head[otherwise], but headless[end if].[=0x0022=] The head is a closed part of the teddy bear. In the bear is a large wad of stuffing. In the head are a small wad of stuffing and a packet of smuggled diamonds.[=0x000A=][=0x000A=]The quilt is in the Safehouse. The description is [=0x0022=]An old but comforting quilt.[=0x0022=][=0x000A=][=0x000A=]The player carries a blade called a switchblade.[=0x000A=][=0x000A=]After printing the name of a closed unopenable container:[=0x000A=][=0x0009=]omit contents in listing.[=0x000A=][=0x000A=]Test me with [=0x0022=]cut quilt with bear / cut quilt with switchblade / examine quilt / cut bear with switchblade / again / examine bear / cut head with switchblade / get diamonds / mourn loss of innocence[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Paddington&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;shake </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">blade</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Shaking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cut [something] with [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Nothing results of your shaking </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">blade</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">edge</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">held</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">,</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">edge</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Something rattles inside </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Your fingernails are not sharp enough.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">transparent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Inside </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> there are banging noises produced by </span><span class="syntaxextract">[the list of things contained by the noun]</span><span class="syntaxstring">.&quot;</span>
+        <span class="identifier-syntax">Cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The list of things contained by the noun]</span><span class="syntaxstring"> might fly out.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;That would hurt.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wawa</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A convenience store, if you like to call it that, vending the usual assortment of chips, donuts, soda, and beer. There is something of a line at the sandwich counter.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">blade</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The second noun] has not got enough of a blade.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enrobed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cakes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wawa</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A box of Tastykake Enrobed Cakes has fallen off its shelf.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'Enrobed Cakes' is a fancy term for 'strange sponge-like baked good, covered in a thin shell of waxy chocolate'. They are addictive, but not in a way that lets you respect yourself in the morning.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increment</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rips</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The Wawa clerks frown on the consumption of unpurchased foodstuffs.&quot;</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">:</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">either</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agitated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calm</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You slash [the noun] with [the second noun].&quot;</span>
         </span></blockquote>
-        <p>Because the can of root beer should have some reactions to having been shaken later in the game, we need to borrow a few ideas from the chapter on <a href="WI_9_1.html" title="Chapter 9: Time">Time</a>:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shaking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calms</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">now</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You give the can a good hard shake.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agitated</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It sounds </span><span class="syntaxextract">[if agitated]</span><span class="syntaxstring">fizzy</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">calm</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">At</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calms</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calm</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sticky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mess</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;There is a sticky mess on the ground.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agitated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sticky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mess</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You open the can and fizzing sweet soda goes absolutely everywhere.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">been</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agitated</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The root beer is disappointingly flat. That's what you get for shaking it up!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;get box / shake box / open box / shake box / listen to can / shake can / listen to can / wait / wait / wait / wait / wait / listen to can / open can&quot;</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>We'll need a way to account for all these cuts and rips.</p>
+        <!-- START CODE "code3120" -->
+        <blockquote class="extract-inform7"><a id="code3120"></a><span class="indexdullblue"><span class="identifier-syntax">Definition</span><span class="plain-syntax">: </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ripped</span><span class="plain-syntax"> </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rips</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> &gt; </span><span class="constant-syntax">0</span><span class="plain-syntax">.  </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rips</span><span class="plain-syntax">. </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">ripped</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You see [the count of rips of the noun in words] rip[s] in [the noun][if something is in the noun], revealing [a list of things in the noun][end if].&quot;</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>Moreover, because open containers normally list their contents when examined but we'd prefer Paddington's to be mentioned in the ripping paragraph:</p>
+        <!-- START CODE "code3121" -->
+        <blockquote class="extract-inform7"><a id="code3121"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">examine</span><span class="plain-syntax"> </span><span class="identifier-syntax">containers</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">teddy</span><span class="plain-syntax"> </span><span class="identifier-syntax">bear</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>So far, so good. But suppose that we'd like cutting also to make containers be permanently open and impossible to close again. We could write an <code class="inlinesourcetext">instead</code> rule, but that would mean that only our instead instructions would take effect, overriding the normal cutting it with rules entirely. Better would be to add a second carry out rule:</p>
+        <!-- START CODE "code3122" -->
+        <blockquote class="extract-inform7"><a id="code3122"></a><span class="indexdullblue"><span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">unopenable</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Now our rule will occur whenever a container is cut, but play will still go on to the reporting stage. And indeed we can add more of these, of varying degrees of specificity:</p>
+        <!-- START CODE "code3123" -->
+        <blockquote class="extract-inform7"><a id="code3123"></a><span class="indexdullblue"><span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">quilt</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">quilt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Horribly tattered.&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>For that matter, we might want to add a report rule as well, to occur after the <code class="inlinetranscript">You slash...</code> rule, so that every time the player cuts something open which has contents, the contents will be listed.</p>
+        <!-- START CODE "code3124" -->
+        <blockquote class="extract-inform7"><a id="code3124"></a><span class="indexdullblue"><span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">cutting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">contains</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Visible within [is-are a list of things in the noun].&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>This time we do not add the condition to the rule (i.e., Report cutting an open noun...) If we did, this report rule would be more specific than the general report rule, and would occur first.</p>
+        <!-- START CODE "code3125" -->
+        <blockquote class="extract-inform7"><a id="code3125"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Safehouse</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">teddy</span><span class="plain-syntax"> </span><span class="identifier-syntax">bear</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Safehouse</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Fluffy[if the head is part of the bear], with an outsized head[otherwise], but headless[end if].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">head</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">teddy</span><span class="plain-syntax"> </span><span class="identifier-syntax">bear</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bear</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">large</span><span class="plain-syntax"> </span><span class="identifier-syntax">wad</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">stuffing</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">head</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">small</span><span class="plain-syntax"> </span><span class="identifier-syntax">wad</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">stuffing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">packet</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">smuggled</span><span class="plain-syntax"> </span><span class="identifier-syntax">diamonds</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">quilt</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Safehouse</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;An old but comforting quilt.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">blade</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">switchblade</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Here is a final nicety to get rid of the <code class="inlinetranscript">which is closed</code> statement on our closed unopenable teddy bear, using an <code class="inlinesourcetext">activity</code> rule:</p>
+        <!-- START CODE "code3126" -->
+        <blockquote class="extract-inform7"><a id="code3126"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">unopenable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">omit</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cut quilt with bear / cut quilt with switchblade / examine quilt / cut bear with switchblade / again / examine bear / cut head with switchblade / get diamonds / mourn loss of innocence&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_7.html>Section 13.7: New actions</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_9.html>Section 13.9: Check, carry out, report</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,159 +2193,80 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg414><a style="text-decoration: none" href="WI_20_40.html"><span class="extensionexampleletter">414</span></a></span></div>
+                <span id=eg414><a style="text-decoration: none" href="WI_21_2.html"><span class="extensionexampleletter">414</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Jamaica 1688</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Adding a feature to the final question after victory, so that the player can choose to reveal notes about items in the game.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nine AM Appointment</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">wait [number] minutes</code> command which advances through an arbitrary number of turns.</span></span></div>
             <div class="exampleright">
-                <span id=eg414><a style="text-decoration: none" href="RB_11_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg414><a style="text-decoration: none" href="RB_6_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Nine AM Appointment" -->
+        <!-- SEARCH SECTION "Example 414" -->
+        <!-- SEARCH SORT "003-414-000-000" -->
         <p></p>
-        <p>The options offered to the player at the end of the game are listed in the <code class="inlinesourcetext">Table of Final Question Options</code>, which means that we can add to them simply by continuing the table; what's more, the table gives us the opportunity to create a <code class="inlinesourcetext">final response rule</code>, a rule that the game should follow in order to parse the player's input at this point.</p>
-        <p>So, for instance, if we wanted the player to be allowed to ask for notes about any of the rooms, characters, or objects in a historical game:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Jamaica 1688[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Table of Final Question Options (continued)[=0x000A=]final question wording[=0x0009=]only if victorious[=0x0009=]topic[=0x0009=]final response rule[=0x0009=]final response activity[=0x000A=][=0x0022=]REVEAL the inspiration for something or somewhere[=0x0022=][=0x0009=]true[=0x0009=][=0x0022=]reveal [any thing][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=]--[=0x0009=]true[=0x0009=][=0x0022=]reveal [any room][=0x0022=][=0x0009=]investigate something rule[=0x0009=]--[=0x000A=][=0x000A=]This is the investigate something rule:[=0x000A=][=0x0009=]repeat through the Table of Footnotey Stuff:[=0x000A=][=0x0009=][=0x0009=]if the player[=0x0027=]s command matches the topic entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][revelation entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]I[=0x0027=]m afraid I have no revelation to vouchsafe there.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Upper Deck is a room. Lucius is a man in the Upper Deck.[=0x000A=][=0x000A=]The maximum score is 501.[=0x000A=][=0x000A=]When play begins: now the score is 501; end the story finally.[=0x000A=][=0x000A=]Table of Footnotey Stuff[=0x000A=]topic[=0x0009=][=0x0009=][=0x0009=]revelation[=0x000A=][=0x0022=]reveal [Lucius][=0x0022=][=0x0009=][=0x0022=]Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.[=0x0022=][=0x000A=][=0x0022=]reveal [Upper Deck][=0x0022=][=0x0009=][=0x0022=]The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Jamaica 1688&quot;</span>
+        <p>If there's some reason the player needs to be at a specific place and time, we might want to allow him to wait a number of minutes at once.</p>
+        <!-- START CODE "code2206" -->
+        <blockquote class="extract-inform7"><a id="code2206"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Nine AM Appointment[=0x0022=][=0x000A=][=0x000A=]Waiting more is an action applying to one time period.[=0x000A=][=0x000A=]Understand [=0x0022=]wait [a time period][=0x0022=] or [=0x0022=]wait for [a time period][=0x0022=] or [=0x0022=]wait for a/an [a time period][=0x0022=] or [=0x0022=]wait a/an [a time period][=0x0022=] as waiting more.[=0x000A=][=0x000A=]Carry out waiting more:[=0x000A=][=0x0009=]let the target time be the time of day plus the time period understood;[=0x000A=][=0x0009=]decrease the target time by one minute;[=0x000A=][=0x0009=]while the time of day is not the target time:[=0x000A=][=0x0009=][=0x0009=]follow the turn sequence rules.[=0x000A=][=0x000A=]Report waiting more:[=0x000A=][=0x0009=]say [=0x0022=]It is now [time of day + 1 minute].[=0x0022=][=0x000A=][=0x000A=]Check waiting more:[=0x000A=][=0x0009=]if the time period understood is greater than one hour, say [=0x0022=]You really haven[=0x0027=]t got that kind of patience.[=0x0022=] instead.[=0x000A=][=0x000A=]The Specialist[=0x0027=]s Office is a room. The secretary is a woman in the Office. Instead of asking the secretary about [=0x0022=][appointment][=0x0022=], say [=0x0022=][=0x0027=]Hang on just five more minutes,[=0x0027=] she says, in a distracted manner.[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]appointment[=0x0022=] or [=0x0022=]specialist[=0x0022=] or [=0x0022=]doctor[=0x0022=] as [=0x0022=][appointment][=0x0022=].[=0x000A=][=0x000A=]At 9:45 AM: say [=0x0022=]At [the time of day in words], secretary glances at you and gives a reassuring smile.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Nine AM Appointment&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scoring</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Procedure</span>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wait [a time period]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wait for [a time period]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wait for a/an [a time period]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wait a/an [a time period]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Final</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Question</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Options</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">final</span><span class="syntaxplain"> </span><span class="syntaxidentifier">question</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wording</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">victorious</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">topic</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">final</span><span class="syntaxplain"> </span><span class="syntaxidentifier">response</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">final</span><span class="syntaxplain"> </span><span class="syntaxidentifier">response</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;REVEAL the inspiration for something or somewhere&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">true</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;reveal </span><span class="syntaxextract">[any thing]</span><span class="syntaxstring">&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">investigate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">true</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;reveal </span><span class="syntaxextract">[any room]</span><span class="syntaxstring">&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">investigate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                </td>
-            </tr>
-
-            <br>
-        </table>
-        <span class="indexdullblue">
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">This</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">investigate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">day</span><span class="plain-syntax"> </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Footnotey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stuff</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decrease</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">minute</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">day</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[revelation entry][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">sequence</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>The one nuance here is that after our wait command occurs, the turn sequence rules will occur one more time. So we need to subtract one minute from the parsed time to make the turn end on the desired number of minutes.</p>
+        <!-- START CODE "code2207" -->
+        <blockquote class="extract-inform7"><a id="code2207"></a><span class="indexdullblue"><span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It is now [time of day + 1 minute].&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>And if we want to ensure that the player doesn't (accidentally or intentionally) put the interpreter through a really long loop, we could put an upper limit on their patience:</p>
+        <!-- START CODE "code2208" -->
+        <blockquote class="extract-inform7"><a id="code2208"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I'm afraid I have no revelation to vouchsafe there.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">hour</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You really haven't got that kind of patience.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 2 - Scenario</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Specialist</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">secretary</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax">. </span><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">secretary</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[appointment]&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;'Hang on just five more minutes,' she says, in a distracted manner.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Deck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Lucius</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Deck</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;appointment&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;specialist&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;doctor&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[appointment]&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">501</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="constant-syntax">9</span><span class="plain-syntax">:45 </span><span class="identifier-syntax">AM</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;At [the time of day in words], secretary glances at you and gives a reassuring smile.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">501</span><span class="syntaxplain">; </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Footnotey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stuff</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">topic</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">revelation</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;reveal </span><span class="syntaxextract">[Lucius]</span><span class="syntaxstring">&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Lucius is based on a historical buccaneer who sailed with William Dampier. The original did carry a Greek New Testament, from which he read aloud when the men were stranded in the jungles near Panama.&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;reveal </span><span class="syntaxextract">[Upper Deck]</span><span class="syntaxstring">&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;The Callisto is a simplified and tidied representation of a pirate sloop ca. 1688.&quot;</span></span>
-                </td>
-            </tr>
-
-        </table>
-        <span class="indexdullblue"></span></blockquote>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ask secretary about appointment / wait five minutes / g / g / wait 61 minutes / wait for half an hour / wait for a quarter of an hour / wait for an hour&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_40.html>Section 20.40: Printing the player's obituary</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_2.html>Section 21.2: Named rules and rulebooks</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

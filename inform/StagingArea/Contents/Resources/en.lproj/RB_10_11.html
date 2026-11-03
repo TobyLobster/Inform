@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,63 +2212,67 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Mathematics" -->
+            <!-- SEARCH SECTION "10.11" -->
+            <!-- SEARCH SORT "002-010-011-000" -->
             <h3><span>Section 10.11: Mathematics</span></h3>
             <p>
             It is uncommon, but not absolutely unheard-of, to need to do detailed mathematical calculations in interactive fiction.</p>
-            <p><a href="eg_465.html">The Fibonacci Sequence</a> demonstrates the calculation of a series of numbers; <a href="eg_464.html">Sieve of Eratosthenes</a> shows off how to calculate the prime numbers within a certain range.</p>
-            <p><a href="eg_261.html">Number Study</a> demonstrates conditional relations between numbers.</p>
-            <p><a href="eg_304.html">Olympic Medals</a> shows a non-standard way to sort a table of data numerically.</p>
-            <p><a href="eg_294.html">Sun Nueng Song Sam</a> doesn't do anything calculational as such, but does show how to print numbers in non-Western ways.</p>
+            <p><a href="eg_462.html">The Fibonacci Sequence</a> demonstrates the calculation of a series of numbers; <a href="eg_461.html">Sieve of Eratosthenes</a> shows off how to calculate the prime numbers within a certain range.</p>
+            <p><a href="eg_258.html">Number Study</a> demonstrates conditional relations between numbers.</p>
+            <p><a href="eg_301.html">Olympic Medals</a> shows a non-standard way to sort a table of data numerically.</p>
+            <p><a href="eg_291.html">Sun Nueng Song Sam</a> doesn't do anything calculational as such, but does show how to print numbers in non-Western ways.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg261><a style="text-decoration: none" href="eg_261.html"><span class="extensionexampleletter">261</span></a></span></div>
+                    <span id=eg258><a style="text-decoration: none" href="eg_258.html"><span class="extensionexampleletter">258</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_261.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Number Study</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_258.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Number Study</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The parity and joint magnitude relations explored.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg261><a style="text-decoration: none" href="WI_14_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg258><a style="text-decoration: none" href="WI_14_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg464><a style="text-decoration: none" href="eg_464.html"><span class="extensionexampleletter">464</span></a></span></div>
+                    <span id=eg461><a style="text-decoration: none" href="eg_461.html"><span class="extensionexampleletter">461</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_464.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sieve of Eratosthenes</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_461.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sieve of Eratosthenes</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The haughty Eratosthenes of Cyrene will nevertheless consent to sieve prime numbers on request.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg464><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg461><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg465><a style="text-decoration: none" href="eg_465.html"><span class="extensionexampleletter">465</span></a></span></div>
+                    <span id=eg462><a style="text-decoration: none" href="eg_462.html"><span class="extensionexampleletter">462</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_465.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_462.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The modest Leonardo Fibonacci of Pisa will be only too happy to construct his sequence on request, using an array.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg465><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg462><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg304><a style="text-decoration: none" href="eg_304.html"><span class="extensionexampleletter">304</span></a></span></div>
+                    <span id=eg301><a style="text-decoration: none" href="eg_301.html"><span class="extensionexampleletter">301</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_304.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olympic Medals</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_301.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olympic Medals</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Sort the table of Olympic Medals in two different ways.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg304><a style="text-decoration: none" href="WI_18_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg301><a style="text-decoration: none" href="WI_18_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg294><a style="text-decoration: none" href="eg_294.html"><span class="extensionexampleletter">294</span></a></span></div>
+                    <span id=eg291><a style="text-decoration: none" href="eg_291.html"><span class="extensionexampleletter">291</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_294.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sun Nueng Song Sam</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_291.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sun Nueng Song Sam</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Printing signed decimal numbers in traditional Thai numerals.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg294><a style="text-decoration: none" href="WI_17_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg291><a style="text-decoration: none" href="WI_17_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_10.html"><span class="markdowncontent">Section 10.10: Magic (Breaking the Laws of Physics)</span></a> &bull; <a href="RB_11_1.html"><span class="markdowncontent">Chapter 11: Out Of World Actions and Effects</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

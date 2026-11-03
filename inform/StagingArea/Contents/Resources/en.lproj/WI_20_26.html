@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,49 +2212,57 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Printing the locale description of something" -->
+            <!-- SEARCH SECTION "20.26" -->
+            <!-- SEARCH SORT "001-020-026-000" -->
             <h3><span>Section 20.26: Printing the locale description of something</span></h3>
             <p>        </p>
             <p><strong>1. When it happens.</strong> A &quot;locale description&quot; is Inform jargon for the part of a room description which catalogues the visible items in the room. When looking, Inform will normally print the description of the room itself, followed by a locale description for the room. But if the player is in a cage in the room, there will be two locale descriptions: one for the room, then another for the cage. This activity is used to write the locale description for a single domain, and the &quot;something&quot; can be either a room, an enterable container, or an enterable supporter.</p>
             <p><strong>2. The default behaviour.</strong> Is quite complicated, and is written up in full in the typeset form of the Standard Rules downloadable from the Inform website. Briefly, though: we first run the <code class="inlinesourcetext">choosing notable locale objects</code> activity to find out what ought to be mentioned here. That assembles a list of things to mention, sorted into priority order. Items with priority 1 go first, then those with priority 2, and so on. The <code class="inlinesourcetext">printing a locale paragraph</code> activity is run for each, and in practice that usually hands the job over to <code class="inlinesourcetext">writing a paragraph about</code>. Sometimes a paragraph will indeed be written, but not always. Sometimes there is nothing interesting to say, and an item is left until a final, single paragraph which gathers up the leftovers (<code class="inlinetranscript">You can also see a scarlet fish, a harmonium and a kite here.</code>), the printing of which is done by the <code class="inlinesourcetext">listing nondescript items of</code> activity. As soon as any item picks up the either/or property <code class="inlinesourcetext">mentioned</code>, by having its name printed, it is struck out so that it will not appear subsequently, whatever its priority.</p>
             <p><strong>3. Examples.</strong> As general advice: if the effect wanted can be got using <code class="inlinesourcetext">writing a paragraph about</code> and <code class="inlinesourcetext">listing nondescript items of</code> alone, use those; if it's necessary to meddle further, use <code class="inlinesourcetext">choosing notable locale objects</code> and <code class="inlinesourcetext">printing a locale paragraph</code> to alter the normal processes; use the all-powerful <code class="inlinesourcetext">printing the locale description</code> activity only when the whole process needs to be altered, not the item-by-item workings.</p>
             <p>(a) In the Very Misty Moorlands, nothing on the ground can ordinarily be seen through the swirling mist, so the locale description is suppressed entirely:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Rule for printing the locale description of the Very Misty Moorlands:[=0x000A=][=0x0009=]say [=0x0022=]Mist coils around your feet, thick as a blanket. You cannot even see the ground you walk upon.[=0x0022=] instead.[=0x000A=][=0x000A=]Report taking something in the Very Misty Moorlands:[=0x000A=][=0x0009=]say [=0x0022=]You grope blindly in the mist and pick up [the noun].[=0x0022=] instead.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Very</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Misty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Moorlands</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1383" -->
+            <blockquote class="extract-inform7"><a id="code1383"></a><a class="actionlink" href="javascript:pasteCode('Rule for printing the locale description of the Very Misty Moorlands:[=0x000A=][=0x0009=]say [=0x0022=]Mist coils around your feet, thick as a blanket. You cannot even see the ground you walk upon.[=0x0022=] instead.[=0x000A=][=0x000A=]Report taking something in the Very Misty Moorlands:[=0x000A=][=0x0009=]say [=0x0022=]You grope blindly in the mist and pick up [the noun].[=0x0022=] instead.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">locale</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Very</span><span class="plain-syntax"> </span><span class="identifier-syntax">Misty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Moorlands</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Mist coils around your feet, thick as a blanket. You cannot even see the ground you walk upon.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mist coils around your feet, thick as a blanket. You cannot even see the ground you walk upon.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Very</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Misty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Moorlands</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Very</span><span class="plain-syntax"> </span><span class="identifier-syntax">Misty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Moorlands</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You grope blindly in the mist and pick up </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You grope blindly in the mist and pick up [the noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(b) Here we take the chance to insert an additional paragraph into the locale description. This does relate to an item which might be described later, but where the player doesn't know that:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The Horological Workshop is a room. The marble table is fixed in place in the Workshop.[=0x000A=][=0x000A=]The parcel is a closed opaque container on the marble table. The alarm clock is a device in the parcel. The alarm clock is switched on.[=0x000A=][=0x000A=]Before printing the locale description of a room (called the locale):[=0x000A=][=0x0009=]if the locale encloses the alarm clock and the alarm clock is switched on, say [=0x0022=]A faint ticking noise can be heard.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Horological</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Workshop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">marble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Workshop</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1384" -->
+            <blockquote class="extract-inform7"><a id="code1384"></a><a class="actionlink" href="javascript:pasteCode('The Horological Workshop is a room. The marble table is fixed in place in the Workshop.[=0x000A=][=0x000A=]The parcel is a closed opaque container on the marble table. The alarm clock is a device in the parcel. The alarm clock is switched on.[=0x000A=][=0x000A=]Before printing the locale description of a room (called the locale):[=0x000A=][=0x0009=]if the locale encloses the alarm clock and the alarm clock is switched on, say [=0x0022=]A faint ticking noise can be heard.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Horological</span><span class="plain-syntax"> </span><span class="identifier-syntax">Workshop</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">marble</span><span class="plain-syntax"> </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Workshop</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parcel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opaque</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">marble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alarm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parcel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alarm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">parcel</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">opaque</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">marble</span><span class="plain-syntax"> </span><span class="identifier-syntax">table</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">alarm</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">device</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">parcel</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">alarm</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain">):</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">locale</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">locale</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">encloses</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alarm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alarm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A faint ticking noise can be heard.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">locale</span><span class="plain-syntax"> </span><span class="identifier-syntax">encloses</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">alarm</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">alarm</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A faint ticking noise can be heard.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg387><a style="text-decoration: none" href="eg_387.html"><span class="extensionexampleletter">387</span></a></span></div>
+                    <span id=eg384><a style="text-decoration: none" href="eg_384.html"><span class="extensionexampleletter">384</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_387.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Priority Lab</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_384.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Priority Lab</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A debugging rule useful for checking the priorities of objects about to be listed.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg387><a style="text-decoration: none" href="RB_3_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg384><a style="text-decoration: none" href="RB_3_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_25.html"><span class="markdowncontent">Section 20.25: Listing nondescript items of something</span></a> &bull; <a href="WI_20_27.html"><span class="markdowncontent">Section 20.27: Choosing notable locale objects for something</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

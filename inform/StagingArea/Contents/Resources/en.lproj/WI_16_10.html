@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,34 +2212,48 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Multiple notations" -->
+            <!-- SEARCH SECTION "16.10" -->
+            <!-- SEARCH SORT "001-016-010-000" -->
             <h3><span>Section 16.10: Multiple notations</span></h3>
             <p>    </p>
             <p>Going back to our weight example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1050" -->
+            <blockquote class="extract-inform7"><a id="code1050"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The notation here is a single word, even if it contains digits as well as letters – <code class="inlinesourcetext">10kg</code>. But it doesn't have to be one word. These would have worked, too:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">10</span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">net</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1051" -->
+            <blockquote class="extract-inform7"><a id="code1051"></a><span class="indexdullblue"><span class="constant-syntax">10</span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">net</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">.</span>
+            <span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In fact, we are allowed to have all three at once, as alternatives:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">net</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1052" -->
+            <blockquote class="extract-inform7"><a id="code1052"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">net</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If we often have to deal with large weights, it becomes a little cumbersome to keep on writing something like <code class="inlinesourcetext">80000kg</code>. An engineer would write <code class="inlinesourcetext">80 tonnes</code> for this. Similarly, we wouldn't like road maps to use light years, or speed limit signs to use furlongs per fortnight. So it's sometimes useful to provide a spread of different notations, at different scale factors, for the same kind of value. Here's one way of setting up the tonne, that is, the metric ton:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonne</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1000</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1053" -->
+            <blockquote class="extract-inform7"><a id="code1053"></a><span class="indexdullblue"><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">tonne</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">scaled</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1000</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This really is an alternative way to write the same thing: for instance, Inform will allow <code class="inlinesourcetext">25kg plus 3 tonne</code>, the result being <code class="inlinesourcetext">3.025 tonne</code>.</p>
             <p>That's all very well, but a value like &quot;3 tonne&quot; reads a little oddly, even if it's correct in theory. Outside of scientific journals with old-school copy editing, most people would write &quot;3 tonnes&quot;, not &quot;3 tonne&quot;. Here's a better try:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonne</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">singular</span><span class="syntaxplain">) </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1000</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1054" -->
+            <blockquote class="extract-inform7"><a id="code1054"></a><span class="indexdullblue"><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">tonne</span><span class="plain-syntax"> (</span><span class="identifier-syntax">singular</span><span class="plain-syntax">) </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">scaled</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1000</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonnes</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">plural</span><span class="syntaxplain">) </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1000</span><span class="syntaxplain">.</span>
+            <span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">tonnes</span><span class="plain-syntax"> (</span><span class="identifier-syntax">plural</span><span class="plain-syntax">) </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">scaled</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1000</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Now Inform will not only recognise both forms, but also use the right one when printing back.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_9.html"><span class="markdowncontent">Section 16.9: Units</span></a> &bull; <a href="WI_16_11.html"><span class="markdowncontent">Section 16.11: Scaling and equivalents</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

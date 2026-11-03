@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,17 +2212,25 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Characterisation" -->
+            <!-- SEARCH SECTION "5.3" -->
+            <!-- SEARCH SORT "002-005-003-000" -->
             <h3><span>Section 5.3: Characterisation</span></h3>
             <p> 
             Much of the personality of the player character in IF emerges from what they can and cannot (or will and will not) do; part of the pleasure of playing a character arises from this opportunity for role-playing and role-exploration. Some characters are consciousless daredevils, willing to jump off cliffs, crawl through narrow gaps, and rob widows if the player commands it; others are repressed neurotics who barely dare to speak to other characters or touch anything that doesn't belong to them.</p>
-            <p><a href="eg_79.html">Finishing School</a> and <a href="eg_115.html">Dearth and the Maiden</a> both treat the case of a character constrained by good manners and a sense of polite society: the former forbids only one action, while the latter condemns a whole range of them.</p>
+            <p><a href="eg_78.html">Finishing School</a> and <a href="eg_3.html">Dearth and the Maiden</a> both treat the case of a character constrained by good manners and a sense of polite society: the former forbids only one action, while the latter condemns a whole range of them.</p>
             <p>Constraining the character is only the half of it: we might also want to think about what sorts of unusual actions that character might be especially likely to take, and account for these. Of course, major actions that affect the story world will require some thought and implementation work, and we should consider carefully before making the player a character like, say, the Noble of Glamour, a spirit in human form who can charm all comers, transform bespectacled secretaries into divas, and cause spontaneous cloudbursts of scarlet glitter.</p>
-            <p>But even simple humans have some characteristic traits and gestures. We will probably want to write some characteristic reaction to <code class="inlinetranscriptcommand">examine me</code>, as demonstrated in <a href="eg_90.html">Bad Hair Day</a>. We might provide a few pieces of clothing or props that aren't strictly critical in the story, like a policeman's helmet or a feather boa:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">policeman</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">helmet</span><span class="syntaxplain">.</span>
+            <p>But even simple humans have some characteristic traits and gestures. We will probably want to write some characteristic reaction to <code class="inlinetranscriptcommand">examine me</code>, as demonstrated in <a href="eg_89.html">Bad Hair Day</a>. We might provide a few pieces of clothing or props that aren't strictly critical in the story, like a policeman's helmet or a feather boa:</p>
+            <!-- START CODE "code2054" -->
+            <blockquote class="extract-inform7"><a id="code2054"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">policeman</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">helmet</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can liven up the interactive aspect of characterisation if we give the player a little scope for role-playing: this may mean responding to gestures, like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;bite nails&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mistake</span><span class="syntaxplain"> (</span><span class="syntaxstring">&quot;Your only nail remaining is the one on your left thumb, and you're saving it for the AP Calculus exam.&quot;</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code2055" -->
+            <blockquote class="extract-inform7"><a id="code2055"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;bite nails&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">mistake</span><span class="plain-syntax"> (</span><span class="string-syntax">&quot;Your only nail remaining is the one on your left thumb, and you're saving it for the AP Calculus exam.&quot;</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Of course, we would need to have hinted to the player that nail-biting is characteristic of the player character.)</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2146,36 +2239,34 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg90><a style="text-decoration: none" href="eg_90.html"><span class="extensionexampleletter">90</span></a></span></div>
+                    <span id=eg89><a style="text-decoration: none" href="eg_89.html"><span class="extensionexampleletter">89</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_90.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bad Hair Day</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_89.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bad Hair Day</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Change the player's appearance in response to <code class="inlinetranscriptcommand">examine me</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg90><a style="text-decoration: none" href="WI_7_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg89><a style="text-decoration: none" href="WI_7_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg115><a style="text-decoration: none" href="eg_115.html"><span class="extensionexampleletter">115</span></a></span></div>
+                    <span id=eg3><span class="extensionexampleletter">3</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_115.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dearth and the Maiden</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_3.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dearth and the Maiden</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Our heroine, fallen among gentleman highwaymen, is restrained by her own modesty and seemliness.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg115><a style="text-decoration: none" href="WI_7_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg79><a style="text-decoration: none" href="eg_79.html"><span class="extensionexampleletter">79</span></a></span></div>
+                    <span id=eg78><a style="text-decoration: none" href="eg_78.html"><span class="extensionexampleletter">78</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_79.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Finishing School</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_78.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Finishing School</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The &quot;another&quot; adjective for rules such as &quot;in the presence of another person&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg79><a style="text-decoration: none" href="WI_6_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg78><a style="text-decoration: none" href="WI_6_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_5_2.html"><span class="markdowncontent">Section 5.2: Traits Determined By the Player</span></a> &bull; <a href="RB_5_4.html"><span class="markdowncontent">Section 5.4: Background</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

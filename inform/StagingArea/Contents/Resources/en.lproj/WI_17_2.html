@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,41 +2212,57 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The parts of a notation" -->
+            <!-- SEARCH SECTION "17.2" -->
+            <!-- SEARCH SORT "001-017-002-000" -->
             <h3><span>Section 17.2: The parts of a notation</span></h3>
-            <p>        </p>
+            <p>             </p>
             <p>If a value has been constructed out of multiple parts, we will sometimes want to extract those parts. For instance, suppose we want to know the dollars part of <code class="inlinesourcetext">$1.99</code>? We can do this provided the parts have names:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. $1.99 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cents</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1107" -->
+            <blockquote class="extract-inform7"><a id="code1107"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. $1.99 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">cents</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can now find the relevant parts like so. Suppose that <code class="inlinesourcetext">sum</code> is a monetary value. Then:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sum</span>
+            <!-- START CODE "code1108" -->
+            <blockquote class="extract-inform7"><a id="code1108"></a><span class="indexdullblue"><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">sum</span>
             <br>
-            <span class="syntaxidentifier">cents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sum</span>
+            <span class="identifier-syntax">cents</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">sum</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>are both numbers, so for instance we can</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Looks like around </span><span class="syntaxextract">[dollars part of sum in words]</span><span class="syntaxstring"> dollar</span><span class="syntaxextract">[s]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code1109" -->
+            <blockquote class="extract-inform7"><a id="code1109"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Looks like around [dollars part of sum in words] dollar[s].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can also go the other way:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxconstant">72</span>
+            <!-- START CODE "code1110" -->
+            <blockquote class="extract-inform7"><a id="code1110"></a><span class="indexdullblue"><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">cents</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="constant-syntax">72</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces the monetary value <code class="inlinesourcetext">$4.72</code>. (Note the lack of commas or <code class="inlinesourcetext">and</code>s, and that the parts have to be given in the right order.) This is really intended to be useful when we manipulate such values in unusual ways:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">16</span><span class="syntaxplain">:20 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">width</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1111" -->
+            <blockquote class="extract-inform7"><a id="code1111"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">16</span><span class="plain-syntax">:20 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">width</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">height</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wider</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">AR</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain">):</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wider</span><span class="plain-syntax"> </span><span class="identifier-syntax">version</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">AR</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">width</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AR</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiplied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">width</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">AR</span><span class="plain-syntax"> </span><span class="identifier-syntax">multiplied</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">H</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AR</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">height</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">AR</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wider</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">width</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">H</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wider</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">aspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">width</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">height</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">H</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wider</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ratio</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wider</span><span class="plain-syntax"> </span><span class="identifier-syntax">ratio</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Naming the parts is also very useful when we want to apply <em>options</em> to them, which go in brackets after their names. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">50</span><span class="syntaxplain">° </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain">° </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">latitude</span><span class="syntaxplain"> (7 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">85</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">longitude</span><span class="syntaxplain"> (20 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">179</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1112" -->
+            <blockquote class="extract-inform7"><a id="code1112"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">50</span><span class="plain-syntax">° </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="constant-syntax">100</span><span class="plain-syntax">° </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">latitude</span><span class="plain-syntax"> (7 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">85</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">longitude</span><span class="plain-syntax"> (20 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">179</span><span class="plain-syntax">).</span>
             </span></blockquote>
-            <p>Here, the two parts are called <code class="inlinesourcetext">latitude</code> and <code class="inlinesourcetext">longitude</code>. The option <code class="inlinesourcetext">7 to 85</code> applied to <code class="inlinesourcetext">latitude</code> constrains it to lie in that range: so <code class="inlinesourcetext">6° N 100° W</code> would not be a valid <code class="inlinesourcetext">American map reference</code>, because 6 is not in the range 7 to 85 inclusive.</p>
+            <!-- END CODE -->
+            <p>Here, the two parts are called <code class="inlinesourcetext">latitude</code> and <code class="inlinesourcetext">longitude</code>. The option <code class="inlinesourcetext">7 to 85</code> applied to <code class="inlinesourcetext">latitude</code> constrains it to lie in that range: so <code class="inlinesourcetext">6° N 100° W</code> would not be a valid <code class="inlinesourcetext">American map reference</code>, because 6 is not in the range 7 to 85 inclusive. (For more on this, see <a href="WI_17_4.html" title="Section 17.4: Range and number base of notation parts">Range and number base of notation parts</a>.)</p>
             <p>A part can have multiple options, in which case they are listed with commas in between, or none. There's quite a range of these, and some will take a little explaining.</p>
             <table>
             <thead>
@@ -2260,29 +2361,33 @@
             </tbody>
             </table>
             <p>Most of the time none of these options need to be set, because they are all automatically set to something sensible. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">$1.99 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cents</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1113" -->
+            <blockquote class="extract-inform7"><a id="code1113"></a><span class="indexdullblue"><span class="plain-syntax">$1.99 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">cents</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is equivalent to:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">$1.99 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <!-- START CODE "code1114" -->
+            <blockquote class="extract-inform7"><a id="code1114"></a><span class="indexdullblue"><span class="plain-syntax">$1.99 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">dollars</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">zeros</span><span class="syntaxplain">, </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decimal</span><span class="syntaxplain">, </span><span class="syntaxidentifier">digits</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;0123456789&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">dollars</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">leading</span><span class="plain-syntax"> </span><span class="identifier-syntax">zeros</span><span class="plain-syntax">, </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">decimal</span><span class="plain-syntax">, </span><span class="identifier-syntax">digits</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;0123456789&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">cents</span><span class="syntaxplain"> (0 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">99</span><span class="syntaxplain">, </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">zeros</span><span class="syntaxplain">, </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decimal</span><span class="syntaxplain">, </span><span class="syntaxidentifier">digits</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;0123456789&quot;</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">cents</span><span class="plain-syntax"> (0 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">99</span><span class="plain-syntax">, </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">leading</span><span class="plain-syntax"> </span><span class="identifier-syntax">zeros</span><span class="plain-syntax">, </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">decimal</span><span class="plain-syntax">, </span><span class="identifier-syntax">digits</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;0123456789&quot;</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg293><a style="text-decoration: none" href="eg_293.html"><span class="extensionexampleletter">293</span></a></span></div>
+                    <span id=eg290><a style="text-decoration: none" href="eg_290.html"><span class="extensionexampleletter">290</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_293.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zqlran Era 8</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_290.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zqlran Era 8</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating an alternative system of time for our game, using new units.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg293><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg290><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_17_1.html"><span class="markdowncontent">Chapter 17: Advanced Notations</span></a> &bull; <a href="WI_17_3.html"><span class="markdowncontent">Section 17.3: Optional notation parts</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,93 +2212,129 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Text with variations" -->
+            <!-- SEARCH SECTION "5.6" -->
+            <!-- SEARCH SORT "001-005-006-000" -->
             <h3><span>Section 5.6: Text with variations</span></h3>
             <p>    </p>
             <p>Text sometimes needs to take different forms in different circumstances. Perhaps it needs an extra sentence if something has happened, or perhaps only one altered word.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[if (a condition)]&quot;</p>
+                <!-- START PHRASE "defn30" -->
+                <p class="defnprototype"><a id="defn30"></a>say &quot;[if (a condition)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it says that the text following should be said only if the condition is true. That continues until the end of the text, or until an <code class="inlinesourcetext">&quot;[end if]&quot;</code> substitution, whichever comes first. If the <code class="inlinesourcetext">&quot;[otherwise]&quot;</code> and <code class="inlinesourcetext">&quot;[otherwise if]&quot;</code> substitutions are also present, they allow alternatives to be added in case the condition is false. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if open]</span><span class="syntaxstring">broached, empty cask</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">sealed wine cask&quot;</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code264" -->
+                <blockquote class="extract-inform7"><a id="code264"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wine</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[if open]broached, empty cask[otherwise]sealed wine cask&quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>we find that the cask is described as <code class="inlinetranscript">a broached, empty cask</code> when open, and <code class="inlinetranscript">a sealed wine cask</code> when closed. A longer example which begins and ends with fixed text, but has two alternatives in the middle:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Customs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wharf</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Amid the bustle of the quayside, </span><span class="syntaxextract">[if the cask is open]</span><span class="syntaxstring">many eyes stray to your broached cask. </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">nobody takes much notice of a man heaving a cask about. </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">Sleek gondolas jostle at the plank pier.&quot;</span>
+                <!-- START CODE "code265" -->
+                <blockquote class="extract-inform7"><a id="code265"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Customs</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wharf</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Amid the bustle of the quayside, [if the cask is open]many eyes stray to your broached cask. [otherwise]nobody takes much notice of a man heaving a cask about. [end if]Sleek gondolas jostle at the plank pier.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[unless (a condition)]&quot;</p>
+                <!-- START PHRASE "defn31" -->
+                <p class="defnprototype"><a id="defn31"></a>say &quot;[unless (a condition)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it says that the text following should be said only if the condition is false. That continues until the end of the text, or until an <code class="inlinesourcetext">&quot;[end if]&quot;</code> substitution, whichever comes first. If the <code class="inlinesourcetext">&quot;[otherwise]&quot;</code> and <code class="inlinesourcetext">&quot;[otherwise if]&quot;</code> substitutions are also present, they allow alternatives to be added in case the condition is true. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Customs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;With infinite slowness, with ledgers and quill pens, the clerks ruin their eyesight.</span><span class="syntaxextract">[unless the player is a woman]</span><span class="syntaxstring"> They barely even glance in your direction.&quot;</span>
+                <!-- START CODE "code266" -->
+                <blockquote class="extract-inform7"><a id="code266"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Customs</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hall</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;With infinite slowness, with ledgers and quill pens, the clerks ruin their eyesight.[unless the player is a woman] They barely even glance in your direction.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[otherwise]&quot;</p>
-                <p class="defnprototype">say &quot;[else]&quot;</p>
+                <!-- START PHRASE "defn32" -->
+                <p class="defnprototype"><a id="defn32"></a>say &quot;[otherwise]&quot;</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn33" -->
+                <p class="defnprototype"><a id="defn33"></a>say &quot;[else]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only following an <code class="inlinesourcetext">&quot;[if ...]&quot;</code> or <code class="inlinesourcetext">&quot;[unless ...]&quot;</code> text substitution. It switches from text which appears if the condition is true, to text which appears if it is false. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if open]</span><span class="syntaxstring">broached, empty cask</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">sealed wine cask&quot;</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code267" -->
+                <blockquote class="extract-inform7"><a id="code267"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wine</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[if open]broached, empty cask[otherwise]sealed wine cask&quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[end if]&quot;</p>
+                <!-- START PHRASE "defn34" -->
+                <p class="defnprototype"><a id="defn34"></a>say &quot;[end if]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to close off a stretch of varying text which begins with <code class="inlinesourcetext">&quot;[if ...]&quot;</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[end unless]&quot;</p>
+                <!-- START PHRASE "defn35" -->
+                <p class="defnprototype"><a id="defn35"></a>say &quot;[end unless]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to close off a stretch of varying text which begins with <code class="inlinesourcetext">&quot;[unless ...]&quot;</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[otherwise/else if (a condition)]&quot;</p>
+                <!-- START PHRASE "defn36" -->
+                <p class="defnprototype"><a id="defn36"></a>say &quot;[otherwise/else if (a condition)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only following an <code class="inlinesourcetext">&quot;[if ...]&quot;</code> or <code class="inlinesourcetext">&quot;[unless ...]&quot;</code> text substitution. It gives an alternative text to use if the first condition didn't apply, but this one does. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cask</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if open]</span><span class="syntaxstring">broached, empty cask</span><span class="syntaxextract">[otherwise if transparent]</span><span class="syntaxstring">sealed cask half-full of sloshing wine</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">sealed wine cask&quot;</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code268" -->
+                <blockquote class="extract-inform7"><a id="code268"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wine</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cask</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[if open]broached, empty cask[otherwise if transparent]sealed cask half-full of sloshing wine[otherwise]sealed wine cask&quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[otherwise/else unless (a condition)]&quot;</p>
+                <!-- START PHRASE "defn37" -->
+                <p class="defnprototype"><a id="defn37"></a>say &quot;[otherwise/else unless (a condition)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only following an <code class="inlinesourcetext">&quot;[if ...]&quot;</code> or <code class="inlinesourcetext">&quot;[unless ...]&quot;</code> text substitution. It gives an alternative text to use if the first condition didn't apply, and this one is false too.</p>
             </div>
             <p>We sometimes need to be careful about the printing of line breaks:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cell</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Ah, </span><span class="syntaxextract">[if unvisited]</span><span class="syntaxstring">the unknown cell. </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">the usual cell.&quot;</span>
+            <!-- START CODE "code269" -->
+            <blockquote class="extract-inform7"><a id="code269"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cell</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Ah, [if unvisited]the unknown cell. [otherwise]the usual cell.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This room description has two possible forms: <code class="inlinetranscript">Ah, the unknown cell. </code>, at first sight, and then <code class="inlinetranscript">Ah, the usual cell.</code> subsequently. But the second form is rounded off with a line break because the last thing printed is a <code class="inlinetranscriptcommand">.</code>, whereas the first form isn't, because it ended with a space. The right thing would have been:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cell</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Ah, </span><span class="syntaxextract">[if unvisited]</span><span class="syntaxstring">the unknown cell.</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">the usual cell.&quot;</span>
+            <!-- START CODE "code270" -->
+            <blockquote class="extract-inform7"><a id="code270"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cell</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Ah, [if unvisited]the unknown cell.[otherwise]the usual cell.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>allowing no space after <code class="inlinetranscript">unknown cell.</code></p>
             <p>When varying descriptions are being given for kinds of rooms or things, it can be useful to make use of a special value called <code class="inlinesourcetext">item described</code>, which refers to the particular one being looked at right now. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">musical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instrument</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tuba</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">xylophone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">musical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instruments</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">musical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instrument</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;An especially shiny, well-tuned </span><span class="syntaxextract">[item described]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code271" -->
+            <blockquote class="extract-inform7"><a id="code271"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">musical</span><span class="plain-syntax"> </span><span class="identifier-syntax">instrument</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">tuba</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">xylophone</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">musical</span><span class="plain-syntax"> </span><span class="identifier-syntax">instruments</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">musical</span><span class="plain-syntax"> </span><span class="identifier-syntax">instrument</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;An especially shiny, well-tuned [item described].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The tuba now has the description <code class="inlinetranscript">An especially shiny, well-tuned tuba.</code>, and similarly for the xylophone.</p>
             <p>The <code class="inlinesourcetext">item described</code> value can similarly be used in any textual property of a room or thing, and in particular can be used with the <code class="inlinesourcetext">initial appearance</code> and <code class="inlinesourcetext">printed name</code> properties, which are also forms of description.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg69><a style="text-decoration: none" href="eg_69.html"><span class="extensionexampleletter">69</span></a></span></div>
+                    <span id=eg68><a style="text-decoration: none" href="eg_68.html"><span class="extensionexampleletter">68</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_69.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">When?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_68.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">When?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A door whose description says &quot;...leads east&quot; in one place and &quot;...leads west&quot; in the other.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg69><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg68><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg69><a style="text-decoration: none" href="eg_69.html"><span class="extensionexampleletter">69</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_69.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Persephone</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Separate the player's inventory listing into two parts, so that it says &quot;you are carrying...&quot; and then (if the player is wearing anything) &quot;You are also wearing...&quot;.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg69><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg70><a style="text-decoration: none" href="eg_70.html"><span class="extensionexampleletter">70</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_70.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Persephone</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Separate the player's inventory listing into two parts, so that it says &quot;you are carrying...&quot; and then (if the player is wearing anything) &quot;You are also wearing...&quot;.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg70><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg71><a style="text-decoration: none" href="eg_71.html"><span class="extensionexampleletter">71</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_71.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whence?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_70.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whence?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A kind of door that always automatically describes the direction it opens and what lies on the far side (if that other room has been visited).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg71><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg70><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_5.html"><span class="markdowncontent">Section 5.5: Text with lists</span></a> &bull; <a href="WI_5_7.html"><span class="markdowncontent">Section 5.7: Text with random alternatives</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

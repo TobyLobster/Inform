@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,38 +2212,42 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dispensers and Supplies of Small Objects" -->
+            <!-- SEARCH SECTION "10.3" -->
+            <!-- SEARCH SORT "002-010-003-000" -->
             <h3><span>Section 10.3: Dispensers and Supplies of Small Objects</span></h3>
             <p>
             A slightly tricky situation arises in IF when we want to offer the player a simulation of a near-infinite supply of something: a napkin dispenser from which they can keep taking more napkins, or an infinite selection of pebbles on a beach, or something of that nature.</p>
-            <p>One approach is simply to limit the number of items the player is allowed to pick up at a time, while maintaining the fiction that there are more of these items in existence than the player is allowed to interact with. <a href="eg_130.html">Extra Supplies</a> demonstrates this.</p>
-            <p>The task becomes harder if we do want to let the player have as many napkins as they want. In some languages, it is possible to generate new objects on the fly after the story has begun (called &quot;dynamic object creation&quot;), and something like this is possible if we are compiling for Glulx. (See the Inform extensions site for examples.) Usually, though, it is less complicated and almost as effective simply to have a very large supply of existing objects, which are moved in and out of play as the player needs them. <a href="eg_406.html">Pizza Prince</a> demonstrates how to do this with slices of pizza.</p>
+            <p>One approach is simply to limit the number of items the player is allowed to pick up at a time, while maintaining the fiction that there are more of these items in existence than the player is allowed to interact with. <a href="eg_127.html">Extra Supplies</a> demonstrates this.</p>
+            <p>The task becomes harder if we do want to let the player have as many napkins as they want. In some languages, it is possible to generate new objects on the fly after the story has begun (called &quot;dynamic object creation&quot;), and something like this is possible if we are compiling for Glulx. (See the Inform extensions site for examples.) Usually, though, it is less complicated and almost as effective simply to have a very large supply of existing objects, which are moved in and out of play as the player needs them. <a href="eg_403.html">Pizza Prince</a> demonstrates how to do this with slices of pizza.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_10_6.html" title="Section 10.6: Ropes">Ropes</a> for an example involving divisible pieces of string, which relies on similar techniques.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg406><a style="text-decoration: none" href="eg_406.html"><span class="extensionexampleletter">406</span></a></span></div>
+                    <span id=eg403><a style="text-decoration: none" href="eg_403.html"><span class="extensionexampleletter">403</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_406.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pizza Prince</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_403.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pizza Prince</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Providing a pizza buffet from which the player can take as many pieces as they want.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg406><a style="text-decoration: none" href="WI_20_36.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg403><a style="text-decoration: none" href="WI_20_36.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg130><a style="text-decoration: none" href="eg_130.html"><span class="extensionexampleletter">130</span></a></span></div>
+                    <span id=eg127><a style="text-decoration: none" href="eg_127.html"><span class="extensionexampleletter">127</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_130.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Extra Supplies</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_127.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Extra Supplies</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A supply of red pens from which the player can take another pen only if he doesn't already have one somewhere in the game world.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg130><a style="text-decoration: none" href="WI_8_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg127><a style="text-decoration: none" href="WI_8_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_2.html"><span class="markdowncontent">Section 10.2: Liquids</span></a> &bull; <a href="RB_10_4.html"><span class="markdowncontent">Section 10.4: Glass and Other Damage-Prone Substances</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

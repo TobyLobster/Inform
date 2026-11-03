@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,29 +2212,33 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Plot Management" -->
+            <!-- SEARCH SECTION "4.6" -->
+            <!-- SEARCH SORT "002-004-006-000" -->
             <h3><span>Section 4.6: Plot Management</span></h3>
             <p>
             A plot manager (sometimes called a drama manager) is a piece of the program whose job it is to plan out events so that, whatever the player does, the story advances and an interesting narrative results. The plot manager might, for instance, decide that the player has wandered around for too many scenes without making any progress, and might compensate by making something happen that gives them a new hint on his current problem. It might trigger characters to act when it thinks the story should be reaching a crisis point. It might introduce new complications when it determines that the player is running out of problems to solve.</p>
             <p>This is a theoretically challenging field. Sophisticated plot management requires that the story make difficult guesses, such as whether the player is &quot;stuck&quot; and what the player is working on right now. The advantage of using such a system is that (done very well) it makes the story extremely responsive to the player's behaviour, which means that they are a real agent in the unwinding of the plot. It also contributes to the replayability, since trying the story a second or third time will produce quite different outcomes. But it is procedurally difficult to design a good plot management system and it requires a huge amount of content, as well: in order for the plot manager to give the player hints, change the course of events to suit his focus, and so on, the story has to have available many, many more scenes than will ever occur in any single playing.</p>
-            <p><a href="eg_231.html">Fate Steps In</a> is only a <em>very</em> brief sketch in this direction, one in which the &quot;fate&quot; entity is trying to accomplish an end goal and, every turn, looks for ways to push the story towards that conclusion, whatever the player does.</p>
+            <p><a href="eg_228.html">Fate Steps In</a> is only a <em>very</em> brief sketch in this direction, one in which the &quot;fate&quot; entity is trying to accomplish an end goal and, every turn, looks for ways to push the story towards that conclusion, whatever the player does.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_7_15.html" title="Section 7.15: Goal-Seeking Characters">Goal-Seeking Characters</a> for alternate ways to make characters act on their own.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg231><a style="text-decoration: none" href="eg_231.html"><span class="extensionexampleletter">231</span></a></span></div>
+                    <span id=eg228><a style="text-decoration: none" href="eg_228.html"><span class="extensionexampleletter">228</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_231.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fate Steps In</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_228.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fate Steps In</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Fate entity which attempts to make things happen, by hook or by crook, including taking preliminary actions to set the player up a bit.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg231><a style="text-decoration: none" href="WI_13_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg228><a style="text-decoration: none" href="WI_13_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_5.html"><span class="markdowncontent">Section 4.5: Flashbacks</span></a> &bull; <a href="RB_5_1.html"><span class="markdowncontent">Chapter 5: The Viewpoint Character</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

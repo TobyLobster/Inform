@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,21 +2212,27 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Doors, Staircases, and Bridges" -->
+            <!-- SEARCH SECTION "3.5" -->
+            <!-- SEARCH SORT "002-003-005-000" -->
             <h3><span>Section 3.5: Doors, Staircases, and Bridges</span></h3>
             <p> 
             Inform's <code class="inlinesourcetext">door</code> kind provides for a tangible thing which comes between one room and another. A door can be open or closed, and openable or not: it can be locked or unlocked, and lockable or not. Here we create a conventional door, a natural gap in the rocks, and a (fixed in place) wooden ladder:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Projection</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Booth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Escape</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2046" -->
+            <blockquote class="extract-inform7"><a id="code2046"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">fire</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">fire</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Projection</span><span class="plain-syntax"> </span><span class="identifier-syntax">Booth</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fire</span><span class="plain-syntax"> </span><span class="identifier-syntax">Escape</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">narrow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crevice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unopenable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crevice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Col</span><span class="syntaxplain"> </span><span class="syntaxidentifier">du</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Prafleuri</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rocky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Knoll</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Above</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Arolla</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">narrow</span><span class="plain-syntax"> </span><span class="identifier-syntax">crevice</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">unopenable</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">crevice</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Col</span><span class="plain-syntax"> </span><span class="identifier-syntax">du</span><span class="plain-syntax"> </span><span class="identifier-syntax">Prafleuri</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Rocky</span><span class="plain-syntax"> </span><span class="identifier-syntax">Knoll</span><span class="plain-syntax"> </span><span class="identifier-syntax">Above</span><span class="plain-syntax"> </span><span class="identifier-syntax">Arolla</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wooden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ladder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unopenable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ladder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">above</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stableyard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">below</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hay</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Loft</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wooden</span><span class="plain-syntax"> </span><span class="identifier-syntax">ladder</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">unopenable</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">ladder</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">above</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stableyard</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">below</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hay</span><span class="plain-syntax"> </span><span class="identifier-syntax">Loft</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Most doors are visible from both sides: they are single objects but present in two rooms at once, which raises a number of complications. Inform normally uses the same description looking from each way, which is not very interesting: <a href="eg_69.html">When?</a> and <a href="eg_71.html">Whence?</a> demonstrate neat ways to describe the two sides differently, and <a href="eg_350.html">Whither?</a> adds the option for the player to refer to doors as <code class="inlinetranscriptcommand">the west door</code> and <code class="inlinetranscriptcommand">the east door</code> automatically.</p>
-            <p><a href="eg_30.html">Neighbourhood Watch</a> goes further by making a door behave differently on each side: from the &quot;outside&quot; you need a key, but &quot;inside&quot; it opens on a latch. Finally, <a href="eg_28.html">Garibaldi 1</a> shows how to access information about the two sides of a door.</p>
-            <p><a href="eg_134.html">Higher Calling</a> demonstrates doors which automatically open as needed: though using the Inform extension Locksmith by Emily Short is probably easier and better. <a href="eg_157.html">Elsie</a>, conversely, demonstrates a door that closes one turn after the player has opened it.</p>
-            <p>Certain complications apply when characters other than the player have to see and interact with doors that exist in other rooms. <a href="eg_257.html">Wainwright Acts</a> demonstrates the syntax needed to handle this technically quirky situation.</p>
-            <p><a href="eg_51.html">Something Narsty</a> and <a href="eg_95.html">Hayseed</a> provide a <code class="inlinesourcetext">staircase</code> kind useful for vertically arranged, always-open doors like staircases and (fixed in place) ladders.</p>
-            <p><a href="eg_112.html">One Short Plank</a> implements a precarious plank bridge across a chasm as an open unopenable door.</p>
+            <!-- END CODE -->
+            <p>Most doors are visible from both sides: they are single objects but present in two rooms at once, which raises a number of complications. Inform normally uses the same description looking from each way, which is not very interesting: <a href="eg_68.html">When?</a> and <a href="eg_70.html">Whence?</a> demonstrate neat ways to describe the two sides differently, and <a href="eg_347.html">Whither?</a> adds the option for the player to refer to doors as <code class="inlinetranscriptcommand">the west door</code> and <code class="inlinetranscriptcommand">the east door</code> automatically.</p>
+            <p><a href="eg_29.html">Neighbourhood Watch</a> goes further by making a door behave differently on each side: from the &quot;outside&quot; you need a key, but &quot;inside&quot; it opens on a latch. Finally, <a href="eg_27.html">Garibaldi 1</a> shows how to access information about the two sides of a door.</p>
+            <p><a href="eg_131.html">Higher Calling</a> demonstrates doors which automatically open as needed: though using the Inform extension Locksmith by Emily Short is probably easier and better. <a href="eg_154.html">Elsie</a>, conversely, demonstrates a door that closes one turn after the player has opened it.</p>
+            <p>Certain complications apply when characters other than the player have to see and interact with doors that exist in other rooms. <a href="eg_254.html">Wainwright Acts</a> demonstrates the syntax needed to handle this technically quirky situation.</p>
+            <p><a href="eg_50.html">Something Narsty</a> and <a href="eg_94.html">Hayseed</a> provide a <code class="inlinesourcetext">staircase</code> kind useful for vertically arranged, always-open doors like staircases and (fixed in place) ladders.</p>
+            <p><a href="eg_111.html">One Short Plank</a> implements a precarious plank bridge across a chasm as an open unopenable door.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_6.html" title="Section 3.6: Windows">Windows</a> for climbing through a window from one room to another.</li>
@@ -2151,108 +2242,108 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg95><a style="text-decoration: none" href="eg_95.html"><span class="extensionexampleletter">95</span></a></span></div>
+                    <span id=eg94><a style="text-decoration: none" href="eg_94.html"><span class="extensionexampleletter">94</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_95.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hayseed</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_94.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hayseed</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A refinement of our staircase kind which can be climbed.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg95><a style="text-decoration: none" href="WI_7_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg94><a style="text-decoration: none" href="WI_7_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg134><a style="text-decoration: none" href="eg_134.html"><span class="extensionexampleletter">134</span></a></span></div>
+                    <span id=eg131><a style="text-decoration: none" href="eg_131.html"><span class="extensionexampleletter">131</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_134.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Higher Calling</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_131.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Higher Calling</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">All doors in the game automatically attempt to open if the player approaches them when they are closed.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg134><a style="text-decoration: none" href="WI_8_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg131><a style="text-decoration: none" href="WI_8_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg51><a style="text-decoration: none" href="eg_51.html"><span class="extensionexampleletter">51</span></a></span></div>
+                    <span id=eg50><a style="text-decoration: none" href="eg_50.html"><span class="extensionexampleletter">50</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_51.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Something Narsty</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_50.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Something Narsty</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A staircase always open and never openable.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg51><a style="text-decoration: none" href="WI_4_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg50><a style="text-decoration: none" href="WI_4_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg257><a style="text-decoration: none" href="eg_257.html"><span class="extensionexampleletter">257</span></a></span></div>
+                    <span id=eg254><a style="text-decoration: none" href="eg_254.html"><span class="extensionexampleletter">254</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_257.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wainwright Acts</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_254.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wainwright Acts</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A technical note about checking the location of door objects when characters other than the player are interacting with them.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg257><a style="text-decoration: none" href="WI_14_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg254><a style="text-decoration: none" href="WI_14_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg69><a style="text-decoration: none" href="eg_69.html"><span class="extensionexampleletter">69</span></a></span></div>
+                    <span id=eg68><a style="text-decoration: none" href="eg_68.html"><span class="extensionexampleletter">68</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_69.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">When?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_68.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">When?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A door whose description says &quot;...leads east&quot; in one place and &quot;...leads west&quot; in the other.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg69><a style="text-decoration: none" href="WI_5_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg68><a style="text-decoration: none" href="WI_5_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg350><a style="text-decoration: none" href="eg_350.html"><span class="extensionexampleletter">350</span></a></span></div>
+                    <span id=eg347><a style="text-decoration: none" href="eg_347.html"><span class="extensionexampleletter">347</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_350.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whither?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_347.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whither?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A door whose description says where it leads; and which automatically understands references such as &quot;the west door&quot; and &quot;the east door&quot; depending on which direction it leads from the location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg350><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg347><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg157><a style="text-decoration: none" href="eg_157.html"><span class="extensionexampleletter">157</span></a></span></div>
+                    <span id=eg154><a style="text-decoration: none" href="eg_154.html"><span class="extensionexampleletter">154</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_157.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Elsie</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_154.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Elsie</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A door that closes automatically one turn after the player opens it.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg157><a style="text-decoration: none" href="WI_9_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg154><a style="text-decoration: none" href="WI_9_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg30><a style="text-decoration: none" href="eg_30.html"><span class="extensionexampleletter">30</span></a></span></div>
+                    <span id=eg29><a style="text-decoration: none" href="eg_29.html"><span class="extensionexampleletter">29</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_30.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Neighbourhood Watch</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_29.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Neighbourhood Watch</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A locked door that can be locked or unlocked without a key from one side, but not from the other.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg30><a style="text-decoration: none" href="WI_3_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg29><a style="text-decoration: none" href="WI_3_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg112><a style="text-decoration: none" href="eg_112.html"><span class="extensionexampleletter">112</span></a></span></div>
+                    <span id=eg111><a style="text-decoration: none" href="eg_111.html"><span class="extensionexampleletter">111</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_112.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One Short Plank</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_111.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One Short Plank</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A plank bridge which breaks if the player is carrying something when they cross it. Pushing anything over the bridge is forbidden outright.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg112><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg111><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg28><a style="text-decoration: none" href="eg_28.html"><span class="extensionexampleletter">28</span></a></span></div>
+                    <span id=eg27><a style="text-decoration: none" href="eg_27.html"><span class="extensionexampleletter">27</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_28.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_27.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Providing a security readout device by which the player can check on the status of all doors in the game.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg28><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg27><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg71><a style="text-decoration: none" href="eg_71.html"><span class="extensionexampleletter">71</span></a></span></div>
+                    <span id=eg70><a style="text-decoration: none" href="eg_70.html"><span class="extensionexampleletter">70</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_71.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whence?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_70.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Whence?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A kind of door that always automatically describes the direction it opens and what lies on the far side (if that other room has been visited).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg71><a style="text-decoration: none" href="WI_5_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg70><a style="text-decoration: none" href="WI_5_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_3_4.html"><span class="markdowncontent">Section 3.4: Continuous Spaces and The Outdoors</span></a> &bull; <a href="RB_3_6.html"><span class="markdowncontent">Section 3.6: Windows</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

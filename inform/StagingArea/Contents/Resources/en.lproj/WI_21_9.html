@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,107 +2212,131 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Basis of a rulebook" -->
+            <!-- SEARCH SECTION "21.9" -->
+            <!-- SEARCH SORT "001-021-009-000" -->
             <h3><span>Section 21.9: Basis of a rulebook</span></h3>
             <p>    </p>
             <p>Every rulebook works on a value supplied to it, though it doesn't always look that way. The kind of the value is called its &quot;basis&quot;; for example, if a rulebook works on a number, it's called a <code class="inlinesourcetext">number based rulebook</code>. Most of the rulebooks seen up to now have been action based rulebooks:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code1451" -->
+            <blockquote class="extract-inform7"><a id="code1451"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Instead</code> is an action based rulebook, and the action it works on is the one currently being processed. Besides before, after and instead, other action based rulebooks include the check, carry out, and report rules; general rulebooks such as every turn rules, the visibility rules, the turn sequence rules; and rules specially for dealing with the actions of other characters, such as the persuasion and unsuccessful attempt rules. But we have also seen object based rulebooks:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reaching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flask</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code1452" -->
+            <blockquote class="extract-inform7"><a id="code1452"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">reaching</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">flask</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Reaching inside</code> is an object based rulebook, and here we're giving it a rule which applies if the object is the flask. Inform would reject something like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reaching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code1453" -->
+            <blockquote class="extract-inform7"><a id="code1453"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">reaching</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="constant-syntax">100</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because 100 has the wrong kind to fit – it's a number, not an object. There are many object based rulebooks, because most activities built-in to Inform act on objects. For example, the <code class="inlinesourcetext">printing the name of</code> activity has three rulebooks attached to it: before printing the name of, for printing the name of, after printing the name of. All of these are object based rulebooks.</p>
             <p>Finally, we've also seen scene based rulebooks (which is how rules like <code class="inlinesourcetext">when a recurring scene ends</code> worked, in the chapter on <a href="WI_10_1.html" title="Chapter 10: Scenes">Scenes</a>).</p>
             <p>If a rulebook is declared like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marvellous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reasoning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1454" -->
+            <blockquote class="extract-inform7"><a id="code1454"></a><span class="indexdullblue"><span class="identifier-syntax">Marvellous</span><span class="plain-syntax"> </span><span class="identifier-syntax">reasoning</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then it is an action based rulebook. If we want something different, we must write something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">based</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1455" -->
+            <blockquote class="extract-inform7"><a id="code1455"></a><span class="indexdullblue"><span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's five. What can I say?&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's five. What can I say?&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;There's something odd about </span><span class="syntaxextract">[N]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;There's something odd about [N].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Just </span><span class="syntaxextract">[N]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Just [N].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            <span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Grading </span><span class="syntaxextract">[N]</span><span class="syntaxstring">: &quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Grading [N]: &quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">grading</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which produces:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">: </span><span class="syntaxidentifier">There</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1456" -->
+            <blockquote class="extract-inform7"><a id="code1456"></a><span class="indexdullblue"><span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">: </span><span class="identifier-syntax">There</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Just</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">: </span><span class="identifier-syntax">Just</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">: </span><span class="syntaxidentifier">There</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">: </span><span class="identifier-syntax">There</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Just</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">: </span><span class="identifier-syntax">Just</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">: </span><span class="syntaxidentifier">It</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">five</span><span class="syntaxplain">. </span><span class="syntaxidentifier">What</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">I</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain">?</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">: </span><span class="identifier-syntax">It</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">five</span><span class="plain-syntax">. </span><span class="identifier-syntax">What</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">I</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax">?</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Just</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax">: </span><span class="identifier-syntax">Just</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">: </span><span class="syntaxidentifier">There</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">: </span><span class="identifier-syntax">There</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Just</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">: </span><span class="identifier-syntax">Just</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">9</span><span class="syntaxplain">: </span><span class="syntaxidentifier">There</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxconstant">9</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">9</span><span class="plain-syntax">: </span><span class="identifier-syntax">There</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="constant-syntax">9</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Grading</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Just</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Grading</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">: </span><span class="identifier-syntax">Just</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here we needed a variation on <code class="inlinesourcetext">follow</code> which supplies the value to apply to:</p>
             <div class="definition">
-                <p class="defnprototype">follow (values based rule producing values) for (value)</p>
+                <!-- START PHRASE "defn326" -->
+                <p class="defnprototype"><a id="defn326"></a>follow (values based rule producing values) for (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase causes the rule to be obeyed immediately (rather than simply at predetermined times such as when a particular action is being tried, or at the end of every turn, and such), and applies it to the value given, which must be of a matching kind. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reaching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">electrified</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cage</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1457" -->
+                <blockquote class="extract-inform7"><a id="code1457"></a><span class="indexdullblue"><span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reaching</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax"> </span><span class="identifier-syntax">cage</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>And here is an example based on objects:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">based</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1458" -->
+            <blockquote class="extract-inform7"><a id="code1458"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">flotation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cork</span><span class="syntaxplain">: </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">flotation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cork</span><span class="plain-syntax">: </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inflated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">flotation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">inflated</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">: </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">: </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fails</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">flotation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">fails</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And we might use the flotation rules in a circumstance like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inserting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">well</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1459" -->
+            <blockquote class="extract-inform7"><a id="code1459"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">inserting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">well</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">flotation</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeded</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeded</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> bobs on the surface.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] bobs on the surface.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> sinks out of sight.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] sinks out of sight.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg431><a style="text-decoration: none" href="eg_431.html"><span class="extensionexampleletter">431</span></a></span></div>
+                    <span id=eg428><a style="text-decoration: none" href="eg_428.html"><span class="extensionexampleletter">428</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_431.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Flotation</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_428.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Flotation</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Objects that can sink or float in a well, depending on their own properties and the state of the surrounding environment.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg431><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg428><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_8.html"><span class="markdowncontent">Section 21.8: New rulebooks</span></a> &bull; <a href="WI_21_10.html"><span class="markdowncontent">Section 21.10: Rulebook variables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

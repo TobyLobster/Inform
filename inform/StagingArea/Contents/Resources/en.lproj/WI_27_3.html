@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.3: Genres</span></title>
+    <title><span class="markdowncontent">Section 27.3: Gathering the figures</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.3: Genres</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.3: Gathering the figures</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,20 +2212,36 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.3: Genres</span></h3>
-            <p></p>
-            <p>The <code class="inlinesourcetext">story genre</code> is not used in the banner at all, and exists purely to help librarians. If it is at all possible to do so, authors are asked to use one of the following standard categories:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Comedy</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Erotica</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Fairy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tale</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Fantasy</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Fiction</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Historical</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Horror</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Mystery</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Non</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Fiction</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Other</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Romance</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Science</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fiction</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Surreal</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Gathering the figures" -->
+            <!-- SEARCH SECTION "27.3" -->
+            <!-- SEARCH SORT "001-027-003-000" -->
+            <h3><span>Section 27.3: Gathering the figures</span></h3>
+            <p>  </p>
+            <p>Inform provides basic support for displaying pictures and leaves more exotic effects for Extensions to provide. But either way, for reasons explained in the previous section, <strong>we can only have pictures if the Settings for the project are set to the Glulx story file format</strong>.</p>
+            <p>Inform calls these pictures <em>figures</em>, following the usual Inform analogy with books. We will think of our work of IF as being like a mostly textual book which in broken up with illustrations here and there – Figure 1, Figure 2, and so on. These might be used to mark each new chapter of the plot, or each new location: whatever the author would like. So the first thing we need to do is decide when pictures should appear.</p>
+            <p>The second thing to do is to get hold of the pictures we want to use. These might be photographs, or artwork, or diagrams: anything, really, but we will need them to be in either JPEG or PNG format. Inform does not itself try to be an image editor, or an artwork program – there are many such programs already which do these things much better than Inform could.</p>
+            <p>The pictures then need to be put in a special place where Inform can reach them. Suppose the Inform project is called Example.inform. Then we need to create a folder alongside it called <code class="inlinesourcetext">Example.materials</code>, and create a further folder inside that called <code class="inlinesourcetext">Figures</code>. The actual images go inside <code class="inlinesourcetext">Figures</code>. So we might then have files like so:</p>
+            <!-- START CODE "code1748" -->
+            <blockquote class="extract-inform7"><a id="code1748"></a><span class="indexdullblue"><span class="identifier-syntax">Example</span><span class="plain-syntax">.</span><span class="identifier-syntax">inform</span>
+            <br>
+            <span class="identifier-syntax">Example</span><span class="plain-syntax">.</span><span class="identifier-syntax">materials</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Figures</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Woodlands</span><span class="plain-syntax">.</span><span class="identifier-syntax">png</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Blackberry</span><span class="plain-syntax">.</span><span class="identifier-syntax">jpg</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Admiral</span><span class="plain-syntax"> </span><span class="identifier-syntax">Butterfly</span><span class="plain-syntax">.</span><span class="identifier-syntax">png</span>
             </span></blockquote>
-            <p>These categories are based on those currently used by bookshops, but a few notes may be helpful. &quot;Fiction&quot; is intended for works whose essential purpose is literary, in a way which trumps any subject they happen to have: if Julian Barnes writes a mystery, for instance, a bookshop will shelve it with modern novels rather than in the detective stories section, whereas P. D. James's Adam Dalgliesh mysteries will end up filed with detective fiction even though she has appreciable claims to be an important novelist.</p>
-            <p>&quot;Comedy&quot; is used rather than &quot;humour&quot; to avoid the clash of spellings with &quot;humor&quot;. This genre includes parodies.</p>
-            <p>&quot;Non-Fiction&quot; would be used for a work of IF which is essentially a presentation, perhaps in a novel interactive format, of true information. A meticulous simulation of the Great Exhibition of 1851, for instance, might qualify.</p>
-            <p>The distinction between &quot;Surreal&quot; and &quot;Other&quot; is that &quot;Surreal&quot; works contain at least some semblance of narrative, whereas &quot;Other&quot; is intended for works which &quot;abuse&quot; the format to present some entirely different sort of game – Tetris, say, or Minesweeper.</p>
+            <!-- END CODE -->
+            <p>The <code class="inlinesourcetext">.materials</code> folder for an Inform project will turn out to have many other uses in the chapter on <a href="WI_30_1.html" title="Chapter 30: Publishing">Publishing</a>, and will be explained further there.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_2.html"><span class="markdowncontent">Section 27.2: Bibliographic data</span></a> &bull; <a href="WI_27_4.html"><span class="markdowncontent">Section 27.4: The Library Card</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_2.html"><span class="markdowncontent">Section 27.2: How IF views pictures</span></a> &bull; <a href="WI_27_4.html"><span class="markdowncontent">Section 27.4: Declaring and previewing the figures</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

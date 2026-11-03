@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.13: Extensions in the Index</span></title>
+    <title><span class="markdowncontent">Section 29.13: Website templates</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_12.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.13: Extensions in the Index</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.13: Website templates</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_14.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,70 +2212,62 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.13: Extensions in the Index</span></h3>
-            <p>          </p>
-            <p>As soon as a project has successfully been translated, its Index is brought up to date: pages of the index record all the kinds and what they are for, all the phrases which can be used, and so on. Any kind or phrase created in an extension is automatically included. The extension's presence in the project is itself recorded – the Contents index for any project contains a brief list of all extensions used in that project, along with their authors and version numbers.</p>
-            <p>All of that is automatic, but there are two ways in which an extension can help matters by improving the way its contents are indexed.</p>
-            <h4><span>Providing a specification for each kind</span></h4>
-            <p>The Kinds index aims to give the reader a brief note of what each kind is intended for. For example, <code class="inlinesourcetext">text</code> is briefly explained as:</p>
-            <blockquote>
-            <p>Some text in double quotation marks, perhaps with substitutions written in square brackets.</p>
-            </blockquote>
-            <p>This is called the <em>specification</em> of the kind. Inform allows any kind defined in the source text to be given a specification like this. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specification</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Represents a door which a person can normally only walk through while ducking.&quot;</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Website templates" -->
+            <!-- SEARCH SECTION "29.13" -->
+            <!-- SEARCH SORT "001-029-013-000" -->
+            <h3><span>Section 29.13: Website templates</span></h3>
+            <p> </p>
+            <p>Web pages are very idiosyncratic things and Inform will almost certainly not produce exactly what we want. What it actually does is to take an existing &quot;template&quot; web page, and paste in the relevant information to make the final product. So by starting with a different template, we can end up with an entirely different-looking web page: like this one, for instance –</p>
+            <p><img src="doc_images/sampleweb2.jpg" alt="sampleweb2" /></p>
+            <p>The template ordinarily used by Inform is called <code class="inlinesourcetext">Standard</code> and comes built in. (A second built-in template, <code class="inlinesourcetext">Classic</code>, imitates the look used in 2005-08. The word &quot;classic&quot; here is to be understood in the sense of Classic Mac OS, the classic Doctor Who adventure <em>Time and the Rani</em>, classic Mayan civilisation, and so forth – really pretty awful.)</p>
+            <p>Any other templates we must make ourselves, giving each one a different name, by convention a single word. In this section, we'll make a new one called <code class="inlinesourcetext">Platinum</code>.</p>
+            <p>Suppose we write:</p>
+            <!-- START CODE "code1812" -->
+            <blockquote class="extract-inform7"><a id="code1812"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">art</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Platinum&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">website</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio magazine&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio.pdf&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The mating call of the green wyvern&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mating Wyverns.mp3&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p><code class="inlinesourcetext">Specification</code> is a sort of pseudo-property, which does not really exist. Like the rubric to an extension (see <a href="WI_29_9.html" title="Section 29.9: Extension rubrics">Extension rubrics</a>), this text never appears in the story as played, and is not in fact compiled. It is used only in the Index.</p>
-            <h4><span>Grouping phrases together under sensible heading names</span></h4>
-            <p>Some extensions provide hardly any phrases, or none at all, but others provide many. (<code class="inlinesourcetext">Basic Inform</code> defines hundreds.) The Phrasebook in the Index will, by default, simply lump these all together, which isn't easy for users to browse.</p>
-            <p>However, if the phrases are defined under different headings, then those headings will be used in the index, too.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section of phrases - Head motion</span>
-            <br>
-
-            <br>
-            <span class="syntaxcomment">[Some &quot;To ...&quot; phrases here]</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section of phrases - Door clearance</span>
-            <br>
-
-            <br>
-            <span class="syntaxcomment">[Some more &quot;To ...&quot; phrases here]</span>
-            </span></blockquote>
-            <p>These batches of phrases would then be listed in the index under <code class="inlinetranscript">Head motion</code> and <code class="inlinetranscript">Door clearance</code> respectively.</p>
+            <!-- END CODE -->
+            <p>This is identical to the previous version except for the <code class="inlinesourcetext">Platinum</code>: note the quotation marks. When it needs to find a template, Inform searches the following places in sequence:</p>
             <ol>
-            <li>
-            <p>Inform looks for a hyphen in the heading and then uses any text which follows the hyphen.</p>
-            </li>
-            <li>
-            <p>If there is no hyphen, the entire heading text is used.</p>
-            </li>
-            <li>
-            <p>If an extension contains no headings, all its phrases are indexed simply as &quot;Miscellaneous&quot;.</p>
+            <li>the <code class="inlinesourcetext">Templates</code> subfolder of the project's own <code class="inlinesourcetext">.materials</code> folder, if this subfolder should exist;</li>
+            <li>the <code class="inlinesourcetext">Templates</code> folder in the user's own library:
+            <ul>
+            <li>on MacOS, this is <code class="inlinesourcetext">~/Library/Inform/Templates</code></li>
+            <li>on Windows, <code class="inlinesourcetext">My Documents\Inform\Templates</code></li>
+            <li>or on Linux, <code class="inlinesourcetext">/Inform/Templates</code>
+            (c) the built-in stock of templates, currently only <code class="inlinesourcetext">Standard</code> and <code class="inlinesourcetext">Classic</code>.</li>
+            </ul>
             </li>
             </ol>
-            <p>If there are, say, only five or fewer phrases, then this is not worth the trouble, but otherwise it probably is.</p>
-            <p>And the same is true for action definitions, and how they are listed in the Actions index; but once again, this is probably not worth the trouble if the extension contains only five actions or fewer.</p>
-            <h4><span>Hiding material from the index</span></h4>
-            <p>Finally, any phrase or variable defined immediately under a heading whose name ends in the word <code class="inlinesourcetext">unindexed</code> will be omitted from the Phrasebook or Contents index respectively. (That <em>won't</em> apply to definitions under subheadings of the heading.) For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2 - Implementation - Unindexed</span>
+            <p>What Inform looks for is a folder name matching that of the template – so in our case we need to provide a folder called <code class="inlinesourcetext">Platinum</code>, and put it in either location (a) or (b).</p>
+            <p>The template folder is expected to contain some combination of the following files:</p>
+            <!-- START CODE "code1813" -->
+            <blockquote class="extract-inform7"><a id="code1813"></a><span class="indexdullblue"><span class="identifier-syntax">Platinum</span>
             <br>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">index</span><span class="plain-syntax">.</span><span class="identifier-syntax">html</span>
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secretly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjust</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">heights</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">source</span><span class="plain-syntax">.</span><span class="identifier-syntax">html</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">...</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">style</span><span class="plain-syntax">.</span><span class="identifier-syntax">css</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">extras</span><span class="plain-syntax">).</span><span class="identifier-syntax">txt</span>
             </span></blockquote>
-            <p>This is intended so that technical apparatus used only inside the extensions can be concealed from the outside user's immediate view. Inform as it is presently constituted does not allow extensions to make fully private definitions, but this feature at least allows them to make unadvertised ones.</p>
+            <!-- END CODE -->
+            <p>There are two HTML pages here, one for the main front page, the other for pages of displayed source text (if we release along with the source text – see later in the chapter). The CSS file defines styles of text – sizes, fonts, colours, and so on – and positions material on the page. The <code class="inlinesourcetext">(extras).txt</code> – which is optional, of course – allows additional HTML pages, images, movies and so on to be added.</p>
+            <p>If any of these is missing, Inform uses the one in <code class="inlinesourcetext">Standard</code> instead. In practice, this means the easiest way to create a new template is to supply just a new CSS file, which can change the colour, font, type size, and position of more or less everything in the site:</p>
+            <!-- START CODE "code1814" -->
+            <blockquote class="extract-inform7"><a id="code1814"></a><span class="indexdullblue"><span class="identifier-syntax">Platinum</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">style</span><span class="plain-syntax">.</span><span class="identifier-syntax">css</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>We probably want to start from the <code class="inlinesourcetext">Standard</code> version of <code class="inlinesourcetext">style.css</code> and edit in a few changes; the easiest way to get a clean copy of <code class="inlinesourcetext">Standard</code>'s CSS file to work on is to release the project with a <code class="inlinesourcetext">Standard</code> template, which causes this default <code class="inlinesourcetext">style.css</code> to appear in the <code class="inlinesourcetext">Release</code> subfolder of the project's .materials folder. (But it's wise to move the file out of <code class="inlinesourcetext">Release</code> before starting to edit it – files in <code class="inlinesourcetext">Release</code> are overwritten by Inform whenever a release is made.)</p>
+            <p>This is not the place to describe how CSS works. CSS is a more or less universal format today for describing how web pages should look – their style rather than their content. A dazzling variety of possibilities can be seen at the excellent <a href="http://csszengarden.com/">CSS Zen Garden</a>, but of course there are many, many other textbooks and websites which describe CSS.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_12.html"><span class="markdowncontent">Section 29.12: Extensions which vary with use</span></a> &bull; <a href="WI_29_14.html"><span class="markdowncontent">Section 29.14: Images and other resources</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_12.html"><span class="markdowncontent">Section 29.12: Using Inform with Vorple</span></a> &bull; <a href="WI_29_14.html"><span class="markdowncontent">Section 29.14: Advanced website templates</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

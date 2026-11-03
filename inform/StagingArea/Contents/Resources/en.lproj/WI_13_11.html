@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,51 +2212,57 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Making actions work for other people" -->
+            <!-- SEARCH SECTION "13.11" -->
+            <!-- SEARCH SORT "001-013-011-000" -->
             <h3><span>Section 13.11: Making actions work for other people</span></h3>
             <p>   </p>
             <p>The <code class="inlinesourcetext">photographing</code> action now works very nicely when the player does it. But not when others try. Suppose that neither the player, nor Clark Gable, is holding the camera:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PHOTOGRAPH CLARK</span><br><span class="syntaxidentifier">You can hardly photograph without a camera, now can you?</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> CLARK, PHOTOGRAPH ME</span><br><span class="syntaxelement">&gt;</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; PHOTOGRAPH CLARK<br>You can hardly photograph without a camera, now can you?<br><br>&gt; CLARK, PHOTOGRAPH ME<br>&gt;<br></code></pre></div>
             <p>An uncanny silence. What has happened is that the rules written so far are all implicitly restricted to the player only. This is because when we write –</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code842" -->
+            <blockquote class="extract-inform7"><a id="code842"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can hardly photograph without a camera, now can you?&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can hardly photograph without a camera, now can you?&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>the action is <code class="inlinesourcetext">photographing</code>, not <code class="inlinesourcetext">Clark photographing</code>. In the next few sections we shall see how to make the rules work nicely for everybody. This is a little bit harder, so it should be noted right away that in many projects there is no need. In a story which has no other characters who succumb to persuasion, for instance, only the player will ever try the action.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg225><a style="text-decoration: none" href="eg_225.html"><span class="extensionexampleletter">225</span></a></span></div>
+                    <span id=eg222><a style="text-decoration: none" href="eg_222.html"><span class="extensionexampleletter">222</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_225.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Man of Steel</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_222.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Man of Steel</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An escaping action which means &quot;go to any room you can reach from here&quot;, and is only useful to non-player characters.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg225><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg222><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg226><a style="text-decoration: none" href="eg_226.html"><span class="extensionexampleletter">226</span></a></span></div>
+                    <span id=eg223><a style="text-decoration: none" href="eg_223.html"><span class="extensionexampleletter">223</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_226.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trying Taking Manhattan</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_223.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trying Taking Manhattan</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing the inventory reporting rule with another which does something slightly different.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg226><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg223><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg227><a style="text-decoration: none" href="eg_227.html"><span class="extensionexampleletter">227</span></a></span></div>
+                    <span id=eg224><a style="text-decoration: none" href="eg_224.html"><span class="extensionexampleletter">224</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_227.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Under Contract</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_224.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Under Contract</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a person who accepts most instructions and reacts correctly when a request leads implicitly to inappropriate behaviour.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg227><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg224><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_10.html"><span class="markdowncontent">Section 13.10: Action variables</span></a> &bull; <a href="WI_13_12.html"><span class="markdowncontent">Section 13.12: Check rules for actions by other people</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

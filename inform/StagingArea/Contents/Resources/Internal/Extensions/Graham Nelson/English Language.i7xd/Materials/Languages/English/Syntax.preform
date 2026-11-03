@@ -379,6 +379,7 @@ language English
 	*iz             0es |
 	*oz             0es |
 	*uz             0es |
+	*zz             0es |
 	*ay             0s |            
 	*by             1ies |
 	*cy             1ies |
@@ -2553,6 +2554,13 @@ language English
 	<if-not-cap> <definite-article> <np-unparsed> |
 	<np-unparsed>
 
+<np-pronoun-or-articled> ::=
+	... |
+	<if-not-cap> <agent-pronoun> |
+	<if-not-cap> <indefinite-article> <np-unparsed> |
+	<if-not-cap> <definite-article> <np-unparsed> |
+	<np-unparsed>
+
 <np-articled-bal> ::=
 	^<balanced-text> |
 	<np-articled>
@@ -2681,6 +2689,9 @@ language English
 	grammatical tense |
 	narrative viewpoint |
 	grammatical case
+
+<notable-object-kinds> ::=
+	abstract object
 
 <if-parsing-phrase-tokens> internal
 
@@ -2861,9 +2872,9 @@ language English
 
 <platform-identifier> ::=
 	<language-element> language element |
-	...... language element |[issues PM_UnknownLanguageElement]
+	...... language element |
 	<current-virtual-machine> |
-	......[issues PM_UnknownVirtualMachine]
+	......
 
 <extension-qualifier> ::=
 	for use with <extension-identifier> |
@@ -2904,7 +2915,7 @@ language English
 	<extension-unversioned-inner>
 
 <extension-unversioned-inner> ::=
-	<quoted-text> *** |[issues PM_IncludeExtQuoted]
+	<quoted-text> *** |
 	...
 
 <extension-version> internal
@@ -2934,8 +2945,7 @@ language English
 	end repeat
 
 <other-significant-phrase> ::=
-	say ... |
-	now ...
+	say ...
 
 <phrase-with-comma-notation> ::=
 	...... , ......
@@ -2966,7 +2976,8 @@ language English
 	fast route-finding |
 	slow route-finding |
 	dictionary resolution |
-	nameless room descriptions
+	nameless room descriptions |
+	project ifid
 
 <language-element> internal
 
@@ -3003,17 +3014,17 @@ language English
 
 <no-primary-verb-diagnosis> ::=
 	... <no-primary-verb-diagnosis-tail> |
-	before/every/after/when/instead/check/carry/report ... |[issues PM_RuleWithoutColon]
-	if ... |[issues PM_IfOutsidePhrase]
-	... , ... |[issues PM_NoSuchVerbComma]
-	... <cardinal-number> : <cardinal-number> ... |[issues PM_NoSuchVerbNumberedColon]
-	...[issues PM_NoSuchVerb]
+	before/every/after/when/instead/check/carry/report ... |
+	if ... |
+	... , ... |
+	... <cardinal-number> : <cardinal-number> ... |
+	...
 
 <no-primary-verb-diagnosis-tail> ::=
 	<rc-marker> <certainty> <nonimperative-verb> ... |
 	<rc-marker> <nonimperative-verb> ... |
-	<past-tense-verb> ... |[issues PM_NonPresentTense]
-	<negated-verb> ...[issues PM_NegatedVerb1]
+	<past-tense-verb> ... |
+	<negated-verb> ...
 
 <allow-of-x> ::=
 	in the presence |
@@ -3047,17 +3058,17 @@ language English
 	{_,/and} <has-properties-called-sentence-object>
 
 <has-property-name> ::=
-	<article> |[issues PM_PropertyCalledArticle]
-	presence |[issues PM_PropertyCalledPresence]
-	*** , *** |[issues PM_PropertyNameForbidden]
-	*** <quoted-text> *** |[issues PM_PropertyNameForbidden]
+	<article> |
+	presence |
+	*** , *** |
+	*** <quoted-text> *** |
 	...
 
 <verify-expanded-text-substitution> ::=
-	*** . *** |[issues PM_TSWithPunctuation]
-	, *** |[issues PM_EmptySubstitution]
-	*** , |[issues PM_EmptySubstitution]
-	*** , , ***	|[issues PM_EmptySubstitution]
+	*** . *** |
+	, *** |
+	*** , |
+	*** , , ***	|
 	...
 
 <debugging-log-sentence-object> ::=
@@ -3099,6 +3110,8 @@ language English
 	accessible to inter as ...
 
 <translates-into-i6-sentence-subject> ::=
+	... phrase |
+	... value |
 	... property |
 	... object/kind |
 	{... rule} |
@@ -3109,7 +3122,7 @@ language English
 	understand token ... |
 	{table ...} |
 	... table column |
-	...[issues PM_TranslatedUnknownCategory]
+	...
 
 <translates-into-i6-sentence-object> ::=
 	<quoted-text> with <np-articled-list> |
@@ -3126,21 +3139,21 @@ language English
 	configuration <use-translates-as-configuration> |
 	<article> configuration <use-translates-as-configuration> |
 	a compiler feature |
-	...[issues PM_UseTranslatesNotI6]
+	...
 
 <use-translates-as-configuration> ::=
 	flag |
-	flag <quoted-text> |[issues PM_UseTranslatesNotI6]
+	flag <quoted-text> |
 	flag ### |
-	flag ### = ### |[issues PM_UseTranslatesNotI6]
-	flag <quoted-text> in ### |[issues PM_UseTranslatesNotI6]
+	flag ### = ### |
+	flag <quoted-text> in ### |
 	flag ### in ### |
-	flag ### = ### in ### |[issues PM_UseTranslatesNotI6]
+	flag ### = ### in ### |
 	value |
-	value <quoted-text> |[issues PM_UseTranslatesNotI6]
+	value <quoted-text> |
 	value ### |
 	value ### = ### |
-	value <quoted-text> in ### |[issues PM_UseTranslatesNotI6]
+	value <quoted-text> in ### |
 	value ### in ### |
 	value ### = ### in ###
 
@@ -3155,6 +3168,7 @@ language English
 	### of <cardinal-number-unlimited>
 
 <use-setting> ::=
+	... of {<quoted-text>} |
 	... of at least <cardinal-number-unlimited> |
 	... of <cardinal-number-unlimited> |
 	<definite-article> ...	|
@@ -3163,44 +3177,44 @@ language English
 <test-sentence-subject> ::=
 	<internal-test-case-name> ( internal ) |
 	headline ( internal ) |
-	### ( internal ) |[issues PM_UnknownInternalTest]
-	<quoted-text> |[issues PM_TestQuoted]
+	### ( internal ) |
+	<quoted-text> |
 	###	|
-	...[issues PM_TestMultiWord]
+	...
 
 <internal-test-case-name> internal
 
 <test-sentence-object> ::=
 	<quoted-text> |
 	<quoted-text> <test-case-circumstance-list> |
-	...[issues PM_TestBadRequirements]
+	...
 
 <test-case-circumstance-list> ::=
 	... |
 	<test-case-circumstance-list> <test-case-circumstance> |
 	<test-case-circumstance> |
-	...[issues PM_TestBadRequirements]
+	...
 
 <test-case-circumstance> ::=
 	in <instance-of-object> |
 	holding/and/, <instance-of-object> |
-	with ...[issues PM_TestDoubleWith]
+	with ...
 
 <defined-by-sentence-object> ::=
 	defined by <np-as-object>
 
 <defined-by-sentence-object-inner> ::=
 	<s-value> |
-	...[issues PM_TableUndefined]
+	...
 
 <defined-by-sentence-subject> ::=
 	<article> kind/kinds of {<s-type-expression>} |
 	kind/kinds of {<s-type-expression>} |
 	<s-type-expression> |
-	...[issues PM_TableDefiningTheImpossible]
+	...
 
 <unfortunate-table-column-property> ::=
-	location[issues PM_TableColumnLocation]
+	location
 
 <listed-in-sentence-object> ::=
 	listed <np-unparsed> |
@@ -3225,45 +3239,47 @@ language English
 
 <substitutes-for-sentence-subject> ::=
 	<rule-name> |
-	...[issues PM_NoSuchRuleExists]
+	...
 
 <substitutes-for-sentence-object-inner> ::=
 	<rule-name> |
-	...[issues PM_NoSuchRuleExists]
+	...
 
 <does-nothing-sentence-object> ::=
 	nothing
 
 <does-nothing-sentence-subject> ::=
 	<rule-name> |
-	...[issues PM_NoSuchRuleExists]
+	...
 
 <listed-in-sentence-subject> ::=
 	<rule-name> |
-	...[issues PM_NoSuchRuleExists]
+	...
 
 <listed-in-sentence-object-inner> ::=
 	in any rulebook |
 	in <destination-rulebook> |
 	first in <destination-rulebook> |
 	last in <destination-rulebook> |
+	very first in <destination-rulebook> |
+	very last in <destination-rulebook> |
 	instead of <rule-name> in <rulebook-name> |
-	instead of <rule-name> in ... |[issues PM_NoSuchRulebookPlacement]
-	instead of ... in ... |[issues PM_NoSuchRuleExists]
+	instead of <rule-name> in ... |
+	instead of ... in ... |
 	before <rule-name> in <rulebook-name> |
-	before <rule-name> in ... |[issues PM_NoSuchRulebookPlacement]
-	before ... in ... |[issues PM_NoSuchRuleExists]
+	before <rule-name> in ... |
+	before ... in ... |
 	after <rule-name> in <rulebook-name> |
-	after <rule-name> in ... |[issues PM_NoSuchRulebookPlacement]
-	after ... in ... |[issues PM_NoSuchRuleExists]
-	instead of ... |[issues PM_UnspecifiedRulebookPlacement]
-	before ... |[issues PM_UnspecifiedRulebookPlacement]
-	after ... |[issues PM_UnspecifiedRulebookPlacement]
-	...[issues PM_ImproperRulePlacement]
+	after <rule-name> in ... |
+	after ... in ... |
+	instead of ... |
+	before ... |
+	after ... |
+	...
 
 <destination-rulebook> ::=
 	<rulebook-name> |
-	...[issues PM_NoSuchRulebookPlacement]
+	...
 
 <bare-activity-sentence-object> ::=
 	<article> activity |
@@ -3272,9 +3288,9 @@ language English
 <specifies-sentence-subject> ::=
 	... ( {<lp-group-list>} ) |
 	<k-kind-articled> times <k-kind-articled> |
-	<s-type-expression> times <s-type-expression> |[issues PM_MultiplyingNonKOVs]
+	<s-type-expression> times <s-type-expression> |
 	<k-kind-articled> minus <k-kind-articled> |
-	<s-type-expression> minus <s-type-expression> |[issues PM_MultiplyingNonKOVs]
+	<s-type-expression> minus <s-type-expression> |
 	...
 
 <lp-group-list> ::=
@@ -3290,7 +3306,7 @@ language English
 	plural |
 	<lp-group-name> |
 	in ...... |
-	......[issues PM_BadLPNameOption]
+	......
 
 <specifies-sentence-object> ::=
 	<kind-specified-with-base> <lp-specification-tail> |
@@ -3299,7 +3315,7 @@ language English
 <kind-specified-with-base> ::=
 	<k-kind-articled> in <number-base> |
 	<k-kind-articled> |
-	...[issues PM_LPNotKOV]
+	...
 
 <number-base> ::=
 	binary |
@@ -3357,7 +3373,7 @@ language English
 	values { <quoted-text> } |
 	corresponding to <k-kind> |
 	corresponding to <article> <k-kind> |
-	......[issues PM_BadLPPartOption]
+	......
 
 <new-relation-sentence-subject> ::=
 	<article> <np-unparsed> |
@@ -3400,9 +3416,9 @@ language English
 	either <np-unparsed>
 
 <forbidden-property-owners> ::=
-	<article> kind |[issues PM_PropertyOfKind1]
-	kind |[issues PM_PropertyOfKind1]
-	<object-pronoun>[issues PM_PropertyOfPronoun]
+	<article> kind |
+	kind |
+	<object-pronoun>
 
 <can-be-sentence-object> ::=
 	either <np-alternative-list> ( <condition-name> ) |
@@ -3463,9 +3479,9 @@ language English
 	to <instance-of-infinitive-form> |
 	... property |
 	built-in ... meaning |
-	... relation |[issues PM_VerbRelationUnknown]
-	{relation} |[issues PM_VerbRelationVague]
-	...[issues PM_VerbUnknownMeaning]
+	... relation |
+	{relation} |
+	...
 
 <conjugation> ::=
 	<subject-pronoun> is/are ... |
@@ -3493,13 +3509,13 @@ language English
 	<inclusion-side> {<quoted-text-without-subs>} in {<quoted-text-without-subs>} |
 	when defining <s-type-expression> |
 	replacing {<quoted-text-without-subs>} |
-	when defining ... |[issues PM_WhenDefiningUnknown]
-	before the library |[issues PM_BeforeTheLibrary]
+	when defining ... |
+	before the library |
 	in the preform grammar
 
 <inclusion-side> ::=
 	before |
-	instead of |[issues PM_IncludeInsteadOf]
+	instead of |
 	after
 
 <licence-sentence-subject> ::=
@@ -3520,7 +3536,7 @@ language English
 	...
 
 <assertion-np-as-value> ::=
-	variable |[issues PM_VagueVariable]
+	variable |
 	action of <s-explicit-action>	|
 	<s-descriptive-type-expression> |
 	<s-global-variable>
@@ -3534,29 +3550,32 @@ language English
 	f
 
 <creation-problem-diagnosis> ::=
-	<article> |[issues PM_NameIsArticle]
-	(/)/(- *** |[issues PM_NameWithBrackets]
-	*** (/)/(- |[issues PM_NameWithBrackets]
-	... (/)/(- ... |[issues PM_NameWithBrackets]
-	ni--crash--1 |[issues PM_Crash1]
-	ni--crash--10 |[issues PM_Crash10]
-	ni--crash--11 |[issues PM_Crash11]
-	, ... |[issues PM_StartsWithComma]
-	... , |[issues PM_EndsWithComma]
-	... when/while ... |[issues PM_ObjectIncWhen]
-	*** <quoted-text> *** |[issues PM_NameWithText]
-	condition |[issues PM_NameReserved]
-	conditions |[issues PM_NameReserved]
-	storage |[issues PM_NameReserved]
-	storages |[issues PM_NameReserved]
-	variable |[issues PM_NameReserved]
-	variables |[issues PM_NameReserved]
-	property-value |[issues PM_NameReserved]
-	property-values |[issues PM_NameReserved]
-	table-reference |[issues PM_NameReserved]
-	table-references |[issues PM_NameReserved]
-	list-entry |[issues PM_NameReserved]
-	list-entries[issues PM_NameReserved]
+	<article> |
+	(/)/(- *** |
+	*** (/)/(- |
+	... (/)/(- ... |
+	ni--crash--1 |
+	ni--crash--10 |
+	ni--crash--11 |
+	, ... |
+	... , |
+	... when/while ... |
+	<backticked-material> |
+	*** <quoted-text> *** |
+	condition |
+	conditions |
+	storage |
+	storages |
+	variable |
+	variables |
+	property-value |
+	property-values |
+	table-reference |
+	table-references |
+	list-entry |
+	list-entries
+
+<backticked-material> internal
 
 <text-ending-with-a-calling> ::=
 	... ( called the ... ) |
@@ -3580,14 +3599,14 @@ language English
 	<unsuitable-name>
 
 <something-loose-diagnosis> ::=
-	*** something ***[issues PM_EquatesSomethingToValue]
+	*** something ***
 
 <inline-phrase-definition> ::=
 	(- ### - in to only |
 	(- ### - in to decide if only |
 	(- ### - in to decide only |
 	(- ### |
-	(- ### ...[issues PM_TailAfterInline]
+	(- ### ...
 
 <definition-preamble> ::=
 	definition
@@ -3634,7 +3653,7 @@ language English
 
 <return-kind> ::=
 	<k-kind-prototype> |
-	...[issues PM_UnknownValueToDecide]
+	...
 
 <phrase-preamble> ::=
 	<phrase-preamble> ( deprecated ) |
@@ -3734,17 +3753,17 @@ language English
 
 <phrase-option-setting-entry> ::=
 	<phrase-option> |
-	...[issues PM_NotAPhraseOption or C22NotTheOnlyPhraseOption]
+	...
 
 <rule-preamble> ::=
 	this is the {... rule} |
-	this is the rule |[issues PM_NamelessRule]
-	this is ... rule |[issues PM_UnarticledRule]
-	this is ... rules |[issues PM_PluralisedRule]
+	this is the rule |
+	this is ... rule |
+	this is ... rules |
 	... ( this is the {... rule} ) |
-	... ( this is the rule ) |[issues PM_NamelessRule]
-	... ( this is ... rule ) |[issues PM_UnarticledRule]
-	... ( this is ... rules ) |[issues PM_PluralisedRule]
+	... ( this is the rule ) |
+	... ( this is ... rule ) |
+	... ( this is ... rules ) |
 	...
 
 <rule-preamble-fine> ::=
@@ -3769,16 +3788,20 @@ language English
 	rule
 
 <unrecognised-rule-stem-diagnosis> ::=
+	the final *** |
+	final *** |
+	when *** starts |
+	when *** finishes |
 	when *** |
 	...
 
 <parametric-problem-diagnosis> ::=
-	when the play begins/ends |[issues PM_WhenThePlay]
-	...[issues PM_BadParameter]
+	when the play begins/ends |
+	...
 
 <action-problem-diagnosis> ::=
-	in the presence of ... |[issues PM_NonActionInPresenceOf]
-	in ...[issues PM_NonActionIn]
+	in the presence of ... |
+	in ...
 
 <action-when-diagnosis> ::=
 	... called ... {when/while ...} |
@@ -3837,9 +3860,9 @@ language English
 <new-rulebook-name> ::=
 	<definite-article> <new-rulebook-name> |
 	<new-rulebook-name> rules/rulebook |
-	at *** |[issues PM_RulebookWithAt]
-	to *** |[issues PM_RulebookWithTo]
-	definition *** |[issues PM_RulebookWithDefinition]
+	at *** |
+	to *** |
+	definition *** |
 	...
 
 <rulebook-name-construction> ::=
@@ -3858,10 +3881,14 @@ language English
 <rulebook-stem-inner-unarticled> ::=
 	rule for/about/on <rulebook-stem-name> |
 	rule <rulebook-stem-name> |
+	very first rule <rulebook-stem-name> |
+	very first <rulebook-stem-name> |
 	first rule <rulebook-stem-name> |
 	first <rulebook-stem-name> |
 	last rule <rulebook-stem-name> |
 	last <rulebook-stem-name> |
+	very last rule <rulebook-stem-name> |
+	very last <rulebook-stem-name> |
 	<rulebook-stem-name>
 
 <rulebook-stem-name> ::=
@@ -3887,11 +3914,11 @@ language English
 <rulebook-property> ::=
 	outcome/outcomes <rulebook-outcome-list> |
 	default <rulebook-default-outcome>	|
-	...[issues PM_NonOutcomeProperty]
+	...
 
 <rulebook-default-outcome> ::=
 	<rule-outcome> |
-	...[issues PM_BadDefaultOutcome]
+	...
 
 <rulebook-outcome-list> ::=
 	... |
@@ -3910,7 +3937,7 @@ language English
 	... ( <rule-outcome> - the default ) |
 	... ( <rule-outcome> - default ) |
 	... ( <rule-outcome> ) |
-	... ( ... ) |[issues PM_BadOutcomeClarification]
+	... ( ... ) |
 	...
 
 <rule-outcome> ::=
@@ -3921,8 +3948,8 @@ language English
 <activity-sentence-subject> ::=
 	<activity-sentence-subject> ( <activity-note> ) |
 	<activity-sentence-subject> -- <activity-note> -- |
-	<activity-sentence-subject> ( ...... ) |[issues PM_ActivityNoteUnknown]
-	<activity-sentence-subject> -- ... -- |[issues PM_ActivityNoteUnknown]
+	<activity-sentence-subject> ( ...... ) |
+	<activity-sentence-subject> -- ... -- |
 	<activity-new-name>
 
 <activity-note> ::=
@@ -3946,18 +3973,18 @@ language English
 <activity-name> internal
 
 <table-column-heading> ::=
-	( *** ) |[issues PM_TableColumnBracketed]
-	topic ( ... ) |[issues PM_TopicText]
+	( *** ) |
+	topic ( ... ) |
 	<s-table-column-name> ( {...} ) |
 	<table-column-heading-bare> ( {...} ) |
 	<s-table-column-name> |
 	<table-column-heading-bare>
 
 <table-column-heading-bare> ::=
-	<article> |[issues PM_TableColumnArticle]
+	<article> |
 	{topic} |
 	{<property-name>} |
-	{<s-constant-value>} |[issues PM_TableColumnAlready]
+	{<s-constant-value>} |
 	...
 
 <table-column-name-construction> ::=
@@ -3973,7 +4000,7 @@ language English
 	table ... - ... |
 	table ### |
 	table of ... |
-	table ...[issues PM_TableMisnamed]
+	table ...
 
 <table-names-construction> ::=
 	table ... |
@@ -3988,10 +4015,10 @@ language English
 	<table-cell-blank> |
 	<k-kind-articled> |
 	<s-named-constant> |
-	<s-global-variable>	|[issues PM_TablePlayerEntry or C20TableVariableEntry]
+	<s-global-variable>	|
 	<table-cell-value> |
 	<list-of-double-quotes> |
-	...[issues PM_TableUnknownEntry]
+	...
 
 <table-cell-blank> ::=
 	--
@@ -3999,8 +4026,8 @@ language English
 <table-cell-value> ::=
 	the action of <s-constant-action> |
 	<s-constant-action> |
-	the action of <s-explicit-action> |[issues PM_NonconstantActionInTable]
-	<s-explicit-action> |[issues PM_NonconstantActionInTable]
+	the action of <s-explicit-action> |
+	<s-explicit-action> |
 	<instance-of-non-object> |
 	<s-type-expression>
 
@@ -4012,7 +4039,7 @@ language English
 	equation {<cardinal-number>} - ... |
 	equation {<cardinal-number>} |
 	equation - ... |
-	equation ***[issues PM_EquationMisnumbered]
+	equation ***
 
 <text-ending-in-comma> ::=
 	... ,
@@ -4040,16 +4067,16 @@ language English
 <equation-where-setting> ::=
 	<equation-symbol> is/are <k-kind> |
 	<equation-symbol> is/are <s-value> |
-	<equation-symbol> is/are ... |[issues PM_EquationSymbolNonValue]
-	<equation-symbol> = <k-kind> |[issues PM_EquationSymbolEqualsKOV]
+	<equation-symbol> is/are ... |
+	<equation-symbol> = <k-kind> |
 	<equation-symbol> = <s-value> |
-	<equation-symbol> = ... |[issues PM_EquationSymbolNonValue]
+	<equation-symbol> = ... |
 	<equation-symbol>
 
 <equation-symbol> ::=
 	<valid-equation-symbol>	|
-	### |[issues PM_EquationSymbolMalformed]
-	...[issues PM_EquationSymbolMisdeclared]
+	### |
+	...
 
 <valid-equation-symbol> internal
 
@@ -4069,6 +4096,7 @@ language English
 	<quoted-text> ( <response-letter> ) |
 	<quoted-text> |
 	<s-literal-real-number> |
+	<s-literal-version-number> |
 	<s-literal-truth-state> |
 	<s-literal-list> |
 	unicode ( <s-unicode-character> ) |
@@ -4100,6 +4128,8 @@ language English
 	<literal-real-in-digits>
 
 <literal-real-in-digits> internal
+
+<s-literal-version-number> internal
 
 <s-literal-time> ::=
 	minus <elapsed-time> |
@@ -4238,7 +4268,7 @@ language English
 	<s-specifying-noun> |
 	<s-specifying-noun> <s-adjective-list> |
 	<if-can-omit-trying> <definite-article> <s-common-desc-unspecified> |
-	^<if-can-omit-trying> ^<if-multiplicitous> <definite-article> <s-common-desc-unspecified> |[issues PM_DefiniteCommonNoun]
+	^<if-can-omit-trying> ^<if-multiplicitous> <definite-article> <s-common-desc-unspecified> |
 	<definite-article> <s-proper-desc-unspecified> |
 	<indefinite-article> <s-desc-unspecified> |
 	<s-desc-unspecified>
@@ -4270,7 +4300,7 @@ language English
 	<s-specifying-noun> |
 	<s-specifying-noun> <s-adjective-list> |
 	<if-can-omit-trying> <definite-article> <s-common-desc-unspecified> |
-	^<if-can-omit-trying> ^<if-multiplicitous> <definite-article> <s-common-desc-unspecified> |[issues PM_DefiniteCommonNoun]
+	^<if-can-omit-trying> ^<if-multiplicitous> <definite-article> <s-common-desc-unspecified> |
 	<indefinite-article> <s-desc-nounless-unspecified> |
 	<definite-article> <s-proper-desc-unspecified> |
 	<s-desc-nounless-unspecified>
@@ -4318,10 +4348,10 @@ language English
 
 <s-variable-contents> ::=
 	<k-kind> |
-	<s-literal> |[issues PM_TypeCantVary]
-	<s-constant-value> |[issues PM_TypeCantVary]
-	<s-desc-uncomposite> |[issues PM_TypeUnmaintainable]
-	<s-description>[issues PM_TypeUnmaintainable]
+	<s-literal> |
+	<s-constant-value> |
+	<s-desc-uncomposite> |
+	<s-description>
 
 <if-let-equation-mode> internal
 
@@ -4508,11 +4538,11 @@ language English
 <s-text-substitution> internal
 
 <structural-phrase-problem-diagnosis> ::=
-	continue[issues PM_WrongContinue]
+	continue
 
 <failed-text-substitution-diagnosis> ::=
-	a list of ... |[issues PM_SayAList]
-	...[issues last-resort failed ts]
+	a list of ... |
+	...
 
 <condition-problem-diagnosis> ::=
 	<condition-problem-part> <condition-problem-part-tail> |
@@ -4535,27 +4565,27 @@ language English
 	...
 
 <unknown-text-substitution-problem-diagnosis> ::=
-	, ... |[issues PM_SayComma]
-	unicode ... |[issues PM_SayUnicode]
-	... condition |[issues PM_SayUnknownCondition]
-	otherwise/else *** |[issues PM_SayElseMisplaced]
-	...[issues PM_SayUnknown]
+	, ... |
+	unicode ... |
+	... condition |
+	otherwise/else *** |
+	...
 
 <unknown-value-problem-diagnosis> ::=
-	turns |[issues PM_NumberOfTurns]
-	... is/are out of play |[issues PM_OutOfPlay]
-	unicode ... |[issues PM_MidTextUnicode]
-	... condition |[issues PM_UnknownCondition]
-	...[issues PM_Unknown]
+	turns |
+	... is/are out of play |
+	unicode ... |
+	... condition |
+	...
 
 <unknown-use-option-diagnosis> ::=
-	... ^option |[issues PM_OptionlessOption]
-	...[issues PM_Unknown]
+	... ^option |
+	...
 
 <unknown-activity-diagnosis> ::=
-	... of |[issues PM_ActivityOf]
-	... for |[issues PM_ActivityWithFor]
-	...[issues PM_Unknown]
+	... of |
+	... for |
+	...
 
 <s-object-instance> internal
 
@@ -4605,15 +4635,15 @@ language English
 	the same ... as
 
 <relation-property-name> ::=
-	<either-or-property-name> |[issues PM_RelationWithEitherOrProperty]
+	<either-or-property-name> |
 	<value-property-name> |
-	...[issues PM_RelationWithBadProperty]
+	...
 
 <comparative-property-construction> ::=
 	... than
 
 <measurement-adjective-definition> ::=
-	<possessive-third-person> ... is/are not ... |[issues PM_GradingMisphrased]
+	<possessive-third-person> ... is/are not ... |
 	<possessive-third-person> {<property-name>} is/are <measurement-range> |
 	<possessive-third-person> ... is/are <measurement-range>
 
@@ -4641,7 +4671,7 @@ language English
 	<new-calling-unarticled>
 
 <new-calling-unarticled> ::=
-	*** - *** |[issues PM_CalledWithDash]
+	*** - *** |
 	<existing-local-name> |
 	<s-type-expression-or-value> |
 	...
@@ -4650,7 +4680,7 @@ language English
 	phrase options |
 	<phrase-option>	|
 	<name-local-to-inline-stack-frame> |
-	...[issues PM_BadInlineExpansion]
+	...
 
 <name-local-to-inline-stack-frame> internal
 
@@ -4701,7 +4731,7 @@ language English
 
 <episode-sentence-object> ::=
 	episode <cardinal-number> of <quoted-text-without-subs> |
-	episode ...[issues PM_BadEpisode]
+	episode ...
 
 <notable-bibliographic-variables> ::=
 	story title |
@@ -4711,14 +4741,18 @@ language English
 	story description |
 	story creation year |
 	release number |
+	story serial code |
+	project ifid |
 	story licence |
 	story copyright |
 	story origin url |
-	story rights history
+	story rights history |
+	inform version number |
+	inform build code
 
 <release-sentence-object> ::=
 	<privacy-indicator> <exposed-innards> |
-	<privacy-indicator> ...	|[issues PM_NoSuchPublicRelease]
+	<privacy-indicator> ...	|
 	<exposed-innards> |
 	cover art ( <quoted-text> ) |
 	cover art |
@@ -4736,7 +4770,8 @@ language English
 	separate sounds |
 	{<quoted-text-without-subs>} website |
 	interpreter |
-	{<quoted-text-without-subs>} interpreter
+	{<quoted-text-without-subs>} interpreter |
+	separated resources
 
 <privacy-indicator> ::=
 	private |
@@ -4840,8 +4875,8 @@ language English
 <event-rule-preamble> ::=
 	at <clock-time> |
 	at the time when ... |
-	at the time that ... |[issues PM_AtTimeThat]
-	at ...[issues PM_AtWithoutTime]
+	at the time that ... |
+	at ...
 
 <notable-scene-properties> ::=
 	recurring
@@ -4851,19 +4886,19 @@ language English
 
 <scene-ends-sentence-subject> ::=
 	<scene-name> |
-	...[issues PM_ScenesOnly]
+	...
 
 <scene-ends-sentence-adverb> ::=
 	<scene-end-name-creating>
 
 <scene-ends-sentence-object> ::=
-	<text-including-a-calling> |[issues PM_ScenesDisallowCalled]
+	<text-including-a-calling> |
 	play begins |
-	play ends |[issues PM_ScenesNotPlay]
+	play ends |
 	<scene-name> begins |
 	<scene-name> ends |
 	<scene-name> ends <scene-end-name> |
-	<scene-name> ends ... |[issues PM_ScenesUnknownEnd]
+	<scene-name> ends ... |
 	<s-condition>
 
 <scene-name> ::=
@@ -4893,14 +4928,14 @@ language English
 <index-map-sentence-subject> ::=
 	eps file |
 	<direction-name> mapped as <direction-name> |
-	... mapped as ... |[issues PM_MapDirectionClue]
+	... mapped as ... |
 	<instance-of-object> mapped <map-positioning> |
-	... mapped ... |[issues PM_MapPlacement]
+	... mapped ... |
 	<map-setting> set to <map-setting-value> |
-	<map-setting> set to ... |[issues PM_MapSettingTooLong]
-	... set to ... |[issues PM_MapSettingOfUnknown]
+	<map-setting> set to ... |
+	... set to ... |
 	rubric {<quoted-text-without-subs>} *** |
-	...[issues PM_MapHintUnknown]
+	...
 
 <map-positioning> ::=
 	<instance-of-object> of/from <instance-of-object> |
@@ -4910,7 +4945,7 @@ language English
 <map-setting> ::=
 	<map-parameter> of <map-setting-scope> |
 	<map-parameter> |
-	... of <map-setting-scope>[issues PM_MapSettingUnknown]
+	... of <map-setting-scope>
 
 <map-setting-scope> ::=
 	<definite-article> <map-setting-scope-unarticled> |
@@ -4954,7 +4989,7 @@ language English
 <new-action-sentence-object-unarticled> ::=
 	action based ... |
 	action <nounphrase-actionable> |
-	action[issues PM_BadActionDeclaration]
+	action
 
 <nounphrase-actionable> ::=
 	^<variable-creation-tail>
@@ -4964,12 +4999,13 @@ language English
 	*** variable
 
 <action-sentence-subject> ::=
-	<action-name> |[issues PM_ActionAlreadyExists]
+	<action-name> |
 	...
 
 <action-sentence-object> ::=
 	<action-clauses> |
-	...[issues PM_ActionClauseUnknown]
+	<action-clauses-diagnosing> |
+	...
 
 <action-clauses> ::=
 	... |
@@ -4985,7 +5021,7 @@ language English
 <action-clause> ::=
 	out of world |
 	abbreviable |
-	with past participle ... |
+	with past participle ### |
 	applying to <action-applications> |
 	requiring light
 
@@ -4998,8 +5034,7 @@ language English
 	nothing or one <act-req> |
 	one <act-req> |
 	two <act-req>	|
-	<act-req> |
-	...[issues PM_ActionMisapplied]
+	<act-req>
 
 <act-req> ::=
 	<act-req-inner>
@@ -5013,13 +5048,43 @@ language English
 	touchable |
 	carried
 
+<action-clauses-diagnosing> ::=
+	... |
+	<action-clauses-diagnosing> <action-clause-diagnosing-terminated> |
+	<action-clause-diagnosing-terminated>
+
+<action-clause-diagnosing-terminated> ::=
+	<action-clause-diagnosing> , and |
+	<action-clause-diagnosing> and |
+	<action-clause-diagnosing> , |
+	<action-clause-diagnosing>
+
+<action-clause-diagnosing> ::=
+	out of world |
+	abbreviable |
+	with past participle ... |
+	applying to <action-applications-diagnosing> |
+	requiring light
+
+<action-applications-diagnosing> ::=
+	nothing |
+	one <act-req> and one <act-req> |
+	one <act-req> and <act-req> |
+	<act-req> and one <act-req> |
+	<act-req> and <act-req> |
+	nothing or one <act-req> |
+	one <act-req> |
+	two <act-req>	|
+	<act-req> |
+	...
+
 <action-variable> ::=
 	<action-variable-name> ( matched as {<quoted-text-without-subs>} ) |
-	<action-variable-name> ( ... ) |[issues PM_BadMatchingSyntax]
+	<action-variable-name> ( ... ) |
 	<action-variable-name>
 
 <action-variable-name> ::=
-	<unfortunate-name> |[issues PM_ActionVarAnd]
+	<unfortunate-name> |
 	...
 
 <action-name-construction> ::=
@@ -5219,7 +5284,7 @@ language English
 	nothing |
 	<understand-prop-list> |
 	the command/commands <understand-reg-list> |
-	the verb/verbs ... |[issues PM_OldVerbUsage]
+	the verb/verbs ... |
 	<understand-reg-list>
 
 <understand-reg-list> ::=
@@ -5245,7 +5310,7 @@ language English
 
 <understand-prop-entry> ::=
 	<property-name> property |
-	... property[issues PM_UnknownUnderstandProperty]
+	... property
 
 <understand-text-op> ::=
 	<understand-text-op-uncond> when/while ... |
@@ -5267,7 +5332,7 @@ language English
 	... |
 	a mistake |
 	a mistake ( <quoted-text> ) |
-	a mistake ... |[issues PM_TextlessMistake]
+	a mistake ... |
 	the plural of <understand-ref> |
 	plural of <understand-ref> |
 	<quoted-text> |
@@ -5276,16 +5341,16 @@ language English
 
 <understand-ref> ::=
 	<action-name> |
-	<action-pattern> |[issues PM_UnderstandActionPattern]
+	<action-pattern> |
 	<s-descriptive-type-expression> |
-	<s-variable> |[issues PM_UnderstandVariable]
-	...[issues PM_UnderstandVague]
+	<s-variable> |
+	...
 
 <understand-command-op> ::=
-	... when/while ... |[issues PM_UnderstandCommandWhen]
+	... when/while ... |
 	something new |
 	<quoted-text> |
-	...[issues PM_NotOldCommand]
+	...
 
 <understand-prop-op> ::=
 	<understand-prop-op-uncond> when/while ... |
@@ -5294,17 +5359,17 @@ language English
 <understand-prop-op-uncond> ::=
 	referring to <understand-prop-ref> |
 	describing <understand-prop-ref> |
-	...[issues PM_BadUnderstandProperty]
+	...
 
 <understand-prop-ref> ::=
 	<k-kind> |
 	<instance> |
-	...[issues PM_BadUnderstandPropertyAs]
+	...
 
 <understand-condition> ::=
 	<s-non-action-condition> |
-	<s-condition> |[issues PM_WhenAction]
-	...[issues PM_BadWhen]
+	<s-condition> |
+	...
 
 <grammar-token-breaking> ::=
 	... , ... |
@@ -5321,12 +5386,12 @@ language English
 	anywhere |
 	something related by reversed <relation-name> |
 	something related by <relation-name> |
-	something related by ... |[issues PM_GrammarBadRelation]
+	something related by ... |
 	<standard-grammar-token> |
 	<definite-article> <k-kind> |
 	<s-description> |
-	<s-type-expression>	|[issues PM_BizarreToken]
-	...[issues PM_UnknownToken]
+	<s-type-expression>	|
+	...
 
 <standard-grammar-token> ::=
 	something |
@@ -5338,12 +5403,12 @@ language English
 	someone	|
 	somebody |
 	text |
-	topic |[issues PM_UseTextNotTopic]
-	a topic |[issues PM_UseTextNotTopic]
-	object |[issues PM_UseThingNotObject]
-	an object |[issues PM_UseThingNotObject]
-	something held |[issues something held]
-	things held[issues things held]
+	topic |
+	a topic |
+	object |
+	an object |
+	something held |
+	things held
 
 <named-grammar-token> internal
 
@@ -5450,7 +5515,7 @@ language English
 <figure-source> ::=
 	of cover art |
 	<quoted-text> |
-	...[issues PM_PictureNotTextual]
+	...
 
 <notable-figures> ::=
 	of cover art
@@ -5471,7 +5536,7 @@ language English
 
 <sound-source> ::=
 	<quoted-text> |
-	...[issues PM_SoundNotTextual]
+	...
 
 <external-file-sentence-subject> ::=
 	<definite-article> <external-file-sentence-subject> |
@@ -5488,11 +5553,11 @@ language English
 <external-file-owner> ::=
 	another project |
 	project {<quoted-text-without-subs>} |
-	...[issues PM_BadFileOwner]
+	...
 
 <external-file-sentence-object> ::=
 	<quoted-text> |
-	...[issues PM_FilenameNotTextual]
+	...
 
 <new-file-sentence-object> ::=
 	<indefinite-article> <new-file-sentence-object-unarticled> |

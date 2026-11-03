@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,67 +2212,71 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Cameras and Recording Devices" -->
+            <!-- SEARCH SECTION "9.12" -->
+            <!-- SEARCH SORT "002-009-012-000" -->
             <h3><span>Section 9.12: Cameras and Recording Devices</span></h3>
             <p>
             Recording what is going on, for later playing back or examination, is difficult because the range of situations is very complex. Exactly how much information should we store when we make a recording, and will this require problematically large tables? Will it be difficult even to do at all?</p>
-            <p>The usual approach is to record only basic details of events or situations. In <a href="eg_301.html">If It Hadn't Been For...</a> the tape recorder preserves only a few different sounds–footsteps, creaking, rustling–rather than capturing exactly the sound of every action taking place in earshot. In <a href="eg_351.html">Claims Adjustment</a>, we can take up to 36 Polaroid-style photographs, but each is described only by saying what it is a photo of. Thus we can have a photograph of a vase, or even a photograph of a photograph of a vase (because that too is a thing), but not a photograph of a still life in which several items have been gathered together by the player. That would ordinarily require too much storage.</p>
-            <p>A similar trick, though involving impromptu sculpture rather than photography, can be found in <a href="eg_398.html">Originals</a>. (The artist magically &quot;manifests&quot; these models rather than sculpting the conventional way in order to avoid the nuisance of carrying around raw materials–wax maquettes and so forth–which would clutter up the example.)</p>
-            <p>Text, of course, can store arbitrary descriptions. <a href="eg_445.html">Mirror, Mirror</a> provides a perfect visual recorder: it remembers a room description exactly as the player saw it at the time.</p>
-            <p><a href="eg_243.html">Actor's Studio</a> provides a video camera that records and time stamps all actions performed in its presence while it is set to record.</p>
+            <p>The usual approach is to record only basic details of events or situations. In <a href="eg_298.html">If It Hadn't Been For...</a> the tape recorder preserves only a few different sounds–footsteps, creaking, rustling–rather than capturing exactly the sound of every action taking place in earshot. In <a href="eg_348.html">Claims Adjustment</a>, we can take up to 36 Polaroid-style photographs, but each is described only by saying what it is a photo of. Thus we can have a photograph of a vase, or even a photograph of a photograph of a vase (because that too is a thing), but not a photograph of a still life in which several items have been gathered together by the player. That would ordinarily require too much storage.</p>
+            <p>A similar trick, though involving impromptu sculpture rather than photography, can be found in <a href="eg_395.html">Originals</a>. (The artist magically &quot;manifests&quot; these models rather than sculpting the conventional way in order to avoid the nuisance of carrying around raw materials–wax maquettes and so forth–which would clutter up the example.)</p>
+            <p>Text, of course, can store arbitrary descriptions. <a href="eg_442.html">Mirror, Mirror</a> provides a perfect visual recorder: it remembers a room description exactly as the player saw it at the time.</p>
+            <p><a href="eg_240.html">Actor's Studio</a> provides a video camera that records and time stamps all actions performed in its presence while it is set to record.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_9_10.html" title="Section 9.10: Telephones">Telephones</a> for ways to speak to inanimate objects, which might be appropriate when, say, tape-recording a confession.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg301><a style="text-decoration: none" href="eg_301.html"><span class="extensionexampleletter">301</span></a></span></div>
+                    <span id=eg298><a style="text-decoration: none" href="eg_298.html"><span class="extensionexampleletter">298</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_301.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">If It Hadn't Been For...</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_298.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">If It Hadn't Been For...</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A sound recording device that records the noises made by player and non-player actions, then plays them back on demand.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg301><a style="text-decoration: none" href="WI_18_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg298><a style="text-decoration: none" href="WI_18_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg445><a style="text-decoration: none" href="eg_445.html"><span class="extensionexampleletter">445</span></a></span></div>
+                    <span id=eg442><a style="text-decoration: none" href="eg_442.html"><span class="extensionexampleletter">442</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_445.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mirror, Mirror</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_442.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mirror, Mirror</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The sorcerer's mirror can, when held up high, form an impression of its surroundings which it then preserves.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg445><a style="text-decoration: none" href="WI_22_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg442><a style="text-decoration: none" href="WI_22_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg398><a style="text-decoration: none" href="eg_398.html"><span class="extensionexampleletter">398</span></a></span></div>
+                    <span id=eg395><a style="text-decoration: none" href="eg_395.html"><span class="extensionexampleletter">395</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_398.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Originals</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_395.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Originals</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to create models of anything in the game world; parsing the name &quot;model [thing]&quot; or even just &quot;[thing]&quot; to refer to these newly-created models; asking &quot;which do you mean, the model [thing] or the actual [thing]&quot; when there is ambiguity.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg398><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg395><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg243><a style="text-decoration: none" href="eg_243.html"><span class="extensionexampleletter">243</span></a></span></div>
+                    <span id=eg240><a style="text-decoration: none" href="eg_240.html"><span class="extensionexampleletter">240</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_243.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actor's Studio</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_240.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actor's Studio</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A video camera that records actions performed in its presence, and plays them back with time-stamps.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg243><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg240><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg351><a style="text-decoration: none" href="eg_351.html"><span class="extensionexampleletter">351</span></a></span></div>
+                    <span id=eg348><a style="text-decoration: none" href="eg_348.html"><span class="extensionexampleletter">348</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_351.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Claims Adjustment</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_348.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Claims Adjustment</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An instant camera that spits out photographs of anything the player chooses to take a picture of.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg351><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg348><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_11.html"><span class="markdowncontent">Section 9.11: Clocks and Scientific Instruments</span></a> &bull; <a href="RB_10_1.html"><span class="markdowncontent">Chapter 10: Physics: Substances, Ropes, Energy and Weight</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

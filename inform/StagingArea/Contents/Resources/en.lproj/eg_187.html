@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,340 +2193,174 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg187><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleletter">187</span></a></span></div>
+                <span id=eg187><a style="text-decoration: none" href="WI_11_14.html"><span class="extensionexampleletter">187</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter Barter</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to create reusable dialogue sequences in which the player can negotiate a complex trade.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Testing Pure Choice</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Modifying the offering activity so that it follows a test script rather than stopping to ask for player input.</span></span></div>
             <div class="exampleright">
-                <span id=eg187><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg187><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>In this expansion of Barter Barter, we use the dialogue system to provide the player with a menu-based way to trade objects with characters, including bargains that depend on characters' particular preferences and the relative value of the items offered.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Barter Barter Barter[=0x0022=][=0x000A=][=0x000A=]Chapter 1 - Setting[=0x000A=][=0x000A=]The Trading Post is a room.[=0x000A=][=0x000A=]Meriwether Lewis is a man in the Trading Post. He carries a fluffy handmade quilt and a bag of beans. The beans are edible.[=0x000A=][=0x000A=]William Clark is a man in the Trading Post. He carries leather slippers, a journal, and a loaf of bread. The bread is edible. The slippers are wearable.[=0x000A=][=0x000A=]The player carries an edible thing called a sandwich. The player carries a wearable thing called a hat. The player carries a wearable thing called a silver bracelet.[=0x000A=][=0x000A=]Instead of examining someone: [=0x000A=][=0x0009=]say [=0x0022=][The noun] is carrying [the list of things carried by the noun].[=0x0022=][=0x000A=][=0x0009=][=0x000A=]Distaste relates one person to various things. The verb to dislike means the distaste relation.[=0x000A=][=0x000A=]Clark dislikes the beans and the hat. Lewis dislikes the bread and the sandwich.[=0x000A=][=0x000A=]Test me with [=0x0022=]buy quilt / 1 / 1 / buy journal / 1[=0x0022=].[=0x000A=][=0x000A=]Chapter 2 - Idling moves[=0x000A=][=0x000A=]The block thinking rule is not listed in any rulebook.[=0x000A=]The block giving rule is not listed in any rulebook.[=0x000A=][=0x000A=]Report Lewis thinking:[=0x000A=][=0x0009=]say [=0x0022=][Lewis] [one of]thinks for a minute[or]strokes his chin[or]mulls it over[at random].[=0x0022=] instead.[=0x000A=][=0x000A=]Chapter 3 - Content[=0x000A=][=0x000A=]Section 1 - Bartering basics[=0x000A=][=0x000A=]Offer list is a list of things that varies.[=0x000A=]Acceptance list is a list of things that varies.[=0x000A=]The gift is a thing that varies.[=0x000A=]The goal item is a thing that varies.[=0x000A=][=0x000A=]The barterer is a person that varies;[=0x000A=][=0x000A=]Instead of buying something which is carried by someone:[=0x000A=][=0x0009=]now the offer list is { };[=0x000A=][=0x0009=]now the acceptance list is { };[=0x000A=][=0x0009=]repeat with item running through things carried by the player:[=0x000A=][=0x0009=][=0x0009=]add item to offer list, if absent;[=0x000A=][=0x0009=]now the barterer is the holder of the noun;[=0x000A=][=0x0009=]now the goal item is the noun;[=0x000A=][=0x0009=]perform the item purchasing beat instead.[=0x000A=][=0x0009=][=0x000A=]Refusing is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor refusing something:[=0x000A=][=0x0009=]remove the noun from the offer list, if present.[=0x000A=][=0x0009=][=0x000A=]Partially accepting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor partially accepting something:[=0x000A=][=0x0009=]add the noun to the acceptance list, if absent;[=0x000A=][=0x0009=]remove the noun from the offer list, if present.[=0x000A=][=0x0009=][=0x000A=]Accepting is an action applying to one thing.[=0x000A=][=0x000A=]Carry out an actor accepting something:[=0x000A=][=0x0009=]add the noun to the acceptance list, if absent;[=0x000A=][=0x0009=]remove the noun from the offer list, if present;[=0x000A=][=0x0009=]repeat with item running through the acceptance list:[=0x000A=][=0x0009=][=0x0009=]now the actor carries the item;[=0x000A=][=0x000A=]Report an actor accepting something:[=0x000A=][=0x0009=]say [=0x0022=]You hand [the actor] [the acceptance list with definite articles].[=0x0022=];[=0x000A=][=0x0009=]now the acceptance list is { } instead.[=0x000A=][=0x000A=]Section 2 - Pricing[=0x000A=][=0x000A=]To decide whether the total offer satisfies:[=0x000A=][=0x0009=]if the barterer dislikes the goal item:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]let proposed value be 0;[=0x000A=][=0x0009=]repeat with item running through acceptance list:[=0x000A=][=0x0009=][=0x0009=]if item is edible:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase proposed value by 1;[=0x000A=][=0x0009=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase proposed value by 2;[=0x000A=][=0x0009=]if gift is edible:[=0x000A=][=0x0009=][=0x0009=]increase proposed value by 1;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]increase proposed value by 2;[=0x000A=][=0x0009=]let proposed cost be 0;[=0x000A=][=0x0009=]if the goal item is edible:[=0x000A=][=0x0009=][=0x0009=]now proposed cost is 1;[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]now proposed cost is 2;[=0x000A=][=0x0009=]if proposed value is less than proposed cost:[=0x000A=][=0x0009=][=0x0009=]no;[=0x000A=][=0x0009=]yes.[=0x000A=][=0x000A=]Section 3 - Details (dialogue)[=0x000A=][=0x000A=](This is the item purchasing beat. Fully recurring.)[=0x000A=][=0x000A=]Player: [=0x0022=][=0x0027=]I[=0x0027=]d like to buy [the noun],[=0x0027=] you say.[=0x0022=][=0x000A=][=0x000A=]Barterer: [=0x0022=][=0x0027=]What will you give me for it?[=0x0027=] asks [the holder of the noun].[=0x0022=] [=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the offering beat[=0x000A=][=0x0009=][=0x000A=][=0x000A=](This is the offering beat. Fully recurring.)[=0x000A=][=0x000A=]-- (if the number of entries in the offer list is greater than 0) [=0x0022=]Offer [the entry 1 in the offer list][=0x0022=][=0x000A=][=0x000A=][=0x0009=]Player (before the barterer thinking; now the gift is entry 1 in the offer list): [=0x0022=][=0x0027=]Can I offer you [the entry 1 in the offer list]?[=0x0027=] you suggest.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the assessing beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]-- (if the number of entries in the offer list is greater than 1) [=0x0022=]Offer [the entry 2 in the offer list][=0x0022=][=0x000A=][=0x000A=][=0x0009=]Player (before the barterer thinking; now the gift is entry 2 in the offer list): [=0x0022=][=0x0027=]How about [the entry 2 in the offer list]?[=0x0027=] you ask.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the assessing beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]-- (if the number of entries in the offer list is greater than 2) [=0x0022=]Offer [the entry 3 in the offer list][=0x0022=][=0x000A=][=0x000A=][=0x0009=]Player (before the barterer thinking; now the gift is entry 3 in the offer list): [=0x0022=][=0x0027=]I do have [the entry 3 in the offer list], if you want that.[=0x0027=] you suggest.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the assessing beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x0009=][=0x000A=]-- [=0x0022=]Give up[=0x0022=][=0x000A=][=0x000A=][=0x0009=]Player: [=0x0022=][=0x0027=]I guess I don[=0x0027=]t have what you need,[=0x0027=] you say.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]Barterer: [=0x0022=][=0x0027=]Apparently not,[=0x0027=] says [the barterer] cheerfully. [=0x0027=][if the number of entries in the acceptance list is greater than 0]I guess you can hold on to [the acceptance list] for now, but[else]Feel[end if] feel free to come back later.[=0x0027=][=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x000A=](This is the assessing beat. Fully recurring.)[=0x000A=][=0x000A=]Barterer (if the barterer dislikes the gift; after refusing gift): [=0x0022=][=0x0027=]No thanks,[=0x0027=] says [the Barterer]. [=0x0027=]Got anything else good?[=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the offering beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]Barterer (if the total offer satisfies; before accepting the gift): [=0x0022=][=0x0027=]Sold![=0x0027=] says [the barterer].[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]Player (after the barterer giving the goal item to the player): [=0x0022=][=0x0027=]Why, thank you,[=0x0027=] you say.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]Barterer (after partially accepting gift): [=0x0022=][=0x0027=]I[=0x0027=]ll take that in partial payment, but [the gift] isn[=0x0027=]t worth as much to me as [the goal item]. Got anything else good?[=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] perform the offering beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Barter Barter Barter&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Testing Pure Choice" -->
+        <!-- SEARCH SECTION "Example 187" -->
+        <!-- SEARCH SORT "003-187-000-000" -->
+        <p>
+          
+         </p>
+        <p>Most Inform examples contain a <code class="inlinesourcetext">Test me with &quot;...&quot;</code> sentence, giving a sequence of commands which can be automatically typed in for testing purposes.</p>
+        <p>And that works fine for dialogue-heavy stories too, <em>provided</em> there is a first turn on which the player can type <code class="inlinetranscriptcommand">test me</code>. In a story where dialogue takes over the entire narrative, and no regular commands are ever accepted, that's impossible.</p>
+        <p>So the following use of the <code class="inlinesourcetext">offering ...</code> activity neatly gets around that. It's just like the standard version of the activity, except that if there are numbers in the <code class="inlinesourcetext">testing choices list</code>, it pulls them out one by one and enters them rather than ask the player.</p>
+        <!-- START CODE "code2372" -->
+        <blockquote class="extract-inform7"><a id="code2372"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Testing Pure Choice[=0x0022=][=0x000A=][=0x000A=]Section 1 - The testing mechanism[=0x000A=][=0x000A=]The testing choices list is a list of numbers that varies.[=0x000A=][=0x000A=]For offering a list of dialogue choices (called L)[=0x000A=][=0x0009=](this is the niftier offering dialogue choices rule):[=0x000A=][=0x0009=]let N be 0;[=0x000A=][=0x0009=]repeat with C running through L:[=0x000A=][=0x0009=][=0x0009=]increase N by 1;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([N]) [textual content of C][line break][=0x0022=];[=0x000A=][=0x0009=]say conditional paragraph break;[=0x000A=][=0x0009=]let M be a number;[=0x000A=][=0x0009=]if the testing choices list is non-empty:[=0x000A=][=0x0009=][=0x0009=]now M is entry 1 of the testing choices list;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the testing choices list;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](automatically choosing option [M] for test purposes)[line break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now M is a number chosen by the player from 1 to N;[=0x000A=][=0x0009=]set the dialogue selection value to M;[=0x000A=][=0x0009=]say [=0x0022=][bold type][textual content of entry M of L][roman type][paragraph break][=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Howdy![=0x0022=];[=0x000A=][=0x0009=]now the testing choices list is { 1, 2, 1 }.[=0x000A=][=0x000A=]Section 2 - The play (dialogue)[=0x000A=][=0x000A=](This is the starting beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]Here we might place our opening narration.[=0x000A=][=0x000A=]We could go on for several paragraphs, if we like. There[=0x0027=]s no need to make them separate lines of narration if we do not want to.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I get the general idea.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]Good.[=0x0022=] [=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Cool. Now show me something else.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]This text is only shown because of the choice you just made. But in a moment, we[=0x0027=]ll rejoin the same storyline as though you[=0x0027=]d made the opposite decision. Right about... NOW.[=0x0022=] [=0x000A=][=0x000A=]Narration: [=0x0022=]Speaking of choices, the following two won[=0x0027=]t make any difference at all. The player[=0x0027=]s decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I will remember this.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]I will forget this almost immediately.[=0x0022=][=0x000A=][=0x000A=]Narration: [=0x0022=]Here, by contrast...[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]This branch is actually significant.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the lefthand beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]As is this one.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the righthand beat[=0x000A=][=0x0009=][=0x0009=][=0x000A=](This is the lefthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the left door.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=][=0x000A=](This is the righthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Testing Pure Choice&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Chapter 1 - Setting</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">mechanism</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Post</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Meriwether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lewis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Post</span><span class="syntaxplain">. </span><span class="syntaxidentifier">He</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fluffy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handmade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quilt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beans</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beans</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">For</span><span class="plain-syntax"> </span><span class="identifier-syntax">offering</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">)</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">niftier</span><span class="plain-syntax"> </span><span class="identifier-syntax">offering</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
         <br>
-        <span class="syntaxidentifier">William</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Clark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Post</span><span class="syntaxplain">. </span><span class="syntaxidentifier">He</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leather</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slippers</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">journal</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">loaf</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bread</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bread</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slippers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearable</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">C</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sandwich</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silver</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bracelet</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increase</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;([N]) [textual content of C][line break]&quot;</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain">: </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">conditional</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">break</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is carrying </span><span class="syntaxextract">[the list of things carried by the noun]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">non</span><span class="plain-syntax">-</span><span class="identifier-syntax">empty</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">Distaste</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dislike</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">distaste</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">Clark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dislikes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beans</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Lewis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dislikes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bread</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sandwich</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;(automatically choosing option [M] for test purposes)[line break]&quot;</span><span class="plain-syntax">;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;buy quilt / 1 / 1 / buy journal / 1&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">selection</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[bold type][textual content of entry M of L][roman type][paragraph break]&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>We want to make the existing, but normally blocked, <code class="inlinesourcetext">thinking</code> and <code class="inlinesourcetext">giving</code> actions more substantial:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2 - Idling moves</span>
+        <!-- END CODE -->
+        <p>So we just need to set the list up. We want to make a test-run of &quot;Pure Choice&quot; in which the player selects 1, then 2, then 1, so:</p>
+        <!-- START CODE "code2373" -->
+        <blockquote class="extract-inform7"><a id="code2373"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Howdy!&quot;</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">block</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">block</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lewis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[Lewis]</span><span class="syntaxstring"> </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">thinks for a minute</span><span class="syntaxextract">[or]</span><span class="syntaxstring">strokes his chin</span><span class="syntaxextract">[or]</span><span class="syntaxstring">mulls it over</span><span class="syntaxextract">[at random]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">choices</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> { </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax"> }.</span>
         </span></blockquote>
-        <p>Now for some actions which will handle the buying process.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 3 - Content</span>
+        <!-- END CODE -->
+        <p>Everything else here is the same as for the &quot;Pure Choice&quot; example:</p>
+        <!-- START CODE "code2374" -->
+        <blockquote class="extract-inform7"><a id="code2374"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Bartering basics</span>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">Acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Here we might place our opening narration.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">;</span>
+        <span class="string-syntax">We could go on for several paragraphs, if we like. There's no need to make them separate lines of narration if we do not want to.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">buying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { };</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { };</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">purchasing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;I get the general idea.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">Refusing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Good.&quot;</span><span class="plain-syntax"> </span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">refusing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">present</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;Cool. Now show me something else.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">Partially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;This text is only shown because of the choice you just made. But in a moment, we'll rejoin the same storyline as though you'd made the opposite decision. Right about... NOW.&quot;</span><span class="plain-syntax"> </span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Speaking of choices, the following two won't make any difference at all. The player's decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">present</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;I will remember this.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">Accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;I will forget this almost immediately.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">present</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Here, by contrast...&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You hand </span><span class="syntaxextract">[the actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the acceptance list with definite articles]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { } </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>To keep matters simple, we'll say that food items can be exchanged for one thing but that everything else is worth two things. In the wilderness, it's a seller's market. But if the barterer positively dislikes the item on sale, he'll let it go at any price.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 2 - Pricing</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">satisfies</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dislikes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">yes</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">else</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">else</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">else</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proposed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cost</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">no</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">yes</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>So here is the dialogue, where we make good use of action-based choices and flow markers. Note that the <code class="inlinesourcetext">offering beat</code> can flow into the <code class="inlinesourcetext">assessing beat</code> <em>and vice versa</em>, so we ought to be a little worried about the possibility of an endless regress. But it seems very unlikely that the barterers will get 20 deep in their negotiations. We could keep a count to prevent further wrangling at that point, but for the sake of simplicity this example doesn't do that.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 3 - Details (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the item purchasing beat. Fully recurring.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'I'd like to buy </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">,' you say.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Barterer</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'What will you give me for it?' asks </span><span class="syntaxextract">[the holder of the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the offering beat</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;This branch is actually significant.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the offering beat. Fully recurring.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Offer </span><span class="syntaxextract">[the entry 1 in the offer list]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'Can I offer you </span><span class="syntaxextract">[the entry 1 in the offer list]</span><span class="syntaxstring">?' you suggest.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the assessing beat</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lefthand</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-
-        <br>
-        <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Offer </span><span class="syntaxextract">[the entry 2 in the offer list]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'How about </span><span class="syntaxextract">[the entry 2 in the offer list]</span><span class="syntaxstring">?' you ask.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the assessing beat</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;As is this one.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-
-        <br>
-        <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Offer </span><span class="syntaxextract">[the entry 3 in the offer list]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I do have </span><span class="syntaxextract">[the entry 3 in the offer list]</span><span class="syntaxstring">, if you want that.' you suggest.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the assessing beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Give up&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'I guess I don't have what you need,' you say.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Barterer</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Apparently not,' says </span><span class="syntaxextract">[the barterer]</span><span class="syntaxstring"> cheerfully. '</span><span class="syntaxextract">[if the number of entries in the acceptance list is greater than 0]</span><span class="syntaxstring">I guess you can hold on to </span><span class="syntaxextract">[the acceptance list]</span><span class="syntaxstring"> for now, but</span><span class="syntaxextract">[else]</span><span class="syntaxstring">Feel</span><span class="syntaxextract">[end if]</span><span class="syntaxstring"> feel free to come back later.'&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">righthand</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the assessing beat. Fully recurring.)</span>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lefthand</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Barterer</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dislikes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain">; </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">refusing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'No thanks,' says </span><span class="syntaxextract">[the Barterer]</span><span class="syntaxstring">. 'Got anything else good?'&quot;</span>
+        <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You have passed through the left door.&quot;</span>
         <br>
 
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the offering beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
+        <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Barterer</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">satisfies</span><span class="syntaxplain">; </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'Sold!' says </span><span class="syntaxextract">[the barterer]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barterer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'Why, thank you,' you say.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">righthand</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Barterer</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accepting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gift</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I'll take that in partial payment, but </span><span class="syntaxextract">[the gift]</span><span class="syntaxstring"> isn't worth as much to me as </span><span class="syntaxextract">[the goal item]</span><span class="syntaxstring">. Got anything else good?'&quot;</span>
+        <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.&quot;</span>
         <br>
 
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the offering beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
+        <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_13.html>Section 11.13: Flow markers</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_14.html>Section 11.14: Managing dialogue choices</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

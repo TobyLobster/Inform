@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,62 +2193,57 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg14><a style="text-decoration: none" href="WI_3_2.html"><span class="extensionexampleletter">14</span></a></span></div>
+                <span id=eg14><a style="text-decoration: none" href="WI_3_3.html"><span class="extensionexampleletter">14</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Starry Void</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Creating a booth that can be seen from the outside, opened and closed, and entered as a separate room.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 2</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Another part of Port Royal, with less typical map connections.</span></span></div>
             <div class="exampleright">
-                <span id=eg14><a style="text-decoration: none" href="RB_3_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg14><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Port Royal 2" -->
+        <!-- SEARCH SECTION "Example 14" -->
+        <!-- SEARCH SORT "003-014-000-000" -->
         <p></p>
-        <p>Sometimes we may want a room to be visible from the outside in one location, but treated as a separate location when we are inside. The simplest way to do this is to make the exterior form of the object into a door object, and to describe it differently from different vantage points. (Doors in general are described more fully in the <a href="WI_3_12.html" title="Section 3.12: Doors">Doors</a> section of the <a href="WI_3_1.html" title="Chapter 3: Things">Things</a> chapter.)</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Starry Void[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room.[=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a door. [=0x0022=][if the player is in Center Ring]A magician[=0x0027=]s booth stands in the corner, painted dark blue with glittering gold stars.[otherwise if the magician[=0x0027=]s booth is closed]A crack of light indicates the way back out to the center ring.[otherwise]The door stands open to the outside.[end if][=0x0022=].[=0x000A=][=0x000A=]Instead of examining the magician[=0x0027=]s booth in the Center Ring:[=0x000A=][=0x0009=]say [=0x0022=]It is dark blue and glittering with gold stars. [if the booth is open]The door currently stands open[otherwise]It has been firmly shut[end if].[=0x0022=][=0x000A=][=0x000A=]Instead of examining the magician[=0x0027=]s booth in the Starry Void:[=0x000A=][=0x0009=]say [=0x0022=]The booth door is [if the magician[=0x0027=]s booth is open]wide open[otherwise]shut, admitting only a thin crack of light[end if].[=0x0022=][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is inside from Center Ring and outside from Starry Void.[=0x000A=][=0x000A=]Understand [=0x0022=]door[=0x0022=] or [=0x0022=]of[=0x0022=] or [=0x0022=]the[=0x0022=] or [=0x0022=]light[=0x0022=] or [=0x0022=]crack[=0x0022=] or [=0x0022=]thin crack[=0x0022=] as the booth.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine booth / open door of the booth / in / examine door / close door / look / examine crack of light[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Starry Void&quot;</span>
+        <!-- START CODE "code3249" -->
+        <blockquote class="extract-inform7"><a id="code3249"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]1691[=0x0022=][=0x000A=][=0x000A=]Thames Street End is a room.[=0x000A=][=0x000A=]West of Thames Street End is north of Fisher[=0x0027=]s Row.[=0x000A=][=0x000A=]The description of Fisher[=0x0027=]s Row is [=0x0022=]A waterfront street that runs south towards Chocolata Hole, where the small craft are harboured. It also continues north around the tip of the peninsula from here, turning into the east-west Thames Street.[=0x0022=][=0x000A=][=0x000A=]Thames Street End is down from Fort James. Thames Street End is south from Fort James.[=0x000A=][=0x000A=]Up from Thames Street End is nowhere.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / d / u / w / e / n / s[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;1691&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Center</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>If we check out a map of historic Port Royal, we find that Thames Street End bends around the northwest tip of the peninsula and becomes the (very) roughly north/south Fisher's Row. We can't put Fisher's Row south of Thames Street End, though, because Lime Street is already going that way. So instead, let's have a map connection that bends around from west to north:</p>
+        <!-- START CODE "code3250" -->
+        <blockquote class="extract-inform7"><a id="code3250"></a><span class="indexdullblue"><span class="identifier-syntax">West</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fisher</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Row</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Now continuing west along Thames Street, or north along Fisher's Row, will bring us around the corner in question. Asymmetric map connections should be used carefully. They're good for representing the layout of the real world, which tends not to be laid out on a convenient square matrix, but if exits are not described clearly they can be disorienting for the player. So let's be sure to make things clear:</p>
+        <!-- START CODE "code3251" -->
+        <blockquote class="extract-inform7"><a id="code3251"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fisher</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Row</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A waterfront street that runs south towards Chocolata Hole, where the small craft are harboured. It also continues north around the tip of the peninsula from here, turning into the east-west Thames Street.&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Meanwhile, suppose Fort James is in a prominent position, raised a bit from its surroundings; maybe the player should be able to go down from there, as well as south, to get to Thames Street End.</p>
+        <!-- START CODE "code3252" -->
+        <blockquote class="extract-inform7"><a id="code3252"></a><span class="indexdullblue"><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">down</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">James</span><span class="plain-syntax">. </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">James</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>But we don't want the upward direction to work:</p>
+        <!-- START CODE "code3253" -->
+        <blockquote class="extract-inform7"><a id="code3253"></a><span class="indexdullblue"><span class="identifier-syntax">Up</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magician</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if the player is in Center Ring]</span><span class="syntaxstring">A magician's booth stands in the corner, painted dark blue with glittering gold stars.</span><span class="syntaxextract">[otherwise if the magician's booth is closed]</span><span class="syntaxstring">A crack of light indicates the way back out to the center ring.</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">The door stands open to the outside.</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n / d / u / w / e / n / s&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Here we've arranged for the booth to be described in the initial room description in different ways depending on where the player is when viewing it. We might like to do the same if the player takes a closer look:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magician</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Center</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ring</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It is dark blue and glittering with gold stars. </span><span class="syntaxextract">[if the booth is open]</span><span class="syntaxstring">The door currently stands open</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">It has been firmly shut</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magician</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Starry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Void</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The booth door is </span><span class="syntaxextract">[if the magician's booth is open]</span><span class="syntaxstring">wide open</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">shut, admitting only a thin crack of light</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span>
-        </span></blockquote>
-        <p>And now we put it in place:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magician</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Center</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Starry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Void</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>...and make sure that the booth-and-door object responds to all the names we have used for it in different places:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;door&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;of&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;the&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;light&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;crack&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;thin crack&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;examine booth / open door of the booth / in / examine door / close door / look / examine crack of light&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>A final nice touch, if we're so inclined, is to borrow from the <a href="WI_7_1.html" title="Chapter 7: Basic Actions">Basic Actions</a> chapter and make the player automatically open the booth door before trying to enter:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode(' Before going through the closed magician[=0x0027=]s booth:[=0x000A=][=0x0009=]say [=0x0022=](first opening the door of the booth)[command clarification break][=0x0022=];[=0x000A=][=0x0009=]silently try opening the booth.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magician</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(first opening the door of the booth)</span><span class="syntaxextract">[command clarification break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">booth</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>For the contrasting case of a space that is nested inside another place and is not its own room – say a stall at an open-air market, or a rowboat on a lake – see the example <a href="eg_19.html">Tamed</a>.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_2.html>Section 3.2: Rooms and the map</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_3.html>Section 3.3: One-way connections</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

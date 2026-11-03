@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,254 +2212,264 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Blank columns" -->
+            <!-- SEARCH SECTION "18.8" -->
+            <!-- SEARCH SORT "001-018-008-000" -->
             <h3><span>Section 18.8: Blank columns</span></h3>
             <p></p>
             <p>An entire column of blank entries <code class="inlinesourcetext">--</code> is problematic:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Atomic weight[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">Selected</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Elements</span></span><br>
+            <!-- START CODE "code1171" -->
+            <blockquote class="extract-inform7"><a id="code1171"></a><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Atomic weight[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Selected</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elements</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">Atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">26</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">30</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">92</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">26</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">30</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">92</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>Inform is unable to work out what kind of value should go into the <code class="inlinesourcetext">atomic weight</code> column here, since it has no examples to guess from. We can get around this by writing in the name of a kind of value:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Atomic weight[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]a number[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">Selected</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Elements</span></span><br>
+            <!-- START CODE "code1172" -->
+            <blockquote class="extract-inform7"><a id="code1172"></a><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Atomic weight[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]a number[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x0009=][=0x0009=][=0x0009=][=0x0009=]--[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Selected</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elements</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">Atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">26</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">30</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">92</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">26</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxplain">--</span></span>
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">30</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">92</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>That top entry in the <code class="inlinesourcetext">atomic weight</code> column is also blank, but now Inform knows that anything put into the column in future will be a number.</p>
             <p>If there are many rows, and perhaps several blank columns, it would become very tedious to have to keep typing out <code class="inlinesourcetext">--</code>. So this is optional <em>at the end of a row</em>: it remains compulsory for a blank value appearing in between two values which aren't blank. This is the general idea:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Density[=0x0009=][=0x0009=]Specific gravity[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]a number[=0x0009=]a number[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">Selected</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Elements</span></span><br>
+            <!-- START CODE "code1173" -->
+            <blockquote class="extract-inform7"><a id="code1173"></a><a class="actionlink" href="javascript:pasteCode('Table 2 - Selected Elements[=0x000A=]Element[=0x0009=][=0x0009=]Symbol[=0x0009=]Atomic number[=0x0009=]Density[=0x0009=][=0x0009=]Specific gravity[=0x000A=][=0x0022=]Hydrogen[=0x0022=][=0x0009=][=0x0022=]H[=0x0022=][=0x0009=][=0x0009=]1[=0x0009=][=0x0009=][=0x0009=][=0x0009=]a number[=0x0009=]a number[=0x000A=][=0x0022=]Iron[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Fe[=0x0022=][=0x0009=]26[=0x000A=][=0x0022=]Zinc[=0x0022=][=0x0009=][=0x0009=][=0x0022=]Zn[=0x0022=][=0x0009=]30[=0x000A=][=0x0022=]Uranium[=0x0022=][=0x0009=][=0x0022=]U[=0x0022=][=0x0009=][=0x0009=]92[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Selected</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elements</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Element</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Symbol</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Density</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Density</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Specific</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gravity</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">Specific</span><span class="plain-syntax"> </span><span class="identifier-syntax">gravity</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Hydrogen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;H&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">26</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">30</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Iron&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Fe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">92</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">26</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zinc&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Zn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">30</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Uranium&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;U&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">92</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_7.html"><span class="markdowncontent">Section 18.7: Blank entries</span></a> &bull; <a href="WI_18_9.html"><span class="markdowncontent">Section 18.9: Blank rows</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

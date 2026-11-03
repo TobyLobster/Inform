@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,86 +2193,70 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg439><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleletter">439</span></a></span></div>
+                <span id=eg439><a style="text-decoration: none" href="WI_22_5.html"><span class="extensionexampleletter">439</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape from the Seraglio</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Replacing the usual response to <code class="inlinetranscriptcommand">take all</code> so that instead of output such as &quot;grapes: Taken. orange: Taken.&quot;, Inform produces variable responses in place of &quot;grapes:&quot;.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">About Inform's regular expression support</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Some footnotes on Inform's regular expressions, and how they compare to those of other programming languages.</span></span></div>
             <div class="exampleright">
-                <span id=eg439><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg439><a style="text-decoration: none" href="RB_1_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "About Inform's regular expression support" -->
+        <!-- SEARCH SECTION "Example 439" -->
+        <!-- SEARCH SORT "003-439-000-000" -->
         <p></p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Escape from the Seraglio[=0x0022=][=0x000A=][=0x000A=]Section 1 - Special Announcement Rules[=0x000A=][=0x000A=]The number of takes this turn is a number that varies. Every turn: now the number of takes this turn is 0.[=0x000A=][=0x000A=]The friskily announce items from multiple object lists rule is listed instead of the announce items from multiple object lists rule in the action-processing rules.[=0x000A=][=0x000A=]This is the friskily announce items from multiple object lists rule:[=0x000A=][=0x0009=]if taking:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increment the number of takes this turn;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][if number of takes this turn is 1]First [otherwise if the number of takes this turn is 2]And then [otherwise if the number of takes this turn is 3]And I suppose also [otherwise if the number of takes this turn is 7]And on we wearily go with [otherwise if the number of takes this turn is 9]Oh, and not forgetting [otherwise]And [end if][the current item from the multiple object list]: [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]if the current item from the multiple object list is not nothing, say [=0x0022=][current item from the multiple object list]: [run paragraph on][=0x0022=].[=0x000A=][=0x000A=]Rule for deciding whether all includes the person asked: it does not.[=0x000A=]Rule for deciding whether all includes a person when taking: it does not.[=0x000A=][=0x000A=]Section 2 - The Scenario[=0x000A=][=0x000A=]The Palm Chamber is a room. Sarissa is a woman in the Palm Chamber.[=0x000A=][=0x000A=]The Palm Chamber contains a bottle of ink, a quill pen, a tangerine, a bunch of grapes, a length of silken rope, some perfume, a cake of incense, a fitted leather bodice, a sapphire anklet, an illustrated novel, a whip, and a heavy iron key.[=0x000A=][=0x000A=]A persuasion rule for asking Sarissa to try taking the key:[=0x000A=][=0x0009=]say [=0x0022=]Sarissa nervously demurs, knowing that it is forbidden.[=0x0022=];[=0x000A=][=0x0009=]persuasion fails.[=0x000A=][=0x000A=]A persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]take all / drop all / sarissa, take all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Escape from the Seraglio&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 1 - Special Announcement Rules</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">takes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">takes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">friskily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announce</span><span class="syntaxplain"> </span><span class="syntaxidentifier">items</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announce</span><span class="syntaxplain"> </span><span class="syntaxidentifier">items</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">-</span><span class="syntaxidentifier">processing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">This</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">friskily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announce</span><span class="syntaxplain"> </span><span class="syntaxidentifier">items</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">takes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if number of takes this turn is 1]</span><span class="syntaxstring">First </span><span class="syntaxextract">[otherwise if the number of takes this turn is 2]</span><span class="syntaxstring">And then </span><span class="syntaxextract">[otherwise if the number of takes this turn is 3]</span><span class="syntaxstring">And I suppose also </span><span class="syntaxextract">[otherwise if the number of takes this turn is 7]</span><span class="syntaxstring">And on we wearily go with </span><span class="syntaxextract">[otherwise if the number of takes this turn is 9]</span><span class="syntaxstring">Oh, and not forgetting </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">And </span><span class="syntaxextract">[end if][the current item from the multiple object list]</span><span class="syntaxstring">: </span><span class="syntaxextract">[run paragraph on]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[current item from the multiple object list]</span><span class="syntaxstring">: </span><span class="syntaxextract">[run paragraph on]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">: </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - The Scenario</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Sarissa</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bottle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ink</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quill</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tangerine</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bunch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grapes</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">length</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rope</span><span class="syntaxplain">, </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">perfume</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">incense</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fitted</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leather</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bodice</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sapphire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">anklet</span><span class="syntaxplain">, </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">illustrated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">novel</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whip</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">heavy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">iron</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sarissa</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Sarissa nervously demurs, knowing that it is forbidden.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fails</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">: </span><span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;take all / drop all / sarissa, take all&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <p>There is not really any unanimity about what regular expression language is. The unix tools sed and grep extend on Kleene's original grammar. Henry Spencer's regex library extended on this again, and was a foundation for Perl, but Perl once again went further. Philip Hazel's PCRE, despite the name Perl Compatible Regular Expressions, makes further extensions still, and so on.</p>
+        <p>Inform's regular expressions are modelled on those of Perl, as the best de facto standard we have, but a few omissions have been inevitable. Inform's regex matcher must occupy source code less than one hundredth the size of PCRE, and it has very little memory. Inform aims to behave exactly like Perl except as follows:</p>
+        <ol>
+        <li>
+        <p>Inform allows angle brackets as synonymous with square brackets, for reasons explained above. This means literal angle brackets have to be escaped as <code class="inlinesourcetext">\&lt;</code> and <code class="inlinesourcetext">\&gt;</code> in Inform regular expressions, which is unnecessary in Perl.</p>
+        </li>
+        <li>
+        <p>Inform only has single-line mode, not multiline mode: this removes need for the mode-switches <code class="inlinesourcetext">(?m)</code> and <code class="inlinesourcetext">(?s)</code> and the positional markers <code class="inlinesourcetext">\A</code> and <code class="inlinesourcetext">\Z</code>. Multiline mode is idiosyncratic to Perl and is a messy compromise to do with holding long files of text as single strings, yet treating them as lists of lines at the same time: this would not be sensible for Inform. Similarly, because there is no ambiguity about how line breaks are represented in Inform strings (by a single <code class="inlinesourcetext">\n</code>), initial newline convention markers such as <code class="inlinesourcetext">(*ANYCRLF)</code> are unsupported.</p>
+        </li>
+        <li>
+        <p>The codes <code class="inlinesourcetext">\a</code>, <code class="inlinesourcetext">\r</code>, <code class="inlinesourcetext">\f</code>, <code class="inlinesourcetext">\e</code>, <code class="inlinesourcetext">\0</code> for alarm, carriage return, form feed, escape and the zero character are unsupported: none of these can occur in an Inform string.</p>
+        </li>
+        <li>
+        <p>Inform does not allow characters to be referred to by character code (whereas Perl allows <code class="inlinesourcetext">\036</code> for an octal character code, <code class="inlinesourcetext">\x7e</code> for a hexadecimal one, <code class="inlinesourcetext">\cD</code> for a control character). This is because we do not want the user to know whether text is internally stored as ZSCII or Unicode.</p>
+        </li>
+        <li>
+        <p>Inform's character class <code class="inlinesourcetext">\p</code> (and its negation <code class="inlinesourcetext">\P</code>) have no equivalent in Perl, and Inform's understanding of <code class="inlinesourcetext">\w</code> is different. Perl defines this as an upper or lower case English letter, underscore or digit, which is good for programming-language identifiers, but bad for natural language - for instance, <code class="inlinesourcetext">é</code> is not matched by <code class="inlinesourcetext">\w</code> in Perl, but unquestionably it appears in words. Inform therefore defines <code class="inlinesourcetext">\w</code> as the negation of <code class="inlinesourcetext">\s</code> union <code class="inlinesourcetext">\p</code>.</p>
+        </li>
+        <li>
+        <p>Inform supports only single-digit grouping numbers <code class="inlinesourcetext">\1</code> to <code class="inlinesourcetext">\9</code>, whereas Perl allows <code class="inlinesourcetext">\10</code>, <code class="inlinesourcetext">\11</code>, ...</p>
+        </li>
+        <li>
+        <p>POSIX named character ranges are not supported. These are only abbreviations in any case, and are not very useful. (Note that the POSIX range <code class="inlinesourcetext">[:punct:]</code>, which is supposedly for punctuation, includes many things we do not want to think of that way - percentage signs, for instance - and so <code class="inlinesourcetext">\p</code> has a more natural-language-based definition.)</p>
+        </li>
+        <li>
+        <p>Character classes can be used inside ranges, so that <code class="inlinesourcetext">&lt;\da-f&gt;</code> is legal, but not as ends of contiguous runs, so that <code class="inlinesourcetext">&lt;\d-X&gt;</code> is not legal. (As reckless as this is, it is legal in Perl.)</p>
+        </li>
+        <li>
+        <p>For obvious reasons, escapes to Perl code using the notation <code class="inlinesourcetext">(?{...})</code> are unsupported, and so is the Perl iteration operator <code class="inlinesourcetext">\G</code>.</p>
+        </li>
+        <li>
+        <p>Perl's extended mode <code class="inlinesourcetext">(?x)</code>, a lexical arrangement which allows expressions to be expanded out as little computer programs with comments, is unsupported. It would look awful syntax-coloured in the Inform interface and is not a style of coding to be encouraged.</p>
+        </li>
+        </ol>
+        <p>Inform further does not support the Python extension of named subexpression groups, nor the Java extension of the possessive quantifier <code class="inlinesourcetext">++</code>. There was only so much functionality we could squeeze in.</p>
+        <p>As verification of Inform's matching algorithm, we took the Perl 5 source code's notorious <code class="inlinesourcetext">re-test.txt</code> set of 961 test cases, removed the 316 using features unsupported by Inform (220 tested multiline mode, for instance), and ran the remaining 645 cases through Inform. It agrees with Perl on 643 of these: the two outstanding are –</p>
+        <ol>
+        <li>
+        <p>Perl is able to match <code class="inlinesourcetext">^(a\1?){4}$</code> against <code class="inlinesourcetext">aaaaaa</code> but Inform is not - Inform's backtracking is not as good when it comes to repetitions of groupings which are recursively defined. (Note that the optional <code class="inlinesourcetext">\1</code> match refers to the value of the bracketed expression which contains it, so that the interpretation is different on each repetition. Here to match we have to interpret <code class="inlinesourcetext">?</code> as 0, 0, 1, 0 repeats respectively as we work through the <code class="inlinesourcetext">{4}</code>.)</p>
+        </li>
+        <li>
+        <p>Perl matches <code class="inlinesourcetext">((&lt;a-c&gt;)b*?\2)*</code> against <code class="inlinesourcetext">ababbbcbc</code> finding the match <code class="inlinesourcetext">ababb</code>, whereas Inform finds the match <code class="inlinesourcetext">ababbbcbc</code>. This is really a difference of opinion about whether the outer asterisk, which is greedy, should be allowed three matches rather than two if to do so requires the inner asterisk, which is not greedy, to eat more than it needs on one of those three matches.</p>
+        </li>
+        </ol>
+        <p>Case 1 is a sacrifice to enable Inform's back-tracking to use less memory. Case 2 simply seems unimportant.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_15.html>Section 21.15: The internal rulebooks which keep stories running</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_22_5.html>Section 22.5: Regular expression matching</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

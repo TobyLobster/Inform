@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Magic (Breaking the Laws of Physics)" -->
+            <!-- SEARCH SECTION "10.10" -->
+            <!-- SEARCH SORT "002-010-010-000" -->
             <h3><span>Section 10.10: Magic (Breaking the Laws of Physics)</span></h3>
             <p> 
             Every previous section of this chapter has been about adding further realism constraints to Inform, to give it a more advanced understanding of physics (and chemistry). But Inform has plenty of physical laws built into it already, even if they are more mundane: inanimate objects do not spontaneously move or change, one solid object cannot pass through another, there are opaque barriers through which light cannot pass, and so on. These rules stop many attempted actions. (<code class="inlinetranscriptcommand">go east</code>–<code class="inlinetranscript">The oak door is closed.</code> <code class="inlinetranscriptcommand">get emerald</code>–<code class="inlinetranscript">You can't, since the glass display case is in the way.</code>)</p>
@@ -2137,45 +2226,45 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg427><a style="text-decoration: none" href="eg_427.html"><span class="extensionexampleletter">427</span></a></span></div>
+                    <span id=eg424><a style="text-decoration: none" href="eg_424.html"><span class="extensionexampleletter">424</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_427.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Access All Areas</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_424.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Access All Areas</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The Pointy Hat of Liminal Transgression allows its wearer to walk clean through closed doors.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg427><a style="text-decoration: none" href="WI_21_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg424><a style="text-decoration: none" href="WI_21_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg246><a style="text-decoration: none" href="eg_246.html"><span class="extensionexampleletter">246</span></a></span></div>
+                    <span id=eg243><a style="text-decoration: none" href="eg_243.html"><span class="extensionexampleletter">243</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_246.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Interrogation</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_243.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Interrogation</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A wand which, when waved, reveals the concealed items carried by people the player can see.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg246><a style="text-decoration: none" href="WI_14_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg243><a style="text-decoration: none" href="WI_14_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg237><a style="text-decoration: none" href="eg_237.html"><span class="extensionexampleletter">237</span></a></span></div>
+                    <span id=eg234><a style="text-decoration: none" href="eg_234.html"><span class="extensionexampleletter">234</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_237.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Magneto's Revenge</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_234.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Magneto's Revenge</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Kitty Pryde of the X-Men is able to reach through solid objects, so we might implement her with special powers that the player does not have...</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg237><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg234><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg248><a style="text-decoration: none" href="eg_248.html"><span class="extensionexampleletter">248</span></a></span></div>
+                    <span id=eg245><a style="text-decoration: none" href="eg_245.html"><span class="extensionexampleletter">245</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_248.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Transmutations</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_245.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Transmutations</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A machine that turns objects into other, similar objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg248><a style="text-decoration: none" href="WI_14_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg245><a style="text-decoration: none" href="WI_14_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_9.html"><span class="markdowncontent">Section 10.9: Heat</span></a> &bull; <a href="RB_10_11.html"><span class="markdowncontent">Section 10.11: Mathematics</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

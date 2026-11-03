@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,51 +2212,69 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Abide by" -->
+            <!-- SEARCH SECTION "21.14" -->
+            <!-- SEARCH SORT "001-021-014-000" -->
             <h3><span>Section 21.14: Abide by</span></h3>
             <p>  </p>
             <p>It often happens that one rule needs to invoke another one. Most of the time, the best way to do this is with <code class="inlinesourcetext">follow</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mystery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1482" -->
+            <blockquote class="extract-inform7"><a id="code1482"></a><span class="indexdullblue"><span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">magical</span><span class="plain-syntax"> </span><span class="identifier-syntax">mystery</span><span class="plain-syntax"> </span><span class="identifier-syntax">tour</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>More often, though, we want not only to invoke another rule, but also to be guided by its advice. For this, we use the otherwise identical phrase:</p>
             <div class="definition">
-                <p class="defnprototype">abide by (rule)</p>
+                <!-- START PHRASE "defn336" -->
+                <p class="defnprototype"><a id="defn336"></a>abide by (rule)</p>
+                <!-- END PHRASE -->
                 <p>This phrase applies the given rule, and makes its result the result of the present rule. If the rule being abided by succeeds or fails then the original rule also stops, at once and without going on to any further instructions. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">omnibus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1483" -->
+                <blockquote class="extract-inform7"><a id="code1483"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">omnibus</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">third</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">third</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fourth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fourth</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This duplicates the effect of a rulebook of four rules: the <code class="inlinesourcetext">omnibus rule</code> tries each in turn, and stops as soon as any of them stop.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">abide by (values based rule producing values) for (value)</p>
+                <!-- START PHRASE "defn337" -->
+                <p class="defnprototype"><a id="defn337"></a>abide by (values based rule producing values) for (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase applies the given rule to the given value, and makes its result the result of the present rule. If the rule being abided by succeeds or fails then the original rule also stops, at once and without going on to any further instructions.</p>
             </div>
             <p>Abide might be used in examples like this one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fragile</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">robust</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1484" -->
+            <blockquote class="extract-inform7"><a id="code1484"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">fragile</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">robust</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">This</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fragile</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roughly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">: </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fragile</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is too fragile for such rough handling.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">handle</span><span class="plain-syntax"> </span><span class="identifier-syntax">fragile</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">roughly</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fragile</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] is too fragile for such rough handling.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">: </span><span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fragile</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roughly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throwing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">: </span><span class="syntaxidentifier">abide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fragile</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roughly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">handle</span><span class="plain-syntax"> </span><span class="identifier-syntax">fragile</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">roughly</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">throwing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">abide</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">handle</span><span class="plain-syntax"> </span><span class="identifier-syntax">fragile</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">roughly</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Had we used <code class="inlinesourcetext">follow</code> instead of <code class="inlinesourcetext">abide by</code>, then in the event of the player typing <code class="inlinetranscriptcommand">drop angel</code> the text <code class="inlinetranscript">The glass angel is too fragile for such rough handling</code> would be printed, which is correct – but then the action would continue as though no difficulty had occurred, which is definitely not correct.</p>
             <p>Finally, we can <code class="inlinesourcetext">anonymously abide</code>:</p>
             <div class="definition">
-                <p class="defnprototype">anonymously abide by (rule)</p>
-                <p class="defnprototype">anonymously abide by (values based rule producing values) for (value)</p>
+                <!-- START PHRASE "defn338" -->
+                <p class="defnprototype"><a id="defn338"></a>anonymously abide by (rule)</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn339" -->
+                <p class="defnprototype"><a id="defn339"></a>anonymously abide by (values based rule producing values) for (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase applies the given rule, and makes its result the result of the present rule. If the rule being abided by succeeds or fails then the original rule also stops, at once and without going on to any further instructions. However, the rule deemed to have decided the outcome is the one abided by, not the one doing the abiding.</p>
             </div>
             <p>This is only useful in complicated situations where one rulebook uses another which... and so on. Its effect is exactly the same as <code class="inlinesourcetext">abide</code>, except that the rule deemed to have decided the outcome is the one abided by, not the one doing the abiding. It thus allows a rule or rulebook to act purely as a middle-man, never getting the blame or the credit for what happens. The rule which made the decision is often not very relevant anyway, but it's used as the source of the value <code class="inlinesourcetext">reason the action failed</code> (see the chapter on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a>).</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_13.html"><span class="markdowncontent">Section 21.13: Rulebooks producing values</span></a> &bull; <a href="WI_21_15.html"><span class="markdowncontent">Section 21.15: The internal rulebooks which keep stories running</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

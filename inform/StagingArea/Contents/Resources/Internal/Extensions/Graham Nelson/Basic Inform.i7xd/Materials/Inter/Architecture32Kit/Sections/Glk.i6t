@@ -1,0 +1,1026 @@
+Glk
+
+Glk is a fully-featured input-output model, designed by Andrew Plotkin for use
+with the Glulx virtual machine, but not used only for that. All 32-bit Inform
+programs use Glk.
+
+@h Glk definitions.
+General Glk definitions.
+
+=
+Constant GLK_NULL 0;
+
+Global active_window = Main_Window;
+
+Property line_input_buffer_addr;
+Property line_input_buffer_curlen;
+Property line_input_buffer_maxlen;
+Property line_input_buffer_uni;
+
+@h Glk/Glulx gestalts.
+A few small definitions for handling Glk/Glulx gestalts.
+
+=
+! Can't use gestalt_GarglkText_FAKE or GLULX_GESTALT_Double here as they don't have the correct values yet
+! https://inform7.atlassian.net/browse/I7-2403
+! Also assign extra capacity in case extensions want to define some of their own
+Array Cached_Glk_Gestalts --> (25 + 7 + 10);
+Array Cached_Glulx_Gestalts --> (13 + 1 + 10);
+
+[ GlkFeatureTest id;
+	return Cached_Glk_Gestalts-->id;
+];
+
+[ GlulxFeatureTest id;
+	return Cached_Glulx_Gestalts-->id;
+];
+
+@h Glk object recovery.
+`GGRecoverObjects` handles recovering the Glk objects after restarting or restoring.
+
+=
+Global current_glk_object_rock = 0;
+Global current_glk_object_reference = 0;
+
+[ GGRecoverObjects ref;
+	! Reset all Glk references as if none existed
+	FollowRulebook(RESET_GLK_REFERENCES_RB);
+
+	! Iterate through each of the windows, streams, file refs and sound channels
+	while (ref = glk_window_iterate(ref, gg_arguments)) {
+		current_glk_object_rock = gg_arguments-->0;
+		current_glk_object_reference = ref;
+		FollowRulebook(IDENTIFY_WINDOWS_RB);
+	}
+	while (ref = glk_stream_iterate(ref, gg_arguments)) {
+		current_glk_object_rock = gg_arguments-->0;
+		current_glk_object_reference = ref;
+		FollowRulebook(IDENTIFY_STREAMS_RB);
+	}
+	while (ref = glk_fileref_iterate(ref, gg_arguments)) {
+		current_glk_object_rock = gg_arguments-->0;
+		current_glk_object_reference = ref;
+		FollowRulebook(IDENTIFY_FILEREFS_RB);
+	}
+	if (glk_gestalt(gestalt_Sound, 0)) {
+		while (ref = glk_schannel_iterate(ref, gg_arguments)) {
+			current_glk_object_rock = gg_arguments-->0;
+			current_glk_object_reference = ref;
+			FollowRulebook(IDENTIFY_SCHANNELS_RB);
+		}
+	}
+
+	! Tell the game to tie up any loose ends
+	FollowRulebook(GLK_OBJECT_UPDATING_RB);
+	rfalse;
+];
+
+@ The built in object recovery rules.
+
+=
+[ RESET_GLK_REFERENCES_R;
+	Main_Window.glk_ref = 0;
+	Main_Window.glk_rock = GG_MAINWIN_ROCK;
+	Status_Window.glk_ref = 0;
+	Status_Window.glk_rock = GG_STATUSWIN_ROCK;
+	Quote_Window.glk_ref = 0;
+	Quote_Window.glk_rock = GG_QUOTEWIN_ROCK;
+	gg_scriptfref = 0;
+	gg_scriptstr = 0;
+	gg_savestr = 0;
+	gg_foregroundchan = 0;
+	gg_backgroundchan = 0;
+#Ifdef COMMAND_STREAM;
+	gg_commandstr = 0;
+	gg_command_reading = false;
+#Endif;
+	rfalse;
+];
+
+[ CACHE_GESTALTS_R ix res;
+	for (ix = 0: ix < gestalt_GarglkText_FAKE: ix++) {
+		Cached_Glk_Gestalts-->ix = glk_gestalt(ix, 0);
+	}
+	Cached_Glk_Gestalts-->gestalt_GarglkText_FAKE = glk_gestalt(gestalt_GarglkText, 0);
+	Cached_Glk_Gestalts-->gestalt_DrawImage_BUFFER = glk_gestalt(gestalt_DrawImage, wintype_TextBuffer);
+	Cached_Glk_Gestalts-->gestalt_DrawImage_GRAPHICS = glk_gestalt(gestalt_DrawImage, wintype_Graphics);
+	Cached_Glk_Gestalts-->gestalt_HyperlinkInput_BUFFER = glk_gestalt(gestalt_HyperlinkInput, wintype_TextBuffer);
+	Cached_Glk_Gestalts-->gestalt_HyperlinkInput_GRID = glk_gestalt(gestalt_HyperlinkInput, wintype_TextGrid);
+	Cached_Glk_Gestalts-->gestalt_MouseInput_GRAPHICS = glk_gestalt(gestalt_MouseInput, wintype_Graphics);
+	Cached_Glk_Gestalts-->gestalt_MouseInput_GRID = glk_gestalt(gestalt_MouseInput, wintype_TextGrid);
+	for (ix = 0: ix <= GLULX_GESTALT_Double: ix++) {
+		@gestalt ix 0 res;
+		Cached_Glulx_Gestalts-->ix = res;
+	}
+	rfalse;
+];
+
+[ IDENTIFY_WINDOWS_R;
+	switch (current_glk_object_rock) {
+		GG_MAINWIN_ROCK:
+			Main_Window.glk_ref = current_glk_object_reference;
+		GG_STATUSWIN_ROCK:
+			Status_Window.glk_ref = current_glk_object_reference;
+		GG_QUOTEWIN_ROCK:
+			Quote_Window.glk_ref = current_glk_object_reference;
+	}
+	rfalse;
+];
+
+[ IDENTIFY_STREAMS_R;
+	switch (current_glk_object_rock) {
+		GG_SAVESTR_ROCK:
+			gg_savestr = current_glk_object_reference;
+		GG_SCRIPTSTR_ROCK:
+			gg_scriptstr = current_glk_object_reference;
+	}
+#Ifdef COMMAND_STREAM;
+	switch (current_glk_object_rock) {
+		GG_COMMANDWSTR_ROCK:
+			gg_commandstr = current_glk_object_reference;
+			gg_command_reading = false;
+		GG_COMMANDRSTR_ROCK:
+			gg_commandstr = current_glk_object_reference;
+			gg_command_reading = true;
+	}
+#Endif;
+	rfalse;
+];
+
+[ IDENTIFY_FILEREFS_R;
+	switch (current_glk_object_rock) {
+		GG_SCRIPTFREF_ROCK:
+			gg_scriptfref = current_glk_object_reference;
+	}
+	rfalse;
+];
+
+[ IDENTIFY_SCHANNELS_R;
+	switch (current_glk_object_rock) {
+		GG_FOREGROUNDCHAN_ROCK:
+			gg_foregroundchan = current_glk_object_reference;
+		GG_BACKGROUNDCHAN_ROCK:
+			gg_backgroundchan = current_glk_object_reference;
+	}
+	rfalse;
+];
+
+[ STOP_SCHANNELS_R;
+	if (glk_gestalt(gestalt_Sound, 0)) {
+		if (gg_foregroundchan ~= 0) {
+			glk_schannel_stop(gg_foregroundchan);
+		}
+		if (gg_backgroundchan ~= 0) {
+			glk_schannel_stop(gg_backgroundchan);
+		}
+	}
+	rfalse;
+];
+
+@h Glk windows.
+Functions for minimal Glk windows support.
+
+=
+[ FindGlkWindowFromRefNum ref win;
+	if (ref ~= 0) {
+		for (win = K_Glk_Window_First: win: win = win.K_Glk_Window_Next) {
+			if (win.glk_ref == ref) {
+				return win;
+			}
+		}
+	}
+	return nothing;
+];
+
+[ WindowEchoBuffer win;
+	glk_set_style(style_Input);
+	if (win.line_input_buffer_uni) {
+		glk_put_buffer_uni(win.line_input_buffer_addr, win.line_input_buffer_curlen);
+	}
+	else {
+		glk_put_buffer(win.line_input_buffer_addr, win.line_input_buffer_curlen);
+	}
+	glk_set_style(style_Normal);
+	glk_put_char(10); ! newline
+];
+
+@h Glk events.
+Glk events use a BV to represent the event struct, with an extra slot for a
+line input text. For an original line event, the text slot actually remains
+set to 0, which is understood as meaning that the underling window's buffer
+is used instead.
+
+=
+Constant GLK_EVENT_TYPE_SF = 2;
+Constant GLK_EVENT_WINDOW_SF = 3;
+Constant GLK_EVENT_VALUE1_SF = 4;
+Constant GLK_EVENT_VALUE2_SF = 5;
+Constant GLK_EVENT_TEXT_SF = 6;
+
+[ GLK_EVENT_TY_Compare ev1 ev2 i d text_left text_right;
+	for (i = GLK_EVENT_TYPE_SF: i <= GLK_EVENT_VALUE2_SF: i++) {
+		d = PVField(ev1, i) - PVField(ev2, i);
+		if (d ~= 0) {
+			return d;
+		}
+	}
+	text_left = ev1-->GLK_EVENT_TEXT_SF;
+	text_right = ev2-->GLK_EVENT_TEXT_SF;
+	if (text_left && text_right) {
+		return TEXT_TY_Compare(text_left, text_right);
+	}
+	return text_left - text_right;
+];
+
+[ GLK_EVENT_TY_Copy evto evfrom kind recycling
+	txtfrom txtto;
+	evto-->GLK_EVENT_TYPE_SF = evfrom-->GLK_EVENT_TYPE_SF;
+	evto-->GLK_EVENT_WINDOW_SF = evfrom-->GLK_EVENT_WINDOW_SF;
+	evto-->GLK_EVENT_VALUE1_SF = evfrom-->GLK_EVENT_VALUE1_SF;
+	evto-->GLK_EVENT_VALUE2_SF = evfrom-->GLK_EVENT_VALUE2_SF;
+	evto-->GLK_EVENT_TEXT_SF = evfrom-->GLK_EVENT_TEXT_SF;
+
+	if (evfrom-->GLK_EVENT_TEXT_SF) {
+		evto-->GLK_EVENT_TEXT_SF = CreatePV(TEXT_TY);
+		CopyPV(evto-->GLK_EVENT_TEXT_SF, evfrom-->GLK_EVENT_TEXT_SF);
+	}
+];
+
+[ GLK_EVENT_TY_Create kind_id sb_address
+	short_block;
+
+	short_block = CreatePVShortBlock(sb_address, kind_id);
+	short_block-->GLK_EVENT_TYPE_SF = evtype_None;
+	short_block-->GLK_EVENT_WINDOW_SF = 0;
+	short_block-->GLK_EVENT_VALUE1_SF = 0;
+	short_block-->GLK_EVENT_VALUE2_SF = 0;
+	short_block-->GLK_EVENT_TEXT_SF = 0;
+
+	return short_block;
+];
+
+[ GLK_EVENT_TY_Destroy ev txt;
+	txt = ev-->GLK_EVENT_TEXT_SF;
+	if (txt) {
+		DestroyPV(txt);
+	}
+	ev-->GLK_EVENT_TEXT_SF = 0;
+];
+
+[ GLK_EVENT_TY_Say ev
+		evtype win_obj;
+	evtype = ev-->GLK_EVENT_TYPE_SF;
+	if (evtype == evtype_CharInput or evtype_LineInput or evtype_MouseInput or evtype_Hyperlink) {
+		win_obj = ev-->GLK_EVENT_WINDOW_SF;
+		switch (evtype) {
+			evtype_CharInput:
+				print "character event for ";
+				glk_put_char_uni(MapGlkKeyCodeToUnicode(ev-->GLK_EVENT_VALUE1_SF));
+			evtype_LineInput:
+				print "line event for ~";
+				if (ev-->GLK_EVENT_TEXT_SF) {
+					TEXT_TY_Say(ev-->GLK_EVENT_TEXT_SF);
+				}
+				else {
+					if (win_obj.line_input_buffer_uni) {
+						glk_put_buffer_uni(win_obj.line_input_buffer_addr, win_obj.line_input_buffer_curlen);
+					}
+					else {
+						glk_put_buffer(win_obj.line_input_buffer_addr, win_obj.line_input_buffer_curlen);
+					}
+				}
+				print "~";
+			evtype_MouseInput:
+				print "mouse event for ";
+				if (win_obj.glk_window_type == wintype_TextGrid) {
+					print "row ", (ev-->GLK_EVENT_VALUE2_SF + 1), " and column ", (ev-->GLK_EVENT_VALUE1_SF + 1);
+				}
+				else {
+					print "x ", ev-->GLK_EVENT_VALUE1_SF, " and y ", ev-->GLK_EVENT_VALUE2_SF;
+				}
+			evtype_Hyperlink:
+				print "hyperlink event for ";
+				HYPERLINK_TOKEN_TY_Say(ev-->GLK_EVENT_VALUE1_SF);
+		}
+		print " in ", (the) win_obj;
+	}
+	else {
+		SayKindValuePair(GLK_EVENT_TYPE_TY, evtype);
+		print " glk event";
+	}
+];
+
+@ These functions then support the Inform 7 API for creating and using Glk
+event BVs.
+
+=
+[ GLK_EVENT_TY_New ev evtype win_obj val1 val2 text;
+	if (win_obj == 0 && evtype == evtype_CharInput or evtype_LineInput or evtype_MouseInput or evtype_Hyperlink) {
+		win_obj = active_window;
+	}
+	! Event type specific processing
+	switch (evtype) {
+		evtype_LineInput, evtype_Hyperlink:
+			if (~~(win_obj.glk_window_type == wintype_TextBuffer or wintype_TextGrid)) {
+				IssueRTP("EventWrongWindowType", "GLK_EVENT_TY_New: Glk event created for window of wrong type.", Architecture32KitRTPs);
+				return ev;
+			}
+		evtype_MouseInput:
+			if (~~(win_obj.glk_window_type == wintype_Graphics or wintype_TextGrid)) {
+				IssueRTP("EventWrongWindowType", "GLK_EVENT_TY_New: Glk event created for window of wrong type.", Architecture32KitRTPs);
+				return ev;
+			}
+			! Fix the coordinates of grid window mouse events
+			if (win_obj.glk_window_type == wintype_TextGrid) {
+				val1--;
+				val2--;
+			}
+			if (val1 < 0 || val2 < 0) {
+				IssueRTP("EventInvalidMouseCoords", "GLK_EVENT_TY_New: Glk mouse event created with invalid coordinates.", Architecture32KitRTPs);
+				return ev;
+			}
+	}
+	ev-->GLK_EVENT_TYPE_SF = evtype;
+	ev-->GLK_EVENT_WINDOW_SF = win_obj;
+	ev-->GLK_EVENT_VALUE1_SF = val1;
+	ev-->GLK_EVENT_VALUE2_SF = val2;
+	if (text) {
+		ev-->GLK_EVENT_TEXT_SF = CreatePV(TEXT_TY);
+		CopyPV(ev-->GLK_EVENT_TEXT_SF, text);
+	}
+	return ev;
+];
+
+[ GLK_EVENT_TY_Type ev;
+	return ev-->GLK_EVENT_TYPE_SF;
+];
+
+[ GLK_EVENT_TY_Window ev;
+	if (ev-->GLK_EVENT_TYPE_SF == evtype_CharInput or evtype_LineInput or evtype_MouseInput or evtype_Hyperlink) {
+		return ev-->GLK_EVENT_WINDOW_SF;
+	}
+	IssueRTP("EventWrongType", "GLK_EVENT_TY_Window: Glk event phrase called for wrong event type.", Architecture32KitRTPs);
+	return nothing;
+];
+
+[ GLK_EVENT_TY_Value1 ev evtype;
+	if (evtype == ev-->GLK_EVENT_TYPE_SF) {
+		switch (evtype) {
+			evtype_CharInput:
+				return MapGlkKeyCodeToUnicode(ev-->GLK_EVENT_VALUE1_SF);
+			evtype_MouseInput:
+				if ((ev-->GLK_EVENT_WINDOW_SF).glk_window_type == wintype_TextGrid) {
+					return ev-->GLK_EVENT_VALUE1_SF + 1;
+				}
+				return ev-->GLK_EVENT_VALUE1_SF;
+			evtype_Hyperlink:
+				return ev-->GLK_EVENT_VALUE1_SF;
+		}
+	}
+	IssueRTP("EventWrongType", "GLK_EVENT_TY_Value1: Glk event phrase called for wrong event type.", Architecture32KitRTPs);
+	return 0;
+];
+
+[ GLK_EVENT_TY_Value2 ev;
+	if (ev-->GLK_EVENT_TYPE_SF == evtype_MouseInput) {
+		if ((ev-->GLK_EVENT_WINDOW_SF).glk_window_type == wintype_TextGrid) {
+			return ev-->GLK_EVENT_VALUE1_SF + 1;
+		}
+		return ev-->GLK_EVENT_VALUE1_SF;
+	}
+	IssueRTP("EventWrongType", "GLK_EVENT_TY_Value2: Glk event phrase called for wrong event type.", Architecture32KitRTPs);
+	return 0;
+];
+
+[ GLK_EVENT_TY_Text ev text;
+	if (ev-->GLK_EVENT_TYPE_SF == evtype_LineInput) {
+		if (ev-->GLK_EVENT_TEXT_SF) {
+			CopyPV(text, ev-->GLK_EVENT_TEXT_SF);
+			return text;
+		}
+		return WindowBufferCopyToText(ev-->GLK_EVENT_WINDOW_SF, text);
+	}
+	IssueRTP("EventWrongType", "GLK_EVENT_TY_Text: Glk event phrase called for wrong event type.", Architecture32KitRTPs);
+	return text;
+];
+
+@ `GLK_EVENT_TY_From_Struct` takes a Glk event struct and conforms a Glk event
+BV to it. This does not have to be a new Glk event - this function will usually
+be used by `glk_select`. It also handles a few event maintenance tasks.
+
+=
+[ GLK_EVENT_TY_From_Struct ev event_struct
+		evtype win_obj;
+	! Erase this event
+	GLK_EVENT_TY_Destroy(ev);
+
+	! Check we have a known window
+	evtype = event_struct-->0;
+	win_obj = FindGlkWindowFromRefNum(event_struct-->1);
+	if (win_obj == nothing && evtype == evtype_CharInput or evtype_LineInput or evtype_MouseInput or evtype_Hyperlink) {
+		IssueRTP("EventUnknownWindow", "Event is on unknown Glk window.", Architecture32KitRTPs);
+		return ev;
+	}
+
+	! Fill in the event
+	ev-->GLK_EVENT_TYPE_SF = evtype;
+	ev-->GLK_EVENT_WINDOW_SF = win_obj;
+	ev-->GLK_EVENT_VALUE1_SF = event_struct-->2;
+	ev-->GLK_EVENT_VALUE2_SF = event_struct-->3;
+
+	! Event maintenance
+	switch (evtype) {
+		evtype_CharInput:
+			win_obj.text_input_status = INPUT_STATUS_NONE;
+		evtype_LineInput:
+			win_obj.line_input_buffer_curlen = ev-->GLK_EVENT_VALUE1_SF;
+			win_obj.text_input_status = INPUT_STATUS_NONE;
+		evtype_MouseInput:
+			win_obj.requesting_mouse = false;
+		evtype_Hyperlink:
+			glk_request_hyperlink_event(win_obj.glk_ref);
+	}
+	return ev;
+];
+
+@ `GLK_EVENT_TY_To_Struct` then does the reverse, applying a Glk event BV back onto
+the event struct.
+
+=
+[ GLK_EVENT_TY_To_Struct ev event_struct;
+	event_struct-->0 = ev-->GLK_EVENT_TYPE_SF;
+	if (ev-->GLK_EVENT_WINDOW_SF) {
+		event_struct-->1 = (ev-->GLK_EVENT_WINDOW_SF).glk_ref;
+	}
+	else {
+		event_struct-->1 = 0;
+	}
+	event_struct-->2 = ev-->GLK_EVENT_VALUE1_SF;
+	event_struct-->3 = ev-->GLK_EVENT_VALUE2_SF;
+];
+
+@ `GLK_EVENT_TY_Replace_Current` applies a glk event onto the current glk event, and
+tells glk_select to re-run the glk event handling rules. It also ensures that
+if there are any pending keyboard input requests they will be cancelled if the
+new event is a keyboard event.
+
+=
+Array current_glk_event --> [ BLK_BVBITMAP_SBONLY; GLK_EVENT_TY; 0; 0; 0; 0; 0; 0; 0; ];
+
+Constant GLK_EVENT_HANDLING_INACTIVE 0;
+Constant GLK_EVENT_HANDLING_ACTIVE   1;
+Constant GLK_EVENT_HANDLING_REPLACED 2;
+Global glk_event_handling_status = GLK_EVENT_HANDLING_INACTIVE;
+
+[ GLK_EVENT_TY_Replace_Current ev evtype win_obj;
+	if (glk_event_handling_status == GLK_EVENT_HANDLING_INACTIVE) {
+		IssueRTP("EventHandledWhileInactive", "Cannot handle new event while not handling events.", Architecture32KitRTPs);
+		RulebookSucceeds();
+		rtrue;
+	}
+
+	evtype = ev-->GLK_EVENT_TYPE_SF;
+	win_obj = ev-->GLK_EVENT_WINDOW_SF;
+
+	! If the new event is text input, cancel a pending request
+	if (evtype == evtype_CharInput or evtype_LineInput) {
+		if (win_obj.text_input_status == INPUT_STATUS_ACTIVE_CHAR or INPUT_STATUS_ACTIVE_CHAR_UNI) {
+			glk_cancel_char_event(win_obj.glk_ref);
+		}
+		else if (win_obj.text_input_status == INPUT_STATUS_ACTIVE_LINE or INPUT_STATUS_ACTIVE_LINE_UNI) {
+			glk_cancel_line_event(win_obj.glk_ref);
+		}
+		win_obj.text_input_status = INPUT_STATUS_NONE;
+	}
+
+	! Update the current glk event
+	current_glk_event-->GLK_EVENT_TYPE_SF = evtype;
+	current_glk_event-->GLK_EVENT_WINDOW_SF = win_obj;
+	! If the current event type is line input, update the buffer
+	if (evtype == evtype_LineInput) {
+		if (ev-->GLK_EVENT_TEXT_SF) {
+			WindowBufferSet(win_obj, ev-->GLK_EVENT_TEXT_SF);
+		}
+		current_glk_event-->GLK_EVENT_VALUE1_SF = win_obj.line_input_buffer_curlen;
+	}
+	else {
+		current_glk_event-->GLK_EVENT_VALUE1_SF = ev-->GLK_EVENT_VALUE1_SF;
+	}
+	current_glk_event-->GLK_EVENT_VALUE2_SF = ev-->GLK_EVENT_VALUE2_SF;
+
+	RulebookSucceeds();
+	glk_event_handling_status = GLK_EVENT_HANDLING_REPLACED;
+];
+
+@h Waiting for Glk events.
+We provide an activity to allow the author to wait for a particular Glk event type.
+
+=
+Global current_glk_window;
+[ GLK_EVENT_TY_Wait_For evtype window event_struct return_event  allocated;
+	! If a window was provided for a non-windowed event, clear it
+	if (~~(evtype == evtype_CharInput or evtype_LineInput or evtype_MouseInput or evtype_Hyperlink)) {
+		window = 0;
+	}
+	current_glk_window = window;
+	! Allocate an event_struct if it was not provided
+	if (~~event_struct) {
+		allocated = 1;
+		@malloc 16 event_struct;
+	}
+	! Run the activity (but disable rules debugging because it crashes if keyboard input events are pending)
+	@push debug_rules; @push say__p; @push say__pc;
+	debug_rules = false; ClearParagraphing(1);
+	BeginActivity(GLK_EVENT_WAITING_ACT, evtype);
+	if (~~(ForActivity(GLK_EVENT_WAITING_ACT, evtype))) {
+		while (true) {
+			glk_select(event_struct);
+			if (event_struct-->0 == evtype) {
+				if (window == 0 || event_struct-->1 == window.glk_ref) {
+					break;
+				}
+			}
+		}
+	}
+	GLK_EVENT_TY_From_Struct(current_glk_event, event_struct);
+	EndActivity(GLK_EVENT_WAITING_ACT, evtype);
+	@pull say__pc; @pull say__p; @pull debug_rules;
+
+	if (allocated) {
+		@mfree event_struct;
+	}
+
+	if (return_event) {
+		GLK_EVENT_TY_Copy(return_event, current_glk_event);
+		return return_event;
+	}
+];
+
+[ REQUEST_KEYBOARD_INPUT_R win;
+	if (parameter_value == evtype_CharInput or evtype_LineInput) {
+		win = active_window;
+		if (current_glk_window) {
+			win = current_glk_window;
+		}
+		if (win.glk_ref && win.text_input_status < INPUT_STATUS_ACTIVE_LINE) {
+			if (parameter_value == evtype_LineInput) {
+				glk_request_line_event_uni(win.glk_ref, buffer2 + WORDSIZE, INPUT_BUFFER_LEN - 1, 0);
+			}
+			if (parameter_value == evtype_CharInput) {
+				glk_request_char_event(win.glk_ref);
+			}
+		}
+	}
+	rfalse;
+];
+
+[ MANUALLY_ECHO_LINE_INPUT_R;
+	! Manually echo the command if required
+	if (parameter_value == evtype_LineInput && BasicInformKit`MANUAL_INPUT_ECHOING_CFGF && Cached_Glk_Gestalts-->gestalt_LineInputEcho) {
+		WindowEchoBuffer(current_glk_event-->GLK_EVENT_WINDOW_SF);
+	}
+	rfalse;
+];
+
+Array UnicodeWhitespace --> 133 160 5760 8232 8233 8239 8287 12288;
+Constant UnicodeWhitespaceLen = 8;
+[ NORMALISE_LINE_INPUT_R buf chr ix len win;
+	if (parameter_value == evtype_LineInput) {
+		! Normalise whitespace
+		win = current_glk_event-->GLK_EVENT_WINDOW_SF;
+		buf = win.line_input_buffer_addr;
+		len = win.line_input_buffer_curlen;
+		for (ix = 1: ix <= len: ix++) {
+			chr = buf-->ix;
+			if ((chr <= 32) || (((chr >= 8192) && (chr <= 8202))))
+				buf-->ix = 32;
+			else {
+				@binarysearch chr WORDSIZE UnicodeWhitespace WORDSIZE UnicodeWhitespaceLen 0 0 chr;
+				if (chr) {
+					buf-->ix = 32;
+				}
+			}
+		}
+	}
+	rfalse;
+];
+
+@ To handle events we intercept the `glk_select` function. This allows us to handle
+events early and consistently.
+
+=
+[ glk_select event_struct;
+	! Call the real glk_select
+	@push event_struct;
+	@glk 192 1 0;
+
+	GLK_EVENT_TY_From_Struct(current_glk_event, event_struct);
+
+	! Run the glk event handling rules (but disable rules debugging because it crashes if keyboard input events are pending)
+	@push debug_rules; @push say__p; @push say__pc;
+	debug_rules = false; ClearParagraphing(1);
+	do {
+		glk_event_handling_status = GLK_EVENT_HANDLING_ACTIVE;
+		FollowRulebook(GLK_EVENT_HANDLING_RB, current_glk_event-->GLK_EVENT_TYPE_SF, true);
+	} until (glk_event_handling_status == GLK_EVENT_HANDLING_ACTIVE);
+	glk_event_handling_status = GLK_EVENT_HANDLING_INACTIVE;
+	@pull say__pc; @pull say__p; @pull debug_rules;
+
+	GLK_EVENT_TY_To_Struct(current_glk_event, event_struct);
+	rfalse;
+];
+
+@h Glk character event function keycodes.
+These functions allow us to map the Glk function keycodes to our platform-agnostic unicode values.
+
+=
+Constant FunctionKeyCodesCount = 25;
+Array FunctionKeyCodes --> $ffffffe4 $ffffffe5 $ffffffe6 $ffffffe7 $ffffffe8
+	$ffffffe9 $ffffffea $ffffffeb $ffffffec $ffffffed $ffffffee $ffffffef
+	$fffffff3 $fffffff4 $fffffff5 $fffffff6 $fffffff7 $fffffff8 $fffffff9
+	$fffffffa $fffffffb $fffffffc $fffffffd $fffffffe $ffffffff;
+Array MappedFunctionKeyCodes --> $EF0C $EF0B $EF0A $EF09 $EF08 $EF07 $EF06
+	$EF05 $EF04 $EF03 $EF02 $EF01 $21F2 $21F1 $21DF $21DE $0009 $001B $0008
+	$000A $2193 $2191 $2192 $2190 $FFFD;
+
+[ MapGlkKeyCodeToUnicode code ix;
+	if (code < 0) {
+		@binarysearch code WORDSIZE FunctionKeyCodes WORDSIZE FunctionKeyCodesCount 0 4 ix;
+		if (ix ~= -1) {
+			code = MappedFunctionKeyCodes-->ix;
+		}
+	}
+	return code;
+];
+
+! In order to binary search, we need to sort them according to their mapped values, instead of their original Glk keycodes.
+Array MappedFunctionKeyCodes_unmapping --> $0008 $0009 $000A $001B $2190 $2191
+	$2192 $2193 $21DE $21DF $21F1 $21F2 $EF01 $EF02 $EF03 $EF04 $EF05 $EF06
+	$EF07 $EF08 $EF09 $EF0A $EF0B $EF0C $FFFD;
+Array FunctionKeyCodes_unmapping --> $fffffff9 $fffffff7 $fffffffa $fffffff8
+	$fffffffe $fffffffc $fffffffd $fffffffb $fffffff6 $fffffff5 $fffffff4
+	$fffffff3 $ffffffef $ffffffee $ffffffed $ffffffec $ffffffeb $ffffffea
+	$ffffffe9 $ffffffe8 $ffffffe7 $ffffffe6 $ffffffe5 $ffffffe4 $ffffffff;
+
+[ MapUnicodeToGlkKeyCode code ix;
+	@binarysearch code WORDSIZE MappedFunctionKeyCodes_unmapping WORDSIZE FunctionKeyCodesCount 0 4 ix;
+	if (ix ~= -1) {
+		code = FunctionKeyCodes_unmapping-->ix;
+	}
+	return code;
+];
+
+@h Tracking input requests.
+These replaced versions of the glk versions track which types of input have been
+requested.
+
+=
+[ glk_cancel_char_event win win_obj;
+	@push win;
+	@glk 211 1 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = win_obj.text_input_status - 4;
+	}
+	return 0;
+];
+
+[ glk_cancel_line_event win event_struct win_obj;
+	if (event_struct == 0) {
+		event_struct = gg_arguments;
+	}
+	@push event_struct;
+	@push win;
+	@glk 209 2 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = win_obj.text_input_status - 4;
+		win_obj.line_input_buffer_curlen = event_struct-->2;
+	}
+	return 0;
+];
+
+[ glk_cancel_mouse_event win win_obj;
+	@push win;
+	@glk 213 1 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.requesting_mouse = false;
+	}
+	return 0;
+];
+
+[ glk_request_char_event win win_obj;
+	@push win;
+	@glk 210 1 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = INPUT_STATUS_ACTIVE_CHAR;
+	}
+	return 0;
+];
+
+[ glk_request_char_event_uni win win_obj;
+	@push win;
+	@glk 320 1 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = INPUT_STATUS_ACTIVE_CHAR_UNI;
+	}
+	return 0;
+];
+
+[ glk_request_line_event win buf maxlen initlen win_obj;
+	@push initlen;
+	@push maxlen;
+	@push buf;
+	@push win;
+	@glk 208 4 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = INPUT_STATUS_ACTIVE_LINE;
+		win_obj.line_input_buffer_addr = buf;
+		win_obj.line_input_buffer_maxlen = maxlen;
+		win_obj.line_input_buffer_uni = false;
+	}
+	return 0;
+];
+
+[ glk_request_line_event_uni win buf maxlen initlen win_obj;
+	@push initlen;
+	@push maxlen;
+	@push buf;
+	@push win;
+	@glk 321 4 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.text_input_status = INPUT_STATUS_ACTIVE_LINE_UNI;
+		win_obj.line_input_buffer_addr = buf;
+		win_obj.line_input_buffer_maxlen = maxlen;
+		win_obj.line_input_buffer_uni = true;
+	}
+	return 0;
+];
+
+[ glk_request_mouse_event win win_obj;
+	@push win;
+	@glk 212 1 0;
+	win_obj = FindGlkWindowFromRefNum(win);
+	if (win_obj) {
+		win_obj.requesting_mouse = true;
+	}
+	return 0;
+];
+
+@h Hyperlinks.
+A simple framework for handling hyperlinks in an interoperable manner.
+We combine a hyperlink tag with a payload in one 32-bit value. The tag is stored
+in the lowest bits, and the payload above it.
+
+`CALCULATE_HYPERLINK_TAG_WIDTH_R` is a `before starting the virtual machine` rule,
+which gets the number of options in the hyperlink tag enum and sets the tag/payload
+masks and widths accordingly.
+
+=
+Global hyperlink_payload_mask;
+Global hyperlink_tag_mask;
+Global hyperlink_tag_width;
+Global current_hyperlink_token;
+
+[ CALCULATE_HYPERLINK_TAG_WIDTH_R;
+	if (ICOUNT_HYPERLINK_TAG <= 8) {
+		hyperlink_tag_mask = $07;
+		hyperlink_tag_width = 3;
+	}
+	else if (ICOUNT_HYPERLINK_TAG <= 16) {
+		hyperlink_tag_mask = $0F;
+		hyperlink_tag_width = 4;
+	}
+	else {
+		! Enough for 31 tags, which better be enough!
+		hyperlink_tag_mask = $1F;
+		hyperlink_tag_width = 5;
+	}
+	hyperlink_payload_mask = ~hyperlink_tag_mask;
+	rfalse;
+];
+
+@ And now the implementation functions for the hyperlink token kind.
+
+`HYPERLINK_TOKEN_TY_New` combines the tag and value into one 32 bit hyperlink ID,
+checking that the value is not a pointer to ephemeral data (on the stack). if
+`make_link` is true then it will also call `glk_set_hyperlink`.
+
+`HYPERLINK_TOKEN_TY_Say` prints a simple representation of the hyperlink token
+for debug purposes. It does not make an actual link.
+
+`HYPERLINK_TOKEN_TY_Tag` and `HYPERLINK_TOKEN_TY_Value` split a hyperlink token
+up into its parts again.
+
+=
+[ HYPERLINK_TOKEN_TY_New tag val kind make_link;
+	if (kind == REAL_NUMBER_TY) {
+		IssueRTP("HyperlinkRealNumber", "HYPERLINK_TOKEN_TY_New: Hyperlink tokens cannot contain real numbers.", Architecture32KitRTPs);
+		return 0;
+	}
+	if (val >= blockv_stack && val < (blockv_stack + BLOCKV_STACK_SIZE * WORDSIZE)) {
+		if (kind) {
+			if (KindConformsTo_POINTER_VALUE_TY(kind)) {
+				IssueRTP("HyperlinkEphemeral", "HYPERLINK_TOKEN_TY_New: Hyperlink tokens cannot contain ephemeral values.", Architecture32KitRTPs);
+				return 0;
+			}
+		}
+		else {
+			#Ifdef DEBUG;
+			print "Warning: hyperlink value might be ephemeral; try creating with explicit kind^";
+			#Endif; ! DEBUG
+		}
+	}
+	@shiftl val hyperlink_tag_width val;
+	val = tag | val;
+	if (make_link && Cached_Glk_Gestalts-->gestalt_Hyperlinks) {
+		glk_set_hyperlink(val);
+	}
+	return val;
+];
+
+[ HYPERLINK_TOKEN_TY_Say val old_token;
+	old_token = current_hyperlink_token;
+	current_hyperlink_token = val;
+	FollowRulebook(HYPERLINK_REPRESENTATION_RB, current_hyperlink_token & hyperlink_tag_mask, true);
+	current_hyperlink_token = old_token;
+];
+
+[ HYPERLINK_TOKEN_TY_Tag val;
+	val = val & hyperlink_tag_mask;
+	return val;
+];
+
+[ HYPERLINK_TOKEN_TY_Value val tag;
+	tag = val & hyperlink_tag_mask;
+	@sshiftr val hyperlink_tag_width val;
+	return val;
+];
+
+@ `HANDLE_HYPERLINK_R` processes calls the hyperlink handling rules for the
+chosen hyperlink token.
+
+=
+[ HANDLE_HYPERLINK_R;
+	if (current_glk_event-->GLK_EVENT_TYPE_SF == evtype_Hyperlink) {
+		current_hyperlink_token = current_glk_event-->GLK_EVENT_VALUE1_SF;
+		FollowRulebook(HYPERLINK_HANDLING_RB, current_hyperlink_token & hyperlink_tag_mask, true);
+	}
+	rfalse;
+];
+
+@h Suspending and resuming text input.
+These functions allow the author to suspend and then resume a window's text
+input requests.
+
+=
+[ SuspendTextInput win no_input_echoing;
+	if (win && win.glk_ref) {
+		if (win.text_input_status == INPUT_STATUS_ACTIVE_CHAR or INPUT_STATUS_ACTIVE_CHAR_UNI) {
+			glk_cancel_char_event(win.glk_ref);
+			rtrue;
+		}
+		else if (win.text_input_status == INPUT_STATUS_ACTIVE_LINE or INPUT_STATUS_ACTIVE_LINE_UNI) {
+			glk_cancel_line_event(win.glk_ref);
+			! Manually echo the command if required
+			if (BasicInformKit`MANUAL_INPUT_ECHOING_CFGF && Cached_Glk_Gestalts-->gestalt_LineInputEcho && no_input_echoing == 0) {
+				WindowEchoBuffer(win);
+			}
+			rtrue;
+		}
+	}
+	rfalse;
+];
+
+[ ResumeTextInput win;
+	if (win && win.glk_ref) {
+		switch (win.text_input_status) {
+			INPUT_STATUS_SUSPENDED_CHAR:
+				glk_request_char_event(win.glk_ref);
+			INPUT_STATUS_SUSPENDED_CHAR_UNI:
+				glk_request_char_event_uni(win.glk_ref);
+			INPUT_STATUS_SUSPENDED_LINE:
+				glk_request_line_event(win.glk_ref, win.line_input_buffer_addr, win.line_input_buffer_maxlen, win.line_input_buffer_curlen);
+			INPUT_STATUS_SUSPENDED_LINE_UNI:
+				glk_request_line_event_uni(win.glk_ref, win.line_input_buffer_addr, win.line_input_buffer_maxlen, win.line_input_buffer_curlen);
+		}
+	}
+];
+
+@ These two phrases allow you to get and set the current line input of a window,
+converting between Inform 7's texts, and the I6 buffers of the Glk API.
+
+=
+[ WindowBufferCopyToText win txt buf_type;
+	if (win && win.line_input_buffer_addr) {
+		if (win.line_input_buffer_uni) {
+			buf_type = 4;
+			! I don't remember why I was setting 0 here
+			!win.line_input_buffer_addr-->(win.line_input_buffer_curlen) = 0;
+		}
+		else {
+			buf_type = 1;
+			!win.line_input_buffer_addr->(win.line_input_buffer_curlen) = 0;
+		}
+		BlkValueMassCopyFromArray(txt, win.line_input_buffer_addr, buf_type, win.line_input_buffer_curlen);
+	}
+	return txt;
+];
+
+[ WindowBufferSet win txt
+		buf ch cp i len p uni;
+	if (~~win) {
+		IssueRTP("WindowIsNothing", "WindowCopyTextToBuffer: Cannot perform this Glk window operation on nothing.", Architecture32KitRTPs);
+		return;
+	}
+	if (win.line_input_buffer_addr == 0) {
+		IssueRTP("WindowHasNoBuffer", "Cannot set current line input of a window which has never requested line input.", Architecture32KitRTPs);
+		return;
+	}
+	if (win.text_input_status == INPUT_STATUS_ACTIVE_LINE or INPUT_STATUS_ACTIVE_LINE_UNI) {
+		IssueRTP("WindowHasActiveLineInput", "Cannot set current line input of a window with active line input.", Architecture32KitRTPs);
+		return;
+	}
+	buf = win.line_input_buffer_addr;
+	uni = win.line_input_buffer_uni;
+	cp = txt-->0;
+	p = TEXT_TY_Transmute(txt);
+	len = BlkValueLBCapacity(txt);
+	if (len > win.line_input_buffer_maxlen) {
+		len = win.line_input_buffer_maxlen;
+	}
+	for (i = 0: i < len: i++) {
+		ch = BlkValueRead(txt, i);
+		if (ch == 0) break;
+		if (ch == 10) {
+			IssueRTP("WindowLineInputNewline", "Cannot set current line input of a window to a text containing a newline.", Architecture32KitRTPs);
+			return;
+		}
+		if (uni) {
+			buf-->i = ch;
+		}
+		else if (ch <= $FF) {
+			buf->i = ch;
+		}
+		else {
+			buf->i = '?';
+		}
+	}
+	if (p) TEXT_TY_Untransmute(txt, p, cp);
+	win.line_input_buffer_curlen = i;
+	! If the current event is a line input event in this window, update event val 1
+	if (current_glk_event-->GLK_EVENT_TYPE_SF == evtype_LineInput && current_glk_event-->GLK_EVENT_WINDOW_SF == win) {
+		current_glk_event-->GLK_EVENT_VALUE1_SF = i;
+	}
+];
+
+@h Debugging verb.
+This powers the GLKLIST command, when there's a command parser to read it.
+
+=
+[ GlkDebuggingList id val;
+	id = glk_window_iterate(0, gg_arguments);
+	while (id) {
+		print "Window ", id, " (", gg_arguments-->0, "): ";
+		val = glk_window_get_type(id);
+		switch (val) {
+			1: print "pair";
+			2: print "blank";
+			3: print "textbuffer";
+			4: print "textgrid";
+			5: print "graphics";
+			default: print "unknown";
+		}
+		val = glk_window_get_parent(id);
+		if (val) print ", parent is window ", val;
+		else     print ", no parent (root)";
+		val = glk_window_get_stream(id);
+		print ", stream ", val;
+		val = glk_window_get_echo_stream(id);
+		if (val) print ", echo stream ", val;
+		print "^";
+		id = glk_window_iterate(id, gg_arguments);
+	}
+	id = glk_stream_iterate(0, gg_arguments);
+	while (id) {
+		print "Stream ", id, " (", gg_arguments-->0, ")^";
+		id = glk_stream_iterate(id, gg_arguments);
+	}
+	id = glk_fileref_iterate(0, gg_arguments);
+	while (id) {
+		print "Fileref ", id, " (", gg_arguments-->0, ")^";
+		id = glk_fileref_iterate(id, gg_arguments);
+	}
+	if (glk_gestalt(gestalt_Sound, 0)) {
+		id = glk_schannel_iterate(0, gg_arguments);
+		while (id) {
+			print "Soundchannel ", id, " (", gg_arguments-->0, ")^";
+			id = glk_schannel_iterate(id, gg_arguments);
+		}
+	}
+];

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,511 +2193,188 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg269><a style="text-decoration: none" href="WI_15_3.html"><span class="extensionexampleletter">269</span></a></span></div>
+                <span id=eg269><a style="text-decoration: none" href="WI_15_9.html"><span class="extensionexampleletter">269</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Narrative Register</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Relevant Relations</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">An example of how to create room descriptions that acknowledge particular relations using their assigned verbs, rather than by the heavily special-cased code used by the standard library.</span></span></div>
             <div class="exampleright">
                 <span id=eg269><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Relevant Relations" -->
+        <!-- SEARCH SECTION "Example 269" -->
+        <!-- SEARCH SORT "003-269-000-000" -->
         <p></p>
-        <p>As we saw in <a href="eg_267.html">Variety</a>, we can associate verbs with particular actions and call them up as needed. If we do that, though, we can also store additional information about those verbs and use that information to select the ideal verb to use in a particular situation.</p>
-        <p>In this example, we create a table of verbs and their meanings, together with some connotative information. Each time we report an action, we then score all the available verbs to decide which is the most suitable to use at the moment.  This allows us to change the narrator's diction change mid-game and have the action descriptions change as well.</p>
-        <p>Moreover, because we're using adaptive verbs, these responses will automatically inflect properly even if we change the story tense and viewpoint.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Narrative Register[=0x0022=][=0x000A=][=0x000A=]Section 1 - Descriptive Functionality[=0x000A=][=0x000A=]Describing relates various verbs to various action names. The verb to describe means the describing relation.[=0x000A=][=0x000A=]To take is a verb. To acquire is a verb. To get is a verb. To gain is a verb. To obtain is a verb. To pick up is a verb. To bag is a verb. To procure is a verb. To score is a verb. To grab is a verb. To snag is a verb. To snatch is a verb. To collect is a verb.[=0x000A=][=0x000A=]To drop is a verb. To put down is a verb. To discard is a verb. To throw away is a verb. To dispose of is a verb. To set down is a verb. To toss aside is a verb. To ditch is a verb. To abandon is a verb. To dump is a verb. To jettison is a verb. To abjure is a verb. To foresake is a verb. To dispense with is a verb.[=0x000A=][=0x000A=]After an actor doing something to something when a verb describes (the action name part of the current action) (this is the apply random verbs to describing actions rule):[=0x000A=][=0x0009=]score the relevant verbs;[=0x000A=][=0x0009=]sort the Table of Verb Meanings in reverse relevance order;[=0x000A=][=0x0009=]choose row 1 in the Table of Verb Meanings;[=0x000A=][=0x0009=]let top score be the relevance entry;[=0x000A=][=0x0009=]sort Table of Verb Meanings in random order;[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if relevance entry is top score:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][The actor] [verb rendering applied to (word entry)] [the noun].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]erase relevance;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To score the relevant verbs:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]if the meaning entry is (the action name part of the current action):[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]repeat with chosen connotation running through connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]if the chosen connotation is listed in the current register:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]increase relevance entry by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]decrease relevance entry by 1.[=0x000A=][=0x000A=]To erase relevance:[=0x000A=][=0x0009=]repeat through Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0.[=0x000A=][=0x000A=]A tonality is a kind of value. The tonalities are pompous, archaic, slangy, upbeat, downbeat.[=0x000A=][=0x000A=]Connoting relates various verbs to various tonalities. The verb to connote means the connoting relation.[=0x000A=][=0x000A=]The current register is a list of tonalities that varies. The current register is { }.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]repeat through the Table of Verb Meanings:[=0x000A=][=0x0009=][=0x0009=]now the word entry describes the meaning entry;[=0x000A=][=0x0009=][=0x0009=]now relevance entry is 0;[=0x000A=][=0x0009=][=0x0009=]repeat with chosen tone running through the connotations entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the word entry connotes the chosen tone.[=0x000A=][=0x000A=]Table of Verb Meanings[=0x000A=]word[=0x0009=]meaning[=0x0009=]connotations[=0x0009=]relevance ( a number )[=0x000A=]the verb take[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb acquire[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb get[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb gain[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb obtain[=0x0009=]the taking action[=0x0009=]{ pompous }[=0x000A=]the verb pick up [=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb bag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb score[=0x0009=]the taking action[=0x0009=]{ slangy, upbeat }[=0x000A=]the verb procure[=0x0009=]the taking action[=0x0009=]{ archaic }[=0x000A=]the verb grab[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snag[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb snatch[=0x0009=]the taking action[=0x0009=]{ slangy }[=0x000A=]the verb collect[=0x0009=]the taking action[=0x0009=]{ }[=0x000A=]the verb discard[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb drop[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb put down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb toss aside[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb ditch[=0x0009=]the dropping action[=0x0009=]{ slangy }[=0x000A=]the verb throw away[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb dispose of[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb set down[=0x0009=]the dropping action[=0x0009=]{ }[=0x000A=]the verb abandon[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb dump[=0x0009=]the dropping action[=0x0009=]{ downbeat }[=0x000A=]the verb abjure[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb foresake[=0x0009=]the dropping action[=0x0009=]{ archaic }[=0x000A=]the verb jettison[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=]the verb dispense with[=0x0009=]the dropping action[=0x0009=]{ pompous }[=0x000A=][=0x000A=]Section 2 - Changing Tone Mid-Game[=0x000A=][=0x000A=]Understand [=0x0022=]new tone[=0x0022=] as changing the tone. Changing the tone is an action out of world.[=0x000A=][=0x000A=]Carry out changing the tone:[=0x000A=][=0x0009=]now the current register is { };[=0x000A=][=0x0009=]if a random chance of 1 in 4 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Your narrator will now adopt an ordinary tone.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]let rando be a random tonality;[=0x000A=][=0x0009=]add rando to the current register, if absent;[=0x000A=][=0x0009=]say [=0x0022=]Your narrator will now be [rando].[=0x0022=][=0x000A=][=0x000A=]Section 3 - Scenario[=0x000A=][=0x000A=]Lab is a room. The table is here. The bat and the ball are on the table.[=0x000A=][=0x000A=]Test me with [=0x0022=]get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Narrative Register&quot;</span>
+        <p>Suppose that we wanted authors to be able to indicate which relations should or should not be included in room descriptions, and have the system dynamically honour that instruction.</p>
+        <p>Inform already knows about verbs for describing supporting, containment, carrying, and wearing, so we could write a set of instructions to handle such cases. To do this, we're using the <code class="inlinesourcetext">writing a paragraph about</code> activity, which is described in the chapter on <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a>.</p>
+        <p>The following uses what is, strictly speaking, a piece of internal machinery not really intended for public use: a variable called <code class="inlinesourcetext">prior named object</code> which keeps track of what noun other words should agree with. It is not safe to use this variable except to clear it: <code class="inlinesourcetext">now the prior named object is nothing</code>. In a few situations, this prevents glitches in adaptive text.</p>
+        <!-- START CODE "code2169" -->
+        <blockquote class="extract-inform7"><a id="code2169"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Relevant Relations[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]Rule for writing a paragraph about something (called item):[=0x000A=][=0x0009=]now the current paragraph is { };[=0x000A=][=0x0009=]say [=0x0022=][one of][regarding item]There [are] [an item] here[or][We] [can see] [an item] here[at random]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]follow the descriptive rules for the item;[=0x000A=][=0x0009=]repeat with new item running through the current paragraph:[=0x000A=][=0x0009=][=0x0009=]now the prior named object is nothing;[=0x000A=][=0x0009=][=0x0009=]if new item is not the item:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the descriptive rules for the new item;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Rule for writing a paragraph about someone (called chosen person):[=0x000A=][=0x0009=]now the current paragraph is { };[=0x000A=][=0x0009=]say [=0x0022=][one of][regarding chosen person][The chosen person] [are] here[or][We] [can see] [a chosen person] here[at random]. [run paragraph on][=0x0022=];[=0x000A=][=0x0009=]follow the descriptive rules for the chosen person;[=0x000A=][=0x0009=]repeat with new item running through the current paragraph:[=0x000A=][=0x0009=][=0x0009=]now the prior named object is nothing;[=0x000A=][=0x0009=][=0x0009=]if new item is not the chosen person:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]follow the descriptive rules for the new item;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]The descriptive rules are an object-based rulebook.[=0x000A=][=0x000A=]Definition: a container is see-through:[=0x000A=][=0x0009=]if it is transparent:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]if it is open:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]A descriptive rule for a see-through container (called item) (this is the describe contents rule):[=0x000A=][=0x0009=]describe the containment relation for item.[=0x000A=][=0x000A=]A descriptive rule for a supporter (called item):[=0x000A=][=0x0009=]describe the support relation for item.[=0x000A=][=0x000A=]A descriptive rule for a person (called item):[=0x000A=][=0x0009=]describe the wearing relation for the item.[=0x000A=][=0x000A=]A descriptive rule for a person (called item):[=0x000A=][=0x0009=]describe the carrying relation for the item.[=0x000A=][=0x000A=]The current paragraph is a list of things that varies.[=0x000A=][=0x000A=]Before printing the name of something (called mentioned target) while writing a paragraph about something:[=0x000A=][=0x0009=]add the mentioned target to the current paragraph, if absent.[=0x000A=][=0x000A=]To describe (R - a relation of objects) for (item - an object):[=0x000A=][=0x0009=]if an object to which item relates by R is a thing:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The item with pronoun] [verb rendering applied to a random verb that means R] [the list of objects to which item relates by R with indefinite articles]. [run paragraph on][=0x0022=][=0x000A=][=0x000A=]To decide which text is the rendering of (V - verb) (this is verb rendering):[=0x000A=][=0x0009=]decide on [=0x0022=][adapt V][=0x0022=].[=0x000A=][=0x000A=]To say (T - a thing) with pronoun:[=0x000A=][=0x0009=]if T is the prior named object:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][regarding T][They][=0x0022=];[=0x000A=][=0x0009=]else:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The T][=0x0022=][=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Space Elevator is a room. [=0x0022=]Mercifully, there aren[=0x0027=]t any windows. The ability to see how far up you are would almost certainly make you ill.[=0x0022=][=0x000A=][=0x000A=]The luggage rack is a supporter in the Space Elevator. The suitcase is a closed openable container on the luggage rack. The bouquet is on the luggage rack.[=0x000A=][=0x000A=]Clark is a man in the Space Elevator. Clark is carrying a box of cupcakes. Clark is wearing a t-shirt. The description of the box of cupcakes is [=0x0022=]They[=0x0027=]re the latest confection from Red Velvet Planet, the Martian bakery.[=0x0022=][=0x000A=][=0x000A=]Persuasion rule: persuasion succeeds.[=0x000A=][=0x000A=]To sport is a verb. The verb to sport means the wearing relation.[=0x000A=][=0x000A=]To hold up is a verb. The verb to hold up means the support relation.[=0x000A=][=0x000A=]Test me with [=0x0022=]clark, drop the box / look / clark, take the suitcase / look / clark, get bouquet[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Relevant Relations&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Descriptive Functionality</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Procedure</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">names</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describe</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">writing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> { };</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[one of][regarding item]There [are] [an item] here[or][We] [can see] [an item] here[at random]. [run paragraph on]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">prior</span><span class="plain-syntax"> </span><span class="identifier-syntax">named</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">break</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">take</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acquire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">get</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gain</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">obtain</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pick</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">procure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grab</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">snag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">snatch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">collect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">writing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> { };</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[one of][regarding chosen person][The chosen person] [are] here[or][We] [can see] [a chosen person] here[at random]. [run paragraph on]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">prior</span><span class="plain-syntax"> </span><span class="identifier-syntax">named</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">break</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">put</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">discard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">away</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dispose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">toss</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ditch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abandon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jettison</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abjure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foresake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">. </span><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dispense</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">-</span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">apply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+        <span class="identifier-syntax">Definition</span><span class="plain-syntax">: </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax">-</span><span class="identifier-syntax">through</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">transparent</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reverse</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">yes</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">yes</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[verb rendering applied to (word entry)]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">erase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rendering</span><span class="syntaxplain">):</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax">-</span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">describe</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[adapt V]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connotations</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connotation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">register</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decrease</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">describe</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">containment</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">erase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">):</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">describe</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">support</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonality</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonalities</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain">, </span><span class="syntaxidentifier">archaic</span><span class="syntaxplain">, </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain">, </span><span class="syntaxidentifier">upbeat</span><span class="syntaxplain">, </span><span class="syntaxidentifier">downbeat</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">describe</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Connoting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verbs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonalities</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connote</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connoting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptive</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">describe</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">register</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonalities</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">register</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { }.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">mentioned</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax">) </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">writing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meaning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connotations</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">connotes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tone</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">mentioned</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meanings</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">word</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">meaning</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">connotations</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">relevance</span><span class="syntaxplain"> ( </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> )</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">take</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">acquire</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">get</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gain</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">obtain</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pick</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain">, </span><span class="syntaxidentifier">upbeat</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">procure</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">archaic</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grab</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">snag</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">snatch</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">collect</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">discard</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drop</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">put</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">toss</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aside</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ditch</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">slangy</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throw</span><span class="syntaxplain"> </span><span class="syntaxidentifier">away</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dispose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">down</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abandon</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">downbeat</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dump</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">downbeat</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abjure</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">archaic</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foresake</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">archaic</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jettison</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dispense</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxplain">{ </span><span class="syntaxidentifier">pompous</span><span class="syntaxplain"> }</span></span>
-                </td>
-            </tr>
-
-            <br>
-        </table>
-        <span class="indexdullblue">
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">describe</span><span class="plain-syntax"> (</span><span class="identifier-syntax">R</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">objects</span><span class="plain-syntax">) </span><span class="identifier-syntax">for</span><span class="plain-syntax"> (</span><span class="identifier-syntax">item</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">):</span>
         <br>
-        <span class="syntaxheading">Section 2 - Changing Tone Mid-Game</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">R</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The item with pronoun] [verb rendering applied to a random verb that means R] [the list of objects to which item relates by R with indefinite articles]. [run paragraph on]&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;new tone&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">changing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tone</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Changing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">rendering</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">V</span><span class="plain-syntax"> - </span><span class="identifier-syntax">verb</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">rendering</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[adapt V]&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">changing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tone</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">) </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">pronoun</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">register</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { };</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">prior</span><span class="plain-syntax"> </span><span class="identifier-syntax">named</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[regarding T][They]&quot;</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Your narrator will now adopt an ordinary tone.&quot;</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">else</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rando</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tonality</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rando</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">register</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Your narrator will now be </span><span class="syntaxextract">[rando]</span><span class="syntaxstring">.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The T]&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 3 - Scenario</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Lab</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Space</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elevator</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Mercifully, there aren't any windows. The ability to see how far up you are would almost certainly make you ill.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;get ball / drop ball / get bat / drop bat / new tone / get all / drop all / new tone / get all / drop all&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">rack</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Space</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elevator</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">suitcase</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">rack</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">bouquet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">rack</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Clark</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Space</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elevator</span><span class="plain-syntax">. </span><span class="identifier-syntax">Clark</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">cupcakes</span><span class="plain-syntax">. </span><span class="identifier-syntax">Clark</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">t</span><span class="plain-syntax">-</span><span class="identifier-syntax">shirt</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">cupcakes</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;They're the latest confection from Red Velvet Planet, the Martian bakery.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">: </span><span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>We can if we like then add alternate names for these relations that will be randomly swapped in some of the time. For instance:</p>
+        <!-- START CODE "code2170" -->
+        <blockquote class="extract-inform7"><a id="code2170"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">sport</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">sport</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">hold</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">hold</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">support</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;clark, drop the box / look / clark, take the suitcase / look / clark, get bouquet&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>One might, hypothetically, imagine going even further than this and simply designating relations as either <code class="inlinesourcetext">important</code> or <code class="inlinesourcetext">unimportant</code> – perhaps changing the relation's designation at runtime. Relations are not themselves allowed to have properties, however.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_3.html>Section 15.3: More on adapting verbs</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_9.html>Section 15.9: Verbs as values</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

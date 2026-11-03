@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,24 +2212,41 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dialogue sections" -->
+            <!-- SEARCH SECTION "11.2" -->
+            <!-- SEARCH SORT "001-011-002-000" -->
             <h3><span>Section 11.2: Dialogue sections</span></h3>
+            <p>    
+
+             
+             
+             
+
+             </p>
             <p>To recap, then, all dialogue material must appear in special <em>dialogue sections</em> in the source text. A section is a dialogue section if its titling line ends with <code class="inlinesourcetext">(dialogue)</code>. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 2 - On the Battlements (dialogue)</span>
+            <!-- START CODE "code604" -->
+            <blockquote class="extract-inform7"><a id="code604"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">On</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Battlements</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Dialogue sections can contain square-bracketed comments, just like regular sections, but otherwise they can only contain special dialogue material.</p>
             <h4><span>Each item is its own paragraph</span></h4>
             <p>Dialogue sections are organised by paragraphs, not sentences. Jamming lines, cues, and so on together without paragraph breaks between them will not work. For example, this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Julian</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I say, that's the swarthy fellow we saw at Brannigan's Rocks.&quot;</span>
+            <!-- START CODE "code605" -->
+            <blockquote class="extract-inform7"><a id="code605"></a><span class="indexdullblue"><span class="identifier-syntax">Julian</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I say, that's the swarthy fellow we saw at Brannigan's Rocks.&quot;</span>
             <br>
-            <span class="syntaxidentifier">Anne</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Yes, and that's gelignite he's carrying in that old red blanket.&quot;</span>
+            <span class="identifier-syntax">Anne</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Yes, and that's gelignite he's carrying in that old red blanket.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>should have read:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Julian</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I say, that's the swarthy fellow we saw at Brannigan's Rocks.&quot;</span>
+            <!-- START CODE "code606" -->
+            <blockquote class="extract-inform7"><a id="code606"></a><span class="indexdullblue"><span class="identifier-syntax">Julian</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I say, that's the swarthy fellow we saw at Brannigan's Rocks.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Anne</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Yes, and that's gelignite he's carrying in that old red blanket.&quot;</span>
+            <span class="identifier-syntax">Anne</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Yes, and that's gelignite he's carrying in that old red blanket.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So, then, a dialogue section is a series of <em>beats</em>, and each beat begins with a <em>cue</em> paragraph in round brackets, and then contains one or more of the following items, each in its own paragraph:</p>
             <ol>
             <li>
@@ -2163,77 +2265,85 @@
             <h4><span>Indentation by tabs shows how dialogue branches</span></h4>
             <p>The other general feature of dialogue sections to watch out for is <em>indentation</em>, which is typed by using tab characters to move inwards from the left margin. When something is indented, it belongs to the thing above it which is indented by one tab stop less. Beat cues cannot be indented: they belong only to themselves. But lines, narration, choices and flow markers can all be indented.</p>
             <p>In general, indentation marks where a branch takes place: it's possible that the dialogue will flow down into this branch, but also possible that it won't. The general rule is that the branch is taken only if the item branched from is performed. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Confiscate the gold&quot;</span>
+            <!-- START CODE "code607" -->
+            <blockquote class="extract-inform7"><a id="code607"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Confiscate the gold&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I'll take that bullion, you foreign rascal.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I'll take that bullion, you foreign rascal.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here the player's line of dialogue lies on a branch which is only performed if the <code class="inlinesourcetext">-- &quot;Confiscate the gold&quot;</code> choice is exercised. Similarly:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Julian</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dick</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Let's get some fresh eggs from Spiller's Farm.&quot;</span>
+            <!-- START CODE "code608" -->
+            <blockquote class="extract-inform7"><a id="code608"></a><span class="indexdullblue"><span class="identifier-syntax">Julian</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dick</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Let's get some fresh eggs from Spiller's Farm.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Dick</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Topping, and some cream and strawberries too.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Dick</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Topping, and some cream and strawberries too.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here the branch containing Dick's line will be performed only if Julian's line is performed. (Because it's spoken <code class="inlinesourcetext">to Dick</code>, it requires both to be present.)</p>
             <p>In general, then, if one line is a direct reply to another one, and there is any uncertainty about who might or might not be present, indentation should be used:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">One</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;A speech.&quot;</span>
+            <!-- START CODE "code609" -->
+            <blockquote class="extract-inform7"><a id="code609"></a><span class="indexdullblue"><span class="identifier-syntax">Speaker</span><span class="plain-syntax"> </span><span class="identifier-syntax">One</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;A speech.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Two</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;A reply.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Speaker</span><span class="plain-syntax"> </span><span class="identifier-syntax">Two</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;A reply.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">One</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;A rebuttal.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Speaker</span><span class="plain-syntax"> </span><span class="identifier-syntax">One</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;A rebuttal.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Three</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;An intervention.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Speaker</span><span class="plain-syntax"> </span><span class="identifier-syntax">Three</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;An intervention.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Two</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;A cross response.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Speaker</span><span class="plain-syntax"> </span><span class="identifier-syntax">Two</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;A cross response.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here, the cross response will only be performed if the speech <em>and</em> the reply <em>and</em> the rebuttal are all performed. But it makes no difference whether the intervention was made or not.</p>
             <p>Indentation can go down as well as up, and this allows branches to converge back together in what some other dialogue systems (such as Ink) call a &quot;gather&quot;. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;It's just Scotch mist, blown east from old Aberdeen.&quot;</span>
+            <!-- START CODE "code610" -->
+            <blockquote class="extract-inform7"><a id="code610"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;It's just Scotch mist, blown east from old Aberdeen.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Nay, sire, it's a ghoul!&quot;</span>
+            <span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Nay, sire, it's a ghoul!&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shortbread</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Assuage his night terrors&quot;</span>
+            <span class="plain-syntax">-- (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shortbread</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax">) </span><span class="string-syntax">&quot;Assuage his night terrors&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shortbread</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Here, take this old Highlands cure.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shortbread</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Here, take this old Highlands cure.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scared</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Hoots mon, that's better.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">scared</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Hoots mon, that's better.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Reprimand Bernardo&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Reprimand Bernardo&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I don't care if it is haunted, guard the Battlements.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I don't care if it is haunted, guard the Battlements.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;The bell tolls two of the morn.&quot;</span>
+            <span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;The bell tolls two of the morn.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here we have two lines of dialogue, and then a divide according to which option the player chooses. Note that the <code class="inlinesourcetext">Narration:</code> line is at the same indentation level as the two choices where the dialogue branches: so this is where the branches come together again. The practical effect is that every performance of the beat ends with the tolling of the bell.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_1.html"><span class="markdowncontent">Chapter 11: Dialogue</span></a> &bull; <a href="WI_11_3.html"><span class="markdowncontent">Section 11.3: Dialogue beats and their cues</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

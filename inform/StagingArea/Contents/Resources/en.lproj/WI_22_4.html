@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,53 +2212,79 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Matching and exactly matching" -->
+            <!-- SEARCH SECTION "22.4" -->
+            <!-- SEARCH SORT "001-022-004-000" -->
             <h3><span>Section 22.4: Matching and exactly matching</span></h3>
             <p>  </p>
             <p>Up to now, we have only been able to judge two texts by seeing if they are equal, but we can now ask more subtle questions.</p>
             <div class="definition">
-                <p class="defnprototype">if (text) matches the text (text):</p>
+                <!-- START PHRASE "defn358" -->
+                <p class="defnprototype"><a id="defn358"></a>if (text) matches the text (text):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the second text occurs anywhere inside the first. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[score]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;3&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1522" -->
+                <blockquote class="extract-inform7"><a id="code1522"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[score]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;3&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>tests whether the digit 3 occurs anywhere in the score, as printed out; and</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;the&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1523" -->
+                <blockquote class="extract-inform7"><a id="code1523"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;the&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>tests to see whether <code class="inlinesourcetext">&quot;the&quot;</code> can be found anywhere in the current room's name. Note that the location <code class="inlinesourcetext">&quot;Smotheringly Hot Jungle&quot;</code> would pass this test – it's there if you look. On the other hand, <code class="inlinesourcetext">&quot;The Orangery&quot;</code> would not, because <code class="inlinesourcetext">&quot;The&quot;</code> does not match against <code class="inlinesourcetext">&quot;the&quot;</code>. We can get around this in a variety of ways, one of which is to tell Inform to be insensitive to the case (upper or lower) of letters:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;the&quot;</span><span class="syntaxplain">, </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">insensitively</span><span class="syntaxplain">: ...</span>
+                <!-- START CODE "code1524" -->
+                <blockquote class="extract-inform7"><a id="code1524"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;the&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">insensitively</span><span class="plain-syntax">: ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Every text matches the empty text, thus</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1525" -->
+                <blockquote class="extract-inform7"><a id="code1525"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>is always true.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (text) exactly matches the/-- text (text):</p>
+                <!-- START PHRASE "defn359" -->
+                <p class="defnprototype"><a id="defn359"></a>if (text) exactly matches the/-- text (text):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the second text matches the first, starting at the beginning and finishing at the end. Both texts are read in substituted form.</p>
             </div>
             <p>We can also find exactly <em>where</em> in the text the match occurred.</p>
             <div class="definition">
-                <p class="defnprototype">first index of the/-- text match ... number</p>
+                <!-- START PHRASE "defn360" -->
+                <p class="defnprototype"><a id="defn360"></a>first index of the/-- text match ... number</p>
+                <!-- END PHRASE -->
                 <p>Following a successful text match, this produces the character number of where the match began.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;vacation&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cat&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1526" -->
+                <blockquote class="extract-inform7"><a id="code1526"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;vacation&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cat&quot;</span><span class="plain-syntax">:</span>
                 <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain">;</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">match</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>assigns <code class="inlinesourcetext">3</code> to <code class="inlinesourcetext">x</code>.</p>
                 <p>If you're interested in these results, get and store them immediately after the match: the values will</p>
                 <p>be overwritten when the next match operation happens.</p>
                 <p>Always test for success before using this phrase: the result is undefined if the match failed.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">last index of the/-- text match ... number</p>
+                <!-- START PHRASE "defn361" -->
+                <p class="defnprototype"><a id="defn361"></a>last index of the/-- text match ... number</p>
+                <!-- END PHRASE -->
                 <p>Similarly, we can find the character number of the <em>last</em> character in the match.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cat&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;vacation&quot;</span>
+                <!-- START CODE "code1527" -->
+                <blockquote class="extract-inform7"><a id="code1527"></a><span class="indexdullblue"><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cat&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;vacation&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">5</code>.</p>
                 <p>As noted above, always test for success before using this phrase, and store or act on the</p>
                 <p>result immediately before another match overwrites it.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">length of the/-- text match ... number</p>
+                <!-- START PHRASE "defn362" -->
+                <p class="defnprototype"><a id="defn362"></a>length of the/-- text match ... number</p>
+                <!-- END PHRASE -->
                 <p>Finally, we can get the length of the match, i.e., <code class="inlinesourcetext">3</code> for the <code class="inlinesourcetext">&quot;cat&quot;</code> example, again with</p>
                 <p>the caveats above regarding testing for a successful match and using or storing the result</p>
                 <p>promptly.</p>
@@ -2181,25 +2292,29 @@
             <p>Every text (including <code class="inlinesourcetext">&quot;&quot;</code>) matches the text <code class="inlinesourcetext">&quot;&quot;</code>. In this case, the first index, last index, and length are all 0. Matching against <code class="inlinesourcetext">&quot;&quot;</code> is the <em>only</em> time any of these values will be 0 after a successful text match.</p>
             <p>We can also see how many times something matches:</p>
             <div class="definition">
-                <p class="defnprototype">number of times (text) matches the text (text) ... number</p>
+                <!-- START PHRASE "defn363" -->
+                <p class="defnprototype"><a id="defn363"></a>number of times (text) matches the text (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This produces the number of times the second text occurs within the first. The matches are not allowed to overlap. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;pell-mell sally&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ll&quot;</span><span class="syntaxplain"> = </span><span class="syntaxconstant">3</span>
+                <!-- START CODE "code1528" -->
+                <blockquote class="extract-inform7"><a id="code1528"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;pell-mell sally&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ll&quot;</span><span class="plain-syntax"> = </span><span class="constant-syntax">3</span>
                 <br>
-                <span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;xyzzy&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Z&quot;</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span>
+                <span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;xyzzy&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Z&quot;</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span>
                 <br>
-                <span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;xyzzy&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Z&quot;</span><span class="syntaxplain">, </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">insensitively</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span>
+                <span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;xyzzy&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Z&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">insensitively</span><span class="plain-syntax"> = </span><span class="constant-syntax">2</span>
                 <br>
-                <span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;aaaaaaaa&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;aaaa&quot;</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span>
+                <span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;aaaaaaaa&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;aaaa&quot;</span><span class="plain-syntax"> = </span><span class="constant-syntax">2</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>In the next section we shall see that <code class="inlinesourcetext">matches</code> and <code class="inlinesourcetext">exactly matches</code> can do much more than the simple text matching demonstrated above.
             </p>
             <p>There's no <code class="inlinesourcetext">number of times ... exactly matches the text ...</code> phrase since this is by definition going to have to be 0 or 1.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_22_3.html"><span class="markdowncontent">Section 22.3: Upper and lower case letters</span></a> &bull; <a href="WI_22_5.html"><span class="markdowncontent">Section 22.5: Regular expression matching</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

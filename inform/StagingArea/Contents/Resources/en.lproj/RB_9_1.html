@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,14 +2212,20 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Food" -->
+            <!-- SEARCH SECTION "9.1" -->
+            <!-- SEARCH SORT "002-009-001-000" -->
             <h2><span>Chapter 9: Props: Food, Clothing, Money, Toys, Books, Electronics</span></h2>
             <h3><span>Section 9.1: Food</span></h3>
             <p>   
             Inform provides an either/or property called <code class="inlinesourcetext">edible</code> and an action, <code class="inlinesourcetext">eating</code>, for consuming edible things:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lardy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">. </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lardy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Sticky but delicious.&quot;</span>
+            <!-- START CODE "code2118" -->
+            <blockquote class="extract-inform7"><a id="code2118"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">lardy</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">. </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lardy</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Sticky but delicious.&quot;</span>
             </span></blockquote>
-            <p>For eating something not immediately to hand, see <a href="eg_408.html">Lollipop Guild</a>. <a href="eg_218.html">Delicious, Delicious Rocks</a>, conversely, adds a sanity check which prevents the player from automatically taking inedible things only to be told they can't be eaten.</p>
-            <p>Inform does not normally simulate taste or digestion, but to provide foods with a range of flavours, see <a href="eg_54.html">Would you...?</a>; to make eating different foods affect the player differently, see <a href="eg_419.html">Stone</a>, or for the extreme case of poisoning foods, <a href="eg_139.html">Candy</a>. In <a href="eg_149.html">MRE</a>, hunger causes the player problems unless they regularly find and eat food.</p>
+            <!-- END CODE -->
+            <p>For eating something not immediately to hand, see <a href="eg_405.html">Lollipop Guild</a>. <a href="eg_215.html">Delicious, Delicious Rocks</a>, conversely, adds a sanity check which prevents the player from automatically taking inedible things only to be told they can't be eaten.</p>
+            <p>Inform does not normally simulate taste or digestion, but to provide foods with a range of flavours, see <a href="eg_53.html">Would you...?</a>; to make eating different foods affect the player differently, see <a href="eg_416.html">Stone</a>, or for the extreme case of poisoning foods, <a href="eg_136.html">Candy</a>. In <a href="eg_146.html">MRE</a>, hunger causes the player problems unless they regularly find and eat food.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_10_2.html" title="Section 10.2: Liquids">Liquids</a> for things to drink.</li>
@@ -2142,54 +2233,54 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg139><a style="text-decoration: none" href="eg_139.html"><span class="extensionexampleletter">139</span></a></span></div>
+                    <span id=eg136><a style="text-decoration: none" href="eg_136.html"><span class="extensionexampleletter">136</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_139.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Candy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_136.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Candy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">One of several identical candies chosen at the start of play to be poisonous.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg139><a style="text-decoration: none" href="WI_8_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg136><a style="text-decoration: none" href="WI_8_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg149><a style="text-decoration: none" href="eg_149.html"><span class="extensionexampleletter">149</span></a></span></div>
+                    <span id=eg146><a style="text-decoration: none" href="eg_146.html"><span class="extensionexampleletter">146</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_149.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">MRE</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_146.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">MRE</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Hunger that eventually kills the player, and foodstuffs that can delay the inevitable by different amounts of time.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg149><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg146><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg419><a style="text-decoration: none" href="eg_419.html"><span class="extensionexampleletter">419</span></a></span></div>
+                    <span id=eg416><a style="text-decoration: none" href="eg_416.html"><span class="extensionexampleletter">416</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_419.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stone</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_416.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stone</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A soup to which the player can add ingredients, which will have different effects when the player eats.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg419><a style="text-decoration: none" href="WI_21_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg416><a style="text-decoration: none" href="WI_21_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg54><a style="text-decoration: none" href="eg_54.html"><span class="extensionexampleletter">54</span></a></span></div>
+                    <span id=eg53><a style="text-decoration: none" href="eg_53.html"><span class="extensionexampleletter">53</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_54.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Would you...?</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_53.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Would you...?</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding new properties to objects, and checking for their presence.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg54><a style="text-decoration: none" href="WI_4_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg53><a style="text-decoration: none" href="WI_4_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg218><a style="text-decoration: none" href="eg_218.html"><span class="extensionexampleletter">218</span></a></span></div>
+                    <span id=eg215><a style="text-decoration: none" href="eg_215.html"><span class="extensionexampleletter">215</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_218.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delicious, Delicious Rocks</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_215.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delicious, Delicious Rocks</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a sanity-check stage to decide whether an action makes any sense, which occurs before any before rules, implicit taking, or check rules.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg218><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg215><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_8_5.html"><span class="markdowncontent">Section 8.5: Kitchen and Bathroom</span></a> &bull; <a href="RB_9_2.html"><span class="markdowncontent">Section 9.2: Bags, Bottles, Boxes and Safes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

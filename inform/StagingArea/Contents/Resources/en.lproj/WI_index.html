@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="headingpanellayout headingpanelalt">
         <div class="headingtext">
             <span class="headingpaneltextalt"><a href="inform:/Extensions/Reserved/Documentation/Extensions.html" class="registrycontentslink"><span class="markdowncontent">Extensions</span></a> &gt; <a href="index.html" class="registrycontentslink"><span class="markdowncontent"></span></a> &gt; <span class="markdowncontent">Writing with Inform</span></span></div>
@@ -2199,8 +2284,8 @@
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_5_11.html>Section 5.11: Unicode characters</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_5_12.html>Section 5.12: Displaying quotations</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_5_13.html>Section 5.13: Making new substitutions</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_1.html>Chapter 6: Descriptions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_1.html>Section 6.1: What are descriptions?</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_1.html>Chapter 6: Generalisations</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_1.html>Section 6.1: Giving general descriptions</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_2.html>Section 6.2: Adjectives and nouns</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_3.html>Section 6.3: Defining new adjectives</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_6_4.html>Section 6.4: Defining adjectives for values</a></b></span></li>
@@ -2231,7 +2316,7 @@
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_13.html>Section 7.13: In the presence of, and when</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_14.html>Section 7.14: Going from, going to</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_15.html>Section 7.15: Going by, going through, going with</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_16.html>Section 7.16: Kinds of action</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_16.html>Section 7.16: Named action patterns</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_17.html>Section 7.17: Repeated actions</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_18.html>Section 7.18: Actions on consecutive turns</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_7_19.html>Section 7.19: Postscript on actions</a></b></span></li>
@@ -2534,129 +2619,145 @@
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_24_8.html>Section 24.8: Matching the names of kinds</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_24_9.html>Section 24.9: In what order?</a></b></span></li>
         <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_24_10.html>Section 24.10: Ambiguities</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_1.html>Chapter 25: Figures, Sounds and Files</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_1.html>Section 25.1: Beyond text</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_2.html>Section 25.2: How IF views pictures</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_3.html>Section 25.3: Virtual machines and story file formats</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_4.html>Section 25.4: Gathering the figures</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_5.html>Section 25.5: Declaring and previewing the figures</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_6.html>Section 25.6: Displaying the figures</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_7.html>Section 25.7: Recorded sounds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_8.html>Section 25.8: Declaring and playing back sounds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_9.html>Section 25.9: Providing accessibility text</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_10.html>Section 25.10: Some technicalities about figures and sounds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_11.html>Section 25.11: Files</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_12.html>Section 25.12: Declaring files</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_13.html>Section 25.13: Writing and reading tables to external files</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_14.html>Section 25.14: Writing, reading and appending text to files</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_15.html>Section 25.15: Exchanging files with other programs</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_1.html>Chapter 26: Testing and Debugging</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_1.html>Section 26.1: A recap on TEST and showme</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_2.html>Section 26.2: Checking against the Index</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_3.html>Section 26.3: Testing commands to inspect the situation</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_4.html>Section 26.4: Testing commands for cheating</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_5.html>Section 26.5: Low-level testing commands</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_6.html>Section 26.6: Adding new testing verbs and Release for Testing</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_7.html>Section 26.7: Testing for thoroughness</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_8.html>Section 26.8: Commands for beta-testers</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_9.html>Section 26.9: Help from the user community</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_10.html>Section 26.10: Source control, git and GitHub</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_1.html>Chapter 27: Releasing</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_1.html>Section 27.1: The finished product</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_2.html>Section 27.2: Bibliographic data</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_3.html>Section 27.3: Genres</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_4.html>Section 27.4: The Library Card</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_5.html>Section 27.5: The Treaty of Babel and the IFID</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_6.html>Section 27.6: The Release button and the Materials folder</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_7.html>Section 27.7: The Joy of Feelies</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_8.html>Section 27.8: Cover art</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_9.html>Section 27.9: An introductory booklet and postcard</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_10.html>Section 27.10: A website</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_11.html>Section 27.11: A playable web page</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_12.html>Section 27.12: Using Inform with Vorple</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_13.html>Section 27.13: Website templates</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_14.html>Section 27.14: Advanced website templates</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_15.html>Section 27.15: Republishing existing works of IF</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_16.html>Section 27.16: Walkthrough solutions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_17.html>Section 27.17: Releasing the source text</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_18.html>Section 27.18: Improving the index map</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_19.html>Section 27.19: Producing an EPS format map</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_20.html>Section 27.20: Settings in the map-maker</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_21.html>Section 27.21: Table of map-maker settings</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_22.html>Section 27.22: Kinds of value accepted by the map-maker</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_23.html>Section 27.23: Titling and abbreviation</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_24.html>Section 27.24: Rubrics</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_1.html>Chapter 28: Publishing</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_1.html>Section 28.1: Finding a readership</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_2.html>Section 28.2: Editing and Quality Assurance</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_3.html>Section 28.3: A Page of Its Own</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_4.html>Section 28.4: The IF Archive</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_5.html>Section 28.5: IFDB: The Interactive Fiction Database</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_6.html>Section 28.6: Competitions, Exhibitions, and Jams</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_7.html>Section 28.7: Meetups and Conferences</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_8.html>Section 28.8: A short concluding homily</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_1.html>Chapter 29: Extensions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_1.html>Section 29.1: Developing extensions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_2.html>Section 29.2: Review of how extensions are used</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_3.html>Section 29.3: Title and authorship</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_4.html>Section 29.4: Creating a new extension</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_5.html>Section 29.5: JSON metadata</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_6.html>Section 29.6: Begins here and ends here</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_7.html>Section 29.7: Version numbering</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_8.html>Section 29.8: Extensions including other extensions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_9.html>Section 29.9: Extension rubrics</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_10.html>Section 29.10: Licence</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_11.html>Section 29.11: Compatibility with story file formats</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_12.html>Section 29.12: Extensions which vary with use</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_13.html>Section 29.13: Extensions in the Index</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_14.html>Section 29.14: Images and other resources</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_15.html>Section 29.15: Use options for extensions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_16.html>Section 29.16: Run-time problems</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_17.html>Section 29.17: Style and best practice guide</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_1.html>Chapter 30: Extension Documentation and Testing</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_1.html>Section 30.1: Making a documentation set for an extension</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_2.html>Section 30.2: Headings and organisation</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_3.html>Section 30.3: Textual effects and short code samples</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_4.html>Section 30.4: Longer code samples</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_5.html>Section 30.5: Block quotations and phrase boxes</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_6.html>Section 30.6: Tables</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_7.html>Section 30.7: Lists and to-do items</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_8.html>Section 30.8: Links and cross-references</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_9.html>Section 30.9: Images in documentation</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_10.html>Section 30.10: Examples for extensions</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_11.html>Section 30.11: Testing</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_12.html>Section 30.12: Test cases which are not examples</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_13.html>Section 30.13: Full list of testing options</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_14.html>Section 30.14: Providing an index</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_15.html>Section 30.15: Multiple-volume documentation and site maps</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_1.html>Chapter 31: Low-Level Programming</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_1.html>Section 31.1: The architecture of Inform</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_2.html>Section 31.2: Defining To phrases with I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_3.html>Section 31.3: Defining To decide phrases with I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_4.html>Section 31.4: By value and by reference</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_5.html>Section 31.5: Defining generic phrases in I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_6.html>Section 31.6: Repeat loops and their variables</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_7.html>Section 31.7: Invocation counters</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_8.html>Section 31.8: Defining segmented text substitutions with I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_9.html>Section 31.9: Defining adjectives with I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_10.html>Section 31.10: Inform values from I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_11.html>Section 31.11: Use options from I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_12.html>Section 31.12: Phrase options from I6</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_13.html>Section 31.13: Inclusions of I6 code</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_14.html>Section 31.14: How I6 differs from Inform 6</a></b></span></li>
-        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_1.html>Chapter 32: Kits</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_1.html>Section 32.1: About kits</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_2.html>Section 32.2: Adding a kit to an extension</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_3.html>Section 32.3: Compatibility of kits</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_4.html>Section 32.4: Run-time representations of Inform constructs</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_5.html>Section 32.5: Assigning use options to kits</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_6.html>Section 32.6: Controlling how kits are linked</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_7.html>Section 32.7: Neptune and enumerative kinds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_8.html>Section 32.8: Neptune and arithmetic kinds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_9.html>Section 32.9: Neptune and other base kinds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_10.html>Section 32.10: Pointer-value kinds</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_11.html>Section 32.11: Neptune and kinds stored in multiple words of data</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_12.html>Section 32.12: Neptune and short-block-only values</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_13.html>Section 32.13: Neptune and kind constructors</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_14.html>Section 32.14: Neptune and optionals</a></b></span></li>
-        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_15.html>Section 32.15: Neptune and arithmetic</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_1.html>Chapter 25: Screen and Keyboard</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_1.html>Section 25.1: Virtual machines, story files, and I/O</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_2.html>Section 25.2: Glulx features and Glk features</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_3.html>Section 25.3: Basic text formatting</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_4.html>Section 25.4: Coloured text</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_5.html>Section 25.5: The main screen and the status window</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_6.html>Section 25.6: Dividing the screen into windows</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_25_7.html>Section 25.7: Pausing for keystrokes or commands</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_1.html>Chapter 26: Events and Hyperlinks</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_1.html>Section 26.1: Glk events</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_2.html>Section 26.2: Character and line events</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_3.html>Section 26.3: Timer events</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_4.html>Section 26.4: Hyperlinks</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_5.html>Section 26.5: New types of hyperlink</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_6.html>Section 26.6: Suspending text input while handling events</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_26_7.html>Section 26.7: Other Glk event types</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_1.html>Chapter 27: Figures, Sounds and Files</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_1.html>Section 27.1: Beyond text</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_2.html>Section 27.2: How IF views pictures</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_3.html>Section 27.3: Gathering the figures</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_4.html>Section 27.4: Declaring and previewing the figures</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_5.html>Section 27.5: Displaying the figures</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_6.html>Section 27.6: Recorded sounds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_7.html>Section 27.7: Declaring and playing back sounds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_8.html>Section 27.8: Providing accessibility text</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_9.html>Section 27.9: Some technicalities about figures and sounds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_10.html>Section 27.10: Files</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_11.html>Section 27.11: Declaring files</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_12.html>Section 27.12: Writing and reading tables to external files</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_13.html>Section 27.13: Writing, reading and appending text to files</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_27_14.html>Section 27.14: Exchanging files with other programs</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_1.html>Chapter 28: Testing and Debugging</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_1.html>Section 28.1: A recap on TEST and showme</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_2.html>Section 28.2: Checking against the Index</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_3.html>Section 28.3: Testing commands to inspect the situation</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_4.html>Section 28.4: Testing commands for cheating</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_5.html>Section 28.5: Low-level testing commands</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_6.html>Section 28.6: Adding new testing verbs and Release for Testing</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_7.html>Section 28.7: Testing for thoroughness</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_8.html>Section 28.8: Commands for beta-testers</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_9.html>Section 28.9: Help from the user community</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_28_10.html>Section 28.10: Source control, git and GitHub</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_1.html>Chapter 29: Releasing</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_1.html>Section 29.1: The finished product</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_2.html>Section 29.2: Bibliographic data</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_3.html>Section 29.3: Genres</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_4.html>Section 29.4: The Library Card</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_5.html>Section 29.5: The Treaty of Babel and the IFID</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_6.html>Section 29.6: The Release button and the Materials folder</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_7.html>Section 29.7: The Joy of Feelies</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_8.html>Section 29.8: Cover art</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_9.html>Section 29.9: An introductory booklet and postcard</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_10.html>Section 29.10: A website</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_11.html>Section 29.11: A playable web page</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_12.html>Section 29.12: Using Inform with Vorple</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_13.html>Section 29.13: Website templates</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_14.html>Section 29.14: Advanced website templates</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_15.html>Section 29.15: Republishing existing works of IF</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_16.html>Section 29.16: Walkthrough solutions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_17.html>Section 29.17: Releasing the source text</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_18.html>Section 29.18: Improving the index map</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_19.html>Section 29.19: Producing an EPS format map</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_20.html>Section 29.20: Settings in the map-maker</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_21.html>Section 29.21: Table of map-maker settings</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_22.html>Section 29.22: Kinds of value accepted by the map-maker</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_23.html>Section 29.23: Titling and abbreviation</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_29_24.html>Section 29.24: Rubrics</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_1.html>Chapter 30: Publishing</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_1.html>Section 30.1: Finding a readership</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_2.html>Section 30.2: Editing and Quality Assurance</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_3.html>Section 30.3: A Page of Its Own</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_4.html>Section 30.4: The IF Archive</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_5.html>Section 30.5: IFDB: The Interactive Fiction Database</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_6.html>Section 30.6: Competitions, Exhibitions, and Jams</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_7.html>Section 30.7: Meetups and Conferences</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_30_8.html>Section 30.8: A short concluding homily</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_1.html>Chapter 31: Extensions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_1.html>Section 31.1: Developing extensions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_2.html>Section 31.2: Review of how extensions are used</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_3.html>Section 31.3: Title and authorship</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_4.html>Section 31.4: Creating a new extension</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_5.html>Section 31.5: JSON metadata</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_6.html>Section 31.6: Begins here and ends here</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_7.html>Section 31.7: Version numbering</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_8.html>Section 31.8: Extensions including other extensions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_9.html>Section 31.9: Extension rubrics</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_10.html>Section 31.10: Licence</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_11.html>Section 31.11: Compatibility with story file formats</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_12.html>Section 31.12: Extensions which vary with use</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_13.html>Section 31.13: Extensions in the Index</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_14.html>Section 31.14: Images and other resources</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_15.html>Section 31.15: Use options for extensions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_16.html>Section 31.16: Run-time problems</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_31_17.html>Section 31.17: Style and best practice guide</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_1.html>Chapter 32: Extension Documentation and Testing</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_1.html>Section 32.1: Making a documentation set for an extension</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_2.html>Section 32.2: Headings and organisation</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_3.html>Section 32.3: Textual effects and short code samples</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_4.html>Section 32.4: Longer code samples</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_5.html>Section 32.5: Block quotations and phrase boxes</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_6.html>Section 32.6: Notes, tips, and cautions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_7.html>Section 32.7: Tables</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_8.html>Section 32.8: Lists and to-do items</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_9.html>Section 32.9: Links and cross-references</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_10.html>Section 32.10: Images in documentation</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_11.html>Section 32.11: Examples for extensions</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_12.html>Section 32.12: Testing</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_13.html>Section 32.13: Test cases which are not examples</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_14.html>Section 32.14: Full list of testing options</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_15.html>Section 32.15: Providing an index</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_32_16.html>Section 32.16: Multiple-volume documentation and site maps</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_1.html>Chapter 33: Low-Level Programming</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_1.html>Section 33.1: The architecture of Inform</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_2.html>Section 33.2: Defining To phrases with I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_3.html>Section 33.3: Defining To decide phrases with I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_4.html>Section 33.4: By value and by reference</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_5.html>Section 33.5: Defining generic phrases in I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_6.html>Section 33.6: Repeat loops and their variables</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_7.html>Section 33.7: Invocation counters</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_8.html>Section 33.8: Defining segmented text substitutions with I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_9.html>Section 33.9: Defining adjectives with I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_10.html>Section 33.10: Inform values from I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_11.html>Section 33.11: Use options from I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_12.html>Section 33.12: Phrase options from I6</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_13.html>Section 33.13: Inclusions of I6 code</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_33_14.html>Section 33.14: How I6 differs from Inform 6</a></b></span></li>
+        <li class="exco1"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_1.html>Chapter 34: Kits</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_1.html>Section 34.1: About kits</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_2.html>Section 34.2: Adding a kit to an extension</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_3.html>Section 34.3: Compatibility of kits</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_4.html>Section 34.4: Run-time representations of Inform constructs</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_5.html>Section 34.5: Assigning use options to kits</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_6.html>Section 34.6: Controlling how kits are linked</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_7.html>Section 34.7: Neptune and enumerative kinds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_8.html>Section 34.8: Neptune and arithmetic kinds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_9.html>Section 34.9: Neptune and other base kinds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_10.html>Section 34.10: Pointer-value kinds</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_11.html>Section 34.11: Neptune and kinds stored in multiple words of data</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_12.html>Section 34.12: Neptune and short-block-only values</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_13.html>Section 34.13: Neptune and kind constructors</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_14.html>Section 34.14: Neptune and optionals</a></b></span></li>
+        <li class="exco2"><span class="indexblack"><b><a style="text-decoration: none" href=WI_34_15.html>Section 34.15: Neptune and arithmetic</a></b></span></li>

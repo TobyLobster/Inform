@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,57 +2212,85 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Varying What Is Read" -->
+            <!-- SEARCH SECTION "2.2" -->
+            <!-- SEARCH SORT "002-002-002-000" -->
             <h3><span>Section 2.2: Varying What Is Read</span></h3>
             <p>     
             Making the printed text adapt to circumstances only makes half of the conversation graceful: the other half is to allow the player's commands to have a similar freedom. The things the player can refer to should always respond to the names which would seem natural to the player. Inform provides a variety of techniques for understanding words always, or only under certain conditions; and, if need be, we can also get direct access to what the player has typed in order to examine it with regular expressions. (This last resort is rarely necessary.)</p>
-            <p><a href="eg_18.html">First Name Basis</a> shows how to assign names to things or to kinds of thing–if, for instance, we want the player to be able to refer to any man as <code class="inlinetranscriptcommand">man</code> or <code class="inlinetranscriptcommand">gentleman</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;man&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;gentleman&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">.</span>
+            <p><a href="eg_17.html">First Name Basis</a> shows how to assign names to things or to kinds of thing–if, for instance, we want the player to be able to refer to any man as <code class="inlinetranscriptcommand">man</code> or <code class="inlinetranscriptcommand">gentleman</code>:</p>
+            <!-- START CODE "code2022" -->
+            <blockquote class="extract-inform7"><a id="code2022"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;man&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;gentleman&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We may also sometimes want to give names that are specifically plural, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;birds&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2023" -->
+            <blockquote class="extract-inform7"><a id="code2023"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">duck</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;birds&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plural</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">duck</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>or</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;birds&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magpie</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2024" -->
+            <blockquote class="extract-inform7"><a id="code2024"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;birds&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">plural</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">magpie</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p><a href="eg_49.html">Vouvray</a> demonstrates.</p>
+            <!-- END CODE -->
+            <p><a href="eg_48.html">Vouvray</a> demonstrates.</p>
             <p>A common challenge arises when two objects have names that overlap or are related, and we wish Inform to choose sensibly between them: for instance, a cigarette vs. a cigarette case. If a word should apply to something only as part of a phrase (e.g., <code class="inlinetranscriptcommand">cigarette</code> alone should never refer to the cigarette case) we can manage the situation as follows:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cigarette case&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cigarette case&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2025" -->
+            <blockquote class="extract-inform7"><a id="code2025"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cigarette case&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cigarette case&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">case</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Because <code class="inlinetranscriptcommand">cigarette</code> here appears only as part of the phrase <code class="inlinetranscriptcommand">cigarette case</code>, it will be understood only in that context; the conflict with the bare cigarette will not arise.</p>
             <p>As a variant, we may want one object only to take precedence over another in naming. If we wanted the player to be allowed to refer casually to the cigarette case as <code class="inlinetranscriptcommand">cigarette</code> when (and only when) the cigarette itself is not in view, we could add</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cigarette&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cigarette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2026" -->
+            <blockquote class="extract-inform7"><a id="code2026"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cigarette&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cigarette</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">visible</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Tricks which consider the visibility of other objects can be bad for performance if used widely; but for adding finesse to the treatment of a few items, they work very well.</p>
             <p>(There may still arise cases where the player uses a name which can legitimately refer to two different things in view. To deal with this situation, we may want the <code class="inlinesourcetext">Does the player mean...</code> rules, explained in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>; and to change the way the story asks for clarification, see the two activities <code class="inlinesourcetext">Asking which do you mean</code> and <code class="inlinesourcetext">Clarifying the parser's choice of something</code>.)</p>
-            <p>Names of things which contain prepositions can also be tricky because Inform misreads the sentences creating them: <a href="eg_25.html">Laura</a> shows how some awkward cases can be safely overcome.</p>
+            <p>Names of things which contain prepositions can also be tricky because Inform misreads the sentences creating them: <a href="eg_24.html">Laura</a> shows how some awkward cases can be safely overcome.</p>
             <p>A more difficult case is to ensure that if we change the description or nature of something in play, then the names we understand for it adapt, too. <code class="inlinesourcetext">Understand... when...</code> can be all that's needed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;king&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Aragorn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">have</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crowned</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Aragorn</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2027" -->
+            <blockquote class="extract-inform7"><a id="code2027"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;king&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">Aragorn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">we</span><span class="plain-syntax"> </span><span class="identifier-syntax">have</span><span class="plain-syntax"> </span><span class="identifier-syntax">crowned</span><span class="plain-syntax"> </span><span class="identifier-syntax">Aragorn</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or, similarly, if we want some combination of categories and characteristics to be recognised:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;giant&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">described</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tall</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2028" -->
+            <blockquote class="extract-inform7"><a id="code2028"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;giant&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">described</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">tall</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p><code class="inlinesourcetext">The item described</code> here refers to the thing being named. <code class="inlinesourcetext">...when</code> can even be useful in defining new commands, and <a href="eg_352.html">Quiz Show</a> demonstrates how to ask open-ended questions that the player can answer only on the subsequent turn.</p>
+            <!-- END CODE -->
+            <p><code class="inlinesourcetext">The item described</code> here refers to the thing being named. <code class="inlinesourcetext">...when</code> can even be useful in defining new commands, and <a href="eg_349.html">Quiz Show</a> demonstrates how to ask open-ended questions that the player can answer only on the subsequent turn.</p>
             <p>Properties can also be matched without fuss:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Tint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tints</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">aquamarine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">darkish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">purple</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wallpaper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hotel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wallpaper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tint</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wallpaper</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2029" -->
+            <blockquote class="extract-inform7"><a id="code2029"></a><span class="indexdullblue"><span class="identifier-syntax">Tint</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">tints</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">aquamarine</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">darkish</span><span class="plain-syntax"> </span><span class="identifier-syntax">purple</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hotel</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">tint</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">tint</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wallpaper</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This allows <code class="inlinetranscriptcommand">examine aquamarine wallpaper</code> if, but only if, it happens to be aquamarine at the moment. Relationships can also be matched automatically:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Toyshop</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">crayons</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;box of </span><span class="syntaxextract">[something related by containment]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2030" -->
+            <blockquote class="extract-inform7"><a id="code2030"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Toyshop</span><span class="plain-syntax">. </span><span class="identifier-syntax">Some</span><span class="plain-syntax"> </span><span class="identifier-syntax">crayons</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;box of [something related by containment]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which recognises <code class="inlinetranscriptcommand">box of crayons</code> until they are removed, when it reverts to plain <code class="inlinetranscriptcommand">box</code> only.</p>
             <p>Greater difficulty arises if, using some variable or property or table to mark that a bottle contains wine, we print messages calling it &quot;bottle of wine&quot;. We are then honour-bound to understand commands like <code class="inlinetranscriptcommand">take bottle of wine</code> in return, not to insist on <code class="inlinetranscriptcommand">take bottle</code>. Almost all &quot;simulation&quot; IF runs in to issues like this, and there is no general solution because simulations are so varied.</p>
             <p>A converse challenge arises when we want to <em>avoid</em> understanding the player's references to an object under some or all circumstances. This is relatively uncommon, but does sometimes occur. For this situation, Inform provides the <code class="inlinesourcetext">privately-named</code> property, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unrecognizable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">privately</span><span class="syntaxplain">-</span><span class="syntaxidentifier">named</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Kitchen</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2031" -->
+            <blockquote class="extract-inform7"><a id="code2031"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">unrecognizable</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">privately</span><span class="plain-syntax">-</span><span class="identifier-syntax">named</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Kitchen</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here <code class="inlinesourcetext">privately-named</code> tells Inform not to understand the object's source name automatically. It is then up to us to create any understand lines we want to refer to the object, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;oyster fork&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unrecognizable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">etiquette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">read</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2032" -->
+            <blockquote class="extract-inform7"><a id="code2032"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;oyster fork&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">unrecognizable</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">etiquette</span><span class="plain-syntax"> </span><span class="identifier-syntax">book</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">read</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Of course, if we need an object that the player is never allowed to refer to at all, we can just make this privately-named and then not provide any understand lines at all.</p>
             <p>A final source of difficulty is that by default Inform truncates words to nine letters before attempting to identify them. This is no problem in most circumstances and is likely to go unnoticed – until we have two very long words whose names are nearly identical, such as &quot;north-northwest exit&quot; and &quot;north-northeast exit&quot;. (To make matters worse, a punctuation mark such as a hyphen counts as two letters on its own.)</p>
             <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the use <code class="inlinesourcetext">dictionary resolution</code> use option. For instance, if we wanted to raise the limit to 15, we would write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dictionary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">resolution</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">15</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2033" -->
+            <blockquote class="extract-inform7"><a id="code2033"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">dictionary</span><span class="plain-syntax"> </span><span class="identifier-syntax">resolution</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">15</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>When compiling for the Z-machine, the solution is harder. <a href="eg_404.html">North by Northwest</a> shows how to use the reading a command activity to pre-process very long names, rendering them accessible to the parser again.</p>
-            <p>Inform also allows the player to refer to the most recently seen objects and people as <code class="inlinetranscriptcommand">it</code>, <code class="inlinetranscriptcommand">him</code>, <code class="inlinetranscriptcommand">her</code>, and so on. It sets these pronouns by default, but there are times when we wish to override the way it does that. <a href="eg_354.html">Pot of Petunias</a> shows off a way to make Inform recognise an object as IT when it would not otherwise have done so.</p>
+            <!-- END CODE -->
+            <p>When compiling for the Z-machine, the solution is harder. <a href="eg_401.html">North by Northwest</a> shows how to use the reading a command activity to pre-process very long names, rendering them accessible to the parser again.</p>
+            <p>Inform also allows the player to refer to the most recently seen objects and people as <code class="inlinetranscriptcommand">it</code>, <code class="inlinetranscriptcommand">him</code>, <code class="inlinetranscriptcommand">her</code>, and so on. It sets these pronouns by default, but there are times when we wish to override the way it does that. <a href="eg_351.html">Pot of Petunias</a> shows off a way to make Inform recognise an object as IT when it would not otherwise have done so.</p>
             <p>(See Using the Player's Input for an example (Mr. Burns' Repast) in which a fish can be called by any arbitrary word as long as it ends in the letters -fish.)</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2188,63 +2301,63 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg18><a style="text-decoration: none" href="eg_18.html"><span class="extensionexampleletter">18</span></a></span></div>
+                    <span id=eg17><a style="text-decoration: none" href="eg_17.html"><span class="extensionexampleletter">17</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_18.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">First Name Basis</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_17.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">First Name Basis</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to use different synonyms to refer to something.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg18><a style="text-decoration: none" href="WI_3_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg17><a style="text-decoration: none" href="WI_3_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg354><a style="text-decoration: none" href="eg_354.html"><span class="extensionexampleletter">354</span></a></span></div>
+                    <span id=eg351><a style="text-decoration: none" href="eg_351.html"><span class="extensionexampleletter">351</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_354.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pot of Petunias</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_351.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pot of Petunias</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Responding sensibly to a pot of petunias falling from the sky.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg354><a style="text-decoration: none" href="WI_19_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg351><a style="text-decoration: none" href="WI_19_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg352><a style="text-decoration: none" href="eg_352.html"><span class="extensionexampleletter">352</span></a></span></div>
+                    <span id=eg349><a style="text-decoration: none" href="eg_349.html"><span class="extensionexampleletter">349</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_352.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Quiz Show</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_349.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Quiz Show</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">In this example by Mike Tarbert, the player can occasionally be quizzed on random data from a table; the potential answers will only be understood if a question has just been asked.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg352><a style="text-decoration: none" href="WI_19_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg349><a style="text-decoration: none" href="WI_19_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg25><a style="text-decoration: none" href="eg_25.html"><span class="extensionexampleletter">25</span></a></span></div>
+                    <span id=eg24><a style="text-decoration: none" href="eg_24.html"><span class="extensionexampleletter">24</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_25.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Laura</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_24.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Laura</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Some general advice about creating objects with unusual or awkward names, and a discussion of the use of printed names.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg25><a style="text-decoration: none" href="WI_3_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg24><a style="text-decoration: none" href="WI_3_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg404><a style="text-decoration: none" href="eg_404.html"><span class="extensionexampleletter">404</span></a></span></div>
+                    <span id=eg401><a style="text-decoration: none" href="eg_401.html"><span class="extensionexampleletter">401</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_404.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">North by Northwest</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_401.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">North by Northwest</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating additional compass directions between those that already exist (for instance, <code class="inlinetranscriptcommand">nnw</code>) -- and dealing with an awkwardness that arises when the player tries to type <code class="inlinetranscriptcommand">north-northwest</code>. The example demonstrates a way around the default nine-character limit on parsed words.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg404><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg401><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg49><a style="text-decoration: none" href="eg_49.html"><span class="extensionexampleletter">49</span></a></span></div>
+                    <span id=eg48><a style="text-decoration: none" href="eg_48.html"><span class="extensionexampleletter">48</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_49.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vouvray</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_48.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vouvray</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding synonyms to an entire kind of thing.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg49><a style="text-decoration: none" href="WI_4_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg48><a style="text-decoration: none" href="WI_4_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_2_1.html"><span class="markdowncontent">Chapter 2: Adaptive Prose</span></a> &bull; <a href="RB_2_3.html"><span class="markdowncontent">Section 2.3: Using the Player's Input</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

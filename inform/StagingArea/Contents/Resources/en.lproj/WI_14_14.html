@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,111 +2212,157 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Relations involving values" -->
+            <!-- SEARCH SECTION "14.14" -->
+            <!-- SEARCH SORT "001-014-014-000" -->
             <h3><span>Section 14.14: Relations involving values</span></h3>
             <p>      </p>
             <p>Although most of the examples in this chapter have involved objects, relations can connect almost any values together. We can create relations in groups, one to various relations, various to one relations, one to one relations, and various to various relations for any combination of kinds. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code929" -->
+            <blockquote class="extract-inform7"><a id="code929"></a><span class="indexdullblue"><span class="identifier-syntax">Partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">belong</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">belong</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxstring">&quot;cheese&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">belongs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;crackers&quot;</span><span class="syntaxplain">.</span>
+            <span class="string-syntax">&quot;cheese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">belongs</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;crackers&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxstring">&quot;clam&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">belongs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chowder&quot;</span><span class="syntaxplain">.</span>
+            <span class="string-syntax">&quot;clam&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">belongs</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chowder&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>How might we make use of this? Clearly it would be impractical to keep trying:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;caviar&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">belongs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;aardvarks&quot;</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code930" -->
+            <blockquote class="extract-inform7"><a id="code930"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;caviar&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">belongs</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;aardvarks&quot;</span><span class="plain-syntax">, ...</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;caviar&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">belongs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;abacuses&quot;</span><span class="syntaxplain">, ...</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;caviar&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">belongs</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;abacuses&quot;</span><span class="plain-syntax">, ...</span>
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>to find out what <code class="inlinesourcetext">&quot;caviar&quot;</code> belongs with. It's still harder to find out if it belongs with anything at all – in theory we would have to try every possibility, which of course is impossible. Instead we have these phrases:</p>
             <div class="definition">
-                <p class="defnprototype">if (value) relates to (name of kind) by (relation of values to values):</p>
+                <!-- START PHRASE "defn196" -->
+                <p class="defnprototype"><a id="defn196"></a>if (value) relates to (name of kind) by (relation of values to values):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the value V is such that V relates to something by the given relation. Example: suppose partnership relates various texts to various texts. Then we can test</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chalk&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code931" -->
+                <blockquote class="extract-inform7"><a id="code931"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chalk&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">if (name of kind) relates to (value) by (relation of values to values):</p>
+                <!-- START PHRASE "defn197" -->
+                <p class="defnprototype"><a id="defn197"></a>if (name of kind) relates to (value) by (relation of values to values):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the value V is such that something relates to V by the given relation. Example: suppose partnership relates various texts to various texts. Then we can test</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cheese&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code932" -->
+                <blockquote class="extract-inform7"><a id="code932"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cheese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>If a partner does exist, then we can find it with:</p>
             <div class="definition">
-                <p class="defnprototype">(name of kind) to which/whom (value) relates by (relation of values to values) ... value</p>
-                <p class="defnprototype">(name of kind) that/which/whom (value) relates to by (relation of values to values) ... value</p>
+                <!-- START PHRASE "defn198" -->
+                <p class="defnprototype"><a id="defn198"></a>(name of kind) to which/whom (value) relates by (relation of values to values) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn199" -->
+                <p class="defnprototype"><a id="defn199"></a>(name of kind) that/which/whom (value) relates to by (relation of values to values) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces an Y such that the given value V relates to Y by the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chalk&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span>
+                <!-- START CODE "code933" -->
+                <blockquote class="extract-inform7"><a id="code933"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chalk&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which might be, say, <code class="inlinesourcetext">&quot;cheese&quot;</code>. It's a run-time problem to use this if no such Y exists.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">(name of kind) that/which/who relates to (value) by (relation of values to values) ... value</p>
+                <!-- START PHRASE "defn200" -->
+                <p class="defnprototype"><a id="defn200"></a>(name of kind) that/which/who relates to (value) by (relation of values to values) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces an X such that X relates to the given value V by the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cheese&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span>
+                <!-- START CODE "code934" -->
+                <blockquote class="extract-inform7"><a id="code934"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cheese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which might be, say, <code class="inlinesourcetext">&quot;chalk&quot;</code>. It's a run-time problem to use this if no such X exists.</p>
             </div>
             <p>Of course, there might be many answers to this question, so perhaps these are neater:</p>
             <div class="definition">
-                <p class="defnprototype">list of (name of kind) that/which/who relate to (value) by (relation of values to values) ... list of values</p>
+                <!-- START PHRASE "defn201" -->
+                <p class="defnprototype"><a id="defn201"></a>list of (name of kind) that/which/who relate to (value) by (relation of values to values) ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a list of all the X such that X relates to the given value V by the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cheese&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span>
+                <!-- START CODE "code935" -->
+                <blockquote class="extract-inform7"><a id="code935"></a><span class="indexdullblue"><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">relate</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cheese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which might be, say, <code class="inlinesourcetext">{ &quot;chalk&quot;, &quot;grapes&quot;, &quot;macaroni&quot; }</code>. The answer might be the empty set, but that's not a problem.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">list of (name of kind) to which/whom (value) relates by (relation of values to values) ... value</p>
-                <p class="defnprototype">list of (name of kind) that/which/whom (value) relates to by (relation of values to values) ... list of values</p>
+                <!-- START PHRASE "defn202" -->
+                <p class="defnprototype"><a id="defn202"></a>list of (name of kind) to which/whom (value) relates by (relation of values to values) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn203" -->
+                <p class="defnprototype"><a id="defn203"></a>list of (name of kind) that/which/whom (value) relates to by (relation of values to values) ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a list of all Y such that the given value V relates to Y by the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chalk&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span>
+                <!-- START CODE "code936" -->
+                <blockquote class="extract-inform7"><a id="code936"></a><span class="indexdullblue"><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chalk&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which might be, say, <code class="inlinesourcetext">{ &quot;cheese&quot;, &quot;blackboard&quot;, &quot;cliffs&quot; }</code>. The answer might be the empty set, but that's not a problem.</p>
             </div>
             <p>Finally, it's sometimes useful to get at the list of all values which can appear on the left or right hand side of a relation. We need tongue-twister like wording to do it, but:</p>
             <div class="definition">
-                <p class="defnprototype">list of (name of kind) that/which/whom (relation of values to values) relates ... list of values</p>
+                <!-- START PHRASE "defn204" -->
+                <p class="defnprototype"><a id="defn204"></a>list of (name of kind) that/which/whom (relation of values to values) relates ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a list of all X which relate to anything under the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span>
+                <!-- START CODE "code937" -->
+                <blockquote class="extract-inform7"><a id="code937"></a><span class="indexdullblue"><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">list of (name of kind) to which/whom (relation of values to values) relates ... value</p>
-                <p class="defnprototype">list of (name of kind) that/which/whom (relation of values to values) relates to ... list of values</p>
+                <!-- START PHRASE "defn205" -->
+                <p class="defnprototype"><a id="defn205"></a>list of (name of kind) to which/whom (relation of values to values) relates ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn206" -->
+                <p class="defnprototype"><a id="defn206"></a>list of (name of kind) that/which/whom (relation of values to values) relates to ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a list of all Y which anything relates to under the given relation. Example: suppose partnership relates various texts to various texts. Then we can obtain</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">partnership</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span>
+                <!-- START CODE "code938" -->
+                <blockquote class="extract-inform7"><a id="code938"></a><span class="indexdullblue"><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">partnership</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>For efficiency reasons, there are no guarantees about what order these lists have – but they can of course always be sorted when found.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg259><a style="text-decoration: none" href="eg_259.html"><span class="extensionexampleletter">259</span></a></span></div>
+                    <span id=eg256><a style="text-decoration: none" href="eg_256.html"><span class="extensionexampleletter">256</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_259.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meet Market</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_256.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meet Market</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A case in which relations give characters multiple values of the same kind.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg259><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg256><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg260><a style="text-decoration: none" href="eg_260.html"><span class="extensionexampleletter">260</span></a></span></div>
+                    <span id=eg257><a style="text-decoration: none" href="eg_257.html"><span class="extensionexampleletter">257</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_260.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">For Demonstration Purposes</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_257.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">For Demonstration Purposes</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A character who learns new actions by watching the player performing them.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg260><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg257><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_14_13.html"><span class="markdowncontent">Section 14.13: Relations which express conditions</span></a> &bull; <a href="WI_14_15.html"><span class="markdowncontent">Section 14.15: Relations as values in their own right</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

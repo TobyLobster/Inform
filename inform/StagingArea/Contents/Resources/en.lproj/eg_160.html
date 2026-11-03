@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,92 +2193,51 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg160><a style="text-decoration: none" href="WI_10_2.html"><span class="extensionexampleletter">160</span></a></span></div>
+                <span id=eg160><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleletter">160</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 1</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Pine: Using a scene to watch for the solution of a puzzle, however arrived-at by the player.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Full Moon</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Random atmospheric events which last the duration of a scene.</span></span></div>
             <div class="exampleright">
-                <span id=eg160><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg160><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Full Moon" -->
+        <!-- SEARCH SECTION "Example 160" -->
+        <!-- SEARCH SORT "003-160-000-000" -->
         <p></p>
-        <p>Because scene rules are checked every turn, they can be useful for designing puzzles which have multiple solutions. Instead of deciding the puzzle is <code class="inlinesourcetext">solved</code> when the player does a certain action, we set up a scene that checks to see whether the player has achieved a certain outcome – however they accomplished it.</p>
-        <p>For instance, in this scenario, we're waiting for Sleeping Beauty to wake up, and it doesn't much matter how...</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Pine[=0x0022=][=0x000A=][=0x000A=]A person can be asleep or awake. A person can be active or passive.[=0x000A=][=0x000A=]The Spinning Tower is a room. [=0x0022=]A remote corner of the old castle, reserved for spinning and weaving tasks.[=0x0022=][=0x000A=][=0x000A=]Sleeping Beauty is an asleep woman in the Spinning Tower. [=0x0022=][if asleep]Sleeping Beauty lies here, oblivious to your presence[otherwise]Sleeping Beauty stands beside you, looking a little confused[end if].[=0x0022=] The description is [=0x0022=]She is even more magnificent than the rumors suggested.[=0x0022=] Understand [=0x0022=]woman[=0x0022=] or [=0x0022=]girl[=0x0022=] or [=0x0022=]princess[=0x0022=] or [=0x0022=]lady[=0x0022=] as Sleeping Beauty.[=0x000A=][=0x000A=]Discovery is a scene. Discovery begins when play begins. Discovery ends when Sleeping Beauty is awake. Marriage Proposal is a scene. Marriage Proposal begins when Discovery ends.[=0x000A=][=0x000A=]When Discovery ends: say [=0x0022=]Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an awake person: say [=0x0022=]Redundant.[=0x0022=][=0x000A=][=0x000A=]Instead of waking an asleep person: say [=0x0022=]Yes, but how?[=0x0022=][=0x000A=][=0x000A=]Instead of attacking an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] sits bolt upright. [=0x0027=]Hey! Ow![=0x0027=] So much for that true love[=0x0027=]s kiss nonsense.[=0x0022=][=0x000A=][=0x000A=]Instead of kissing an asleep person:[=0x000A=][=0x0009=]now the noun is awake;[=0x000A=][=0x0009=]say [=0x0022=][The noun] slowly stirs to wakefulness![=0x0022=][=0x000A=][=0x000A=]Instead of throwing water at an asleep person:[=0x000A=][=0x0009=]now the second noun is awake;[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]You pour out [the noun] on [the second noun].[=0x000A=][=0x000A=][The second noun] wakes, shuddering. [=0x0027=]Agh! I had a terrible dream about drowning and then-- Hey![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The player carries a jug of water. Understand [=0x0022=]pour [something] on [something][=0x0022=] or [=0x0022=]splash [something] at/on [something][=0x0022=] as throwing it at.[=0x000A=][=0x000A=]Test me with [=0x0022=]x beauty / wake beauty / pour water on beauty[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Pine&quot;</span>
+        <!-- START CODE "code3063" -->
+        <blockquote class="extract-inform7"><a id="code3063"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Full Moon[=0x0022=][=0x000A=][=0x000A=]Wolf Pursuit is a scene. Wolf Pursuit begins when play begins.[=0x000A=][=0x000A=]Every turn during Wolf Pursuit, say [=0x0022=][one of]A twig snaps behind you![or]The wind howls in your ears.[or]You feel chilly.[at random][=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]You have lost your spectacles, and the lamp, and can see barely further than the next tree. Roots keep trying to trip you, too...[=0x0022=][=0x000A=][=0x000A=]The Dark Forest is a room. [=0x0022=]You are mostly aware that you are not as alone here as you would like, and that the ground is uneven.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / z[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Full Moon&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">passive</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Wolf</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pursuit</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax">. </span><span class="identifier-syntax">Wolf</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pursuit</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Spinning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tower</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A remote corner of the old castle, reserved for spinning and weaving tasks.&quot;</span>
+        <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">during</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wolf</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pursuit</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[one of]A twig snaps behind you![or]The wind howls in your ears.[or]You feel chilly.[at random]&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Sleeping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beauty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Spinning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tower</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if asleep]</span><span class="syntaxstring">Sleeping Beauty lies here, oblivious to your presence</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">Sleeping Beauty stands beside you, looking a little confused</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;She is even more magnificent than the rumors suggested.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;woman&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;girl&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;princess&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lady&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sleeping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beauty</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You have lost your spectacles, and the lamp, and can see barely further than the next tree. Roots keep trying to trip you, too...&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Discovery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Discovery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Discovery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sleeping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beauty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Marriage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Proposal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Marriage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Proposal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Discovery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dark</span><span class="plain-syntax"> </span><span class="identifier-syntax">Forest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;You are mostly aware that you are not as alone here as you would like, and that the ground is uneven.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Discovery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Throughout the palace you can hear the other sounds of stirring and movement as the spell of centuries is broken.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Redundant.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Yes, but how?&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attacking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> sits bolt upright. 'Hey! Ow!' So much for that true love's kiss nonsense.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kissing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> slowly stirs to wakefulness!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throwing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">water</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asleep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">awake</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You pour out </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> on </span><span class="syntaxextract">[the second noun]</span><span class="syntaxstring">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxextract">[The second noun]</span><span class="syntaxstring"> wakes, shuddering. 'Agh! I had a terrible dream about drowning and then-- Hey!'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jug</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">water</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;pour </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> on </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;splash </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> at/on </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throwing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x beauty / wake beauty / pour water on beauty&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;z / z / z / z&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_10_2.html>Section 10.2: Creating a scene</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_10_4.html>Section 10.4: During scenes</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

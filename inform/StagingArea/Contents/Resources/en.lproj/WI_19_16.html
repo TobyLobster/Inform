@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,90 +2212,135 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Understanding things by their properties" -->
+            <!-- SEARCH SECTION "19.16" -->
+            <!-- SEARCH SORT "001-019-016-000" -->
             <h3><span>Section 19.16: Understanding things by their properties</span></h3>
             <p>      </p>
             <p>Items are ordinarily understood only by their original given names. For instance, if we have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Herb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1270" -->
+            <blockquote class="extract-inform7"><a id="code1270"></a><span class="indexdullblue"><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Herb</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garden</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then the player could refer to this as <code class="inlinetranscriptcommand">pot</code>, <code class="inlinetranscriptcommand">china pot</code> or <code class="inlinetranscriptcommand">china</code>. We can embellish this by adding extra forms:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chinese pot&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chinese vase&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1271" -->
+            <blockquote class="extract-inform7"><a id="code1271"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chinese pot&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;chinese vase&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But suppose the pot changes its nature in the course of play? If we have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1272" -->
+            <blockquote class="extract-inform7"><a id="code1272"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Crack!&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Crack!&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">china</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">china</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;broken pot&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;broken pot&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So now the player would reasonably expect to call it <code class="inlinetranscriptcommand">broken pot</code>, a wording which would have been rejected before. We can achieve this by writing:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pot</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1273" -->
+            <blockquote class="extract-inform7"><a id="code1273"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pot</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which allows <code class="inlinetranscriptcommand">unbroken</code> or <code class="inlinetranscriptcommand">broken</code> to describe the pot, depending on its state. And, since the player might well use a different adjective but with the same idea in mind, we can even add:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;shattered&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;cracked&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;smashed&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;pristine&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1274" -->
+            <blockquote class="extract-inform7"><a id="code1274"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shattered&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;cracked&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;smashed&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;pristine&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is something of a toy example, but the feature looks rather more useful when there are more pots than just one:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Terracotta[=0x0022=][=0x000A=][=0x000A=]A flowerpot is a kind of thing. A flowerpot can be unbroken or broken. Understand the broken property as describing a flowerpot.[=0x000A=][=0x000A=]After dropping an unbroken flowerpot:[=0x000A=][=0x0009=]say [=0x0022=]Crack![=0x0022=];[=0x000A=][=0x0009=]now the noun is broken;[=0x000A=][=0x0009=]now the printed name of the noun is [=0x0022=]broken flowerpot[=0x0022=];[=0x000A=][=0x0009=]now the printed plural name of the noun is [=0x0022=]broken flowerpots[=0x0022=].[=0x000A=][=0x000A=]The Herb Garden is a room. In the Herb Garden are ten unbroken flowerpots.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Terracotta&quot;</span>
+            <!-- START CODE "code1275" -->
+            <blockquote class="extract-inform7"><a id="code1275"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Terracotta[=0x0022=][=0x000A=][=0x000A=]A flowerpot is a kind of thing. A flowerpot can be unbroken or broken. Understand the broken property as describing a flowerpot.[=0x000A=][=0x000A=]After dropping an unbroken flowerpot:[=0x000A=][=0x0009=]say [=0x0022=]Crack![=0x0022=];[=0x000A=][=0x0009=]now the noun is broken;[=0x000A=][=0x0009=]now the printed name of the noun is [=0x0022=]broken flowerpot[=0x0022=];[=0x000A=][=0x0009=]now the printed plural name of the noun is [=0x0022=]broken flowerpots[=0x0022=].[=0x000A=][=0x000A=]The Herb Garden is a room. In the Herb Garden are ten unbroken flowerpots.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Terracotta&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Crack!&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Crack!&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;broken flowerpot&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;broken flowerpot&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;broken flowerpots&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">plural</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;broken flowerpots&quot;</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Herb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Herb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ten</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unbroken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpots</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Herb</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garden</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Herb</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garden</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">ten</span><span class="plain-syntax"> </span><span class="identifier-syntax">unbroken</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpots</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We then have the dialogue:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Herb Garden</span><br><span class="syntaxidentifier">You can see ten flowerpots here.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET TWO FLOWERPOTS</span><br><span class="syntaxidentifier">flowerpot: Taken.</span><br><span class="syntaxidentifier">flowerpot: Taken.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> DROP ALL</span><br><span class="syntaxidentifier">flowerpot: Crack!</span><br><span class="syntaxidentifier">flowerpot: Crack!</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> LOOK</span><br><span class="syntaxidentifier">Herb Garden</span><br><span class="syntaxidentifier">You can see two broken flowerpots and eight flowerpots here.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET AN UNBROKEN FLOWERPOT</span><br><span class="syntaxidentifier">Taken.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Herb Garden<br>You can see ten flowerpots here.<br><br>&gt; GET TWO FLOWERPOTS<br>flowerpot: Taken.<br>flowerpot: Taken.<br><br>&gt; DROP ALL<br>flowerpot: Crack!<br>flowerpot: Crack!<br><br>&gt; LOOK<br>Herb Garden<br>You can see two broken flowerpots and eight flowerpots here.<br><br>&gt; GET AN UNBROKEN FLOWERPOT<br>Taken.<br></code></pre></div>
             <p>and so on and so forth.</p>
             <p>There are in fact two slightly different forms of this kind of sentence:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1276" -->
+            <blockquote class="extract-inform7"><a id="code1276"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">referring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowerpot</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">referring</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">flowerpot</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The only difference is that in the <code class="inlinesourcetext">describing</code> case, the property's name alone can mean the thing in question – so <code class="inlinetranscriptcommand">take unbroken</code> will work; whereas, in the <code class="inlinesourcetext">referring to</code>, the property's name can only be used as an adjective preceding the name of thing itself – so <code class="inlinetranscriptcommand">take unbroken flowerpot</code> will work but <code class="inlinetranscriptcommand">take unbroken</code> will not.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg337><a style="text-decoration: none" href="eg_337.html"><span class="extensionexampleletter">337</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_337.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aspect</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding aspect ratios (a unit) in the names of televisions.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg337><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg338><a style="text-decoration: none" href="eg_338.html"><span class="extensionexampleletter">338</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_338.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hymenaeus</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding &quot;flaming torch&quot; and &quot;extinguished torch&quot; to refer to torches when lit and unlit.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg338><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg339><a style="text-decoration: none" href="eg_339.html"><span class="extensionexampleletter">339</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_339.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 1</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg339><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg340><a style="text-decoration: none" href="eg_340.html"><span class="extensionexampleletter">340</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_340.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aspect</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding aspect ratios (a unit) in the names of televisions.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_340.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peers</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">The peers of the English realm come in six flavours - Baron, Viscount, Earl, Marquess, Duke and Prince - and must always be addressed properly. While a peerage is for life, it may at the royal pleasure be promoted.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg340><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg340><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg341><a style="text-decoration: none" href="eg_341.html"><span class="extensionexampleletter">341</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_341.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hymenaeus</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding &quot;flaming torch&quot; and &quot;extinguished torch&quot; to refer to torches when lit and unlit.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_341.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">The flowerpots once again, but this time arranged so that after the first breakage all undamaged pots are said to be <code class="inlinesourcetext">unbroken</code>, to distinguish them from the others.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg341><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg341><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg342><a style="text-decoration: none" href="eg_342.html"><span class="extensionexampleletter">342</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_342.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 1</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_342.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions, with more sophisticated parsing of the change channel action.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg342><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
@@ -2218,52 +2348,25 @@
                 <div class="exampleleft">
                     <span id=eg343><a style="text-decoration: none" href="eg_343.html"><span class="extensionexampleletter">343</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_343.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peers</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">The peers of the English realm come in six flavours - Baron, Viscount, Earl, Marquess, Duke and Prince - and must always be addressed properly. While a peerage is for life, it may at the royal pleasure be promoted.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_343.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima Maxima</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Flowerpots with textual names that might change during play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg343><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg343><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg344><a style="text-decoration: none" href="eg_344.html"><span class="extensionexampleletter">344</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_344.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">The flowerpots once again, but this time arranged so that after the first breakage all undamaged pots are said to be <code class="inlinesourcetext">unbroken</code>, to distinguish them from the others.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg344><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg345><a style="text-decoration: none" href="eg_345.html"><span class="extensionexampleletter">345</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_345.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Channel 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Understanding channels (a number) in the names of televisions, with more sophisticated parsing of the change channel action.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg345><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg346><a style="text-decoration: none" href="eg_346.html"><span class="extensionexampleletter">346</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_346.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima Maxima</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Flowerpots with textual names that might change during play.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg346><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg347><a style="text-decoration: none" href="eg_347.html"><span class="extensionexampleletter">347</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_347.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_344.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A deck of cards with fully implemented individual cards, which can be separately drawn and discarded, and referred to by name.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg347><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg344><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_15.html"><span class="markdowncontent">Section 19.15: Tokens can produce values</span></a> &bull; <a href="WI_19_17.html"><span class="markdowncontent">Section 19.17: Understanding things by their relations</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

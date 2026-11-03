@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.5: Assigning use options to kits</span></title>
+    <title><span class="markdowncontent">Section 32.5: Block quotations and phrase boxes</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.5: Assigning use options to kits</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.5: Block quotations and phrase boxes</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,180 +2212,54 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.5: Assigning use options to kits</span></h3>
-            <p>Suppose we want to provide use options which affect the operation of <code class="inlinecode">AmphibianKit</code>. We have already seen ways to create such options:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drifting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lilypads</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DRIFTING_LILYPADS</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">horny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">frog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">FROG_COUNT</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">JUMP_HEIGHT</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>But these simply define the names <code class="inlinecode">DRIFTING_LILYPADS</code>, <code class="inlinecode">SKIN_TYPE</code> and so on, without assigning them to any kit. So instead we tack <code class="inlinecode">in AmphibianKit</code> onto the end of each declaration:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drifting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lilypads</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DRIFTING_LILYPADS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">horny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scaly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">skin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SKIN_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">frog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">FROG_COUNT</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">JUMP_HEIGHT</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>When a configuration flag or value is tied to a kit, two things are different:</p>
-            <ul>
-            <li>The constant name is moved into that kit's namespace, so, for example,
-            we have <code class="inlinecode">AmphibianKit`DRIFTING_LILYPADS</code> not <code class="inlinecode">DRIFTING_LILYPADS</code>.</li>
-            <li>As a result, if two different kits both have a configuration value called,
-            say, <code class="inlinecode">MAX_CAPACITY</code>, both can be used without a conflict occurring, because
-            one will be <code class="inlinecode">FirstKit`MAX_CAPACITY_CFGV</code> and the other <code class="inlinecode">SecondKit`MAX_CAPACITY_CFGV</code>.</li>
-            <li>A problem message is thrown if the name is not one of those listed in the
-            kit's metadata as being expected.</li>
-            </ul>
-            <p>As this last caveat implies, the <code class="inlinecode">kit_metadata.json</code> file for <code class="inlinecode">AmphibianKit</code> needs to be prepared to receive these options, like so:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Block quotations and phrase boxes" -->
+            <!-- SEARCH SECTION "32.5" -->
+            <!-- SEARCH SORT "001-032-005-000" -->
+            <h3><span>Section 32.5: Block quotations and phrase boxes</span></h3>
+            <p> </p>
+            <p>&quot;Block quotations&quot; are suitable for quoting a piece of human writing, rather than code, and are introduced by <code class="inlinecode">&gt;</code> characters on the left margin:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;AmphibianKit&quot;</span><br><span class="syntaxidentifier">    },</span><br><span class="syntaxidentifier">    &quot;kit-details&quot;: {</span><br><span class="syntaxidentifier">        &quot;configuration-flags&quot;: [ &quot;DRIFTING_LILYPADS&quot; ],</span><br><span class="syntaxidentifier">        &quot;configuration-values&quot;: [ &quot;SKIN_TYPE&quot;, &quot;FROG_COUNT&quot;, &quot;JUMP_HEIGHT&quot; ]</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>and then the above declarations would all work, but</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mayflies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">MAYFLIES_AVAILABLE</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>would be rejected because <code class="inlinecode">AmphibianKit</code> does not support <code class="inlinecode">MAYFLIES_AVAILABLE</code>. Similarly, it's an error to use as a value what the kit declares as a flag (unless the value being stored is either 0 or 1).</p>
-            <p>This raises the question of what happens if the JSON metadata asks for a configuration flag or value which no use option talks about. The answer is that Inform silently creates this, with the value 0, so that no link failure can occur. For example, if we had had</p>
+                <pre><code class="language-code">Roger S. Brody notes:<br><br>&gt; Some Harding rotary press-printed stamps were perforated gauge 11 x 11<br>&gt; on the flat-plate equipment instead of the normal 10 x 10 rotary<br>&gt; perforating machine, producing an important twentieth century rarity.<br></code></pre></div>
+            <p>The block continues for as long as the run of lines prefaced by <code class="inlinecode">&gt;</code> continues. Block quotations can themselves contain lists and other block quotations, and even code examples, though we need to type the number of spaces very carefully to ensure that those examples are exactly four spaces in from the point where ordinary text in the quotation would be:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    &quot;configuration-values&quot;: [ &quot;SKIN_TYPE&quot;, &quot;FROG_COUNT&quot;, &quot;JUMP_HEIGHT&quot;, &quot;SECRET_POND&quot; ]</span><br></code></pre></div>
-            <p>then whenever Inform compiled a project with <code class="inlinecode">AmphibianKit</code> it would define the constant <code class="inlinecode">AmphibianKit`SECRET_POND_CFGV</code> to 0. Should a knowledgeable user come along and write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secret</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">SECRET_POND</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AmphibianKit</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secret</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>...this would then take effect.</p>
-            <p>Because it is not safe to use <code class="inlinecode">#ifdef</code>, <code class="inlinecode">#ifndef</code>, <code class="inlinecode">#iftrue</code> or <code class="inlinecode">#iffalse</code> on symbol names linked in from outside of a kit, Inform automatically throws an error on any attempt to use these directives with kit-linked configuration flags or values. Thus, for example, in a kit:</p>
+                <pre><code class="language-code">This does seem rather an extreme position:<br><br>&gt; We want to penalise players not taking this seriously, so:<br>&gt; <br>&gt;     &gt; LICK STAMP<br>&gt;     You seriously degrade the value of this $174.90 Weimar republic issue.<br></code></pre></div>
+            <p>Note that there are <em>five</em> spaces between the <code class="inlinecode">&gt;</code> signs in the line with the <code class="inlinetranscriptcommand">lick stamp</code> command. This is because the block material begins after <code class="inlinetranscriptcommand">&gt; </code> (one space) and then indents to reach the transcript text (four spaces). So the result is:</p>
+            <blockquote>
+            <p>This does seem rather an extreme position:</p>
+            <blockquote>
+            <p>We want to penalise players not taking this seriously, so:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; LICK STAMP<br>You seriously degrade the value of this $174.90 Weimar republic issue.<br></code></pre></div>
+            </blockquote>
+            </blockquote>
+            <p>Note that block quotes can contain multiple paragraphs, code samples (as in this
+            example), and even lists and tables.</p>
+            <p>One of the main uses of block quotations in Inform documentation is to provide the displayed boxes which give the specification of a &quot;To...&quot; phrase. For example, this:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">#ifdef AmphibianKit`DRIFTING_LILYPADS_CFGF;</span><br><span class="syntaxidentifier">...</span><br><span class="syntaxidentifier">#endif</span><br></code></pre></div>
-            <p>would throw a problem message. Instead, the idea is to use the value, not the
-            existence, of these symbols in the kit:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">if (AmphibianKit`DRIFTING_LILYPADS_CFGF) {</span><br><span class="syntaxidentifier">    ....</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>Note that there's no prohibition on one kit being able to see the configuration
-            values of another: for example, <code class="inlinecode">WorldModelKit</code> can test <code class="inlinecode">if (BasicInformKit`AMERICAN_DIALECT_CFGF)</code>.</p>
-            <p>The following table, for what it is worth, shows how the main use options belonging to <code class="inlinecode">BasicInformKit</code>, <code class="inlinecode">WorldModelKit</code> and <code class="inlinecode">CommandParserKit</code> are set:</p>
-            <table>
-            <thead>
-            <tr>
-            <th>Use option</th>
-            <th>Now sets</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>no deprecated features</td>
-            <td><code class="inlinecode">BasicInformKit`NO_DEPRECATED_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>dynamic memory allocation</td>
-            <td><code class="inlinecode">BasicInformKit`STACK_FRAME_CAPACITY_CFGV</code></td>
-            </tr>
-            <tr>
-            <td>maximum text length</td>
-            <td><code class="inlinecode">BasicInformKit`TEXT_BUFFER_SIZE_CFGV</code></td>
-            </tr>
-            <tr>
-            <td>maximum things understood at once</td>
-            <td><code class="inlinecode">BasicInformKit`MULTI_OBJ_LIST_SIZE_CFGV</code></td>
-            </tr>
-            <tr>
-            <td>authorial modesty</td>
-            <td><code class="inlinecode">BasicInformKit`AUTHORIAL_MODESTY_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>numbered rules</td>
-            <td><code class="inlinecode">BasicInformKit`NUMBERED_RULES_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>predictable randomisation</td>
-            <td><code class="inlinecode">BasicInformKit`FIX_RNG_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>command line echoing</td>
-            <td><code class="inlinecode">BasicInformKit`ECHO_COMMANDS_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>memory economy</td>
-            <td><code class="inlinecode">BasicInformKit`MEMORY_ECONOMY_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>printed engineering notation</td>
-            <td><code class="inlinecode">BasicInformKit`PRINT_ENGINEER_EXPS_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>American dialect</td>
-            <td><code class="inlinecode">BasicInformKit`AMERICAN_DIALECT_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>serial comma</td>
-            <td><code class="inlinecode">WorldModelKit`SERIAL_COMMA_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>no scoring</td>
-            <td><code class="inlinecode">WorldModelKit`SCORING_CFGV</code> = 0</td>
-            </tr>
-            <tr>
-            <td>scoring</td>
-            <td><code class="inlinecode">WorldModelKit`SCORING_CFGV</code> = 1</td>
-            </tr>
-            <tr>
-            <td>default route-finding</td>
-            <td><code class="inlinecode">WorldModelKit`ROUTE_FINDING_CFGV</code> = 0</td>
-            </tr>
-            <tr>
-            <td>fast route-finding</td>
-            <td><code class="inlinecode">WorldModelKit`ROUTE_FINDING_CFGV</code> = 1</td>
-            </tr>
-            <tr>
-            <td>slow route-finding</td>
-            <td><code class="inlinecode">WorldModelKit`ROUTE_FINDING_CFGV</code> = 2</td>
-            </tr>
-            <tr>
-            <td>full-length room descriptions</td>
-            <td><code class="inlinecode">WorldModelKit`ROOM_DESC_DETAIL_CFGV</code> = 2</td>
-            </tr>
-            <tr>
-            <td>abbreviated room descriptions</td>
-            <td><code class="inlinecode">WorldModelKit`ROOM_DESC_DETAIL_CFGV</code> = 3</td>
-            </tr>
-            <tr>
-            <td>VERBOSE room descriptions</td>
-            <td><code class="inlinecode">WorldModelKit`ROOM_DESC_DETAIL_CFGV</code> = 2</td>
-            </tr>
-            <tr>
-            <td>BRIEF room descriptions</td>
-            <td><code class="inlinecode">WorldModelKit`ROOM_DESC_DETAIL_CFGV</code> = 1</td>
-            </tr>
-            <tr>
-            <td>SUPERBRIEF room descriptions</td>
-            <td><code class="inlinecode">WorldModelKit`ROOM_DESC_DETAIL_CFGV</code> = 3</td>
-            </tr>
-            <tr>
-            <td>undo prevention</td>
-            <td><code class="inlinecode">CommandParserKit`UNDO_PREVENTION_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>manual pronouns</td>
-            <td><code class="inlinecode">CommandParserKit`MANUAL_PRONOUNS_CFGF</code></td>
-            </tr>
-            <tr>
-            <td>unabbreviated object names</td>
-            <td><code class="inlinecode">CommandParserKit`UNABBREVIATED_NAMES_CFGF</code></td>
-            </tr>
-            </tbody>
-            </table>
+                <pre><code class="language-code">&gt;    phrase: set pronouns from (object)<br>&gt;   <br>&gt;    This phrase adjusts the meaning of pronouns like IT, HIM, HER and THEM in<br>&gt;   the command parser as if the object mentioned has become the subject of<br>&gt;   conversation. Example: `set pronouns from` here -<br>&gt;<br>&gt;        set pronouns from the key;<br>&gt;        set pronouns from Bunny;<br>&gt;<br>&gt;    might change IT to mean the silver key and HIM to mean Harry &quot;Bunny&quot; Manders,<br>&gt;   while leaving HER and THEM unaltered.<br></code></pre></div>
+            <p>...is a completely normal block quotation from a Markdown point of view, but the Inform documentation engine displays it in a special way:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn497" -->
+                <p class="defnprototype"><a id="defn497"></a>set pronouns from (object)</p>
+                <!-- END PHRASE -->
+                <p>This phrase adjusts the meaning of pronouns like IT, HIM, HER and THEM in
+                the command parser as if the object mentioned has become the subject of
+                conversation. Example: <code class="inlinesourcetext">set pronouns from</code> here -</p>
+                <!-- START CODE "code1924" -->
+                <blockquote class="extract-inform7"><a id="code1924"></a><span class="indexdullblue"><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">pronouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax">;</span>
+                <br>
+                <span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">pronouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bunny</span><span class="plain-syntax">;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>might change IT to mean the silver key and HIM to mean Harry &quot;Bunny&quot; Manders,
+                while leaving HER and THEM unaltered.</p>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_4.html"><span class="markdowncontent">Section 32.4: Run-time representations of Inform constructs</span></a> &bull; <a href="WI_32_6.html"><span class="markdowncontent">Section 32.6: Controlling how kits are linked</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_4.html"><span class="markdowncontent">Section 32.4: Longer code samples</span></a> &bull; <a href="WI_32_6.html"><span class="markdowncontent">Section 32.6: Notes, tips, and cautions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,70 +2212,106 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "How Inform reads quoted text" -->
+            <!-- SEARCH SECTION "5.2" -->
+            <!-- SEARCH SORT "001-005-002-000" -->
             <h3><span>Section 5.2: How Inform reads quoted text</span></h3>
-            <p>               </p>
+            <p>  
+               
+                  
+             
+
+             
+              </p>
             <p>Text is so fundamental to Inform that the basics had to be covered back in the <a href="WI_2_1.html" title="Chapter 2: The Source Text">The Source Text</a> chapter, so let's begin this new chapter with a recap.</p>
             <p>Literal text is written in double-quotation marks. It's mostly true that what you see is what you get: the literal text <code class="inlinesourcetext">&quot;The Hands of the Silversmith&quot;</code> prints back as <code class="inlinetranscript">The Hands of the Silversmith</code>.</p>
             <p>But four characters are read in unexpected ways: <code class="inlinesourcetext">[</code>, <code class="inlinesourcetext">]</code>, <code class="inlinesourcetext">'</code> and <code class="inlinesourcetext">&quot;</code>. The rules are as follows:</p>
             <p><strong>Exception 1.</strong> Square brackets <code class="inlinesourcetext">[</code> and <code class="inlinesourcetext">]</code> are used to describe what Inform should say, but in a non-literal way. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Your watch reads </span><span class="syntaxextract">[time of day]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code239" -->
+            <blockquote class="extract-inform7"><a id="code239"></a><span class="indexdullblue"><span class="string-syntax">&quot;Your watch reads [time of day].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might produce <code class="inlinetranscript">Your watch reads 9:02 AM.</code></p>
             <p>These are called <em>text substitutions</em>. They're highly flexible, and they can take many different forms. But as useful as they are, they do seem to stop us from making actual <code class="inlinetranscriptcommand">[</code> and <code class="inlinetranscriptcommand">]</code> characters come through on screen. To get around that:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[bracket]&quot;</p>
+                <!-- START PHRASE "defn7" -->
+                <p class="defnprototype"><a id="defn7"></a>say &quot;[bracket]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution expands to a single open square bracket, avoiding the problem that a literal [ in text would look to Inform like the opening of a substitution. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;He </span><span class="syntaxextract">[bracket]</span><span class="syntaxstring">Lord Astor</span><span class="syntaxextract">[close bracket]</span><span class="syntaxstring"> would, wouldn't he?&quot;</span>
+                <!-- START CODE "code240" -->
+                <blockquote class="extract-inform7"><a id="code240"></a><span class="indexdullblue"><span class="string-syntax">&quot;He [bracket]Lord Astor[close bracket] would, wouldn't he?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>prints as <code class="inlinetranscript">He [Lord Astor] would, wouldn't he?</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[close bracket]&quot;</p>
+                <!-- START PHRASE "defn8" -->
+                <p class="defnprototype"><a id="defn8"></a>say &quot;[close bracket]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution expands to a single close square bracket, avoiding the problem that a literal <code class="inlinesourcetext">]</code> in text would look to Inform like the closing of a substitution. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;He </span><span class="syntaxextract">[bracket]</span><span class="syntaxstring">Lord Astor</span><span class="syntaxextract">[close bracket]</span><span class="syntaxstring"> would, wouldn't he?&quot;</span>
+                <!-- START CODE "code241" -->
+                <blockquote class="extract-inform7"><a id="code241"></a><span class="indexdullblue"><span class="string-syntax">&quot;He [bracket]Lord Astor[close bracket] would, wouldn't he?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>prints as <code class="inlinetranscript">He [Lord Astor] would, wouldn't he?</code>.</p>
             </div>
             <p><strong>Exception 2.</strong> Single quotation marks at the edges of words are printed as double. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Simon says, 'It's far too heavy to lift.'&quot;</span>
+            <!-- START CODE "code242" -->
+            <blockquote class="extract-inform7"><a id="code242"></a><span class="indexdullblue"><span class="string-syntax">&quot;Simon says, 'It's far too heavy to lift.'&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces <code class="inlinetranscript">Simon says, &quot;It's far too heavy to lift.&quot;</code></p>
             <p>This is good because typing a double quotation mark inside the quote wouldn't work – it would end the text then and there. Single quotation marks inside words, such as the one in &quot;It's&quot;, remain apostrophes.</p>
             <p>The rule looks odd at first, but turns out to be very practical. The only problem arises if we need an apostrophe at the start or end of a word, or a double inside one. Again, substitutions can fix this:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[apostrophe/']&quot;</p>
+                <!-- START PHRASE "defn9" -->
+                <p class="defnprototype"><a id="defn9"></a>say &quot;[apostrophe/']&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution expands to a single quotation mark, avoiding Inform's ordinary rule of converting literal single quotation marks to double at the edges of words. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Lucy snaps, 'What's the matter? You don't trust my cookin</span><span class="syntaxextract">[apostrophe]</span><span class="syntaxstring"> mister?'&quot;</span>
+                <!-- START CODE "code243" -->
+                <blockquote class="extract-inform7"><a id="code243"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">outside</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lucy snaps, 'What's the matter? You don't trust my cookin[apostrophe] mister?'&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinetranscript">Lucy snaps, &quot;What's the matter? You don't trust my cookin' mister?&quot;</code></p>
                 <p>A more abbreviated form would be:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Lucy snaps, 'What's the matter? You don't trust my cookin</span><span class="syntaxextract">[']</span><span class="syntaxstring"> mister?'&quot;</span>
+                <!-- START CODE "code244" -->
+                <blockquote class="extract-inform7"><a id="code244"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">outside</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Lucy snaps, 'What's the matter? You don't trust my cookin['] mister?'&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which has exactly the same meaning.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[quotation mark]&quot;</p>
+                <!-- START PHRASE "defn10" -->
+                <p class="defnprototype"><a id="defn10"></a>say &quot;[quotation mark]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution expands to a double quotation mark. Most of the time this is unnecessary because of Inform's rule of converting literal single quotation marks to double at the edges of words, so it's needed only if we want a double-quote in the middle of a word for some reason. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The compass reads 41o21'23</span><span class="syntaxextract">[quotation mark]</span><span class="syntaxstring">E.&quot;</span>
+                <!-- START CODE "code245" -->
+                <blockquote class="extract-inform7"><a id="code245"></a><span class="indexdullblue"><span class="string-syntax">&quot;The compass reads 41o21'23[quotation mark]E.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which produces: <code class="inlinetranscript">The compass reads 41o21'23&quot;E.</code> (Note that <code class="inlinesourcetext">[&quot;]</code> is not allowed; a double-quotation mark is never allowed inside double-quoted text, not even in a text substitution.)</p>
             </div>
             <p><strong>Exception 3.</strong> Texts which end with sentence-ending punctuation – full stop, question mark, exclamation mark – are printed with a line break after them. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;i don't know how this ends&quot;</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code246" -->
+            <blockquote class="extract-inform7"><a id="code246"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;i don't know how this ends&quot;</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I know just how this ends!&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I know just how this ends!&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would come out quite differently – this doesn't affect the appearance of the text, but only the position where the next text will appear. Again, sometimes this is not what we want – the full rules are complicated enough to be worth a whole section later in the chapter.</p>
             <p><strong>A note about texts as values.</strong> At this stage we have mostly seen text used in properties or in <code class="inlinesourcetext">say</code> phrases, but texts are values. Getting a little ahead of ourselves, we can write rules or phrases which manipulate texts, or test them, in the same way we might calculate with numbers. For example, if <code class="inlinesourcetext">T1</code> and <code class="inlinesourcetext">T2</code> are text values, then</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T2</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code247" -->
+            <blockquote class="extract-inform7"><a id="code247"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">T1</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">T2</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is a condition which is true if they both currently work out to the same contents. Because of text substitutions, this can be true even if they appear to be different. For example, if a story contains rooms called <code class="inlinesourcetext">Draughting Office</code> and <code class="inlinesourcetext">Shipyards</code>, then whether <code class="inlinesourcetext">&quot;[the Office]&quot;</code> and <code class="inlinesourcetext">&quot;[the location]&quot;</code> are equal depends on where the player is. (If they <em>are</em> equal, they will both be equivalent to the unsubstituted text <code class="inlinesourcetext">&quot;Draughting Office&quot;</code>; if not, one will be <code class="inlinesourcetext">&quot;Draughting Office&quot;</code> and the other <code class="inlinesourcetext">&quot;Shipyards&quot;</code>.)</p>
             <p>Inform provides the adjectives <code class="inlinesourcetext">empty</code> and <code class="inlinesourcetext">non-empty</code> for texts, but again care is needed over substitutions. <code class="inlinesourcetext">if T is empty</code> is never true for text with a substitution in it, so it is not quite the same test as <code class="inlinesourcetext">if T is &quot;&quot;</code>. For more on this, see <a href="WI_6_4.html" title="Section 6.4: Defining adjectives for values">Defining adjectives for values</a>.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_1.html"><span class="markdowncontent">Chapter 5: Text</span></a> &bull; <a href="WI_5_3.html"><span class="markdowncontent">Section 5.3: Text which names things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

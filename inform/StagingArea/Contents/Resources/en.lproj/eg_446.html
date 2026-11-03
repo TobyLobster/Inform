@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,329 +2193,52 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg446><a style="text-decoration: none" href="WI_22_6.html"><span class="extensionexampleletter">446</span></a></span></div>
+                <span id=eg446><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleletter">446</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Cow Exonerated</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Creating a class of matches that burn for a time and then go out, with elegant reporting when several matches go out at once.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Igpay Atinlay</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A pig Latin filter for the player's commands.</span></span></div>
             <div class="exampleright">
-                <span id=eg446><a style="text-decoration: none" href="RB_10_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg446><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Here we create a class of matches that can be used to burn other objects. Our objectives are as follow:</p>
-        <p>Burned objects other than matches should be removed from play instantly (just as edible objects are instantly eaten). We could give everything its own burning duration, but that complicates matters and allows for fire to spread from one object to another; for an example of how to do that, see the example <a href="eg_429.html">In Fire or in Flood</a>.</p>
-        <p>Matches should be described to show whether they are burning or extinguished, and when the parser chooses one of several identical matches, it should make very clear which match it has selected.</p>
-        <p>The game must sensibly select and, if necessary, automatically light new matches to carry out a <code class="inlinetranscriptcommand">burn thing</code> command.</p>
-        <p>The matches must burn for a set number of turns before going out, never to be used again.</p>
-        <p>And finally, the part for which the text will be useful: when several matches go out in the same turn, we want the game to print</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Four</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">go</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">.</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Igpay Atinlay" -->
+        <!-- SEARCH SECTION "Example 446" -->
+        <!-- SEARCH SORT "003-446-000-000" -->
+        <p>   </p>
+        <p>For the sake of argument, suppose we want to parrot back all the player's commands in pig Latin:</p>
+        <!-- START CODE "code2242" -->
+        <blockquote class="extract-inform7"><a id="code2242"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Igpay Atinlay[=0x0022=][=0x000A=][=0x000A=]Armfay is a room.[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=][=0x005C=]b([=0x003C=]aeiou[=0x003E=]+)([=0x005C=]w*)[=0x0022=] in N with [=0x0022=][=0x005C=]1[=0x005C=]2ay[=0x0022=];[=0x000A=][=0x0009=]replace the regular expression [=0x0022=][=0x005C=]b([=0x003C=]bcdfghjklmnpqrstvwxz[=0x003E=]+)([=0x005C=]w*)[=0x0022=] in N with [=0x0022=][=0x005C=]2[=0x005C=]1ay[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=][N][paragraph break][=0x0022=];[=0x000A=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=][=0x000A=]Test me with [=0x0022=]nix on the stupid[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Igpay Atinlay&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Armfay</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[the player's command]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;\b(&lt;aeiou&gt;+)(\w*)&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;\1\2ay&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;\b(&lt;bcdfghjklmnpqrstvwxz&gt;+)(\w*)&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;\2\1ay&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[N][paragraph break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">reject</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;nix on the stupid&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>rather than</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">goes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>This last function appears down in Section 3, if we wish to skip ahead and look at it.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Cow Exonerated[=0x0022=][=0x000A=][=0x000A=]Section 1 - Simple Burning[=0x000A=][=0x000A=]Understand the commands [=0x0022=]light[=0x0022=] and [=0x0022=]burn[=0x0022=] as something new.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [something] with [strikable-match][=0x0022=] as burning it with. Understand [=0x0022=]burn [something] with [something preferably held][=0x0022=] as burning it with. Burning it with is an action applying to one thing and one carried thing.[=0x000A=][=0x000A=]Understand the command [=0x0022=]light[=0x0022=] as [=0x0022=]burn[=0x0022=].[=0x000A=][=0x000A=]A thing can be flammable or impervious. A thing is usually impervious.[=0x000A=][=0x000A=]Check burning something with something (this is the burn only with flaming matches rule):[=0x000A=][=0x0009=]if the second noun is not a strikable-match, say [=0x0022=]You can only light things with matches.[=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not flaming, say [=0x0022=][The second noun] needs to be burning first.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something (this is the burn only flammable things rule):[=0x000A=][=0x0009=]if the noun is impervious, say [=0x0022=][The noun] cannot be burned.[=0x0022=] instead.[=0x000A=][=0x000A=]Check burning something with something (this is the burn only things not held rule):[=0x000A=][=0x0009=]say [=0x0022=][one of]It occurs to you to set down [the noun] before burning, just for safety[=0x0027=]s sake. [or]Again, you decide to put down [the noun] prior to burning. [or]You try setting down [the noun] as usual. [stopping][run paragraph on][=0x0022=];[=0x000A=][=0x0009=]silently try the player dropping the noun;[=0x000A=][=0x0009=]if the player encloses the noun, stop the action.[=0x000A=][=0x000A=]Carry out burning something with something (this is the simplistic burning rule):[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]Report burning something with something:[=0x000A=][=0x0009=]say [=0x0022=]You burn up [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for implicitly taking the second noun while burning something with something which is not a strikable-match:[=0x000A=][=0x0009=]say [=0x0022=]You can only light things with matches.[=0x0022=];[=0x000A=][=0x0009=]stop the action.[=0x000A=][=0x000A=]Section 2 - Matches[=0x000A=][=0x000A=]A strikable-match is a kind of thing. The plural of strikable-match is s-matches.[=0x000A=][=0x000A=]A strikable-match has a number called burn time. The burn time of a strikable-match is usually 3.[=0x000A=][=0x000A=]Rule for printing the name of a strikable-match: say [=0x0022=]match[=0x0022=].[=0x000A=]Rule for printing the plural name of a strikable-match: say [=0x0022=]matches[=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]match[=0x0022=] as a strikable-match. Understand [=0x0022=]matches[=0x0022=] as a strikable-match.[=0x000A=][=0x000A=]Flame-state is a kind of value. The flame-states are burnt, flaming, and new. Understand [=0x0022=]burning[=0x0022=] or [=0x0022=]lit[=0x0022=] as flaming. Understand [=0x0022=]unused[=0x0022=] as new.[=0x000A=][=0x000A=]A strikable-match has a flame-state. A strikable-match is usually new. Understand the flame-state property as describing a strikable-match.[=0x000A=][=0x000A=]Before printing the name of a strikable-match while asking which do you mean:[=0x000A=][=0x0009=]say [=0x0022=][flame-state] [=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a strikable-match while taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][flame-state] [=0x0022=].[=0x000A=]Before printing the plural name of a strikable-match while taking inventory:[=0x000A=][=0x0009=]say [=0x0022=][flame-state] [=0x0022=].[=0x000A=][=0x000A=]Before printing the name of a strikable-match while clarifying the parser[=0x0027=]s choice of something:[=0x000A=][=0x0009=]if not taking inventory, say [=0x0022=][flame-state] [=0x0022=].[=0x000A=][=0x000A=]After printing the name of a strikable-match (called special-target) while clarifying the parser[=0x0027=]s choice of something:[=0x000A=][=0x0009=]if the player carries the special-target:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] you[=0x0027=]re carrying[=0x0022=];[=0x000A=][=0x0009=]otherwise if the special-target is in the location:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] on the ground[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] [if the holder of the special-target is a container]in[otherwise]on[end if] [the holder of the special-target][=0x0022=].[=0x000A=][=0x000A=]Understand [=0x0022=]strike [something][=0x0022=] as attacking.[=0x000A=][=0x000A=]Understand [=0x0022=]strike [strikable-match][=0x0022=] as striking. Striking is an action applying to one carried thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [strikable-match][=0x0022=] as striking.[=0x000A=][=0x000A=]Does the player mean striking a new strikable-match:[=0x000A=][=0x0009=]it is very likely.[=0x000A=][=0x000A=]Does the player mean striking a burnt strikable-match:[=0x000A=][=0x0009=]it is unlikely.[=0x000A=][=0x000A=]Check striking a strikable-match (this is the strike only new matches rule):[=0x000A=][=0x0009=]if the noun is burnt, say [=0x0022=][The noun] has already burnt down and cannot be relit.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is flaming, say [=0x0022=][The noun] is already burning.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out striking a strikable-match (this is the standard striking rule):[=0x000A=][=0x0009=]now the noun is flaming;[=0x000A=][=0x0009=]now the noun is lit.[=0x000A=][=0x000A=]Report striking a strikable-match (this is the standard report striking rule):[=0x000A=][=0x0009=]say [=0x0022=]You light [the noun].[=0x0022=][=0x000A=][=0x000A=]Before burning something with a new strikable-match (this is the prior lighting rule):[=0x000A=][=0x0009=]say [=0x0022=](first [if the player does not carry the second noun]taking and [end if]lighting [the second noun])[command clarification break][=0x0022=];[=0x000A=][=0x0009=]silently try striking the second noun;[=0x000A=][=0x0009=]if the second noun is not flaming, stop the action.[=0x000A=][=0x000A=]Rule for implicitly taking a strikable-match (called target) while striking:[=0x000A=][=0x0009=]try silently taking the target.[=0x000A=][=0x000A=]Does the player mean burning something with a flaming strikable-match:[=0x000A=][=0x0009=]it is very likely.[=0x000A=][=0x000A=]Does the player mean burning something with a new strikable-match:[=0x000A=][=0x0009=]it is likely.[=0x000A=][=0x000A=]Does the player mean burning something with a burnt strikable-match:[=0x000A=][=0x0009=]it is unlikely.[=0x000A=][=0x000A=]Instead of burning a burnt strikable-match with something:[=0x000A=][=0x0009=]say [=0x0022=][The noun] is completely consumed and cannot be relit.[=0x0022=][=0x000A=][=0x000A=]Section 3 - Putting the Matches Out[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]let N be 0; [here we track how many matches are being put out during this turn, so that we don[=0x0027=]t have to mention each match individually if several go out during the same move][=0x000A=][=0x0009=]repeat with item running through flaming s-matches:[=0x000A=][=0x0009=][=0x0009=]decrement the burn time of the item;[=0x000A=][=0x0009=][=0x0009=]if the burn time of the item is 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is burnt;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]now the item is unlit;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if the item is visible, increment N;[=0x000A=][=0x0009=]if N is 1:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if the number of visible flaming s-matches is greater than 0]One of the matches [otherwise if the number of burnt visible s-matches is greater than 1]Your last burning match [otherwise]The match [end if]goes out.[=0x0022=];[=0x000A=][=0x0009=]otherwise if N is greater than 1:[=0x000A=][=0x0009=][=0x0009=]let enumeration be [=0x0022=][N in words][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if N is the number of visible s-matches:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if N is two, say [=0x0022=]Both[=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]otherwise say [=0x0022=]All [enumeration][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][enumeration in title case][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=] matches go out[if a visible strikable-match is flaming], leaving [number of visible flaming s-matches in words] still lit[end if].[=0x0022=][=0x000A=][=0x000A=]Section 4 - Scenario[=0x000A=][=0x000A=]Old Chicago is a room.[=0x000A=][=0x000A=]The player carries a flammable thing called a log. Understand [=0x0022=]wooden[=0x0022=] and [=0x0022=]wood[=0x0022=] as the log.[=0x000A=][=0x000A=]The player carries two s-matches. The matchbox is an open openable container. It contains five s-matches. The player carries the matchbox.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now every strikable-match carried by the player is flaming;[=0x000A=][=0x0009=]now every strikable-match carried by the player is lit.[=0x000A=][=0x000A=]Test me with [=0x0022=]i / burn match / i / i / burn log with match / burn matchbox with match / i[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;The Cow Exonerated&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 1 - Simple Burning</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">commands</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;light&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[strikable-match]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[something preferably held]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;light&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flammable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">impervious</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">impervious</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can only light things with matches.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The second noun]</span><span class="syntaxstring"> needs to be burning first.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flammable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">impervious</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> cannot be burned.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">held</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[one of]</span><span class="syntaxstring">It occurs to you to set down </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> before burning, just for safety's sake. </span><span class="syntaxextract">[or]</span><span class="syntaxstring">Again, you decide to put down </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> prior to burning. </span><span class="syntaxextract">[or]</span><span class="syntaxstring">You try setting down </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> as usual. </span><span class="syntaxextract">[stopping][run paragraph on]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">encloses</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">, </span><span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">simplistic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You burn up </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">implicitly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can only light things with matches.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - Matches</span>
-        </span></blockquote>
-        <p>The word <code class="inlinetranscriptcommand">matches</code> is used by Inform to compare snippets of text (see <a href="WI_20_35.html" title="Section 20.35: Reading a command">Reading a command</a> in the <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a> chapter). This can sometimes cause awkwardness if we also have a kind called &quot;match&quot;, so for the occasion we will give our matches a more specialised name, never visible to the player:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">s</span><span class="syntaxplain">-</span><span class="syntaxidentifier">matches</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;match&quot;</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;matches&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;match&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;matches&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Flame</span><span class="syntaxplain">-</span><span class="syntaxidentifier">state</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flame</span><span class="syntaxplain">-</span><span class="syntaxidentifier">states</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain">, </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burning&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lit&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;unused&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flame</span><span class="syntaxplain">-</span><span class="syntaxidentifier">state</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flame</span><span class="syntaxplain">-</span><span class="syntaxidentifier">state</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">do</span><span class="syntaxplain"> </span><span class="syntaxidentifier">you</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[flame-state]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inventory</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[flame-state]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inventory</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[flame-state]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clarifying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inventory</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[flame-state]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">special</span><span class="syntaxplain">-</span><span class="syntaxidentifier">target</span><span class="syntaxplain">) </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clarifying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">special</span><span class="syntaxplain">-</span><span class="syntaxidentifier">target</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; you're carrying&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">special</span><span class="syntaxplain">-</span><span class="syntaxidentifier">target</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; on the ground&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; </span><span class="syntaxextract">[if the holder of the special-target is a container]</span><span class="syntaxstring">in</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">on</span><span class="syntaxextract">[end if]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the holder of the special-target]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;strike </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attacking</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;strike </span><span class="syntaxextract">[strikable-match]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn </span><span class="syntaxextract">[strikable-match]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">very</span><span class="syntaxplain"> </span><span class="syntaxidentifier">likely</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlikely</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strike</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> has already burnt down and cannot be relit.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is already burning.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">standard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">standard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You light </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prior</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lighting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(first </span><span class="syntaxextract">[if the player does not carry the second noun]</span><span class="syntaxstring">taking and </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">lighting </span><span class="syntaxextract">[the second noun]</span><span class="syntaxstring">)</span><span class="syntaxextract">[command clarification break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">, </span><span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">implicitly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">target</span><span class="syntaxplain">) </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">striking</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">target</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">very</span><span class="syntaxplain"> </span><span class="syntaxidentifier">likely</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">likely</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mean</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlikely</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is completely consumed and cannot be relit.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 3 - Putting the Matches Out</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">; </span><span class="syntaxcomment">[here we track how many matches are being put out during this turn, so that we don't have to mention each match individually if several go out during the same move]</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain"> </span><span class="syntaxidentifier">s</span><span class="syntaxplain">-</span><span class="syntaxidentifier">matches</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decrement</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burnt</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlit</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain">, </span><span class="syntaxidentifier">increment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if the number of visible flaming s-matches is greater than 0]</span><span class="syntaxstring">One of the matches </span><span class="syntaxextract">[otherwise if the number of burnt visible s-matches is greater than 1]</span><span class="syntaxstring">Your last burning match </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">The match </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">goes out.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enumeration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[N in words]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">s</span><span class="syntaxplain">-</span><span class="syntaxidentifier">matches</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Both&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;All </span><span class="syntaxextract">[enumeration]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[enumeration in title case]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; matches go out</span><span class="syntaxextract">[if a visible strikable-match is flaming]</span><span class="syntaxstring">, leaving </span><span class="syntaxextract">[number of visible flaming s-matches in words]</span><span class="syntaxstring"> still lit</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 4 - Scenario</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Old</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chicago</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flammable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">log</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wooden&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wood&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">log</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">s</span><span class="syntaxplain">-</span><span class="syntaxidentifier">matches</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matchbox</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">s</span><span class="syntaxplain">-</span><span class="syntaxidentifier">matches</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matchbox</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flaming</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strikable</span><span class="syntaxplain">-</span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;i / burn match / i / i / burn log with match / burn matchbox with match / i&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_22_6.html>Section 22.6: Making new text with text substitutions</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_22_7.html>Section 22.7: Replacements</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

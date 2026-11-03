@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,64 +2193,93 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg130><a style="text-decoration: none" href="WI_8_10.html"><span class="extensionexampleletter">130</span></a></span></div>
+                <span id=eg130><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleletter">130</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Extra Supplies</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A supply of red pens from which the player can take another pen only if he doesn't already have one somewhere in the game world.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Technological Terror</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A ray gun which destroys objects, leaving their component parts behind.</span></span></div>
             <div class="exampleright">
-                <span id=eg130><a style="text-decoration: none" href="RB_10_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg130><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose we have a supply closet in our game from which the player is allowed to take red pens. To keep modeling simple, we only allow them to have one in play at a time, and we test this by seeing whether the red pen is <code class="inlinesourcetext">off-stage</code> before moving it to their possession.</p>
-        <p>This approach might seem no different from having a single red pen sitting in the closet, but it may be preferable, for two reasons. First, it's not very plausible for a supply closet to contain nothing but a single red pen (well, assuming a well-regulated supplier, anyway); and second, it gives the player a way to get a new red pen should the original be destroyed in a tragic handwriting accident.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Extra Supplies[=0x0022=][=0x000A=][=0x000A=]The Supply Closet is a room. A supply of red pens is in the Supply Closet. Understand [=0x0022=]pen[=0x0022=] as the supply of red pens when the red pen is not visible.[=0x000A=][=0x000A=]There is a red pen.[=0x000A=][=0x000A=]Instead of taking the supply of red pens:[=0x000A=][=0x0009=]if the red pen is off-stage:[=0x000A=][=0x0009=][=0x0009=]move the red pen to the player;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You help yourself to a fresh red pen.[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You[=0x0027=]re only allowed one pen at a time. The department secretary is very strict.[=0x0022=][=0x000A=][=0x000A=]South of the Supply Closet is the Furnace Room. The incinerator is a thing in the Furnace Room. It is a container. [=0x0022=]The incinerator is here, working full blast.[=0x0022=][=0x000A=][=0x000A=]After inserting something into the incinerator:[=0x000A=][=0x0009=]now the noun is nowhere;[=0x000A=][=0x0009=]say [=0x0022=]A fiery blast consumes [the noun]![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Extra Supplies&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Technological Terror" -->
+        <!-- SEARCH SECTION "Example 130" -->
+        <!-- SEARCH SORT "003-130-000-000" -->
+        <p>     </p>
+        <!-- START CODE "code2552" -->
+        <blockquote class="extract-inform7"><a id="code2552"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Technological Terror[=0x0022=][=0x000A=][=0x000A=]The Decomposition Ray Gun is a thing carried by the player.[=0x000A=][=0x000A=]Shooting it with is an action applying to two things.[=0x000A=][=0x000A=]Check shooting something with something:[=0x000A=][=0x0009=]if the player is not carrying the Ray Gun, say [=0x0022=]You are pathetically unarmed![=0x0022=] instead;[=0x000A=][=0x0009=]if the second noun is not the Ray Gun, say [=0x0022=][The second noun] does not fire.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the Ray Gun, say [=0x0022=]Nice trick if you can do it![=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is the player, say [=0x0022=]That would be disastrous![=0x0022=] instead.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed).[=0x000A=][=0x000A=]Definition: a thing is ungunlike if it is not the gun.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]shoot [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Understand [=0x0022=]shoot [something] at [something][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire [gun] at [something ungunlike][=0x0022=] as shooting it with (with nouns reversed). Understand [=0x0022=]fire at [something ungunlike] with [gun][=0x0022=] as shooting it with. Understand [=0x0022=]fire at [something] with [something][=0x0022=] as shooting it with.[=0x000A=][=0x000A=]Carry out shooting something with something:[=0x000A=][=0x0009=]say [=0x0022=]ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break][=0x0022=];[=0x000A=][=0x0009=]now every thing which is part of the noun is in the location;[=0x000A=][=0x0009=]now the noun is nowhere.[=0x000A=][=0x000A=]The Deathbot Assembly Line is a room. [=0x0022=]Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.[=0x0022=] The dangerous robot is a thing in the Assembly Line. [=0x0022=]One dangerous robot looks ready to take you on![=0x0022=] A robotic head, a drill arm, a needle arm, a crushing leg and a kicking leg are parts of the dangerous robot.[=0x000A=][=0x000A=]Instead of examining something when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] consists of [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Technological Terror&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Closet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pens</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Closet</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;pen&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pens</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">There</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pens</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stage</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You help yourself to a fresh red pen.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You're only allowed one pen at a time. The department secretary is very strict.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">South</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Supply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Closet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Furnace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">incinerator</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Furnace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The incinerator is here, working full blast.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inserting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">incinerator</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A fiery blast consumes </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;get pen / i / get pen / get supply / s / put pen in incinerator / n / get pen&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Decomposition</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ray</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>First we need to define our shooting action:</p>
+        <!-- START CODE "code2553" -->
+        <blockquote class="extract-inform7"><a id="code2553"></a><span class="indexdullblue"><span class="identifier-syntax">Shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">things</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ray</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gun</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are pathetically unarmed!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ray</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gun</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The second noun] does not fire.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ray</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gun</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Nice trick if you can do it!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;That would be disastrous!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Next, some grammar to allow the player to use this action:</p>
+        <!-- START CODE "code2554" -->
+        <blockquote class="extract-inform7"><a id="code2554"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [gun] at [something ungunlike]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">).</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Definition</span><span class="plain-syntax">: </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ungunlike</span><span class="plain-syntax"> </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gun</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [something ungunlike] with [gun]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [something] with [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shoot [something] at [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">). </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fire [gun] at [something ungunlike]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">). </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fire at [something ungunlike] with [gun]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fire at [something] with [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Strictly speaking, we only need these last grammar lines (with <code class="inlinesourcetext">Understand &quot;shoot [something]...&quot;</code>) in order to define an action that the player can take. Adding more grammar lines means that Inform will try to match the most specific ones first, which is useful when the player types something ambiguous and there is one choice that obviously fits this action better than the others. See the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a> for a further discussion.</p>
+        <p>Here we get to use <code class="inlinesourcetext">now</code> to give it its destructive effect:</p>
+        <!-- START CODE "code2555" -->
+        <blockquote class="extract-inform7"><a id="code2555"></a><span class="indexdullblue"><span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">shooting</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ZAP! [The noun] twinkles out of existence! [if something is part of the noun][The list of things which are part of the noun] clatter to the ground! [end if][paragraph break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">every</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deathbot</span><span class="plain-syntax"> </span><span class="identifier-syntax">Assembly</span><span class="plain-syntax"> </span><span class="identifier-syntax">Line</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Here is the heart of the whole operation, where your opponents are assembled fresh from scrap metal and bits of old car.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">dangerous</span><span class="plain-syntax"> </span><span class="identifier-syntax">robot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Assembly</span><span class="plain-syntax"> </span><span class="identifier-syntax">Line</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;One dangerous robot looks ready to take you on!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">robotic</span><span class="plain-syntax"> </span><span class="identifier-syntax">head</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">drill</span><span class="plain-syntax"> </span><span class="identifier-syntax">arm</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">needle</span><span class="plain-syntax"> </span><span class="identifier-syntax">arm</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">crushing</span><span class="plain-syntax"> </span><span class="identifier-syntax">leg</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kicking</span><span class="plain-syntax"> </span><span class="identifier-syntax">leg</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dangerous</span><span class="plain-syntax"> </span><span class="identifier-syntax">robot</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] consists of [a list of things which are part of the noun].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x robot / shoot robot / fire at kicking leg / shoot gun at drill arm / look&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_8_10.html>Section 8.10: Removing things from play</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_8_11.html>Section 8.11: Now...</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

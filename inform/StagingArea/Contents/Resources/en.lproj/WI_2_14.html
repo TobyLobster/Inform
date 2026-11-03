@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Does Inform really understand English?" -->
+            <!-- SEARCH SECTION "2.14" -->
+            <!-- SEARCH SORT "001-002-014-000" -->
             <h3><span>Section 2.14: Does Inform really understand English?</span></h3>
             <p> </p>
             <p>No.</p>
@@ -2134,33 +2223,43 @@
             <p>But certainly plenty of modern software services seem able to <em>fake</em> an understanding of language fairly well. Many queries seem to be handled very well, but others bizarrely, and often with users unable to see why one thing should be easy and another difficult. It's an approximate business, where users have no guarantee that what worked today will work tomorrow.</p>
             <p>Inform takes a different approach. It is a programming language, meaning that it gives a way for authors to express precisely what a computer should do. Authors may have trouble remembering the right way to do something, but once they do remember, they can rely on that working.</p>
             <p>Inform aims to be &quot;legible&quot;, in the sense that a casual read-through of some source text usually gives a fairly good idea of what it does. <code class="inlinesourcetext">The gold chain is in the window-seat</code> is not hard to follow, for example. But Inform does not aim to accept everything a human might write. For instance, Inform understands</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span>
+            <!-- START CODE "code45" -->
+            <blockquote class="extract-inform7"><a id="code45"></a><span class="indexdullblue"><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>but not (at present, anyway)</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span>
+            <!-- START CODE "code46" -->
+            <blockquote class="extract-inform7"><a id="code46"></a><span class="indexdullblue"><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>even though both are perfectly good English. So it is not always safe to assume that Inform will understand any reasonable instruction it is given: when in doubt, we must go back to the manual.</p>
             <p>More philosophically, just because Inform recognises and acts on a sentence, does it really understand what we meant? It will turn out that Inform is both good and bad at this. For instance, from</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Darcy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code47" -->
+            <blockquote class="extract-inform7"><a id="code47"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Darcy</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform will correctly deduce that Darcy is a person, because inanimate objects do not ordinarily wear clothes, and that the top hat is clothing. But it will not automatically know that Darcy is a man rather than a woman because it does not know the social convention implied by &quot;Mr&quot;. Moreover, if instead we had written</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Darcy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code48" -->
+            <blockquote class="extract-inform7"><a id="code48"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Darcy</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then Inform would not guess that the top hat is clothing. This is because it does not have the vast vocabulary and experience of a human reader: it is probably discovering the word &quot;hat&quot; for the first time.</p>
             <p>Finally, it is best to avoid ambiguities rather than rely on Inform to know which meaning is patently absurd. For instance, in</p>
             <blockquote>
             <p><strong>Heatwave bone breaks clog hospital</strong></p>
             </blockquote>
             <p>(a headline once printed by the <em>Oxford Mail</em> newspaper) a human reader quickly realises that there is no clog hospital being broken by a heatwave bone. But if Inform had been taught the verbs <em>to break</em> and <em>to clog</em> then that is exactly the conclusion it would have drawn. Or an example which genuinely arose in beta-testing:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">life</span><span class="syntaxplain"> </span><span class="syntaxidentifier">support</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fits</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">egg</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code49" -->
+            <blockquote class="extract-inform7"><a id="code49"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">life</span><span class="plain-syntax"> </span><span class="identifier-syntax">support</span><span class="plain-syntax"> </span><span class="identifier-syntax">unit</span><span class="plain-syntax"> </span><span class="identifier-syntax">fits</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">egg</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>in which Inform construed the verb as <code class="inlinesourcetext">support</code> and not <code class="inlinesourcetext">fits</code>, and then created items called &quot;the life&quot; and &quot;unit fits the egg&quot;.</p>
             <p>That disclaimer completes the groundwork, and we are ready to begin on simulating a world to explore.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_13.html"><span class="markdowncontent">Section 2.13: What to do about a bug</span></a> &bull; <a href="WI_3_1.html"><span class="markdowncontent">Chapter 3: Things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

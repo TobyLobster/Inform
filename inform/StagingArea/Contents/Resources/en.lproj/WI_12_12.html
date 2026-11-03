@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,38 +2212,50 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Next and break" -->
+            <!-- SEARCH SECTION "12.12" -->
+            <!-- SEARCH SORT "001-012-012-000" -->
             <h3><span>Section 12.12: Next and break</span></h3>
             <p>  </p>
             <p>So <code class="inlinesourcetext">repeat</code> and <code class="inlinesourcetext">while</code> phrases cause a block of other phrases to be repeated, over and over. The number of repetitions and the flow of &quot;control&quot; has so far been controlled only by the way the original loop was described.</p>
             <p>But in fact it's also possible to change this from inside the block being repeated, using these:</p>
             <div class="definition">
-                <p class="defnprototype">next</p>
+                <!-- START PHRASE "defn165" -->
+                <p class="defnprototype"><a id="defn165"></a>next</p>
+                <!-- END PHRASE -->
                 <p>This phrase can only be used inside a <code class="inlinesourcetext">repeat</code> or <code class="inlinesourcetext">while</code> block, and causes the current repetition of the block to finish immediately. That either means the next repetition begins, or (if we are already at the last one) the loop ends too. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code776" -->
+                <blockquote class="extract-inform7"><a id="code776"></a><span class="indexdullblue"><span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxidentifier">next</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="identifier-syntax">next</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[X]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[X] &quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces the text &quot;1 2 3 5 6 7 8 9 10 &quot;, with no &quot;4&quot; because the <code class="inlinesourcetext">say</code> phrase was never reached on the fourth repetition.</p>
             </div>
             <p>In Monopoly terms, <code class="inlinesourcetext">next</code> is &quot;Advance to Go&quot; rather than &quot;go directly, do not pass Go, do not collect $200&quot; – the next iteration begins with the variable, if there is one, having cleanly moved on to the next value, just as if the loop had been run through in the normal way. (<code class="inlinesourcetext">Next</code> is called <code class="inlinesourcetext">continue</code> in a fair number of programming languages, so Inform issues a specific problem message to help people who forget this.)</p>
             <div class="definition">
-                <p class="defnprototype">break</p>
+                <!-- START PHRASE "defn166" -->
+                <p class="defnprototype"><a id="defn166"></a>break</p>
+                <!-- END PHRASE -->
                 <p>This phrase can only be used inside <code class="inlinesourcetext">repeat</code>, <code class="inlinesourcetext">while</code> block, and causes both the current repetition and the entire loop to finish immediately. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code777" -->
+                <blockquote class="extract-inform7"><a id="code777"></a><span class="indexdullblue"><span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">, </span><span class="syntaxidentifier">break</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">, </span><span class="identifier-syntax">break</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[X]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[X] &quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces the text &quot;1 2 3 4 5 6 &quot;, with nothing after &quot;6&quot; because the loop was broken at that point. The <code class="inlinesourcetext">say</code> wasn't reached on the 7th repetition, and the 8th, 9th and 10th never happened.</p>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_11.html"><span class="markdowncontent">Section 12.11: Repeat running through</span></a> &bull; <a href="WI_12_13.html"><span class="markdowncontent">Section 12.13: Stop</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

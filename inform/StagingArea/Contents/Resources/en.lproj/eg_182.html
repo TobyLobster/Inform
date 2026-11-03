@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,479 +2193,160 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg182><a style="text-decoration: none" href="WI_11_5.html"><span class="extensionexampleletter">182</span></a></span></div>
+                <span id=eg182><a style="text-decoration: none" href="WI_11_11.html"><span class="extensionexampleletter">182</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Text Foosball Commentated</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A foosball game where the other character not only plays against us but reacts to the state of gameplay and riffs on previously-mentioned topics.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal Revisited</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Mr Spruce proposes again, this time using the dialogue system.</span></span></div>
             <div class="exampleright">
-                <span id=eg182><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg182><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>In some stories, the player is mostly talking to another character, and their interactions with the environment are largely incidental. In others, the environmental interaction is the main thing – or at least an important priority – but we want the other character to keep up a bit of small talk that feels responsive to world state.</p>
-        <p>This example explores the latter situation. As in &quot;Text Foosball&quot;, we have a fairly randomised foosball game we can play against our opponent Joey; in this case, however, he can use the dialogue system to react to his own mistakes, comment on the state of play generally, riff on prior discussion, or (inevitably) hit up the player for a loan.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Text Foosball Commentated[=0x0022=][=0x000A=][=0x000A=]Chapter 1 - Distraction[=0x000A=][=0x000A=]Section 1 - The Game[=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]The Lounge is a room. [=0x0022=]The Lounge is appointed with everything necessary to rest and relaxation: a vending machine, a potted palm, a stack of Entertainment Weekly issues from 1993, and -- your pride and joy -- a foosball game.[=0x0022=][=0x000A=][=0x000A=]The foosball game is scenery in the Lounge. Understand [=0x0022=]table[=0x0022=] or [=0x0022=]football[=0x0022=] or [=0x0022=]foozball[=0x0022=] or [=0x0022=]fussball[=0x0022=] or [=0x0022=]soccer[=0x0022=] as the foosball game. The game is a supporter. On the game is a small white ball. The ball can be still, approaching, receding, or unreachable. The description of the ball is [=0x0022=]Currently [small white ball condition].[=0x0022=][=0x000A=][=0x000A=]After printing the name of the small white ball, say [=0x0022=] ([small white ball condition])[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]You: [score][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=]Joey: [Joey[=0x0027=]s score][=0x0022=].[=0x000A=][=0x000A=]Some tiny men on sticks are part of the game. Understand [=0x0022=]handles[=0x0022=] as the tiny men. The description is [=0x0022=]Okay, a couple of the tiny men have had their feet broken off, and the table surface itself is a bit warped, and the ball resembles a quail egg in respect of shape and color. This makes for a game of unusual randomness, but skill is overrated.[=0x0022=][=0x000A=][=0x000A=]Instead of attacking or pulling or pushing the game when the ball is unreachable:[=0x000A=][=0x0009=]say [=0x0022=]You give the table a good shove, and the ball moves ever-so-slightly.[=0x0022=];[=0x000A=][=0x0009=]now the ball is still.[=0x000A=][=0x000A=]Instead of taking the white ball:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d forfeit the game if you did that.[=0x0022=][=0x000A=][=0x000A=]Instead of turning the tiny men when the ball is unreachable:[=0x000A=][=0x0009=]say [=0x0022=]The ball has somehow gotten to a mystical point on the table where it cannot be reached, no matter what. Close inspection reveals that this point has been marked in chalk with a tiny X. Not that that does any good.[=0x0022=][=0x000A=][=0x000A=]Instead of turning the tiny men when the ball is approaching:[=0x000A=][=0x0009=]if a random chance of 2 in 3 succeeds:[=0x000A=][=0x0009=][=0x0009=]if a random chance of 1 in 2 succeeds, now the ball is receding;[=0x000A=][=0x0009=][=0x0009=]otherwise now the ball is still;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][if the ball is still]Thunk. [otherwise]Thwack! [end if]You keep the ball from reaching its goal! Now it is [small white ball condition].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]let Joey score.[=0x000A=][=0x000A=]To let Joey score:[=0x000A=][=0x0009=]now the ball is still;[=0x000A=][=0x0009=]now Joey[=0x0027=]s score is Joey[=0x0027=]s score + 1;[=0x000A=][=0x0009=]say [=0x0022=]The ball rolls neatly into your goal, despite your efforts. [=0x0022=];[=0x000A=][=0x0009=]if Joey[=0x0027=]s score [=0x003C=] score, say [=0x0022=]You put the ball back in the center with a snap. No reason to worry yet; you[=0x0027=]re still ahead. Joey looks determined, though.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]After allowing a moment or two for Joey[=0x0027=]s gloating to pass, you replace it at the center.[=0x0022=][=0x000A=][=0x000A=]Instead of turning the tiny men when a random chance of 1 in 13 succeeds:[=0x000A=][=0x0009=]if the ball is unreachable, continue the action;[=0x000A=][=0x0009=]now the ball is unreachable;[=0x0009=][=0x000A=][=0x0009=]say [=0x0022=]You hit the ball off-center and it rolls sluggishly into a little dip in the surface of the foosball table. [=0x0022=];[=0x000A=][=0x0009=]if Joey[=0x0027=]s score [=0x003E=] 7, say [=0x0022=][=0x0027=]You did that on purpose![=0x0027=] Joey exclaims indignantly.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]You and Joey exchange glances. This is never good.[=0x0022=][=0x000A=][=0x0009=][=0x000A=]Instead of turning the tiny men:[=0x000A=][=0x0009=]say [=0x0022=]You madly rotate the tiny men on sticks! [=0x0022=];[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Hoorah! You hit the ball![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]now the ball is receding;[=0x000A=][=0x0009=]otherwise:[=0x0009=][=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Somehow you fail to bring your monopodal player into contact with the ball.[=0x0022=][=0x000A=][=0x000A=]Joey is a man in the Lounge. [=0x0022=]Joey is hunkered over the foosball handles on his side of the table.[=0x0022=] Joey can be active or inactive.[=0x000A=][=0x000A=]Joey[=0x0027=]s score is a number that varies.[=0x000A=][=0x000A=]Every turn: now Joey is active.[=0x000A=][=0x000A=]Every turn when the ball is approaching and Joey is active:[=0x000A=][=0x0009=]let total be Joey[=0x0027=]s score + score;[=0x000A=][=0x0009=]if total [=0x003E=] 9, make no decision;[=0x000A=][=0x0009=]now Joey is inactive;[=0x000A=][=0x0009=]let Joey score;[=0x000A=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Every turn when the ball is unreachable and Joey is active:[=0x000A=][=0x0009=]let total be Joey[=0x0027=]s score + score;[=0x000A=][=0x0009=]if total [=0x003E=] 9, make no decision;[=0x000A=][=0x0009=]now Joey is inactive;[=0x000A=][=0x0009=]say [=0x0022=]Joey glares angrily at the stuck ball.[=0x0022=][=0x000A=][=0x000A=]Every turn when the ball is receding and Joey is active:[=0x000A=][=0x0009=]let total be Joey[=0x0027=]s score + score;[=0x000A=][=0x0009=]if total [=0x003E=] 9, make no decision;[=0x000A=][=0x0009=]if the ball is unreachable, make no decision;[=0x000A=][=0x0009=]now Joey is inactive;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=][=0x0009=]if a random chance of 1 in 2 succeeds, now the ball is still;[=0x000A=][=0x0009=][=0x0009=]otherwise now the ball is approaching;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Joey connects with your shot. Now the ball is [small white ball condition]![=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now the ball is still;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Joey tries to block, but misses! Back it goes in the center, where it is [small white ball condition].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]increment the score.[=0x000A=][=0x000A=]Every turn when the ball is still and Joey is active:[=0x000A=][=0x0009=]let total be Joey[=0x0027=]s score + score;[=0x000A=][=0x0009=]if total [=0x003E=] 9, make no decision;[=0x000A=][=0x0009=]if the ball is unreachable, make no decision;[=0x000A=][=0x0009=]now Joey is inactive;[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=][=0x0009=]now the ball is approaching;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Joey hits the ball solidly down towards your goal. Now it is [small white ball condition].[=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Joey fails to hit the ball in your direction. It remains [small white ball condition].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]perform the joey remarks failure beat.[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]let total be Joey[=0x0027=]s score + score;[=0x000A=][=0x0009=]if total [=0x003E=] 9:[=0x000A=][=0x0009=][=0x0009=]if Joey[=0x0027=]s score [=0x003E=] score, end the story saying [=0x0022=]Rats! Joey wins![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if Joey[=0x0027=]s score [=0x003C=] score, end the story finally saying [=0x0022=]Victory is yours![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]if Joey[=0x0027=]s score is score, end the story saying [=0x0022=]A perfect tie.[=0x0022=][=0x000A=][=0x000A=]To decide whether Joey is winning:[=0x000A=][=0x0009=]if Joey[=0x0027=]s score [=0x003E=] score and Joey[=0x0027=]s score [=0x003E=] 0:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x0009=][=0x000A=]To decide whether match is scoreless:[=0x000A=][=0x0009=]if Joey[=0x0027=]s score is 0 and score is 0:[=0x000A=][=0x0009=][=0x0009=]yes;[=0x000A=][=0x0009=]no.[=0x000A=][=0x000A=]Chapter 2 - Plot[=0x000A=][=0x000A=]Section 1 - Concepts[=0x000A=][=0x000A=]Money is a concept. The match is a concept. Shannon is a concept. Telekinesis is a concept.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]make the dialogue director active.[=0x000A=][=0x0009=][=0x000A=]Test me with [=0x0022=]turn handles / no / turn handles / z[=0x0022=][=0x000A=][=0x000A=]Section 2 - The Request (dialogue)[=0x000A=][=0x000A=](About money. Spontaneous. If score [=0x003E=] 0.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]Hey, can I borrow fifty bucks?[=0x0027=] He asks like the idea just occurred to him, like it[=0x0027=]s got something to do with foosball.[=0x0022=][=0x000A=][=0x000A=]-- instead of saying no[=0x000A=][=0x000A=][=0x0009=]Player: [=0x0022=][=0x0027=]Don[=0x0027=]t you already owe me–[=0x0027=] you start. Seven hundred and twenty-two dollars. That[=0x0027=]s how much Joey owes you. You[=0x0027=]ve got it written down in a log book that he never looks at.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]Joey: [=0x0022=][=0x0027=]I mean yeah,[=0x0027=] he says. [=0x0027=]But that[=0x0027=]s the beauty of it. If I borrow money from someone else then that[=0x0027=]s two people I[=0x0027=]ve got wanting it back.[=0x0027=][=0x0022=][=0x000A=][=0x0009=][=0x000A=]-- instead of saying yes[=0x000A=][=0x000A=][=0x0009=]Player: [=0x0022=][=0x0027=]...okay, sure.[=0x0027=][=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]Joey: [=0x0022=][=0x0027=]...or like a hundred?[=0x0027=] Evidently you made it too easy.[=0x0022=][=0x000A=][=0x0009=][=0x000A=]-- (recurring) after doing something[=0x000A=][=0x000A=][=0x0009=]Joey: [=0x0022=]He gives you a frustrated look when you don[=0x0027=]t answer. [=0x0027=]I could really use the help.[=0x0027=][=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x003C=]-[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]Joey: [=0x0022=][=0x0027=]Fine, forget I asked,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x000A=]Section 2 - Game commentary (dialogue)[=0x000A=][=0x000A=](About match. If small white ball is unreachable. Spontaneous.)[=0x000A=][=0x000A=]Joey: [=0x0022=]He gives you a helpless look. [=0x0027=]You[=0x0027=]ve got to do the thing you do where you hit the table and it gets unstuck.[=0x0027=] ([small white ball condition])[=0x0022=][=0x000A=][=0x000A=]Player (without speaking): [=0x0022=]You point out that he could hit the table.[=0x0022=][=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]Yeah, but it[=0x0027=]s never as good when I do it. I think it gives me bad luck afterwards.[=0x0027=] Which is not a great reason why you should be the one to hit the table.[=0x0022=][=0x000A=][=0x000A=](About match. If Joey is winning and the small white ball is not unreachable. Spontaneous.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]Pure skill,[=0x0027=] says Joey.[=0x0022=][=0x000A=][=0x000A=](About match. Unless Joey is winning. Spontaneous.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]What happened to the ball that was actually round?[=0x0027=] Joey asks.[=0x0022=][=0x000A=][=0x000A=]Player: [=0x0022=][=0x0027=]You ate it. Remember?[=0x0027=] The ball was eventually retrieved but not in a reusable condition.[=0x0022=][=0x000A=][=0x000A=]Joey (mentioning Shannon): [=0x0022=][=0x0027=]Oh yeah. To impress that girl Shannon. And now she never comes around any more.[=0x0027=] You don[=0x0027=]t ask why he thought Shannon wanted to see him eat a foosball. There are some things it[=0x0027=]s better not to know.[=0x0022=][=0x000A=][=0x000A=](About match. If small white ball is receding. Spontaneous.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]Oh no you don[=0x0027=]t.[=0x0027=][=0x0022=][=0x000A=][=0x000A=](About match. If small white ball is approaching.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]Come on, come on, come on...[=0x0027=] Joey bends down to view the table as though he can will the ball into the goal. [=0x0022=][=0x000A=][=0x000A=](About match. If the match is scoreless and turn count is greater than four. Spontaneous.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]This could take a while,[=0x0027=] he says.[=0x0022=][=0x000A=][=0x000A=](This is the Joey remarks failure beat. Recurring.)[=0x000A=][=0x000A=]Joey (if the ball is still): [=0x0022=][=0x0027=]I[=0x0027=]m pretty sure the ball moved out of the way. Is that possible?[=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]Player (mentioning telekinesis): [=0x0022=]You give him a funny look. [=0x0027=]Yeah, I moved it with the telekinetic powers of my mind.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x0009=][=0x000A=]Joey (if the ball is still): [=0x0022=][=0x0027=]Aw, come on![=0x0027=] He glares at the table.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]Joey (if the ball is still; without speaking; recurring): [=0x0022=][one of]Joey is scowling. It obviously doesn[=0x0027=]t go well for his pride when he[=0x0027=]s failing to make contact with a completely still ball.[or]Joey mutters about the failure.[cycling][=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x000A=]Joey (recurring): [=0x0022=][one of][=0x0027=]Just got by me,[=0x0027=] Joey remarks, as though you couldn[=0x0027=]t see that for yourself.[or][=0x0027=]Aw, too fast,[=0x0027=] says Joey.[or][=0x0027=]Missed![=0x0027=] says Joey.[stopping][=0x0022=][=0x000A=][=0x000A=]Section 3 - Other local colour (dialogue)[=0x000A=][=0x000A=](About telekinesis.)[=0x000A=][=0x000A=]Joey: [=0x0022=]He straightens up. [=0x0027=]Is telekinesis that thing where you can electrocute people through the telephone line? Like you call them up and they answer and zzzap?[=0x0027=][=0x0027=][=0x0022=][=0x000A=][=0x000A=]Player: [=0x0022=][=0x0027=]Nnnno. There is no power to do that,[=0x0027=] you say. [=0x0027=]Telekinesis is when you can think about something moving and then it moves without you touching it.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]There[=0x0027=]s no power to do that either.[=0x0027=] He taps the side of his forehead.[=0x0022=][=0x000A=][=0x000A=](About Shannon.)[=0x000A=][=0x000A=]Joey: [=0x0022=][=0x0027=]You know, I should give Shannon another call.[=0x0027=] A reminiscent gleam comes into his eye. He[=0x0027=]s probably forgotten what happened the last time he saw her.[=0x0022=][=0x000A=][=0x000A=]Player: [=0x0022=][=0x0027=]So she can dump another plate of ravioli in your lap?[=0x0027=] You had to go there. You couldn[=0x0027=]t let it go.[=0x0022=][=0x000A=][=0x000A=]Joey: [=0x0022=]He looks puzzled while that memory circles and circles and finally comes in for a landing. [=0x0027=]It might not... oh yeah.[=0x0027=][=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Text Foosball Commentated&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Proposal Revisited" -->
+        <!-- SEARCH SECTION "Example 182" -->
+        <!-- SEARCH SORT "003-182-000-000" -->
+        <p> 
+        </p>
+        <!-- START CODE "code2185" -->
+        <blockquote class="extract-inform7"><a id="code2185"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Proposal Revisited[=0x0022=][=0x000A=][=0x000A=]Section 1 - The Environs[=0x000A=][=0x000A=]When play begins: [=0x000A=]    say [=0x0022=]Do you like Mr Spruce? [=0x0022=]; [=0x000A=]    if player consents, now Spruce is handsome; [=0x000A=]    otherwise now Spruce is ugly; [=0x000A=]    say paragraph break.[=0x000A=][=0x000A=]The Conservatory is a room. [=0x0022=]You are in a room full of plants.[=0x0022=][=0x000A=][=0x000A=]Mr Spruce is a man in the Conservatory. Mr Spruce can be apprehensive or calm. Mr Spruce is apprehensive. Mr Spruce can be handsome or ugly. [=0x0022=]Mr Spruce is on his knees before you.[=0x0022=][=0x000A=][=0x000A=]After doing something when the turn count is greater than one:[=0x000A=][=0x0009=]make the dialogue director active.[=0x000A=][=0x0009=][=0x000A=]Instead of answering Mr Spruce that [=0x0022=]no[=0x0022=], try saying no.[=0x000A=]Instead of answering Mr Spruce that [=0x0022=]yes[=0x0022=], try saying yes.[=0x000A=]Instead of asking Mr Spruce to try saying yes, try saying yes.[=0x000A=]Instead of asking Mr Spruce to try saying no, try saying no.[=0x000A=]Instead of saying sorry, try saying no.[=0x000A=]Instead of asking Mr Spruce to try saying sorry, try saying no.[=0x000A=]Instead of answering Mr Spruce that [=0x0022=]sorry[=0x0022=], try saying no.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / yes[=0x0022=].[=0x000A=][=0x000A=]Section 2 - Proposal (dialogue)[=0x000A=][=0x000A=](This is the starting beat.)[=0x000A=] [=0x000A=]Mr Spruce: [=0x0022=]My darling, I beg you to become my lawfully wedded wife.[=0x0022=][=0x000A=][=0x000A=]-- instead of saying yes when Mr Spruce is ugly[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is ugly): [=0x0022=]Remembering what your mother said to you about the stock exchange and Dear Papa, you close your eyes and accept Mr Spruce.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]Alas for your maiden hopes.[=0x0022=][=0x000A=][=0x0009=][=0x000A=]-- instead of saying yes when Mr Spruce is handsome[=0x000A=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is handsome): [=0x0022=]You are silent with delight for a moment before you say yes, yes![=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]How Genevieve Stubbs will cry![=0x0022=][=0x000A=][=0x0009=][=0x000A=]-- instead of saying no when Mr Spruce is ugly[=0x000A=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is ugly): [=0x0022=]Gently you inform Mr Spruce that it is impossible. He seems less deflated than you had expected.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]Odd, that...[=0x0022=][=0x000A=][=0x0009=][=0x000A=]-- instead of saying no when Mr Spruce is handsome[=0x000A=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is handsome): [=0x0022=]You lower your eyes and refuse petulantly, hoping to stir him to a more ardent repetition of these same requests. But then -- alack! -- he says [=0x0027=]I see how it is![=0x0027=] in a strangled voice, and strides from the room![=0x0022=] [=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]A fatal error![=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=]-- otherwise[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is calm): [=0x0022=]Mr Spruce takes his leave of you.[=0x0022=] [=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]Well, that is over...[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]Narration (if Mr Spruce is apprehensive; now Mr Spruce is calm): [=0x0022=]Mr Spruce sighs heavily, seeing that you don[=0x0027=]t intend to reply. [=0x0027=]Never mind, my dear, I[=0x0027=]ll ask later. Perhaps I should have spoken to your Papa first... yes, a gently-bred female... no wonder...[=0x0022=] [=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x003C=]-[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Proposal Revisited&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Chapter 1 - Distraction</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Environs</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - The Game</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">: </span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Do you like Mr Spruce? &quot;</span><span class="plain-syntax">; </span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">consents</span><span class="plain-syntax">, </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax">; </span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">; </span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">break</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scoring</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Conservatory</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;You are in a room full of plants.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The Lounge is appointed with everything necessary to rest and relaxation: a vending machine, a potted palm, a stack of Entertainment Weekly issues from 1993, and -- your pride and joy -- a foosball game.&quot;</span>
+        <span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Conservatory</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Mr Spruce is on his knees before you.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foosball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;table&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;football&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;foozball&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fussball&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;soccer&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foosball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supporter</span><span class="syntaxplain">. </span><span class="syntaxidentifier">On</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">small</span><span class="syntaxplain"> </span><span class="syntaxidentifier">white</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">, </span><span class="syntaxidentifier">approaching</span><span class="syntaxplain">, </span><span class="syntaxidentifier">receding</span><span class="syntaxplain">, </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Currently </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">.&quot;</span>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax">:</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">small</span><span class="syntaxplain"> </span><span class="syntaxidentifier">white</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; (</span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">)&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">left</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You: </span><span class="syntaxextract">[score]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">right</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey: </span><span class="syntaxextract">[Joey's score]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sticks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;handles&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Okay, a couple of the tiny men have had their feet broken off, and the table surface itself is a bit warped, and the ball resembles a quail egg in respect of shape and color. This makes for a game of unusual randomness, but skill is overrated.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attacking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pulling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">game</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You give the table a good shove, and the ball moves ever-so-slightly.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">white</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You'd forfeit the game if you did that.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The ball has somehow gotten to a mystical point on the table where it cannot be reached, no matter what. Close inspection reveals that this point has been marked in chalk with a tiny X. Not that that does any good.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approaching</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">, </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">receding</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if the ball is still]</span><span class="syntaxstring">Thunk. </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">Thwack! </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">You keep the ball from reaching its goal! Now it is </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The ball rolls neatly into your goal, despite your efforts. &quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &lt; </span><span class="syntaxidentifier">score</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You put the ball back in the center with a snap. No reason to worry yet; you're still ahead. Joey looks determined, though.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;After allowing a moment or two for Joey's gloating to pass, you replace it at the center.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">13</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">, </span><span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">;	</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You hit the ball off-center and it rolls sluggishly into a little dip in the surface of the foosball table. &quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">7</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'You did that on purpose!' Joey exclaims indignantly.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You and Joey exchange glances. This is never good.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">director</span><span class="plain-syntax"> </span><span class="identifier-syntax">active</span><span class="plain-syntax">.</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;no&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You madly rotate the tiny men on sticks! &quot;</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;yes&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Hoorah! You hit the ball!&quot;</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">receding</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">sorry</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:	</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">sorry</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Somehow you fail to bring your monopodal player into contact with the ball.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Joey is hunkered over the foosball handles on his side of the table.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inactive</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sorry&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;z / yes&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Proposal</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approaching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inactive</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inactive</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey glares angrily at the stuck ball.&quot;</span>
+        <span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;My darling, I beg you to become my lawfully wedded wife.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">receding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inactive</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">, </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approaching</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey connects with your shot. Now the ball is </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">!&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey tries to block, but misses! Back it goes in the center, where it is </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unreachable</span><span class="syntaxplain">, </span><span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decision</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inactive</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approaching</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey hits the ball solidly down towards your goal. Now it is </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Joey fails to hit the ball in your direction. It remains </span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">remarks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">failure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">total</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">9</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &gt; </span><span class="syntaxidentifier">score</span><span class="syntaxplain">, </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Rats! Joey wins!&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &lt; </span><span class="syntaxidentifier">score</span><span class="syntaxplain">, </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Victory is yours!&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">, </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A perfect tie.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">winning</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &gt; </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">0</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">yes</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">no</span><span class="syntaxplain">.</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scoreless</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Joey</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">yes</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">no</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>And now for the plot, which is almost entirely in the hands of an active dialogue director.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2 - Plot</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 1 - Concepts</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Money</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Shannon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Telekinesis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">director</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">.</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;turn handles / no / turn handles / z&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - The Request (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About money. Spontaneous. If score &gt; 0.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Hey, can I borrow fifty bucks?' He asks like the idea just occurred to him, like it's got something to do with foosball.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxplain">-- </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Don't you already owe me–' you start. Seven hundred and twenty-two dollars. That's how much Joey owes you. You've got it written down in a log book that he never looks at.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'I mean yeah,' he says. 'But that's the beauty of it. If I borrow money from someone else then that's two people I've got wanting it back.'&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxplain">-- </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yes</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'...okay, sure.'&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'...or like a hundred?' Evidently you made it too easy.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxplain">-- (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">) </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;He gives you a frustrated look when you don't answer. 'I could really use the help.'&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+        <span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Fine, forget I asked,' he says.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Remembering what your mother said to you about the stock exchange and Dear Papa, you close your eyes and accept Mr Spruce.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Alas for your maiden hopes.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        <span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span>
         <br>
-        <span class="syntaxheading">Section 2 - Game commentary (dialogue)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You are silent with delight for a moment before you say yes, yes!&quot;</span>
         <br>
-        <span class="syntaxfunction">(About match. If small white ball is unreachable. Spontaneous.)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;How Genevieve Stubbs will cry!&quot;</span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;He gives you a helpless look. 'You've got to do the thing you do where you hit the table and it gets unstuck.' (</span><span class="syntaxextract">[small white ball condition]</span><span class="syntaxstring">)&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        <span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span>
         <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You point out that he could hit the table.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Gently you inform Mr Spruce that it is impossible. He seems less deflated than you had expected.&quot;</span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Yeah, but it's never as good when I do it. I think it gives me bad luck afterwards.' Which is not a great reason why you should be the one to hit the table.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Odd, that...&quot;</span>
         <br>
-        <span class="syntaxfunction">(About match. If Joey is winning and the small white ball is not unreachable. Spontaneous.)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        <span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Pure skill,' says Joey.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You lower your eyes and refuse petulantly, hoping to stir him to a more ardent repetition of these same requests. But then -- alack! -- he says 'I see how it is!' in a strangled voice, and strides from the room!&quot;</span><span class="plain-syntax"> </span>
         <br>
-        <span class="syntaxfunction">(About match. Unless Joey is winning. Spontaneous.)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A fatal error!&quot;</span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'What happened to the ball that was actually round?' Joey asks.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        <span class="plain-syntax">-- </span><span class="identifier-syntax">otherwise</span>
         <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'You ate it. Remember?' The ball was eventually retrieved but not in a reusable condition.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Mr Spruce takes his leave of you.&quot;</span><span class="plain-syntax"> </span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shannon</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'Oh yeah. To impress that girl Shannon. And now she never comes around any more.' You don't ask why he thought Shannon wanted to see him eat a foosball. There are some things it's better not to know.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Well, that is over...&quot;</span>
         <br>
-        <span class="syntaxfunction">(About match. If small white ball is receding. Spontaneous.)</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Mr Spruce sighs heavily, seeing that you don't intend to reply. 'Never mind, my dear, I'll ask later. Perhaps I should have spoken to your Papa first... yes, a gently-bred female... no wonder...&quot;</span><span class="plain-syntax"> </span>
         <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Oh no you don't.'&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-
-        <br>
-        <span class="syntaxfunction">(About match. If small white ball is approaching.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Come on, come on, come on...' Joey bends down to view the table as though he can will the ball into the goal. &quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About match. If the match is scoreless and turn count is greater than four. Spontaneous.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'This could take a while,' he says.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">&lt;-</span>
         </span></blockquote>
-        <p>We only want the <code class="inlinesourcetext">Joey remarks failure beat</code> to occur if the action system specifically calls on it. If we marked this as <code class="inlinesourcetext">about match</code>, then Joey might choose to say one of these lines through the actions of the dialogue director even when he hasn't just missed a shot. So we don't mark it as <code class="inlinesourcetext">about</code> anything.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(This is the Joey remarks failure beat. Recurring.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'I'm pretty sure the ball moved out of the way. Is that possible?'&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">telekinesis</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You give him a funny look. 'Yeah, I moved it with the telekinetic powers of my mind.'&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;'Aw, come on!' He glares at the table.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">still</span><span class="syntaxplain">; </span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Joey is scowling. It obviously doesn't go well for his pride when he's failing to make contact with a completely still ball.</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Joey mutters about the failure.</span><span class="syntaxextract">[cycling]</span><span class="syntaxstring">&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[one of]</span><span class="syntaxstring">'Just got by me,' Joey remarks, as though you couldn't see that for yourself.</span><span class="syntaxextract">[or]</span><span class="syntaxstring">'Aw, too fast,' says Joey.</span><span class="syntaxextract">[or]</span><span class="syntaxstring">'Missed!' says Joey.</span><span class="syntaxextract">[stopping]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 3 - Other local colour (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About telekinesis.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;He straightens up. 'Is telekinesis that thing where you can electrocute people through the telephone line? Like you call them up and they answer and zzzap?''&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'Nnnno. There is no power to do that,' you say. 'Telekinesis is when you can think about something moving and then it moves without you touching it.'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'There's no power to do that either.' He taps the side of his forehead.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About Shannon.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'You know, I should give Shannon another call.' A reminiscent gleam comes into his eye. He's probably forgotten what happened the last time he saw her.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;'So she can dump another plate of ravioli in your lap?' You had to go there. You couldn't let it go.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joey</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;He looks puzzled while that memory circles and circles and finally comes in for a landing. 'It might not... oh yeah.'&quot;</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_5.html>Section 11.5: When the director is active</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_11.html>Section 11.11: Decision points</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

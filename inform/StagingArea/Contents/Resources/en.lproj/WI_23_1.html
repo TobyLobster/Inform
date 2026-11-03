@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,42 +2212,58 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Lists and entries" -->
+            <!-- SEARCH SECTION "23.1" -->
+            <!-- SEARCH SORT "001-023-001-000" -->
             <h2><span>Chapter 23: Lists</span></h2>
             <h3><span>Section 23.1: Lists and entries</span></h3>
             <p>         </p>
             <p>Many sections in this book begin by introducing a new kind of value. Reading through in order, the possibilities mount up: numbers, times, texts, and so on. (See the Kinds page of the Index for a convenient list of the options.) This section is a little different: rather than showing a single new kind of value, it shows how to make a new kind out of any existing one.</p>
             <p>If K is any kind of value, then <code class="inlinesourcetext">list of K</code> is also a kind of value. For instance, we could write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1581" -->
+            <blockquote class="extract-inform7"><a id="code1581"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and this would create a new <code class="inlinesourcetext">let</code> variable, called <code class="inlinesourcetext">L</code>, whose kind of value is <code class="inlinesourcetext">list of numbers</code>. On the other hand, we are not allowed to write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1582" -->
+            <blockquote class="extract-inform7"><a id="code1582"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because <code class="inlinesourcetext">list</code> by itself is not a kind of value. (Inform always needs to know what kinds the values entered in a list are going to have.)</p>
             <p>Lists are like flexible-length table columns, but that probably makes them sound more mysterious than they really are. A list is simply a sequence of values, called its &quot;entries&quot;, numbered from 1 upwards. The number of entries is called its &quot;length&quot;. If we try</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1583" -->
+            <blockquote class="extract-inform7"><a id="code1583"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;L has </span><span class="syntaxextract">[the number of entries in L]</span><span class="syntaxstring"> entries.&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;L has [the number of entries in L] entries.&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then we find <code class="inlinetranscript">L has 0 entries.</code></p>
             <p>This is because all lists start out empty when created: that is, they initially have 0 entries. Inform has two built-in adjectives <code class="inlinesourcetext">empty</code> and <code class="inlinesourcetext">non-empty</code> which can apply to lists, and they mean just what they ought to mean: a list is empty if its length is 0, and otherwise non-empty.</p>
             <p>We can add entries very easily:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">; </span><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">; </span><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1584" -->
+            <blockquote class="extract-inform7"><a id="code1584"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">; </span><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">; </span><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can now, for instance, try saying the list:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;L is now </span><span class="syntaxextract">[L]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1585" -->
+            <blockquote class="extract-inform7"><a id="code1585"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;L is now [L].&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>with the result <code class="inlinetranscript">L is now 2, 3 and 5.</code></p>
             <p>Note that only numbers can be added to <code class="inlinesourcetext">L</code>: if we try</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;clock&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1586" -->
+            <blockquote class="extract-inform7"><a id="code1586"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;clock&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform will produce a problem message, because <code class="inlinesourcetext">L</code> has kind <code class="inlinesourcetext">list of numbers</code>, whereas <code class="inlinesourcetext">&quot;clock&quot;</code> is text. In this way, Inform ensures that a list always contains values of the same kind throughout. So it's not possible to construct a list whose entries are <code class="inlinesourcetext">2</code>, <code class="inlinesourcetext">&quot;fish&quot;</code>, <code class="inlinesourcetext">4</code> and <code class="inlinesourcetext">Entire Game</code>.</p>
             <p>Such a list would be very hazardous to deal with, in any case. If what we need is a combination of different kinds of values, tables are a better option.</p>
             <p>Finally, note that since <code class="inlinesourcetext">list of numbers</code> is a kind of value in its own right, so is <code class="inlinesourcetext">list of lists of numbers</code>, and so on – though such lists are trickier to deal with, they are sometimes handy.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_22_8.html"><span class="markdowncontent">Section 22.8: Summary of regular expression notation</span></a> &bull; <a href="WI_23_2.html"><span class="markdowncontent">Section 23.2: Constant lists</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

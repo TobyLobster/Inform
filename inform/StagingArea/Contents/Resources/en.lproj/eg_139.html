@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,53 +2193,72 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg139><a style="text-decoration: none" href="WI_8_19.html"><span class="extensionexampleletter">139</span></a></span></div>
+                <span id=eg139><a style="text-decoration: none" href="WI_9_2.html"><span class="extensionexampleletter">139</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Candy</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">One of several identical candies chosen at the start of play to be poisonous.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mutt's Adventure</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Awarding points for visiting a room for the first time.</span></span></div>
             <div class="exampleright">
-                <span id=eg139><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg139><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Mutt's Adventure" -->
+        <!-- SEARCH SECTION "Example 139" -->
+        <!-- SEARCH SORT "003-139-000-000" -->
         <p></p>
-        <p>Suppose we want to give the player a bag of candies, of which a random one is poisonous. We can pick which one should be poisoned at the start of play, like this:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Candy[=0x0022=][=0x000A=][=0x000A=]The plural of piece of candy is pieces of candy. A piece of candy is a kind of thing. A piece of candy is always edible. Four pieces of candy are in the Halloween bag.[=0x000A=][=0x000A=]Toxicity is a kind of value. The toxicities are safe and poisonous. A piece of candy has a toxicity. A piece of candy is usually safe.[=0x000A=][=0x000A=]The Porch is a room. The player carries the Halloween bag.[=0x000A=][=0x000A=]After eating a poisonous piece of candy:[=0x000A=][=0x0009=]say [=0x0022=]Oh, that didn[=0x0027=]t taste right at all. Oh well![=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now a random piece of candy is poisonous.[=0x000A=][=0x000A=]Test me with [=0x0022=]eat candy / g / g / g[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Candy&quot;</span>
+        <p>Suppose we want to reward the player the first time he reaches a given room. The <code class="inlinesourcetext">unvisited</code> attribute is useful for this: unlike such constructions as <code class="inlinesourcetext">going to a room for the first time</code>, it doesn't develop false positives when the player has merely tried to go to the room in question. <code class="inlinesourcetext">Every turn when the player is in a room for the first time</code> is also unhelpful, because it continues to be true as long as the player is in a room on his first visit there.</p>
+        <!-- START CODE "code2488" -->
+        <blockquote class="extract-inform7"><a id="code2488"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Mutt[=0x0027=]s Adventure[=0x0022=][=0x000A=][=0x000A=]Use scoring.[=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]A room can be scored or unscored.[=0x000A=][=0x000A=]Carry out going to a unvisited scored room:[=0x000A=][=0x0009=]increment the score.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Incan Palace Compound is a room. [=0x0022=]After numerous false leads through the jungles of Peru, and an arduous trek along the Amazon, you have arrived, at last, here: at Atagon, the lost city of untold treasure.[=0x0022=][=0x000A=][=0x000A=]The startlingly intricate door is a door. It is inside from Incan Palace Compound and outside from the Treasure Room. [=0x0022=]A door carved all over with figures of ancient gods, and protected by an assortment of gears and latches, [if open]stands open[otherwise]blocks progress[end if] towards [the other side of the intricate door].[=0x0022=][=0x000A=][=0x000A=]The description of the Treasure Room is [=0x0022=]To your considerable surprise, the treasure room is stocked with art objects from a vast range of eras and geographical locations: beside the expected pre-Columbian gold there are Cycladic figurines, Chinese Tang-dynasty pottery, purses that might have been stolen from Sutton Hoo. [one of]If the British Museum developed a nasty expectorant cough, this is what you[=0x0027=]d find in its hanky.[or][stopping][=0x0022=].[=0x000A=][=0x000A=]The Treasure Room is scored.[=0x000A=][=0x000A=]Test me with [=0x0022=]in / out / in[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Mutt's Adventure&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">always</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Four</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Halloween</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">scoring</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Toxicity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">toxicities</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">safe</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">poisonous</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">toxicity</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">safe</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Procedure</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Porch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Halloween</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">unscored</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">poisonous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">unvisited</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Oh, that didn't taste right at all. Oh well!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">poisonous</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increment</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;eat candy / g / g / g&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Incan</span><span class="plain-syntax"> </span><span class="identifier-syntax">Palace</span><span class="plain-syntax"> </span><span class="identifier-syntax">Compound</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;After numerous false leads through the jungles of Peru, and an arduous trek along the Amazon, you have arrived, at last, here: at Atagon, the lost city of untold treasure.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">startlingly</span><span class="plain-syntax"> </span><span class="identifier-syntax">intricate</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Incan</span><span class="plain-syntax"> </span><span class="identifier-syntax">Palace</span><span class="plain-syntax"> </span><span class="identifier-syntax">Compound</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">outside</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Treasure</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A door carved all over with figures of ancient gods, and protected by an assortment of gears and latches, [if open]stands open[otherwise]blocks progress[end if] towards [the other side of the intricate door].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Treasure</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;To your considerable surprise, the treasure room is stocked with art objects from a vast range of eras and geographical locations: beside the expected pre-Columbian gold there are Cycladic figurines, Chinese Tang-dynasty pottery, purses that might have been stolen from Sutton Hoo. [one of]If the British Museum developed a nasty expectorant cough, this is what you'd find in its hanky.[or][stopping]&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Treasure</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scored</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;in / out / in&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_8_19.html>Section 8.19: Random choices of things</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_9_2.html>Section 9.2: Awarding points</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

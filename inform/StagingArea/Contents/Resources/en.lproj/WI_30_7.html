@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 30.7: Lists and to-do items</span></title>
+    <title><span class="markdowncontent">Section 30.7: Meetups and Conferences</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_30_6.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.7: Lists and to-do items</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.7: Meetups and Conferences</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_30_8.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,126 +2212,19 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 30.7: Lists and to-do items</span></h3>
-            <p>
-            </p>
-            <p>We have three sorts of list. Bulleted lists:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Notable German stamps include:</span><br><br><span class="syntaxidentifier">- Baden 9 Kreuzer error: stamp printed on blue-green instead of pink paper</span><br><br><span class="syntaxidentifier">- One kreuzer black: issued 1849 in Bavaria, first German postage stamp</span><br><br><span class="syntaxidentifier">- Sachsen 3 Pfennige red: Saxony was the second German state to issue postage stamps</span><br><br><span class="syntaxidentifier">- Vineta provisional: an unauthorized issue</span><br><br><span class="syntaxidentifier">- Yacht issue: a common design of postage stamps for the German colonies</span><br></code></pre></div>
-            <p>resulting in:</p>
-            <blockquote>
-            <p>Notable German stamps include:</p>
-            <ul>
-            <li>
-            <p>Baden 9 Kreuzer error: stamp printed on blue-green instead of pink paper</p>
-            </li>
-            <li>
-            <p>One kreuzer black: issued 1849 in Bavaria, first German postage stamp</p>
-            </li>
-            <li>
-            <p>Sachsen 3 Pfennige red: Saxony was the second German state to issue postage stamps</p>
-            </li>
-            <li>
-            <p>Vineta provisional: an unauthorized issue</p>
-            </li>
-            <li>
-            <p>Yacht issue: a common design of postage stamps for the German colonies</p>
-            </li>
-            </ul>
-            </blockquote>
-            <p>A list can alternatively be numbered, with this syntax:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Notable Jamaican stamps include:</span><br><br><span class="syntaxidentifier">1) Jamaica 1 shilling inverted-frame stamp error</span><br><br><span class="syntaxidentifier">2) Jamaica 6d abolition of slavery postage stamp</span><br><br><span class="syntaxidentifier">3) Jamaica 1956-58 £1 chocolate and violet</span><br><br><span class="syntaxidentifier">4) Jamaica 1968 human rights stamps</span><br></code></pre></div>
-            <p>resulting in:</p>
-            <blockquote>
-            <p>Notable Jamaican stamps include:</p>
-            <ol>
-            <li>
-            <p>Jamaica 1 shilling inverted-frame stamp error</p>
-            </li>
-            <li>
-            <p>Jamaica 6d abolition of slavery postage stamp</p>
-            </li>
-            <li>
-            <p>Jamaica 1956-58 £1 chocolate and violet</p>
-            </li>
-            <li>
-            <p>Jamaica 1968 human rights stamps</p>
-            </li>
-            </ol>
-            </blockquote>
-            <p>List entries can in fact be much longer, and can contain all manner of layout elements:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">1) Here's a two-paragraph list entry.</span><br><br><span class="syntaxidentifier">   With this being the second paragraph.</span><br><br><span class="syntaxidentifier">2) And a list within a list. How about China this time?</span><br><br><span class="syntaxidentifier">   - Red Revenues – 1897 provisionals, issued by the Qing dynasty</span><br><br><span class="syntaxidentifier">   - The Whole Country is Red – 1968 design error stamp</span><br><br><span class="syntaxidentifier">   - Golden Monkey stamp – 1980 Chinese zodiac stamp</span><br><br><span class="syntaxidentifier">3) Indian stamp                                 | Notable for</span><br><span class="syntaxidentifier">   -------------------------------------------- | -----------</span><br><span class="syntaxidentifier">   Scinde Dawk                                  | First stamps in Asia</span><br><span class="syntaxidentifier">   Inverted Head Four Annas                     | —</span><br><span class="syntaxidentifier">   Indian 10 Rupee Mahatma Gandhi postage stamp | Overprinted &quot;SERVICE&quot;</span><br></code></pre></div>
-            <p>producing:</p>
-            <blockquote>
-            <ol>
-            <li>
-            <p>Here's a two-paragraph list entry.</p>
-            <p>With this being the second paragraph.</p>
-            </li>
-            <li>
-            <p>And a list within a list. How about China this time?</p>
-            <ul>
-            <li>
-            <p>Red Revenues – 1897 provisionals, issued by the Qing dynasty</p>
-            </li>
-            <li>
-            <p>The Whole Country is Red – 1968 design error stamp</p>
-            </li>
-            <li>
-            <p>Golden Monkey stamp – 1980 Chinese zodiac stamp</p>
-            </li>
-            </ul>
-            </li>
-            <li>
-            <table>
-            <thead>
-            <tr>
-            <th>Indian stamp</th>
-            <th>Notable for</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>Scinde Dawk</td>
-            <td>First stamps in Asia</td>
-            </tr>
-            <tr>
-            <td>Inverted Head Four Annas</td>
-            <td>—</td>
-            </tr>
-            <tr>
-            <td>Indian 10 Rupee Mahatma Gandhi postage stamp</td>
-            <td>Overprinted &quot;SERVICE&quot;</td>
-            </tr>
-            </tbody>
-            </table>
-            </li>
-            </ol>
-            </blockquote>
-            <p>And to-do lists are list entries with a sort of tickbox notation: <code class="inlinecode">[ ]</code> or <code class="inlinecode">[x]</code>: see the example at the start of this section.</p>
-            <p>Finally, note that if the items in a list are not divided by skipped lines, then the list is called &quot;tight&quot; (as opposed to &quot;loose&quot;) and presented slightly differently:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">1) Prices depend on condition and circumstances.</span><br><span class="syntaxidentifier">2) Victorian issues vary widely in circulation. My collection includes:</span><br><span class="syntaxidentifier">   - [ ] none of the 500 orange-red 1d Mauritius Post Office stamps (1847)</span><br><span class="syntaxidentifier">   - [x] one of the roughly 21 billion Penny Red stamps (1841-79)</span><br></code></pre></div>
-            <p>produces:</p>
-            <blockquote>
-            <ol>
-            <li>Prices depend on condition and circumstances.</li>
-            <li>Victorian issues vary widely in circulation. My collection includes:
-            <ul>
-            <li><input disabled="" type="checkbox"> none of the 500 orange-red 1d Mauritius Post Office stamps (1847)</li>
-            <li><input checked="" disabled="" type="checkbox"> one of the roughly 21 billion Penny Red stamps (1841-79)</li>
-            </ul>
-            </li>
-            </ol>
-            </blockquote>
-            <p>For Inform documentation, we prefer loose lists, which are easier to read on screen.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Meetups and Conferences" -->
+            <!-- SEARCH SECTION "30.7" -->
+            <!-- SEARCH SORT "001-030-007-000" -->
+            <h3><span>Section 30.7: Meetups and Conferences</span></h3>
+            <p>There are a number of different local groups that get together to play or discuss interactive fiction, including a number that hold remote meetings. Announcements of some of these can be found at the <a href="https://intfiction.org/c/general/events/47">IntFiction events category</a>.</p>
+            <p>Joining these groups may provide a context to discuss work in progress, and many are willing to do a group playthrough of games written by group members.</p>
+            <p>There are also a range of conferences that accept talks or presentations about interactive fiction, both academic conferences and conferences adjacent to the game industry. While it is not a complete listing, <a href="https://emshort.blog/">Emily Short's blog</a> attempts to link upcoming events.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_30_6.html"><span class="markdowncontent">Section 30.6: Tables</span></a> &bull; <a href="WI_30_8.html"><span class="markdowncontent">Section 30.8: Links and cross-references</span></a></em></p>
+        <p><em> &bull; <a href="WI_30_6.html"><span class="markdowncontent">Section 30.6: Competitions, Exhibitions, and Jams</span></a> &bull; <a href="WI_30_8.html"><span class="markdowncontent">Section 30.8: A short concluding homily</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

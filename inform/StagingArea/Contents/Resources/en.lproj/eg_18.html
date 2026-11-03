@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,53 +2193,77 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg18><a style="text-decoration: none" href="WI_3_5.html"><span class="extensionexampleletter">18</span></a></span></div>
+                <span id=eg18><a style="text-decoration: none" href="WI_3_6.html"><span class="extensionexampleletter">18</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">First Name Basis</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Allowing the player to use different synonyms to refer to something.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tamed</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Examples of a container and a supporter that can be entered, as well as nested rooms.</span></span></div>
             <div class="exampleright">
-                <span id=eg18><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg18><a style="text-decoration: none" href="RB_8_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Tamed" -->
+        <!-- SEARCH SECTION "Example 18" -->
+        <!-- SEARCH SORT "003-018-000-000" -->
         <p></p>
-        <p>Sometimes we create objects that we want the player to be able to call by different names: a television that should also answer to <code class="inlinetranscriptcommand">tv</code> and <code class="inlinetranscriptcommand">telly</code>, for instance, or a refrigerator the player might also call <code class="inlinetranscriptcommand">fridge</code>. In this case, we can use instructions like</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;tv&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;telly&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">television</span><span class="syntaxplain">.</span>
+        <p>Within a room, we might have containers and supporters that a player can enter. A chair, stool, table, dais, or pedestal would be an enterable supporter (anything we would describe a person as being <code class="inlinesourcetext">on</code>); a cage, hammock, or booth would be an enterable container (because we would describe the person as being <code class="inlinesourcetext">inside</code>).</p>
+        <p>When the player is in or on something, they are able to see the rest of the contents of the room, but a note such as <code class="inlinetranscript">(in the hammock)</code> or <code class="inlinetranscript">(on the poster bed)</code> is added to the room title when they look around.</p>
+        <p>Here is an example to show off the possibilities:</p>
+        <!-- START CODE "code3030" -->
+        <blockquote class="extract-inform7"><a id="code3030"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Tamed[=0x0022=][=0x000A=][=0x000A=]The Center Ring is a room. The cage is in the Center Ring. A lion is an animal in the cage. The cage is enterable, openable, transparent, and closed.[=0x000A=][=0x000A=]The pedestal is in the Center Ring. It is enterable.[=0x000A=][=0x000A=]The player is on a pedestal.[=0x000A=][=0x000A=]Every turn when the player is in the cage:[=0x000A=][=0x0009=]if a random chance of 1 in 2 succeeds, say [=0x0022=]The lion eyes you with obvious discontent.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Though the lion does not move, you are aware that it is watching you closely.[=0x0022=][=0x000A=][=0x000A=]The magician[=0x0027=]s booth is a container in Center Ring. [=0x0022=]Off to one side is a magician[=0x0027=]s booth, used in disappearing acts. The exterior is covered with painted gilt stars.[=0x0022=] The booth is enterable, open, not openable, and fixed in place.[=0x000A=][=0x000A=]Inside from the Center Ring is the Starry Vastness.[=0x000A=][=0x000A=]Instead of entering the magician[=0x0027=]s booth: try going inside.[=0x000A=][=0x000A=]Test me with [=0x0022=]get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Tamed&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ring</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cage</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ring</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">lion</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cage</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cage</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax">, </span><span class="identifier-syntax">openable</span><span class="plain-syntax">, </span><span class="identifier-syntax">transparent</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>to add extra names to the object we've defined.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]First Name Basis[=0x0022=][=0x000A=][=0x000A=]The Crew Lounge is a room. [=0x0022=]Deliberately spartan: the crew feels weight restrictions here first, so there aren[=0x0027=]t any chairs, just a few thin pads on the ground.[=0x0022=][=0x000A=][=0x000A=]The holographic projector is a device in the Crew Lounge. [=0x0022=]The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.[=0x0022=] Understand [=0x0022=]holo[=0x0022=] or [=0x0022=]holograph[=0x0022=] or [=0x0022=]Misthon[=0x0022=] or [=0x0022=]9000[=0x0022=] as the projector.[=0x000A=][=0x000A=]The description of the projector is [=0x0022=][if switched on]The projector is now playing a documentary about the early politics of the Mars colony.[otherwise]The air above the projector is disappointingly clear.[end if][=0x0022=].[=0x000A=][=0x000A=]Lewis and Harper are men in the Crew Lounge. Understand [=0x0022=]man[=0x0022=] or [=0x0022=]guy[=0x0022=] or [=0x0022=]chap[=0x0022=] or [=0x0022=]lad[=0x0022=] or [=0x0022=]male[=0x0022=] as a man. Understand [=0x0022=]men[=0x0022=] or [=0x0022=]chaps[=0x0022=] or [=0x0022=]lads[=0x0022=] or [=0x0022=]guys[=0x0022=] or [=0x0022=]males[=0x0022=] as the plural of a man.[=0x000A=][=0x000A=]The description of Lewis is [=0x0022=]A wiry, excitable engineer who just signed aboard last week.[=0x0022=] The description of Harper is [=0x0022=]Harper[=0x0027=]s a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;First Name Basis&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crew</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Deliberately spartan: the crew feels weight restrictions here first, so there aren't any chairs, just a few thin pads on the ground.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holographic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">projector</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crew</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The one major source of entertainment is the holographic projector, a top of the line Misthon 9000, on which you view every beam you can get.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;holo&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;holograph&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Misthon&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;9000&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">projector</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">projector</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if switched on]</span><span class="syntaxstring">The projector is now playing a documentary about the early politics of the Mars colony.</span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">The air above the projector is disappointingly clear.</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>Notice that we made the cage <code class="inlinesourcetext">transparent</code>. Strictly speaking it is not made of transparent materials, but we can see into (or out of) a closed cage due to the gaps between the bars, so that from Inform's point of view a cage behaves much like a large sturdy glass box. (If we really wanted to make a distinction between, say, an airtight container and one with perforations, we could do so, but Inform does not model such nuances by default.) If a container is not <code class="inlinesourcetext">transparent</code>, we can see into and out of it only when it is open.</p>
+        <p>Supporters are a bit more straightforward because there is no circumstance in which they separate the player from the rest of the world:</p>
+        <!-- START CODE "code3031" -->
+        <blockquote class="extract-inform7"><a id="code3031"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">pedestal</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ring</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>(This description is for local colour; we will learn more about devices, and conditions like <code class="inlinesourcetext">if switched on</code>, later in this chapter.)</p>
-        <p>By default, Inform does not understand the names of an object's kind as referring to that object, unless the object has no other name of its own. We can change this, if we like, by defining names that should be applied to everything of a given kind:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Lewis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Harper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">men</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crew</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;man&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;guy&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chap&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lad&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;male&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;men&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;chaps&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lads&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;guys&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;males&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lewis</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A wiry, excitable engineer who just signed aboard last week.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Harper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Harper's a good guy: taciturn when sober, affectionate when drunk, but rarely annoying in either state.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x holo / x man / lewis / x guy / harper / turn on projector / x holo projector / get men&quot;</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>And in fact we can tell Inform that the player starts on the pedestal with this line:</p>
+        <!-- START CODE "code3032" -->
+        <blockquote class="extract-inform7"><a id="code3032"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">pedestal</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Inform's naming abilities go considerably further, in fact: we can also instruct it to understand words only under certain circumstances, or only when they appear with other words. Fuller details may be found in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>.</p>
+        <!-- END CODE -->
+        <p>Now the player will begin there rather than just in the Center Ring.</p>
+        <p>This last bit is an entirely unnecessary bit of local colour, but if we're going to keep getting into and out of the lion's cage, we ought to expect him to take notice:</p>
+        <!-- START CODE "code3033" -->
+        <blockquote class="extract-inform7"><a id="code3033"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cage</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">chance</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The lion eyes you with obvious discontent.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Though the lion does not move, you are aware that it is watching you closely.&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Randomness is explained more completely in the chapter on <a href="WI_8_1.html" title="Chapter 8: Change">Change</a>, and <code class="inlinesourcetext">every turn</code> rules in the chapter on <a href="WI_9_1.html" title="Chapter 9: Time">Time</a>.</p>
+        <p>Finally, we might want a container whose interior is modeled as its own separate room: say, a magician's booth in which volunteers are made to disappear.</p>
+        <!-- START CODE "code3034" -->
+        <blockquote class="extract-inform7"><a id="code3034"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">magician</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">booth</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ring</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Off to one side is a magician's booth, used in disappearing acts. The exterior is covered with painted gilt stars.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">booth</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax">, </span><span class="identifier-syntax">open</span><span class="plain-syntax">, </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Now we create our other location:</p>
+        <!-- START CODE "code3035" -->
+        <blockquote class="extract-inform7"><a id="code3035"></a><span class="indexdullblue"><span class="identifier-syntax">Inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ring</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Starry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Vastness</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>...which handles the case of the player typing <code class="inlinetranscriptcommand">in</code>. (We will not assume by default that they want to get into the cage with the lion, this being obviously perilous.) But we also want to make sure that the player who types <code class="inlinetranscriptcommand">enter booth</code> winds up in the same place, so we should add:</p>
+        <!-- START CODE "code3036" -->
+        <blockquote class="extract-inform7"><a id="code3036"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">entering</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">magician</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">booth</span><span class="plain-syntax">: </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;get in cage / open cage / get in cage / z / close cage / out / open cage / get on pedestal / get off / look / enter booth / out&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_5.html>Section 3.5: Kinds</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_6.html>Section 3.6: Either/or properties</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

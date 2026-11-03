@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,123 +2212,179 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Arithmetic" -->
+            <!-- SEARCH SECTION "16.6" -->
+            <!-- SEARCH SORT "001-016-006-000" -->
             <h3><span>Section 16.6: Arithmetic</span></h3>
             <p>          </p>
             <p>We are allowed to perform about the same operations on numbers as are provided by a simple office calculator, starting with addition, subtraction, multiplication and division. We can use the traditional typewriter symbols for these, <code class="inlinesourcetext">+</code>, <code class="inlinesourcetext">-</code>, <code class="inlinesourcetext">*</code> and <code class="inlinesourcetext">/</code>, or can spell them out in words as <code class="inlinesourcetext">plus</code>, <code class="inlinesourcetext">minus</code>, <code class="inlinesourcetext">times</code> (or <code class="inlinesourcetext">multiplied by</code>), and <code class="inlinesourcetext">divided by</code>.</p>
             <p>English sentences are not a great way to write complex formulae: <a href="WI_16_16.html" title="Section 16.16: Equations">Equations</a> are provided for that. But simple calculations do work, and Inform does have a basic idea that multiplication and division take precedence over addition and subtraction:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;1 plus 2 times 4&quot; = number: 9</span><br><span class="syntaxidentifier">&quot;1 times 2 plus 4&quot; = number: 6</span><br><span class="syntaxidentifier">&quot;2 minus 3 minus 1&quot; = number: 0</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;1 plus 2 times 4&quot; = number: 9<br>&quot;1 times 2 plus 4&quot; = number: 6<br>&quot;2 minus 3 minus 1&quot; = number: 0<br></code></pre></div>
             <p>Brackets can be used to clarify: <code class="inlinesourcetext">2 minus 3 minus 1</code> produces <code class="inlinesourcetext">2 minus (3 minus 1)</code>, not <code class="inlinesourcetext">(2 minus 3) minus 1</code>, but the bracketed version is clearer in both cases.</p>
             <div class="definition">
-                <p class="defnprototype">(arithmetic value) + (arithmetic value) ... value</p>
-                <p class="defnprototype">(arithmetic value) plus (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn233" -->
+                <p class="defnprototype"><a id="defn233"></a>(arithmetic value) + (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn234" -->
+                <p class="defnprototype"><a id="defn234"></a>(arithmetic value) plus (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed addition on the given values, whose kinds must agree, and produces the result. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">200</span><span class="syntaxplain"> + </span><span class="syntaxconstant">1</span><span class="syntaxplain"> = </span><span class="syntaxconstant">201</span>
+                <!-- START CODE "code1017" -->
+                <blockquote class="extract-inform7"><a id="code1017"></a><span class="indexdullblue"><span class="constant-syntax">200</span><span class="plain-syntax"> + </span><span class="constant-syntax">1</span><span class="plain-syntax"> = </span><span class="constant-syntax">201</span>
                 <br>
-                <span class="syntaxconstant">10</span><span class="syntaxplain">:04 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> = </span><span class="syntaxconstant">10</span><span class="syntaxplain">:06 </span><span class="syntaxidentifier">AM</span>
+                <span class="constant-syntax">10</span><span class="plain-syntax">:04 </span><span class="identifier-syntax">AM</span><span class="plain-syntax"> + </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> = </span><span class="constant-syntax">10</span><span class="plain-syntax">:06 </span><span class="identifier-syntax">AM</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">(arithmetic value) - (arithmetic value) ... value</p>
-                <p class="defnprototype">(arithmetic value) minus (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn235" -->
+                <p class="defnprototype"><a id="defn235"></a>(arithmetic value) - (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn236" -->
+                <p class="defnprototype"><a id="defn236"></a>(arithmetic value) minus (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed subtraction on the given values, whose kinds must agree, and produces the result. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">200</span><span class="syntaxplain"> - </span><span class="syntaxconstant">1</span><span class="syntaxplain"> = </span><span class="syntaxconstant">199</span>
+                <!-- START CODE "code1018" -->
+                <blockquote class="extract-inform7"><a id="code1018"></a><span class="indexdullblue"><span class="constant-syntax">200</span><span class="plain-syntax"> - </span><span class="constant-syntax">1</span><span class="plain-syntax"> = </span><span class="constant-syntax">199</span>
                 <br>
-                <span class="syntaxconstant">10</span><span class="syntaxplain">:04 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> = </span><span class="syntaxconstant">10</span><span class="syntaxplain">:02 </span><span class="syntaxidentifier">AM</span>
+                <span class="constant-syntax">10</span><span class="plain-syntax">:04 </span><span class="identifier-syntax">AM</span><span class="plain-syntax"> - </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> = </span><span class="constant-syntax">10</span><span class="plain-syntax">:02 </span><span class="identifier-syntax">AM</span>
                 <br>
-                <span class="syntaxconstant">10</span><span class="syntaxplain">:04 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain"> - </span><span class="syntaxconstant">10</span><span class="syntaxplain">:02 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span>
+                <span class="constant-syntax">10</span><span class="plain-syntax">:04 </span><span class="identifier-syntax">AM</span><span class="plain-syntax"> - </span><span class="constant-syntax">10</span><span class="plain-syntax">:02 </span><span class="identifier-syntax">AM</span><span class="plain-syntax"> = </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">(arithmetic value) \* (arithmetic value) ... value</p>
-                <p class="defnprototype">(arithmetic value) times (arithmetic value) ... value</p>
-                <p class="defnprototype">(arithmetic value) multiplied by (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn237" -->
+                <p class="defnprototype"><a id="defn237"></a>(arithmetic value) \* (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn238" -->
+                <p class="defnprototype"><a id="defn238"></a>(arithmetic value) times (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn239" -->
+                <p class="defnprototype"><a id="defn239"></a>(arithmetic value) multiplied by (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed multiplication on the given values, whose kinds must be dimensionally compatible, and produces the result. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">201</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> = </span><span class="syntaxconstant">603</span>
+                <!-- START CODE "code1019" -->
+                <blockquote class="extract-inform7"><a id="code1019"></a><span class="indexdullblue"><span class="constant-syntax">201</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> = </span><span class="constant-syntax">603</span>
                 <br>
-                <span class="syntaxidentifier">two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">eight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span>
+                <span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> = </span><span class="identifier-syntax">eight</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">(arithmetic value) / (arithmetic value) ... value</p>
-                <p class="defnprototype">(arithmetic value) divided by (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn240" -->
+                <p class="defnprototype"><a id="defn240"></a>(arithmetic value) / (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn241" -->
+                <p class="defnprototype"><a id="defn241"></a>(arithmetic value) divided by (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed division on the given values, whose kinds must be dimensionally compatible, and produces the result. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">201</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> = </span><span class="syntaxconstant">67</span>
+                <!-- START CODE "code1020" -->
+                <blockquote class="extract-inform7"><a id="code1020"></a><span class="indexdullblue"><span class="constant-syntax">201</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> = </span><span class="constant-syntax">67</span>
                 <br>
-                <span class="syntaxconstant">202</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> = </span><span class="syntaxconstant">67</span>
+                <span class="constant-syntax">202</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> = </span><span class="constant-syntax">67</span>
                 <br>
-                <span class="syntaxconstant">202</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> = </span><span class="syntaxconstant">67</span><span class="syntaxplain">.33334</span>
+                <span class="constant-syntax">202</span><span class="plain-syntax">.0 </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> = </span><span class="constant-syntax">67</span><span class="plain-syntax">.33334</span>
                 <br>
-                <span class="syntaxidentifier">twenty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span>
+                <span class="identifier-syntax">twenty</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> = </span><span class="identifier-syntax">five</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span>
                 <br>
-                <span class="syntaxidentifier">twenty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> = </span><span class="syntaxconstant">4</span>
+                <span class="identifier-syntax">twenty</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">five</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> = </span><span class="constant-syntax">4</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Division rounds whole-number values down to the nearest whole number. An attempt to divide a number by 0 will cause a run-time problem message; but an attempt to divide a real number by 0 will instead produce plus infinity or minus infinity.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">remainder after dividing (arithmetic value) by (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn242" -->
+                <p class="defnprototype"><a id="defn242"></a>remainder after dividing (arithmetic value) by (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed division on the given values, whose kinds must be dimensionally compatible, and then produces the remainder. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">remainder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dividing</span><span class="syntaxplain"> </span><span class="syntaxconstant">201</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span>
+                <!-- START CODE "code1021" -->
+                <blockquote class="extract-inform7"><a id="code1021"></a><span class="indexdullblue"><span class="identifier-syntax">remainder</span><span class="plain-syntax"> </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">dividing</span><span class="plain-syntax"> </span><span class="constant-syntax">201</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span>
                 <br>
-                <span class="syntaxidentifier">remainder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dividing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">twenty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">six</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span>
+                <span class="identifier-syntax">remainder</span><span class="plain-syntax"> </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">dividing</span><span class="plain-syntax"> </span><span class="identifier-syntax">twenty</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> = </span><span class="identifier-syntax">six</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>It is mathematically impossible to divide by 0, so any attempt to find the remainder after dividing a number by 0 will cause a run-time problem message. For a real number this won't arise and the remainder will usually be 0.0.</p>
             </div>
             <p>The verbal and symbolic forms of these phrases are equivalent:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> + </span><span class="syntaxconstant">10</span>
+            <!-- START CODE "code1022" -->
+            <blockquote class="extract-inform7"><a id="code1022"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> + </span><span class="constant-syntax">10</span>
             <br>
-            <span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span>
+            <span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It's probably better style to spell them out in full when writing text, and keep the symbols for writing equations, as we'll see later on in the chapter. (If we do use the symbols, then spaces around them are obligatory: to Inform, they are words which just happen to be spelt with symbols instead of letters.)</p>
             <p>Arithmetic often produces fussily exact answers which seem inappropriate in a conversation. Nobody says &quot;Steeple Barton is 7.655 miles down the road&quot;, but &quot;Steeple Barton is eight miles down the road&quot; sounds perfectly normal. In order to make that sort of report easier to make, Inform provides another arithmetic operation, one that's not found in most computer programming languages:</p>
             <div class="definition">
-                <p class="defnprototype">(arithmetic value) to the nearest (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn243" -->
+                <p class="defnprototype"><a id="defn243"></a>(arithmetic value) to the nearest (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase rounds the given value off, rounding upward in boundary cases. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">201</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain"> = </span><span class="syntaxconstant">200</span>
+                <!-- START CODE "code1023" -->
+                <blockquote class="extract-inform7"><a id="code1023"></a><span class="indexdullblue"><span class="constant-syntax">201</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax"> = </span><span class="constant-syntax">200</span>
                 <br>
-                <span class="syntaxconstant">205</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> = </span><span class="syntaxconstant">210</span>
+                <span class="constant-syntax">205</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> = </span><span class="constant-syntax">210</span>
                 <br>
-                <span class="syntaxconstant">10</span><span class="syntaxplain">:27 </span><span class="syntaxidentifier">AM</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> = </span><span class="syntaxconstant">10</span><span class="syntaxplain">:25 </span><span class="syntaxidentifier">AM</span>
+                <span class="constant-syntax">10</span><span class="plain-syntax">:27 </span><span class="identifier-syntax">AM</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">five</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> = </span><span class="constant-syntax">10</span><span class="plain-syntax">:25 </span><span class="identifier-syntax">AM</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Inform has very few mathematical functions built in as phrases, because these aren't very often needed in story-telling. But it does provide these:</p>
             <div class="definition">
-                <p class="defnprototype">square root of (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn244" -->
+                <p class="defnprototype"><a id="defn244"></a>square root of (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces an approximate square root, to the nearest integer, of the given value, which must be of a kind which has square roots. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span><span class="syntaxplain"> = </span><span class="syntaxconstant">4</span>
+                <!-- START CODE "code1024" -->
+                <blockquote class="extract-inform7"><a id="code1024"></a><span class="indexdullblue"><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">root</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">16</span><span class="plain-syntax"> = </span><span class="constant-syntax">4</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Trying to take the square root of a negative number will cause a run-time problem, because then we can't even nearly solve it.</p>
                 <p>(Warning: this is slow to compute if the Z-machine setting is used. For best performance, use Glulx.)</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">real square root of (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn245" -->
+                <p class="defnprototype"><a id="defn245"></a>real square root of (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a square root, as accurately as a real number can hold it, of the given value, which must be of a kind which has square roots. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.41421</span>
+                <!-- START CODE "code1025" -->
+                <blockquote class="extract-inform7"><a id="code1025"></a><span class="indexdullblue"><span class="identifier-syntax">real</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">root</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.41421</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The real square root of a negative number is nonexistent.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">cube root of (arithmetic value) ... value</p>
+                <!-- START PHRASE "defn246" -->
+                <p class="defnprototype"><a id="defn246"></a>cube root of (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces an approximate cube root, to the nearest integer, of the given value, which must be of a kind which has cube roots. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">cube</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">27</span><span class="syntaxplain"> = </span><span class="syntaxconstant">3</span>
+                <!-- START CODE "code1026" -->
+                <blockquote class="extract-inform7"><a id="code1026"></a><span class="indexdullblue"><span class="identifier-syntax">cube</span><span class="plain-syntax"> </span><span class="identifier-syntax">root</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">27</span><span class="plain-syntax"> = </span><span class="constant-syntax">3</span>
                 <br>
-                <span class="syntaxidentifier">cube</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -27 = -3</span>
+                <span class="identifier-syntax">cube</span><span class="plain-syntax"> </span><span class="identifier-syntax">root</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -27 = -3</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>(Warning: this is not very accurate if the Z-machine setting is used. For best performance, use Glulx.)</p>
             </div>
             <p>We can compare numbers using either the traditional computer-programming symbols, or using words:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span>
+            <!-- START CODE "code1027" -->
+            <blockquote class="extract-inform7"><a id="code1027"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> &lt; </span><span class="syntaxconstant">10</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> &lt; </span><span class="constant-syntax">10</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and similarly for <code class="inlinesourcetext">greater than</code>, <code class="inlinesourcetext">at least</code> and <code class="inlinesourcetext">at most</code>, with the symbols <code class="inlinesourcetext">&gt;</code>, <code class="inlinesourcetext">&gt;=</code> and <code class="inlinesourcetext">&lt;=</code>. But we are not allowed the equals sign: for that we need only use <code class="inlinesourcetext">is</code> –</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span>
+            <!-- START CODE "code1028" -->
+            <blockquote class="extract-inform7"><a id="code1028"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_5.html"><span class="markdowncontent">Section 16.5: Printing real numbers</span></a> &bull; <a href="WI_16_7.html"><span class="markdowncontent">Section 16.7: Powers and logarithms</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

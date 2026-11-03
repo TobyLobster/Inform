@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,86 +2212,118 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Decision points" -->
+            <!-- SEARCH SECTION "11.11" -->
+            <!-- SEARCH SORT "001-011-011-000" -->
             <h3><span>Section 11.11: Decision points</span></h3>
+            <p>
+
+             
+
+
+
+             
+
+
+
+
+             
+
+                </p>
             <p>A <em>decision point</em> is reached when the director is performing a beat and comes to a run of <em>choices</em>. The idea is that the player selects one of these choices, and then dialogue continues down whichever branch is called for.</p>
             <h4><span>Textual choices</span></h4>
             <p>So far, we have only seen one sort of decision: where the player is offered specific options as the choices, and has to type 1, 2, ..., to indicate which to take.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Border</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Business or pleasure?&quot;</span>
+            <!-- START CODE "code690" -->
+            <blockquote class="extract-inform7"><a id="code690"></a><span class="indexdullblue"><span class="identifier-syntax">Border</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Business or pleasure?&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Business.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Business.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Then where is your C-34d section (xciii) visa exemption waiver proffer certificate D?&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Then where is your C-34d section (xciii) visa exemption waiver proffer certificate D?&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Pleasure.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Pleasure.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Fill out the address of your hotel and the name of your vessel, like it's the 1930s still.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Fill out the address of your hotel and the name of your vessel, like it's the 1930s still.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Those are called <em>textual choices</em>, since they consist of text like <code class="inlinesourcetext">&quot;Business.&quot;</code>. But there are also two other ways a decision can present itself.</p>
             <h4><span>Action choices</span></h4>
             <p><em>Action choices</em> cause the dialogue director to halt (temporarily) and allow the player to type a command, which is then understood as causing an action in the normal way. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Border</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Passport, please.&quot;</span>
+            <!-- START CODE "code691" -->
+            <blockquote class="extract-inform7"><a id="code691"></a><span class="indexdullblue"><span class="identifier-syntax">Border</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Passport, please.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">passport</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">passport</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Enjoy your stay.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Enjoy your stay.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">otherwise</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">otherwise</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Federal law forbids any suspicious activity here, Ma'am. You're going to have to go with these officers.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Federal law forbids any suspicious activity here, Ma'am. You're going to have to go with these officers.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So, for example,</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Border agent: &quot;Passport, please.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GIVE PASSPORT TO AGENT</span><br><span class="syntaxidentifier">Border agent: &quot;Enjoy your stay.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">Border agent: &quot;Passport, please.&quot;<br><br>&gt; GIVE PASSPORT TO AGENT<br>Border agent: &quot;Enjoy your stay.&quot;<br></code></pre></div>
             <p>Notice the <code class="inlinesourcetext">before</code> in the <code class="inlinesourcetext">-- before giving the passport to the agent</code> branch. This means that dialogue intercepts the action, and it never actually takes place. (So the player retains the passport, and none of the normal rules which might prevent the action from taking place are consulted.) If <code class="inlinesourcetext">after</code> is used rather than <code class="inlinesourcetext">before</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span>
+            <!-- START CODE "code692" -->
+            <blockquote class="extract-inform7"><a id="code692"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">jumping</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Ma'am, it's a serious offence to jump on the spot in an airport.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Ma'am, it's a serious offence to jump on the spot in an airport.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...then the action <em>does</em> take place, and only then will the Agent speak.</p>
             <p>But now suppose the action is one which might conceivably fail: suppose the player is smuggling something in a briefcase, and we want to anticipate <code class="inlinetranscriptcommand">drop briefcase</code>. The case, however, might be handcuffed to the player's wrist: and we don't know whether it will be or not when the dialogue takes place. Let's suppose that we have written this rule:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">briefcase</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code693" -->
+            <blockquote class="extract-inform7"><a id="code693"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">briefcase</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handcuff</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's chained to your wrist!&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">handcuff</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's chained to your wrist!&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If the dialogue writes the choice this way:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">briefcase</span>
+            <!-- START CODE "code694" -->
+            <blockquote class="extract-inform7"><a id="code694"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">briefcase</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I saw you! Pick that case up at once!&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I saw you! Pick that case up at once!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then we've somehow implied that the player <em>has</em> dropped the case, which would be unrealistic with the handcuff in use. But if we have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">briefcase</span>
+            <!-- START CODE "code695" -->
+            <blockquote class="extract-inform7"><a id="code695"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">briefcase</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I saw you! Pick that case up at once!&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I saw you! Pick that case up at once!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then the dropping action does actually take place, so that the briefcase is now on the ground. Somehow, what we want is for all the checking rules on the action to take place, but then for the action itself to be intercepted <em>if</em> it turned out to make sense. And that's indeed possible:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">briefcase</span>
+            <!-- START CODE "code696" -->
+            <blockquote class="extract-inform7"><a id="code696"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">briefcase</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I saw you! Pick that case up at once!&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I saw you! Pick that case up at once!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So to sum up:</p>
             <ol>
             <li>
@@ -2224,83 +2341,89 @@
             </ol>
             <p>Note that there doesn't have to be an <code class="inlinesourcetext">-- otherwise</code> option. There usually is, as a catch-all, but if not, and none of the choices match, then the decision is left hanging for another turn and reconsidered then.</p>
             <p>This seems a good point to give an advance preview of flow markers. The following, slightly less hostile, immigration experience obliges the player to keep typing commands until realising that <code class="inlinetranscriptcommand">give passport to agent</code> is the sensible thing to do.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Border</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Passport, please.&quot;</span>
+            <!-- START CODE "code697" -->
+            <blockquote class="extract-inform7"><a id="code697"></a><span class="indexdullblue"><span class="identifier-syntax">Border</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Passport, please.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">) </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">passport</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span>
+            <span class="plain-syntax">-- (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">) </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">passport</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Enjoy your stay.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Enjoy your stay.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">) </span><span class="syntaxidentifier">otherwise</span>
+            <span class="plain-syntax">-- (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">) </span><span class="identifier-syntax">otherwise</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Agent</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Just the passport, if you please, Ma'am.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Agent</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Just the passport, if you please, Ma'am.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">&lt;-</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that the success branch simply runs out of things to say, and so the dialogue ends with the agent saying &quot;Enjoy your stay.&quot; But the failure branch runs into the <em>flow marker</em> <code class="inlinesourcetext">&lt;-</code>. This tells the director to go back to the last decision and try again.</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Border agent: &quot;Passport, please.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> DROP BRIEFCASE</span><br><span class="syntaxidentifier">Border agent: &quot;Just the passport, if you please, Ma'am.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GIVE PASSPORT TO AGENT</span><br><span class="syntaxidentifier">Border agent: &quot;Enjoy your stay.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">Border agent: &quot;Passport, please.&quot;<br><br>&gt; DROP BRIEFCASE<br>Border agent: &quot;Just the passport, if you please, Ma'am.&quot;<br><br>&gt; GIVE PASSPORT TO AGENT<br>Border agent: &quot;Enjoy your stay.&quot;<br></code></pre></div>
             <h4><span>Automatic choices</span></h4>
             <p>&quot;Automatic&quot; choices sounds like a contradiction in terms, but really what happens is that it's Inform itself which makes the choice, rather than the player. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">step</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span>
+            <!-- START CODE "code698" -->
+            <blockquote class="extract-inform7"><a id="code698"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">step</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;One.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;One.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">or</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">or</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Two.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Two.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">or</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">or</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Three.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Three.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In an automatic choice, the first choice explains how to make the decision, and
             the rest must all be just <code class="inlinesourcetext">-- or</code>. In this case, what <code class="inlinesourcetext">step through</code> means is
             that the first time this choice is encountered, the first option is chosen (so
             Liza says &quot;One.&quot;); the second time, the second option; the third time, the third
             option; and on the fourth and subsequent times, nothing is done.</p>
             <p>An alternative is:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxidentifier">cycle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span>
+            <!-- START CODE "code699" -->
+            <blockquote class="extract-inform7"><a id="code699"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="identifier-syntax">cycle</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;One.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;One.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">or</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">or</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Two.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Two.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxidentifier">or</span>
+            <span class="plain-syntax">-- </span><span class="identifier-syntax">or</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Liza</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Three.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Liza</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Three.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is like <code class="inlinesourcetext">step through</code> except that the fourth time, we go back to Liza
             saying &quot;One.&quot;, and the fifth time she says &quot;Two.&quot;, and so on, round and round.
             Note that the choices in an automatic choice are always recurring, but that
@@ -2327,27 +2450,27 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg185><a style="text-decoration: none" href="eg_185.html"><span class="extensionexampleletter">185</span></a></span></div>
+                    <span id=eg182><a style="text-decoration: none" href="eg_182.html"><span class="extensionexampleletter">182</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_185.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal Revisited</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_182.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal Revisited</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Mr Spruce proposes again, this time using the dialogue system.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg185><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg182><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg186><a style="text-decoration: none" href="eg_186.html"><span class="extensionexampleletter">186</span></a></span></div>
+                    <span id=eg183><a style="text-decoration: none" href="eg_183.html"><span class="extensionexampleletter">183</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_186.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swift Persuasion</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_183.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swift Persuasion</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">We combine persuasion rules with the dialogue system so that the character who is asked to do a task can require something of the player in turn.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg186><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg183><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_10.html"><span class="markdowncontent">Section 11.10: Managing dialogue lines</span></a> &bull; <a href="WI_11_12.html"><span class="markdowncontent">Section 11.12: Dialogue choices</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

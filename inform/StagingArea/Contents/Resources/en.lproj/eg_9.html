@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,55 +2193,69 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg9><a style="text-decoration: none" href="WI_3_1.html"><span class="extensionexampleletter">9</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bic</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Testing to make sure that all objects have been given descriptions.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 1</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Making rooms give brief room descriptions when revisited.</span></span></div>
             <div class="exampleright">
-                <span id=eg9><a style="text-decoration: none" href="RB_13_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg9><a style="text-decoration: none" href="RB_6_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>It may occasionally be useful to check whether all objects in our game have a given property. Here we have a <code class="inlinesourcetext">not for release</code> section that will run at the start of the game and alert us to any objects lacking description:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Bic[=0x0022=][=0x000A=][=0x000A=]Section 1 - Testing descriptions - Not for release[=0x000A=][=0x000A=]When play begins (this is the run property checks at the start of play rule):[=0x000A=][=0x0009=]repeat with item running through things:[=0x000A=][=0x0009=][=0x0009=]if description of the item is [=0x0022=][=0x0022=]:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][item] has no description.[=0x0022=][=0x000A=][=0x000A=]Section 2 - Story[=0x000A=][=0x000A=]The Staff Break Room is a room.[=0x000A=][=0x000A=]The player carries an orange, a Bic pen, and a napkin. The description of the orange is [=0x0022=]It[=0x0027=]s a small hard pinch-skinned thing from the lunch room, probably with lots of pips and no juice.[=0x0022=][=0x000A=][=0x000A=]The description of the napkin is [=0x0022=]Slightly crumpled.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Bic&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 1 - Testing descriptions - Not for release</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">run</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">checks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">start</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&quot;</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[item]</span><span class="syntaxstring"> has no description.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - Story</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Staff</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Break</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pen</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">napkin</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">orange</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's a small hard pinch-skinned thing from the lunch room, probably with lots of pips and no juice.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">napkin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Slightly crumpled.&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Verbosity 1" -->
+        <!-- SEARCH SECTION "Example 9" -->
+        <!-- SEARCH SORT "003-009-000-000" -->
+        <p>    </p>
+        <p>By default, the description of a room is printed every time the player enters a room.</p>
+        <p>On a device with very limited screen space, however, we might wish to supplant that behaviour with <code class="inlinesourcetext">brief</code> descriptions. In Brief mode, Inform prints room descriptions only when the player enters that room for the first time. Afterwards, the text is skipped, for brevity, though the player can see it again at any time by typing <code class="inlinetranscriptcommand">look</code>.</p>
+        <p>As we saw in the previous chapter, we can set &quot;use options&quot; to control certain aspects of the player's experience. One of the use options is the option to</p>
+        <!-- START CODE "code2607" -->
+        <blockquote class="extract-inform7"><a id="code2607"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>which changes the defaults so that the description of a room is printed only the first time the player enters.</p>
+        <!-- START CODE "code2608" -->
+        <blockquote class="extract-inform7"><a id="code2608"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Verbosity[=0x0022=][=0x000A=][=0x000A=]Use brief room descriptions.[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Verbosity&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wilkie</span><span class="plain-syntax"> </span><span class="identifier-syntax">Memorial</span><span class="plain-syntax"> </span><span class="identifier-syntax">Research</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The research wing was built onto the science building in 1967, when the college's finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.</span>
+        <br>
+
+        <br>
+        <span class="string-syntax">The Men's Restroom is immediately west of this point.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Men</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Restroom</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Research</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wing</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Well, yes, you really shouldn't be in here. But the nearest women's room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;west / east&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>If we type <code class="inlinetranscriptcommand">test me</code> during play, these commands will be carried out automatically, and we can see that when we return to the Research Wing, the description is not given a second time.</p>
+        <p>Some notes: the player can also turn full-length descriptions on or off with the commands <code class="inlinetranscriptcommand">verbose</code> and <code class="inlinetranscriptcommand">brief</code>, or set a minimal-description setting with the command <code class="inlinetranscriptcommand">superbrief</code>. This power still belongs to the player even if we have set the use option to show brief room descriptions by default.</p>
+        <p>Moreover, we can ourselves check what the state of the descriptions is, with</p>
+        <!-- START CODE "code2609" -->
+        <blockquote class="extract-inform7"><a id="code2609"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">sometimes</span><span class="plain-syntax"> </span><span class="identifier-syntax">abbreviated</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">: ...</span>
+        <br>
+        <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">unabbreviated</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">: ...</span>
+        <br>
+        <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">abbreviated</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">: ...</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Finally, it is possible to exercise more precise control over what the player sees on their first and subsequent visits to a room; see the next example for details.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_1.html>Section 3.1: Descriptions</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

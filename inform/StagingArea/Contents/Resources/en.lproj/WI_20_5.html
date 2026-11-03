@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,20 +2212,28 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New activities" -->
+            <!-- SEARCH SECTION "20.5" -->
+            <!-- SEARCH SORT "001-020-005-000" -->
             <h3><span>Section 20.5: New activities</span></h3>
             <p>      </p>
             <p>Activities are all about influencing the standard mechanisms which Inform uses, so it might at first seem that there is no need to create new activities: but on further reflection, quite a lot of the writing of interactive fiction involves creating new and systematic ways to do things, and as soon as we have a general rule, we will want to have exceptions. Inform therefore allows us to create our own activities, giving us ways to influence the operation of our own mechanisms.</p>
             <p>There are two kinds of activity: those which relate to a specific value (usually an object but not necessarily), and those which do not. Here are some examples of activities being created:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1320" -->
+            <blockquote class="extract-inform7"><a id="code1320"></a><span class="indexdullblue"><span class="identifier-syntax">Assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Announcing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Announcing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These names are all present participles (note the <code class="inlinesourcetext">-ing</code>s), which emphasises that they are about an ongoing process. This naming convention is good style, and all of the built-in activities follow it, but it is not actually compulsory. <code class="inlinesourcetext">Barbra Streisand is an activity.</code> would be quite legal.</p>
             <p>Inform looks for the clue <code class="inlinesourcetext">something</code> (or <code class="inlinesourcetext">of something</code>) after the activity's name to see if it will work on a value: so analysing and announcing will do, but assaying won't. If we don't specify a kind, Inform assumes the value will be an object, as if we had written:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">objects</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1321" -->
+            <blockquote class="extract-inform7"><a id="code1321"></a><span class="indexdullblue"><span class="identifier-syntax">Analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">objects</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As always in Inform, the names of activities are themselves values.</p>
             <ul>
             <li><code class="inlinesourcetext">assaying activity</code> has kind <code class="inlinesourcetext">activity on nothing</code></li>
@@ -2148,75 +2241,91 @@
             <li><code class="inlinesourcetext">announcing activity</code> has kind <code class="inlinesourcetext">activity on numbers</code></li>
             </ul>
             <p>Creating an activity is like creating an action: it automatically makes new rulebooks – <code class="inlinesourcetext">before analysing</code>, <code class="inlinesourcetext">for analysing</code> and <code class="inlinesourcetext">after analysing</code> – but they start out empty, so the activity does nothing yet. Just as it does for rulebooks, Inform defines the adjectives <code class="inlinesourcetext">empty</code> and <code class="inlinesourcetext">non-empty</code> for activities to test this state:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code1322" -->
+            <blockquote class="extract-inform7"><a id="code1322"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will be true only when all three of its rulebooks are empty.</p>
             <p>A newly created activity never happens unless we take steps to make it do so. We can make an activity happen at any time by writing phrases like so:</p>
             <div class="definition">
-                <p class="defnprototype">carry out the (activity) activity</p>
+                <!-- START PHRASE "defn299" -->
+                <p class="defnprototype"><a id="defn299"></a>carry out the (activity) activity</p>
+                <!-- END PHRASE -->
                 <p>This phrase carries out the given activity, which must be one not applying to any value. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1323" -->
+                <blockquote class="extract-inform7"><a id="code1323"></a><span class="indexdullblue"><span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">carry out the (activity on values) activity with (value)</p>
+                <!-- START PHRASE "defn300" -->
+                <p class="defnprototype"><a id="defn300"></a>carry out the (activity on values) activity with (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase carries out the given activity, which must apply to a kind of value matching the one supplied. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">analysing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pitchblende</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1324" -->
+                <blockquote class="extract-inform7"><a id="code1324"></a><span class="indexdullblue"><span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">analysing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pitchblende</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announcing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">announcing</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>To make the activity do something useful, we need to put a rule into its <code class="inlinesourcetext">for</code> rulebook:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announcing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Ladies and gentlemen, </span><span class="syntaxextract">[N]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code1325" -->
+            <blockquote class="extract-inform7"><a id="code1325"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">announcing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Ladies and gentlemen, [N].&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Professionally, you cast an eye around mineral deposits nearby, noticing </span><span class="syntaxextract">[list of rocks in the location]</span><span class="syntaxstring">.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Professionally, you cast an eye around mineral deposits nearby, noticing [list of rocks in the location].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">The last</code> is a technicality about rulebooks (see the next chapter, <a href="WI_21_1.html" title="Chapter 21: Rulebooks">Rulebooks</a>) which, put briefly, guarantees that this rule comes last among all possible <code class="inlinesourcetext">for assaying</code> rules. This is good form because the whole point of an activity is to make it easy for further rules to interfere – so we deliberately hang back to last place, giving precedence to anybody else who wants it.</p>
             <p>The <code class="inlinesourcetext">for</code> rulebook is one where rules stop the activity, by default, when they take effect – in the same way that the <code class="inlinesourcetext">instead</code> rules stop actions by default. If this causes problems, we can use:</p>
             <div class="definition">
-                <p class="defnprototype">continue the activity</p>
+                <!-- START PHRASE "defn301" -->
+                <p class="defnprototype"><a id="defn301"></a>continue the activity</p>
+                <!-- END PHRASE -->
                 <p>This phrase should be used only in rules in activity rulebooks. It causes the current rule to end, but without result, so that the activity continues rather than stopping as a result of the rule. This is useful for rulebooks (like the <code class="inlinesourcetext">for</code> rulebook of an activity) where the default is that a rule does stop the activity.</p>
             </div>
             <p>Activities are more useful than they first appear. Every new one provides a context which other activities can observe. We could, for instance, define</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">assaying</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code1326" -->
+            <blockquote class="extract-inform7"><a id="code1326"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rock</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">assaying</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>so that during assays more technical names are used.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg364><a style="text-decoration: none" href="eg_364.html"><span class="extensionexampleletter">364</span></a></span></div>
+                    <span id=eg361><a style="text-decoration: none" href="eg_361.html"><span class="extensionexampleletter">361</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_364.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">AARP-Gnosis</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_361.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">AARP-Gnosis</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An Encyclopedia set which treats volumes in the same place as a single object, but can also be split up.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg364><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg361><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg365><a style="text-decoration: none" href="eg_365.html"><span class="extensionexampleletter">365</span></a></span></div>
+                    <span id=eg362><a style="text-decoration: none" href="eg_362.html"><span class="extensionexampleletter">362</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_365.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aftershock</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_362.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Aftershock</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Modifying the rules for examining a device so that all devices have some specific behaviour when switched on, which is described at various times.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg365><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg362><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg366><a style="text-decoration: none" href="eg_366.html"><span class="extensionexampleletter">366</span></a></span></div>
+                    <span id=eg363><a style="text-decoration: none" href="eg_363.html"><span class="extensionexampleletter">363</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_366.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Crusoe</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_363.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Crusoe</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a &quot;printing the description of something&quot; activity.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg366><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg363><a style="text-decoration: none" href="RB_6_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_4.html"><span class="markdowncontent">Section 20.4: While clauses</span></a> &bull; <a href="WI_20_6.html"><span class="markdowncontent">Section 20.6: Activity variables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

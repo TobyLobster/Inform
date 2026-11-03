@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,83 +2193,72 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg433><a style="text-decoration: none" href="WI_21_12.html"><span class="extensionexampleletter">433</span></a></span></div>
+                <span id=eg433><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleletter">433</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Being Peter</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A set of rules determining the attitude a character will take when asked about certain topics.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Electrified</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Adding a rule before the basic accessibility rule that will prevent the player from touching electrified objects under the wrong circumstances.</span></span></div>
             <div class="exampleright">
-                <span id=eg433><a style="text-decoration: none" href="RB_7_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg433><a style="text-decoration: none" href="RB_10_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Electrified" -->
+        <!-- SEARCH SECTION "Example 433" -->
+        <!-- SEARCH SORT "003-433-000-000" -->
         <p></p>
-        <p>Let's say that we're implementing a particularly irrational and volatile character. Some of the time she remains composed; some of the time she reacts with unexpected vehemence for reasons only partly related to what was said.</p>
-        <p>Moreover, her responses are divided between successful and failing outcomes, where success indicates that she's not too upset and failure means that she is distraught; we use this to determine how the rest of the room reacts.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Being Peter[=0x0022=][=0x000A=][=0x000A=]The Drawing Room is a room. [=0x0022=]The company is assembled here for champagne. Most of it, anyway: Mary is on the phone to her babysitter, Roger is keeping her anxious company, and Carol doesn[=0x0027=]t drink. But everyone else.[=0x0022=][=0x000A=][=0x000A=]Maggie is a woman in the Drawing Room.[=0x000A=][=0x000A=]The player wears a top hat.[=0x000A=][=0x000A=]Quizzing it about is an action applying to one thing and one visible thing. Understand [=0x0022=]ask [someone] about [any thing][=0x0022=] as quizzing it about.[=0x000A=][=0x000A=]Instead of quizzing Maggie about something:[=0x000A=][=0x0009=]follow the attitude rules;[=0x000A=][=0x0009=]say [=0x0022=]Everyone waits to see what the reaction will be: [outcome of the rulebook].[=0x0022=];[=0x000A=][=0x0009=]if rule succeeded, say [=0x0022=]There is general relief.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Everyone is pointedly silent.[=0x0022=][=0x000A=][=0x000A=]The attitude rules are a rulebook. The attitude rules have outcomes she stays calm (no outcome - default), she gets angry (failure), she has a stroke (failure), she is only mildly annoyed (success), and she is elated (success).[=0x000A=][=0x000A=]A subject is a kind of thing. income, love life, and children are subjects.[=0x000A=][=0x000A=]An attitude rule for quizzing Maggie about love life:[=0x000A=][=0x0009=]she gets angry.[=0x000A=][=0x000A=]An attitude rule:[=0x000A=][=0x0009=]if the player wears the top hat, she gets angry.[=0x000A=][=0x000A=]The last attitude rule:[=0x000A=][=0x0009=]she is only mildly annoyed.[=0x000A=][=0x000A=]Test me with [=0x0022=]ask maggie about love / ask maggie about income / take off hat / ask maggie about income[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Being Peter&quot;</span>
+        <p>Suppose we want to prevent the player from touching anything electrified – not just as a response to <code class="inlinetranscriptcommand">touch object</code>, but at any time when the action would require contact with the object in question.</p>
+        <!-- START CODE "code2533" -->
+        <blockquote class="extract-inform7"><a id="code2533"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Electrified[=0x0022=][=0x000A=][=0x000A=]A thing can be safe or electrified. A thing is usually safe.[=0x000A=][=0x000A=]The Open Field is a room. [=0x0022=]At this end of the field is a wire fence separating farm country from the government testing grounds beyond.[=0x0022=] The wire fence is an electrified thing in Open Field. It is scenery. The description of the wire fence is [=0x0022=]Built into the fence is [a list of things which are part of the fence].[=0x0022=] The scary box is an electrified container. It is part of wire fence. In the scary box is an alluring prize.[=0x000A=][=0x000A=]The player carries a flashlight, a grappling hook, a very thick rubber glove, and a length of rope. The glove is wearable.[=0x000A=][=0x000A=]This is the electrocution-wisdom rule:[=0x000A=][=0x0009=]if the player wears the very thick rubber glove, make no decision;[=0x000A=][=0x0009=]if the action requires a touchable noun and the noun is electrified, say [=0x0022=]You fear touching [the noun].[=0x0022=] instead;[=0x000A=][=0x0009=]if the action requires a touchable second noun and the second noun is electrified, say [=0x0022=]You fear touching [the second noun].[=0x0022=] instead.[=0x000A=][=0x000A=]The electrocution-wisdom rule is listed before the basic accessibility rule in the action-processing rules.[=0x000A=][=0x000A=]Before touching the scary box:[=0x000A=][=0x0009=]say [=0x0022=]You can[=0x0027=]t help noticing a bright red sticker on the surface of the box.[=0x0022=] [This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.][=0x000A=][=0x000A=]Instead of opening the scary box:[=0x000A=][=0x0009=]say [=0x0022=]The scary box seems to be super-glued shut.[=0x0022=] [This one won[=0x0027=]t, because Instead rules occur after basic accessibility.][=0x000A=][=0x000A=]Test me with [=0x0022=]touch fence / touch box / open box / wear glove / open box[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Electrified&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drawing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The company is assembled here for champagne. Most of it, anyway: Mary is on the phone to her babysitter, Roger is keeping her anxious company, and Carol doesn't drink. But everyone else.&quot;</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">safe</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">safe</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Maggie</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drawing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Open</span><span class="plain-syntax"> </span><span class="identifier-syntax">Field</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;At this end of the field is a wire fence separating farm country from the government testing grounds beyond.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">wire</span><span class="plain-syntax"> </span><span class="identifier-syntax">fence</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Open</span><span class="plain-syntax"> </span><span class="identifier-syntax">Field</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wire</span><span class="plain-syntax"> </span><span class="identifier-syntax">fence</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Built into the fence is [a list of things which are part of the fence].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">scary</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">wire</span><span class="plain-syntax"> </span><span class="identifier-syntax">fence</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scary</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">alluring</span><span class="plain-syntax"> </span><span class="identifier-syntax">prize</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">flashlight</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">grappling</span><span class="plain-syntax"> </span><span class="identifier-syntax">hook</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">very</span><span class="plain-syntax"> </span><span class="identifier-syntax">thick</span><span class="plain-syntax"> </span><span class="identifier-syntax">rubber</span><span class="plain-syntax"> </span><span class="identifier-syntax">glove</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">length</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rope</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">glove</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearable</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Quizzing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ask </span><span class="syntaxextract">[someone]</span><span class="syntaxstring"> about </span><span class="syntaxextract">[any thing]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quizzing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrocution</span><span class="plain-syntax">-</span><span class="identifier-syntax">wisdom</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">very</span><span class="plain-syntax"> </span><span class="identifier-syntax">thick</span><span class="plain-syntax"> </span><span class="identifier-syntax">rubber</span><span class="plain-syntax"> </span><span class="identifier-syntax">glove</span><span class="plain-syntax">, </span><span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax"> </span><span class="identifier-syntax">decision</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">requires</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">touchable</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You fear touching [the noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">requires</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">touchable</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrified</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You fear touching [the second noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quizzing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Maggie</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Everyone waits to see what the reaction will be: </span><span class="syntaxextract">[outcome of the rulebook]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeded</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;There is general relief.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Everyone is pointedly silent.&quot;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">electrocution</span><span class="plain-syntax">-</span><span class="identifier-syntax">wisdom</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">accessibility</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">-</span><span class="identifier-syntax">processing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">have</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outcomes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stays</span><span class="syntaxplain"> </span><span class="syntaxidentifier">calm</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">no</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outcome</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">default</span><span class="syntaxplain">), </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gets</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angry</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">failure</span><span class="syntaxplain">), </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stroke</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">failure</span><span class="syntaxplain">), </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mildly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">annoyed</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">success</span><span class="syntaxplain">), </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">elated</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">success</span><span class="syntaxplain">).</span>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">touching</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scary</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can't help noticing a bright red sticker on the surface of the box.&quot;</span><span class="plain-syntax"> </span><span class="comment-syntax">[This rule will fire even if we are not wearing the glove, because Before rules occur before basic accessibility.]</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scary</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The scary box seems to be super-glued shut.&quot;</span><span class="plain-syntax"> </span><span class="comment-syntax">[This one won't, because Instead rules occur after basic accessibility.]</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;touch fence / touch box / open box / wear glove / open box&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Here we want Inform to consult every appropriate attitude rule until it gets to some answer; if an attitude rule does not provide a result, the default 'no outcome' will mean that we go on to the next rule, and so on.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">income</span><span class="syntaxplain">, </span><span class="syntaxidentifier">love</span><span class="syntaxplain"> </span><span class="syntaxidentifier">life</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">children</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subjects</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">quizzing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Maggie</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">love</span><span class="syntaxplain"> </span><span class="syntaxidentifier">life</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gets</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angry</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">, </span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gets</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angry</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>Now, as we saw, the &quot;no outcome&quot; result will never be returned and printed as Maggie's reaction, precisely because it is &quot;no outcome&quot;. Therefore, we provide a final attitude rule which will give her a default response to all statements:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mildly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">annoyed</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ask maggie about love / ask maggie about income / take off hat / ask maggie about income&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>There are plenty of contexts where we might want named outcomes for clarity but not want to print the results literally afterward.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_12.html>Section 21.12: Named outcomes</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_15.html>Section 21.15: The internal rulebooks which keep stories running</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

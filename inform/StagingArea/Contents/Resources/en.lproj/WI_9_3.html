@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,102 +2212,108 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Introducing tables: rankings" -->
+            <!-- SEARCH SECTION "9.3" -->
+            <!-- SEARCH SORT "001-009-003-000" -->
             <h3><span>Section 9.3: Introducing tables: rankings</span></h3>
             <p>      </p>
             <p>Another tradition of interactive fiction is that the player has a current 'rank' according to how far their score has got. We can (but need not) choose to provide such rankings, and should do so by specifying a table like this:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Table 1 - Rankings[=0x000A=]Score[=0x0009=]Rank[=0x000A=]0[=0x0009=][=0x0009=][=0x0022=]Beginner[=0x0022=][=0x000A=]25[=0x0009=][=0x0009=][=0x0022=]Amateur Adventurer[=0x0022=][=0x000A=]50[=0x0009=][=0x0009=][=0x0022=]Novice Adventurer[=0x0022=][=0x000A=]100[=0x0009=][=0x0009=][=0x0022=]Junior Adventurer[=0x0022=][=0x000A=]200[=0x0009=][=0x0009=][=0x0022=]Adventurer[=0x0022=][=0x000A=]300[=0x0009=][=0x0009=][=0x0022=]Master[=0x0022=][=0x000A=]330[=0x0009=][=0x0009=][=0x0022=]Wizard[=0x0022=][=0x000A=]350[=0x0009=][=0x0009=][=0x0022=]Master Adventurer[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">Rankings</span></span><br>
+            <!-- START CODE "code521" -->
+            <blockquote class="extract-inform7"><a id="code521"></a><a class="actionlink" href="javascript:pasteCode('Table 1 - Rankings[=0x000A=]Score[=0x0009=]Rank[=0x000A=]0[=0x0009=][=0x0009=][=0x0022=]Beginner[=0x0022=][=0x000A=]25[=0x0009=][=0x0009=][=0x0022=]Amateur Adventurer[=0x0022=][=0x000A=]50[=0x0009=][=0x0009=][=0x0022=]Novice Adventurer[=0x0022=][=0x000A=]100[=0x0009=][=0x0009=][=0x0022=]Junior Adventurer[=0x0022=][=0x000A=]200[=0x0009=][=0x0009=][=0x0022=]Adventurer[=0x0022=][=0x000A=]300[=0x0009=][=0x0009=][=0x0022=]Master[=0x0022=][=0x000A=]330[=0x0009=][=0x0009=][=0x0022=]Wizard[=0x0022=][=0x000A=]350[=0x0009=][=0x0009=][=0x0022=]Master Adventurer[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Rankings</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Score</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Score</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Rank</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Beginner&quot;</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">Rank</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">25</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">0</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Amateur Adventurer&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">50</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Novice Adventurer&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Beginner&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">100</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">25</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Junior Adventurer&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">200</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Adventurer&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Amateur Adventurer&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">300</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">50</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Master&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">330</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Wizard&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Novice Adventurer&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">350</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">100</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Master Adventurer&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Junior Adventurer&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">200</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Adventurer&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">300</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Master&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">330</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Wizard&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">350</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Master Adventurer&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>Typographically, tables in Inform look as much as possible like those found in non-fiction books: they can have many columns, so this is only a simple example (drawn from the actual rankings used by Infocom's <em>Zork I</em>, 1979). Each line in the source represents one row in the table, and the entries on a line must be separated by at least one tab character. (An entry might of course have several words with spaces in between, so a space is not enough to separate entries: this is the only context when Inform distinguishes between spaces and tabs.) The table must occupy a single whole paragraph, with no skipped lines or missing entries. We are free to use extra tabs to indent it if we like.</p>
             <p>Ordinarily we must explicitly ask to use the information presented in a table, but the table of rankings is a special case: Inform uses it automatically, if it is provided at all. To be recognised it must have the name <code class="inlinesourcetext">Rankings</code> and must have two columns named and arranged as shown. The scores should be given in ascending order. Customarily, the score in the final row should be the maximum possible achieved in the story – so that only a player with maximum possible score can be awarded the final ranking – and the value of <code class="inlinesourcetext">maximum score</code> is automatically set to this bottom-row value if it has not been explicitly set anywhere else in the source text.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_9_2.html"><span class="markdowncontent">Section 9.2: Awarding points</span></a> &bull; <a href="WI_9_4.html"><span class="markdowncontent">Section 9.4: When play ends</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

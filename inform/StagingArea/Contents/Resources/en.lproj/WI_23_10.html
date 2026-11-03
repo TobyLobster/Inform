@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,97 +2212,125 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Lengthening or shortening a list" -->
+            <!-- SEARCH SECTION "23.10" -->
+            <!-- SEARCH SORT "001-023-010-000" -->
             <h3><span>Section 23.10: Lengthening or shortening a list</span></h3>
             <p>         </p>
             <p>We can explicitly change the length of a list like so:</p>
             <div class="definition">
-                <p class="defnprototype">change (list of values) to have (number) entries/entry</p>
+                <!-- START PHRASE "defn409" -->
+                <p class="defnprototype"><a id="defn409"></a>change (list of values) to have (number) entries/entry</p>
+                <!-- END PHRASE -->
                 <p>This phrase alters the given list so that it now has exactly the number of entries given. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">change</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">have</span><span class="syntaxplain"> </span><span class="syntaxconstant">21</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1635" -->
+                <blockquote class="extract-inform7"><a id="code1635"></a><span class="indexdullblue"><span class="identifier-syntax">change</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">have</span><span class="plain-syntax"> </span><span class="constant-syntax">21</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>If <code class="inlinesourcetext">L</code> previously had more than 21 entries, they are thrown away (and lost forever); if <code class="inlinesourcetext">L</code> previously had fewer, then new entries are created, using the default value for whatever kind of value <code class="inlinesourcetext">L</code> holds. So extending a list of numbers will pad it out with 0s, but extending a list of texts will pad it out with the empty text <code class="inlinesourcetext">&quot;&quot;</code>, and so on.</p>
             </div>
             <p>We can also write the equivalent phrases:</p>
             <div class="definition">
-                <p class="defnprototype">truncate (list of values) to (number) entries/entry</p>
+                <!-- START PHRASE "defn410" -->
+                <p class="defnprototype"><a id="defn410"></a>truncate (list of values) to (number) entries/entry</p>
+                <!-- END PHRASE -->
                 <p>This phrase alters the given list so that it now has no more than the number of entries given. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">truncate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1636" -->
+                <blockquote class="extract-inform7"><a id="code1636"></a><span class="indexdullblue"><span class="identifier-syntax">truncate</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>shortens <code class="inlinesourcetext">L</code> to length 8 if it is currently longer than that, trimming entries from the end, but would (for instance) leave a list of length 3 unchanged. Note that</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">truncate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1637" -->
+                <blockquote class="extract-inform7"><a id="code1637"></a><span class="indexdullblue"><span class="identifier-syntax">truncate</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>empties it to <code class="inlinesourcetext">{ }</code>, the list with nothing in.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">truncate (list of values) to the/-- first (number) entries/entry</p>
+                <!-- START PHRASE "defn411" -->
+                <p class="defnprototype"><a id="defn411"></a>truncate (list of values) to the/-- first (number) entries/entry</p>
+                <!-- END PHRASE -->
                 <p>This phrase alters the given list so that it now consists only of the initial part of the list with the given length. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">truncate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1638" -->
+                <blockquote class="extract-inform7"><a id="code1638"></a><span class="indexdullblue"><span class="identifier-syntax">truncate</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>turns <code class="inlinesourcetext">{1, 3, 5, 7, 9, 11}</code> to <code class="inlinesourcetext">{1, 3, 5, 7}</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">truncate (list of values) to the/-- last (number) entries/entry</p>
+                <!-- START PHRASE "defn412" -->
+                <p class="defnprototype"><a id="defn412"></a>truncate (list of values) to the/-- last (number) entries/entry</p>
+                <!-- END PHRASE -->
                 <p>This phrase alters the given list so that it now consists only of the final part of the list with the given length. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">truncate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1639" -->
+                <blockquote class="extract-inform7"><a id="code1639"></a><span class="indexdullblue"><span class="identifier-syntax">truncate</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>turns <code class="inlinesourcetext">{1, 3, 5, 7, 9, 11}</code> to <code class="inlinesourcetext">{5, 7, 9, 11}</code>.</p>
             </div>
             <p>But we don't have to truncate: we can also –</p>
             <div class="definition">
-                <p class="defnprototype">extend (list of values) to (number) entries/entry</p>
+                <!-- START PHRASE "defn413" -->
+                <p class="defnprototype"><a id="defn413"></a>extend (list of values) to (number) entries/entry</p>
+                <!-- END PHRASE -->
                 <p>This phrase pads out the list with default values as needed so that it now has at least the given length. (If the list is already at least that length, nothing is done.) Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">extend</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">80</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1640" -->
+                <blockquote class="extract-inform7"><a id="code1640"></a><span class="indexdullblue"><span class="identifier-syntax">extend</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">80</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>lengthens <code class="inlinesourcetext">L</code> to length 80 if it is currently shorter than that.</p>
             </div>
             <p>For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sorting</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code1641" -->
+            <blockquote class="extract-inform7"><a id="code1641"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">sorting</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">extend</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">extend</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;L unrandomised is </span><span class="syntaxextract">[L]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;L unrandomised is [L].&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;L randomised is </span><span class="syntaxextract">[L]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;L randomised is [L].&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;L in ascending order is </span><span class="syntaxextract">[L]</span><span class="syntaxstring">.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;L in ascending order is [L].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>builds a list of <code class="inlinesourcetext">N</code> numbers (initially all 0), fills it with the numbers <code class="inlinesourcetext">1</code>, <code class="inlinesourcetext">2</code>, <code class="inlinesourcetext">3</code>, ..., <code class="inlinesourcetext">N</code>, then randomly reorders them, then sorts them back again, recovering the original order. The text produced by <code class="inlinesourcetext">check sorting 10</code> depends partly on chance but might for instance be:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">L unrandomised is 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10.</span><br><span class="syntaxidentifier">L randomised is 6, 2, 9, 3, 10, 1, 7, 4, 8 and 5.</span><br><span class="syntaxidentifier">L in ascending order is 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10.</span><br></code></pre></div>
+                <pre><code class="language-transcript">L unrandomised is 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10.<br>L randomised is 6, 2, 9, 3, 10, 1, 7, 4, 8 and 5.<br>L in ascending order is 1, 2, 3, 4, 5, 6, 7, 8, 9 and 10.<br></code></pre></div>
             <p>As with text in the previous chapter, <a href="WI_22_1.html" title="Chapter 22: Advanced Text">Advanced Text</a>, a project which needs really long lists should use the Glulx virtual machine – <code class="inlinesourcetext">check sorting 10000</code>, for instance, would break the default memory environment on the Z-machine, which is very tight, but works fine (if not very rapidly) on Glulx.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg458><a style="text-decoration: none" href="eg_458.html"><span class="extensionexampleletter">458</span></a></span></div>
+                    <span id=eg455><a style="text-decoration: none" href="eg_455.html"><span class="extensionexampleletter">455</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_458.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Leopard-skin</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_455.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Leopard-skin</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A maze that the player can escape if they perform an exact sequence of actions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg458><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg455><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg459><a style="text-decoration: none" href="eg_459.html"><span class="extensionexampleletter">459</span></a></span></div>
+                    <span id=eg456><a style="text-decoration: none" href="eg_456.html"><span class="extensionexampleletter">456</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_459.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Facts Were These</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_456.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Facts Were These</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a variant <code class="inlinetranscriptcommand">give</code> action that lets the player give multiple objects simultaneously with commands like <code class="inlinetranscriptcommand">give all to attendant</code> or <code class="inlinetranscriptcommand">give three dollars to attendant</code> or <code class="inlinetranscriptcommand">give pie and hat to attendant</code>. The attendant accepts the gifts only if their total combined value matches some minimum amount.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg459><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg456><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_23_9.html"><span class="markdowncontent">Section 23.9: Accessing entries in a list</span></a> &bull; <a href="WI_23_11.html"><span class="markdowncontent">Section 23.11: Variations: arrays, logs, queues, stacks, sets, sieves and rings</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

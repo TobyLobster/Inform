@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,197 +2193,268 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg301><a style="text-decoration: none" href="WI_18_9.html"><span class="extensionexampleletter">301</span></a></span></div>
+                <span id=eg301><a style="text-decoration: none" href="WI_18_11.html"><span class="extensionexampleletter">301</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">If It Hadn't Been For...</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A sound recording device that records the noises made by player and non-player actions, then plays them back on demand.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olympic Medals</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Sort the table of Olympic Medals in two different ways.</span></span></div>
             <div class="exampleright">
-                <span id=eg301><a style="text-decoration: none" href="RB_9_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg301><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Olympic Medals" -->
+        <!-- SEARCH SECTION "Example 301" -->
+        <!-- SEARCH SORT "003-301-000-000" -->
         <p></p>
-        <p>We start out by giving ourselves a capacious recording device:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]If It Hadn[=0x0027=]t Been For...[=0x0022=][=0x000A=][=0x000A=]The digital recorder is a device. The description is [=0x0022=]A noise-activated recorder, which time-stamps each recording segment. It has space for about 60 short recordings.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the digital recorder is switched on and the number of blank rows in the Table of Recorded Content is 0, now the recorder is switched off.[=0x000A=][=0x000A=]Table of Recorded Content[=0x000A=]time stamp[=0x0009=]sound[=0x000A=]a time[=0x0009=]some text[=0x000A=]with 60 blank rows.[=0x000A=][=0x000A=]Carry out opening something in the presence of the switched on recorder:[=0x000A=][=0x0009=]record [=0x0022=]A creaking noise, as of something being opened.[=0x0022=][=0x000A=][=0x000A=]Carry out someone opening something when the switched on recorder can see the noun:[=0x000A=][=0x0009=]record [=0x0022=]A creaking noise, as of something being opened.[=0x0022=][=0x000A=][=0x000A=]Carry out closing something in the presence of the switched on recorder:[=0x000A=][=0x0009=]record [=0x0022=]A creaking followed by a slam.[=0x0022=][=0x000A=][=0x000A=]Carry out someone closing something in the presence of the switched on recorder:[=0x000A=][=0x0009=]record [=0x0022=]A creaking followed by a slam.[=0x0022=][=0x000A=][=0x000A=]Carry out someone going to a room (called destination) in the presence of the switched on recorder:[=0x000A=][=0x0009=]if the destination is the holder of the recorder, record [=0x0022=]Footsteps, growing louder.[=0x0022=];[=0x000A=][=0x0009=]otherwise record [=0x0022=]Footsteps, fading out.[=0x0022=][=0x000A=][=0x000A=]Carry out going to a room (called destination) in the presence of the switched on recorder:[=0x000A=][=0x0009=]if the destination is the holder of the recorder, record [=0x0022=]Footsteps, growing louder.[=0x0022=];[=0x000A=][=0x0009=]otherwise record [=0x0022=]Footsteps, fading out.[=0x0022=][=0x000A=][=0x000A=]Carry out someone eating something in the presence of the switched on recorder:[=0x000A=][=0x0009=]record [=0x0022=]Loud uncouth chewing sounds.[=0x0022=][=0x000A=][=0x000A=]Carry out eating something in the presence of the switched on recorder:[=0x000A=][=0x0009=]record [=0x0022=]Distant muffled chewing sounds.[=0x0022=][=0x000A=][=0x000A=]To record (noise - some text):[=0x000A=][=0x0009=]if the number of blank rows in the Table of Recorded Content is 0, rule succeeds;[=0x000A=][=0x0009=]choose a blank row in the Table of Recorded Content;[=0x000A=][=0x0009=]now time stamp entry is the time of day;[=0x000A=][=0x0009=]now sound entry is noise.[=0x000A=][=0x000A=]Understand [=0x0022=]play [something][=0x0022=] as listening.[=0x000A=][=0x000A=]Instead of listening to the recorder:[=0x000A=][=0x0009=]if the number of filled rows in the Table of Recorded Content is 0, say [=0x0022=]The recorder remains blank.[=0x0022=] instead;[=0x000A=][=0x0009=]repeat through the Table of Recorded Content:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][line break][time stamp entry]: [sound entry][=0x0022=];[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]The Haunted House is a room. The squeaky cupboard is an openable enterable closed fixed in place container in the House. The ghost is a man in the cupboard. The Lawn is outside from the Haunted House.[=0x000A=][=0x000A=]Instead of opening the closed cupboard when the ghost is in the cupboard: say [=0x0022=]The cupboard stubbornly refuses to open.[=0x0022=][=0x000A=][=0x000A=]Every turn when the player is not in the House:[=0x000A=][=0x0009=]if the ghost is in the cupboard:[=0x000A=][=0x0009=][=0x0009=]try the ghost exiting;[=0x000A=][=0x0009=]otherwise if the cupboard is open:[=0x000A=][=0x0009=][=0x0009=]try the ghost closing the cupboard.[=0x000A=][=0x000A=]Before someone exiting when the person asked is in a closed container (called the trap):[=0x000A=][=0x0009=]try the person asked opening the trap.[=0x000A=][=0x000A=]Before someone entering a closed container: try the person asked opening the noun.[=0x000A=][=0x000A=]Before going to the House when the House contains the ghost:[=0x000A=][=0x0009=]try the ghost entering the cupboard;[=0x000A=][=0x0009=]try the ghost closing the cupboard.[=0x000A=][=0x000A=]The player carries the recorder, chips, and a sandwich. The sandwich is edible. The chips are edible.[=0x000A=][=0x000A=]Carry out someone eating the chips in the presence of the switched on recorder: record [=0x0022=]An incredible racket of a packet being opened.[=0x0022=] Carry out eating the chips in the presence of the switched on recorder: record [=0x0022=]An incredible racket of a packet being opened.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]open cupboard / drop recorder / switch it on / eat chips / out / wait / wait / wait / in / switch recorder off / play recorder[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;If It Hadn't Been For...&quot;</span>
+        <p>Let's start with results from the 2020 Summer Olympic Games:</p>
+        <!-- START CODE "code2649" -->
+        <blockquote class="extract-inform7"><a id="code2649"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Olympic Medals[=0x0022=][=0x000A=][=0x000A=]The Tally Room is a room. [=0x0022=]Here we count the event results as they come in and update that most important table of all, the Table of Olympic Medals.[=0x0022=][=0x000A=][=0x000A=]Table of Olympic Medals[=0x000A=]Country[=0x0009=]Gold[=0x0009=]Silver[=0x0009=]Bronze[=0x000A=][=0x0022=]Australia[=0x0022=][=0x0009=]17[=0x0009=]7[=0x0009=]22[=0x000A=][=0x0022=]China[=0x0022=][=0x0009=]38[=0x0009=]32[=0x0009=]19[=0x000A=][=0x0022=]France[=0x0022=][=0x0009=]10[=0x0009=]12[=0x0009=]11[=0x000A=][=0x0022=]Germany[=0x0022=][=0x0009=]10[=0x0009=]11[=0x0009=]16[=0x000A=][=0x0022=]Great Britain[=0x0022=][=0x0009=]22[=0x0009=]20[=0x0009=]22[=0x000A=][=0x0022=]Italy[=0x0022=][=0x0009=]10[=0x0009=]10[=0x0009=]20[=0x000A=][=0x0022=]Japan[=0x0022=][=0x0009=]27[=0x0009=]14[=0x0009=]17[=0x000A=][=0x0022=]Netherlands[=0x0022=][=0x0009=]10[=0x0009=]12[=0x0009=]14[=0x000A=][=0x0022=]ROC[=0x0022=][=0x0009=]20[=0x0009=]28[=0x0009=]23[=0x000A=][=0x0022=]United States[=0x0022=][=0x0009=]39[=0x0009=]41[=0x0009=]33[=0x000A=][=0x000A=]To decide which number is the ranked medal comparison of (T - table name) rows (X - a number) and (Y - a number) (this is ranked medal comparison):[=0x000A=][=0x0009=]if gold in row Y of T [=0x003E=] gold in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on 1;[=0x000A=][=0x0009=]if gold in row Y of T [=0x003C=] gold in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on -1;[=0x000A=][=0x0009=]if silver in row Y of T [=0x003E=] silver in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on 1;[=0x000A=][=0x0009=]if silver in row Y of T [=0x003C=] silver in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on -1;[=0x000A=][=0x0009=]if bronze in row Y of T [=0x003E=] bronze in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on 1;[=0x000A=][=0x0009=]if bronze in row Y of T [=0x003C=] bronze in row X of T:[=0x000A=][=0x0009=][=0x0009=]decide on -1;[=0x000A=][=0x0009=]decide on 0;[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort Table of Olympic Medals with ranked medal comparison;[=0x000A=][=0x0009=]showme the contents of the Table of Olympic Medals;[=0x000A=][=0x000A=]To decide which number is the total medal comparison of (T - table name) rows (X - a number) and (Y - a number) (this is total medal comparison):[=0x000A=][=0x0009=]choose row X in T;[=0x000A=][=0x0009=]let total X be the gold entry + silver entry + bronze entry;[=0x000A=][=0x0009=]choose row Y in T;[=0x000A=][=0x0009=]let total Y be the gold entry + silver entry + bronze entry;[=0x000A=][=0x0009=]decide on total Y - total X;[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort Table of Olympic Medals with total medal comparison;[=0x000A=][=0x0009=]showme the contents of the Table of Olympic Medals;[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Olympic Medals&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digital</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A noise-activated recorder, which time-stamps each recording segment. It has space for about 60 short recordings.&quot;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tally</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Here we count the event results as they come in and update that most important table of all, the Table of Olympic Medals.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digital</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">, </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span></span><br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Medals</span></span><br>
         <table border="0" cellspacing="0" cellpadding="0">
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stamp</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">Country</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">sound</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">Gold</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span></span>
+                    <span class="indexdullblue"><span class="identifier-syntax">Silver</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Bronze</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxconstant">60</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain">.</span></span>
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Australia&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">17</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">22</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;China&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">38</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">32</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">19</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;France&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Germany&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">16</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Great Britain&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">22</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">20</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">22</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Italy&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">20</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Japan&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">27</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">14</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">17</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;Netherlands&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">14</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;ROC&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">20</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">28</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">23</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;United States&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">39</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">41</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">33</span></span>
                 </td>
             </tr>
 
         </table>
         <span class="indexdullblue"></span></blockquote>
-        <p>And most of what follows is attaching sounds to various events. (We could have made noises associated with all the actions, but for simplicity we stuck to a few.)</p>
-        <p>The thing to note here is that the recording happens as part of Carry out, not as part of Report, so sounds will be recorded even when they are the result of non-player action when the player is not even in the room.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
+        <!-- END CODE -->
+        <p>Olympic medal results are conventionally listed according to the number of gold medals, with silver and bronze medals only being considered if there is a tie. We can sort the medal table in this way with a custom sorting phrase:</p>
+        <!-- START CODE "code2650" -->
+        <blockquote class="extract-inform7"><a id="code2650"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ranked</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">) </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> (</span><span class="identifier-syntax">Y</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ranked</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax">):</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A creaking noise, as of something being opened.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &gt; </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">see</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &lt; </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A creaking noise, as of something being opened.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> -1;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &gt; </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A creaking followed by a slam.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &lt; </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> -1;</span>
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &gt; </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A creaking followed by a slam.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">;</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> &lt; </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destination</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> -1;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destination</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">, </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Footsteps, growing louder.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Footsteps, fading out.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destination</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destination</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holder</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">, </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Footsteps, growing louder.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Footsteps, fading out.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Loud uncouth chewing sounds.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Medals</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">ranked</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax">;</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Distant muffled chewing sounds.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">noise</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">, </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stamp</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">day</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noise</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;play </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listening</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">filled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The recorder remains blank.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recorded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Content</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[line break][time stamp entry]</span><span class="syntaxstring">: </span><span class="syntaxextract">[sound entry]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paragraph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">break</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Haunted</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">squeaky</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enterable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lawn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Haunted</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The cupboard stubbornly refuses to open.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exiting</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trap</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trap</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">: </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contains</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cupboard</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">, </span><span class="syntaxidentifier">chips</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sandwich</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sandwich</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chips</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chips</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">: </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;An incredible racket of a packet being opened.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chips</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">recorder</span><span class="syntaxplain">: </span><span class="syntaxidentifier">record</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;An incredible racket of a packet being opened.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;open cupboard / drop recorder / switch it on / eat chips / out / wait / wait / wait / in / switch recorder off / play recorder&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Medals</span><span class="plain-syntax">;</span>
         </span></blockquote>
-        <p>Now we're at liberty to record evidence of the ghost getting out of the cupboard and getting back in, while we ourselves stand about on the lawn.</p>
+        <!-- END CODE -->
+        <p>But this isn't great for Italy–are France's two more silver medals really so much more significant than Italy's nine more bronze medals? Let's sort this table by the total number of medals, so that Italy can sit in proud seventh place.</p>
+        <!-- START CODE "code2651" -->
+        <blockquote class="extract-inform7"><a id="code2651"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">) </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> (</span><span class="identifier-syntax">Y</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> + </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> + </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gold</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> + </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> + </span><span class="identifier-syntax">bronze</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> - </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Medals</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">total</span><span class="plain-syntax"> </span><span class="identifier-syntax">medal</span><span class="plain-syntax"> </span><span class="identifier-syntax">comparison</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Medals</span><span class="plain-syntax">;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_18_9.html>Section 18.9: Blank rows</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_18_11.html>Section 18.11: Sorting</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

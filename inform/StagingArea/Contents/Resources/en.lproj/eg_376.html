@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,142 +2193,196 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg376><a style="text-decoration: none" href="WI_20_18.html"><span class="extensionexampleletter">376</span></a></span></div>
+                <span id=eg376><a style="text-decoration: none" href="WI_20_23.html"><span class="extensionexampleletter">376</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorn of Zorna</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Light levels vary depending on the number of candles the player has lit, and this determines whether or not they are able to examine detailed objects successfully.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ways Out</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A status line that lists the available exits from the current location.</span></span></div>
             <div class="exampleright">
-                <span id=eg376><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg376><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Ways Out" -->
+        <!-- SEARCH SECTION "Example 376" -->
+        <!-- SEARCH SORT "003-376-000-000" -->
         <p></p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Zorn of Zorna[=0x0022=][=0x000A=][=0x000A=]Visibility rule:[=0x000A=][=0x0009=]if examining:[=0x000A=][=0x0009=][=0x0009=]if the detail of the noun is fine and the number of visible lit candles is less than 5, there is insufficient light;[=0x000A=][=0x0009=][=0x0009=]if the detail of the noun is ordinary and the number of visible lit candles is less than 3, there is insufficient light;[=0x000A=][=0x0009=]there is sufficient light.[=0x000A=][=0x000A=]Detail is a kind of value. The details are fine, ordinary, and gross. A thing has detail.[=0x000A=][=0x000A=]A candle is a kind of thing. Before printing the name of a candle while not burning or blowing out: say [=0x0022=][if lit]lit [otherwise]unlit [end if][=0x0022=]. A candle is usually lit. Before printing the plural name of a candle while not burning or blowing out: say [=0x0022=][if lit]lit [otherwise]unlit [end if][=0x0022=]. A candle is usually lit. Understand the lit property as describing a candle. A candle is usually gross.[=0x000A=][=0x000A=]Instead of burning a candle: now the noun is lit; say [=0x0022=]You light [the noun].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]blow out [something][=0x0022=] or [=0x0022=]extinguish [something][=0x0022=] or [=0x0022=]put out [something][=0x0022=] as blowing out. Understand the command [=0x0022=]snuff[=0x0022=] as [=0x0022=]extinguish[=0x0022=]. Blowing out is an action applying to one thing.[=0x000A=][=0x000A=]Understand [=0x0022=]burn [unlit candle][=0x0022=] as burning.[=0x000A=][=0x000A=]Instead of blowing out a candle:[=0x000A=][=0x0009=]now the noun is unlit;[=0x000A=][=0x0009=]say [=0x0022=]You put out [the noun].[=0x0022=][=0x000A=][=0x000A=]Rule for printing a refusal to act in the dark:[=0x000A=][=0x0009=]if we are examining something, say [=0x0022=]The details of [the noun] are too fine to make out in the light of only [the number of visible lit candles in words] candle[s].[=0x0022=] instead.[=0x000A=][=0x000A=]Every turn when the Todal is visible:[=0x000A=][=0x0009=]if the number of visible lit candles is greater than 1:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The brightness of the room wakens the Todal from slumber, and with you unarmed...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Todal sleeps fitfully, troubled by even that faint light.[=0x0022=][=0x000A=][=0x000A=]A room is usually dark.[=0x000A=][=0x000A=]The Palace is a room. [=0x0022=]The Duke is out; the way is clear. East is Saralinda[=0x0027=]s Chamber; north, a hallway zigs and zags down to the gate that leads out.[=0x0022=] A finely-written placard is in the Palace. [=0x0022=]A finely-written placard is on the wall next to this exit.[=0x0022=] The placard is fine. The description of the placard is [=0x0022=]You read: [=0x0027=]Beware the Todal: its bite is worse than its gleep.[=0x000A=][=0x000A=]No more than one candle![=0x0027=][=0x0022=][=0x000A=][=0x000A=]The candle-stand is a supporter in the Palace. Understand [=0x0022=]stand[=0x0022=] as the candle-stand. The description of the candle-stand is [=0x0022=]The candle-stand is a tall metal branch for holding lights, but someone has quite practically added casters to the bottom.[=0x0022=] It is pushable between rooms. Three candles are on the candle-stand. Instead of removing something from the candle-stand: say [=0x0022=][The noun] is fixed quite firmly in place.[=0x0022=] Instead of taking something which is on the candle-stand: say [=0x0022=][The noun] won[=0x0027=]t come out of the holder.[=0x0022=] Instead of putting something on the candle-stand: say [=0x0022=][The candle-stand] is full.[=0x0022=][=0x000A=][=0x000A=]Saralinda[=0x0027=]s Chamber is east of the Palace. [=0x0022=]Now that Saralinda herself is gone, there is no real radiance in this place.[=0x0022=] Two unlit candles are in Saralinda[=0x0027=]s Chamber.[=0x000A=][=0x000A=]A large-print romantic novel is in Saralinda[=0x0027=]s Chamber. The novel is ordinary. The description of the novel is [=0x0022=][=0x0027=]She Was Only The Chimney-Sweep[=0x0027=]s Daughter[=0x0027=], by Marie Swelldon.[=0x0022=][=0x000A=][=0x000A=]The Zig-Zag Hallway is north of the Palace. [=0x0022=]The Hallway goes left, then right, then left again...[=0x0022=] Two unlit candles are in the Hallway.[=0x000A=][=0x000A=]Todal is an animal in the Zig-Zag Hallway.[=0x000A=][=0x000A=]Rule for printing the description of a dark room when the Todal is in the location:[=0x000A=][=0x0009=]try listening.[=0x000A=][=0x000A=]Instead of listening when in darkness and the Todal is in the location:[=0x000A=][=0x0009=]say [=0x0022=]In the darkness something softly gleeps.[=0x0022=][=0x000A=][=0x000A=]Instead of going north from the Hallway when in darkness:[=0x000A=][=0x0009=]say [=0x0022=]You stumble and cannot find your way.[=0x0022=][=0x000A=][=0x000A=]North of the Hallway is Freedom. Instead of going to Freedom: say [=0x0022=]You make it out into the cool night air at last![=0x0022=]; end the story finally.[=0x000A=][=0x000A=]Test me with [=0x0022=]examine placard / get placard / n / listen / n / s / examine candle-stand / push candle-stand east / examine novel / get unlit candle / light it / light unlit candle / examine placard / push candle-stand west / e / examine novel / w / n / n[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Zorn of Zorna&quot;</span>
+        <p>A not-uncommon device in games with large maps is a list of available exits printed in the status bar. We might do this so:</p>
+        <!-- START CODE "code2158" -->
+        <blockquote class="extract-inform7"><a id="code2158"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Ways Out[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now left hand status line is [=0x0022=]Exits: [exit list][=0x0022=];[=0x000A=][=0x0009=]now right hand status line is [=0x0022=][location][=0x0022=].[=0x000A=][=0x000A=]To say exit list:[=0x000A=][=0x0009=]let place be location;[=0x000A=][=0x0009=]repeat with way running through directions:[=0x000A=][=0x0009=][=0x0009=]let place be the room way from the location;[=0x000A=][=0x0009=][=0x0009=]if place is a room, say [=0x0022=] [way][=0x0022=].[=0x000A=][=0x000A=]Rule for printing the name of a direction (called the way) while constructing the status line:[=0x000A=][=0x0009=]choose row with a heading of the way in the Table of Abbreviation;[=0x000A=][=0x0009=]say [=0x0022=][shortcut entry][=0x0022=].[=0x000A=][=0x000A=]Table of Abbreviation[=0x000A=]heading[=0x0009=]shortcut[=0x000A=]north[=0x0009=][=0x0022=]N[=0x0022=][=0x000A=]northeast[=0x0009=][=0x0022=]NE[=0x0022=][=0x000A=]northwest[=0x0009=][=0x0022=]NW[=0x0022=][=0x000A=]east[=0x0009=][=0x0022=]E[=0x0022=][=0x000A=]southeast[=0x0009=][=0x0022=]SE[=0x0022=][=0x000A=]south[=0x0009=][=0x0022=]S[=0x0022=][=0x000A=]southwest[=0x0009=][=0x0022=]SW[=0x0022=][=0x000A=]west[=0x0009=][=0x0022=]W[=0x0022=][=0x000A=]up[=0x0009=][=0x0022=]U[=0x0022=][=0x000A=]down[=0x0009=][=0x0022=]D[=0x0022=][=0x000A=]inside[=0x0009=][=0x0022=]IN[=0x0022=][=0x000A=]outside[=0x0009=][=0x0022=]OUT[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / n / e / e / s / e[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Ways Out&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Visibility</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">left</span><span class="plain-syntax"> </span><span class="identifier-syntax">hand</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Exits: [exit list]&quot;</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">detail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxidentifier">there</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">insufficient</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">detail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ordinary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxidentifier">there</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">insufficient</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">there</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sufficient</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">right</span><span class="plain-syntax"> </span><span class="identifier-syntax">hand</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[location]&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Detail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">details</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fine</span><span class="syntaxplain">, </span><span class="syntaxidentifier">ordinary</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gross</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">detail</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">exit</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">:</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blowing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if lit]</span><span class="syntaxstring">lit </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">unlit </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blowing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[if lit]</span><span class="syntaxstring">lit </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">unlit </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gross</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">way</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">directions</span><span class="plain-syntax">:</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">way</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax">;</span>
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain">; </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You light </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;blow out </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;extinguish </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;put out </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blowing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;snuff&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;extinguish&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Blowing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;burn </span><span class="syntaxextract">[unlit candle]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">burning</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blowing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlit</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You put out </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">refusal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">act</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dark</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The details of </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> are too fine to make out in the light of only </span><span class="syntaxextract">[the number of visible lit candles in words]</span><span class="syntaxstring"> candle</span><span class="syntaxextract">[s]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Todal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The brightness of the room wakens the Todal from slumber, and with you unarmed...&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Todal sleeps fitfully, troubled by even that faint light.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dark</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The Duke is out; the way is clear. East is Saralinda's Chamber; north, a hallway zigs and zags down to the gate that leads out.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finely</span><span class="syntaxplain">-</span><span class="syntaxidentifier">written</span><span class="syntaxplain"> </span><span class="syntaxidentifier">placard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palace</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A finely-written placard is on the wall next to this exit.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">placard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fine</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">placard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You read: 'Beware the Todal: its bite is worse than its gleep.</span>
-        <br>
-
-        <br>
-        <span class="syntaxstring">No more than one candle!'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supporter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palace</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;stand&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The candle-stand is a tall metal branch for holding lights, but someone has quite practically added casters to the bottom.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">between</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rooms</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">removing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is fixed quite firmly in place.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> won't come out of the holder.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">putting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candle</span><span class="syntaxplain">-</span><span class="syntaxidentifier">stand</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The candle-stand]</span><span class="syntaxstring"> is full.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Saralinda</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palace</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Now that Saralinda herself is gone, there is no real radiance in this place.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Saralinda</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">large</span><span class="syntaxplain">-</span><span class="syntaxidentifier">print</span><span class="syntaxplain"> </span><span class="syntaxidentifier">romantic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">novel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Saralinda</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">novel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ordinary</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">novel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'She Was Only The Chimney-Sweep's Daughter', by Marie Swelldon.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Zig</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Zag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Palace</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The Hallway goes left, then right, then left again...&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Two</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">candles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Todal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Zig</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Zag</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Todal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listening</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">darkness</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Todal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;In the darkness something softly gleeps.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">darkness</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You stumble and cannot find your way.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">North</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Freedom</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Freedom</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You make it out into the cool night air at last!&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">finally</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;examine placard / get placard / n / listen / n / s / examine candle-stand / push candle-stand east / examine novel / get unlit candle / light it / light unlit candle / examine placard / push candle-stand west / e / examine novel / w / n / n&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot; [way]&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>We may find that printing out full directions makes the status line unpleasantly crowded. Fortunately, it isn't hard to provide a set of abbreviations to use in this context:</p>
+        <!-- START CODE "code2159" -->
+        <blockquote class="extract-inform7"><a id="code2159"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">way</span><span class="plain-syntax">) </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">constructing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">heading</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">way</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Abbreviation</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[shortcut entry]&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Abbreviation</span></span><br>
+        <table border="0" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">heading</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">shortcut</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">north</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;N&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">northeast</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;NE&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">northwest</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;NW&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">east</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;E&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">southeast</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;SE&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">south</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;S&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">southwest</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;SW&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">west</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;W&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">up</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;U&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">down</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;D&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">inside</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;IN&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">outside</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;OUT&quot;</span></span>
+                </td>
+            </tr>
+
+            <br>
+        </table>
+        <span class="indexdullblue">
+        <br>
+        <span class="identifier-syntax">Dome</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">. </span><span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">. </span><span class="identifier-syntax">West</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Western</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">. </span><span class="identifier-syntax">Quiet</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corner</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax">, </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Western</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">. </span><span class="identifier-syntax">Loud</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corner</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">North</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">, </span><span class="identifier-syntax">northeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Eastern</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">. </span><span class="identifier-syntax">Eastern</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dim</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corner</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax">. </span><span class="identifier-syntax">Dim</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corner</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">. </span><span class="identifier-syntax">Ruined</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corner</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dome</span><span class="plain-syntax">, </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chapel</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Western</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">church</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Eastern</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Courtyard</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">church</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;w / n / e / e / s / e&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>Everywhere else, the names of directions will still be printed out in full in the usual way.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_18.html>Section 20.18: Printing a refusal to act in the dark</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_23.html>Section 20.23: Constructing the status line</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,12 +2212,16 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Continuous Spaces and The Outdoors" -->
+            <!-- SEARCH SECTION "3.4" -->
+            <!-- SEARCH SORT "002-003-004-000" -->
             <h3><span>Section 3.4: Continuous Spaces and The Outdoors</span></h3>
             <p>
             Suppose we want to blur the boundaries between rooms, in an environment where there are no walls: out of doors, for instance?</p>
-            <p>The simplest cases involve making something exceptional visible in more than one place. <a href="eg_234.html">Carnivale</a> features an exceptionally large landmark seen by day; <a href="eg_235.html">Eddystone</a> an exceptionally bright one by night. <a href="eg_238.html">Waterworld</a> allows a very distant object (the Sun) to be seen throughout many rooms, but never approached. <a href="eg_86.html">A View of Green Hills</a> gives the player an explicit command for looking through into an adjacent room.</p>
-            <p>Three systematic examples then present outdoor landscapes with increasing sophistication. <a href="eg_68.html">Tiny Garden</a> gives the multiple rooms of an extended lawn descriptions which automatically adapt to say which directions lead into further lawn area. <a href="eg_395.html">Rock Garden</a> provides a relation, <code class="inlinesourcetext">connected with</code>, between rooms, allowing items in one to be seen from the other: an attempt to interact with a visible item in a different area of the garden triggers an implicit going action first. <a href="eg_396.html">Stately Gardens</a> provides a much larger outdoor area, where larger landmarks are visible from further away, and room descriptions are highly adaptive.</p>
-            <p>In an outdoor environment, the distinction between a one-move journey and a multiple-move journey is also blurred. <a href="eg_85.html">Hotel Stechelberg</a> shows a signpost which treats these equally.</p>
+            <p>The simplest cases involve making something exceptional visible in more than one place. <a href="eg_231.html">Carnivale</a> features an exceptionally large landmark seen by day; <a href="eg_232.html">Eddystone</a> an exceptionally bright one by night. <a href="eg_235.html">Waterworld</a> allows a very distant object (the Sun) to be seen throughout many rooms, but never approached. <a href="eg_85.html">A View of Green Hills</a> gives the player an explicit command for looking through into an adjacent room.</p>
+            <p>Three systematic examples then present outdoor landscapes with increasing sophistication. <a href="eg_67.html">Tiny Garden</a> gives the multiple rooms of an extended lawn descriptions which automatically adapt to say which directions lead into further lawn area. <a href="eg_392.html">Rock Garden</a> provides a relation, <code class="inlinesourcetext">connected with</code>, between rooms, allowing items in one to be seen from the other: an attempt to interact with a visible item in a different area of the garden triggers an implicit going action first. <a href="eg_393.html">Stately Gardens</a> provides a much larger outdoor area, where larger landmarks are visible from further away, and room descriptions are highly adaptive.</p>
+            <p>In an outdoor environment, the distinction between a one-move journey and a multiple-move journey is also blurred. <a href="eg_84.html">Hotel Stechelberg</a> shows a signpost which treats these equally.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_3.html" title="Section 3.3: Position Within Rooms">Position Within Rooms</a> for making the space within a room continuous.</li>
@@ -2142,90 +2231,90 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg238><a style="text-decoration: none" href="eg_238.html"><span class="extensionexampleletter">238</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_238.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Waterworld</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A backdrop which the player can examine, but cannot interact with in any other way.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg238><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg234><a style="text-decoration: none" href="eg_234.html"><span class="extensionexampleletter">234</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_234.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Carnivale</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">An alternative to backdrops when we want something to be visible from a distance but only touchable from one room.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg234><a style="text-decoration: none" href="WI_13_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
                     <span id=eg235><a style="text-decoration: none" href="eg_235.html"><span class="extensionexampleletter">235</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_235.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eddystone</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_235.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Waterworld</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A backdrop which the player can examine, but cannot interact with in any other way.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg235><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg231><a style="text-decoration: none" href="eg_231.html"><span class="extensionexampleletter">231</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_231.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Carnivale</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">An alternative to backdrops when we want something to be visible from a distance but only touchable from one room.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg231><a style="text-decoration: none" href="WI_13_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg232><a style="text-decoration: none" href="eg_232.html"><span class="extensionexampleletter">232</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_232.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eddystone</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating new commands involving the standard compass directions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg235><a style="text-decoration: none" href="WI_13_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg232><a style="text-decoration: none" href="WI_13_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg84><a style="text-decoration: none" href="eg_84.html"><span class="extensionexampleletter">84</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_84.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hotel Stechelberg</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Signposts such as those provided on hiking paths in the Swiss Alps, which show the correct direction and hiking time to all other locations.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg84><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg392><a style="text-decoration: none" href="eg_392.html"><span class="extensionexampleletter">392</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_392.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rock Garden</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A simple open landscape where the player can see between rooms and will automatically move to touch things in distant rooms.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg392><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg67><a style="text-decoration: none" href="eg_67.html"><span class="extensionexampleletter">67</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_67.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tiny Garden</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A lawn made up of several rooms, with part of the description written automatically.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg67><a style="text-decoration: none" href="WI_5_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg85><a style="text-decoration: none" href="eg_85.html"><span class="extensionexampleletter">85</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_85.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hotel Stechelberg</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Signposts such as those provided on hiking paths in the Swiss Alps, which show the correct direction and hiking time to all other locations.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_85.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A View of Green Hills</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">look</code> [direction] command which allows the player to see descriptions of the nearby landscape.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg85><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg395><a style="text-decoration: none" href="eg_395.html"><span class="extensionexampleletter">395</span></a></span></div>
+                    <span id=eg293><a style="text-decoration: none" href="eg_293.html"><span class="extensionexampleletter">293</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_395.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rock Garden</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A simple open landscape where the player can see between rooms and will automatically move to touch things in distant rooms.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg395><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg68><a style="text-decoration: none" href="eg_68.html"><span class="extensionexampleletter">68</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_68.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tiny Garden</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A lawn made up of several rooms, with part of the description written automatically.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg68><a style="text-decoration: none" href="WI_5_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg86><a style="text-decoration: none" href="eg_86.html"><span class="extensionexampleletter">86</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_86.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A View of Green Hills</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">look</code> [direction] command which allows the player to see descriptions of the nearby landscape.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg86><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg296><a style="text-decoration: none" href="eg_296.html"><span class="extensionexampleletter">296</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_296.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">As The Crow Flies To Iffley Lock</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_293.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">As The Crow Flies To Iffley Lock</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Calculated walking distances based on grid references at start and end of a walk.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg296><a style="text-decoration: none" href="WI_17_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg293><a style="text-decoration: none" href="WI_17_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg396><a style="text-decoration: none" href="eg_396.html"><span class="extensionexampleletter">396</span></a></span></div>
+                    <span id=eg393><a style="text-decoration: none" href="eg_393.html"><span class="extensionexampleletter">393</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_396.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stately Gardens</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_393.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stately Gardens</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An open landscape where the player can see landmarks in nearby areas, with somewhat more complex room descriptions than the previous example, and in which we also account for size differences between things seen at a distance.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg396><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg393><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_3_3.html"><span class="markdowncontent">Section 3.3: Position Within Rooms</span></a> &bull; <a href="RB_3_5.html"><span class="markdowncontent">Section 3.5: Doors, Staircases, and Bridges</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

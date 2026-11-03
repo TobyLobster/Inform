@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,60 +2193,80 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg104><a style="text-decoration: none" href="WI_7_13.html"><span class="extensionexampleletter">104</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beachfront</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">An item that the player can't interact with until they have found it by searching the scenery.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Today Tomorrow</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A few notes on &quot;In the presence of&quot; and how it interacts with concealed objects.</span></span></div>
             <div class="exampleright">
-                <span id=eg104><a style="text-decoration: none" href="RB_6_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg104><a style="text-decoration: none" href="RB_8_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose we have our player, a detective, searching for evidence; we don't want them to be able to use this evidence until they have performed the action that reveals it, but after that it should be visible in the room when they look.</p>
-        <p>A simple way to do this is to start the object – an envelope, in this scenario – out of play, and only move it into the location when the player looks for it:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Beachfront[=0x0022=][=0x000A=][=0x000A=]The Stuffy Office is a room. [=0x0022=]The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.[=0x000A=][=0x000A=]The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.[=0x0022=][=0x000A=][=0x000A=]The heavy oak desk is a supporter in the stuffy office. It is scenery. Understand [=0x0022=]paperwork[=0x0022=] as the desk.[=0x000A=][=0x000A=]The creamy envelope is an openable container. The description is [=0x0022=]There is no return address on the outside of the envelope, just the address of the Doctor[=0x0027=]s office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There[=0x0027=]s no question that it comes from the same typewriter as the blackmail note.[=0x0022=] In the envelope is a letter. The envelope can be found or lost. The envelope is lost.[=0x000A=][=0x000A=]Instead of searching the desk when the envelope is lost:[=0x000A=][=0x0009=]now the envelope is found;[=0x000A=][=0x0009=]say [=0x0022=]You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients[[=0x0027=]] names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.[=0x0022=];[=0x000A=][=0x0009=]move the envelope to the desk.[=0x000A=][=0x000A=]Instead of searching the desk:[=0x000A=][=0x0009=]say [=0x0022=]Further investigation of the desk reveals nothing else suspicious.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x envelope / x desk / search desk / look / get envelope / x envelope[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Beachfront&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Today Tomorrow" -->
+        <!-- SEARCH SECTION "Example 104" -->
+        <!-- SEARCH SORT "003-104-000-000" -->
+        <p>
+         </p>
+        <p>Rules about concealment will affect <code class="inlinesourcetext">in the presence of</code>, too. For instance, suppose we have a man with a pocket pet:</p>
+        <!-- START CODE "code2635" -->
+        <blockquote class="extract-inform7"><a id="code2635"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Today Tomorrow[=0x0022=][=0x000A=][=0x000A=]The Temporary Employment Office is a room. [=0x0022=][=0x0027=]Tomorrow[=0x0027=]s Temporary Workers - Today![=0x0027=] proclaims the logo over the door. The office is divided into two areas, the inner sanctum where you take calls and fiddle with the computer, and the outer area where workers take skill exams and watch inspirational videos ([=0x0027=]Earn your way to partial benefits![=0x0027=], [=0x0027=]Vacation days and you![=0x0027=], [=0x0027=]Temping the Tomorrow Way[=0x0027=], etc.).[=0x0022=][=0x000A=][=0x000A=]Maya is a woman in the Office. [=0x0022=]Your coworker Maya sits at her own computer, diligently modifying all the [one of]pay rates in the database down from $9.00 an hour to $8.96[or]billing rates in the database up from $25.00 an hour to $25.04[purely at random].[=0x0022=] She wears a trenchcoat. She carries a chihuahua. The description of Maya is [=0x0022=][if Maya is wearing the trenchcoat]She[=0x0027=]s wearing a trenchcoat, in a bizarre bid to keep your boss unaware of the chihuahua in her pocket. [=0x0027=]Because petsitters are really expensive![=0x0027=] she explained to you in an urgent hiss this morning over the coffeemaker. [otherwise]She looks cold. [end if]To all appearances, she is carrying [a list of unconcealed things carried by Maya].[=0x0022=][=0x000A=][=0x000A=]Maya[=0x0027=]s computer is scenery in the Employment Office. The description is [=0x0022=]You can[=0x0027=]t see the screen from here, but she was perfectly happy to tell you what she was doing.[=0x0022=][=0x000A=][=0x000A=]Rule for deciding the concealed possessions of someone (called carrier):[=0x000A=][=0x0009=]if the particular possession is the chihuahua and the carrier wears the trenchcoat, yes;[=0x000A=][=0x0009=]otherwise no.[=0x000A=][=0x000A=]Instead of eating something in the presence of the chihuahua:[=0x000A=][=0x0009=]say [=0x0022=][The chihuahua] yips at you! Maya looks despairingly at [the noun], which is obviously inciting it.[=0x0022=][=0x000A=][=0x000A=]The desk is scenery in the Office. On the desk are a multi-line telephone and a printer. The description of the printer is [=0x0022=]Every morning, this instrument of torture spits out a list of the assignments you have to fill - professional, attractive receptionist with level three Excel certification, at $7.05 an hour; that sort of thing. You spend the ensuing three hours trying to meet its tyrannical demands.[=0x0022=] The description of the multi-line telephone is [=0x0022=]Line three blinks urgently at you. You[=0x0027=]ll pick it up again as soon as you can remember who it was you put on hold.[=0x0022=][=0x000A=][=0x000A=]The player carries a double bacon cheeseburger and a chocolate shake. Understand [=0x0022=]milkshake[=0x0022=] or [=0x0022=]beverage[=0x0022=] as the shake. The description of the cheeseburger is [=0x0022=]A minor self-indulgence to make up for the fact that you have to work through lunch.[=0x0022=] The cheeseburger is edible. The shake is edible. The description of the shake is [=0x0022=]It has the consistency of spackle and is no longer cold, but there is some chocolatey goodness in it still.[=0x0022=] Understand [=0x0022=]burger[=0x0022=] or [=0x0022=]hamburger[=0x0022=] as the cheeseburger. Instead of drinking the chocolate shake: try eating the shake instead.[=0x000A=][=0x000A=]Test me with [=0x0022=]x maya / x cheeseburger / drink shake / eat cheeseburger[=0x0022=].[=0x000A=][=0x000A=]The time of day is 11:45 AM.[=0x000A=][=0x000A=]At 11:47 AM: say [=0x0022=]Your boss pokes his head in, temporarily free of the round of conference calls that occupy all his days. [=0x0027=]Maya,[=0x0027=] he says. [=0x0027=]Your coat?[=0x0027=] He shakes his head, clucking sadly. [=0x0027=]It doesn[=0x0027=]t say professional![=0x0027=] But mercifully Maya manages to take it off so slowly that he doesn[=0x0027=]t glimpse her pet before her phone rings again.[=0x0022=];[=0x000A=][=0x0009=]now Maya carries the trenchcoat.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Today Tomorrow&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stuffy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The windows are closed, making the sultry air even more unbearable. A narrow slice of Caribbean blue is visible between the scuba gear rental shop and the recreated 17th century pirate tavern.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temporary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Employment</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;'Tomorrow's Temporary Workers - Today!' proclaims the logo over the door. The office is divided into two areas, the inner sanctum where you take calls and fiddle with the computer, and the outer area where workers take skill exams and watch inspirational videos ('Earn your way to partial benefits!', 'Vacation days and you!', 'Temping the Tomorrow Way', etc.).&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxstring">The office is cheerfully furnished with wicker chairs and white curtains, but the tropical decorating scheme stopped at the desk, which is heavy oak and absolutely covered with papers.&quot;</span>
+        <span class="identifier-syntax">Maya</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Your coworker Maya sits at her own computer, diligently modifying all the [one of]pay rates in the database down from $9.00 an hour to $8.96[or]billing rates in the database up from $25.00 an hour to $25.04[purely at random].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">She</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">trenchcoat</span><span class="plain-syntax">. </span><span class="identifier-syntax">She</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chihuahua</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Maya</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[if Maya is wearing the trenchcoat]She's wearing a trenchcoat, in a bizarre bid to keep your boss unaware of the chihuahua in her pocket. 'Because petsitters are really expensive!' she explained to you in an urgent hiss this morning over the coffeemaker. [otherwise]She looks cold. [end if]To all appearances, she is carrying [a list of unconcealed things carried by Maya].&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">heavy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">oak</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supporter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stuffy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">office</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;paperwork&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Maya</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">computer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Employment</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can't see the screen from here, but she was perfectly happy to tell you what she was doing.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">creamy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;There is no return address on the outside of the envelope, just the address of the Doctor's office -- but the legs of the capital A are rubbed down in a characteristic way, and the top of every R is open. There's no question that it comes from the same typewriter as the blackmail note.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">letter</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">found</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lost</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lost</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">deciding</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">concealed</span><span class="plain-syntax"> </span><span class="identifier-syntax">possessions</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrier</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">particular</span><span class="plain-syntax"> </span><span class="identifier-syntax">possession</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chihuahua</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrier</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">trenchcoat</span><span class="plain-syntax">, </span><span class="identifier-syntax">yes</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">searching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lost</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chihuahua</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">found</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The chihuahua] yips at you! Maya looks despairingly at [the noun], which is obviously inciting it.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You rifle through the piles of bills and notices; invitations to conventions; advertisements for high-end prescription drugs; pink carbon sheets bearing patients</span><span class="syntaxextract">[']</span><span class="syntaxstring"> names and medical identification numbers in spidery, elderly handwriting. Almost at the bottom of the heap, you find what you were looking for: a creamy envelope with the address typed.&quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">envelope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax">. </span><span class="identifier-syntax">On</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">multi</span><span class="plain-syntax">-</span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">telephone</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">printer</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">printer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Every morning, this instrument of torture spits out a list of the assignments you have to fill - professional, attractive receptionist with level three Excel certification, at $7.05 an hour; that sort of thing. You spend the ensuing three hours trying to meet its tyrannical demands.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">multi</span><span class="plain-syntax">-</span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">telephone</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Line three blinks urgently at you. You'll pick it up again as soon as you can remember who it was you put on hold.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">double</span><span class="plain-syntax"> </span><span class="identifier-syntax">bacon</span><span class="plain-syntax"> </span><span class="identifier-syntax">cheeseburger</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;milkshake&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;beverage&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cheeseburger</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A minor self-indulgence to make up for the fact that you have to work through lunch.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cheeseburger</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It has the consistency of spackle and is no longer cold, but there is some chocolatey goodness in it still.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;burger&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;hamburger&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cheeseburger</span><span class="plain-syntax">. </span><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">drinking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax">: </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">eating</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shake</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x maya / x cheeseburger / drink shake / eat cheeseburger&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Here we've changed the property of the envelope to keep track of the fact that it has been found, so that if the player tries again, they won't find anything more.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">searching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">:</span>
+        <!-- END CODE -->
+        <p>Unless we somehow get the trenchcoat away from Maya, the chihuahua will not be in view, and will not intervene in our lunch. All very well for the player character, but not so interesting to the story... To this end, we might add an unfortunate event, courtesy of later chapters:</p>
+        <!-- START CODE "code2636" -->
+        <blockquote class="extract-inform7"><a id="code2636"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">day</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">:45 </span><span class="identifier-syntax">AM</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Further investigation of the desk reveals nothing else suspicious.&quot;</span>
+
+        <br>
+        <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">:47 </span><span class="identifier-syntax">AM</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Your boss pokes his head in, temporarily free of the round of conference calls that occupy all his days. 'Maya,' he says. 'Your coat?' He shakes his head, clucking sadly. 'It doesn't say professional!' But mercifully Maya manages to take it off so slowly that he doesn't glimpse her pet before her phone rings again.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Maya</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">trenchcoat</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Notice that we have two rules that apply to <code class="inlinesourcetext">searching the desk</code>, but one of them has a more specific set of parameters (<code class="inlinesourcetext">when the envelope is lost</code>). This means that Inform will consult that rule first and use it if it applies; it will only carry out our plain vanilla <code class="inlinesourcetext">instead of searching the desk</code> rule when the more restricted rule is not relevant.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x envelope / x desk / search desk / look / get envelope / x envelope&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_7_13.html>Section 7.13: In the presence of, and when</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

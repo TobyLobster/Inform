@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,79 +2193,221 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg295><a style="text-decoration: none" href="WI_17_8.html"><span class="extensionexampleletter">295</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hello Shanwick</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Aircraft tail numbers using the international aviation alphabet.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Universe of Annie Jump Cannon</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Harvard star classifications such as A5Ib or G8IV.</span></span></div>
             <div class="exampleright">
-                <span id=eg295><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg295><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>Since 1956, pilots have identified their aircraft over radio channels using a standard international alphabet, which has several names and numerous parent organisations. It goes like so:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Hello Shanwick[=0x0022=][=0x000A=][=0x000A=]The international aviation alphabet is a kind of value. Alpha, Bravo,[=0x000A=]Charlie, Delta, Echo, Foxtrot, Golf, Hotel, India, Juliet, Kilo, Lima, Mike,[=0x000A=]November, Oscar, Papa, Quebec, Romeo, Sierra, Tango, Uniform, Victor,[=0x000A=]Whiskey, X-ray, Yankee, Zulu is the international aviation alphabet.[=0x000A=][=0x000A=]A tail number is a kind of value.[=0x000A=][=0x000A=][=0x003C=]country[=0x003E=]-[=0x003C=]first[=0x003E=][=0x003C=]second[=0x003E=][=0x003C=]third[=0x003E=][=0x003C=]fourth[=0x003E=] specifies a tail number[=0x000A=]with parts[=0x000A=][=0x0009=]country (values [=0x0022=]A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z[=0x0022=],[=0x000A=][=0x0009=][=0x0009=]corresponding to the international aviation alphabet),[=0x000A=][=0x0009=]first (values [=0x0022=]A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z[=0x0022=],[=0x000A=][=0x0009=][=0x0009=]corresponding to the international aviation alphabet),[=0x000A=][=0x0009=]second (values [=0x0022=]A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z[=0x0022=],[=0x000A=][=0x0009=][=0x0009=]corresponding to the international aviation alphabet),[=0x000A=][=0x0009=]third (values [=0x0022=]A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z[=0x0022=],[=0x000A=][=0x0009=][=0x0009=]corresponding to the international aviation alphabet),[=0x000A=][=0x0009=]fourth (values [=0x0022=]A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z[=0x0022=],[=0x000A=][=0x0009=][=0x0009=]corresponding to the international aviation alphabet).[=0x000A=][=0x000A=]To say callsign of (T - tail number):[=0x000A=][=0x0009=]say [=0x0022=][country part of T] [first part of T] [second part of T] [third part of T] [fourth part of T][=0x0022=].[=0x000A=][=0x000A=]Flight Deck is a room.[=0x000A=][=0x000A=][=0x0022=]Douglas smoothly intones, [=0x0027=]Hello Shanwick, this is [callsign of G-ERTI].[=0x0027=][=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Hello Shanwick&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "The Universe of Annie Jump Cannon" -->
+        <!-- SEARCH SECTION "Example 295" -->
+        <!-- SEARCH SORT "003-295-000-000" -->
+        <p>       </p>
+        <p>In 1866 the Italian priest Angelo Secchi, having determined for the first time that the Sun was indeed a star, found a way to sort stars by their spectra, that is, by the blend of colours of light with which they shone. He used:</p>
+        <!-- START CODE "code3254" -->
+        <blockquote class="extract-inform7"><a id="code3254"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
         <br>
-
+        <span class="identifier-syntax">Secchi</span><span class="plain-syntax"> </span><span class="identifier-syntax">class</span><span class="plain-syntax"> &lt;</span><span class="identifier-syntax">class</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Alpha</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Bravo</span><span class="syntaxplain">,</span>
-        <br>
-        <span class="syntaxidentifier">Charlie</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Delta</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Echo</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Foxtrot</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Golf</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Hotel</span><span class="syntaxplain">, </span><span class="syntaxidentifier">India</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Juliet</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Kilo</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Lima</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Mike</span><span class="syntaxplain">,</span>
-        <br>
-        <span class="syntaxidentifier">November</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Oscar</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Papa</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Quebec</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Romeo</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Sierra</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Tango</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Uniform</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Victor</span><span class="syntaxplain">,</span>
-        <br>
-        <span class="syntaxidentifier">Whiskey</span><span class="syntaxplain">, </span><span class="syntaxidentifier">X</span><span class="syntaxplain">-</span><span class="syntaxidentifier">ray</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Yankee</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Zulu</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">class</span><span class="plain-syntax"> (</span><span class="identifier-syntax">values</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I, II, III, IV, V, VI, VII&quot;</span><span class="plain-syntax">).</span>
         </span></blockquote>
-        <p>(Some people spell <code class="inlinesourcetext">Alfa</code> and <code class="inlinesourcetext">Juliett</code>. Those people need help.) European civil aircraft are normally given &quot;tail numbers&quot; like this:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>At Harvard, Henry Draper and, more particularly, Edward Pickering carried out a larger survey and subdivided Secchi's classes so that there were now letters <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Q</code>, with <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">D</code> being versions of <code class="inlinesourcetext">Secchi class I</code>, and so on. Exasperatingly, they omitted <code class="inlinesourcetext">J</code> but included <code class="inlinesourcetext">O</code>. Antonia Maury, the first woman to be credited as an astronomical observer, decided that <code class="inlinesourcetext">A</code> and <code class="inlinesourcetext">B</code> were the wrong way round, and moved back to Roman numbers, <code class="inlinesourcetext">I</code> to <code class="inlinesourcetext">XXII</code>.</p>
+        <p>Annie Jump Cannon brokered a compromise between Maury and Pickering. She reverted to letters, but ordered them better by what was now understood to be surface temperature, and grouped them simply as <code class="inlinesourcetext">O</code> (hottest), <code class="inlinesourcetext">B</code>, <code class="inlinesourcetext">A</code>, <code class="inlinesourcetext">F</code>, <code class="inlinesourcetext">G</code>, <code class="inlinesourcetext">K</code>, <code class="inlinesourcetext">M</code> (coolest): the traditional mnemonic being &quot;oh be a fine girl, kiss me&quot;. Each class was subdivided 0 to 9, so that <code class="inlinesourcetext">G2</code> was closer to <code class="inlinesourcetext">G</code> than <code class="inlinesourcetext">K</code>, while <code class="inlinesourcetext">G9</code> was very nearly K-type.</p>
+        <p>In 1943 the action moved to Wisconsin, where the University of Chicago's Yerkes Observatory found a way to sort stars not by temperature but by luminosity: these classes were <code class="inlinesourcetext">0</code> (brightest), <code class="inlinesourcetext">Ia</code>, <code class="inlinesourcetext">Iab</code>, <code class="inlinesourcetext">Ib</code>, <code class="inlinesourcetext">II</code>, <code class="inlinesourcetext">III</code>, <code class="inlinesourcetext">IV</code>, <code class="inlinesourcetext">V</code>, <code class="inlinesourcetext">VI</code>, <code class="inlinesourcetext">VII</code> (dimmest).</p>
+        <p>Modern stellar classification is a combination:</p>
+        <!-- START CODE "code3255" -->
+        <blockquote class="extract-inform7"><a id="code3255"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Universe of Annie Jump Cannon[=0x0022=][=0x000A=][=0x000A=]The Yerkes Observatory is a room.[=0x000A=][=0x000A=]A temperature class is a kind of value. The temperature classes are O-type,[=0x000A=]B-type, A-type, F-type, G-type, K-type and M-type.[=0x000A=][=0x000A=]A luminosity class is a kind of value. The luminosity classes are hypergiant,[=0x000A=]luminous supergiant, intermediate-size luminous supergiant, less luminous[=0x000A=]supergiant, bright giant, giant, subgiant, main-sequence, subdwarf and white[=0x000A=]dwarf.[=0x000A=][=0x000A=]A stellar type is a kind of value. [=0x003C=]class[=0x003E=][=0x003C=]temperature[=0x003E=][=0x003C=]luminosity[=0x003E=] specifies a[=0x000A=]stellar type with parts[=0x000A=][=0x0009=]class (values [=0x0022=]O, B, A, F, G, K, M[=0x0022=], corresponding to temperature classes),[=0x000A=][=0x0009=]temperature (1 decimal digit, corresponding to a real number) and[=0x000A=][=0x0009=]luminosity (values [=0x0022=]0, Ia, Iab, Ib, II, III, IV, V, VI, VII[=0x0022=], corresponding[=0x000A=][=0x0009=][=0x0009=]to luminosity classes).[=0x000A=][=0x000A=]A star is a kind of thing. A star has a stellar type. Some stars are defined[=0x000A=]by the Table of Astral Survey Work.[=0x000A=][=0x000A=]Table of Astral Survey Work[=0x000A=]name[=0x0009=][=0x0009=][=0x0009=][=0x0009=]stellar type[=0x000A=]S Monocerotis[=0x0009=][=0x0009=]O7V[=0x000A=]Rigel[=0x0009=][=0x0009=][=0x0009=][=0x0009=]B8Ia[=0x000A=]Deneb[=0x0009=][=0x0009=][=0x0009=][=0x0009=]A2Ia[=0x000A=]Zeta Leonis[=0x0009=][=0x0009=][=0x0009=]F0III[=0x000A=]Beta Aquilae[=0x0009=][=0x0009=]G8IV[=0x000A=]Epsilon Eridani[=0x0009=][=0x0009=]K2V[=0x000A=]Herschel[=0x0027=]s Garnet[=0x0009=]M2Ia[=0x000A=][=0x000A=]Observing is an action applying to one stellar type.[=0x000A=][=0x000A=]Carry out observing: say [=0x0022=]You observe a star of type [stellar type understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]observe [stellar type][=0x0022=] as observing.[=0x000A=][=0x000A=]Test me with [=0x0022=]observe K9Iab / observe O00 / observe M9VII / observe F2Ia[=0x0022=].[=0x000A=][=0x000A=]To classify (star in question - a star):[=0x000A=][=0x0009=]say [=0x0022=]Annie Jump Cannon classifies [star in question] as [stellar type[=0x000A=][=0x0009=]of the star in question]. [=0x0027=]Hm, yes - [luminosity part of stellar[=0x000A=][=0x0009=]type of the star in question].[=0x0027=][=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]showme O00;[=0x000A=][=0x0009=]showme O0Ia;[=0x000A=][=0x0009=]showme K9Iab;[=0x000A=][=0x0009=]showme the class part of K9Iab;[=0x000A=][=0x0009=]showme the temperature part of K9Iab;[=0x000A=][=0x0009=]showme the luminosity part of K9Iab;[=0x000A=][=0x0009=]showme the stellar type with class part A-type temperature part 4.0 luminosity part subgiant;[=0x000A=][=0x0009=]classify Beta Aquilae;[=0x000A=][=0x0009=]classify Herschel[=0x0027=]s Garnet.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;The Universe of Annie Jump Cannon&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">country</span><span class="syntaxplain">&gt;-&lt;</span><span class="syntaxidentifier">first</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">second</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">third</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">fourth</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span>
-        <br>
-        <span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">country</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z&quot;</span><span class="syntaxplain">,</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">corresponding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">),</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">first</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z&quot;</span><span class="syntaxplain">,</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">corresponding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">),</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">second</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z&quot;</span><span class="syntaxplain">,</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">corresponding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">),</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">third</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z&quot;</span><span class="syntaxplain">,</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">corresponding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">),</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">fourth</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A, B, C, D, E, F, G, H, I, J, K, L, M, N, O, P, Q, R, S, T, U, V, W, X, Y, Z&quot;</span><span class="syntaxplain">,</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">corresponding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">international</span><span class="syntaxplain"> </span><span class="syntaxidentifier">aviation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alphabet</span><span class="syntaxplain">).</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Yerkes</span><span class="plain-syntax"> </span><span class="identifier-syntax">Observatory</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">callsign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">T</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">tail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">temperature</span><span class="plain-syntax"> </span><span class="identifier-syntax">class</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">temperature</span><span class="plain-syntax"> </span><span class="identifier-syntax">classes</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">O</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">,</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[country part of T]</span><span class="syntaxstring"> </span><span class="syntaxextract">[first part of T]</span><span class="syntaxstring"> </span><span class="syntaxextract">[second part of T]</span><span class="syntaxstring"> </span><span class="syntaxextract">[third part of T]</span><span class="syntaxstring"> </span><span class="syntaxextract">[fourth part of T]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">B</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">, </span><span class="identifier-syntax">A</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">, </span><span class="identifier-syntax">F</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">, </span><span class="identifier-syntax">G</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">, </span><span class="identifier-syntax">K</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminosity</span><span class="plain-syntax"> </span><span class="identifier-syntax">class</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminosity</span><span class="plain-syntax"> </span><span class="identifier-syntax">classes</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">hypergiant</span><span class="plain-syntax">,</span>
+        <br>
+        <span class="identifier-syntax">luminous</span><span class="plain-syntax"> </span><span class="identifier-syntax">supergiant</span><span class="plain-syntax">, </span><span class="identifier-syntax">intermediate</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminous</span><span class="plain-syntax"> </span><span class="identifier-syntax">supergiant</span><span class="plain-syntax">, </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminous</span>
+        <br>
+        <span class="identifier-syntax">supergiant</span><span class="plain-syntax">, </span><span class="identifier-syntax">bright</span><span class="plain-syntax"> </span><span class="identifier-syntax">giant</span><span class="plain-syntax">, </span><span class="identifier-syntax">giant</span><span class="plain-syntax">, </span><span class="identifier-syntax">subgiant</span><span class="plain-syntax">, </span><span class="identifier-syntax">main</span><span class="plain-syntax">-</span><span class="identifier-syntax">sequence</span><span class="plain-syntax">, </span><span class="identifier-syntax">subdwarf</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">white</span>
+        <br>
+        <span class="identifier-syntax">dwarf</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. &lt;</span><span class="identifier-syntax">class</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">temperature</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">luminosity</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span>
+        <br>
+        <span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">class</span><span class="plain-syntax"> (</span><span class="identifier-syntax">values</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;O, B, A, F, G, K, M&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">corresponding</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">temperature</span><span class="plain-syntax"> </span><span class="identifier-syntax">classes</span><span class="plain-syntax">),</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">temperature</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">decimal</span><span class="plain-syntax"> </span><span class="identifier-syntax">digit</span><span class="plain-syntax">, </span><span class="identifier-syntax">corresponding</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">real</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">luminosity</span><span class="plain-syntax"> (</span><span class="identifier-syntax">values</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;0, Ia, Iab, Ib, II, III, IV, V, VI, VII&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">corresponding</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminosity</span><span class="plain-syntax"> </span><span class="identifier-syntax">classes</span><span class="plain-syntax">).</span>
         </span></blockquote>
-        <p>This is all a little clumsy and repetitious, but no matter, because now we can write assertions like, say, <code class="inlinesourcetext">The Mont Blanc rescue helicopter is always F-ZBQG.</code> Or:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Flight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Deck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>In fact this is still a simplification because people sometimes subdivide
+        the number further or add &quot;peculiarity&quot; suffixes like <code class="inlinesourcetext">He wk</code>, or add extreme
+        additional types for truly odd stars, but it'll do.</p>
+        <p>Between 1910 and 1940 Annie Jump Cannon was to classify 350,000 stars by hand,
+        reaching a speed of three spectra per minute, a feat unequalled before or since.
+        Here's a smaller survey:</p>
+        <!-- START CODE "code3256" -->
+        <blockquote class="extract-inform7"><a id="code3256"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">star</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">star</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax">. </span><span class="identifier-syntax">Some</span><span class="plain-syntax"> </span><span class="identifier-syntax">stars</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">defined</span>
+        <br>
+        <span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Astral</span><span class="plain-syntax"> </span><span class="identifier-syntax">Survey</span><span class="plain-syntax"> </span><span class="identifier-syntax">Work</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxstring">&quot;Douglas smoothly intones, 'Hello Shanwick, this is </span><span class="syntaxextract">[callsign of G-ERTI]</span><span class="syntaxstring">.'&quot;</span>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Astral</span><span class="plain-syntax"> </span><span class="identifier-syntax">Survey</span><span class="plain-syntax"> </span><span class="identifier-syntax">Work</span></span><br>
+        <table border="0" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">name</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">S</span><span class="plain-syntax"> </span><span class="identifier-syntax">Monocerotis</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">O7V</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Rigel</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">B8Ia</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Deneb</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">A2Ia</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Zeta</span><span class="plain-syntax"> </span><span class="identifier-syntax">Leonis</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">F0III</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Beta</span><span class="plain-syntax"> </span><span class="identifier-syntax">Aquilae</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">G8IV</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Epsilon</span><span class="plain-syntax"> </span><span class="identifier-syntax">Eridani</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">K2V</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">Herschel</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garnet</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">M2Ia</span></span>
+                </td>
+            </tr>
+
+        </table>
+        <span class="indexdullblue"></span></blockquote>
+        <!-- END CODE -->
+        <p>And stellar types, like other notations, can also be understood:</p>
+        <!-- START CODE "code3257" -->
+        <blockquote class="extract-inform7"><a id="code3257"></a><span class="indexdullblue"><span class="identifier-syntax">Observing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">observing</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You observe a star of type [stellar type understood].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;observe [stellar type]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">observing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;observe K9Iab / observe O00 / observe M9VII / observe F2Ia&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>which prints out as:</p>
+        <!-- END CODE -->
+        <p>And to give this system a further workout:</p>
+        <!-- START CODE "code3258" -->
+        <blockquote class="extract-inform7"><a id="code3258"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">classify</span><span class="plain-syntax"> (</span><span class="identifier-syntax">star</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">question</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">star</span><span class="plain-syntax">):</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Annie Jump Cannon classifies [star in question] as [stellar type</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">of the star in question]. 'Hm, yes - [luminosity part of stellar</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">type of the star in question].'&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">O00</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">O0Ia</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">K9Iab</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">class</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K9Iab</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">temperature</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K9Iab</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">luminosity</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K9Iab</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">stellar</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">class</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">A</span><span class="plain-syntax">-</span><span class="identifier-syntax">type</span><span class="plain-syntax"> </span><span class="identifier-syntax">temperature</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">.0 </span><span class="identifier-syntax">luminosity</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">subgiant</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">classify</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beta</span><span class="plain-syntax"> </span><span class="identifier-syntax">Aquilae</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">classify</span><span class="plain-syntax"> </span><span class="identifier-syntax">Herschel</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garnet</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>This all results in:</p>
         <div class="extract-transcript">
-            <pre><code class="language-transcript"><span class="syntaxidentifier">Douglas smoothly intones, &quot;Hello Shanwick, this is Golf Echo Romeo Tango India&quot;.</span><br></code></pre></div>
+            <pre><code class="language-transcript">    stellar type: O00<br>    stellar type: O0Ia<br>    stellar type: K9Iab<br>    &quot;class part of K9Iab&quot; = temperature class: K-type<br>    &quot;temperature part of K9Iab&quot; = real number: 9.0<br>    &quot;luminosity part of K9Iab&quot; = luminosity class: intermediate-size luminous supergiant<br>    &quot;stellar type with class part A-type temperature part 4.0 luminosity part subgiant&quot; = stellar type: A4IV<br>    Annie Jump Cannon classifies Beta Aquilae as G8IV. &quot;Hm, yes - subgiant.&quot;<br>    Annie Jump Cannon classifies Herschel's Garnet as M2Ia. &quot;Hm, yes - luminous supergiant.&quot;<br><br>    Yerkes Observatory<br>    <br>    &gt; OBSERVE K9IAB<br>    You observe a star of type K9Iab.<br></code></pre></div>
+        <p>...and so on.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_17_8.html>Section 17.8: Parts corresponding to kinds</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

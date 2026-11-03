@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.3: Compatibility of kits</span></title>
+    <title><span class="markdowncontent">Section 32.3: Textual effects and short code samples</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.3: Compatibility of kits</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.3: Textual effects and short code samples</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,116 +2212,93 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.3: Compatibility of kits</span></h3>
-            <p>Since kits are mostly used to provide low-level support functions, they often need to work slightly differently on Glulx versus the Z-machine, or as we should really say, on the 32-bit versus the 16-bit architecture.</p>
-            <h4><span>A one-architecture kit</span></h4>
-            <p>Suppose <code class="inlinecode">RootsOfEquationsKit</code> can only be compiled for 32-bit architectures, which is not at all improbable if it wants to perform floating-point maths. It can be marked as such by editing its <code class="inlinesourcetext">kit_metadata.json</code> file as follows:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;RootsOfEquationsKit&quot;</span><br><span class="syntaxidentifier">    },</span><br><span class="syntaxidentifier">    &quot;compatibility&quot;: &quot;for 32-bit only&quot;</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>When Inform builds the kit, it compiles only the <code class="inlinesourcetext">arch-32.interb</code> and <code class="inlinesourcetext">arch-32d.interb</code> binaries.</p>
-            <p>So what happens if the <code class="inlinesourcetext">Roots of Equations</code> extension is then compiled in a project with the Z-machine setting, i.e., to a 16-bit story file? It will then be impossible for Inform to link in the <code class="inlinesourcetext">arch-16.interb</code> binary for <code class="inlinecode">RootsOfEquationsKit</code>, because there isn't one. Inform does not halt with a problem message: instead it simply carries on.</p>
-            <p>The likely result is that linking errors will be produced with certain functions not being found. This can be made be more graceful, of course, by simply declaring the <em>extension</em> in a restricted way:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Roots</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Equations</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">32</span><span class="syntaxplain">-</span><span class="syntaxidentifier">bit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>That way, any user trying to use the extension on the Z-machine will be told at once what the issue is, and no linking errors will ever be reached.</p>
-            <h4><span>Two alternative kits</span></h4>
-            <p>Suppose, on the other hand, we are more ambitious and want <code class="inlinesourcetext">Roots of Equations</code> to run on all architectures, even though the 16-bit and 32-bit implementations are completely different.</p>
-            <p>The trick then is to equip <code class="inlinesourcetext">Roots of Equations</code> with <em>two</em> kits. One will be called <code class="inlinesourcetext">RootsOfEquations16Kit</code>, with this metadata:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;RootsOfEquations16Kit&quot;</span><br><span class="syntaxidentifier">    },</span><br><span class="syntaxidentifier">    &quot;compatibility&quot;: &quot;for 16-bit only&quot;</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>and the other will be <code class="inlinesourcetext">RootsOfEquations32Kit</code>, with a similar set of metadata. The practical effect is that in any build including <code class="inlinesourcetext">Roots of Equations</code>, exactly one of <code class="inlinesourcetext">RootsOfEquations16Kit</code> and <code class="inlinesourcetext">RootsOfEquations32Kit</code> will be included.</p>
-            <h4><span>Conditional compilation</span></h4>
-            <p>If in fact most of <code class="inlinecode">RootsOfEquationsKit</code> should be the same on all architectures, but just one function would differ, conditional compilation can be used. This means using more or less the same <code class="inlinecode">#if...</code> directives as would be used in Inform 6, but in I6 there are significant restrictions:</p>
-            <ul>
-            <li>
-            <p><code class="inlinecode">#ifdef</code> and <code class="inlinecode">#ifndef</code> can be used only on certain symbols:</p>
-            <ul>
-            <li>
-            <p><code class="inlinecode">TARGET_ZCODE</code> and <code class="inlinecode">TARGET_GLULX</code> are defined only on 16-bit and only on 32-bit architectures, respectively. Their names are now a little misleading, but see below.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">DEBUG</code> is defined only on the debugging architectures <code class="inlinesourcetext">16d</code> and <code class="inlinesourcetext">32d</code>. What this means in practice is that <code class="inlinecode">DEBUG</code> is defined when using Inform in the apps, but not usually defined when making a release compilation.</p>
-            </li>
-            <li>
-            <p>Otherwise, they can only be used on symbols defined (or not defined) higher up <em>in the same kit</em>. Because each kit is built independently of all others, I6 directives in one kit cannot know what symbols exist or do not exist in other kits.</p>
-            </li>
-            </ul>
-            </li>
-            <li>
-            <p><code class="inlinecode">#iftrue</code> and <code class="inlinecode">#iffalse</code> can only be used on &quot;fundamental constants&quot;, and then only to test them for equality against constant values. For example, <code class="inlinecode">#iftrue CHARSIZE == 1;</code> is legal.</p>
-            </li>
-            </ul>
-            <p>We now usually prefer to write <code class="inlinesourcetext">#Iftrue (WORDSIZE == 2);</code> rather than the more traditional <code class="inlinesourcetext">#ifdef TARGET_ZCODE</code>, and similarly <code class="inlinesourcetext">#Iftrue (WORDSIZE == 4);</code> rather than <code class="inlinesourcetext">#ifdef TARGET_GLULX</code>. These more clearly express the idea of being on a 16-bit or 32-bit architecture, respectively.</p>
-            <p>Here, for reference, are all of the fundamental constants except <code class="inlinecode">DEBUG</code> (for which see above), and their normal values:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Textual effects and short code samples" -->
+            <!-- SEARCH SECTION "32.3" -->
+            <!-- SEARCH SORT "001-032-003-000" -->
+            <h3><span>Section 32.3: Textual effects and short code samples</span></h3>
+            <p>
+
+
+
+
+            </p>
+            <p>Three textual effects are available:</p>
             <table>
             <thead>
             <tr>
-            <th>Symbol</th>
-            <th>16-bit architectures</th>
-            <th>32-bit architectures</th>
+            <th>Effect</th>
+            <th>Example Markdown</th>
+            <th>Result</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-            <td><code class="inlinecode">CHARSIZE</code></td>
-            <td>1</td>
-            <td>4</td>
+            <td>Strong emphasis</td>
+            <td><code class="inlinecode">This stamp is **unperforated**.</code></td>
+            <td>This stamp is <strong>unperforated</strong>.</td>
             </tr>
             <tr>
-            <td><code class="inlinecode">WORDSIZE</code></td>
-            <td>2</td>
-            <td>4</td>
+            <td>Weak emphasis</td>
+            <td><code class="inlinecode">All sales _subject to authentication_.</code></td>
+            <td>All sales <em>subject to authentication</em>.</td>
             </tr>
             <tr>
-            <td><code class="inlinecode">NULL</code></td>
-            <td>$ffff</td>
-            <td>$ffffffff</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">WORD_HIGHBIT</code></td>
-            <td>$8000</td>
-            <td>$80000000</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">WORD_NEXTTOHIGHBIT</code></td>
-            <td>$4000</td>
-            <td>$40000000</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">IMPROBABLE_VALUE</code></td>
-            <td>$7fe3</td>
-            <td>$deadce11</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">MAX_POSITIVE_NUMBER</code></td>
-            <td>32767</td>
-            <td>2147483647</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">MIN_NEGATIVE_NUMBER</code></td>
-            <td>-32768</td>
-            <td>-2147483648</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">TARGET_ZCODE</code></td>
-            <td>1</td>
-            <td><em>undefined</em></td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">TARGET_GLULX</code></td>
-            <td><em>undefined</em></td>
-            <td>1</td>
+            <td>Strikethrough</td>
+            <td><code class="inlinecode">recently ~~went on sale~~ was sold for $712.30</code></td>
+            <td>recently <del>went on sale</del> was sold for $712.30</td>
             </tr>
             </tbody>
             </table>
-            <p>So, for example, this function is compiled very slightly differently according to whether <code class="inlinecode">DEBUG</code> is in force or not:</p>
+            <p>People often think strong emphasis and weak emphasis means bold and italic respectively, and it usually does in practice, but there are many forms of display in the world. Something which often trips people up is that the strength comes from the doubling of the markers, not from the choice of marker. <code class="inlinecode">*This*</code> produces <em>This</em>, whereas <code class="inlinecode">__This__</code> produces <strong>This</strong>.</p>
+            <p>Small samples of source text can be given by &quot;backticking&quot; them, like so:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ ReleaseLine i;</span><br><span class="syntaxidentifier">    print &quot;Release &quot;, VM_ReleaseNumber(), &quot; / Serial number &quot;;</span><br><span class="syntaxidentifier">    serial = VM_SerialNumber();</span><br><span class="syntaxidentifier">    for (i=0 : i&lt;6 : i++) print (char) serial-&gt;i;</span><br><span class="syntaxidentifier">    print &quot; / Inform 7 v&quot;, (PrintI6Text) I7_VERSION_NUMBER;</span><br><span class="syntaxidentifier">    #Ifdef DEBUG;</span><br><span class="syntaxidentifier">    print &quot; / D&quot;;</span><br><span class="syntaxidentifier">    #Endif; ! DEBUG</span><br><span class="syntaxidentifier">    new_line;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
+                <pre><code class="language-code">The `real number` kind can hold a wide range of values.<br><br>We want to recognise the command ``MOVE ROOK``.<br><br>The reply is just ``You can't see any such thing.``<br><br>In Markdown syntax, ```**this**``` produces strong emphasis.<br></code></pre></div>
+            <p>The effect of which is like this:</p>
+            <blockquote>
+            <p>The <code class="inlinesourcetext">real number</code> kind can hold a wide range of values.</p>
+            <p>We want to recognise the command <code class="inlinetranscriptcommand">move rook</code>.</p>
+            <p>The reply is just <code class="inlinetranscript">You can't see any such thing.</code></p>
+            <p>In Markdown syntax, <code class="inlinecode">**this**</code> produces strong emphasis.</p>
+            </blockquote>
+            <p>Note that there are three notations here — one, two, or three backticks on each side of the material being quoted — which, under normal Markdown rules, are completely synonymous. So most Markdown viewers would display all these program-like fragments of text indistinguishably. But Inform displays them differently, and somehow there are <em>four</em> different looks.</p>
+            <p>What is happening here is that all four are code samples, just as the Markdown rules say they should be, but Inform is using different colouring rules to paint them on screen. The convention we follow is this:</p>
+            <ul>
+            <li>
+            <p>Single backtick means Inform 7 source text.</p>
+            </li>
+            <li>
+            <p>Double backtick placed around upper case letters and/or spaces means a command a player might type into the Inform command parser.</p>
+            </li>
+            <li>
+            <p>Double backtick around anything else means &quot;transcript text&quot;, that is, text printed by an Inform story during play.</p>
+            </li>
+            <li>
+            <p>Triple backtick is for generic code samples which aren't Inform 7 source text.</p>
+            </li>
+            </ul>
+            <p>This may all seem pedantic, but it does make documentation clearer. For example, this:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">`&quot;He [bracket]Lord Astor[close bracket] would, wouldn't he?&quot;`<br>prints as ``He [Lord Astor] would, wouldn't he?``.<br></code></pre></div>
+            <p>comes out as:</p>
+            <blockquote>
+            <p><code class="inlinesourcetext">&quot;He [bracket]Lord Astor[close bracket] would, wouldn't he?&quot;</code> prints as <code class="inlinetranscript">He [Lord Astor] would, wouldn't he?</code>.</p>
+            </blockquote>
+            <p>Which is easier to fathom than:</p>
+            <blockquote>
+            <p>&quot;He [bracket]Lord Astor[close bracket] would, wouldn't he?&quot; prints as &quot;He [Lord Astor] would, wouldn't he?&quot;.</p>
+            </blockquote>
+            <p>As a general piece of guidance, then, pieces of source text should be never be quoted in ordinary double-quotation marks. Those should be reserved for more human quotations. Markdown, like politics, is &quot;the art of the possible&quot;.</p>
+            <h4><span>Backslash escapes</span></h4>
+            <p> </p>
+            <p>Markdown also supports so-called HTML entities, which provide a way to type certain unusual characters by name rather than literally. For example, <code class="inlinecode">&amp;HilbertSpace;</code> produces ℋ, a mathematical symbol. Nowadays it's usually better just to type the character directly: <code class="inlinecode">ℋ</code> also produces ℋ. But it does raise the question: how do we write &amp;HilbertSpace; without it coming out as ℋ?</p>
+            <p>The answer is that the backslash character <code class="inlinecode">\</code> can be used to &quot;escape&quot; certain characters which would otherwise cause Markdown to apply formatting, or some layout effect. So for example <code class="inlinecode">\_underlining_</code> produces _underlining_, and <code class="inlinecode">\&amp;HilbertSpace;</code> produces &amp;HilbertSpace;. A literal backslash can always be obtained as <code class="inlinecode">\\</code>, like so: \.</p>
+            <p>Note that none of this applies inside code examples, where a backslash is just a backslash and has no special powers. Similarly, it's not possible to apply emphasis inside a code sample, because the underscore and asterisk characters do nothing active there either.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_2.html"><span class="markdowncontent">Section 32.2: Adding a kit to an extension</span></a> &bull; <a href="WI_32_4.html"><span class="markdowncontent">Section 32.4: Run-time representations of Inform constructs</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_2.html"><span class="markdowncontent">Section 32.2: Headings and organisation</span></a> &bull; <a href="WI_32_4.html"><span class="markdowncontent">Section 32.4: Longer code samples</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

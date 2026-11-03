@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,45 +2212,63 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Actions on Multiple Objects" -->
+            <!-- SEARCH SECTION "6.15" -->
+            <!-- SEARCH SORT "002-006-015-000" -->
             <h3><span>Section 6.15: Actions on Multiple Objects</span></h3>
             <p> 
             Inform allows a handful of actions–<code class="inlinetranscriptcommand">take</code>, <code class="inlinetranscriptcommand">drop</code>, <code class="inlinetranscriptcommand">put</code>, <code class="inlinetranscriptcommand">insert</code>–to apply to more than one item at a time, so that the player can move things around easily.</p>
             <p>The general principle is that multiple objects are allowed if the actions are likely to be successful but not interesting most of the time, and if they're things that the player could plausibly do all at once. For most actions, the use of <code class="inlinetranscriptcommand">all</code> would seem weirdly indiscriminate: <code class="inlinetranscriptcommand">eat all</code>, say, describes very implausible behaviour, and <code class="inlinetranscriptcommand">examine all</code> would likely generate a screenful of text at once.</p>
             <p>But this is all under our control. To create an action that uses multiples, or to allow the use of multiple objects with an already-existing action, we need to create an understand statement that uses the <code class="inlinesourcetext">&quot;[things]&quot;</code> token (note the plural). For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;give </span><span class="syntaxextract">[things]</span><span class="syntaxstring"> to </span><span class="syntaxextract">[someone]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2097" -->
+            <blockquote class="extract-inform7"><a id="code2097"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;give [things] to [someone]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>This would let the existing <code class="inlinetranscriptcommand">give</code> command apply to multiple objects, in just the same way that <code class="inlinetranscriptcommand">take</code> does. <a href="eg_323.html">Shawn's Bad Day</a> demonstrates how we might allow <code class="inlinetranscriptcommand">examine all</code> to print descriptions of every visible item.</p>
+            <!-- END CODE -->
+            <p>This would let the existing <code class="inlinetranscriptcommand">give</code> command apply to multiple objects, in just the same way that <code class="inlinetranscriptcommand">take</code> does. <a href="eg_320.html">Shawn's Bad Day</a> demonstrates how we might allow <code class="inlinetranscriptcommand">examine all</code> to print descriptions of every visible item.</p>
             <p>Alternatively, we could generate a new action:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;give </span><span class="syntaxextract">[things]</span><span class="syntaxstring"> to </span><span class="syntaxextract">[someone]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiply</span><span class="syntaxplain">-</span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Multiply</span><span class="syntaxplain">-</span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2098" -->
+            <blockquote class="extract-inform7"><a id="code2098"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;give [things] to [someone]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">multiply</span><span class="plain-syntax">-</span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax">. </span><span class="identifier-syntax">Multiply</span><span class="plain-syntax">-</span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(In theory the language here should perhaps be <code class="inlinesourcetext">several carried things</code> – but Inform is still going to process multiply-giving item by item, unless we redirect it. More about this in a moment.)</p>
             <p>When handling an action that uses the <code class="inlinesourcetext">&quot;[things]&quot;</code> token, the parser makes a list of every item to which it is going to apply the action: this is called the multiple objects list. The multiple objects list can be the result of a vague request (<code class="inlinetranscriptcommand">get all</code>) or a specific one involving identical multiples (<code class="inlinetranscriptcommand">get pennies</code>, <code class="inlinetranscriptcommand">get three apples</code>) or a very specific one involving unique, named nouns (<code class="inlinetranscriptcommand">get gerbil, apple, and pomegranate</code>).</p>
             <p>We can manipulate what Inform includes in <code class="inlinetranscriptcommand">all</code> in sentences like <code class="inlinetranscriptcommand">take all</code> with the <code class="inlinesourcetext">deciding whether all includes...</code> activity; for instance</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain">: </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2099" -->
+            <blockquote class="extract-inform7"><a id="code2099"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">deciding</span><span class="plain-syntax"> </span><span class="identifier-syntax">whether</span><span class="plain-syntax"> </span><span class="identifier-syntax">all</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax">: </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>prevents <code class="inlinetranscriptcommand">take all</code> from applying to things that can't be moved anyway, avoiding lots of lines like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">tree</span><span class="syntaxplain">: </span><span class="syntaxidentifier">That</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hardly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">portable</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2100" -->
+            <blockquote class="extract-inform7"><a id="code2100"></a><span class="indexdullblue"><span class="identifier-syntax">tree</span><span class="plain-syntax">: </span><span class="identifier-syntax">That</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">hardly</span><span class="plain-syntax"> </span><span class="identifier-syntax">portable</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">swing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain">: </span><span class="syntaxidentifier">That</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hardly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">portable</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">swing</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax">: </span><span class="identifier-syntax">That</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">hardly</span><span class="plain-syntax"> </span><span class="identifier-syntax">portable</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>A slightly tedious technical note: the multiple objects list is not strictly a list in the standard Inform sense, because it is used so frequently in parsing that it would be cumbersome to handle it with the more flexible but less efficient structure used for lists. However, if we want to manipulate the multiple objects list as though it were an ordinary list – that is, sort it, rotate it, truncate it, remove entries from it, etc – we may do so by creating a list like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2101" -->
+            <blockquote class="extract-inform7"><a id="code2101"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">multiple</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and later after making L conform to our desires:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">alter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2102" -->
+            <blockquote class="extract-inform7"><a id="code2102"></a><span class="indexdullblue"><span class="identifier-syntax">alter</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">multiple</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Inform next repeatedly runs the action rulebook for the action generated, using each item from the multiple object list as <code class="inlinesourcetext">noun</code> in turn (or as <code class="inlinesourcetext">second noun</code>, if that's where the <a href="WI_3_1.html" title="Chapter 3: Things">things</a> token appeared in the understand line). Since it is possible to alter the multiple object list before the <code class="inlinesourcetext">generate action rule</code> portion of the turn sequence consults the rulebooks, we can also affect the order in which the player's matched objects are handled; see <a href="eg_456.html">Formicidae</a>. We should not attempt to change the multiple object list after this point, because this is likely to introduce bugs.</p>
+            <!-- END CODE -->
+            <p>Inform next repeatedly runs the action rulebook for the action generated, using each item from the multiple object list as <code class="inlinesourcetext">noun</code> in turn (or as <code class="inlinesourcetext">second noun</code>, if that's where the <a href="WI_3_1.html" title="Chapter 3: Things">things</a> token appeared in the understand line). Since it is possible to alter the multiple object list before the <code class="inlinesourcetext">generate action rule</code> portion of the turn sequence consults the rulebooks, we can also affect the order in which the player's matched objects are handled; see <a href="eg_453.html">Formicidae</a>. We should not attempt to change the multiple object list after this point, because this is likely to introduce bugs.</p>
             <p>Each time Inform tries the action on a new noun, it prefixes the action-attempt with the name of the item it's currently working on. This is where we get such output as <code class="inlinetranscript">frog eyeballs:</code> and <code class="inlinetranscript">newt toes:</code> in long lists like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">frog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eyeballs</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Taken</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2103" -->
+            <blockquote class="extract-inform7"><a id="code2103"></a><span class="indexdullblue"><span class="identifier-syntax">frog</span><span class="plain-syntax"> </span><span class="identifier-syntax">eyeballs</span><span class="plain-syntax">: </span><span class="identifier-syntax">Taken</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">newt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">toes</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Taken</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">newt</span><span class="plain-syntax"> </span><span class="identifier-syntax">toes</span><span class="plain-syntax">: </span><span class="identifier-syntax">Taken</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>These names are generated by the <code class="inlinesourcetext">announce items from multiple object lists rule</code> in the action-handling rules; <a href="eg_439.html">Escape from the Seraglio</a> shows how to alter them. In the context of this rule, the thing we are currently printing the name of can be called <code class="inlinesourcetext">the current item from the multiple object list</code>.</p>
+            <!-- END CODE -->
+            <p>These names are generated by the <code class="inlinesourcetext">announce items from multiple object lists rule</code> in the action-handling rules; <a href="eg_436.html">Escape from the Seraglio</a> shows how to alter them. In the context of this rule, the thing we are currently printing the name of can be called <code class="inlinesourcetext">the current item from the multiple object list</code>.</p>
             <p>Suppressing names of objects entirely, while occasionally tempting, may have unintended consequences, especially if some of the attempted actions are prevented by check rules that themselves print things. It is safest to suppress the multiple object names in the case where we already know that the action will succeed wherever it is attempted (more often for observational actions like examining than for manipulative actions like taking, or where we mean to completely override default handling).</p>
             <p>Given that our hypothetical <code class="inlinesourcetext">multiply-giving</code> applies to each given object in turn, it might seem to be useless to create <code class="inlinesourcetext">multiply-giving</code> as an action different from <code class="inlinesourcetext">giving</code> – but the convenience is that manipulating the multiple object list makes it possible to group behaviour artificially. The trick here is that, on the first pass of the multiply-giving rulebook, we look at the entire multiple object list, perform actions, print output, and set a flag saying that the action has been handled. The flag tells Inform not to do or print anything for any of the subsequent passes through that action rulebook; thus we artificially create a situation where, instead of performing an action on each object in turn, Inform acts once on the entire group. That allows us to assess the cumulative qualities of the group and have the action respond differently than it might when assessing each item individually.</p>
-            <p><a href="eg_459.html">The Facts Were These</a> demonstrates how we might write an action for <code class="inlinetranscriptcommand">give three dollars to man</code> or <code class="inlinetranscriptcommand">give pie and hat to man</code> where the man would only accept the collective gift when its total proved satisfactory.</p>
-            <p><a href="eg_357.html">Western Art History 305</a> demonstrates how we might allow <code class="inlinetranscriptcommand">examine</code>, which doesn't normally permit multiple objects, to take them, but to give vaguer responses to a mass examination than an individual one.</p>
-            <p><a href="eg_356.html">The Best Till Last</a> shows a technique for arranging a multiple-object list into a more narratively satisfying order.</p>
+            <p><a href="eg_456.html">The Facts Were These</a> demonstrates how we might write an action for <code class="inlinetranscriptcommand">give three dollars to man</code> or <code class="inlinetranscriptcommand">give pie and hat to man</code> where the man would only accept the collective gift when its total proved satisfactory.</p>
+            <p><a href="eg_354.html">Western Art History 305</a> demonstrates how we might allow <code class="inlinetranscriptcommand">examine</code>, which doesn't normally permit multiple objects, to take them, but to give vaguer responses to a mass examination than an individual one.</p>
+            <p><a href="eg_353.html">The Best Till Last</a> shows a technique for arranging a multiple-object list into a more narratively satisfying order.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_6_5.html" title="Section 6.5: Examining">Examining</a> for groups of objects that have a collective description different from their individual descriptions, and for commands that search multiple things at once.</li>
@@ -2173,63 +2276,63 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg323><a style="text-decoration: none" href="eg_323.html"><span class="extensionexampleletter">323</span></a></span></div>
+                    <span id=eg320><a style="text-decoration: none" href="eg_320.html"><span class="extensionexampleletter">320</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_323.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shawn's Bad Day</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_320.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shawn's Bad Day</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to <code class="inlinetranscriptcommand">examine all</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg323><a style="text-decoration: none" href="WI_19_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg320><a style="text-decoration: none" href="WI_19_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg439><a style="text-decoration: none" href="eg_439.html"><span class="extensionexampleletter">439</span></a></span></div>
+                    <span id=eg436><a style="text-decoration: none" href="eg_436.html"><span class="extensionexampleletter">436</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_439.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape from the Seraglio</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_436.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape from the Seraglio</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing the usual response to <code class="inlinetranscriptcommand">take all</code> so that instead of output such as &quot;grapes: Taken. orange: Taken.&quot;, Inform produces variable responses in place of &quot;grapes:&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg439><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg436><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg453><a style="text-decoration: none" href="eg_453.html"><span class="extensionexampleletter">453</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_453.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Formicidae</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Manipulating the order in which items are handled after <code class="inlinetranscriptcommand">take all</code>.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg453><a style="text-decoration: none" href="WI_23_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg353><a style="text-decoration: none" href="eg_353.html"><span class="extensionexampleletter">353</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_353.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Best Till Last</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Reordering multiple objects for dramatic effect.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg353><a style="text-decoration: none" href="WI_19_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg456><a style="text-decoration: none" href="eg_456.html"><span class="extensionexampleletter">456</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_456.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Formicidae</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Manipulating the order in which items are handled after <code class="inlinetranscriptcommand">take all</code>.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg456><a style="text-decoration: none" href="WI_23_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg356><a style="text-decoration: none" href="eg_356.html"><span class="extensionexampleletter">356</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_356.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Best Till Last</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Reordering multiple objects for dramatic effect.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg356><a style="text-decoration: none" href="WI_19_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg459><a style="text-decoration: none" href="eg_459.html"><span class="extensionexampleletter">459</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_459.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Facts Were These</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_456.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Facts Were These</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a variant <code class="inlinetranscriptcommand">give</code> action that lets the player give multiple objects simultaneously with commands like <code class="inlinetranscriptcommand">give all to attendant</code> or <code class="inlinetranscriptcommand">give three dollars to attendant</code> or <code class="inlinetranscriptcommand">give pie and hat to attendant</code>. The attendant accepts the gifts only if their total combined value matches some minimum amount.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg459><a style="text-decoration: none" href="WI_23_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg456><a style="text-decoration: none" href="WI_23_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg357><a style="text-decoration: none" href="eg_357.html"><span class="extensionexampleletter">357</span></a></span></div>
+                    <span id=eg354><a style="text-decoration: none" href="eg_354.html"><span class="extensionexampleletter">354</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_357.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Western Art History 305</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_354.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Western Art History 305</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing <code class="inlinetranscriptcommand">examine</code> to see multiple objects with a single command.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg357><a style="text-decoration: none" href="WI_19_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg354><a style="text-decoration: none" href="WI_19_21.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_14.html"><span class="markdowncontent">Section 6.14: Remembering, Converting and Combining Actions</span></a> &bull; <a href="RB_6_16.html"><span class="markdowncontent">Section 6.16: Alternate Default Messages</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

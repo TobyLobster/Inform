@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,10 +2212,14 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Entering and Exiting, Sitting and Standing" -->
+            <!-- SEARCH SECTION "6.10" -->
+            <!-- SEARCH SORT "002-006-010-000" -->
             <h3><span>Section 6.10: Entering and Exiting, Sitting and Standing</span></h3>
             <p>
-            Under ordinary circumstances, Inform does not keep track of the player's posture, nor of their exact location in a room. <a href="eg_339.html">Lies</a> implements a room in which the player can lie in different positions on the floor, getting different views as a result.</p>
-            <p>Our other examples are all modifications of the way Inform handles player movement to make better default guesses at what they want to do: <a href="eg_319.html">Anchorite</a> adds a <code class="inlinetranscriptcommand">get down</code> and <code class="inlinetranscriptcommand">down</code> command that work when the player is on a supporter, to accompany <code class="inlinetranscriptcommand">get up</code>, <code class="inlinetranscriptcommand">get off</code>, and <code class="inlinetranscriptcommand">get out</code> (already understood). <a href="eg_228.html">Get Axe</a> makes the player get out of a portable container before attempting to lift it–a consideration that comes up relatively rarely, but that might pertain to inflatable rafts, beanbag chairs, and other lightweight but capacious pieces of furniture.</p>
+            Under ordinary circumstances, Inform does not keep track of the player's posture, nor of their exact location in a room. <a href="eg_336.html">Lies</a> implements a room in which the player can lie in different positions on the floor, getting different views as a result.</p>
+            <p>Our other examples are all modifications of the way Inform handles player movement to make better default guesses at what they want to do: <a href="eg_316.html">Anchorite</a> adds a <code class="inlinetranscriptcommand">get down</code> and <code class="inlinetranscriptcommand">down</code> command that work when the player is on a supporter, to accompany <code class="inlinetranscriptcommand">get up</code>, <code class="inlinetranscriptcommand">get off</code>, and <code class="inlinetranscriptcommand">get out</code> (already understood). <a href="eg_225.html">Get Axe</a> makes the player get out of a portable container before attempting to lift it–a consideration that comes up relatively rarely, but that might pertain to inflatable rafts, beanbag chairs, and other lightweight but capacious pieces of furniture.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_3.html" title="Section 3.3: Position Within Rooms">Position Within Rooms</a> for a box the player can push around the room and stand on in different locations.</li>
@@ -2139,36 +2228,36 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg319><a style="text-decoration: none" href="eg_319.html"><span class="extensionexampleletter">319</span></a></span></div>
+                    <span id=eg316><a style="text-decoration: none" href="eg_316.html"><span class="extensionexampleletter">316</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_319.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anchorite</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_316.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anchorite</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">By default, Inform understands <code class="inlinetranscriptcommand">get off</code>, <code class="inlinetranscriptcommand">get up</code>, or <code class="inlinetranscriptcommand">get out</code> when the player is sitting or standing on an enterable object. We might also want to add <code class="inlinetranscriptcommand">get down</code> and <code class="inlinetranscriptcommand">down</code> as exit commands, though.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg319><a style="text-decoration: none" href="WI_19_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg316><a style="text-decoration: none" href="WI_19_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg228><a style="text-decoration: none" href="eg_228.html"><span class="extensionexampleletter">228</span></a></span></div>
+                    <span id=eg225><a style="text-decoration: none" href="eg_225.html"><span class="extensionexampleletter">225</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_228.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Axe</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_225.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Axe</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Changing the check rules to try automatically leaving a container before attempting to take it. (And arranging things so that other people will do likewise.)</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg228><a style="text-decoration: none" href="WI_13_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg225><a style="text-decoration: none" href="WI_13_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg339><a style="text-decoration: none" href="eg_339.html"><span class="extensionexampleletter">339</span></a></span></div>
+                    <span id=eg336><a style="text-decoration: none" href="eg_336.html"><span class="extensionexampleletter">336</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_339.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lies</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_336.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lies</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Commands to allow the player to lie down in three different ways.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg339><a style="text-decoration: none" href="WI_19_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg336><a style="text-decoration: none" href="WI_19_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_9.html"><span class="markdowncontent">Section 6.9: Going, Pushing Things in Directions</span></a> &bull; <a href="RB_6_11.html"><span class="markdowncontent">Section 6.11: Waiting, Sleeping</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

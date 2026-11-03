@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,90 +2212,118 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "A review of kinds" -->
+            <!-- SEARCH SECTION "24.1" -->
+            <!-- SEARCH SORT "001-024-001-000" -->
             <h2><span>Chapter 24: Advanced Phrases</span></h2>
             <h3><span>Section 24.1: A review of kinds</span></h3>
             <p>        </p>
             <p>Most of the time, what's created in an Inform source text will have a name which can be used as a value – sometimes openly so, sometimes not. In this book, we haven't gone out of our way to make that point, because there was no real need to do so. It's possible to make heavy use of rulebooks and write large-scale Inform projects without ever needing to use a rulebook's name as a value in its own right, for example. But if we want to create sophisticated extensions to Inform, or to use modern techniques such as functional and generic programming, we need to be fluent in the language of kinds.</p>
             <p>Inform's language of kinds has four ingredients: base kinds, constructions, kind variables and kinds of kinds.</p>
             <p><strong>1. Base kinds.</strong> Inform provides the following base kinds for values:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">object</span><span class="syntaxplain">, </span><span class="syntaxidentifier">number</span><span class="syntaxplain">, </span><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">, </span><span class="syntaxidentifier">time</span><span class="syntaxplain">, </span><span class="syntaxidentifier">truth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">state</span><span class="syntaxplain">, </span><span class="syntaxidentifier">text</span><span class="syntaxplain">, </span><span class="syntaxidentifier">snippet</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Unicode</span><span class="syntaxplain"> </span><span class="syntaxidentifier">character</span><span class="syntaxplain">, </span><span class="syntaxidentifier">action</span><span class="syntaxplain">, </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">, </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">, </span><span class="syntaxidentifier">equation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">, </span><span class="syntaxidentifier">use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">option</span><span class="syntaxplain">, </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">, </span><span class="syntaxidentifier">figure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">, </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">, </span><span class="syntaxidentifier">external</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain">, </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outcome</span><span class="syntaxplain">, </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span>
+            <!-- START CODE "code1658" -->
+            <blockquote class="extract-inform7"><a id="code1658"></a><span class="indexdullblue"><span class="identifier-syntax">object</span><span class="plain-syntax">, </span><span class="identifier-syntax">number</span><span class="plain-syntax">, </span><span class="identifier-syntax">real</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">, </span><span class="identifier-syntax">time</span><span class="plain-syntax">, </span><span class="identifier-syntax">truth</span><span class="plain-syntax"> </span><span class="identifier-syntax">state</span><span class="plain-syntax">, </span><span class="identifier-syntax">text</span><span class="plain-syntax">, </span><span class="identifier-syntax">snippet</span><span class="plain-syntax">, </span><span class="identifier-syntax">Unicode</span><span class="plain-syntax"> </span><span class="identifier-syntax">character</span><span class="plain-syntax">, </span><span class="identifier-syntax">action</span><span class="plain-syntax">, </span><span class="identifier-syntax">scene</span><span class="plain-syntax">, </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">, </span><span class="identifier-syntax">equation</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">, </span><span class="identifier-syntax">use</span><span class="plain-syntax"> </span><span class="identifier-syntax">option</span><span class="plain-syntax">, </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">, </span><span class="identifier-syntax">figure</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">, </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">, </span><span class="identifier-syntax">external</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax">, </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">outcome</span><span class="plain-syntax">, </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>together with a few others, such as <code class="inlinesourcetext">response</code> and <code class="inlinesourcetext">verb</code>, to do with linguistic features.</p>
             <p>And Inform allows us to create new base kinds either by making more specialised kinds of object:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">geographical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">layout</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1659" -->
+            <blockquote class="extract-inform7"><a id="code1659"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">geographical</span><span class="plain-syntax"> </span><span class="identifier-syntax">layout</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">marmoset</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">marmoset</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or by making new enumerations or arithmetical kinds:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Distance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxidentifier">km</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">distance</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1660" -->
+            <blockquote class="extract-inform7"><a id="code1660"></a><span class="indexdullblue"><span class="identifier-syntax">Distance</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="identifier-syntax">km</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">distance</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">Red</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">blue</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><strong>2. Constructions.</strong> These are ways to make new kinds from existing ones.  The construction most often used is <code class="inlinesourcetext">list of...</code>. For any kind <code class="inlinesourcetext">K</code>, there is a kind called list of <code class="inlinesourcetext">K</code>. So the range of possible kinds in Inform is actually infinite, because:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span>
+            <!-- START CODE "code1661" -->
+            <blockquote class="extract-inform7"><a id="code1661"></a><span class="indexdullblue"><span class="identifier-syntax">number</span>
             <br>
-            <span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span>
+            <span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span>
             <br>
-            <span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span>
+            <span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">lists</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span>
             <br>
-            <span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lists</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span>
+            <span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">lists</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">lists</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span>
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>are all different from each other. Inform has nine constructions, as follows:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span>
+            <!-- START CODE "code1662" -->
+            <blockquote class="extract-inform7"><a id="code1662"></a><span class="indexdullblue"><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span>
             <br>
-            <span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span>
+            <span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span>
             <br>
-            <span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span>
+            <span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span>
             <br>
-            <span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">based</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">producing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span>
+            <span class="identifier-syntax">K</span><span class="plain-syntax"> </span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">producing</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span>
             <br>
-            <span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">based</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">producing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span>
+            <span class="identifier-syntax">K</span><span class="plain-syntax"> </span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">producing</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span>
             <br>
-            <span class="syntaxidentifier">activity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span>
+            <span class="identifier-syntax">activity</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span>
             <br>
-            <span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain"> -&gt; </span><span class="syntaxidentifier">L</span>
+            <span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span><span class="plain-syntax"> -&gt; </span><span class="identifier-syntax">L</span>
             <br>
-            <span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">valued</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span>
+            <span class="identifier-syntax">K</span><span class="plain-syntax"> </span><span class="identifier-syntax">valued</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span>
             <br>
-            <span class="syntaxidentifier">K</span><span class="syntaxplain"> </span><span class="syntaxidentifier">valued</span><span class="syntaxplain"> </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">column</span>
+            <span class="identifier-syntax">K</span><span class="plain-syntax"> </span><span class="identifier-syntax">valued</span><span class="plain-syntax"> </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">column</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Some of these have appeared in previous chapters, but in abbreviated form. For example, <code class="inlinesourcetext">rulebook</code> abbreviates <code class="inlinesourcetext">action based rulebook producing nothing</code>, and <code class="inlinesourcetext">either/or property</code> is a synonym for <code class="inlinesourcetext">truth state valued property</code>. The kinds of descriptions and phrases haven't been covered yet, but are coming up in the sections following.</p>
             <p>These constructions can of course be combined:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain">, </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) -&gt; </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span>
+            <!-- START CODE "code1663" -->
+            <blockquote class="extract-inform7"><a id="code1663"></a><span class="indexdullblue"><span class="identifier-syntax">phrase</span><span class="plain-syntax"> (</span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax">, </span><span class="identifier-syntax">number</span><span class="plain-syntax">) -&gt; </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Brackets can be used to clarify matters:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> -&gt; (</span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> -&gt; </span><span class="syntaxidentifier">number</span><span class="syntaxplain">)) -&gt; </span><span class="syntaxidentifier">nothing</span>
+            <!-- START CODE "code1664" -->
+            <blockquote class="extract-inform7"><a id="code1664"></a><span class="indexdullblue"><span class="identifier-syntax">phrase</span><span class="plain-syntax"> (</span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> -&gt; (</span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> -&gt; </span><span class="identifier-syntax">number</span><span class="plain-syntax">)) -&gt; </span><span class="identifier-syntax">nothing</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Nothing will make that a simple idea, but it's unambiguous and can be puzzled out with practice.</p>
             <p><strong>3. Variables.</strong> In a way, that's everything: there are just base kinds and constructions on them, and those construct every possible kind in Inform. But the language we use to describe kinds is larger than that, because it allows us to describe many kinds at once, in the same way that Inform reads the word &quot;something&quot; as applying to many objects at once, not as a single object.</p>
             <p>Kind variables will be covered later in the chapter, but the idea is that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hunt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">needle</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">K</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">haystack</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ks</span><span class="syntaxplain">): ...</span>
+            <!-- START CODE "code1665" -->
+            <blockquote class="extract-inform7"><a id="code1665"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">hunt</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> (</span><span class="identifier-syntax">needle</span><span class="plain-syntax"> - </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">K</span><span class="plain-syntax">) </span><span class="identifier-syntax">in</span><span class="plain-syntax"> (</span><span class="identifier-syntax">haystack</span><span class="plain-syntax"> - </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ks</span><span class="plain-syntax">): ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>allows us to describe the kinds acceptable in a phrase so that a wide range of possibilities are allowed. The above matches both:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">hunt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> { </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain"> };</span>
+            <!-- START CODE "code1666" -->
+            <blockquote class="extract-inform7"><a id="code1666"></a><span class="indexdullblue"><span class="identifier-syntax">hunt</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> { </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax"> };</span>
             <br>
-            <span class="syntaxidentifier">hunt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fish&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> { </span><span class="syntaxstring">&quot;lemon sauce&quot;</span><span class="syntaxplain">, </span><span class="syntaxstring">&quot;fish&quot;</span><span class="syntaxplain">, </span><span class="syntaxstring">&quot;garden peas&quot;</span><span class="syntaxplain"> };</span>
+            <span class="identifier-syntax">hunt</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fish&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> { </span><span class="string-syntax">&quot;lemon sauce&quot;</span><span class="plain-syntax">, </span><span class="string-syntax">&quot;fish&quot;</span><span class="plain-syntax">, </span><span class="string-syntax">&quot;garden peas&quot;</span><span class="plain-syntax"> };</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The letter <code class="inlinesourcetext">K</code> in the definition stood for any kind; in the first use of <code class="inlinesourcetext">hunt</code> here, <code class="inlinesourcetext">K</code> turned out to be <code class="inlinesourcetext">number</code>, and in the second it was <code class="inlinesourcetext">text</code>. On the other hand Inform would reject:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">hunt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> { </span><span class="syntaxidentifier">containment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">, </span><span class="syntaxidentifier">support</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> };</span>
+            <!-- START CODE "code1667" -->
+            <blockquote class="extract-inform7"><a id="code1667"></a><span class="indexdullblue"><span class="identifier-syntax">hunt</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> { </span><span class="identifier-syntax">containment</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">, </span><span class="identifier-syntax">support</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> };</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because there is no kind <code class="inlinesourcetext">K</code> which can make this match the definition.</p>
             <p>There are potentially 26 kind variables, <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">Z</code>, though it's customary to use them in the order <code class="inlinesourcetext">K</code>, <code class="inlinesourcetext">L</code>, <code class="inlinesourcetext">M</code>, ..., and it's very rare to need more than two at a time.</p>
             <p><strong>4. Kinds of kind.</strong> Inform understands several names which look as if they are kinds, but actually aren't:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">arithmetic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">enumerated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">sayable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span>
+            <!-- START CODE "code1668" -->
+            <blockquote class="extract-inform7"><a id="code1668"></a><span class="indexdullblue"><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">arithmetic</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">enumerated</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">sayable</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Again, these are built in to Inform.) They are not kinds because they're just too loose and vague. Instead, they can be used in phrase definitions to match against multiple possibilities:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">announce</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">sayable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I declare that </span><span class="syntaxextract">[X]</span><span class="syntaxstring"> has arrived.&quot;</span>
+            <!-- START CODE "code1669" -->
+            <blockquote class="extract-inform7"><a id="code1669"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">announce</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">sayable</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I declare that [X] has arrived.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This makes <code class="inlinesourcetext">announce X</code> work for any value <code class="inlinesourcetext">X</code> which can be said. All the same, <code class="inlinesourcetext">sayable value</code> is not a kind. It could never be safe for this to be the kind of a variable, because Inform would never know what could be done with the contents (except that it could be printed out).</p>
             <p><strong>5. Secret inner workings.</strong> There isn't a fifth ingredient, but if there were, it would be a handful of names used in matching some of the core built-in phrases of Inform which have so-called inline I6 definitions. These are not intended for anyone else to use, and are just an internal convenience; they aren't publicly documented and might change without notice. They don't describe kinds at all, because they tell the matcher to look for something else instead. For instance, there's one called <code class="inlinesourcetext">condition</code>, which means <code class="inlinesourcetext">match a condition rather than a value</code>. They appear in red ink in the Phrasebook index.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_23_11.html"><span class="markdowncontent">Section 23.11: Variations: arrays, logs, queues, stacks, sets, sieves and rings</span></a> &bull; <a href="WI_24_2.html"><span class="markdowncontent">Section 24.2: Descriptions as values</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

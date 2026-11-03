@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 30.5: Block quotations and phrase boxes</span></title>
+    <title><span class="markdowncontent">Section 30.5: IFDB: The Interactive Fiction Database</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_30_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.5: Block quotations and phrase boxes</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.5: IFDB: The Interactive Fiction Database</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_30_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,46 +2212,27 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 30.5: Block quotations and phrase boxes</span></h3>
-            <p></p>
-            <p>&quot;Block quotations&quot; are suitable for quoting a piece of human writing, rather than code, and are introduced by <code class="inlinecode">&gt;</code> characters on the left margin:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Roger S. Brody notes:</span><br><br><span class="syntaxidentifier">&gt; Some Harding rotary press-printed stamps were perforated gauge 11 x 11</span><br><span class="syntaxidentifier">&gt; on the flat-plate equipment instead of the normal 10 x 10 rotary</span><br><span class="syntaxidentifier">&gt; perforating machine, producing an important twentieth century rarity.</span><br></code></pre></div>
-            <p>The block continues for as long as the run of lines prefaced by <code class="inlinecode">&gt;</code> continues. Block quotations can themselves contain lists and other block quotations, and even code examples, though we need to type the number of spaces very carefully to ensure that those examples are exactly four spaces in from the point where ordinary text in the quotation would be:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">This does seem rather an extreme position:</span><br><br><span class="syntaxidentifier">&gt; We want to penalise players not taking this seriously, so:</span><br><span class="syntaxidentifier">&gt; </span><br><span class="syntaxidentifier">&gt;     &gt; LICK STAMP</span><br><span class="syntaxidentifier">&gt;     You seriously degrade the value of this $174.90 Weimar republic issue.</span><br></code></pre></div>
-            <p>Note that there are <em>five</em> spaces between the <code class="inlinecode">&gt;</code> signs in the line with the <code class="inlinetranscriptcommand">lick stamp</code> command. This is because the block material begins after <code class="inlinetranscriptcommand">&gt; </code> (one space) and then indents to reach the transcript text (four spaces). So the result is:</p>
-            <blockquote>
-            <p>This does seem rather an extreme position:</p>
-            <blockquote>
-            <p>We want to penalise players not taking this seriously, so:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "IFDB: The Interactive Fiction Database" -->
+            <!-- SEARCH SECTION "30.5" -->
+            <!-- SEARCH SORT "001-030-005-000" -->
+            <h3><span>Section 30.5: IFDB: The Interactive Fiction Database</span></h3>
+            <p>   </p>
+            <p>Once the story file has a home online, and a URL (that is, a web address) at which it can be found, it needs to be registered with the <a href="https://ifdb.org">Interactive Fiction Database</a> (IFDB). Just as the IF Archive is a repository for stories themselves, IFDB is a database containing information about them – titles, authors, locations, solutions, reviews, recommendation lists and more.</p>
+            <p>The name IFDB echoes the Internet Movie Database (IMDB), but in some ways it is also like the iTunes Music Store. For one thing, it's a shop-window for what's new, with cover art to catch the eye. For another, IFDB serves as a portal for players to try games directly in their browser. Promoting IF is all about pulling in impulse players – people who are passingly interested, but might not try the story if there is any significant work involved in setting it up. This is what IFDB is all about.</p>
+            <p>IFDB is community-editable, like Wikipedia, though editors are required to create an account and log in first – this is free, of course. A standard form is provided for creating a new record (accessible by selecting the option to add a story listing). More or less the same information that appears on Inform's library card in the Contents index needs to be copied over: there's space for the author name, story title, genre, and so on. IFDB will also ask for an IFID, a code identifying the story uniquely. Inform generates one of these automatically for each project, and it, too, is on the Library Card. It can always be found by typing <code class="inlinetranscriptcommand">version</code> into the compiled story and looking at the line that says</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> LICK STAMP</span><br><span class="syntaxidentifier">You seriously degrade the value of this $174.90 Weimar republic issue.</span><br></code></pre></div>
-            </blockquote>
-            </blockquote>
-            <p>Note that block quotes can contain multiple paragraphs, code samples (as in this
-            example), and even lists and tables.</p>
-            <p>One of the main uses of block quotations in Inform documentation is to provide the displayed boxes which give the specification of a &quot;To...&quot; phrase. For example, this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">&gt;    phrase: set pronouns from (object)</span><br><span class="syntaxidentifier">&gt;   </span><br><span class="syntaxidentifier">&gt;    This phrase adjusts the meaning of pronouns like IT, HIM, HER and THEM in</span><br><span class="syntaxidentifier">&gt;   the command parser as if the object mentioned has become the subject of</span><br><span class="syntaxidentifier">&gt;   conversation. Example: `set pronouns from` here -</span><br><span class="syntaxidentifier">&gt;</span><br><span class="syntaxidentifier">&gt;        set pronouns from the key;</span><br><span class="syntaxidentifier">&gt;        set pronouns from Bunny;</span><br><span class="syntaxidentifier">&gt;</span><br><span class="syntaxidentifier">&gt;    might change IT to mean the silver key and HIM to mean Harry &quot;Bunny&quot; Manders,</span><br><span class="syntaxidentifier">&gt;   while leaving HER and THEM unaltered.</span><br></code></pre></div>
-            <p>...is a completely normal block quotation from a Markdown point of view, but the Inform documentation engine displays it in a special way:</p>
-            <div class="definition">
-                <p class="defnprototype">set pronouns from (object)</p>
-                <p>This phrase adjusts the meaning of pronouns like IT, HIM, HER and THEM in
-                the command parser as if the object mentioned has become the subject of
-                conversation. Example: <code class="inlinesourcetext">set pronouns from</code> here -</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pronouns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">;</span>
-                <br>
-                <span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pronouns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bunny</span><span class="syntaxplain">;</span>
-                </span></blockquote>
-                <p>might change IT to mean the silver key and HIM to mean Harry &quot;Bunny&quot; Manders,
-                while leaving HER and THEM unaltered.</p>
-            </div>
+                <pre><code class="language-transcript">Identification number: //[some letters and numbers]//<br></code></pre></div>
+            <p>The part between the // marks is the IFID. If there's cover art, that can also be uploaded, and good cover art makes a big difference to shop-window-appeal.</p>
+            <p>The download link should give the most stable URL available. If you have not yet uploaded your story to the IF Archive, you may do so by selecting the &quot;Upload it to the IF Archive&quot; link instead of pressing the &quot;Add a Link&quot; button. The benefits of submitting your story to the IF Archive in this manner are two-fold. One, IFDB will fill in much of the information required by the IF Archive for you. Two, the link to your story will not appear until the IF Archive maintainers move it to its permanent home in the archive, at which point the download link will be automatically updated and presented on the story page.</p>
+            <p>If you choose to upload your story file to the IF Archive independent of IFDB, then once the story file is safely up at its permanent home on the IF Archive, that is an ideal address to quote here. Otherwise, the URL of the work's own website is best. (Note that the IFDB entry can always be edited later, if the URL moves.)</p>
+            <p>Commercial works which aren't available as free downloads can be registered on IFDB just the same, and this is almost certainly a good idea.</p>
+            <p>Some awards for interactive fiction, such as the annual XYZZY Awards, require a game to have an IFDB entry as an eligibility requirement.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_30_4.html"><span class="markdowncontent">Section 30.4: Longer code samples</span></a> &bull; <a href="WI_30_6.html"><span class="markdowncontent">Section 30.6: Tables</span></a></em></p>
+        <p><em> &bull; <a href="WI_30_4.html"><span class="markdowncontent">Section 30.4: The IF Archive</span></a> &bull; <a href="WI_30_6.html"><span class="markdowncontent">Section 30.6: Competitions, Exhibitions, and Jams</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

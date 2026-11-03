@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,21 +2212,27 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Guidelines on how to write rules about actions" -->
+            <!-- SEARCH SECTION "13.21" -->
+            <!-- SEARCH SORT "001-013-021-000" -->
             <h3><span>Section 13.21: Guidelines on how to write rules about actions</span></h3>
             <p>             </p>
             <p>Looking at the action-processing diagram, there seem to be a bewildering number of ways to intervene. For instance, suppose it must be fatal to pick up a land mine. All six of the following rules would do the business:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code875" -->
+            <blockquote class="extract-inform7"><a id="code875"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">land</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mine</span><span class="syntaxplain">: </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">mine</span><span class="plain-syntax">: </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bang!&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So which should we use? Of course, we could decide that it really doesn't matter: what works, works. But it is a good idea to play along with the conventions used by Inform, if only because that will make our rules interact better with each other and with rules by other people which we may someday want to borrow. So this chapter ends by offering a few guidelines. Let us suppose that we have some effect which we want to achieve.</p>
             <p><strong>1. Are we just trying to correct the player's typing?</strong></p>
             <p>For instance, responding to the command <code class="inlinetranscriptcommand">steal golden eagle</code> with a reply like <code class="inlinetranscript">To steal something, just try to TAKE IT.</code> It is bad style to make a special action for this, which does nothing except to print up this text: better is to use the <code class="inlinesourcetext">Understand ... as a mistake</code> technique, which will come up in the chapter on <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>.</p>
@@ -2170,11 +2261,11 @@
             <p>Remember that <code class="inlinesourcetext">Instead</code>, <code class="inlinesourcetext">Before</code> and <code class="inlinesourcetext">After</code> do not apply: so use <code class="inlinesourcetext">check</code> rules to forbid certain out-of-world activities, or specify that their rules do nothing (see the chapter on <a href="WI_21_1.html" title="Chapter 21: Rulebooks">Rulebooks</a>).</p>
             <p><strong>Finally...</strong></p>
             <p>These are only guidelines. The system is designed to be flexible in order to give the author the widest possible range of options, and nobody should feel ashamed of making use of them.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_20.html"><span class="markdowncontent">Section 13.20: Stored actions</span></a> &bull; <a href="WI_14_1.html"><span class="markdowncontent">Chapter 14: Relations</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Flow of Conversation" -->
+            <!-- SEARCH SECTION "7.9" -->
+            <!-- SEARCH SORT "002-007-009-000" -->
             <h3><span>Section 7.9: The Flow of Conversation</span></h3>
             <p>
             All this discussion of conversation commands and ways to model dialogue doesn't address the higher-level design issue: how do we approach writing this material so that it has a rhythm and flow? How do we know when we've created enough conversation? How can we avoid sounding hopelessly stilted when the nature of IF implementation requires us to break our text into small snippets?</p>
@@ -2137,36 +2226,36 @@
             <p>Once the scene is complete enough for the player to get through from beginning to end, we can start filling it out. At this point, it sometimes helps to play through the scene a number of times and add new dialogue elements as we think of things that our character might reasonably want to say. Sometimes these additions will turn out to be short tangents from the main flow of a very directed scene; sometimes they might be important branches that lead the scene to an entirely alternate outcome. The main thing is to make sure that, if the scene needs to hit certain points before ending, none of our branches keep the player from returning to the subject at hand.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg187><a style="text-decoration: none" href="eg_187.html"><span class="extensionexampleletter">187</span></a></span></div>
+                    <span id=eg184><a style="text-decoration: none" href="eg_184.html"><span class="extensionexampleletter">184</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_187.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter Barter</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_184.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter Barter</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to create reusable dialogue sequences in which the player can negotiate a complex trade.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg187><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg184><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg176><a style="text-decoration: none" href="eg_176.html"><span class="extensionexampleletter">176</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_176.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skeleton First</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A sequence of dialogue scenes that introduces the player's life and invites them on a quest.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg176><a style="text-decoration: none" href="WI_11_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg179><a style="text-decoration: none" href="eg_179.html"><span class="extensionexampleletter">179</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_179.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skeleton First</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A sequence of dialogue scenes that introduces the player's life and invites them on a quest.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_179.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Text Foosball Commentated</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A foosball game where the other character not only plays against us but reacts to the state of gameplay and riffs on previously-mentioned topics.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg179><a style="text-decoration: none" href="WI_11_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg182><a style="text-decoration: none" href="eg_182.html"><span class="extensionexampleletter">182</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_182.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Text Foosball Commentated</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A foosball game where the other character not only plays against us but reacts to the state of gameplay and riffs on previously-mentioned topics.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg182><a style="text-decoration: none" href="WI_11_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_8.html"><span class="markdowncontent">Section 7.8: Saying Complicated Things</span></a> &bull; <a href="RB_7_10.html"><span class="markdowncontent">Section 7.10: Character Emotion</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

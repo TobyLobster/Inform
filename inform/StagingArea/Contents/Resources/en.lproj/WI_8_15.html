@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,25 +2212,39 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Calling names" -->
+            <!-- SEARCH SECTION "8.15" -->
+            <!-- SEARCH SORT "001-008-015-000" -->
             <h3><span>Section 8.15: Calling names</span></h3>
             <p>    </p>
             <p>Conditions like <code class="inlinesourcetext">if somebody is in an adjacent room</code> allow complicated tests to be performed with a minimum of fuss, but it's rare that we want to know only whether they are true: more likely we also want to know <em>which</em> person, and <em>which</em> room.</p>
             <p>For this purpose, we are allowed to supply a name for any such vaguely-described object which comes up, and then to use that name thereafter.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">somebody</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjacent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hiding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Place</span><span class="syntaxplain">), </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You hear distant breathing from </span><span class="syntaxextract">[the Hiding Place]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code491" -->
+            <blockquote class="extract-inform7"><a id="code491"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">somebody</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjacent</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hiding</span><span class="plain-syntax"> </span><span class="identifier-syntax">Place</span><span class="plain-syntax">), </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You hear distant breathing from [the Hiding Place].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can even name more than one of the things discovered:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kidnapper</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pet</span><span class="syntaxplain">), </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;How can you think of rest when, somewhere out there, </span><span class="syntaxextract">[pet]</span><span class="syntaxstring"> has been cruelly kidnapped by </span><span class="syntaxextract">[the kidnapper]</span><span class="syntaxstring">?&quot;</span>
+            <!-- START CODE "code492" -->
+            <blockquote class="extract-inform7"><a id="code492"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">kidnapper</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">holding</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">pet</span><span class="plain-syntax">), </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;How can you think of rest when, somewhere out there, [pet] has been cruelly kidnapped by [the kidnapper]?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note the brackets, which are essential. The result of typing <code class="inlinetranscriptcommand">wait</code> is then</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">How</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">you</span><span class="syntaxplain"> </span><span class="syntaxidentifier">think</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain">, </span><span class="syntaxidentifier">somewhere</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">there</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lapdog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">been</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cruelly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kidnapped</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Baroness</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Orczy</span><span class="syntaxplain">?</span>
+            <!-- START CODE "code493" -->
+            <blockquote class="extract-inform7"><a id="code493"></a><span class="indexdullblue"><span class="identifier-syntax">How</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">you</span><span class="plain-syntax"> </span><span class="identifier-syntax">think</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rest</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax">, </span><span class="identifier-syntax">somewhere</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">there</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">lapdog</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">been</span><span class="plain-syntax"> </span><span class="identifier-syntax">cruelly</span><span class="plain-syntax"> </span><span class="identifier-syntax">kidnapped</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Baroness</span><span class="plain-syntax"> </span><span class="identifier-syntax">Orczy</span><span class="plain-syntax">?</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Of course, that might be just one of many animals held by women in the story. We shall later see ways to go through all of the possibilities found, performing some action with each in turn.</p>
             <p>A calling, if we can use that word, should be made immediately after the noun it refers to, and not left to hang back after any relative clauses. For instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penitential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">) </span><span class="syntaxidentifier">held</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hot</span>
+            <!-- START CODE "code494" -->
+            <blockquote class="extract-inform7"><a id="code494"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">penitential</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">) </span><span class="identifier-syntax">held</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">hot</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is allowed, but not</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">held</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penitential</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hot</span>
+            <!-- START CODE "code495" -->
+            <blockquote class="extract-inform7"><a id="code495"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">held</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">penitential</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">hot</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because there is too much potential ambiguity – are we trying to call the player something?</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2153,18 +2252,18 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg134><a style="text-decoration: none" href="eg_134.html"><span class="extensionexampleletter">134</span></a></span></div>
+                    <span id=eg131><a style="text-decoration: none" href="eg_131.html"><span class="extensionexampleletter">131</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_134.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Higher Calling</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_131.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Higher Calling</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">All doors in the game automatically attempt to open if the player approaches them when they are closed.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg134><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg131><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_8_14.html"><span class="markdowncontent">Section 8.14: More flexible descriptions of whereabouts</span></a> &bull; <a href="WI_8_16.html"><span class="markdowncontent">Section 8.16: Counting the number of things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

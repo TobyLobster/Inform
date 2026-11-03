@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,54 +2193,36 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg33><a style="text-decoration: none" href="WI_3_16.html"><span class="extensionexampleletter">33</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peugeot</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A journey from one room to another that requires the player to be on a vehicle.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 8</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: a pushable chest of ice for the boat.</span></span></div>
             <div class="exampleright">
-                <span id=eg33><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg33><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Disenchantment Bay 8" -->
+        <!-- SEARCH SECTION "Example 33" -->
+        <!-- SEARCH SORT "003-033-000-000" -->
         <p></p>
-        <p>Let's say that our protagonist is about to flee. Obviously, they can't make the journey on foot; they need transportation.</p>
-        <p>Note that this example requires the extension <code class="inlinesourcetext">Rideable Vehicles by Graham Nelson</code>, and will only work if this is installed. It can be downloaded from the Public Library with the Inform app.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Peugeot[=0x0022=][=0x000A=][=0x000A=]Include Rideable Vehicles by Graham Nelson.[=0x000A=][=0x000A=]The Lot is a room. The ten-speed bike is a rideable vehicle in the Lot.[=0x000A=][=0x000A=]Cambridge is east of the Lot.[=0x000A=][=0x000A=]Instead of going to Cambridge when the player is not on the ten-speed bike:[=0x000A=][=0x0009=]say [=0x0022=]It[=0x0027=]s a long journey to Cambridge: you[=0x0027=]ll never make it on foot.[=0x0022=][=0x000A=][=0x000A=]After going to Cambridge:[=0x000A=][=0x0009=]say [=0x0022=]You begin pedalling determinedly.[=0x0022=];[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Test me with [=0x0022=]e / get on ten-speed bike / e[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Peugeot&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rideable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Vehicles</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Graham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nelson</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ten</span><span class="syntaxplain">-</span><span class="syntaxidentifier">speed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bike</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rideable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vehicle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lot</span><span class="syntaxplain">.</span>
+        <p>We probably do not need a vehicle to ride around our boat, but there might be a heavy ice chest that can only be pushed from room to room:</p>
+        <!-- START CODE "code2234" -->
+        <blockquote class="extract-inform7"><a id="code2234"></a><a class="actionlink" href="javascript:pasteCode('The ice chest is a closed openable container in the Deck. [=0x0022=]A very heavy ice chest sits on the ground.[=0x0022=] It is fixed in place and pushable between rooms. A quantity of ice is in the chest. The description is [=0x0022=]Ready and waiting just in case there[=0x0027=]s any fish needing to be kept cool.[=0x0022=][=0x000A=][=0x000A=]Instead of taking the chest: say [=0x0022=]It[=0x0027=]s too heavy to lift, but you might be able to push it, and just inch it over the frame of the door.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">ice</span><span class="plain-syntax"> </span><span class="identifier-syntax">chest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deck</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A very heavy ice chest sits on the ground.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">between</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">quantity</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">ice</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chest</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Ready and waiting just in case there's any fish needing to be kept cool.&quot;</span>
         </span></blockquote>
-        <p>We make the ten-speed bike a rideable vehicle because we want to say that the player is on it rather than in it. Then our other room:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Cambridge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lot</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>This anticipates a later chapter, but it would probably be a good idea to hint to the player, if they try to take the ice chest, that there is another way to move it:</p>
+        <!-- START CODE "code2235" -->
+        <blockquote class="extract-inform7"><a id="code2235"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">chest</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's too heavy to lift, but you might be able to push it, and just inch it over the frame of the door.&quot;</span>
         </span></blockquote>
-        <p>And now we borrow from the <a href="WI_7_1.html" title="Chapter 7: Basic Actions">Basic Actions</a> chapter to prevent travel without the proper equipment:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cambridge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ten</span><span class="syntaxplain">-</span><span class="syntaxidentifier">speed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bike</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's a long journey to Cambridge: you'll never make it on foot.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cambridge</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You begin pedalling determinedly.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;e / get on ten-speed bike / e&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <p>Otherwise, attempts to pick it up will just reply with <code class="inlinetranscript">That's fixed in place.</code></p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_16.html>Section 3.16: Vehicles and pushable things</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

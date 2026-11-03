@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,58 +2193,42 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg261><a style="text-decoration: none" href="WI_14_15.html"><span class="extensionexampleletter">261</span></a></span></div>
+                <span id=eg261><a style="text-decoration: none" href="WI_14_17.html"><span class="extensionexampleletter">261</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Number Study</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">The parity and joint magnitude relations explored.</span></span></div>
+                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Graph-theory view of relations</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Some notes on relations from the point of view of graph theory.</span></span></div>
             <div class="exampleright">
-                <span id=eg261><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg261><a style="text-decoration: none" href="RB_1_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Graph-theory view of relations" -->
+        <!-- SEARCH SECTION "Example 261" -->
+        <!-- SEARCH SORT "003-261-000-000" -->
         <p></p>
-        <p>This is the same case given above, but expanded just slightly to demonstrate that the names of the relations can also be printed, if we like:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Number Study[=0x0022=][=0x000A=][=0x000A=]Abstraction is a room.[=0x000A=][=0x000A=]Parity relates a number (called N) to a number (called M) when N minus M is even.[=0x000A=][=0x000A=]Joint magnitude relates a number (called N) to a number (called M) when N plus M is greater than 7.[=0x000A=][=0x000A=]To chart (R - a relation of numbers):[=0x000A=][=0x0009=]repeat with N running from 1 to 5:[=0x000A=][=0x0009=][=0x0009=]repeat with M running from 1 to 5:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]if R relates N to M, say [=0x0022=][N] [=0x003C=]=[=0x003E=] [M] by [R][line break][=0x0022=];[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]let L be { parity relation, joint magnitude relation };[=0x000A=][=0x0009=]repeat with R running through L:[=0x000A=][=0x0009=][=0x0009=]chart R.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Number Study&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Abstraction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Parity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">) </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain">) </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">even</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Joint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magnitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">) </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain">) </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chart</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">R</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[N]</span><span class="syntaxstring"> &lt;=&gt; </span><span class="syntaxextract">[M]</span><span class="syntaxstring"> by </span><span class="syntaxextract">[R][line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> { </span><span class="syntaxidentifier">parity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">, </span><span class="syntaxidentifier">joint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">magnitude</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> };</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">chart</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain">.</span>
+        <p>One way to look at a relation is to regard it as a directed graph: that is, a collection of things (&quot;vertices&quot;) with arrows drawn between them (&quot;edges&quot;). We write our items A, B, C, ... on a piece of paper: then, if A relates to B, we draw an arrow pointing from A to B, and so on. If we made this drawing for the adjacency relation, we would more or less have reconstructed the map (or at least a simplified one which does not care about precise directions, like the famous diagram of the London Underground). But the drawing can be made for any relation. If we define:</p>
+        <!-- START CODE "code2763" -->
+        <blockquote class="extract-inform7"><a id="code2763"></a><span class="indexdullblue"><span class="identifier-syntax">Suspecting</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>As this shows, we can even form lists of relations. The kind of <code class="inlinesourcetext">L</code> is <code class="inlinesourcetext">list of relations of numbers</code>.</p>
+        <!-- END CODE -->
+        <p>then, in the corresponding graph, each &quot;vertex&quot; will have at most one arrow leading away from it–though there could be many (or none) leading towards. Conversely, a one-to-various relation produces a graph where each vertex has at most one arrow coming in. A one-to-one relation means that the picture consists of some vertices on their own, with no arrows, a few perhaps with looped arrows leading from and to themselves, and then a collection of pairs joined by arrows. On the other hand, a various-to-various relation is just a free-for-all, with no restrictions on the arrows. The relations:</p>
+        <!-- START CODE "code2764" -->
+        <blockquote class="extract-inform7"><a id="code2764"></a><span class="indexdullblue"><span class="identifier-syntax">Meeting</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">each</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax">.</span>
+        <br>
+        <span class="identifier-syntax">Marriage</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">another</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>always have the property of working both ways round, and these are easiest to visualise by forgetting the direction of the arrows, so that they just become lines joining the vertices.</p>
+        <p>Inform uses a different algorithm for finding routes (<code class="inlinesourcetext">the next step via R from A to B</code>) in each of these cases, and internally it stores relations in different formats in the different cases, because it makes a big difference to the efficiency of Inform to minimise the storage required for a relation and the time taken to explore it.</p>
+        <p>All the cases are benign except for &quot;various to various&quot;–the most useful–and for its closely related symmetrical version, <code class="inlinesourcetext">relates... to each other</code>. Inform cannot afford to assume that the relation will be &quot;sparse&quot; (that is: that no vertex will have more than a certain number of arrows, or that the total number of arrows will be small), because it has no idea how the arrows will come and go during play. It therefore uses 1 bit of storage for each pair of objects. This sounds harmless, but if there are 200 rooms, there are 40,000 pairs of rooms, which means a 5000-byte allocation of storage (plus a handful of bytes as overhead). Gratuitous various-to-various relations are therefore not a good idea.</p>
+        <p>There is a standard algorithm for calculating shortest paths through a directed graph, but Inform does not always use it, because there is not always memory to store the required matrix of partial results. Inform's slow method, likely to be used on the Z-machine, requires a storage overhead which is equal to the number of vertices, not the square of that number, but the worst-case running time can be bad: if there are N vertices, and the diameter of graph (the longest distance between vertices) is D, then the running time is proportional to D times N. The worst case in finding routes from A to B is when almost every vertex can reach B, some across long trails, but A cannot. In the case of finding routes across the game's map, this must be multiplied further by the number of possible directions–usually 16.</p>
+        <p>This does not sound too awful, but if one is trying to find (say) <code class="inlinesourcetext">the most distant room from A</code>, that means a further loop and now the running time will be D times N squared. Extension writers will need to be careful of this kind of thing: it is easy to write highly cool prototypes which work terribly slowly on larger, more realistic maps.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_14_15.html>Section 14.15: Relations as values in their own right</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_14_17.html>Section 14.17: What are relations for?</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

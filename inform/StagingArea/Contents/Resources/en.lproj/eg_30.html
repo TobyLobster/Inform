@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,93 +2193,35 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg30><a style="text-decoration: none" href="WI_3_13.html"><span class="extensionexampleletter">30</span></a></span></div>
+                <span id=eg30><a style="text-decoration: none" href="WI_3_14.html"><span class="extensionexampleletter">30</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Neighbourhood Watch</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A locked door that can be locked or unlocked without a key from one side, but not from the other.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 7</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: making the radar and instruments switch on and off.</span></span></div>
             <div class="exampleright">
-                <span id=eg30><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg30><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose we want a locked door that can be opened with a key, but is also openable by hand without a key from one side only. We start by defining an ordinary lockable door and the key that controls it:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Neighbourhood Watch[=0x0022=][=0x000A=][=0x000A=]The shabby door is a door. It is outside from the Studio Apartment and inside from the Rickety Stairwell. The shabby door is locked.[=0x000A=][=0x000A=]The brass key is carried by the player. It unlocks the shabby door.[=0x000A=][=0x000A=]Understand [=0x0022=]lock [something][=0x0022=] as locking keylessly. Locking keylessly is an action applying to one thing.[=0x000A=][=0x000A=]Check locking keylessly:[=0x000A=][=0x0009=]if the noun is not a door, say [=0x0022=][The noun] is not something you can lock.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is locked, say [=0x0022=][The noun] is already locked.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries the brass key and the player is in the Stairwell, try locking the noun with the brass key instead;[=0x000A=][=0x0009=]if the player is in the Stairwell, say [=0x0022=]You can[=0x0027=]t lock the door from this side without the key.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out locking keylessly:[=0x000A=][=0x0009=]now the noun is locked.[=0x000A=][=0x000A=]Report locking keylessly:[=0x000A=][=0x0009=]say [=0x0022=]You flip over the deadbolt to lock [the noun].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]unlock [something][=0x0022=] as unlocking keylessly. Unlocking keylessly is an action applying to one thing.[=0x000A=][=0x000A=]Check unlocking keylessly:[=0x000A=][=0x0009=]if the noun is not a door, say [=0x0022=][The noun] is not something you can lock.[=0x0022=] instead;[=0x000A=][=0x0009=]if the noun is unlocked, say [=0x0022=][The noun] is already unlocked.[=0x0022=] instead;[=0x000A=][=0x0009=]if the player carries the brass key and the player is in the Stairwell, try unlocking the noun with the brass key instead;[=0x000A=][=0x0009=]if the player is in the Stairwell, say [=0x0022=]You can[=0x0027=]t unlock the door from this side without the key.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out unlocking keylessly:[=0x000A=][=0x0009=]now the noun is unlocked.[=0x000A=][=0x000A=]Report unlocking keylessly:[=0x000A=][=0x0009=]say [=0x0022=]You flip over the deadbolt to unlock [the noun].[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]unlock door / drop key / open door / out / close door / lock door / open door / in / get key / out / close door / lock door / unlock door[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Neighbourhood Watch&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shabby</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Studio</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Apartment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rickety</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stairwell</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shabby</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shabby</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Disenchantment Bay 7" -->
+        <!-- SEARCH SECTION "Example 30" -->
+        <!-- SEARCH SORT "003-030-000-000" -->
+        <p> </p>
+        <p>If we would like the player to be able to turn instrumentation on and off, we could add a line to this effect:</p>
+        <!-- START CODE "code3379" -->
+        <blockquote class="extract-inform7"><a id="code3379"></a><a class="actionlink" href="javascript:pasteCode('The radar, the instruments, and the radios are devices.[=0x000A=][=0x000A=]The radar and the instruments are switched on.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">radar</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">instruments</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">radios</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">devices</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>The next part is going to require that we modify the normal operation of the <code class="inlinetranscriptcommand">lock</code> command. Locking ordinarily requires that the player supply two objects: a thing they want to unlock, and the key they want to use on it. The full command is <code class="inlinetranscriptcommand">lock door with the key</code>, and Inform will not accept simply <code class="inlinetranscriptcommand">lock door</code> as locking.</p>
-        <p>Therefore, we're going to need to create our own new variant on the lock verb (and the unlock verb, while we're at it). The full procedure for this is laid out in the chapters on <a href="WI_13_1.html" title="Chapter 13: Advanced Actions">Advanced Actions</a> and <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>, but here is an example:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;lock </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>And since the captain is probably not navigating blind, we might also want to say</p>
+        <!-- START CODE "code3380" -->
+        <blockquote class="extract-inform7"><a id="code3380"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">radar</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">instruments</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Here we've created a new action – locking something without a key – and we've told Inform to understand <code class="inlinetranscriptcommand">lock door</code> as this action, rather than an incomplete command to <code class="inlinetranscriptcommand">lock door with something</code>.</p>
-        <p>Now we add some instructions so that the game will not let us use this keyless unlocking command unless we're in the right place or are properly equipped:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is not something you can lock.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is already locked.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stairwell</span><span class="syntaxplain">, </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stairwell</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can't lock the door from this side without the key.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>This check rule is performed before the keyless locking action succeeds. The first thing we do is try to use the key if the player is outside and has the key: this way, <code class="inlinetranscriptcommand">lock door</code> will turn automatically into <code class="inlinetranscriptcommand">lock door with the key</code>, under circumstances where that is both possible and necessary.</p>
-        <p>The second thing is to check whether the player is outside but keyless, and, if so stop the action from being performed successfully. Here we print a failure message followed by the word <code class="inlinesourcetext">instead</code>, which tells Inform that we've substituted some other outcome for the usual performance of the action.</p>
-        <p>Now we're reasonably sure that the player is only locking keylessly in the case that they are inside the Studio. (We might have to do a more thorough check for this if there were more than two rooms, but as it is, the player can only be in the Stairwell or in the Studio, so if we have ruled out the Stairwell, we are safe.) So now we want to add what happens when locking-without-a-key command succeeds:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>That's it. We've just told Inform to make the door be locked. <code class="inlinesourcetext">Now</code> syntax will be explained more thoroughly in the chapter on <a href="WI_8_1.html" title="Chapter 8: Change">Change</a>. But we still haven't described to the player what just happened, so let's provide a description of that, too:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You flip over the deadbolt to lock </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        </span></blockquote>
-        <p>And now we have to do a similar set of things for unlocking:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;unlock </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is not something you can lock.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocked</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is already unlocked.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stairwell</span><span class="syntaxplain">, </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stairwell</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can't unlock the door from this side without the key.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocked</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keylessly</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You flip over the deadbolt to unlock </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;unlock door / drop key / open door / out / close door / lock door / open door / in / get key / out / close door / lock door / unlock door&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>Some (but not all) of this work is done for you if you like by the extension Locksmith by Emily Short. Locksmith takes care of implementing the additional locking and unlocking actions, and provides some other conveniences.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_13.html>Section 3.13: Locks and keys</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_3_14.html>Section 3.14: Devices and descriptions</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

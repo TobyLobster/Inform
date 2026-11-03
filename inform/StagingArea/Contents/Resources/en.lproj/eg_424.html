@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,98 +2193,48 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg424><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleletter">424</span></a></span></div>
+                <span id=eg424><a style="text-decoration: none" href="WI_21_5.html"><span class="extensionexampleletter">424</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Verbosity 2</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Making rooms give full descriptions each time we enter, even if we have visited before, and disallowing player use of <code class="inlinetranscriptcommand">brief</code> and <code class="inlinetranscriptcommand">superbrief</code>.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Access All Areas</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">The Pointy Hat of Liminal Transgression allows its wearer to walk clean through closed doors.</span></span></div>
             <div class="exampleright">
-                <span id=eg424><a style="text-decoration: none" href="RB_6_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg424><a style="text-decoration: none" href="RB_10_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose that we want the player always to see full room descriptions, even if they try to reset the defaults – perhaps because there is vital information there which they will miss if they turn off full-length room descriptions.</p>
-        <p>To do this, we might want to remove the standard behaviour of the three actions associated with <code class="inlinetranscriptcommand">brief</code>, <code class="inlinetranscriptcommand">superbrief</code>, and <code class="inlinetranscriptcommand">verbose</code>, replacing them with explanatory messages about how the game behaves. We cannot use Instead to override these actions, because Instead rules do not apply to actions out of world. Instead, we will want to remove and replace the carry out rules.</p>
-        <p>We can do this easily by going to the Actions Index, looking up the detail panel for, say, <code class="inlinesourcetext">preferring abbreviated room descriptions</code>, and click the &quot;unlist&quot; button to paste in the sentence that will remove this rule from the rulebook.</p>
-        <p>Let's remove all three of the carry out rules and substitute our own:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Verbosity 2[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The prefer unabbreviated room descriptions rule is not listed in the carry out preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer sometimes abbreviated room descriptions rule is not listed in the carry out preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The prefer abbreviated room descriptions rule is not listed in the carry out preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Carry out preferring unabbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=][story title] always provides full-length descriptions for your reading pleasure.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring sometimes abbreviated room descriptions:[=0x000A=][=0x0009=]say [=0x0022=]For your playing protection, [story title] provides only full-length room descriptions.[=0x0022=][=0x000A=][=0x000A=]Carry out preferring abbreviated room descriptions:[=0x000A=][=0x0009=]try preferring sometimes abbreviated room descriptions instead.[=0x000A=][=0x000A=]The standard report preferring abbreviated room descriptions rule is not listed in the report preferring abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring unabbreviated room descriptions rule is not listed in the report preferring unabbreviated room descriptions rulebook.[=0x000A=][=0x000A=]The standard report preferring sometimes abbreviated room descriptions rule is not listed in the report preferring sometimes abbreviated room descriptions rulebook.[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Wilkie Memorial Research Wing is a room. [=0x0022=]The research wing was built onto the science building in 1967, when the college[=0x0027=]s finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.[=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is immediately west of this point.[=0x0022=][=0x000A=][=0x000A=]The Men[=0x0027=]s Restroom is west of the Research Wing. [=0x0022=]Well, yes, you really shouldn[=0x0027=]t be in here. But the nearest women[=0x0027=]s room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]west / east / brief / w / e / superbrief / w / e / verbose[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Verbosity 2&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Access All Areas" -->
+        <!-- SEARCH SECTION "Example 424" -->
+        <!-- SEARCH SORT "003-424-000-000" -->
+        <p>  </p>
+        <p>If somebody tries to walk through a closed door, the <code class="inlinesourcetext">can't go through closed doors rule</code> usually stops them. This is a rule belonging to the <code class="inlinesourcetext">check going</code> rulebook. These names are fairly explanatory when written out, but hard to remember: fortunately we don't need to remember them, as the Index panel contains a full inventory of the check, carry out and report rules for every action, showing all of their names and the order in which they are checked. (We can also find out which rules are stopping an action by typing the testing command <code class="inlinetranscriptcommand">actions</code>.)</p>
+        <p>Here we make the rule do nothing provided a condition holds:</p>
+        <!-- START CODE "code2301" -->
+        <blockquote class="extract-inform7"><a id="code2301"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Access All Areas[=0x0022=][=0x000A=][=0x000A=]The extremely difficult door is north of the Standing Room and south of the Room of Walking Upside Down.  It is a locked door.[=0x000A=][=0x000A=]The player is carrying the Pointy Hat of Liminal Transgression. The hat is wearable.[=0x000A=][=0x000A=]The can[=0x0027=]t go through closed doors rule does nothing when the Hat is worn.[=0x000A=][=0x000A=]Test me with [=0x0022=]n / wear hat / n[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Access All Areas&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Procedure</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">extremely</span><span class="plain-syntax"> </span><span class="identifier-syntax">difficult</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Standing</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Walking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Upside</span><span class="plain-syntax"> </span><span class="identifier-syntax">Down</span><span class="plain-syntax">.  </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">locked</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prefer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unabbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unabbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pointy</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Liminal</span><span class="plain-syntax"> </span><span class="identifier-syntax">Transgression</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearable</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prefer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">go</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">worn</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prefer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unabbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[story title]</span><span class="syntaxstring"> always provides full-length descriptions for your reading pleasure.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;For your playing protection, </span><span class="syntaxextract">[story title]</span><span class="syntaxstring"> provides only full-length room descriptions.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">standard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">standard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unabbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unabbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">standard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">preferring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sometimes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">abbreviated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">full</span><span class="syntaxplain">-</span><span class="syntaxidentifier">length</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">descriptions</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 2 - Scenario</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wilkie</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Memorial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Research</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The research wing was built onto the science building in 1967, when the college's finances were good but its aesthetic standards at a local minimum. A dull brown corridor recedes both north and south; drab olive doors open onto the laboratories of individual faculty members. The twitchy fluorescent lighting makes the whole thing flicker, as though it might wink out of existence at any moment.</span>
-        <br>
-
-        <br>
-        <span class="syntaxstring">The Men's Restroom is immediately west of this point.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Men</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Restroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Research</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wing</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Well, yes, you really shouldn't be in here. But the nearest women's room is on the other side of the building, and at this hour you have the labs mostly to yourself. All the same, you try not to read any of the things scrawled over the urinals which might have been intended in confidence.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;west / east / brief / w / e / superbrief / w / e / verbose&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n / wear hat / n&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>(The Pointy Hat may be useful in debugging a game, even if it never makes it into the final published work.)</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_4.html>Section 21.4: Listing rules explicitly</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_21_5.html>Section 21.5: Changing the behaviour of rules</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

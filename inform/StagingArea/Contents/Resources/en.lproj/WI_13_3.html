@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,45 +2212,55 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Giving instructions to other people" -->
+            <!-- SEARCH SECTION "13.3" -->
+            <!-- SEARCH SORT "001-013-003-000" -->
             <h3><span>Section 13.3: Giving instructions to other people</span></h3>
             <p>       </p>
             <p>So far, all actions have been carried out by the player: which is fine for exploring the passive world of an empty warehouse, but less good for a drama in which other characters have to be contended with. In fact, an action can be carried out by anybody – by any instance of the <code class="inlinesourcetext">person</code> kind, that is, which includes all the men, women and animals in the story, and not only the player.</p>
             <p>In interactive fiction, players conventionally ask other characters to do something with commands like <code class="inlinetranscriptcommand">will, go west</code>. Clearly this should not produce the same action as <code class="inlinetranscriptcommand">go west</code>, because a different person will be trying it: this person is called the <code class="inlinesourcetext">actor</code>, and while the actor is ordinarily the player, here it is the character called Will. Inform distinguishes these two actions like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <!-- START CODE "code811" -->
+            <blockquote class="extract-inform7"><a id="code811"></a><span class="indexdullblue"><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             <br>
-            <span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Will</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Will</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These both use the <code class="inlinesourcetext">going action</code>: the notation <code class="inlinesourcetext">asking... to try...</code> is not some kind of <code class="inlinesourcetext">asking</code> action in its own right. (There <em>is</em> an asking action, for things like asking somebody for directions, but this is unrelated to that.)</p>
             <p>As a result, we can write rules like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Will</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Will scratches his head, baffled by this talk of westward. Is not the ocean without bound?&quot;</span>
+            <!-- START CODE "code812" -->
+            <blockquote class="extract-inform7"><a id="code812"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Will</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Will scratches his head, baffled by this talk of westward. Is not the ocean without bound?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>To write rules like this, we sometimes want to generalise about who is supposed to do the deed. To do this we can refer to <code class="inlinesourcetext">person asked</code>, just as the <code class="inlinesourcetext">noun</code> stands for whatever noun was typed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">somebody</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I don't think we ought to tempt </span><span class="syntaxextract">[the person asked]</span><span class="syntaxstring"> into theft, surely?&quot;</span>
+            <!-- START CODE "code813" -->
+            <blockquote class="extract-inform7"><a id="code813"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">somebody</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;I don't think we ought to tempt [the person asked] into theft, surely?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So if the player types <code class="inlinetranscriptcommand">algy, take sandwich</code>, the <code class="inlinesourcetext">person asked</code> would be Algy; the <code class="inlinesourcetext">noun</code> would be the sandwich; and there would be no <code class="inlinesourcetext">second noun</code>.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg206><a style="text-decoration: none" href="eg_206.html"><span class="extensionexampleletter">206</span></a></span></div>
+                    <span id=eg203><a style="text-decoration: none" href="eg_203.html"><span class="extensionexampleletter">203</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_206.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Virtue</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_203.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Virtue</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Defining certain kinds of behaviour as inappropriate, so that other characters will refuse indignantly to do any such thing.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg206><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg203><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg207><a style="text-decoration: none" href="eg_207.html"><span class="extensionexampleletter">207</span></a></span></div>
+                    <span id=eg204><a style="text-decoration: none" href="eg_204.html"><span class="extensionexampleletter">204</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_207.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Latris Theon</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_204.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Latris Theon</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A person who can accept instructions to go to new destinations and move towards them according to the most reasonable path.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg207><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg204><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_2.html"><span class="markdowncontent">Section 13.2: How actions are processed</span></a> &bull; <a href="WI_13_4.html"><span class="markdowncontent">Section 13.4: Persuasion</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

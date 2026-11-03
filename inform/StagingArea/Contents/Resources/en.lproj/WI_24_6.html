@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,32 +2212,44 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Generic phrases" -->
+            <!-- SEARCH SECTION "24.6" -->
+            <!-- SEARCH SORT "001-024-006-000" -->
             <h3><span>Section 24.6: Generic phrases</span></h3>
             <p>      </p>
             <p>The following looks quite innocent:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">value</span><span class="syntaxplain">) </span><span class="syntaxidentifier">twice</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[V]</span><span class="syntaxstring">. </span><span class="syntaxextract">[V]</span><span class="syntaxstring">, I say!&quot;</span>
+            <!-- START CODE "code1698" -->
+            <blockquote class="extract-inform7"><a id="code1698"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> (</span><span class="identifier-syntax">V</span><span class="plain-syntax"> - </span><span class="identifier-syntax">value</span><span class="plain-syntax">) </span><span class="identifier-syntax">twice</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[V]. [V], I say!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It's clear at a glance what this is intended to do, but at a second glance things aren't so straightforward. &quot;Value&quot; is not itself a kind – it's too big and unspecific. For instance, if we were to allow a variable to be just <code class="inlinesourcetext">a value</code>, we could freely set it to <code class="inlinesourcetext">12</code> one minute and to <code class="inlinesourcetext">&quot;dahlias&quot;</code> the next, and such a variable would be dangerous since we would never know what could safely be done with its contents. A phrase like this one is called <em>generic</em>, because it's not so much a single, actual phrase as a recipe to make phrases. (Inform automatically works out which kinds we need the phrase for, and creates a version of the phrase for those kinds.)</p>
             <p>So <code class="inlinesourcetext">value</code> is not a kind, but a kind of kind. Inform has several of these:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">arithmetic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">enumerated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">, </span><span class="syntaxidentifier">sayable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span>
+            <!-- START CODE "code1699" -->
+            <blockquote class="extract-inform7"><a id="code1699"></a><span class="indexdullblue"><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">arithmetic</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">enumerated</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">, </span><span class="identifier-syntax">sayable</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These act as ways to say &quot;a value of any kind matching this can go here&quot;. For example, <code class="inlinesourcetext">value</code> is a way to say &quot;any kind at all&quot;; <code class="inlinesourcetext">arithmetic value</code> is any kind which arithmetic can be performed on (any kind with the little calculator icon in the Arithmetic part of the Kinds index); and so on. If we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">double</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">arithmetic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[V times 2]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code1700" -->
+            <blockquote class="extract-inform7"><a id="code1700"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">double</span><span class="plain-syntax"> (</span><span class="identifier-syntax">V</span><span class="plain-syntax"> - </span><span class="identifier-syntax">arithmetic</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[V times 2].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>the restriction to <code class="inlinesourcetext">arithmetic value</code> means that although <code class="inlinesourcetext">double 3</code>, <code class="inlinesourcetext">double 6 kg</code>, etc., would be matched, <code class="inlinesourcetext">double the Entire Game</code> would not – you can't perform arithmetic on scenes. Similarly, it would have been tidier to write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">V</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">sayable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">) </span><span class="syntaxidentifier">twice</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[V]</span><span class="syntaxstring">. </span><span class="syntaxextract">[V]</span><span class="syntaxstring">, I say!&quot;</span>
+            <!-- START CODE "code1701" -->
+            <blockquote class="extract-inform7"><a id="code1701"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> (</span><span class="identifier-syntax">V</span><span class="plain-syntax"> - </span><span class="identifier-syntax">sayable</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">) </span><span class="identifier-syntax">twice</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[V]. [V], I say!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because then Inform will make it clearer why <code class="inlinesourcetext">say X twice</code> won't work if <code class="inlinesourcetext">X</code> is one of those rare values which it can't say.</p>
             <p>The Kinds index shows which kinds match against which of these &quot;kinds of kind&quot;. For instance, it shows that <code class="inlinesourcetext">time</code></p>
             <blockquote>
             <p>Matches: value, arithmetic value, sayable value</p>
             </blockquote>
             <p>which means that time is something we can do arithmetic on, and can say.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_24_5.html"><span class="markdowncontent">Section 24.5: Map, filter and reduce</span></a> &bull; <a href="WI_24_7.html"><span class="markdowncontent">Section 24.7: Kind variables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,37 +2212,49 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Going, Pushing Things in Directions" -->
+            <!-- SEARCH SECTION "6.9" -->
+            <!-- SEARCH SORT "002-006-009-000" -->
             <h3><span>Section 6.9: Going, Pushing Things in Directions</span></h3>
             <p>
             Going is the most complex of actions after looking (or perhaps including looking): the success of every movement depends on the direction the player goes; the room they start from; the room they intend to reach; whether there are any doors intervening (and, if so, whether these are closed or locked); whether they are travelling by vehicle; and whether they are pushing anything in front of them. When they get there, the description they see is itself generated by a looking command.</p>
-            <p>Pushing something in a direction is really a sort of going. The command <code class="inlinetranscriptcommand">push wheelbarrow west</code> first checks certain qualifying rules: by default, only things defined as pushable between rooms may be pushed, and they may be pushed only in horizontal directions (not <code class="inlinetranscriptcommand">up</code> or <code class="inlinetranscriptcommand">down</code>) – though these rules can be overridden, as we see in <a href="eg_114.html">Zorb</a>. If the player's <code class="inlinesourcetext">pushing</code> attempt passes these criteria, the action is translated automatically into a <code class="inlinesourcetext">going</code> action, with all the usual checks about whether that direction leads anywhere, whether a door is in the way, and so on. The converted action afterward can be caught with such rules as</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Alpine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meadow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wheelbarrow</span><span class="syntaxplain">:</span>
+            <p>Pushing something in a direction is really a sort of going. The command <code class="inlinetranscriptcommand">push wheelbarrow west</code> first checks certain qualifying rules: by default, only things defined as pushable between rooms may be pushed, and they may be pushed only in horizontal directions (not <code class="inlinetranscriptcommand">up</code> or <code class="inlinetranscriptcommand">down</code>) – though these rules can be overridden, as we see in <a href="eg_113.html">Zorb</a>. If the player's <code class="inlinesourcetext">pushing</code> attempt passes these criteria, the action is translated automatically into a <code class="inlinesourcetext">going</code> action, with all the usual checks about whether that direction leads anywhere, whether a door is in the way, and so on. The converted action afterward can be caught with such rules as</p>
+            <!-- START CODE "code2093" -->
+            <blockquote class="extract-inform7"><a id="code2093"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alpine</span><span class="plain-syntax"> </span><span class="identifier-syntax">Meadow</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wheelbarrow</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You don't want to crush the delicate blooms.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You don't want to crush the delicate blooms.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handcart</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">handcart</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The headwind is so stiff that you are unable to make much northerly progress at all while encumbered by the handcart.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The headwind is so stiff that you are unable to make much northerly progress at all while encumbered by the handcart.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Since the two actions are internally being handled as one, both are discussed here.</p>
-            <p>It is very common for players to make a mistake and type the wrong direction command, or even to misunderstand the room description and not recognise all the possible exits. <a href="eg_108.html">Bumping into Walls</a> helpfully adds a facility so that when the player tries to go in the wrong direction, the story lists the correct possibilities, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">From</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">viable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exits</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">south</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain">.</span>
+            <p>It is very common for players to make a mistake and type the wrong direction command, or even to misunderstand the room description and not recognise all the possible exits. <a href="eg_107.html">Bumping into Walls</a> helpfully adds a facility so that when the player tries to go in the wrong direction, the story lists the correct possibilities, as in</p>
+            <!-- START CODE "code2094" -->
+            <blockquote class="extract-inform7"><a id="code2094"></a><span class="indexdullblue"><span class="identifier-syntax">From</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">viable</span><span class="plain-syntax"> </span><span class="identifier-syntax">exits</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Assuming that travel succeeds, another useful technique is to provide some sense of the journey between locations, especially if they are remote from one another or the player has to do something unusual to get from one to the other. <a href="eg_13.html">Up and Up</a> adds a short description of travel when we approach a new room, before the room description is printed; <a href="eg_106.html">Veronica</a>, conversely, adds a comment when the player leaves a region of the map. <a href="eg_222.html">The Second Oldest Problem</a> intervenes and kills a player who tries to travel from one dark room to another. <a href="eg_110.html">Mattress King</a> embellishes the description that automatically results from <code class="inlinetranscriptcommand">push mattress west</code>, adding a line that describes the player pushing the object before describing the new room approached.</p>
+            <!-- END CODE -->
+            <p>Assuming that travel succeeds, another useful technique is to provide some sense of the journey between locations, especially if they are remote from one another or the player has to do something unusual to get from one to the other. <a href="eg_12.html">Up and Up</a> adds a short description of travel when we approach a new room, before the room description is printed; <a href="eg_105.html">Veronica</a>, conversely, adds a comment when the player leaves a region of the map. <a href="eg_219.html">The Second Oldest Problem</a> intervenes and kills a player who tries to travel from one dark room to another. <a href="eg_109.html">Mattress King</a> embellishes the description that automatically results from <code class="inlinetranscriptcommand">push mattress west</code>, adding a line that describes the player pushing the object before describing the new room approached.</p>
             <p>We may also want to add a brief comment when we arrive in a new room, after the room description is printed. One trivial way to do this is to append the line to the room's main description, conditionally, like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hammock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emporium</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;This is Cousin Ed's shop, the big dream he left accounting to pursue. You can't help gawking at the Luxury Leather Space Hammock, made of genuine red buffalo skins</span><span class="syntaxextract">[if unvisited]</span><span class="syntaxstring">. </span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">So this is why Grampa makes all those 'lying down on the job' jokes every Thanksgiving</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2095" -->
+            <blockquote class="extract-inform7"><a id="code2095"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hammock</span><span class="plain-syntax"> </span><span class="identifier-syntax">Emporium</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;This is Cousin Ed's shop, the big dream he left accounting to pursue. You can't help gawking at the Luxury Leather Space Hammock, made of genuine red buffalo skins[if unvisited]. [paragraph break]So this is why Grampa makes all those 'lying down on the job' jokes every Thanksgiving[end if].&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>But often we want our first-glance comment to come after some items in the room are described; and for this effect, we would use the <code class="inlinesourcetext">first look rule</code> defined in <a href="eg_422.html">Saint Eligius</a>.</p>
+            <!-- END CODE -->
+            <p>But often we want our first-glance comment to come after some items in the room are described; and for this effect, we would use the <code class="inlinesourcetext">first look rule</code> defined in <a href="eg_419.html">Saint Eligius</a>.</p>
             <p>If these methods are not enough, the looking action has an action-specific variable called <code class="inlinesourcetext">the room-describing action</code>, which records whether this particular instance of looking comes about because the player typed <code class="inlinetranscriptcommand">look</code> or because the player travelled to a new location. We can consult this variable if we want to make looking work  differently after going, as for instance here:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">describing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2096" -->
+            <blockquote class="extract-inform7"><a id="code2096"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">describing</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You are temporarily too blinded to see.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are temporarily too blinded to see.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Another category of examples treat how we handle the movement commands themselves. The eight compass directions, with <code class="inlinetranscriptcommand">up</code> and <code class="inlinetranscriptcommand">down</code>, <code class="inlinetranscriptcommand">in</code> and <code class="inlinetranscriptcommand">out</code>, are used as standard in most interactive fiction, but they are not the only possible way of navigating, and strike many newcomers to the genre as counter-intuitive, since when strolling around in real life most of us rarely think about our travel in terms of compass orientation. <a href="eg_335.html">Misadventure</a> allows the player to <code class="inlinetranscriptcommand">go to</code> a named room, instead, and calculates the best route to reach the destination; <a href="eg_336.html">Safari Guide</a> builds on this by letting the player make the whole trip in a single move, automatically opening any doors that stand in their way en route.</p>
-            <p>In the same spirit of interpreting the player's intentions sensibly, <a href="eg_113.html">Provenance Unknown</a> modifies the pushing command so that if the player pushes the top object in a stack of objects towards a direction, Inform attempts to move the bottom item instead. This is convenient if, for instance, we have a heavy television on a movable cart and want <code class="inlinetranscriptcommand">push television west</code> to work just as well as <code class="inlinetranscriptcommand">push cart west</code>.</p>
-            <p>We also sometimes want to respond sensibly to terse movement commands or ones that rely on some knowledge of where the player has already been. <a href="eg_109.html">Polarity</a> provides a <code class="inlinetranscriptcommand">go back</code> command, allowing the player to retreat in the direction from which they came, while <a href="eg_401.html">Minimal Movement</a> understands <code class="inlinetranscriptcommand">leave</code>, <code class="inlinetranscriptcommand">go</code>, and so on as <code class="inlinetranscriptcommand">out</code>, in the absence of other information. <a href="eg_201.html">Owen's Law</a> takes this further, calculating from the best routes on a map how to make <code class="inlinetranscriptcommand">out</code> mean &quot;move towards the exit of this indoor room&quot;, and <code class="inlinetranscriptcommand">in</code> mean &quot;proceed further into the interior&quot;. <a href="eg_277.html">Wonderland</a> assigns altitudes to all rooms and works out the local best meaning of <code class="inlinetranscriptcommand">up</code> and <code class="inlinetranscriptcommand">down</code> accordingly.</p>
+            <!-- END CODE -->
+            <p>Another category of examples treat how we handle the movement commands themselves. The eight compass directions, with <code class="inlinetranscriptcommand">up</code> and <code class="inlinetranscriptcommand">down</code>, <code class="inlinetranscriptcommand">in</code> and <code class="inlinetranscriptcommand">out</code>, are used as standard in most interactive fiction, but they are not the only possible way of navigating, and strike many newcomers to the genre as counter-intuitive, since when strolling around in real life most of us rarely think about our travel in terms of compass orientation. <a href="eg_332.html">Misadventure</a> allows the player to <code class="inlinetranscriptcommand">go to</code> a named room, instead, and calculates the best route to reach the destination; <a href="eg_333.html">Safari Guide</a> builds on this by letting the player make the whole trip in a single move, automatically opening any doors that stand in their way en route.</p>
+            <p>In the same spirit of interpreting the player's intentions sensibly, <a href="eg_112.html">Provenance Unknown</a> modifies the pushing command so that if the player pushes the top object in a stack of objects towards a direction, Inform attempts to move the bottom item instead. This is convenient if, for instance, we have a heavy television on a movable cart and want <code class="inlinetranscriptcommand">push television west</code> to work just as well as <code class="inlinetranscriptcommand">push cart west</code>.</p>
+            <p>We also sometimes want to respond sensibly to terse movement commands or ones that rely on some knowledge of where the player has already been. <a href="eg_108.html">Polarity</a> provides a <code class="inlinetranscriptcommand">go back</code> command, allowing the player to retreat in the direction from which they came, while <a href="eg_398.html">Minimal Movement</a> understands <code class="inlinetranscriptcommand">leave</code>, <code class="inlinetranscriptcommand">go</code>, and so on as <code class="inlinetranscriptcommand">out</code>, in the absence of other information. <a href="eg_198.html">Owen's Law</a> takes this further, calculating from the best routes on a map how to make <code class="inlinetranscriptcommand">out</code> mean &quot;move towards the exit of this indoor room&quot;, and <code class="inlinetranscriptcommand">in</code> mean &quot;proceed further into the interior&quot;. <a href="eg_274.html">Wonderland</a> assigns altitudes to all rooms and works out the local best meaning of <code class="inlinetranscriptcommand">up</code> and <code class="inlinetranscriptcommand">down</code> accordingly.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_2.html" title="Section 3.2: Map">Map</a> for how to create other kinds of new direction.</li>
@@ -2167,135 +2264,135 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg110><a style="text-decoration: none" href="eg_110.html"><span class="extensionexampleletter">110</span></a></span></div>
+                    <span id=eg109><a style="text-decoration: none" href="eg_109.html"><span class="extensionexampleletter">109</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_110.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mattress King</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_109.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mattress King</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding extra phrasing to the action to <code class="inlinetranscriptcommand">push</code> something in a direction.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg110><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg109><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg401><a style="text-decoration: none" href="eg_401.html"><span class="extensionexampleletter">401</span></a></span></div>
+                    <span id=eg398><a style="text-decoration: none" href="eg_398.html"><span class="extensionexampleletter">398</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_401.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Minimal Movement</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_398.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Minimal Movement</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Supplying a default direction for <code class="inlinetranscriptcommand">go</code>, so that <code class="inlinetranscriptcommand">leave</code>, <code class="inlinetranscriptcommand">go</code>, etc., are always interpreted as <code class="inlinetranscriptcommand">out</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg401><a style="text-decoration: none" href="WI_20_34.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg398><a style="text-decoration: none" href="WI_20_34.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg335><a style="text-decoration: none" href="eg_335.html"><span class="extensionexampleletter">335</span></a></span></div>
+                    <span id=eg332><a style="text-decoration: none" href="eg_332.html"><span class="extensionexampleletter">332</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_335.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Misadventure</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_332.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Misadventure</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A going by name command which does respect movement rules, and accepts names of rooms as commands.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg335><a style="text-decoration: none" href="WI_19_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg332><a style="text-decoration: none" href="WI_19_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg422><a style="text-decoration: none" href="eg_422.html"><span class="extensionexampleletter">422</span></a></span></div>
+                    <span id=eg419><a style="text-decoration: none" href="eg_419.html"><span class="extensionexampleletter">419</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_422.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Saint Eligius</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_419.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Saint Eligius</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a first look rule that comments on locations when we visit them for the first time, inserting text after objects are listed but before any &quot;every turn&quot; rules might occur.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg422><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg419><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg222><a style="text-decoration: none" href="eg_222.html"><span class="extensionexampleletter">222</span></a></span></div>
+                    <span id=eg219><a style="text-decoration: none" href="eg_219.html"><span class="extensionexampleletter">219</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_222.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Second Oldest Problem</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_219.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Second Oldest Problem</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adapting the going action so that something special can happen when going from a dark room to another dark room.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg222><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg219><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg106><a style="text-decoration: none" href="eg_106.html"><span class="extensionexampleletter">106</span></a></span></div>
+                    <span id=eg105><a style="text-decoration: none" href="eg_105.html"><span class="extensionexampleletter">105</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_106.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Veronica</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_105.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Veronica</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An effect that occurs only when the player leaves a region entirely.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg106><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg105><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg336><a style="text-decoration: none" href="eg_336.html"><span class="extensionexampleletter">336</span></a></span></div>
+                    <span id=eg333><a style="text-decoration: none" href="eg_333.html"><span class="extensionexampleletter">333</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_336.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safari Guide</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_333.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safari Guide</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The same functionality, but making the player continue to move until they reach their destination or a barrier, handling all openable doors on the way.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg336><a style="text-decoration: none" href="WI_19_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg333><a style="text-decoration: none" href="WI_19_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg13><a style="text-decoration: none" href="eg_13.html"><span class="extensionexampleletter">13</span></a></span></div>
+                    <span id=eg12><a style="text-decoration: none" href="eg_12.html"><span class="extensionexampleletter">12</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_13.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Up and Up</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_12.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Up and Up</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a short message as the player approaches a room, before the room description itself appears.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg13><a style="text-decoration: none" href="WI_3_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg12><a style="text-decoration: none" href="WI_3_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg277><a style="text-decoration: none" href="eg_277.html"><span class="extensionexampleletter">277</span></a></span></div>
+                    <span id=eg274><a style="text-decoration: none" href="eg_274.html"><span class="extensionexampleletter">274</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_277.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wonderland</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_274.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wonderland</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Hiking Mount Rainier, with attention to which locations are higher and which lower than the present location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg277><a style="text-decoration: none" href="WI_16_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg274><a style="text-decoration: none" href="WI_16_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg107><a style="text-decoration: none" href="eg_107.html"><span class="extensionexampleletter">107</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_107.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bumping into Walls</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Offering the player a list of valid directions if they try to go in a direction that leads nowhere.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg107><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg198><a style="text-decoration: none" href="eg_198.html"><span class="extensionexampleletter">198</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_198.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Owen's Law</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">out</code> always means &quot;move to an outdoors room, or else to a room with more exits than this one has&quot;; <code class="inlinetranscriptcommand">in</code> always means the opposite.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg198><a style="text-decoration: none" href="WI_12_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg108><a style="text-decoration: none" href="eg_108.html"><span class="extensionexampleletter">108</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_108.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bumping into Walls</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Offering the player a list of valid directions if they try to go in a direction that leads nowhere.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_108.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Polarity</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A &quot;go back&quot; command that keeps track of the direction from which the player came, and sends them back.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg108><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg201><a style="text-decoration: none" href="eg_201.html"><span class="extensionexampleletter">201</span></a></span></div>
+                    <span id=eg112><a style="text-decoration: none" href="eg_112.html"><span class="extensionexampleletter">112</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_201.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Owen's Law</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">out</code> always means &quot;move to an outdoors room, or else to a room with more exits than this one has&quot;; <code class="inlinetranscriptcommand">in</code> always means the opposite.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_112.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Provenance Unknown</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Allowing something like <code class="inlinetranscriptcommand">push television east</code> to push the cart on which the television rests.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg201><a style="text-decoration: none" href="WI_12_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg109><a style="text-decoration: none" href="eg_109.html"><span class="extensionexampleletter">109</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_109.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Polarity</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A &quot;go back&quot; command that keeps track of the direction from which the player came, and sends them back.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg109><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg112><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg113><a style="text-decoration: none" href="eg_113.html"><span class="extensionexampleletter">113</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_113.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Provenance Unknown</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Allowing something like <code class="inlinetranscriptcommand">push television east</code> to push the cart on which the television rests.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_113.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorb</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Replacing the message the player receives when attempting to push something that isn't pushable, and also to remove the restriction that objects cannot be pushed up or down.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg113><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg114><a style="text-decoration: none" href="eg_114.html"><span class="extensionexampleletter">114</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_114.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorb</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Replacing the message the player receives when attempting to push something that isn't pushable, and also to remove the restriction that objects cannot be pushed up or down.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg114><a style="text-decoration: none" href="WI_7_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_8.html"><span class="markdowncontent">Section 6.8: Taking, Dropping, Inserting and Putting</span></a> &bull; <a href="RB_6_10.html"><span class="markdowncontent">Section 6.10: Entering and Exiting, Sitting and Standing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

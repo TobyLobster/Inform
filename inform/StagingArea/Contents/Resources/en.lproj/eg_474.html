@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,63 +2193,124 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg474><a style="text-decoration: none" href="WI_27_23.html"><span class="extensionexampleletter">474</span></a></span></div>
+                <span id=eg474><a style="text-decoration: none" href="WI_29_23.html"><span class="extensionexampleletter">474</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Baedeker</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Creating a floorplan of the cathedral using the locations from previous examples.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 5</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Port Royal scenario given instructions for an EPS map.</span></span></div>
             <div class="exampleright">
                 <span id=eg474><a style="text-decoration: none" href="RB_13_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>If our map is largely or entirely set inside a single building, we might want to produce something that resembles a floorplan. It's possible to do this with a little tweaking, like so:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Baedeker[=0x0022=][=0x000A=][=0x000A=]Dome is a room. North of Dome is North Chapel. South of the Dome is South Chapel. West of the Dome is Western End. Quiet Corner is northwest of the Dome, north of Western End, and west of North Chapel. Loud Corner is east of North Chapel, northeast of Dome, and north of Eastern End. Eastern End is north of Dim Corner and east of Dome. Dim Corner is southeast of Dome and east of South Chapel. Ruined Corner is southwest of Dome, west of South Chapel, and south of Western End.[=0x000A=][=0x000A=]The church door is east of Eastern End and west of the Courtyard. The church door is a door.[=0x000A=][=0x000A=]Index map with[=0x000A=][=0x0009=]room-shape set to [=0x0022=]square[=0x0022=] and[=0x000A=][=0x0009=]room-size set to 60 and[=0x000A=][=0x0009=]room-name-size set to 9 and[=0x000A=][=0x0009=]room-name-length set to 13 and[=0x000A=][=0x0009=]route-thickness set to 20 and[=0x000A=][=0x0009=]room-outline set to off and[=0x000A=][=0x0009=]map-outline set to off and[=0x000A=][=0x0009=]route-colour set to [=0x0022=]White[=0x0022=] and[=0x000A=][=0x0009=]room-colour set to [=0x0022=]White[=0x0022=] and[=0x000A=][=0x0009=]room-shape of Dome set to [=0x0022=]circle[=0x0022=] and[=0x000A=][=0x0009=]room-size of Dome set to 80 and[=0x000A=][=0x0009=]EPS file.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Baedeker&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Port Royal 5" -->
+        <!-- SEARCH SECTION "Example 474" -->
+        <!-- SEARCH SORT "003-474-000-000" -->
+        <p> </p>
+        <!-- START CODE "code3421" -->
+        <blockquote class="extract-inform7"><a id="code3421"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]1691[=0x0022=][=0x000A=][=0x000A=]Fort James is a room.[=0x000A=][=0x000A=]Thames Street End is south of Fort James.[=0x000A=][=0x000A=]Lime Street is south of Thames Street End. West of Thames Street End is north of Fisher[=0x0027=]s Row. The description of Fisher[=0x0027=]s Row is [=0x0022=]A waterfront street that runs south towards Chocolata Hole, where the small craft are harboured. It also continues north around the tip of the peninsula from here, turning into the east-west Thames Street.[=0x0022=][=0x000A=][=0x000A=]Water Lane is east of Thames Street End.[=0x000A=][=0x000A=]East of Water Lane is a room called Thames Street at the Wherry Bridge.  Thames Street at the Wherry Bridge has the description [=0x0022=]To the southwest is the fishmarket; directly across the street is the entrance to a private alley through a brick archway.[=0x0022=][=0x000A=][=0x000A=]The Fishmarket is southwest of Thames Street at the Wherry Bridge.[=0x000A=][=0x000A=]The Private Alley is south of Thames Street at the Wherry Bridge.[=0x000A=][=0x000A=]Thames Street by the King[=0x0027=]s House is east of Thames Street at the Wherry Bridge.[=0x000A=][=0x000A=]Thames Street before Fort Carlisle is east of Thames Street by the King[=0x0027=]s House.[=0x000A=][=0x000A=]South of Thames Street before Fort Carlisle is a room called Fort Carlisle. The description of Fort Carlisle is [=0x0022=]Handsomely arrayed with cannons which you could fire at any moment -- though of course there are ships at dock which might be in the way.[=0x0022=][=0x000A=][=0x000A=]Queen Street End is south of Lime Street.[=0x000A=][=0x000A=]Queen Street Middle is east of Queen Street End.[=0x000A=][=0x000A=]Queen Street East is east of Queen Street Middle and south of Private Alley.[=0x000A=][=0x000A=]Queen Street at the Prison is east of Queen Street East.[=0x000A=][=0x000A=]Index map with an EPS file and[=0x000A=][=0x0009=]Fisher[=0x0027=]s Row mapped southwest of Thames Street End,[=0x000A=][=0x0009=]room-size set to 50 and room-name-size set to 10,[=0x000A=][=0x0009=]room-name-length set to 15,[=0x000A=][=0x0009=]route-thickness set to 2,[=0x000A=][=0x0009=]room-outline set to off,[=0x000A=][=0x0009=]map-outline set to off,[=0x000A=][=0x0009=]route-colour set to [=0x0022=]Chocolate[=0x0022=],[=0x000A=][=0x0009=]room-colour set to [=0x0022=]Burly Wood[=0x0022=],[=0x000A=][=0x0009=]title set to [=0x0022=]Port Royal, 1691[=0x0022=],[=0x000A=][=0x0009=]font set to [=0x0022=]Baskerville[=0x0022=],[=0x000A=][=0x0009=]room-offset of Thames Street by the King[=0x0027=]s House set to 160[=0x0026=]-40,[=0x000A=][=0x0009=]room-offset of Thames Street before Fort Carlisle set to 210[=0x0026=]10,[=0x000A=][=0x0009=]room-offset of Fort Carlisle set to 210[=0x0026=]0,[=0x000A=][=0x0009=]room-offset of Fort James set to -90[=0x0026=]-20,[=0x000A=][=0x0009=]room-offset of Water Lane set to 0[=0x0026=]20,[=0x000A=][=0x0009=]room-offset of Queen Street End set to 5[=0x0026=]0.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;1691&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">North</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">North</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">South</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">South</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">West</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Western</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Quiet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">northwest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain">, </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Western</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">North</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Loud</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">North</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">, </span><span class="syntaxidentifier">northeast</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Eastern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Eastern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dim</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Dim</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">southeast</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">South</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Ruined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Corner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">southwest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain">, </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">South</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chapel</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">south</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Western</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">James</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">church</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Eastern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">End</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Courtyard</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">church</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">James</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span>
+        <span class="identifier-syntax">Lime</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">. </span><span class="identifier-syntax">West</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fisher</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Row</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fisher</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Row</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A waterfront street that runs south towards Chocolata Hole, where the small craft are harboured. It also continues north around the tip of the peninsula from here, turning into the east-west Thames Street.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">shape</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;square&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">60</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+        <span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">name</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">9</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">name</span><span class="syntaxplain">-</span><span class="syntaxidentifier">length</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">13</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+        <span class="identifier-syntax">East</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wherry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bridge</span><span class="plain-syntax">.  </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wherry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bridge</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;To the southwest is the fishmarket; directly across the street is the entrance to a private alley through a brick archway.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">route</span><span class="syntaxplain">-</span><span class="syntaxidentifier">thickness</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">20</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">outline</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fishmarket</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wherry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bridge</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">map</span><span class="syntaxplain">-</span><span class="syntaxidentifier">outline</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">route</span><span class="syntaxplain">-</span><span class="syntaxidentifier">colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;White&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Private</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alley</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wherry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bridge</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;White&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">shape</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;circle&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+        <span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">King</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wherry</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bridge</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">room</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dome</span><span class="syntaxplain"> </span><span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">80</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">EPS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">King</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Handsomely arrayed with cannons which you could fire at any moment -- though of course there are ships at dock which might be in the way.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lime</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">Middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">East</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">Middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Private</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alley</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Prison</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">East</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Index</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">EPS</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Fisher</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Row</span><span class="plain-syntax"> </span><span class="identifier-syntax">mapped</span><span class="plain-syntax"> </span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">50</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">name</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">name</span><span class="plain-syntax">-</span><span class="identifier-syntax">length</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">15</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">route</span><span class="plain-syntax">-</span><span class="identifier-syntax">thickness</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">outline</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">map</span><span class="plain-syntax">-</span><span class="identifier-syntax">outline</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">route</span><span class="plain-syntax">-</span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Chocolate&quot;</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Burly Wood&quot;</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">title</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Port Royal, 1691&quot;</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">font</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Baskerville&quot;</span><span class="plain-syntax">,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">King</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">160</span><span class="plain-syntax">&amp;-40,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thames</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">210</span><span class="plain-syntax">&amp;10,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carlisle</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">210</span><span class="plain-syntax">&amp;0,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fort</span><span class="plain-syntax"> </span><span class="identifier-syntax">James</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> -90&amp;-20,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Water</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lane</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">&amp;20,</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Street</span><span class="plain-syntax"> </span><span class="identifier-syntax">End</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">&amp;0.</span>
         </span></blockquote>
-        <p>Now we have a map made of white lines and boxes over a white background, which is not very exciting. If, however, we put a layer of black under this and slightly adjust the room shapes (using an image editor such as Adobe Illustrator), we can produce something that plausibly resembles a floorplan or museum map, like so:</p>
-        <p><img src="doc_images/Sophia.jpg" alt="Sophia" /></p>
+        <!-- END CODE -->
+        <p>This sentence has become a long catalogue of specifications. To break it down: we disambiguate the placement of Thames Street End, which otherwise is hard to locate because the directions to and from the room are not symmetrical. Then we apply some general rules about size, font, and colour. Finally, we add instructions about offsetting the room locations of a few specific rooms.</p>
+        <p>This last part is a bit finicky and will not be necessary in many cases, but our goal this time is to create a map diagram that can be superimposed on the real coastal outline of Port Royal at the time. With a bit of editing, the result looks like this:</p>
+        <p><img src="doc_images/portroyal.png" alt="portroyal" /></p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_27_23.html>Section 27.23: Titling and abbreviation</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_29_23.html>Section 29.23: Titling and abbreviation</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

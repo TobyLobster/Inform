@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,67 +2212,73 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Parts of things" -->
+            <!-- SEARCH SECTION "3.23" -->
+            <!-- SEARCH SORT "001-003-023-000" -->
             <h3><span>Section 3.23: Parts of things</span></h3>
             <p>   </p>
             <p>Everything has one and only one kind. This is both good and bad: good for clarity, bad if something needs to behave in two different ways at once. How might we simulate a car with an ignition key, given that no single thing can be both a <code class="inlinesourcetext">vehicle</code> and a <code class="inlinesourcetext">device</code> at the same time?</p>
             <p>The Inform world model takes the view that such a car is too complicated to be simulated with a single thing. Instead it should be simulated as a <code class="inlinesourcetext">vehicle</code> (the car) which has a <code class="inlinesourcetext">device</code> (the ignition) attached. This is done using a new relationship: <code class="inlinesourcetext">part of</code>.</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Buttons[=0x0022=][=0x000A=][=0x000A=]The Confectionary Workshop is a room. The Chocolate Machine is here. [=0x0022=]The Chocolate Machine has pride of place. A lever and two buttons, one white, the other brown, seem to be the only controls. On top is a hopper.[=0x0022=][=0x000A=][=0x000A=]A container called the hopper is part of the Chocolate Machine. The lever, the white button and the brown button are parts of the Chocolate Machine.[=0x000A=][=0x000A=]The Chocolatier[=0x0027=]s desk is here. [=0x0022=]The Chocolatier evidently works at the imposing green-leather topped desk facing the Machine. It has three drawers with brass handles.[=0x0022=][=0x000A=][=0x000A=]The upper drawer, the middle drawer and the lower drawer are parts of the desk. The upper drawer, the middle drawer and the lower drawer are openable closed containers. In the middle drawer is a sugared almond. In the lower drawer is a Battenburg cake. On the desk is a liquorice twist.[=0x000A=][=0x000A=]The cake, the twist and the almond are edible.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Buttons&quot;</span>
+            <!-- START CODE "code117" -->
+            <blockquote class="extract-inform7"><a id="code117"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Buttons[=0x0022=][=0x000A=][=0x000A=]The Confectionary Workshop is a room. The Chocolate Machine is here. [=0x0022=]The Chocolate Machine has pride of place. A lever and two buttons, one white, the other brown, seem to be the only controls. On top is a hopper.[=0x0022=][=0x000A=][=0x000A=]A container called the hopper is part of the Chocolate Machine. The lever, the white button and the brown button are parts of the Chocolate Machine.[=0x000A=][=0x000A=]The Chocolatier[=0x0027=]s desk is here. [=0x0022=]The Chocolatier evidently works at the imposing green-leather topped desk facing the Machine. It has three drawers with brass handles.[=0x0022=][=0x000A=][=0x000A=]The upper drawer, the middle drawer and the lower drawer are parts of the desk. The upper drawer, the middle drawer and the lower drawer are openable closed containers. In the middle drawer is a sugared almond. In the lower drawer is a Battenburg cake. On the desk is a liquorice twist.[=0x000A=][=0x000A=]The cake, the twist and the almond are edible.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Buttons&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Confectionary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Workshop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chocolate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Machine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The Chocolate Machine has pride of place. A lever and two buttons, one white, the other brown, seem to be the only controls. On top is a hopper.&quot;</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Confectionary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Workshop</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The Chocolate Machine has pride of place. A lever and two buttons, one white, the other brown, seem to be the only controls. On top is a hopper.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hopper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chocolate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Machine</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lever</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">white</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brown</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chocolate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Machine</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">hopper</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">lever</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">white</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">brown</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">Machine</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chocolatier</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The Chocolatier evidently works at the imposing green-leather topped desk facing the Machine. It has three drawers with brass handles.&quot;</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chocolatier</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The Chocolatier evidently works at the imposing green-leather topped desk facing the Machine. It has three drawers with brass handles.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">middle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lower</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">upper</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">middle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lower</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">containers</span><span class="syntaxplain">. </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">middle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sugared</span><span class="syntaxplain"> </span><span class="syntaxidentifier">almond</span><span class="syntaxplain">. </span><span class="syntaxidentifier">In</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lower</span><span class="syntaxplain"> </span><span class="syntaxidentifier">drawer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Battenburg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain">. </span><span class="syntaxidentifier">On</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">liquorice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">twist</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">upper</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lower</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">upper</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lower</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">containers</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">sugared</span><span class="plain-syntax"> </span><span class="identifier-syntax">almond</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lower</span><span class="plain-syntax"> </span><span class="identifier-syntax">drawer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Battenburg</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">. </span><span class="identifier-syntax">On</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">liquorice</span><span class="plain-syntax"> </span><span class="identifier-syntax">twist</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cake</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">twist</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">almond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">twist</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">almond</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The machine and the desk each have several <em>parts</em> representing subsidiary pieces of themselves. The desk is a <code class="inlinesourcetext">supporter</code> (it needs to be, for the liquorice twist to be on top) but also has three <code class="inlinesourcetext">containers</code> attached, each of which can be opened or closed independently.</p>
             <p>In the interests of realism, the standard rules of play protect these composite things. Thus if the desk were to be moved elsewhere (rolling on sugar casters perhaps) then its parts would move with it, and the player is not allowed to detach parts of things: the drawers can be opened or closed, but not pulled out altogether.</p>
             <p>Note that <code class="inlinesourcetext">rooms</code> and <code class="inlinesourcetext">regions</code> are not allowed to have parts. (Rooms are already parts of regions, and to divide up rooms, we can either make several rooms or place containers or other obstacles in a single one.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg41><a style="text-decoration: none" href="eg_41.html"><span class="extensionexampleletter">41</span></a></span></div>
+                    <span id=eg40><a style="text-decoration: none" href="eg_40.html"><span class="extensionexampleletter">40</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_41.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Brown</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_40.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Brown</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A red sticky label which can be attached to anything in the game, or removed again.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg41><a style="text-decoration: none" href="RB_9_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg40><a style="text-decoration: none" href="RB_9_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg41><a style="text-decoration: none" href="eg_41.html"><span class="extensionexampleletter">41</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_41.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fallout Enclosure</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding an enclosure kind that includes both containers and supporters in order to simplify text that would apply to both.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg41><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg42><a style="text-decoration: none" href="eg_42.html"><span class="extensionexampleletter">42</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_42.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fallout Enclosure</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding an enclosure kind that includes both containers and supporters in order to simplify text that would apply to both.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg42><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg43><a style="text-decoration: none" href="eg_43.html"><span class="extensionexampleletter">43</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_43.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 12</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_42.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 12</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A final trip to Disenchantment Bay: the scenario turned into a somewhat fuller scene, with various features that have not yet been explained.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg43><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg42><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_22.html"><span class="markdowncontent">Section 3.22: Food</span></a> &bull; <a href="WI_3_24.html"><span class="markdowncontent">Section 3.24: Directions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

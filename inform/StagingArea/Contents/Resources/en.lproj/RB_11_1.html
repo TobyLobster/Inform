@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,18 +2212,24 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Start-Up Features" -->
+            <!-- SEARCH SECTION "11.1" -->
+            <!-- SEARCH SORT "002-011-001-000" -->
             <h2><span>Chapter 11: Out Of World Actions and Effects</span></h2>
             <h3><span>Section 11.1: Start-Up Features</span></h3>
             <p>
-            When the story file starts up, it often prints a short introductory passage of text (the &quot;overture&quot;) and then a heading describing itself, together with some version numbering (the &quot;banner&quot;). But it's possible to have a multi-turn prologue before the banner finally appears, and marks the start of play in earnest. <a href="eg_411.html">Bikini Atoll</a> demonstrates how to do this.</p>
+            When the story file starts up, it often prints a short introductory passage of text (the &quot;overture&quot;) and then a heading describing itself, together with some version numbering (the &quot;banner&quot;). But it's possible to have a multi-turn prologue before the banner finally appears, and marks the start of play in earnest. <a href="eg_408.html">Bikini Atoll</a> demonstrates how to do this.</p>
             <p>At one time, the Inform licence required all Inform-written stories to display the banner sooner or later. That requirement disappeared when Inform adopted the Artistic License 2.0 as its terms of use. So authors are now free to abolish the banner entirely. All the same, it remains a culturally useful convention, in the same way that almost all television dramas past and present contain some form of opening titles, even if just a title card, and even if delayed until after a cold open.</p>
-            <p>If a story file represents the latest in a sequence of story files representing chapters in some larger narrative, it will need some way to pick up where its predecessor left off. This can be done with the aid of external files (in the Glulx format, at least). <a href="eg_468.html">Alien Invasion Part 23</a> shows how.</p>
+            <p>If a story file represents the latest in a sequence of story files representing chapters in some larger narrative, it will need some way to pick up where its predecessor left off. This can be done with the aid of external files (in the Glulx format, at least). <a href="eg_466.html">Alien Invasion Part 23</a> shows how.</p>
             <p>Another task we might want to perform a the beginning of play is to arrange any randomised features that are supposed to change from one playing to the next. We can add such instructions with <code class="inlinesourcetext">When play begins</code> rule, as in:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2131" -->
+            <blockquote class="extract-inform7"><a id="code2131"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">priceless</span><span class="syntaxplain"> </span><span class="syntaxidentifier">treasure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">priceless</span><span class="plain-syntax"> </span><span class="identifier-syntax">treasure</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Since we may want to do something a bit more complicated than this, <a href="eg_132.html">Hatless</a> demonstrates effective and ineffective methods of distributing multiple objects (in this case, one randomly-selected hat per person).</p>
+            <!-- END CODE -->
+            <p>Since we may want to do something a bit more complicated than this, <a href="eg_129.html">Hatless</a> demonstrates effective and ineffective methods of distributing multiple objects (in this case, one randomly-selected hat per person).</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_2.html" title="Section 3.2: Map">Map</a> for a way to generate a randomised maze at the start of play.</li>
@@ -2147,36 +2238,36 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg468><a style="text-decoration: none" href="eg_468.html"><span class="extensionexampleletter">468</span></a></span></div>
+                    <span id=eg466><a style="text-decoration: none" href="eg_466.html"><span class="extensionexampleletter">466</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_468.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alien Invasion Part 23</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_466.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alien Invasion Part 23</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Keeping a preference file that could be loaded by any game in a series.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg468><a style="text-decoration: none" href="WI_25_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg466><a style="text-decoration: none" href="WI_27_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg411><a style="text-decoration: none" href="eg_411.html"><span class="extensionexampleletter">411</span></a></span></div>
+                    <span id=eg408><a style="text-decoration: none" href="eg_408.html"><span class="extensionexampleletter">408</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_411.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bikini Atoll</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_408.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bikini Atoll</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Delaying the banner for later.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg411><a style="text-decoration: none" href="WI_20_39.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg408><a style="text-decoration: none" href="WI_20_39.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg132><a style="text-decoration: none" href="eg_132.html"><span class="extensionexampleletter">132</span></a></span></div>
+                    <span id=eg129><a style="text-decoration: none" href="eg_129.html"><span class="extensionexampleletter">129</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_132.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hatless</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_129.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hatless</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">It's tempting to use &quot;now...&quot; to distribute items randomly at the start of play, but we need to be a little cautious about how we do that.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg132><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg129><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_11.html"><span class="markdowncontent">Section 10.11: Mathematics</span></a> &bull; <a href="RB_11_2.html"><span class="markdowncontent">Section 11.2: Saving and Undoing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

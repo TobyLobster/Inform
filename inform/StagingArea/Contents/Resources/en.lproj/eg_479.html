@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,49 +2193,54 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg479><a style="text-decoration: none" href="WI_31_8.html"><span class="extensionexampleletter">479</span></a></span></div>
+                <span id=eg479><a style="text-decoration: none" href="WI_33_8.html"><span class="extensionexampleletter">479</span></a></span></div>
             <div class="examplemiddle">
                 <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Chanel Version 1</span></span></b><br>
                 <span class="exampledescription"><span class="markdowncontent">Making paired italic and boldface tags like those used by HTML for web pages.</span></span></div>
             <div class="exampleright">
                 <span id=eg479><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Chanel Version 1" -->
+        <!-- SEARCH SECTION "Example 479" -->
+        <!-- SEARCH SORT "003-479-000-000" -->
         <p></p>
         <p>HTML uses angled brackets to achieve effects, and places italicised text between &lt;i&gt; and &lt;/i&gt; tags; and similarly boldface between &lt;b&gt; and &lt;/b&gt;. We can mimic this very easily by setting each up as a segmented substitution:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Chanel Version 1[=0x0022=][=0x000A=][=0x000A=]To say i  -- beginning say_i -- running on: (- style underline; -).[=0x000A=]To say /i  -- ending say_i -- running on: (- style roman; -).[=0x000A=]To say b -- beginning say_b -- running on: (- style bold; -).[=0x000A=]To say /b -- ending say_b -- running on: (- style roman; -).[=0x000A=][=0x000A=]Place Vendôme is a room. [=0x0022=][i]Fashion fades, only style remains the same[/i] ([b]Coco Chanel[/b]). And this elegant drawing-room, once a milliner[=0x0027=]s shop, is a case in point.[=0x0022=][=0x000A=][=0x000A=]Instead of going nowhere, say [=0x0022=][i]Don[=0x0027=]t spend time beating on a wall, hoping to transform it into a door.[/i] ([b]Coco Chanel[/b]) This one is a wall.[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / e[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Chanel Version 1&quot;</span>
+        <!-- START CODE "code3420" -->
+        <blockquote class="extract-inform7"><a id="code3420"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Chanel Version 1[=0x0022=][=0x000A=][=0x000A=]To say i  -- beginning say_i -- running on: (- style underline; -).[=0x000A=]To say /i  -- ending say_i -- running on: (- style roman; -).[=0x000A=]To say b -- beginning say_b -- running on: (- style bold; -).[=0x000A=]To say /b -- ending say_b -- running on: (- style roman; -).[=0x000A=][=0x000A=]Place Vendôme is a room. [=0x0022=][i]Fashion fades, only style remains the same[/i] ([b]Coco Chanel[/b]). And this elegant drawing-room, once a milliner[=0x0027=]s shop, is a case in point.[=0x0022=][=0x000A=][=0x000A=]Instead of going nowhere, say [=0x0022=][i]Don[=0x0027=]t spend time beating on a wall, hoping to transform it into a door.[/i] ([b]Coco Chanel[/b]) This one is a wall.[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look / e[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Chanel Version 1&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">i</span><span class="syntaxplain">  -- </span><span class="syntaxidentifier">beginning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say_i</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">: (- </span><span class="syntaxidentifier">style</span><span class="syntaxplain"> </span><span class="syntaxidentifier">underline</span><span class="syntaxplain">; -).</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">i</span><span class="plain-syntax">  -- </span><span class="identifier-syntax">beginning</span><span class="plain-syntax"> </span><span class="identifier-syntax">say_i</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">: (- </span><span class="identifier-syntax">style</span><span class="plain-syntax"> </span><span class="identifier-syntax">underline</span><span class="plain-syntax">; -).</span>
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> /</span><span class="syntaxidentifier">i</span><span class="syntaxplain">  -- </span><span class="syntaxidentifier">ending</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say_i</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">: (- </span><span class="syntaxidentifier">style</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roman</span><span class="syntaxplain">; -).</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> /</span><span class="identifier-syntax">i</span><span class="plain-syntax">  -- </span><span class="identifier-syntax">ending</span><span class="plain-syntax"> </span><span class="identifier-syntax">say_i</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">: (- </span><span class="identifier-syntax">style</span><span class="plain-syntax"> </span><span class="identifier-syntax">roman</span><span class="plain-syntax">; -).</span>
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">b</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">beginning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say_b</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">: (- </span><span class="syntaxidentifier">style</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bold</span><span class="syntaxplain">; -).</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">b</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">beginning</span><span class="plain-syntax"> </span><span class="identifier-syntax">say_b</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">: (- </span><span class="identifier-syntax">style</span><span class="plain-syntax"> </span><span class="identifier-syntax">bold</span><span class="plain-syntax">; -).</span>
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> /</span><span class="syntaxidentifier">b</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">ending</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say_b</span><span class="syntaxplain"> -- </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">: (- </span><span class="syntaxidentifier">style</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roman</span><span class="syntaxplain">; -).</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Vend</span><span class="syntaxplain">ô</span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[i]</span><span class="syntaxstring">Fashion fades, only style remains the same</span><span class="syntaxextract">[/i]</span><span class="syntaxstring"> (</span><span class="syntaxextract">[b]</span><span class="syntaxstring">Coco Chanel</span><span class="syntaxextract">[/b]</span><span class="syntaxstring">). And this elegant drawing-room, once a milliner's shop, is a case in point.&quot;</span>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> /</span><span class="identifier-syntax">b</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">ending</span><span class="plain-syntax"> </span><span class="identifier-syntax">say_b</span><span class="plain-syntax"> -- </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">: (- </span><span class="identifier-syntax">style</span><span class="plain-syntax"> </span><span class="identifier-syntax">roman</span><span class="plain-syntax">; -).</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[i]</span><span class="syntaxstring">Don't spend time beating on a wall, hoping to transform it into a door.</span><span class="syntaxextract">[/i]</span><span class="syntaxstring"> (</span><span class="syntaxextract">[b]</span><span class="syntaxstring">Coco Chanel</span><span class="syntaxextract">[/b]</span><span class="syntaxstring">) This one is a wall.&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Place</span><span class="plain-syntax"> </span><span class="identifier-syntax">Vend</span><span class="plain-syntax">ô</span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;[i]Fashion fades, only style remains the same[/i] ([b]Coco Chanel[/b]). And this elegant drawing-room, once a milliner's shop, is a case in point.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;look / e&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[i]Don't spend time beating on a wall, hoping to transform it into a door.[/i] ([b]Coco Chanel[/b]) This one is a wall.&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;look / e&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
         <p>We have had to use square instead of angle brackets, but then, &quot;in order to be irreplaceable one must always be different&quot; (Coco Chanel).</p>
         <p>(Marking these as substitutions which run on prevents unexpected paragraph breaks if they should appear immediately after the end of a sentence.)</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_31_8.html>Section 31.8: Defining segmented text substitutions with I6</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_33_8.html>Section 33.8: Defining segmented text substitutions with I6</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

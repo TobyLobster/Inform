@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.10: A website</span></title>
+    <title><span class="markdowncontent">Section 27.10: Files</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_9.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.10: A website</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.10: Files</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_11.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,47 +2212,25 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.10: A website</span></h3>
-            <p> </p>
-            <p>Much of the published IF of the last twenty years came with a brief text file describing what it was – a release note. Today it makes more sense to write this as a small web page, which can either be placed online, or simply distributed as part of the release.</p>
-            <p>Inform is able to manufacture such a website automatically. We request this by writing, for instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cover</span><span class="syntaxplain"> </span><span class="syntaxidentifier">art</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">website</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio magazine&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio.pdf&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The mating call of the green wyvern&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Mating Wyverns.mp3&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>where the list of ingredients now includes <code class="inlinesourcetext">a website</code>. In fact, Inform makes only a single web page, called <code class="inlinesourcetext">index.html</code>, which it places in the materials folder (as set up in the previous section): this then contains suitable links to all the other material, such as the cover art images, if they are also provided. For instance:</p>
-            <p><img src="doc_images/sampleweb.jpg" alt="sampleweb" /></p>
-            <p>After a successful release now, then, we should see:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Works</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Progress</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">inform</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">materials</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Collegio</span><span class="syntaxplain">.</span><span class="syntaxidentifier">pdf</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Cover</span><span class="syntaxplain">.</span><span class="syntaxidentifier">jpg</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Mating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wyverns</span><span class="syntaxplain">.</span><span class="syntaxidentifier">mp3</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Release</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Collegio</span><span class="syntaxplain">.</span><span class="syntaxidentifier">pdf</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Cover</span><span class="syntaxplain">.</span><span class="syntaxidentifier">jpg</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">index</span><span class="syntaxplain">.</span><span class="syntaxidentifier">html</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">zblorb</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Mating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wyverns</span><span class="syntaxplain">.</span><span class="syntaxidentifier">mp3</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Small</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cover</span><span class="syntaxplain">.</span><span class="syntaxidentifier">jpg</span>
-            </span></blockquote>
-            <p>(<code class="inlinesourcetext">Release/Small Cover.jpg</code> is a form of the cover image intended for display at a smaller size. In earlier versions of Inform, the author had to provide this: there is now no need.)</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Files" -->
+            <!-- SEARCH SECTION "27.10" -->
+            <!-- SEARCH SORT "001-027-010-000" -->
+            <h3><span>Section 27.10: Files</span></h3>
+            <p></p>
+            <p>Once an Inform project is released, it is playable as a &quot;story file&quot;, which is in effect a computer program for a specially IF-adapted design of computer. Story files run in what in computing is sometimes called a &quot;sandbox&quot;, a kind of safe play area where it can be guaranteed that they cannot do any harm. This is good, because it means a story file can't be infected with viruses or other malware. If the project's Settings panel has the story file format set to the Z-machine, the story file is so thoroughly boxed in that it cannot even see the bigger computer beyond: it lives in a world of its own. But the Glulx format opens the door a crack, allowing the story file to read and write a small number of data files, which live in a single folder on the bigger computer's hard drive.</p>
+            <p>Why might we want this? Among the reasons are –</p>
+            <ul>
+            <li>to remember what has happened in previous attempts by the player;</li>
+            <li>to store the player's preferences;</li>
+            <li>in a two-part story, where each part is an independently released story file, to allow Part I to save some information about its ending which Part II could then pick up and make use of;</li>
+            <li>to communicate with some external program, such as an Internet service.</li>
+            </ul>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_9.html"><span class="markdowncontent">Section 27.9: An introductory booklet and postcard</span></a> &bull; <a href="WI_27_11.html"><span class="markdowncontent">Section 27.11: A playable web page</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_9.html"><span class="markdowncontent">Section 27.9: Some technicalities about figures and sounds</span></a> &bull; <a href="WI_27_11.html"><span class="markdowncontent">Section 27.11: Declaring files</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

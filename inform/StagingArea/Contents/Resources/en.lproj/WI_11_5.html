@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,22 +2212,35 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "When the director is active" -->
+            <!-- SEARCH SECTION "11.5" -->
+            <!-- SEARCH SORT "001-011-005-000" -->
             <h3><span>Section 11.5: When the director is active</span></h3>
+            <p>
+
+            </p>
             <p>The director remains in passive mode until and unless we say so, using:</p>
             <div class="definition">
-                <p class="defnprototype">make the dialogue/dialog director active</p>
+                <!-- START PHRASE "defn129" -->
+                <p class="defnprototype"><a id="defn129"></a>make the dialogue/dialog director active</p>
+                <!-- END PHRASE -->
                 <p>Switches the dialogue director to active mode.</p>
             </div>
             <p>Which can be undone again:</p>
             <div class="definition">
-                <p class="defnprototype">make the dialogue/dialog director passive/inactive</p>
+                <!-- START PHRASE "defn130" -->
+                <p class="defnprototype"><a id="defn130"></a>make the dialogue/dialog director passive/inactive</p>
+                <!-- END PHRASE -->
                 <p>Switches the dialogue director to passive mode.</p>
             </div>
             <p>All of the ways dialogue can begin in passive mode are still true for active mode (see <a href="WI_11_4.html" title="Section 11.4: When the director is passive">When the director is passive</a>). But in active mode, the director can also fill conversational lulls by trying to find relevant things to talk about, and people to talk about them.</p>
             <p>To do this, the director tracks a list of &quot;live conversational subjects&quot; which it might be interesting to talk about. The idea is that if somebody has just mentioned visiting Barcelona, then Barcelona might become a live subject. If conversation then lapses, the director will try to keep it going by finding something which somebody present can say about Barcelona.</p>
             <p>A lull in conversation is a turn in which no other dialogue has been performed. It's sometimes useful to know whether or not that's the case, so a simple phrase is provided:</p>
             <div class="definition">
-                <p class="defnprototype">if dialogue has been performed this turn:</p>
+                <!-- START PHRASE "defn131" -->
+                <p class="defnprototype"><a id="defn131"></a>if dialogue has been performed this turn:</p>
+                <!-- END PHRASE -->
                 <p>This means exactly as it reads.</p>
             </div>
             <p>The business of filling this dead air is then carried out by the <code class="inlinesourcetext">dialogue direction rule</code> in the <code class="inlinesourcetext">turn sequence rulebook</code>. What happens is that the director looks for a suitable beat to perform, where &quot;suitable&quot; means that:</p>
@@ -2176,8 +2274,10 @@
             <ul>
             <li>
             <p>A subject becomes live whenever a line of dialogue <code class="inlinesourcetext">mentioning</code> it is performed. For example, if Bernardo says this line:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Denmark</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;This bodes some strange eruption to our state.&quot;</span>
+            <!-- START CODE "code632" -->
+            <blockquote class="extract-inform7"><a id="code632"></a><span class="indexdullblue"><span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> (</span><span class="identifier-syntax">mentioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">Denmark</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;This bodes some strange eruption to our state.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then <code class="inlinesourcetext">Denmark</code> becomes a live conversational subject.</p>
             </li>
             <li>
@@ -2196,54 +2296,54 @@
             <p>Something to bear in mind is that the director tracks this list all of the time, even though it only uses it in active mode. So if it is switched into active mode having been passive up to now, it may be starting with some subjects already live.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg178><a style="text-decoration: none" href="eg_178.html"><span class="extensionexampleletter">178</span></a></span></div>
+                    <span id=eg175><a style="text-decoration: none" href="eg_175.html"><span class="extensionexampleletter">175</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_178.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">German Chocolate</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_175.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">German Chocolate</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing a character to doggedly pursue a particular subject of conversation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg178><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg175><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg176><a style="text-decoration: none" href="eg_176.html"><span class="extensionexampleletter">176</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_176.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skeleton First</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A sequence of dialogue scenes that introduces the player's life and invites them on a quest.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg176><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg177><a style="text-decoration: none" href="eg_177.html"><span class="extensionexampleletter">177</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_177.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine Revisited</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">The Pine 2 example rewritten using the dialogue system, allowing for a scene that ends when critical information has been communicated, regardless of how the conversation flows to that point.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg177><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg178><a style="text-decoration: none" href="eg_178.html"><span class="extensionexampleletter">178</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_178.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Introductory Lavori Studies</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Teaching the player multiple new commands via an instructor character who comments on the player's progress and reacts to actions taken out of order.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg178><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg179><a style="text-decoration: none" href="eg_179.html"><span class="extensionexampleletter">179</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_179.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skeleton First</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A sequence of dialogue scenes that introduces the player's life and invites them on a quest.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_179.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Text Foosball Commentated</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A foosball game where the other character not only plays against us but reacts to the state of gameplay and riffs on previously-mentioned topics.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg179><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg180><a style="text-decoration: none" href="eg_180.html"><span class="extensionexampleletter">180</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_180.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine Revisited</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">The Pine 2 example rewritten using the dialogue system, allowing for a scene that ends when critical information has been communicated, regardless of how the conversation flows to that point.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg180><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg181><a style="text-decoration: none" href="eg_181.html"><span class="extensionexampleletter">181</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_181.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Introductory Lavori Studies</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Teaching the player multiple new commands via an instructor character who comments on the player's progress and reacts to actions taken out of order.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg181><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg182><a style="text-decoration: none" href="eg_182.html"><span class="extensionexampleletter">182</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_182.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Text Foosball Commentated</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A foosball game where the other character not only plays against us but reacts to the state of gameplay and riffs on previously-mentioned topics.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg182><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_4.html"><span class="markdowncontent">Section 11.4: When the director is passive</span></a> &bull; <a href="WI_11_6.html"><span class="markdowncontent">Section 11.6: Entrances and exits</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

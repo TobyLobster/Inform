@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.7: Recorded sounds</span></title>
+    <title><span class="markdowncontent">Section 25.7: Pausing for keystrokes or commands</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,10 +2201,10 @@
                         <a href="WI_25_6.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.7: Recorded sounds</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.7: Pausing for keystrokes or commands</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
-                        <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_8.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
+                        <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_1.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
                     </td>
                 </tr>
             </table>
@@ -2127,19 +2212,58 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.7: Recorded sounds</span></h3>
-            <p> </p>
-            <p>Inform also supports the playing back of recorded sounds, which might be anything from a three-second sound effect for a creaking door to an epic orchestral symphony. <strong>Sound support is very newly added to the system and work is still in progress. In particular, sounds are not played by Inform for OS X (although it does produce valid blorbed Glulx story files), though they should be audible from within the Inform application for Windows.</strong></p>
-            <p>Once again, sound effects are supported by Inform 7 only on the Glulx platform, and even then we must be prepared for the fact that not all interpreters will be able to play them back. We must also bear in mind that a sound recording is a large pile of bits, and that adding any kind of sounds will greatly increase the size of the Blorb file for the released Glulx story file.</p>
-            <p>The sound files provided must have one of two formats: AIFF or Ogg Vorbis. AIFF is a traditional format in the recording industry, though it is more familiar to Mac OS X users than Windows users. It is uncompressed, giving what can be excellent audio quality, but at the cost of sometimes enormous file sizes – perhaps as much as 10 MB per minute, though this can be greatly reduced by lowering the sampling frequency, and halved again by dropping from stereo to mono.</p>
-            <p>Except for very short sound effects, we recommend using <strong>Ogg Vorbis</strong> instead. This is a compressed format whose file sizes will typically be more like 1 MB per minute. Inform uses Ogg Vorbis as the only format safe from licensing and patent disputes. (We would very much have liked to provide MP3 support, but this is no longer legally possible for free software.)</p>
-            <p>Support for Ogg Vorbis is not built in to either Windows or Mac OS X, and any sound recording you make will probably have to be made first to another format (perhaps AIFF or WAV), and then converted. See <a href="https://xiph.org/vorbis/">xiph.org/vorbis</a> for encoding software which can convert from other sound formats to Vorbis.</p>
-            <p>Lastly, it must be remembered that recording industry bodies are very hostile to established copyright law covering fair use, parody, quotation of insubstantial passages, etc., when it comes to mixing or using commercially released music. They are well-resourced and highly litigious. If you use sound effects not originated by yourself, you do so at your own risk, even if what you do is perfectly legal on any reading of the statutes.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Pausing for keystrokes or commands" -->
+            <!-- SEARCH SECTION "25.7" -->
+            <!-- SEARCH SORT "001-025-007-000" -->
+            <h3><span>Section 25.7: Pausing for keystrokes or commands</span></h3>
+            <p></p>
+            <p>Inform stories ordinarily pause at the same point in each turn to wait for the player to type something which will be parsed as a command and turned into actions. But it's possible to pause at other times, or to get typed input for other reasons. The following phrases work on both Glulx and the Z-machine.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn451" -->
+                <p class="defnprototype"><a id="defn451"></a>next pressed key ... unicode character</p>
+                <!-- END PHRASE -->
+                <p>This phrase pauses and waits for the player to press a single key.</p>
+            </div>
+            <p>For more on the <code class="inlinesourcetext">unicode character</code> kind, see <a href="WI_5_11.html" title="Section 5.11: Unicode characters">Unicode characters</a>. In particular, see the list there of named values for keys which do not correspond to symbols as such: navigation keys like <code class="inlinesourcetext">page up key</code>, or function keys like <code class="inlinesourcetext">f5 key</code>.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn452" -->
+                <p class="defnprototype"><a id="defn452"></a>next typed line ... text</p>
+                <!-- END PHRASE -->
+                <p>This phrase pauses and waits for the player to enter a whole line of text followed by the enter key. It does not parse the player's response, and simply
+                returns what was typed in (without a final newline character).</p>
+            </div>
+            <p>Inform includes a few utility phrases to handle pausing the game and waiting for the player to respond.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn453" -->
+                <p class="defnprototype"><a id="defn453"></a>wait for any key</p>
+                <!-- END PHRASE -->
+                <p>Wait for the player to press (almost) any key. It actually excludes the up/down/page up/page down keys in order to let the player read the transcript without the story progressing.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn454" -->
+                <p class="defnprototype"><a id="defn454"></a>wait for the space key</p>
+                <!-- END PHRASE -->
+                <p>Wait for the player to press the space or enter/return key.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn455" -->
+                <p class="defnprototype"><a id="defn455"></a>pause the game/story</p>
+                <!-- END PHRASE -->
+                <p>This phrase will say &quot;Please press SPACE to continue.&quot; and then wait until the player presses the space key (or enter/return); after which, the screen is cleared, and then play resumes.</p>
+                <p>Note that this is done by following the <code class="inlinesourcetext">standard pause the game rule</code>, and that the text &quot;Please press SPACE to continue.&quot; is response (A) of that rule, and can therefore be changed as desired.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn456" -->
+                <p class="defnprototype"><a id="defn456"></a>stop the game/story abruptly</p>
+                <!-- END PHRASE -->
+                <p>Mostly useful in Basic Inform projects, this phrase will tell the virtual machine to stop immediately. It does not invoke any of the end of play systems — the <code class="inlinesourcetext">shutdown rules</code>, the <code class="inlinesourcetext">when play ends</code> rules, and so on.</p>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_6.html"><span class="markdowncontent">Section 25.6: Displaying the figures</span></a> &bull; <a href="WI_25_8.html"><span class="markdowncontent">Section 25.8: Declaring and playing back sounds</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_6.html"><span class="markdowncontent">Section 25.6: Dividing the screen into windows</span></a> &bull; <a href="WI_26_1.html"><span class="markdowncontent">Chapter 26: Events and Hyperlinks</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

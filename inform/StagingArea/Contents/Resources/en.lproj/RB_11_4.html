@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,98 +2212,110 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Scoring" -->
+            <!-- SEARCH SECTION "11.4" -->
+            <!-- SEARCH SORT "002-011-004-000" -->
             <h3><span>Section 11.4: Scoring</span></h3>
             <p> 
             Not every work of IF allots a numerical score to the player: for some authors, this emphasises the idea of a story rather than a narrative. The simple sentence</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scoring</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2133" -->
+            <blockquote class="extract-inform7"><a id="code2133"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">scoring</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>introduces the concept. Once this is included, Inform will provide built-in support for a single number measuring progress (<code class="inlinesourcetext">score</code>), and will expect to measure this against a maximum possible (<code class="inlinesourcetext">maximum score</code>, which can either be set by hand or worked out automatically from a table of ranks).</p>
             <p>In a story in which scoring exists, the player may choose to turn score notifications (such as <code class="inlinesourcetext">&quot;[Your score has just gone up by one point.]&quot;</code>) on or off. The commands to do this are <code class="inlinetranscriptcommand">notify on</code> and <code class="inlinetranscriptcommand">notify off</code>; the actions are called switching score notification on and switching score notification off. In the event that we need to amend the behaviour of notification, we could do so by adding, removing, or modifying the elements of the check and carry out rulebooks for these commands; as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">notification</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2134" -->
+            <blockquote class="extract-inform7"><a id="code2134"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">switching</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">notification</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You are still a novice, grasshopper. Allow your teacher to give you advice until such time as you are ready to go on alone.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are still a novice, grasshopper. Allow your teacher to give you advice until such time as you are ready to go on alone.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If we wish to change the wording of the default message (<code class="inlinetranscript">[Your score has...</code>), we may want to use the Responses system.</p>
             <p>An especially insidious style of bug allows the player to type the same sequence of commands over and over, earning score endlessly for the same insight, and to avoid this it is usually safest to write source like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Picasso</span><span class="syntaxplain"> </span><span class="syntaxidentifier">miniature</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Picasso</span><span class="syntaxplain"> </span><span class="syntaxidentifier">miniature</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">handled</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2135" -->
+            <blockquote class="extract-inform7"><a id="code2135"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Picasso</span><span class="plain-syntax"> </span><span class="identifier-syntax">miniature</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Picasso</span><span class="plain-syntax"> </span><span class="identifier-syntax">miniature</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">handled</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increase</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;As they say in Montmartre: dude!&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;As they say in Montmartre: dude!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We might also write our condition with <code class="inlinesourcetext">for the first time</code>, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code2136" -->
+            <blockquote class="extract-inform7"><a id="code2136"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">jumping</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increase</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Boing! That was certainly entertaining.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Boing! That was certainly entertaining.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But we should be careful not to use <code class="inlinesourcetext">for the first time</code> in scoring situations where it's possible for the player to try the action but fail. Inform counts even unsuccessful attempts towards the number of times an action is understood to have occurred, so if the player tries to jump and fails, their <code class="inlinesourcetext">for the first time</code> will be used up and they will never receive the score points.</p>
-            <p>If there are many &quot;treasure&quot; items like the Picasso miniature, it is best to be systematic, as in <a href="eg_143.html">No Place Like Home</a>. <a href="eg_241.html">Bosch</a> takes another approach to the same idea, by creating a table of point-earning actions that the player will be rewarded for doing; the <code class="inlinetranscriptcommand">full score</code> command will then play these back.</p>
-            <p><a href="eg_142.html">Mutt's Adventure</a> demonstrates how we might add a scored room feature, such that the player earns a point when they first arrive at a special room.</p>
-            <p>A single number does not really sum up a life, or even an afternoon, and <a href="eg_309.html">Goat-Cheese and Sage Chicken</a> and <a href="eg_172.html">Panache</a> offer more detailed citations. Works that are more story than story may prefer to offer a plot summary of the player's experience to date in lieu of more conventional scoring.</p>
-            <p>Finally, <a href="eg_470.html">Rubies</a> provides a scoreboard that keeps track of the ten highest-scoring players from one playthrough to the next.</p>
+            <p>If there are many &quot;treasure&quot; items like the Picasso miniature, it is best to be systematic, as in <a href="eg_140.html">No Place Like Home</a>. <a href="eg_238.html">Bosch</a> takes another approach to the same idea, by creating a table of point-earning actions that the player will be rewarded for doing; the <code class="inlinetranscriptcommand">full score</code> command will then play these back.</p>
+            <p><a href="eg_139.html">Mutt's Adventure</a> demonstrates how we might add a scored room feature, such that the player earns a point when they first arrive at a special room.</p>
+            <p>A single number does not really sum up a life, or even an afternoon, and <a href="eg_306.html">Goat-Cheese and Sage Chicken</a> and <a href="eg_169.html">Panache</a> offer more detailed citations. Works that are more story than story may prefer to offer a plot summary of the player's experience to date in lieu of more conventional scoring.</p>
+            <p>Finally, <a href="eg_468.html">Rubies</a> provides a scoreboard that keeps track of the ten highest-scoring players from one playthrough to the next.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg241><a style="text-decoration: none" href="eg_241.html"><span class="extensionexampleletter">241</span></a></span></div>
+                    <span id=eg238><a style="text-decoration: none" href="eg_238.html"><span class="extensionexampleletter">238</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_241.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bosch</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_238.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bosch</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a list of actions that will earn the player points, and using this both to change the score and to give <code class="inlinetranscriptcommand">full score</code> reports.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg241><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg238><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg142><a style="text-decoration: none" href="eg_142.html"><span class="extensionexampleletter">142</span></a></span></div>
+                    <span id=eg139><a style="text-decoration: none" href="eg_139.html"><span class="extensionexampleletter">139</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_142.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mutt's Adventure</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_139.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mutt's Adventure</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Awarding points for visiting a room for the first time.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg142><a style="text-decoration: none" href="WI_9_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg139><a style="text-decoration: none" href="WI_9_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg309><a style="text-decoration: none" href="eg_309.html"><span class="extensionexampleletter">309</span></a></span></div>
+                    <span id=eg306><a style="text-decoration: none" href="eg_306.html"><span class="extensionexampleletter">306</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_309.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Goat-Cheese and Sage Chicken</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_306.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Goat-Cheese and Sage Chicken</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Implementing a <code class="inlinetranscriptcommand">full score</code> command which lists more information than the regular <code class="inlinetranscriptcommand">score</code> command, adding times and rankings, as an extension of the example given in this chapter.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg309><a style="text-decoration: none" href="WI_18_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg306><a style="text-decoration: none" href="WI_18_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg143><a style="text-decoration: none" href="eg_143.html"><span class="extensionexampleletter">143</span></a></span></div>
+                    <span id=eg140><a style="text-decoration: none" href="eg_140.html"><span class="extensionexampleletter">140</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_143.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">No Place Like Home</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_140.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">No Place Like Home</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Recording a whole table of scores for specific treasures.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg143><a style="text-decoration: none" href="WI_9_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg140><a style="text-decoration: none" href="WI_9_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg172><a style="text-decoration: none" href="eg_172.html"><span class="extensionexampleletter">172</span></a></span></div>
+                    <span id=eg169><a style="text-decoration: none" href="eg_169.html"><span class="extensionexampleletter">169</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_172.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Panache</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_169.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Panache</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing the score with a plot summary that records the events of the plot, scene by scene.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg172><a style="text-decoration: none" href="WI_10_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg169><a style="text-decoration: none" href="WI_10_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg470><a style="text-decoration: none" href="eg_470.html"><span class="extensionexampleletter">470</span></a></span></div>
+                    <span id=eg468><a style="text-decoration: none" href="eg_468.html"><span class="extensionexampleletter">468</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_470.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rubies</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_468.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rubies</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A scoreboard that keeps track of the ten highest-scoring players from one playthrough to the next, adding the player's name if they have done well enough.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg470><a style="text-decoration: none" href="WI_25_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg468><a style="text-decoration: none" href="WI_27_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_11_3.html"><span class="markdowncontent">Section 11.3: Helping and Hinting</span></a> &bull; <a href="RB_11_5.html"><span class="markdowncontent">Section 11.5: Settings and Status Checks During Play</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

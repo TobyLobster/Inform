@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.2: Bibliographic data</span></title>
+    <title><span class="markdowncontent">Section 27.2: How IF views pictures</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.2: Bibliographic data</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.2: How IF views pictures</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,68 +2212,21 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.2: Bibliographic data</span></h3>
-            <p>        </p>
-            <p>Almost all printed books have a title page and a so-called &quot;imprint&quot; page, often its verso, which make up a description of the contents. The title page gives the name of the book and of the author, while an imprint page contains a variety of details about the edition, the printing, and so on. An ISBN number is allocated so that, from the number alone, any book seller or cataloguer can identify exactly this work. Sometimes other cataloguing information is added, such as the Library of Congress classification. This set of information is called &quot;bibliographic data&quot;, and without it libraries and booksellers would be at a total loss.</p>
-            <p>IF has bibliographic data, too. Inform has a number of special named values to hold this – who wrote the work being created, what it is called, what headline it has, what genre it has and what its release number is, and so on.</p>
-            <p>These can be set as follows:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">title</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Mansfield Perk&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">author</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Janet Austen&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">headline</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;An Interactive Romance&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">genre</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Romance&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;In Miss Austen's new interactive novella, Miss Henrietta Pollifax is adopted by the tempestuous landowner Sir Tankerley Mordant, and must make a new life for herself on the rugged moors.&quot;</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">creation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">2005</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>Most of these are self-explanatory. The <code class="inlinesourcetext">story creation year</code> is provided so that if we need to revise the work to fix some bugs a year later – by no means an uncommon occurrence – then we can make sure it is correctly identified as still being basically a 2005 work. (Just as a book which has had innumerable revised printings may say &quot;First published 1988&quot; on its imprint page.) The <code class="inlinesourcetext">story description</code> is a piece of text, analogous to the back cover blurb on a book: it might be two or three paragraphs long, so the example above is rather minimal, but it should not be epic in length.</p>
-            <p>As we have already seen, a convenient abbreviation provides that if the first sentence of the source text consists solely of text in quotation marks, then that is considered the title. Thus if the source begins:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Mansfield Perk&quot;</span>
-            </span></blockquote>
-            <p>then that will be the <code class="inlinesourcetext">story title</code>. Further, we can write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Mansfield Perk&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Janet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Austen</span>
-            </span></blockquote>
-            <p>with the obvious effect: quotation marks around the author's name are optional here, for convenience, but note that we'd better have them in cases like:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "How IF views pictures" -->
+            <!-- SEARCH SECTION "27.2" -->
+            <!-- SEARCH SORT "001-027-002-000" -->
+            <h3><span>Section 27.2: How IF views pictures</span></h3>
             <p></p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Three Men in a Boat&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Jerome K. Jerome&quot;</span>
-            </span></blockquote>
-            <p>as otherwise the full stop after the K will end the sentence prematurely.</p>
-            <p>The text of these bibliographic descriptions cannot normally include text substitutions, since they are written into external descriptions of the story file as part of its &quot;binding&quot;. Two exceptions are allowed, though: <code class="inlinesourcetext">&quot;[']&quot;</code> makes a literal apostrophe, and can be used if we need to override Inform's normal conventions to do with converting apostrophes at the ends of words to double-quotes. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Summer of </span><span class="syntaxextract">[']</span><span class="syntaxstring">69&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Buzz</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Aldrin</span>
-            </span></blockquote>
-            <p>The other exception is that the <code class="inlinesourcetext">&quot;[unicode ...]&quot;</code> text substitution works, so for example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;This is a sentence</span><span class="syntaxextract">[unicode 8212]</span><span class="syntaxstring">with a parenthetical in dashes</span><span class="syntaxextract">[unicode 8212]</span><span class="syntaxstring">because 8212 is the Unicode number for an em-dash. But for example, 'pawn to </span><span class="syntaxextract">[unicode black chess bishop]</span><span class="syntaxstring">4' draws in a black chess bishop, so it works with names, too.&quot;</span>
-            </span></blockquote>
-            <p>If the bibliographic named values are not set by the source text, Inform will still need to say something. Unset text and number variables evaluate to <code class="inlinesourcetext">&quot;&quot;</code> and <code class="inlinesourcetext">0</code> respectively, but this would make for a very unhelpful record. So Inform uses the following table instead of any value which is unset:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">title</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Untitled</span>
-            <br>
-            <span class="syntaxidentifier">Story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">author</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Anonymous</span>
-            <br>
-            <span class="syntaxidentifier">Story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">headline</span><span class="syntaxplain">: </span><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Interactive</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fiction</span>
-            <br>
-            <span class="syntaxidentifier">Story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">genre</span><span class="syntaxplain">: </span><span class="syntaxidentifier">Fiction</span>
-            <br>
-            <span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">: </span><span class="syntaxconstant">1</span>
-            </span></blockquote>
-            <p>It is also possible to provide copyright and licencing details for a project. This follows the same syntax and conventions as for extensions, except that the word <code class="inlinesourcetext">story</code> is used instead of <code class="inlinesourcetext">extension</code>. See <a href="WI_29_10.html" title="Section 29.10: Licence">Licence</a> for more.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">licence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;CC-BY-4.0&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">copyright</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bartholomew Hendricks 2006-2024&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">origin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;https://www.loosecannonif.com/bh&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rights</span><span class="syntaxplain"> </span><span class="syntaxidentifier">history</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Adapted by permission from Jennifer Pond's novel 'The Transfinite Kitten' (2003).&quot;</span>
-            </span></blockquote>
+            <p>Looking around a bookshop, perhaps half of all the books published have illustrations. The proportion may be lower for novels, but if we count maps or other occasional diagrams, even the fiction section turns out to be surprisingly pictorial. Illustrations do not suit every book, but they are an option we would like to have available.</p>
+            <p>In the cultural history of IF, graphics in text adventures have sometimes been looked at with suspicion. Mostly this is because attempts in the 1980s were not very successful, because computer graphics were so poor then (by modern standards). It may be that some people also felt that the takeover of computer games by graphical interfaces was the death knell of IF. But pictures are now rendered in superb quality by computers, and the death of IF turned out to be an exaggeration, so it is time to move on.</p>
+            <p>Whether to have illustrations ought to be an artistic choice, like whether to include a romantic sub-plot or how much of the back story is revealed. But there are practical considerations too. The most successful illustrated books are those whose pictures are well-chosen, have a sense of design to them, and above all are consistent. Consider how much worse off <em>Winnie the Pooh</em> would have been if a selection of random teddy-bear drawings had been used, instead of E. H. Shepherd's beautifully conceived world; or a cookery book in which the recipes are all photographed at different distances and light levels. IF writers  may want to look for collaborators with a visual eye, just as most novelists do not draw their own illustrations.</p>
+            <p>Another consideration is that displaying images is more complicated for computers than displaying text. Not all devices can show pictures (consider handheld gadgets) and if they do, they may use different colour ranges or resolutions. So IF with pictures is always just a bit less portable than IF without, and because of that we must next look again at IF story file formats.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_1.html"><span class="markdowncontent">Chapter 27: Releasing</span></a> &bull; <a href="WI_27_3.html"><span class="markdowncontent">Section 27.3: Genres</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_1.html"><span class="markdowncontent">Chapter 27: Figures, Sounds and Files</span></a> &bull; <a href="WI_27_3.html"><span class="markdowncontent">Section 27.3: Gathering the figures</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

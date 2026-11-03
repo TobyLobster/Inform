@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.4: Creating a new extension</span></title>
+    <title><span class="markdowncontent">Section 29.4: The Library Card</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_3.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.4: Creating a new extension</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.4: The Library Card</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_5.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,74 +2212,22 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.4: Creating a new extension</span></h3>
-            <p></p>
-            <p>To create a new extension, it's first sensible to create a host project which can try it out. The nascent extension then stays installed in that host project until it's ready to ship out to the world.</p>
-            <p>So, let's begin with a project like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Ducking Test&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxcomment">[Include Ducking Action by Peter Drake.]</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Village</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>Note that the inclusion is commented out by the <code class="inlinesourcetext">[</code> and <code class="inlinesourcetext">]</code>, since there's not yet an extension to include. We save this as, say, <code class="inlinecode">Ducking Test.inform</code>, then run it, which ensures that <code class="inlinecode">Ducking Test.materials</code> is created too. In fact, it already has some contents:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Ducking Test.inform</span><br><span class="syntaxidentifier">Ducking Test.materials</span><br><span class="syntaxidentifier">    Extensions</span><br><span class="syntaxidentifier">        Reserved</span><br><span class="syntaxidentifier">    Release</span><br></code></pre></div>
-            <p>We then need to create three further subfolders (also known as subdirectories), so as to get to this layout:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Ducking Test.inform</span><br><span class="syntaxidentifier">Ducking Test.materials</span><br><span class="syntaxidentifier">    Extensions</span><br><span class="syntaxidentifier">        Peter Drake</span><br><span class="syntaxidentifier">            Ducking Action-v1.i7xd</span><br><span class="syntaxidentifier">                Source</span><br><span class="syntaxidentifier">        Reserved</span><br><span class="syntaxidentifier">    Release</span><br></code></pre></div>
-            <p>That is, we create an <code class="inlinecode">Extensions</code> subfolder of the materials folder, then a <code class="inlinecode">Peter Drake</code> subfolder of that, then a <code class="inlinecode">Ducking Action-v1.i7xd</code> subfolder in turn, and finally, at the centre of these Russian dolls, a <code class="inlinecode">Source</code> subfolder.</p>
-            <p>So now we create a text file called <code class="inlinecode">Ducking Action.i7x</code>, which reads as follows:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck!&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>This should be a plain text file. It is sometimes said that &quot;there is no such thing as plain text&quot;, there being so many ways to represent exotic characters: so to be precise, the source should be a text file with the Unicode UTF-8 encoding, either with or without a BOM marker, using any of the possible forms of line-ending (Unix, Windows, Macintosh, or Unicode line divider). But this is a detail which will only matter if the extension contains accented letters or other exotica. The default settings on any modern text editor will likely be fine.</p>
-            <p>We save this file, and so now we have this setup:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Ducking Test.inform</span><br><span class="syntaxidentifier">Ducking Test.materials</span><br><span class="syntaxidentifier">    Extensions</span><br><span class="syntaxidentifier">        Peter Drake</span><br><span class="syntaxidentifier">            Ducking Action-v1.i7xd</span><br><span class="syntaxidentifier">                Source</span><br><span class="syntaxidentifier">                    Ducking Action.i7x</span><br><span class="syntaxidentifier">        Reserved</span><br><span class="syntaxidentifier">    Release</span><br></code></pre></div>
-            <p>We can now uncomment the <code class="inlinesourcetext">Include</code> line in the test project:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Ducking Test&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Village</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>When we run it again, the whole thing should now work:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TEST ME</span><br><span class="syntaxidentifier">(Testing.)</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract">[1] DUCK</span><br><span class="syntaxidentifier">You duck!</span><br></code></pre></div>
-            <p>And that's it: a fully-functioning extension has been made.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Library Card" -->
+            <!-- SEARCH SECTION "29.4" -->
+            <!-- SEARCH SORT "001-029-004-000" -->
+            <h3><span>Section 29.4: The Library Card</span></h3>
+            <p>  </p>
+            <p>Bibliographic data is useful for two reasons. Firstly, it enables the equivalent of a title page to be printed – traditionally called the &quot;banner&quot; – at the start of play; secondly, Inform uses it to generate the equivalent of a library card for the work, which can be used by other programs to help organise, sort and classify interactive fiction. If the card is given to any other program on any other machine (or an Internet-based archive) then, in principle, that system can know about our work of fiction without a human librarian having to get hold of a copy, play it and laboriously copy out the details.</p>
+            <p>The &quot;library card&quot; is not of course a physical card, but a small &quot;metadata&quot; file which could potentially be transmitted quickly across the Internet. It contains no personal data other than what you choose to put on it, using the sentences documented in this chapter: it does not, for instance, identify your computer or IP address. In any case Inform does not send it anywhere, but merely keeps an up-to-date copy within the project, and includes it when making a release copy of the work. You can always see (a representation of) the current library card for a project in the Contents index.</p>
+            <p>Authors are asked to play fair, in return, by writing sensible and useful bibliographic information for any work which is likely to circulate to other people; by being honest (writing under a pseudonym is fine, but not impersonating other people); and by conforming to standard practice.</p>
+            <p>The Settings panel of each project contains a tick-box called &quot;Bind up into a Blorb archive on release&quot;, and by default this is ticked. &quot;Blorb&quot; is a nonsense word from a popular early 1980s work of IF called <em>Enchanter</em>, where it was the name of a magic spell whose purpose was to &quot;safely protect a small object as though in a strong box&quot;. In the late 1990s, the name was borrowed for a standard format for what might be called the wrapping and packaging of IF. A typical Blorb archive produced by Inform contains the &quot;story file&quot; – the actual program for the story – together with its library card and cover art.</p>
+            <p>Modern IF interpreters such as Zoom for Mac OS X and Unix, and Windows Frotz, can play blorb archives directly, and the authors of Inform hope to make this the normal practice in future. Still, some interpreters cannot read blorbs directly and have to be given the actual story file: so by unchecking the above tick-box, we can insist that Inform creates only that. The disadvantage with this, of course, is that the library card (with all its bibliographic data) and any cover art is lost in the process.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_3.html"><span class="markdowncontent">Section 29.3: Title and authorship</span></a> &bull; <a href="WI_29_5.html"><span class="markdowncontent">Section 29.5: JSON metadata</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_3.html"><span class="markdowncontent">Section 29.3: Genres</span></a> &bull; <a href="WI_29_5.html"><span class="markdowncontent">Section 29.5: The Treaty of Babel and the IFID</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

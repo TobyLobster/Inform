@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,42 +2193,119 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg401><a style="text-decoration: none" href="WI_20_34.html"><span class="extensionexampleletter">401</span></a></span></div>
+                <span id=eg401><a style="text-decoration: none" href="WI_20_35.html"><span class="extensionexampleletter">401</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Minimal Movement</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Supplying a default direction for <code class="inlinetranscriptcommand">go</code>, so that <code class="inlinetranscriptcommand">leave</code>, <code class="inlinetranscriptcommand">go</code>, etc., are always interpreted as <code class="inlinetranscriptcommand">out</code>.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">North by Northwest</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Creating additional compass directions between those that already exist (for instance, <code class="inlinetranscriptcommand">nnw</code>) -- and dealing with an awkwardness that arises when the player tries to type <code class="inlinetranscriptcommand">north-northwest</code>. The example demonstrates a way around the default nine-character limit on parsed words.</span></span></div>
             <div class="exampleright">
-                <span id=eg401><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg401><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "North by Northwest" -->
+        <!-- SEARCH SECTION "Example 401" -->
+        <!-- SEARCH SORT "003-401-000-000" -->
         <p></p>
-        <p>Sometimes it would be nice to respond a little more sensitively to a vague command such as <code class="inlinetranscriptcommand">leave</code> – converting it, perhaps, to a <code class="inlinetranscriptcommand">go out</code> command.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Minimal Movement[=0x0022=][=0x000A=][=0x000A=]The Doll-like House is a room. The Postage-Stamp-Sized Garden is outside from the House.[=0x000A=][=0x000A=]Rule for supplying a missing noun while going:[=0x000A=][=0x0009=]now noun is outside.[=0x000A=][=0x000A=]The block vaguely going rule is not listed in the for supplying a missing noun rules.[=0x000A=][=0x000A=]Test me with [=0x0022=]go[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Minimal Movement&quot;</span>
+        <p>Suppose we wanted to add intermediate compass directions such as north-northwest to our game. Because of the limitations of the index map, we won't be able to view these connections on the world map, but we can certainly create them, and use them in route-finding, just like other directions.</p>
+        <p>Here's how we'd set up such a thing:</p>
+        <!-- START CODE "code2428" -->
+        <blockquote class="extract-inform7"><a id="code2428"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]North by Northwest[=0x0022=][=0x000A=][=0x000A=]Section 1 - Procedure[=0x000A=][=0x000A=]The north-northwest is a direction. North-northwest has opposite south-southeast. Understand [=0x0022=]n-nw[=0x0022=] or [=0x0022=]nnw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The north-northeast is a direction. North-northeast has opposite south-southwest. Understand [=0x0022=]n-ne[=0x0022=] or [=0x0022=]nne[=0x0022=] as north-northeast.[=0x000A=][=0x000A=]The south-southwest is a direction. South-southwest has opposite north-northeast. Understand [=0x0022=]s-sw[=0x0022=] or [=0x0022=]ssw[=0x0022=] as north-northwest.[=0x000A=][=0x000A=]The south-southeast is a direction. South-southeast has opposite north-northwest. Understand [=0x0022=]s-se[=0x0022=] or [=0x0022=]sse[=0x0022=] as south-southeast.[=0x000A=][=0x000A=]The west-northwest is a direction. West-northwest has opposite east-southeast. Understand [=0x0022=]w-nw[=0x0022=] or [=0x0022=]wnw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-northeast is a direction. East-northeast has opposite west-southwest. Understand [=0x0022=]e-ne[=0x0022=] or [=0x0022=]ene[=0x0022=] as east-northeast.[=0x000A=][=0x000A=]The west-southwest is a direction. West-southwest has opposite east-northeast. Understand [=0x0022=]w-sw[=0x0022=] or [=0x0022=]wsw[=0x0022=] as west-northwest.[=0x000A=][=0x000A=]The east-southeast is a direction. East-southeast has opposite west-northwest. Understand [=0x0022=]e-se[=0x0022=] or [=0x0022=]ese[=0x0022=] as east-southeast.[=0x000A=][=0x000A=]After reading a command:[=0x000A=][=0x0009=]let N be [=0x0022=][the player[=0x0027=]s command][=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]north[=0x0022=] in N with [=0x0022=]n[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]east[=0x0022=] in N with [=0x0022=]e[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]south[=0x0022=] in N with [=0x0022=]s[=0x0022=];[=0x000A=][=0x0009=]replace the text [=0x0022=]west[=0x0022=] in N with [=0x0022=]w[=0x0022=];[=0x000A=][=0x0009=]change the text of the player[=0x0027=]s command to N.[=0x000A=][=0x000A=]Section 2 - Scenario[=0x000A=][=0x000A=]The Empty Field is north-northwest of the Deserted Road.[=0x000A=][=0x000A=]A crop-dusting plane is a backdrop. It is not scenery. It is in the Deserted Road and Empty Field. The initial appearance of the crop-dusting plane is [=0x0022=][one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.[=0x0022=][=0x000A=][=0x000A=]After looking:[=0x000A=][=0x0009=]say [=0x0022=]From here you can run to [the list of adjacent rooms].[=0x0022=][=0x000A=][=0x000A=]Rule for printing the name of a room (called the target) which is not the location while looking:[=0x000A=][=0x0009=]let chosen direction be the best route from the location to the target;[=0x000A=][=0x0009=]say [=0x0022=][chosen direction][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]sse / north-northwest[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;North by Northwest&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Doll</span><span class="syntaxplain">-</span><span class="syntaxidentifier">like</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Postage</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Stamp</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Sized</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Procedure</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supplying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">missing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">North</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n-nw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;nnw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outside</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">North</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n-ne&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;nne&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">South</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;s-sw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ssw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">South</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;s-se&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sse&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">West</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;w-nw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wnw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">East</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;e-ne&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ene&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">West</span><span class="plain-syntax">-</span><span class="identifier-syntax">southwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">northeast</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;w-sw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wsw&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">East</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;e-se&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ese&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">-</span><span class="identifier-syntax">southeast</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>This particular situation is very slightly complicated by the existing rules about vague movement, but fortunately we can easily turn those off.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">block</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vaguely</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supplying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">missing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>A complication arises because we reach the 9-character limit: Inform truncates the names of objects to nine characters before trying to understand them. To make matters worse, the hyphen (and other punctuation marks) count as two letters. So both north-northwest and north-northeast will get truncated to <code class="inlinetranscriptcommand">north-no</code>, and be indistinguishable when the player types them.</p>
+        <p>When we are compiling for Glulx, the limit is easily changed with a single line, setting the use option called &quot;dictionary resolution&quot;. For instance, if we wanted to raise the limit so that it is at least 15, we would simply write &quot;Use dictionary resolution of 15.&quot;</p>
+        <p>If we're compiling to the Z-machine, however, we'll have to resort to some manipulation of the player's command. The general solution is that when the player's name for an object is going to have to be longer than we can correctly read, we can substitute an unambiguous abbreviation for the thing the player typed. In this case, it will be simplest and most efficient always to condense the player's direction names to single letters, thus:</p>
+        <!-- START CODE "code2429" -->
+        <blockquote class="extract-inform7"><a id="code2429"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[the player's command]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;north&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;n&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;east&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;e&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;south&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;s&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;west&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;w&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">change</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>For more on the use of text, see the <a href="WI_22_1.html" title="Chapter 22: Advanced Text">Advanced Text</a> chapter.</p>
+        <!-- START CODE "code2430" -->
+        <blockquote class="extract-inform7"><a id="code2430"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;go&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Field</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax">-</span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deserted</span><span class="plain-syntax"> </span><span class="identifier-syntax">Road</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">crop</span><span class="plain-syntax">-</span><span class="identifier-syntax">dusting</span><span class="plain-syntax"> </span><span class="identifier-syntax">plane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">backdrop</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deserted</span><span class="plain-syntax"> </span><span class="identifier-syntax">Road</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Field</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">initial</span><span class="plain-syntax"> </span><span class="identifier-syntax">appearance</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">crop</span><span class="plain-syntax">-</span><span class="identifier-syntax">dusting</span><span class="plain-syntax"> </span><span class="identifier-syntax">plane</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[one of]In the distance[or]Approaching faster and faster[or]Flying ominously low and directly towards you[or]Immediately overhead[or]Circling around for another approach[cycling] is a standard crop-dusting plane.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;From here you can run to [the list of adjacent rooms].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax">) </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">route</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[chosen direction]&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sse / north-northwest&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>In practice, this is going to be overkill for almost all games: most players already find eight compass directions plus up and down to be enough (or more than enough) to keep track of. But the option exists, in case there is a compelling reason to use it.</p>
+        <p>(Note also that we are allowed to use multi-word direction names, so we could have called the directions &quot;north by northwest&quot;, &quot;north by northeast&quot;, and so on. This example deliberately takes the hard way in order to show how to resolve the nine-character problem.)</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_34.html>Section 20.34: Supplying a missing noun/second noun</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_35.html>Section 20.35: Reading a command</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

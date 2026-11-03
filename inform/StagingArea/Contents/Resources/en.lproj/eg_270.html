@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,59 +2193,46 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg270><a style="text-decoration: none" href="WI_15_6.html"><span class="extensionexampleletter">270</span></a></span></div>
+                <span id=eg270><a style="text-decoration: none" href="WI_15_11.html"><span class="extensionexampleletter">270</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Some adaptive text for smelling the flowers, or indeed, anything else.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Responsive</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Altering the standard inventory text for when the player is carrying nothing.</span></span></div>
             <div class="exampleright">
                 <span id=eg270><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Responsive" -->
+        <!-- SEARCH SECTION "Example 270" -->
+        <!-- SEARCH SORT "003-270-000-000" -->
         <p></p>
-        <p>While this isn't very interesting as IF, it runs through most of the adaptive-text tricks.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Olfactory Settings[=0x0022=][=0x000A=][=0x000A=]The Doghouse is a room. [=0x0022=]Not so much a place as a state of being.[=0x0022=][=0x000A=][=0x000A=]The player carries a ticket to the opera, some papers, and a bouquet of flowers. The bouquet is ambiguously plural.[=0x000A=][=0x000A=]Instead of eating something inedible, say [=0x0022=][The noun] [don[=0x0027=]t] seem likely to agree with [us] at all. [We][[=0x0027=]]d be wiser to leave [regarding the noun][them] alone.[=0x0022=][=0x000A=][=0x000A=]Instead of touching something: say [=0x0022=][regarding the noun][Those] [are] all prickly.[=0x0022=][=0x000A=][=0x000A=]Instead of smelling something: say [=0x0022=][Our] nose [regarding nothing][are] too weak to get much smell from [regarding the noun][those].[=0x0022=][=0x000A=][=0x000A=]Instead of smelling the bouquet: say [=0x0022=][regarding the noun][They][[=0x0027=]re] lovely.[=0x0022=][=0x000A=][=0x000A=]Instead of tasting something:[=0x000A=][=0x0009=]say [=0x0022=]Whew, [regarding the noun][are] [those] ever nasty![=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x ticket / eat it / eat them / touch it / touch them / smell it / smell them / taste it / taste them / x papers / eat it / eat them / touch them / smell them / taste them / x bouquet / eat it / eat them / touch them / smell them / taste them[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Olfactory Settings&quot;</span>
+        <p>The most straightforward way to alter the response text for something in the standard rules is to select the Index tab, then select Actions, then pick the particular action whose text we'd like to alter. Under action details, there will be icons that look like speech bubbles.</p>
+        <p>Clicking on the speech bubble will show what the current response text is, and give us an option called &quot;set&quot;.</p>
+        <p>If we click &quot;set&quot;, this will automatically paste in the response name that we need to change. We can put this inside a <code class="inlinesourcetext">when play begins</code> rule in order to make that change take effect from the start of the game, like so:</p>
+        <!-- START CODE "code2985" -->
+        <blockquote class="extract-inform7"><a id="code2985"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Responsive[=0x0022=][=0x000A=][=0x000A=]An Anonymous B613 Cell is a room. [=0x0022=]There isn[=0x0027=]t much to see in this bare room. What there is, you[=0x0027=]ve already seen sometime in the last twenty years.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now print empty inventory rule response (A) is [=0x0022=][We] [have] absolutely nothing.[=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]i[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Responsive&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Doghouse</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Not so much a place as a state of being.&quot;</span>
+        <span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">Anonymous</span><span class="plain-syntax"> </span><span class="identifier-syntax">B613</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cell</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;There isn't much to see in this bare room. What there is, you've already seen sometime in the last twenty years.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opera</span><span class="syntaxplain">, </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">papers</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bouquet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flowers</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bouquet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ambiguously</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plural</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">print</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">inventory</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">response</span><span class="plain-syntax"> (</span><span class="identifier-syntax">A</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[We] [have] absolutely nothing.&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inedible</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[don't]</span><span class="syntaxstring"> seem likely to agree with </span><span class="syntaxextract">[us]</span><span class="syntaxstring"> at all. </span><span class="syntaxextract">[We][']</span><span class="syntaxstring">d be wiser to leave </span><span class="syntaxextract">[regarding the noun][them]</span><span class="syntaxstring"> alone.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">touching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[regarding the noun][Those]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> all prickly.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[Our]</span><span class="syntaxstring"> nose </span><span class="syntaxextract">[regarding nothing][are]</span><span class="syntaxstring"> too weak to get much smell from </span><span class="syntaxextract">[regarding the noun][those]</span><span class="syntaxstring">.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">smelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bouquet</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[regarding the noun][They]['re]</span><span class="syntaxstring"> lovely.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tasting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Whew, </span><span class="syntaxextract">[regarding the noun][are]</span><span class="syntaxstring"> </span><span class="syntaxextract">[those]</span><span class="syntaxstring"> ever nasty!&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x ticket / eat it / eat them / touch it / touch them / smell it / smell them / taste it / taste them / x papers / eat it / eat them / touch them / smell them / taste them / x bouquet / eat it / eat them / touch them / smell them / taste them&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;i&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_6.html>Section 15.6: Adapting demonstratives and possessives</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_15_11.html>Section 15.11: Changing the text of responses</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

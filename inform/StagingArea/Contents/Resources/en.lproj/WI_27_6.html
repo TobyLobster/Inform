@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.6: The Release button and the Materials folder</span></title>
+    <title><span class="markdowncontent">Section 27.6: Recorded sounds</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_5.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.6: The Release button and the Materials folder</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.6: Recorded sounds</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_7.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,49 +2212,23 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.6: The Release button and the Materials folder</span></h3>
-            <p>         </p>
-            <p>Inform's Release button does two things: it makes a stand-alone, public version of the current project – a &quot;story file&quot; – and it gathers up, or creates, whatever material we want to go with it.</p>
-            <p>The release version of the project can be played by anyone with an &quot;interpreter&quot; – they do not need the Inform application installed on their computers, and they will not be able to see the source text. Released versions differ slightly from the versions playable in the Story panel of Inform, because debugging commands such as <code class="inlinetranscriptcommand">actions</code> are not included with them. (As we've seen, also excluded is any material in the source text under a heading including the words <code class="inlinesourcetext">not for release</code>.) In some cases, if we release along with an interpreter, we can even make the project playable from a web browser, so that the player doesn't need to install any software at all, not even a browser plugin.</p>
-            <p>The Release button also creates a <code class="inlinesourcetext">.materials</code> folder for the project, if one doesn't exist already. (On some platforms, the Inform user interface creates it automatically alongside the project.) Inform adopts the convention: the files associated with the project <code class="inlinesourcetext">Whatever.inform</code> should all be kept in a subfolder called <code class="inlinesourcetext">Whatever.materials</code> in the same folder that contains the project.</p>
-            <p>For example, if we have a project filenamed Magician.inform which lives in a folder called &quot;Works in Progress&quot;, then files might be arranged like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Works</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Progress</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">inform</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">materials</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Collegio</span><span class="syntaxplain">.</span><span class="syntaxidentifier">pdf</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Mating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wyverns</span><span class="syntaxplain">.</span><span class="syntaxidentifier">mp3</span>
-            </span></blockquote>
-            <p>Of course &quot;Magician&quot; might not actually be the title of the project – it might be an abbreviation, or a working title. The name of the <code class="inlinesourcetext">.materials</code> folder has to match the name of the <code class="inlinesourcetext">.inform</code> file, not the title.</p>
-            <p>Several advanced features of Inform make use of the <code class="inlinesourcetext">.materials</code> folder, and the &quot;Release&quot; button is one of them. It creates a further subfolder called &quot;Release&quot; within the materials folder. This is where it will always place the story file it creates, together with anything released &quot;along with&quot; the story – Inform will not need to put up a dialogue box asking us where to save the story file, because there is already a natural place. For instance, after a successful click on Release, we might then see:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Works</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Progress</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">inform</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">materials</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Collegio</span><span class="syntaxplain">.</span><span class="syntaxidentifier">pdf</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Mating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wyverns</span><span class="syntaxplain">.</span><span class="syntaxidentifier">mp3</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Release</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Collegio</span><span class="syntaxplain">.</span><span class="syntaxidentifier">pdf</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Magician</span><span class="syntaxplain">.</span><span class="syntaxidentifier">zblorb</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Mating</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wyverns</span><span class="syntaxplain">.</span><span class="syntaxidentifier">mp3</span>
-            </span></blockquote>
-            <p>where <code class="inlinesourcetext">Magician.zblorb</code> is the actual story file produced by Inform. Note that Inform has made copies of the files to be released with it – the idea is that the Release subfolder contains only what Inform makes, and everything in the Release subfolder can be thrown away at any time.</p>
-            <p>This is especially useful if we're releasing along with a website (see below), as then the Release subfolder will be exactly what needs to be uploaded to a server to be shown to the world. Equally, the Release subfolder is what can be zipped up and uploaded to archives or (if small enough) emailed out.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Recorded sounds" -->
+            <!-- SEARCH SECTION "27.6" -->
+            <!-- SEARCH SORT "001-027-006-000" -->
+            <h3><span>Section 27.6: Recorded sounds</span></h3>
+            <p> </p>
+            <p>Inform also supports the playing back of recorded sounds, which might be anything from a three-second sound effect for a creaking door to an epic orchestral symphony. <strong>Sound support is very newly added to the system and work is still in progress. In particular, sounds are not played by Inform for OS X (although it does produce valid blorbed Glulx story files), though they should be audible from within the Inform application for Windows.</strong></p>
+            <p>Once again, sound effects are supported by Inform 7 only on the Glulx platform, and even then we must be prepared for the fact that not all interpreters will be able to play them back. We must also bear in mind that a sound recording is a large pile of bits, and that adding any kind of sounds will greatly increase the size of the Blorb file for the released Glulx story file.</p>
+            <p>The sound files provided must have one of two formats: AIFF or Ogg Vorbis. AIFF is a traditional format in the recording industry, though it is more familiar to Mac OS X users than Windows users. It is uncompressed, giving what can be excellent audio quality, but at the cost of sometimes enormous file sizes – perhaps as much as 10 MB per minute, though this can be greatly reduced by lowering the sampling frequency, and halved again by dropping from stereo to mono.</p>
+            <p>Except for very short sound effects, we recommend using <strong>Ogg Vorbis</strong> instead. This is a compressed format whose file sizes will typically be more like 1 MB per minute. Inform uses Ogg Vorbis as the only format safe from licensing and patent disputes. (We would very much have liked to provide MP3 support, but this is no longer legally possible for free software.)</p>
+            <p>Support for Ogg Vorbis is not built in to either Windows or Mac OS X, and any sound recording you make will probably have to be made first to another format (perhaps AIFF or WAV), and then converted. See <a href="https://xiph.org/vorbis/">xiph.org/vorbis</a> for encoding software which can convert from other sound formats to Vorbis.</p>
+            <p>Lastly, it must be remembered that recording industry bodies are very hostile to established copyright law covering fair use, parody, quotation of insubstantial passages, etc., when it comes to mixing or using commercially released music. They are well-resourced and highly litigious. If you use sound effects not originated by yourself, you do so at your own risk, even if what you do is perfectly legal on any reading of the statutes.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_5.html"><span class="markdowncontent">Section 27.5: The Treaty of Babel and the IFID</span></a> &bull; <a href="WI_27_7.html"><span class="markdowncontent">Section 27.7: The Joy of Feelies</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_5.html"><span class="markdowncontent">Section 27.5: Displaying the figures</span></a> &bull; <a href="WI_27_7.html"><span class="markdowncontent">Section 27.7: Declaring and playing back sounds</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

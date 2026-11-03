@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,14 +2212,20 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Named rules and rulebooks" -->
+            <!-- SEARCH SECTION "21.2" -->
+            <!-- SEARCH SORT "001-021-002-000" -->
             <h3><span>Section 21.2: Named rules and rulebooks</span></h3>
             <p>      </p>
             <p>Most of the rules built into Inform have names. For instance, a rule called <code class="inlinesourcetext">the advance time rule</code> is the one which increments the number of turns and advances the clock, values which are usually not visible, but are ticking away behind the scenes.</p>
             <p>A rulebook is a list of rules to be followed in sequence until one of them makes a decision. For instance, when actions get to the <code class="inlinesourcetext">instead</code> stage, each <code class="inlinesourcetext">instead</code> rule is tried until one of them chooses to do something. If the source text contains the rules</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You have no particular need just now.&quot;</span>
+            <!-- START CODE "code1432" -->
+            <blockquote class="extract-inform7"><a id="code1432"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You have no particular need just now.&quot;</span>
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fish</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It's all slimy.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">fish</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's all slimy.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and a command to <code class="inlinetranscriptcommand">take</code> something is tried, then only one of these rules will have any effect. The <code class="inlinesourcetext">instead</code> rulebook contains:</p>
             <ul>
             <li>Rule (1) to be applied if the action matches &quot;taking a fish&quot;</li>
@@ -2146,27 +2237,27 @@
             <p>The names of built-in rules have been chosen as descriptively as possible: the <code class="inlinesourcetext">can't go through closed doors rule</code>, for instance. Names for rules tend to be verbose, but this is a situation where clarity is very much better than brevity.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg417><a style="text-decoration: none" href="eg_417.html"><span class="extensionexampleletter">417</span></a></span></div>
+                    <span id=eg414><a style="text-decoration: none" href="eg_414.html"><span class="extensionexampleletter">414</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_417.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nine AM Appointment</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_414.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nine AM Appointment</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">wait [number] minutes</code> command which advances through an arbitrary number of turns.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg417><a style="text-decoration: none" href="RB_6_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg414><a style="text-decoration: none" href="RB_6_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg418><a style="text-decoration: none" href="eg_418.html"><span class="extensionexampleletter">418</span></a></span></div>
+                    <span id=eg415><a style="text-decoration: none" href="eg_415.html"><span class="extensionexampleletter">415</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_418.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delayed Gratification</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_415.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delayed Gratification</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscript">WAIT UNTIL [time]</code> command which advances until the game clock reaches the correct hour.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg418><a style="text-decoration: none" href="RB_6_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg415><a style="text-decoration: none" href="RB_6_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_1.html"><span class="markdowncontent">Chapter 21: Rulebooks</span></a> &bull; <a href="WI_21_3.html"><span class="markdowncontent">Section 21.3: New rules</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The internal rulebooks which keep stories running" -->
+            <!-- SEARCH SECTION "21.15" -->
+            <!-- SEARCH SORT "001-021-015-000" -->
             <h3><span>Section 21.15: The internal rulebooks which keep stories running</span></h3>
             <p>       </p>
             <p>Rulebooks handle almost all of the important tasks which keep a story going. We have seen them used in clarifying the player's command, supplying missing ingredients, processing the action to see what should happen, responding, and so on: by this point in the documentation, it must look as if Inform uses rulebooks for everything.</p>
@@ -2146,28 +2235,30 @@
             <li><code class="inlinesourcetext">initial room description rule</code></li>
             </ul>
             <p>The first of these rules runs the <code class="inlinesourcetext">starting the virtual machine</code> activity, and this is a highly technical business best left alone by authors. But the other four are quite simple to follow. In fact, these are their definitions, taken verbatim from the Standard Rules:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Startup</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code1485" -->
+            <blockquote class="extract-inform7"><a id="code1485"></a><span class="indexdullblue"><span class="identifier-syntax">Startup</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">stage</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Startup</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fix</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baseline</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scoring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">notified</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Startup</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">banner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+            <span class="identifier-syntax">Startup</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fix</span><span class="plain-syntax"> </span><span class="identifier-syntax">baseline</span><span class="plain-syntax"> </span><span class="identifier-syntax">scoring</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[banner text]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">notified</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Startup</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+            <span class="identifier-syntax">Startup</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">display</span><span class="plain-syntax"> </span><span class="identifier-syntax">banner</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[banner text]&quot;</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Startup</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">initial</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">):</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The fact that the startup rulebook is arranged in this sequence is why <code class="inlinesourcetext">When play begins</code> rules happen before the banner and then the first room description in a typical story. If we rearranged these rules, as is in fact possible for authors to do, that would no longer be true.</p>
             <p>The <code class="inlinesourcetext">shutdown rulebook</code> is also fairly straightforward, consisting at time of writing of the following:</p>
             <ul>
@@ -2194,10 +2285,12 @@
             </ul>
             <p>These names are mostly fairly self-explanatory. The <code class="inlinesourcetext">parse command rule</code> is the one inviting the player to type a command — say, <code class="inlinetranscriptcommand">switch kettle on</code> — and understanding it to be an action. But that action is not yet acted on. This is what happens in the <code class="inlinesourcetext">generate action rule</code>, which tries the action.</p>
             <p>Action trying can in fact happen many times during a single turn: one action can cause another to be tried, even midway, as when an action like <code class="inlinesourcetext">wearing the felt hat</code> causes <code class="inlinesourcetext">taking the felt hat</code> to be tried silently first. It is even possible for actions to be tried at other points in the turn sequence rules, if the author wants to. For example, writing this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1486" -->
+            <blockquote class="extract-inform7"><a id="code1486"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inventory</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">inventory</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would cause the action <code class="inlinesourcetext">taking inventory</code> during the <code class="inlinesourcetext">every turn stage rule</code>, which of course is the rule which runs the <code class="inlinesourcetext">every turn</code> rulebook.</p>
             <p>So there is no one place in the turn sequence when actions are processed. But there is just one method used to process them, and it's called the <code class="inlinesourcetext">action processing rulebook</code>. This is the second of the two important internal rulebooks to know about. At time of writing, it looks like this:</p>
             <ul>
@@ -2215,7 +2308,7 @@
             </ul>
             <p>There's quite a lot to see there. The two rules mentioning multiple objects are used when commands like <code class="inlinetranscriptcommand">take all</code> have been typed, so that the action being processed is only one of a chain of similar actions happening in succession. For example, in:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TAKE ALL</span><br><span class="syntaxidentifier">Geiger counter: Taken.</span><br><span class="syntaxidentifier">screwdriver: Taken.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; TAKE ALL<br>Geiger counter: Taken.<br>screwdriver: Taken.<br></code></pre></div>
             <p>it is the <code class="inlinesourcetext">announce items from multiple object lists rule</code> which prints up those helpful <code class="inlinetranscript">Geiger counter:</code> and <code class="inlinetranscript">screwdriver:</code> labels; and the <code class="inlinesourcetext">set pronouns from items from multiple object lists rule</code> takes care of setting pronouns like <code class="inlinetranscriptcommand">it</code> and <code class="inlinetranscriptcommand">her</code> from items in that list. (Pronouns are set automatically in the command parser when a name is more explicit, as in <code class="inlinetranscriptcommand">take screwdriver</code>.)</p>
             <p>The <code class="inlinesourcetext">before stage rule</code> is the one running the <code class="inlinesourcetext">before rulebook</code>, and similarly for the <code class="inlinesourcetext">instead stage rule</code>. In between is where restrictions such as accessibility are considered. For example, if an action is <code class="inlinesourcetext">applying to one touchable thing</code>, then it's the <code class="inlinesourcetext">basic accessibility rule</code> which enforces this. The <code class="inlinesourcetext">carrying requirements rule</code> is the one which rejects an action if the noun should be held by the actor but is not, and which also triggers a silent attempt to take the item in order to make things right.</p>
             <p>The <code class="inlinesourcetext">requested actions require persuasion rule</code> is where requests like <code class="inlinetranscriptcommand">janelle, switch machine off</code> are vetted. If this rule were removed, all requests would always be obeyed, which isn't very realistic. Characters in a story have their own agendas. So by default this rule blocks the action, but it runs the <code class="inlinesourcetext">persuasion rulebook</code> to see if the author wants the action to take place instead.</p>
@@ -2242,45 +2335,45 @@
             <p>And, that's about the whole story. But a brief summary would come down to this: there are lots of internal rulebooks which keep Inform stories running, and the two which advanced users might want to meddle with are the <code class="inlinesourcetext">turn sequence rulebook</code> and the <code class="inlinesourcetext">action-processing rulebook</code>. Even then, modifying their operation is a last resort. The story can evidently fall to pieces if they cease to work normally.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg436><a style="text-decoration: none" href="eg_436.html"><span class="extensionexampleletter">436</span></a></span></div>
+                    <span id=eg433><a style="text-decoration: none" href="eg_433.html"><span class="extensionexampleletter">433</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_436.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Electrified</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_433.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Electrified</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a rule before the basic accessibility rule that will prevent the player from touching electrified objects under the wrong circumstances.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg436><a style="text-decoration: none" href="RB_10_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg433><a style="text-decoration: none" href="RB_10_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg437><a style="text-decoration: none" href="eg_437.html"><span class="extensionexampleletter">437</span></a></span></div>
+                    <span id=eg434><a style="text-decoration: none" href="eg_434.html"><span class="extensionexampleletter">434</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_437.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Timeless</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_434.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Timeless</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A set of actions which do not take any game time at all.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg437><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg434><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg438><a style="text-decoration: none" href="eg_438.html"><span class="extensionexampleletter">438</span></a></span></div>
+                    <span id=eg435><a style="text-decoration: none" href="eg_435.html"><span class="extensionexampleletter">435</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_438.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Endurance</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_435.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Endurance</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Giving different actions a range of durations using a time allotment rulebook.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg438><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg435><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg439><a style="text-decoration: none" href="eg_439.html"><span class="extensionexampleletter">439</span></a></span></div>
+                    <span id=eg436><a style="text-decoration: none" href="eg_436.html"><span class="extensionexampleletter">436</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_439.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape from the Seraglio</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_436.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape from the Seraglio</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing the usual response to <code class="inlinetranscriptcommand">take all</code> so that instead of output such as &quot;grapes: Taken. orange: Taken.&quot;, Inform produces variable responses in place of &quot;grapes:&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg439><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg436><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_14.html"><span class="markdowncontent">Section 21.14: Abide by</span></a> &bull; <a href="WI_21_16.html"><span class="markdowncontent">Section 21.16: The Laws for Sorting Rulebooks</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

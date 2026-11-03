@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,15 +2212,23 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "In what order?" -->
+            <!-- SEARCH SECTION "24.9" -->
+            <!-- SEARCH SORT "001-024-009-000" -->
             <h3><span>Section 24.9: In what order?</span></h3>
             <p>  </p>
             <p>Recall the definition:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slam</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shut</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">box</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;With great panache, you slam shut </span><span class="syntaxextract">[the box]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1711" -->
+            <blockquote class="extract-inform7"><a id="code1711"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">slam</span><span class="plain-syntax"> </span><span class="identifier-syntax">shut</span><span class="plain-syntax"> (</span><span class="identifier-syntax">box</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;With great panache, you slam shut [the box].&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Suppose we then try to <code class="inlinesourcetext">slam shut the wall safe</code> at a time during play when the wall safe is already closed. An error message will then be printed during play, since there must be a mistake in the design. The combination of checking both when Inform builds the story file and then continuously when the story file is played guarantees that, in all cases, a varying item such as <code class="inlinesourcetext">box</code> in the definition of <code class="inlinesourcetext">To slam shut (box – open container)</code> always satisfies the condition laid down.</p>
             <p>Instead suppose we also have the following definition:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slam</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shut</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">box</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">): </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You are unable to slam shut </span><span class="syntaxextract">[the box]</span><span class="syntaxstring">, which is already closed.&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1712" -->
+            <blockquote class="extract-inform7"><a id="code1712"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">slam</span><span class="plain-syntax"> </span><span class="identifier-syntax">shut</span><span class="plain-syntax"> (</span><span class="identifier-syntax">box</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">): </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are unable to slam shut [the box], which is already closed.&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We now have two definitions of <code class="inlinesourcetext">slam shut</code>. Sometimes the box it's applied to will be closed, in which case only the second definition fits, and will be the one used. But if the box is open, both definitions fit. Which will happen? The rule is:</p>
             <ol>
             <li>
@@ -2151,16 +2244,18 @@
             <p>Rule 1 ensures that a definition involving <code class="inlinesourcetext">open container</code> takes priority over one which merely involves <code class="inlinesourcetext">container</code>, for instance.</p>
             <p>And therefore when the box is open, it's the more specific phrase to do with open containers which is invoked: so, with great panache, the box is slammed shut.</p>
             <p>On the other hand, neither of these patterns is narrower than the other:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describe</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">something</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">transparent</span><span class="syntaxplain">): ...</span>
+            <!-- START CODE "code1713" -->
+            <blockquote class="extract-inform7"><a id="code1713"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">describe</span><span class="plain-syntax"> (</span><span class="identifier-syntax">something</span><span class="plain-syntax"> - </span><span class="identifier-syntax">transparent</span><span class="plain-syntax">): ...</span>
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">describe</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">something</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">container</span><span class="syntaxplain">): ...</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">describe</span><span class="plain-syntax"> (</span><span class="identifier-syntax">something</span><span class="plain-syntax"> - </span><span class="identifier-syntax">container</span><span class="plain-syntax">): ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Some containers are transparent, some not; some transparent things are containers, some not. Rule 1 therefore does not apply, so it is the later of the two phrases which takes effect.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_24_8.html"><span class="markdowncontent">Section 24.8: Matching the names of kinds</span></a> &bull; <a href="WI_24_10.html"><span class="markdowncontent">Section 24.10: Ambiguities</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

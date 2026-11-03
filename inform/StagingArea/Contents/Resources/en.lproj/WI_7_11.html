@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,38 +2212,50 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The noun and the second noun" -->
+            <!-- SEARCH SECTION "7.11" -->
+            <!-- SEARCH SORT "001-007-011-000" -->
             <h3><span>Section 7.11: The noun and the second noun</span></h3>
             <p>     </p>
             <p>Once we begin applying rules to actions which are not entirely known in advance, we have a problem: there's no way to find out what specifically is happening. Consider the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It is none of your concern!&quot;</span>
+            <!-- START CODE "code406" -->
+            <blockquote class="extract-inform7"><a id="code406"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It is none of your concern!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is fine as far as it goes, but clumsy. What if the player had examined a human being? Then &quot;it&quot; would be inappropriate. A better approach would be this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is none of your concern!&quot;</span>
+            <!-- START CODE "code407" -->
+            <blockquote class="extract-inform7"><a id="code407"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] is none of your concern!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">noun</code> and, when necessary, the <code class="inlinesourcetext">second noun</code> are values which can be used in any rule about actions, and it follows that they can also be substituted into text, as this example demonstrates. Results might include:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Lady</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bracknell</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">none</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">your</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concern</span><span class="syntaxplain">!</span>
+            <!-- START CODE "code408" -->
+            <blockquote class="extract-inform7"><a id="code408"></a><span class="indexdullblue"><span class="identifier-syntax">Lady</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bracknell</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">none</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">your</span><span class="plain-syntax"> </span><span class="identifier-syntax">concern</span><span class="plain-syntax">!</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silver</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cigarette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">case</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">none</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">your</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concern</span><span class="syntaxplain">!</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">cigarette</span><span class="plain-syntax"> </span><span class="identifier-syntax">case</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">none</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">your</span><span class="plain-syntax"> </span><span class="identifier-syntax">concern</span><span class="plain-syntax">!</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This seems a good moment to mention that if you use <code class="inlinesourcetext">The</code> in a substitution, then a capitalised <code class="inlinesourcetext">The</code> will be used so long as this is grammatically correct (Lady Bracknell, as a proper noun, takes no article); <code class="inlinesourcetext">the</code> becomes a lower-case <code class="inlinesourcetext">the</code> along the same lines; and <code class="inlinesourcetext">a</code> a lower-case indefinite article.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drawing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Under Lady Bracknell's eye, you feel constrained. Besides, it is only </span><span class="syntaxextract">[a noun]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code409" -->
+            <blockquote class="extract-inform7"><a id="code409"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drawing</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Under Lady Bracknell's eye, you feel constrained. Besides, it is only [a noun].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg103><a style="text-decoration: none" href="eg_103.html"><span class="extensionexampleletter">103</span></a></span></div>
+                    <span id=eg102><a style="text-decoration: none" href="eg_102.html"><span class="extensionexampleletter">102</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_103.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ming Vase</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_102.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ming Vase</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">attack</code> or <code class="inlinetranscriptcommand">drop</code> break and remove fragile items from play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg103><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg102><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_7_10.html"><span class="markdowncontent">Section 7.10: All actions and exceptional actions</span></a> &bull; <a href="WI_7_12.html"><span class="markdowncontent">Section 7.12: In rooms and regions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,11 +2212,15 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Using the Player's Input" -->
+            <!-- SEARCH SECTION "2.3" -->
+            <!-- SEARCH SORT "002-002-003-000" -->
             <h3><span>Section 2.3: Using the Player's Input</span></h3>
             <p>
             We may sometimes want to capture specific words the player has used and then feature that text elsewhere in the story.</p>
-            <p><a href="eg_346.html">Terracottissima Maxima</a> demonstrates using text to describe objects; <a href="eg_450.html">Mr. Burns' Repast</a> lets the player refer to a fish by any of a number of names, and changes the way the fish is described as a result.</p>
-            <p>More specialised effects are also possible: <a href="eg_410.html">Xot</a> shows how to collect the player's erroneous input and store the command line to be printed back later. <a href="eg_449.html">Igpay Atinlay</a> shows how to parrot the player's command back in pig Latin form.</p>
+            <p><a href="eg_343.html">Terracottissima Maxima</a> demonstrates using text to describe objects; <a href="eg_447.html">Mr. Burns' Repast</a> lets the player refer to a fish by any of a number of names, and changes the way the fish is described as a result.</p>
+            <p>More specialised effects are also possible: <a href="eg_407.html">Xot</a> shows how to collect the player's erroneous input and store the command line to be printed back later. <a href="eg_446.html">Igpay Atinlay</a> shows how to parrot the player's command back in pig Latin form.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_8_3.html" title="Section 8.3: Animals">Animals</a> for a dog which the player can re-name.</li>
@@ -2139,45 +2228,45 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg449><a style="text-decoration: none" href="eg_449.html"><span class="extensionexampleletter">449</span></a></span></div>
+                    <span id=eg446><a style="text-decoration: none" href="eg_446.html"><span class="extensionexampleletter">446</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_449.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Igpay Atinlay</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_446.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Igpay Atinlay</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A pig Latin filter for the player's commands.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg449><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg446><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg450><a style="text-decoration: none" href="eg_450.html"><span class="extensionexampleletter">450</span></a></span></div>
+                    <span id=eg447><a style="text-decoration: none" href="eg_447.html"><span class="extensionexampleletter">447</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_450.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mr. Burns' Repast</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_447.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mr. Burns' Repast</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Letting the player guess types for an unidentifiable fish.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg450><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg447><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg346><a style="text-decoration: none" href="eg_346.html"><span class="extensionexampleletter">346</span></a></span></div>
+                    <span id=eg343><a style="text-decoration: none" href="eg_343.html"><span class="extensionexampleletter">343</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_346.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima Maxima</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_343.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima Maxima</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Flowerpots with textual names that might change during play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg346><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg343><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg410><a style="text-decoration: none" href="eg_410.html"><span class="extensionexampleletter">410</span></a></span></div>
+                    <span id=eg407><a style="text-decoration: none" href="eg_407.html"><span class="extensionexampleletter">407</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_410.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xot</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_407.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xot</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Storing an invalid command to be repeated as text later in the game.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg410><a style="text-decoration: none" href="WI_20_37.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg407><a style="text-decoration: none" href="WI_20_37.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_2_2.html"><span class="markdowncontent">Section 2.2: Varying What Is Read</span></a> &bull; <a href="RB_3_1.html"><span class="markdowncontent">Chapter 3: Place</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

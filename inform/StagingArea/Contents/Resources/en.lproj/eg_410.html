@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,49 +2193,65 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg410><a style="text-decoration: none" href="WI_20_37.html"><span class="extensionexampleletter">410</span></a></span></div>
+                <span id=eg410><a style="text-decoration: none" href="WI_20_40.html"><span class="extensionexampleletter">410</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xot</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Storing an invalid command to be repeated as text later in the game.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Finality</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Not mentioning <code class="inlinetranscriptcommand">undo</code> in the final set of options.</span></span></div>
             <div class="exampleright">
-                <span id=eg410><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg410><a style="text-decoration: none" href="RB_11_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>In Hitchhiker's Guide to the Galaxy, any erroneous command the player types can return to haunt them later in the game. We could do the same, if we liked, by storing the player's command whenever we print a parser error.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Xot[=0x0022=][=0x000A=][=0x000A=]Humiliation Chamber is a room. [=0x0022=]A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can[=0x0027=]t disable it, is a loudspeaker.[=0x0022=][=0x000A=][=0x000A=]The last error is a text that varies. The last error is [=0x0022=]xot[=0x0022=].[=0x000A=][=0x000A=]Before printing a parser error:[=0x000A=][=0x0009=]now the last error is the player[=0x0027=]s command.[=0x000A=][=0x000A=]Every turn when a random chance of 1 in 2 succeeds:[=0x000A=][=0x0009=]say [=0x0022=]Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying [=0x0027=][last error], [last error], [last error]![=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]wiggle / z / z / z / z / z / z[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Xot&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Finality" -->
+        <!-- SEARCH SECTION "Example 410" -->
+        <!-- SEARCH SORT "003-410-000-000" -->
+        <p>
+
+
+
+         </p>
+        <p>By default, Inform reminds the player that they have the option of typing <code class="inlinetranscriptcommand">undo</code> after a story-ending action. This is generally good practice, especially for the sake of novice players who might not be aware of this possibility otherwise, and might be frustrated by a loss they could easily step back from.</p>
+        <p>Just occasionally, though, we may decide that the player does not deserve any such notification:</p>
+        <!-- START CODE "code2250" -->
+        <blockquote class="extract-inform7"><a id="code2250"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Finality[=0x0022=][=0x000A=][=0x000A=]Cliff Edge is a room. [=0x0022=]This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you[=0x0027=]re safe up here.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]choose row with a final response rule of immediately undo rule in the Table of Final Question Options;[=0x000A=][=0x0009=]blank out the final question wording entry.[=0x000A=][=0x000A=]Instead of jumping:[=0x000A=][=0x0009=]say [=0x0022=]If you insist.[=0x0022=];[=0x000A=][=0x0009=]end the story.[=0x000A=][=0x000A=]Use undo prevention.[=0x000A=][=0x000A=]Test me with [=0x0022=]jump[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Finality&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Humiliation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A grim, grey-walled room. Cameras watch you from every angle; convex mirrors reflect your actions; and up near the ceiling, where you can't disable it, is a loudspeaker.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;xot&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Over the loudspeaker comes some distorted nonsense. If you listen carefully, it sounds as though some fool is saying '</span><span class="syntaxextract">[last error]</span><span class="syntaxstring">, </span><span class="syntaxextract">[last error]</span><span class="syntaxstring">, </span><span class="syntaxextract">[last error]</span><span class="syntaxstring">!'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wiggle / z / z / z / z / z / z&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Cliff</span><span class="plain-syntax"> </span><span class="identifier-syntax">Edge</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;This narrow strip overlooks a gorge many hundreds of feet deep, at whose bottom is a river of molten lava. The walls of the gorge are lined with poison-tipped spikes. Furthermore, the birds that inhabit this valley spit balls of fire. Good thing you're safe up here.&quot;</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>The <code class="inlinesourcetext">Table of Final Question Options</code> determines what options are to be given to the player after the story ends. We can change what is mentioned there by altering the entries. (The example <a href="eg_411.html">Jamaica 1688</a> explains this table in more detail, and demonstrates some other things that we might do with it.)</p>
+        <!-- START CODE "code2251" -->
+        <blockquote class="extract-inform7"><a id="code2251"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">final</span><span class="plain-syntax"> </span><span class="identifier-syntax">response</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">immediately</span><span class="plain-syntax"> </span><span class="identifier-syntax">undo</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Final</span><span class="plain-syntax"> </span><span class="identifier-syntax">Question</span><span class="plain-syntax"> </span><span class="identifier-syntax">Options</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">final</span><span class="plain-syntax"> </span><span class="identifier-syntax">question</span><span class="plain-syntax"> </span><span class="identifier-syntax">wording</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">jumping</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;If you insist.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>And if we decided that we didn't want the player to be able to undo the command at all, we should add the use option</p>
+        <!-- START CODE "code2252" -->
+        <blockquote class="extract-inform7"><a id="code2252"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">undo</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevention</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;jump&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_37.html>Section 20.37: Printing a parser error</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_20_40.html>Section 20.40: Printing the player's obituary</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

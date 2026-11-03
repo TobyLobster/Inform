@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,51 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Sounds" -->
+            <!-- SEARCH SECTION "3.8" -->
+            <!-- SEARCH SORT "002-003-008-000" -->
             <h3><span>Section 3.8: Sounds</span></h3>
             <p>
-            It is too easily assumed that room descriptions are what the player sees, but as <a href="eg_56.html">The Undertomb 1</a> demonstrates, they might just as easily include ambient sounds.</p>
-            <p>So Inform's <code class="inlinesourcetext">listening to</code> action is the audio equivalent of <code class="inlinesourcetext">examining</code>, rather than <code class="inlinesourcetext">looking</code>. Despite this the player can type <code class="inlinetranscriptcommand">listen</code>, which Inform understands as listening to the everything in the location at once. A simple but effective way to handle this is shown in <a href="eg_101.html">The Art of Noise</a>.</p>
-            <p><a href="eg_392.html">Four Stars 2</a> adjusts the idea of <code class="inlinesourcetext">visibility</code> to make it behave differently for listening purposes: this introduces a formal idea of <code class="inlinesourcetext">audibility</code>.</p>
+            It is too easily assumed that room descriptions are what the player sees, but as <a href="eg_55.html">The Undertomb 1</a> demonstrates, they might just as easily include ambient sounds.</p>
+            <p>So Inform's <code class="inlinesourcetext">listening to</code> action is the audio equivalent of <code class="inlinesourcetext">examining</code>, rather than <code class="inlinesourcetext">looking</code>. Despite this the player can type <code class="inlinetranscriptcommand">listen</code>, which Inform understands as listening to the everything in the location at once. A simple but effective way to handle this is shown in <a href="eg_100.html">The Art of Noise</a>.</p>
+            <p><a href="eg_389.html">Four Stars 2</a> adjusts the idea of <code class="inlinesourcetext">visibility</code> to make it behave differently for listening purposes: this introduces a formal idea of <code class="inlinesourcetext">audibility</code>.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_7.html" title="Section 3.7: Lighting">Lighting</a> for heightened hearing in darkness, and the rest of &quot;Four Stars&quot;.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg392><a style="text-decoration: none" href="eg_392.html"><span class="extensionexampleletter">392</span></a></span></div>
+                    <span id=eg389><a style="text-decoration: none" href="eg_389.html"><span class="extensionexampleletter">389</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_392.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Four Stars 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_389.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Four Stars 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using &quot;deciding the scope&quot; to change the content of lists such as &quot;the list of audible things which can be touched by the player&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg392><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg389><a style="text-decoration: none" href="WI_20_31.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg56><a style="text-decoration: none" href="eg_56.html"><span class="extensionexampleletter">56</span></a></span></div>
+                    <span id=eg55><a style="text-decoration: none" href="eg_55.html"><span class="extensionexampleletter">55</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_56.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Undertomb 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_55.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Undertomb 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A small map of dead ends, in which the sound of an underground river has different strengths in different caves.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg56><a style="text-decoration: none" href="WI_4_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg55><a style="text-decoration: none" href="WI_4_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg101><a style="text-decoration: none" href="eg_101.html"><span class="extensionexampleletter">101</span></a></span></div>
+                    <span id=eg100><a style="text-decoration: none" href="eg_100.html"><span class="extensionexampleletter">100</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_101.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Art of Noise</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_100.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Art of Noise</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Things are all assigned their own noise (or silence). Listening to the room in general reports on all the things that are currently audible.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg101><a style="text-decoration: none" href="WI_7_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg100><a style="text-decoration: none" href="WI_7_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_3_7.html"><span class="markdowncontent">Section 3.7: Lighting</span></a> &bull; <a href="RB_3_9.html"><span class="markdowncontent">Section 3.9: Passers-By, Weather and Astronomical Events</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

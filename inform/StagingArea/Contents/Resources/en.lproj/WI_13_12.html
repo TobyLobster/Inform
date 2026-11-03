@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,50 +2212,60 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Check rules for actions by other people" -->
+            <!-- SEARCH SECTION "13.12" -->
+            <!-- SEARCH SORT "001-013-012-000" -->
             <h3><span>Section 13.12: Check rules for actions by other people</span></h3>
             <p>       </p>
             <p>If we want to impose the restriction about carrying the camera on other people, we need a rule like the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain">, </span><span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code843" -->
+            <blockquote class="extract-inform7"><a id="code843"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">: </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax">, </span><span class="identifier-syntax">stop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Implicitly, that <code class="inlinesourcetext">someone</code> excludes the player. Note that we say nothing in this rule, stopping the action without a word: after all, Clark might well be out of sight when trying this. If he is within sight, then we read:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> CLARK, PHOTOGRAPH ME</span><br><span class="syntaxidentifier">Clark Gable is unable to do that.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; CLARK, PHOTOGRAPH ME<br>Clark Gable is unable to do that.<br></code></pre></div>
             <p>We saw before that Inform's built-in rules all have handy names (the <code class="inlinesourcetext">can't drop what's already dropped rule</code>, and such), and that these are useful when writing better &quot;unable to...&quot; messages. So for a deluxe version, we end up with:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">people</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photograph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">): </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">does</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain">, </span><span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code844" -->
+            <blockquote class="extract-inform7"><a id="code844"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">trying</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">photograph</span><span class="plain-syntax"> </span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">): </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax"> </span><span class="identifier-syntax">does</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax">, </span><span class="identifier-syntax">stop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And now, with <code class="inlinetranscriptcommand">actions</code> on, we find that:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> CLARK, PHOTOGRAPH ME</span><br><span class="syntaxidentifier">[asking Clark Gable to try photographing yourself]</span><br><span class="syntaxidentifier">[(1) Clark Gable photographing yourself]</span><br><span class="syntaxidentifier">[(1) Clark Gable photographing yourself - failed the other people can't photograph without the camera rule]</span><br><span class="syntaxidentifier">Clark Gable is unable to do that.</span><br><span class="syntaxidentifier">[asking Clark Gable to try photographing yourself - succeeded]</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; CLARK, PHOTOGRAPH ME<br>[asking Clark Gable to try photographing yourself]<br>[(1) Clark Gable photographing yourself]<br>[(1) Clark Gable photographing yourself - failed the other people can't photograph without the camera rule]<br>Clark Gable is unable to do that.<br>[asking Clark Gable to try photographing yourself - succeeded]<br></code></pre></div>
             <p>which means that we could have, say,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Unsuccessful</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attempt</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Clark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code845" -->
+            <blockquote class="extract-inform7"><a id="code845"></a><span class="indexdullblue"><span class="identifier-syntax">Unsuccessful</span><span class="plain-syntax"> </span><span class="identifier-syntax">attempt</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Clark</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reason</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">failed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">people</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photograph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Clark is too suave to be embarrassed. 'Frankly, my dear, I don't have a camera.'&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reason</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">failed</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax">'</span><span class="identifier-syntax">t</span><span class="plain-syntax"> </span><span class="identifier-syntax">photograph</span><span class="plain-syntax"> </span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Clark is too suave to be embarrassed. 'Frankly, my dear, I don't have a camera.'&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Clark tries, and fails, to take a photograph.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Clark tries, and fails, to take a photograph.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg228><a style="text-decoration: none" href="eg_228.html"><span class="extensionexampleletter">228</span></a></span></div>
+                    <span id=eg225><a style="text-decoration: none" href="eg_225.html"><span class="extensionexampleletter">225</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_228.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Axe</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_225.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Axe</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Changing the check rules to try automatically leaving a container before attempting to take it. (And arranging things so that other people will do likewise.)</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg228><a style="text-decoration: none" href="RB_6_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg225><a style="text-decoration: none" href="RB_6_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg229><a style="text-decoration: none" href="eg_229.html"><span class="extensionexampleletter">229</span></a></span></div>
+                    <span id=eg226><a style="text-decoration: none" href="eg_226.html"><span class="extensionexampleletter">226</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_229.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_226.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing characters other than the player to give objects to one another, accounting for the possibility that some items may not be desired by the intended recipients.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg229><a style="text-decoration: none" href="RB_7_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg226><a style="text-decoration: none" href="RB_7_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_11.html"><span class="markdowncontent">Section 13.11: Making actions work for other people</span></a> &bull; <a href="WI_13_13.html"><span class="markdowncontent">Section 13.13: Report rules for actions by other people</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

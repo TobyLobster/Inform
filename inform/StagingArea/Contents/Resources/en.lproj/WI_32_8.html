@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.8: Neptune and arithmetic kinds</span></title>
+    <title><span class="markdowncontent">Section 32.8: Lists and to-do items</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_7.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.8: Neptune and arithmetic kinds</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.8: Lists and to-do items</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_9.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,129 +2212,130 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.8: Neptune and arithmetic kinds</span></h3>
-            <p>For our next trick, we'll create a new kind of arithmetic value. This will be <code class="inlinesourcetext">memory address</code>, and will hold locations in the virtual machine memory map. We will need three ingredients:</p>
-            <p>First, the kit has to include some supporting code for the kind. Here's a section file for the kit:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Lists and to-do items" -->
+            <!-- SEARCH SECTION "32.8" -->
+            <!-- SEARCH SORT "001-032-008-000" -->
+            <h3><span>Section 32.8: Lists and to-do items</span></h3>
+            <p> 
+             </p>
+            <p>We have three sorts of list. Bulleted lists:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Memory Address Support</span><br><br><span class="syntaxidentifier">This section provides functions to support the kind &quot;memory address&quot;.</span><br><br><span class="syntaxidentifier">@ This function is used to say a value of memory address, which we</span><br><span class="syntaxidentifier">do in hexadecimal, padding to the theoretical maximum width of addresses</span><br><span class="syntaxidentifier">on the architecture.</span><br><br><span class="syntaxidentifier">=</span><br><span class="syntaxidentifier">[ MEMORY_ADDRESS_TY_Say N;</span><br><span class="syntaxidentifier">    print &quot;$&quot;;</span><br><span class="syntaxidentifier">    #iftrue (WORDSIZE == 2);</span><br><span class="syntaxidentifier">    PrintInBase(N, 16, 4);</span><br><span class="syntaxidentifier">    #ifnot;</span><br><span class="syntaxidentifier">    PrintInBase(N, 16, 8);</span><br><span class="syntaxidentifier">    #endif;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">@ This dumps C bytes from address N onwards:</span><br><br><span class="syntaxidentifier">=</span><br><span class="syntaxidentifier">[ MEMORY_ADDRESS_TY_ShowBytes N C</span><br><span class="syntaxidentifier">    i;</span><br><span class="syntaxidentifier">    for (i=0: i&lt;C: i++) {</span><br><span class="syntaxidentifier">        if (i &gt; 0) print &quot; &quot;;</span><br><span class="syntaxidentifier">        PrintInBase(N-&gt;i, 16, 2);</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    print &quot; ~&quot;;</span><br><span class="syntaxidentifier">    for (i=0: i&lt;C: i++) {</span><br><span class="syntaxidentifier">        if ((N-&gt;i &gt;= $20) &amp;&amp; (N-&gt;i &lt; $7f)) print (char) N-&gt;i; else print &quot;?&quot;;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    print &quot;~&quot;;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">@ And here we parse a word of the player's command to see if it could be an</span><br><span class="syntaxidentifier">address in hexadecimal - up to 4 or 8 hex digits with a dollar sign in front.</span><br><span class="syntaxidentifier">If it can't be that, we revert to trying the DECIMAL_TOKEN instead, which</span><br><span class="syntaxidentifier">is what BasicInformKit uses to parse numbers in decimal.</span><br><br><span class="syntaxidentifier">=</span><br><span class="syntaxidentifier">[ MEMORY_ADDRESS_TY_Understand wa wl ch n digit;</span><br><span class="syntaxidentifier">    wa = WordAddress(wn);</span><br><span class="syntaxidentifier">    wl = WordLength(wn);</span><br><span class="syntaxidentifier">    #Iftrue CHARSIZE == 1;</span><br><span class="syntaxidentifier">    ch = wa-&gt;0;</span><br><span class="syntaxidentifier">    if (wl &gt; 5) return DECIMAL_TOKEN();</span><br><span class="syntaxidentifier">    #Ifnot;</span><br><span class="syntaxidentifier">    ch = wa--&gt;0;</span><br><span class="syntaxidentifier">    if (wl &gt; 9) return DECIMAL_TOKEN();</span><br><span class="syntaxidentifier">    #Endif; ! CHARSIZE</span><br><span class="syntaxidentifier">    if (ch ~= '$') return DECIMAL_TOKEN();</span><br><span class="syntaxidentifier">    wa = wa + CHARSIZE;</span><br><span class="syntaxidentifier">    wl--;</span><br><span class="syntaxidentifier">    n = 0;</span><br><span class="syntaxidentifier">    while (wl &gt; 0) {</span><br><span class="syntaxidentifier">        #Iftrue CHARSIZE == 1;</span><br><span class="syntaxidentifier">        ch = wa-&gt;0;</span><br><span class="syntaxidentifier">        #Ifnot;</span><br><span class="syntaxidentifier">        ch = wa--&gt;0;</span><br><span class="syntaxidentifier">        #Endif; ! CHARSIZE</span><br><span class="syntaxidentifier">        if (ch &gt;= 'a') digit = ch - 'a' + 10;</span><br><span class="syntaxidentifier">        else if (ch &gt;= 'A') digit = ch - 'A' + 10;</span><br><span class="syntaxidentifier">        else digit = ch - '0';</span><br><span class="syntaxidentifier">        if (digit &gt;= 0 &amp;&amp; digit &lt; 16) n = 16*n + digit;</span><br><span class="syntaxidentifier">        else return GPR_FAIL;</span><br><span class="syntaxidentifier">        wl--;</span><br><span class="syntaxidentifier">        wa = wa + CHARSIZE;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    parsed_number = n; wn++;</span><br><span class="syntaxidentifier">    return GPR_NUMBER;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Second, the wrapper extension should provide some convenient phrases:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- {</span><span class="syntaxidentifier">N</span><span class="syntaxplain">} -).</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">serial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">VM_SerialNumber</span><span class="syntaxplain">()) -).</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">bytes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">address</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(-	</span><span class="syntaxidentifier">MEMORY_ADDRESS_TY_Say</span><span class="syntaxplain">({</span><span class="syntaxidentifier">address</span><span class="syntaxplain">});</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">print</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;: &quot;</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">MEMORY_ADDRESS_TY_ShowBytes</span><span class="syntaxplain">({</span><span class="syntaxidentifier">address</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">N</span><span class="syntaxplain">});</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-);</span>
-            </span></blockquote>
-            <p>Because we don't want to get into difficulties with dimensional restrictions on arithmetic, which would not let us add numbers to addresses, we will imitate the (not always great) convention also used by the <code class="inlinesourcetext">time</code> kind, which is that a small number can represent both a time of day and also a duration in minutes. Here, <code class="inlinesourcetext">16 bytes</code> and <code class="inlinesourcetext">16 in memory</code> are both the same value under the hood. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">byte</span><span class="syntaxplain">/</span><span class="syntaxidentifier">bytes</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- {</span><span class="syntaxidentifier">N</span><span class="syntaxplain">} -).</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section on dumping (not for release)</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Dumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">32</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bytes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">break</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;dump </span><span class="syntaxextract">[memory address]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dumping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>That just leaves the Neptune file needed to declare this kind. It starts very much like the declaration of <code class="inlinesourcetext">country code</code> above, but this time conforms to <code class="inlinecode">ARITHMETIC_VALUE_TY</code> not <code class="inlinecode">ENUMERATED_VALUE_TY</code>.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">new base MEMORY_ADDRESS_TY {</span><br><span class="syntaxidentifier">    conforms-to: ARITHMETIC_VALUE_TY</span><br><span class="syntaxidentifier">    singular: memory address</span><br><span class="syntaxidentifier">    plural: memory addresses</span><br><br><span class="syntaxidentifier">    default-value: 0</span><br><span class="syntaxidentifier">    can-exchange: yes</span><br><br><span class="syntaxidentifier">    compare-function: UnsignedCompare</span><br><span class="syntaxidentifier">    understand-function: MEMORY_ADDRESS_TY_Understand</span><br><span class="syntaxidentifier">    say-function: MEMORY_ADDRESS_TY_Say</span><br><br><span class="syntaxidentifier">    index-priority: 2</span><br><span class="syntaxidentifier">    index-default-value: 0</span><br><span class="syntaxidentifier">    specification-text: An address within the virtual machine the story runs in.</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>As can be seen, though, it defines no instances — only enumerated kinds can do that — and instead sets many more details. Let's start with these settings, which affect how the kind is handled inside the Inform compiler:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    default-value: 0</span><br><span class="syntaxidentifier">    can-exchange: yes</span><br></code></pre></div>
+                <pre><code class="language-code">Notable German stamps include:<br><br>- Baden 9 Kreuzer error: stamp printed on blue-green instead of pink paper<br><br>- One kreuzer black: issued 1849 in Bavaria, first German postage stamp<br><br>- Sachsen 3 Pfennige red: Saxony was the second German state to issue postage stamps<br><br>- Vineta provisional: an unauthorized issue<br><br>- Yacht issue: a common design of postage stamps for the German colonies<br></code></pre></div>
+            <p>resulting in:</p>
+            <blockquote>
+            <p>Notable German stamps include:</p>
             <ul>
             <li>
-            <p><code class="inlinecode">default-value</code> gives an I6 expression for the default value for the kind. Here, that will be the address 0.</p>
+            <p>Baden 9 Kreuzer error: stamp printed on blue-green instead of pink paper</p>
             </li>
             <li>
-            <p><code class="inlinecode">can-exchange</code> being <code class="inlinecode">yes</code> means that values of this kind, if printed out by one story and then read in by another story entirely, would still have the same meaning. For example, that's true of <code class="inlinesourcetext">number</code> because all Inform stories use the same bits to represent the number 17, say. But it is not true of <code class="inlinesourcetext">action name</code>, because one story may have an action for <code class="inlinesourcetext">swimming</code>, say, and the other story not; and even if both of them have, they may number it differently. The default for <code class="inlinecode">can-exchange</code> is very much <code class="inlinecode">no</code>, but we're saying <code class="inlinecode">yes</code> here. An address means the same in all stories, even though the data stored at that address may be different in each of them.</p>
+            <p>One kreuzer black: issued 1849 in Bavaria, first German postage stamp</p>
+            </li>
+            <li>
+            <p>Sachsen 3 Pfennige red: Saxony was the second German state to issue postage stamps</p>
+            </li>
+            <li>
+            <p>Vineta provisional: an unauthorized issue</p>
+            </li>
+            <li>
+            <p>Yacht issue: a common design of postage stamps for the German colonies</p>
             </li>
             </ul>
-            <p>Next we have some settings for how values are handled at run-time:</p>
+            </blockquote>
+            <p>A list can alternatively be numbered, with this syntax:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    compare-function: UnsignedCompare</span><br><span class="syntaxidentifier">    understand-function: MEMORY_ADDRESS_TY_Understand</span><br><span class="syntaxidentifier">    say-function: MEMORY_ADDRESS_TY_Say</span><br></code></pre></div>
-            <p>Taking these in turn:</p>
+                <pre><code class="language-code">Notable Jamaican stamps include:<br><br>1) Jamaica 1 shilling inverted-frame stamp error<br><br>2) Jamaica 6d abolition of slavery postage stamp<br><br>3) Jamaica 1956-58 £1 chocolate and violet<br><br>4) Jamaica 1968 human rights stamps<br></code></pre></div>
+            <p>resulting in:</p>
+            <blockquote>
+            <p>Notable Jamaican stamps include:</p>
+            <ol>
+            <li>
+            <p>Jamaica 1 shilling inverted-frame stamp error</p>
+            </li>
+            <li>
+            <p>Jamaica 6d abolition of slavery postage stamp</p>
+            </li>
+            <li>
+            <p>Jamaica 1956-58 £1 chocolate and violet</p>
+            </li>
+            <li>
+            <p>Jamaica 1968 human rights stamps</p>
+            </li>
+            </ol>
+            </blockquote>
+            <p>List entries can in fact be much longer, and can contain all manner of layout elements:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">1) Here's a two-paragraph list entry.<br><br>   With this being the second paragraph.<br><br>2) And a list within a list. How about China this time?<br><br>   - Red Revenues – 1897 provisionals, issued by the Qing dynasty<br><br>   - The Whole Country is Red – 1968 design error stamp<br><br>   - Golden Monkey stamp – 1980 Chinese zodiac stamp<br><br>3) Indian stamp                                 | Notable for<br>   -------------------------------------------- | -----------<br>   Scinde Dawk                                  | First stamps in Asia<br>   Inverted Head Four Annas                     | —<br>   Indian 10 Rupee Mahatma Gandhi postage stamp | Overprinted &quot;SERVICE&quot;<br></code></pre></div>
+            <p>producing:</p>
+            <blockquote>
+            <ol>
+            <li>
+            <p>Here's a two-paragraph list entry.</p>
+            <p>With this being the second paragraph.</p>
+            </li>
+            <li>
+            <p>And a list within a list. How about China this time?</p>
             <ul>
             <li>
-            <p><code class="inlinecode">compare-function</code> is the name of a function <code class="inlinecode">f</code> to compare two values of the kind, such that <code class="inlinecode">f(x, y)</code> is 1 if <code class="inlinecode">x</code> is greater than <code class="inlinecode">y</code>, 0 if they are equal, and -1 if <code class="inlinecode">x</code> is less than <code class="inlinecode">y</code>. We want to compare memory addresses as unsigned numbers, so that addresses above the halfway point in the address space aren't misunderstood as negative numbers. The function <code class="inlinecode">UnsignedCompare</code> is defined in <code class="inlinecode">BasicInformKit</code>, so we can just use that. (If we want regular signed comparison of numbers, the special value <code class="inlinecode">signed</code> can also be used, which tells Inform not to make a function call but to use comparison operations on the virtual machine, which is a little faster.)</p>
+            <p>Red Revenues – 1897 provisionals, issued by the Qing dynasty</p>
             </li>
             <li>
-            <p><code class="inlinecode">understand-function</code> is the name of a function which can act as an <code class="inlinesourcetext">Understand</code> token for this kind: that is, it implements the grammar token <code class="inlinesourcetext">&quot;[memory address]&quot;</code>. This function has to comply with the calling conventions for general parsing routines (GPR) in the Inform 6 sense. <code class="inlinecode">MEMORY_ADDRESS_TY_Understand</code> above is an example of that.</p>
+            <p>The Whole Country is Red – 1968 design error stamp</p>
             </li>
             <li>
-            <p><code class="inlinecode">distinguish-function</code> isn't specified for this kind, but it would be a function <code class="inlinecode">f</code> such that <code class="inlinecode">f(x, y)</code> is 1 if there is anything the player could type in a command which would distinguish the value <code class="inlinecode">x</code> from <code class="inlinecode">y</code>. If <code class="inlinecode">understand-function</code> is capable of understanding all possible values then the test performed by <code class="inlinecode">distinguish-function</code> can just be to call the <code class="inlinecode">compare-function</code> and return 1 if and only if it says that <code class="inlinecode">x</code> and <code class="inlinecode">y</code> are equal.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">say-function</code> is the name of a function to print a value of this kind.</p>
+            <p>Golden Monkey stamp – 1980 Chinese zodiac stamp</p>
             </li>
             </ul>
-            <p>Finally, how the kind is presented in the Kinds part of the Index for a project which uses it:</p>
+            </li>
+            <li>
+            <table>
+            <thead>
+            <tr>
+            <th>Indian stamp</th>
+            <th>Notable for</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td>Scinde Dawk</td>
+            <td>First stamps in Asia</td>
+            </tr>
+            <tr>
+            <td>Inverted Head Four Annas</td>
+            <td>—</td>
+            </tr>
+            <tr>
+            <td>Indian 10 Rupee Mahatma Gandhi postage stamp</td>
+            <td>Overprinted &quot;SERVICE&quot;</td>
+            </tr>
+            </tbody>
+            </table>
+            </li>
+            </ol>
+            </blockquote>
+            <p>And to-do lists are list entries with a sort of tickbox notation: <code class="inlinecode">[ ]</code> or <code class="inlinecode">[x]</code>: see the example at the start of this section.</p>
+            <p>Finally, note that if the items in a list are not divided by skipped lines, then the list is called &quot;tight&quot; (as opposed to &quot;loose&quot;) and presented slightly differently:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    index-priority: 2</span><br><span class="syntaxidentifier">    index-default-value: 0</span><br><span class="syntaxidentifier">    specification-text: An address within the virtual machine the story runs in.</span><br></code></pre></div>
+                <pre><code class="language-code">1) Prices depend on condition and circumstances.<br>2) Victorian issues vary widely in circulation. My collection includes:<br>   - [ ] none of the 500 orange-red 1d Mauritius Post Office stamps (1847)<br>   - [x] one of the roughly 21 billion Penny Red stamps (1841-79)<br></code></pre></div>
+            <p>produces:</p>
+            <blockquote>
+            <ol>
+            <li>Prices depend on condition and circumstances.</li>
+            <li>Victorian issues vary widely in circulation. My collection includes:
             <ul>
-            <li>
-            <p><code class="inlinecode">index-priority</code> controls how high up in the running order of the Index listing of kinds this comes. It really doesn't matter, but arithmetic kinds are usually given index priority 2.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">index-default-value</code> is just text: it's what the Index says the default value is.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">specification-text</code> is a brief verbal description.</p>
-            </li>
+            <li><input disabled="" type="checkbox"> none of the 500 orange-red 1d Mauritius Post Office stamps (1847)</li>
+            <li><input checked="" disabled="" type="checkbox"> one of the roughly 21 billion Penny Red stamps (1841-79)</li>
             </ul>
-            <p>With all of this work in place, we can run, say:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">header</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">memory</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">header</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">header</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bytes</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">serial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Looking inside, I see </span><span class="syntaxextract">[dump of 64 bytes at the header]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;At the serial code, </span><span class="syntaxextract">[dump of 6 bytes at the address of the serial code]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-            </span></blockquote>
-            <p>On the Z-machine, that might produce something like this:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;header&quot; = memory address: $0000</span><br><span class="syntaxidentifier">&quot;header plus 4 bytes&quot; = memory address: $0004</span><br><span class="syntaxidentifier">&quot;address of the serial code&quot; = memory address: $0012</span><br><span class="syntaxidentifier">Looking inside, I see $0000: 08 9D 00 01 9F 38 9F 39 92 67 01 0A 1B 1A 8B 02 00</span><br><span class="syntaxidentifier">50 32 34 30 34 31 37 00 42 BC 04 A9 C4 03 5A 30 58 00 58 00 30 01 01 00 00 00 00</span><br><span class="syntaxidentifier">09 02 8B 01 00 00 01 01 00 00 01 02 00 00 00 00 36 2E 34 33</span><br><span class="syntaxidentifier">&quot;?????8?9?g???????P240417?B?????Z0X?X?0??????????????????????6.43&quot;.</span><br><span class="syntaxidentifier">At the serial code, $0012: 32 34 30 34 31 37 &quot;240417&quot;.</span><br></code></pre></div>
-            <p>And on Glulx, something broadly similar, but with different layout and longer addresses.</p>
+            </li>
+            </ol>
+            </blockquote>
+            <p>For Inform documentation, we prefer loose lists, which are easier to read on screen.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_7.html"><span class="markdowncontent">Section 32.7: Neptune and enumerative kinds</span></a> &bull; <a href="WI_32_9.html"><span class="markdowncontent">Section 32.9: Neptune and other base kinds</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_7.html"><span class="markdowncontent">Section 32.7: Tables</span></a> &bull; <a href="WI_32_9.html"><span class="markdowncontent">Section 32.9: Links and cross-references</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

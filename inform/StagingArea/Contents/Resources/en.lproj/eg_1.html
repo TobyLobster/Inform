@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
@@ -2118,9 +2203,13 @@
             <div class="exampleright">
                 <span id=eg1><a style="text-decoration: none" href="RB_1_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "About the examples" -->
+        <!-- SEARCH SECTION "Example 1" -->
+        <!-- SEARCH SORT "003-001-000-000" -->
         <p></p>
         <p>This is the first of about 400 numbered examples. In a few cases, such as this one, they provide a little background information, but almost all demonstrate Inform source text. The techniques demonstrated tend to be included either because they are frequently asked for, or because they show how to achieve some interesting effect.</p>
-        <p>The same examples are included in <strong>both</strong> of the books of documentation, but in a different order: in <em>Writing with Inform</em>, they appear near the techniques used to make them work; in <em>The Inform Recipe Book</em>, they are grouped by the effects they provide. For instance, an example called <a href="eg_135.html">Do Pass Go</a>, about the throwing of a pair of dice, appears in the <a href="WI_8_18.html" title="Section 8.18: Randomness">Randomness</a> section of <em>Writing with Inform</em> and also in the <a href="RB_9_5.html" title="Section 9.5: Dice and Playing Cards">Dice and Playing Cards</a> section of <em>The Inform Recipe Book</em>. Clicking the italicised WI and RB buttons at the right-hand side of an example's heading switches between its position in each book.</p>
+        <p>The same examples are included in <strong>both</strong> of the books of documentation, but in a different order: in <em>Writing with Inform</em>, they appear near the techniques used to make them work; in <em>The Inform Recipe Book</em>, they are grouped by the effects they provide. For instance, an example called <a href="eg_132.html">Do Pass Go</a>, about the throwing of a pair of dice, appears in the <a href="WI_8_18.html" title="Section 8.18: Randomness">Randomness</a> section of <em>Writing with Inform</em> and also in the <a href="RB_9_5.html" title="Section 9.5: Dice and Playing Cards">Dice and Playing Cards</a> section of <em>The Inform Recipe Book</em>. Clicking the italicised WI and RB buttons at the right-hand side of an example's heading switches between its position in each book.</p>
         <p>Many computing books quote excerpts from programs, but readers have grown wary of them: they are tiresome to type in, and may only be fragments, or may not ever have been tested. The authors of Inform have tried to avoid this. All but two dozen examples contain entire source texts. A single click on the paste icon (always placed just left of the double-quoted title) will write the complete source text into the Source panel. All that is then required is to click the Go button, and the example should translate into a working game.</p>
         <p>In most cases, typing the single command <code class="inlinetranscriptcommand">test me</code> will play through a few moves to show off the effect being demonstrated. (You may find it convenient to create a &quot;scratch&quot; project file for temporary trials like this, clearing all its text and starting again with each new test.)</p>
         <p>As part of the testing process which verifies a new build of Inform, each example in turn is extracted from this documentation, translated, played through, and the resulting transcript mechanically checked. So the examples may even work as claimed. But the flesh is weak, and there are bound to be glitches. We would welcome reports, so that future editions can be corrected.</p>
@@ -2152,10 +2241,10 @@
         </tbody>
         </table>
         <p>In general, the main text of <em>Writing with Inform</em> tries never to assume knowledge of material which has not yet appeared, but the trickier examples almost always need to break this rule.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em>This example is drawn from <a style="text-decoration: none" href=WI_1_1.html>Section 1.1: Preface</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

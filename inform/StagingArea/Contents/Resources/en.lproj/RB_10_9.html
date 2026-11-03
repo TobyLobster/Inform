@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,56 +2212,60 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Heat" -->
+            <!-- SEARCH SECTION "10.9" -->
+            <!-- SEARCH SORT "002-010-009-000" -->
             <h3><span>Section 10.9: Heat</span></h3>
             <p>
-            Since we prefer not to simulate burnt skin, and it is unsporting to kill a player outright merely for touching a hot object, heat is mostly used as a reason why something cannot be picked up at a given moment. This very basic puzzle is demonstrated in <a href="eg_91.html">Grilling</a>.</p>
-            <p>With the naked eye, it is not always easy to detect what is too hot to touch–a point made in both <a href="eg_355.html">Masochism Deli</a>, where the only solution is to keep picking up potatoes until one doesn't burn, and in <a href="eg_360.html">Hot Glass Looks Like Cold Glass</a>, where infrared goggles turn the scales.</p>
-            <p>If a hot object is not to be touched, will it stay hot forever? It might well, if it is a steak on an electric grill, but not if it is a recently-baked apple pie sitting on a window-sill. <a href="eg_204.html">Entropy</a> simulates the gradual return of temperature to equilibrium.</p>
+            Since we prefer not to simulate burnt skin, and it is unsporting to kill a player outright merely for touching a hot object, heat is mostly used as a reason why something cannot be picked up at a given moment. This very basic puzzle is demonstrated in <a href="eg_90.html">Grilling</a>.</p>
+            <p>With the naked eye, it is not always easy to detect what is too hot to touch–a point made in both <a href="eg_352.html">Masochism Deli</a>, where the only solution is to keep picking up potatoes until one doesn't burn, and in <a href="eg_357.html">Hot Glass Looks Like Cold Glass</a>, where infrared goggles turn the scales.</p>
+            <p>If a hot object is not to be touched, will it stay hot forever? It might well, if it is a steak on an electric grill, but not if it is a recently-baked apple pie sitting on a window-sill. <a href="eg_201.html">Entropy</a> simulates the gradual return of temperature to equilibrium.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_10_7.html" title="Section 10.7: Electricity and Magnetism">Electricity and Magnetism</a> for items which shouldn't be touched because they are hot in a different way.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg204><a style="text-decoration: none" href="eg_204.html"><span class="extensionexampleletter">204</span></a></span></div>
+                    <span id=eg201><a style="text-decoration: none" href="eg_201.html"><span class="extensionexampleletter">201</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_204.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entropy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_201.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entropy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">All objects in the game have a heat, but if not kept insulated they will tend toward room temperature (and at a somewhat exaggerated rate).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg204><a style="text-decoration: none" href="WI_12_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg201><a style="text-decoration: none" href="WI_12_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg91><a style="text-decoration: none" href="eg_91.html"><span class="extensionexampleletter">91</span></a></span></div>
+                    <span id=eg90><a style="text-decoration: none" href="eg_90.html"><span class="extensionexampleletter">90</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_91.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Grilling</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_90.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Grilling</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A grill, from which the player is not allowed to take anything lest they're burned.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg91><a style="text-decoration: none" href="WI_7_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg90><a style="text-decoration: none" href="WI_7_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg355><a style="text-decoration: none" href="eg_355.html"><span class="extensionexampleletter">355</span></a></span></div>
+                    <span id=eg352><a style="text-decoration: none" href="eg_352.html"><span class="extensionexampleletter">352</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_355.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Masochism Deli</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_352.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Masochism Deli</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Multiple potatoes, with rules to make the player drop the hot potato first and pick it up last.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg355><a style="text-decoration: none" href="WI_19_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg352><a style="text-decoration: none" href="WI_19_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg360><a style="text-decoration: none" href="eg_360.html"><span class="extensionexampleletter">360</span></a></span></div>
+                    <span id=eg357><a style="text-decoration: none" href="eg_357.html"><span class="extensionexampleletter">357</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_360.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hot Glass Looks Like Cold Glass</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_357.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hot Glass Looks Like Cold Glass</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Responding to references to a property that the player isn't yet allowed to mention (or when not to use <code class="inlinesourcetext">understand as a mistake</code>).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg360><a style="text-decoration: none" href="WI_19_22.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg357><a style="text-decoration: none" href="WI_19_22.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_8.html"><span class="markdowncontent">Section 10.8: Fire</span></a> &bull; <a href="RB_10_10.html"><span class="markdowncontent">Section 10.10: Magic (Breaking the Laws of Physics)</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

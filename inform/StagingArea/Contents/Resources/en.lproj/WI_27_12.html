@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.12: Using Inform with Vorple</span></title>
+    <title><span class="markdowncontent">Section 27.12: Writing and reading tables to external files</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_11.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.12: Using Inform with Vorple</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.12: Writing and reading tables to external files</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_13.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,15 +2212,87 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.12: Using Inform with Vorple</span></h3>
-            <p>  </p>
-            <p>&quot;Vorple&quot; is an innovative system by Juhana Leinonen for allowing web-based Inform stories to make use of web controls and other gadgets. Using Vorple, a story can in principle have an entirely different user interface, and can make much better use of CSS styling, interface to Javascript libraries, and so on.</p>
-            <p>Vorple has seen rapid development. In its early days it was included as part of the Inform app, but it has now evolved into a dynamic project which is better served by the <a href="https://vorple-if.com/">Vorple website</a>.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Writing and reading tables to external files" -->
+            <!-- SEARCH SECTION "27.12" -->
+            <!-- SEARCH SORT "001-027-012-000" -->
+            <h3><span>Section 27.12: Writing and reading tables to external files</span></h3>
+            <p> </p>
+            <p>The main use for files is to store and retrieve data, and the most flexible form of data used by Inform is the Table, so facilities are provided which make it as easy as possible to write and read the contents of a table to files. If so, the file must contain just one single table: so to write multiple tables, we need to write multiple files, one for each.</p>
+            <p>To save the contents of a table to a file, we use the phrase:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn485" -->
+                <p class="defnprototype"><a id="defn485"></a>write (external file) from (table name)</p>
+                <!-- END PHRASE -->
+                <p>This phrase causes the entire contents of the given table to be written out to the given file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
+                <!-- START CODE "code1762" -->
+                <blockquote class="extract-inform7"><a id="code1762"></a><span class="indexdullblue"><span class="identifier-syntax">write</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciation</span><span class="plain-syntax"> </span><span class="identifier-syntax">Data</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Antarctic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Reserves</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>Any blank rows in the table are automatically moved to the bottom, and only the non-blank rows are written.</p>
+            </div>
+            <p>To load a file back into a table,</p>
+            <div class="definition">
+                <!-- START PHRASE "defn486" -->
+                <p class="defnprototype"><a id="defn486"></a>read (external file) into (table name)</p>
+                <!-- END PHRASE -->
+                <p>This phrase causes the entire contents of the given table to be read in from the given file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
+                <!-- START CODE "code1763" -->
+                <blockquote class="extract-inform7"><a id="code1763"></a><span class="indexdullblue"><span class="identifier-syntax">read</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciation</span><span class="plain-syntax"> </span><span class="identifier-syntax">Data</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Antarctic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Reserves</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>Any rows left spare at the foot of the table are automatically blanked. On the other hand if the file is too large to fit into the table – with too many columns or too many rows – a run-time problem is produced.</p>
+            </div>
+            <p>We can check if a file already exists using:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn487" -->
+                <p class="defnprototype"><a id="defn487"></a>if (external file) exists:</p>
+                <!-- END PHRASE -->
+                <p>This condition is true if the file-system used by the player appears to contain a file with the right name. For example, if we declared:</p>
+                <!-- START CODE "code1764" -->
+                <blockquote class="extract-inform7"><a id="code1764"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">binary</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciation</span><span class="plain-syntax"> </span><span class="identifier-syntax">Data</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;icedata&quot;</span><span class="plain-syntax">.</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>and then tested</p>
+                <!-- START CODE "code1765" -->
+                <blockquote class="extract-inform7"><a id="code1765"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciation</span><span class="plain-syntax"> </span><span class="identifier-syntax">Data</span><span class="plain-syntax"> </span><span class="identifier-syntax">exists</span><span class="plain-syntax">, ...</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>then Inform would search for a file called <code class="inlinesourcetext">icedata</code>. (The arrangements for where this might be stored, and its filename extension, vary from platform to platform.)</p>
+            </div>
+            <p>One unfortunate restriction must be kept in mind. Some of what is stored in tables is solid information whose meaning never changes: the number 342, for instance, means the same to everyone. But other information depends entirely on the current location of certain structures in memory – for instance, a rule is internally referred to by its memory location. This potentially changes each time Go or Replay is clicked, and so it is not safe to pass it from one copy to another, or from one project to another. The only tables which Inform allows us to write into files are those containing &quot;safe&quot; data: numbers, units, times of day and kinds of value with named alternatives. Scenes, rules or rulebooks, in particular, are not allowed.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg466><a style="text-decoration: none" href="eg_466.html"><span class="extensionexampleletter">466</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_466.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alien Invasion Part 23</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Keeping a preference file that could be loaded by any game in a series.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg466><a style="text-decoration: none" href="RB_11_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg467><a style="text-decoration: none" href="eg_467.html"><span class="extensionexampleletter">467</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_467.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Labyrinth of Ghosts</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Remembering the fates of all previous explorers of the labyrinth.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg467><a style="text-decoration: none" href="RB_11_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg468><a style="text-decoration: none" href="eg_468.html"><span class="extensionexampleletter">468</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_468.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rubies</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A scoreboard that keeps track of the ten highest-scoring players from one playthrough to the next, adding the player's name if they have done well enough.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg468><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_11.html"><span class="markdowncontent">Section 27.11: A playable web page</span></a> &bull; <a href="WI_27_13.html"><span class="markdowncontent">Section 27.13: Website templates</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_11.html"><span class="markdowncontent">Section 27.11: Declaring files</span></a> &bull; <a href="WI_27_13.html"><span class="markdowncontent">Section 27.13: Writing, reading and appending text to files</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -1,0 +1,738 @@
+Input Output
+
+Access to the keyboard and to textual windows.
+
+@h Rocks.
+These are unique ID codes used to mark resources; think of them as inedible
+cookies.
+
+=
+Constant GG_MAINWIN_ROCK        201;
+Constant GG_STATUSWIN_ROCK      202;
+Constant GG_QUOTEWIN_ROCK       203;
+Constant GG_SAVESTR_ROCK        301;
+Constant GG_SCRIPTSTR_ROCK      302;
+#Ifdef COMMAND_STREAM;
+Constant GG_COMMANDWSTR_ROCK    303;
+Constant GG_COMMANDRSTR_ROCK    304;
+#Endif;
+Constant GG_SCRIPTFREF_ROCK     401;
+Constant GG_FOREGROUNDCHAN_ROCK 410;
+Constant GG_BACKGROUNDCHAN_ROCK 411;
+
+@h Transcript support.
+This is a mode in which the transcript of text in the main window is being
+written out to an external file.
+
+`VM_TranscriptIsOn` tests whether this mode is on. `VM_TranscriptOn` should
+be called only if it is off, and tries to turn it on, returning `true` or `false`
+according to whether or not it succeeds. `VM_TranscriptOff` should be called
+only if scripting is on: this always succeeds.
+
+=
+Global gg_scriptfref = 0;
+Global gg_scriptstr = 0;
+
+[ VM_TranscriptIsOn;
+	if (gg_scriptstr) rtrue;
+	rfalse;
+];
+
+[ VM_TranscriptOn;
+	while (true) {
+		if (gg_scriptfref == 0) {
+			gg_scriptfref = glk_fileref_create_by_prompt($102, $05, GG_SCRIPTFREF_ROCK);
+			if (gg_scriptfref == 0) rfalse;
+		}
+		! stream_open_file
+		gg_scriptstr = glk_stream_open_file_uni(gg_scriptfref, $05, GG_SCRIPTSTR_ROCK);
+		if (gg_scriptstr == 0) {
+			! Could not open selected file; select again
+			glk_fileref_destroy(gg_scriptfref);
+			gg_scriptfref = 0;
+			continue;
+		}
+		glk_window_set_echo_stream(active_window.glk_ref, gg_scriptstr);
+		rtrue;
+	}
+];
+
+[ VM_TranscriptOff;
+	glk_stream_close(gg_scriptstr, 0); ! stream_close
+	gg_scriptstr = 0;
+	rtrue;
+];
+
+@h Dictionary Parameters.
+Each word in the dictionary data structure has two metadata fields, known
+for traditional Inform 6 reasons as "dictionary parameters 1 and 2". Number 1
+is a bitmap: some of the higher bits are written by the I6 compiler only when
+certain compile options are set, but they will be for the code which I7
+generates. Bit 6 is currently never written by I6; bit 5, marking singular
+nouns, is never used by this parser.
+
+(For speed reasons, reading of `DICTPAR1_NOUN` and `DICTPAR1_PREP` is done
+directly by `ParserKit` rather than by calling functions here.)
+
+=
+Constant DICT_ENTRY_BYTES = 12+DICT_WORD_SIZE*WORDSIZE;
+Constant #dict_par1 = DICT_WORD_SIZE*WORDSIZE+4+1;
+Constant #dict_par2 = DICT_WORD_SIZE*WORDSIZE+4+3;
+
+Constant DICTPAR1_VERB = 1;
+Constant DICTPAR1_META = 2;
+Constant DICTPAR1_PLURAL = 4;
+Constant DICTPAR1_PREP = 8;
+Constant DICTPAR1_SING = 16;
+Constant DICTPAR1_BIT6 = 32;
+Constant DICTPAR1_TRUNC = 64;
+Constant DICTPAR1_NOUN = 128;
+
+[ WordMarkedAsVerb w;
+	if ((w) && ((w->#dict_par1) & DICTPAR1_VERB)) rtrue;
+	rfalse;
+];
+
+[ WordMarkedAsMeta w;
+	if ((w) && ((w->#dict_par1) & DICTPAR1_META)) rtrue;
+	rfalse;
+];
+
+[ WorkMarkedAsUntruncatedPlural w b;
+	if (w) {
+		b = w->#dict_par1;
+		if (b & DICTPAR1_TRUNC) rfalse;
+		if (b & DICTPAR1_PLURAL) rtrue;
+	}
+	rfalse;
+];
+
+@h Extracting Verb Numbers.
+A long tale of woe lies behind the following. Infocom games stored verb numbers
+in a single byte in dictionary entries, but they did so counting downwards, so
+that verb number 0 was stored as 255, 1 as 254, and so on. Inform followed
+suit so that debugging of Inform 1 could be aided by using the then-available
+tools for dumping dictionaries from Infocom story files; by using the Infocom
+format for dictionary tables, Inform's life was easier.
+
+But there was an implicit restriction there of 255 distinct verbs (not 256
+since not all words were verbs). When Glulx raised almost all of the Z-machine
+limits, it made space for 65535 verbs instead of 255, but it appears that
+nobody remembered to implement this in I6-for-Glulx and the Glulx form of
+the I6 library. This was only put right in March 2009, and the following
+routine was added to concentrate lookups of this field in one place.
+
+=
+[ DictionaryWordToVerbNum w verbnum;
+	w = w + #dict_par2 - 1;
+    @aloads w 0 verbnum;
+    verbnum = $ffff-verbnum;
+	return verbnum;
+];
+
+@h Variables and Arrays.
+
+=
+Array gg_event --> 4;
+Array gg_arguments buffer 28;
+Global gg_savestr = 0;
+#Ifdef COMMAND_STREAM;
+Global gg_commandstr = 0;
+Global gg_command_reading = 0;      ! true if gg_commandstr is being replayed
+#Endif;
+Global gg_foregroundchan = 0;
+Global gg_backgroundchan = 0;
+
+Constant INPUT_BUFFER_LEN = 260;    ! No extra byte necessary
+Constant MAX_BUFFER_WORDS = 20;
+Constant PARSE_BUFFER_LEN = (3 * MAX_BUFFER_WORDS) + 1;
+
+Array  buffer   --> INPUT_BUFFER_LEN;
+Array  buffer2  --> INPUT_BUFFER_LEN;
+Array  buffer3  --> INPUT_BUFFER_LEN;
+Array  parse     --> PARSE_BUFFER_LEN;
+Array  parse2    --> PARSE_BUFFER_LEN;
+
+@h Dictionary words.
+This tests whether an address is probably that of a dictionary word. It's used
+only for debugging output, so the false positives here really do not matter.
+
+=
+[ VM_ProbablyDictionaryAddress addr;
+	if (addr->0 == $60) rtrue;
+	rfalse;
+];
+
+@h Keyboard Input.
+The VM must provide three routines for keyboard input:
+
+- `VM_KeyChar()` waits for a key to be pressed and then returns the
+character chosen as a unicode character. Function keys are mapped to unicode
+characters so that Z-Machine and Glulxe key input can be handled the same.
+- `VM_ReadKeyboard(b, t)` reads a whole newline-terminated command
+into the buffer `b`. If the `t` parser table is specified then it also parses it.
+
+There are elaborations to do with mouse clicks, but this isn't the place
+to document all of that.
+
+=
+[ VM_KeyChar;
+	GLK_EVENT_TY_Wait_For(evtype_CharInput, active_window, gg_event);
+	return MapGlkKeyCodeToUnicode(gg_event-->2);
+];
+
+[ VM_ReadKeyboard a_buffer a_table;
+	glk_request_line_event_uni(active_window.glk_ref, a_buffer + WORDSIZE, INPUT_BUFFER_LEN - 1, 0);
+	GLK_EVENT_TY_Wait_For(evtype_LineInput, active_window, gg_event);
+	a_buffer-->0 = gg_event-->2;
+	if (a_table) {
+		VM_Tokenise(a_buffer, a_table);
+	}
+];
+
+@h Buffer Functions.
+A "buffer", in this sense, is an array containing a stream of characters
+typed from the keyboard; a "parse buffer" is an array which resolves this
+into individual words, pointing to the relevant entries in the dictionary
+structure. Because each VM has its own format for each of these arrays (not
+to mention the dictionary), we have to provide some standard operations
+needed by the rest of the template as routines for each VM.
+
+`VM_CopyBuffer(to, from)` copies one buffer into another.
+
+`VM_PrintBuffer(buf)` prints a buffer.
+
+`VM_PrintToBuffer(buf, len, a, b, c)` prints something into a buffer.
+
+`VM_Tokenise(buff, parse_buff)` takes the text in the buffer `buff` and
+produces the corresponding data in the parse buffer `parse_buff` — this is
+called tokenisation since the characters are divided into words: in traditional
+computing jargon, such clumps of characters treated syntactically as units
+are called tokens.
+
+`LTI_Insert` is documented in the DM4 and the `LTI` prefix stands for
+"Language To Informese": it's used only by translations into non-English
+languages of play, and is not called in the template.
+
+=
+[ VM_CopyBuffer bto bfrom i;
+    for (i=0: i<INPUT_BUFFER_LEN: i++) bto-->i = bfrom-->i;
+];
+
+[ VM_PrintBuffer buf  buf_inner len i;
+	len = (buf-->0) + 1;
+	for (i = 1: i < len: i++) {
+		print (char) buf-->i;
+	}
+];
+
+[ VM_PrintToBuffer buf len a b c;
+    if (b) {
+        if (metaclass(a) == Object && a.#b == WORDSIZE
+            && metaclass(a.b) == String)
+            buf-->0 = Glulx_PrintAnyToArrayUni(buf+WORDSIZE, len, a.b);
+        else if (metaclass(a) == Routine)
+            buf-->0 = Glulx_PrintAnyToArrayUni(buf+WORDSIZE, len, a, b, c);
+        else
+            buf-->0 = Glulx_PrintAnyToArrayUni(buf+WORDSIZE, len, a, b);
+    }
+    else if (metaclass(a) == Routine)
+        buf-->0 = Glulx_PrintAnyToArrayUni(buf+WORDSIZE, len, a, b, c);
+    else
+        buf-->0 = Glulx_PrintAnyToArrayUni(buf+WORDSIZE, len, a);
+    if (buf-->0 > len) buf-->0 = len;
+    return buf-->0;
+];
+
+Constant LOWERCASE_BUF_SIZE = 2*DICT_WORD_SIZE;
+Array gg_lowercasebuf --> LOWERCASE_BUF_SIZE;
+
+[ VM_Tokenise buf tab
+    cx numwords len bx ix wx wpos wlen val res dictlen ch bytesperword uninormavail;
+    len = buf-->0;
+    buf = buf+WORDSIZE;
+    
+    ! First, split the buffer up into words. We use the standard Infocom
+    ! list of word separators (comma, period, double-quote).
+
+    cx = 0;
+    numwords = 0;
+    while (cx < len) {
+        while (cx < len && buf-->cx == ' ') cx++;
+        if (cx >= len) break;
+        bx = cx;
+        if (buf-->cx == '.' or ',' or '"') cx++;
+        else {
+            while (cx < len && buf-->cx ~= ' ' or '.' or ',' or '"') cx++;
+        }
+        tab-->(numwords*3+2) = (cx-bx);
+        tab-->(numwords*3+3) = 1+bx;
+        numwords++;
+        if (numwords >= MAX_BUFFER_WORDS) break;
+    }
+    tab-->0 = numwords;
+
+    ! Now we look each word up in the dictionary.
+
+    dictlen = #dictionary_table-->0;
+    bytesperword = DICT_WORD_SIZE * WORDSIZE;
+    uninormavail = Cached_Glk_Gestalts-->gestalt_UnicodeNorm;
+
+    for (wx=0 : wx<numwords : wx++) {
+        wlen = tab-->(wx*3+2);
+        wpos = tab-->(wx*3+3);
+
+        ! Copy the word into the gg_tokenbuf array, clipping to DICT_WORD_SIZE
+        ! characters and lower case. We'll do this in two steps, because
+        ! lowercasing might (theoretically) condense characters and allow more
+        ! to fit into gg_tokenbuf.
+        if (wlen > LOWERCASE_BUF_SIZE) wlen = LOWERCASE_BUF_SIZE;
+        cx = wpos - 1;
+        for (ix=0 : ix<wlen : ix++) {
+            ch = buf-->(cx+ix);
+            gg_lowercasebuf-->ix = ch;
+        }
+        wlen = glk_buffer_to_lower_case_uni(gg_lowercasebuf, LOWERCASE_BUF_SIZE, wlen);
+        if (uninormavail) {
+            ! Also normalize the Unicode -- combine accent marks with letters
+            ! where possible.
+            wlen = glk_buffer_canon_normalize_uni(gg_lowercasebuf, LOWERCASE_BUF_SIZE, wlen); ! buffer_canon_normalize_uni
+        }
+        if (wlen > DICT_WORD_SIZE) wlen = DICT_WORD_SIZE;
+        for (ix=0: ix<wlen : ix++) {
+            gg_tokenbuf-->ix = gg_lowercasebuf-->ix;
+        }
+        for (: ix<DICT_WORD_SIZE : ix++) gg_tokenbuf-->ix = 0;
+        
+        val = #dictionary_table + WORDSIZE;
+        @binarysearch gg_tokenbuf bytesperword val DICT_ENTRY_BYTES dictlen 4 1 res;
+        tab-->(wx*3+1) = res;
+    }
+];
+
+[ LTI_Insert i ch  b y;
+
+    ! Protect us from strict mode, as this isn't an array in quite the
+    ! sense it expects
+    ! (This is not an issue now that buffer is a word array, but I'm
+    ! keeping the alias.)
+    b = buffer;
+
+    ! Insert character ch into buffer at point i.
+    ! Being careful not to let the buffer possibly overflow:
+    y = b-->0;
+    if (y > INPUT_BUFFER_LEN) y = INPUT_BUFFER_LEN;
+
+    ! Move the subsequent text along one character:
+    for (y=y+1 : y>i : y--) b-->y = b-->(y-1);
+    b-->i = ch;
+
+    ! And the text is now one character longer:
+    if (b-->0 < INPUT_BUFFER_LEN) (b-->0)++;
+];
+
+@h Dictionary Functions.
+Again, the dictionary structure is differently arranged on the different VMs.
+This is a data structure containing, in compressed form, the text of all the
+words to be recognised by tokenisation (above). In I6 for Glulx, a dictionary
+word is represented at run-time by its record's address in the dictionary.
+
+`VM_InvalidDictionaryAddress(A)` tests whether `A` is a valid record address
+in the dictionary data structure. In Glulx, dictionary records might in
+theory be anywhere in the 2 GB or so of possible memory, but we can rule
+out negative addresses. (This allows $-1$, say, to be used as a value meaning
+"not a valid dictionary word".)
+
+`VM_DictionaryAddressToNumber(A)` and `VM_NumberToDictionaryAddress(N)`
+convert between word addresses and their run-time representations:
+since, on Glulx, they are the same, these are each the identity function.
+
+=
+[ VM_InvalidDictionaryAddress addr;
+	if (addr < 0) rtrue;
+	rfalse;
+];
+
+[ VM_DictionaryAddressToNumber w; return w; ];
+[ VM_NumberToDictionaryAddress n; return n; ];
+
+Array gg_tokenbuf --> DICT_WORD_SIZE;
+
+[ GGWordCompare str1 str2 ix jx;
+    for (ix=0 : ix<DICT_WORD_SIZE : ix++) {
+        jx = (str1-->ix) - (str2-->ix);
+        if (jx ~= 0) return jx;
+    }
+    return 0;
+];
+
+@h Command Tables.
+The VM is also generated containing a data structure for the grammar
+produced by I6's `Verb` and `Extend` directives: this is essentially a
+list of command verbs such as DROP or PUSH, together with a list of
+synonyms, and then the grammar for the subsequent commands to be
+recognised by the parser.
+
+=
+[ VM_CommandTableAddress i;
+	return (#grammar_table)-->(i+1);
+];
+
+[ VM_PrintCommandWords i wd j dictlen entrylen;
+    dictlen = #dictionary_table-->0;
+    entrylen = DICT_WORD_SIZE + 7;
+    for (j=0 : j<dictlen : j++) {
+        wd = #dictionary_table + WORDSIZE + entrylen*j;
+        if (DictionaryWordToVerbNum(wd) == i)
+            print "'", (address) wd, "' ";
+    }
+];
+
+@h Action functions.
+This looks up the address of a function like `TakeSub` from the table of
+"action subroutines".
+
+Strangely, Glulx's action routines table is numbered in an off-by-one way
+compared to the Z-machine's: hence the `+1` here.
+
+=
+[ VM_ActionFunction act;
+	return #actions_table-->(act+1);
+];
+
+@h Glulx-Only Printing Routines.
+Partly because of the smallness of the range of representable values in
+the Z-machine, there is little run-time type-checking that can be done:
+for instance a dictionary address cannot be distinguished from a function
+address because they are encoded differently, so that a function address
+(which is packed) could well coincide with that of a dictionary word (which
+is not). On Glulx these restrictions are somewhat lifted, so that it's
+possible to write a routine which can look at a value, work out what it
+must mean, and print it suitably. This is only possible up to a point —
+for instance, it can't distinguish an integer from a function address —
+and in I7 the use of this sort of trick is much less important because
+type-checking in the Inform compiler handles the problem much better. Still,
+we retain some Glulx-only features because they are convenient for writing
+external files to disc, for instance, something which the Z-machine can't
+do in any case.
+
+`Glulx_PrintAnything` handles strings, functions (with optional arguments),
+objects, object properties (with optional arguments), and dictionary words.
+(Object property printing has been somewhat simplified from the ideal version
+of this function in order to avoid calling the CA__Pr veneer function.)
+
+`Glulx_PrintAnyToArray` does the same, but the output is sent to a byte
+array in memory. The first two arguments must be the array address and
+length; subsequent arguments are as for `Glulx_PrintAnything`. The return
+value is the number of characters output. If the output is longer than the
+array length given, the extra characters are discarded, so the array does
+not overflow. (However, the return value is the total length of the output,
+including discarded characters.) The character set stored here is ZSCII,
+not Unicode.
+
+`Glulx_PrintAnyToArrayUni` does the same again, but the output is sent to a
+word array in memory. The stored characters are Unicode code points.
+
+`Glulx_ChangeAnyToCString` calls `Glulx_PrintAnyToArray` on a particular
+array, then amends the result to make it a C-style string — that is, a
+sequence of byte-sized characters which are null terminated. The character
+set stored here is once again ZSCII, not Unicode.
+
+=
+! Glulx_PrintAnything()                    <nothing printed>
+! Glulx_PrintAnything(0)                   <nothing printed>
+! Glulx_PrintAnything("string");           print (string) "string";
+! Glulx_PrintAnything('word')              print (address) 'word';
+! Glulx_PrintAnything(obj)                 print (name) obj;
+! Glulx_PrintAnything(obj, prop)           obj.prop();  NOTE: Using PrintOrRun
+! Glulx_PrintAnything(obj, prop, args...)  obj.prop(args...); NOTE: Unsupported
+! Glulx_PrintAnything(func)                func();
+! Glulx_PrintAnything(func, args...)       func(args...);
+
+[ Glulx_PrintAnything _vararg_count obj mclass;
+    if (_vararg_count == 0) return;
+    @copy sp obj;
+    _vararg_count--;
+    if (obj == 0) return;
+
+    if (obj->0 == $60) {
+        ! Dictionary word. Metaclass() can't catch this case, so we do it manually
+        print (address) obj;
+        return;
+    }
+
+    mclass = metaclass(obj);
+    switch (mclass) {
+      nothing:
+        return;
+      String:
+        print (string) obj;
+        return;
+      Routine:
+        ! Call the function with all the arguments which are already
+        ! on the stack.
+        @call obj _vararg_count 0;
+        return;
+      Object:
+        if (_vararg_count == 0) {
+            print (name) obj;
+        }
+        else {
+            ! Push the object back onto the stack, and call the
+            ! veneer routine that handles obj.prop() calls.
+            @copy obj sp;
+            _vararg_count++;
+            @call PrintOrRun _vararg_count 0;
+        }
+        return;
+    }
+];
+
+[ Glulx_PrintAnyToArray _vararg_count arr arrlen str oldstr len;
+    @copy sp arr;
+    @copy sp arrlen;
+    _vararg_count = _vararg_count - 2;
+
+    oldstr = glk_stream_get_current();
+    str = glk_stream_open_memory(arr, arrlen, 1, 0);
+    if (str == 0) return 0;
+
+    glk_stream_set_current(str);
+
+    @call Glulx_PrintAnything _vararg_count 0;
+
+    glk_stream_set_current(oldstr);
+    @copy $ffffffff sp;
+    @copy str sp;
+    @glk $0044 2 0; ! stream_close
+    @copy sp len;
+    @copy sp 0;
+    return len;
+];
+
+[ Glulx_PrintAnyToArrayUni _vararg_count arr arrlen str oldstr len;
+    @copy sp arr;
+    @copy sp arrlen;
+    _vararg_count = _vararg_count - 2;
+
+    oldstr = glk_stream_get_current();
+    str = glk_stream_open_memory_uni(arr, arrlen, 1, 0);
+    if (str == 0) return 0;
+
+    glk_stream_set_current(str);
+
+    @call Glulx_PrintAnything _vararg_count 0;
+
+    glk_stream_set_current(oldstr);
+    @copy $ffffffff sp;
+    @copy str sp;
+    @glk $0044 2 0; ! stream_close
+    @copy sp len;
+    @copy sp 0;
+    return len;
+];
+
+Constant GG_ANYTOSTRING_LEN 66;
+Array AnyToStrArr -> GG_ANYTOSTRING_LEN+1;
+
+[ Glulx_ChangeAnyToCString _vararg_count ix len;
+    ix = GG_ANYTOSTRING_LEN-2;
+    @copy ix sp;
+    ix = AnyToStrArr+1;
+    @copy ix sp;
+    ix = _vararg_count+2;
+    @call Glulx_PrintAnyToArray ix len;
+    AnyToStrArr->0 = $E0;
+    if (len >= GG_ANYTOSTRING_LEN)
+        len = GG_ANYTOSTRING_LEN-1;
+    AnyToStrArr->(len+1) = 0;
+    return AnyToStrArr;
+];
+
+@h The Screen.
+Our generic screen model is that the screen is made up of windows: we tend
+to refer only to two of these, the main window and the status line, but
+others may also exist from time to time. Windows have unique ID numbers:
+in Glulx they have their own reference numbers as assigned by the interpreter,
+in Z-Machine `0` is the main window and `1` is the status window.
+
+`VM_ClearScreen` clears the entire screen.
+
+Screen height and width are measured in characters, with respect to the
+fixed-pitch font used for the status line. The main window normally contains
+variable-pitch text which may even have been kerned, and character dimensions
+make little sense there.
+
+`VM_WindowClear`, `VM_WindowHeight`, and `VM_WindowWidth` opperate on only the
+specified window.
+
+`VM_WindowSetCursor` uses 1-based co-ordinates.
+
+In Glk `VM_WindowSetHeight` will work on any window type, but it does assume
+the window is positioned above.
+
+=
+[ VM_ClearScreen win;
+	for (win = K_Glk_Window_First: win: win = win.K_Glk_Window_Next) {
+		if (win.glk_ref) {
+			glk_window_clear(win.glk_ref);
+		}
+	}
+];
+
+[ VM_ScreenHeight  height;
+	glk_window_get_size(active_window.glk_ref, 0, gg_arguments);
+	height = gg_arguments-->0;
+	if (Status_Window.glk_ref) {
+		glk_window_get_size(Status_Window.glk_ref, 0, gg_arguments);
+		height = height + gg_arguments-->0;
+	}
+	return height;
+];
+
+[ VM_ScreenWidth  id;
+	id = active_window.glk_ref;
+	if (Status_Window.glk_ref) {
+		id = Status_Window.glk_ref;
+	}
+	glk_window_get_size(id, gg_arguments, 0);
+	return gg_arguments-->0;
+];
+
+[ VM_WindowClear win;
+	if (win && win.glk_ref) {
+		glk_window_clear(win.glk_ref);
+	}
+];
+
+[ VM_WindowFocus win;
+	if (win) {
+		if (win.glk_ref) {
+			glk_set_window(win.glk_ref);
+		}
+		else {
+			IssueRTP("WindowIsClosed", "VM_WindowFocus: Cannot perform this Glk window operation on a closed window.", Architecture32KitRTPs);
+		}
+	}
+	else {
+		IssueRTP("WindowIsNothing", "VM_WindowFocus: Cannot perform this Glk window operation on nothing.", Architecture32KitRTPs);
+	}
+
+];
+
+[ VM_WindowHeight win;
+	if (win && win.glk_ref) {
+		glk_window_get_size(win.glk_ref, 0, gg_arguments);
+		return gg_arguments-->0;
+	}
+	return 0;
+];
+
+[ VM_WindowSetCursor win row col;
+	if (win) {
+		if (win.glk_ref) {
+			if (win.glk_window_type == wintype_TextGrid) {
+				if (col < 1) {
+					col = 1;
+				}
+				if (row > 0) {
+					glk_window_move_cursor(win.glk_ref, col - 1, row - 1);
+				}
+				else {
+					IssueRTP("WindowBadGridCursor", "VM_WindowSetCursor: Grid window cursor row must be >= 1.", BasicInformKitRTPs);
+				}
+			}
+			else {
+				IssueRTP("WindowIsWrongType", "VM_WindowSetCursor: Wrong window type for this window operation.", BasicInformKitRTPs);
+			}
+		}
+		else {
+			IssueRTP("WindowIsClosed", "VM_WindowSetCursor: Cannot perform this Glk window operation on a closed window.", Architecture32KitRTPs);
+		}
+	}
+	else {
+		IssueRTP("WindowIsNothing", "VM_WindowSetCursor: Cannot perform this Glk window operation on nothing.", Architecture32KitRTPs);
+	}
+];
+
+[ VM_WindowSetHeight win height;
+	if (win) {
+		if (win.glk_ref) {
+			glk_window_set_arrangement(glk_window_get_parent(win.glk_ref), winmethod_Fixed + winmethod_Above, height, 0);
+		}
+		else {
+			IssueRTP("WindowIsClosed", "VM_WindowSetHeight: Cannot perform this Glk window operation on a closed window.", Architecture32KitRTPs);
+		}
+	}
+	else {
+		IssueRTP("WindowIsNothing", "VM_WindowSetHeight: Cannot perform this Glk window operation on nothing.", Architecture32KitRTPs);
+	}
+];
+
+[ VM_WindowWidth win;
+	if (win && win.glk_ref) {
+		glk_window_get_size(win.glk_ref, gg_arguments, 0);
+		return gg_arguments-->0;
+	}
+	return 0;
+];
+
+@h Window Colours.
+We can now change foreground and background colours in both Z-Machine and Glulx
+(through a widely implement extension.) Inform does not keep track of which
+colours have been set.
+
+=
+[ VM_SetWindowColours fg bg;
+	if (Cached_Glk_Gestalts-->gestalt_GarglkText_FAKE) {
+		garglk_set_zcolors(fg, bg);
+	}
+];
+
+[ VM_SetReverseMode val;
+	if (Cached_Glk_Gestalts-->gestalt_GarglkText_FAKE) {
+		garglk_set_reversevideo(val);
+	}
+];
+
+@h Quotation Boxes.
+On the Z-machine, quotation boxes are produced by stretching the status line,
+but on Glulx they usually occupy windows of their own. If it isn't possible
+to create such a window, so that `Quote_Window.glk_ref` is zero below, the quotation
+text just appears in the main window.
+
+=
+[ Box__Routine maxwid arr ix lines lastnl parwin;
+	maxwid = 0; ! squash compiler warning
+	lines = arr-->0;
+
+	if (Quote_Window.glk_ref == 0) {
+		gg_arguments-->0 = lines;
+		if (ix == 0) {
+			Quote_Window.glk_ref =
+				glk_window_open(active_window.glk_ref, winmethod_Fixed + winmethod_Above,
+					lines, wintype_TextBuffer, GG_QUOTEWIN_ROCK);
+		}
+	} else {
+		parwin = glk_window_get_parent(Quote_Window.glk_ref);
+		glk_window_set_arrangement(parwin, winmethod_Fixed + winmethod_Above, lines, 0);
+	}
+
+	lastnl = true;
+	if (Quote_Window.glk_ref) {
+		glk_window_clear(Quote_Window.glk_ref);
+		glk_set_window(Quote_Window.glk_ref);
+		lastnl = false;
+	}
+
+	VM_Style(BLOCKQUOTE_VMSTY);
+	for (ix=0 : ix<lines : ix++) {
+		print (string) arr-->(ix+1);
+		if (ix < lines-1 || lastnl) new_line;
+	}
+	VM_Style(NORMAL_VMSTY);
+
+	if (Quote_Window.glk_ref) {
+		glk_set_window(active_window.glk_ref);
+	}
+];

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,76 +2212,80 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Clothing" -->
+            <!-- SEARCH SECTION "9.3" -->
+            <!-- SEARCH SORT "002-009-003-000" -->
             <h3><span>Section 9.3: Clothing</span></h3>
             <p> 
             A person can wear any (portable) thing which has the <code class="inlinesourcetext">wearable</code> property. (This property seldom needs to be quoted because it is deduced automatically from sentences like <code class="inlinesourcetext">Trevor wears a red hat.</code>)</p>
             <p>In most traditional IF, clothing is only used when it is exceptional in some way. That is, we ignore the three to eight different garments most people are wearing at any given time–the everyday clothes which people wear without thinking about them–and only simulate the unexpected extras: a borrowed jaunty red hat, a radiation-proof space suit, and so on.</p>
-            <p>These unusual garments turn up only occasionally in play and usually one at a time, so Inform does not normally provide rules to restrict how much or little is worn, or in what unlikely combinations. <a href="eg_52.html">Get Me to the Church on Time</a> categorises clothing by body area (trousers for lower body, shirts for upper); <a href="eg_255.html">Bogart</a> by layer, distinguishing underwear from outer garments. <a href="eg_263.html">What Not To Wear</a> combines both into a general-purpose system adequate for most kinds of clothing situations.</p>
-            <p><a href="eg_367.html">Hays Code</a> is a somewhat stripped down version.</p>
-            <p>Clothes are normally single things which have no function other than display and concealment, but <a href="eg_62.html">Being Prepared</a> gives them pockets which act as containers, and <a href="eg_361.html">Some Assembly Required</a> allows clothes to be stitched together from pieces of cloth.</p>
+            <p>These unusual garments turn up only occasionally in play and usually one at a time, so Inform does not normally provide rules to restrict how much or little is worn, or in what unlikely combinations. <a href="eg_51.html">Get Me to the Church on Time</a> categorises clothing by body area (trousers for lower body, shirts for upper); <a href="eg_252.html">Bogart</a> by layer, distinguishing underwear from outer garments. <a href="eg_260.html">What Not To Wear</a> combines both into a general-purpose system adequate for most kinds of clothing situations.</p>
+            <p><a href="eg_364.html">Hays Code</a> is a somewhat stripped down version.</p>
+            <p>Clothes are normally single things which have no function other than display and concealment, but <a href="eg_61.html">Being Prepared</a> gives them pockets which act as containers, and <a href="eg_358.html">Some Assembly Required</a> allows clothes to be stitched together from pieces of cloth.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_8_5.html" title="Section 8.5: Kitchen and Bathroom">Kitchen and Bathroom</a> for a simple mirror implementation, which could be adapted to reflect what the player is currently wearing.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg62><a style="text-decoration: none" href="eg_62.html"><span class="extensionexampleletter">62</span></a></span></div>
+                    <span id=eg61><a style="text-decoration: none" href="eg_61.html"><span class="extensionexampleletter">61</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_62.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Being Prepared</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_61.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Being Prepared</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A kind for jackets, which always includes a container called a pocket.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg62><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg61><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg367><a style="text-decoration: none" href="eg_367.html"><span class="extensionexampleletter">367</span></a></span></div>
+                    <span id=eg364><a style="text-decoration: none" href="eg_364.html"><span class="extensionexampleletter">364</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_367.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hays Code</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_364.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hays Code</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Clark Gable in a pin-striped suit and a pink thong.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg367><a style="text-decoration: none" href="WI_20_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg364><a style="text-decoration: none" href="WI_20_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg361><a style="text-decoration: none" href="eg_361.html"><span class="extensionexampleletter">361</span></a></span></div>
+                    <span id=eg358><a style="text-decoration: none" href="eg_358.html"><span class="extensionexampleletter">358</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_361.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Some Assembly Required</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_358.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Some Assembly Required</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Building different styles of shirt from component sleeves and collars.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg361><a style="text-decoration: none" href="WI_19_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg358><a style="text-decoration: none" href="WI_19_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg263><a style="text-decoration: none" href="eg_263.html"><span class="extensionexampleletter">263</span></a></span></div>
+                    <span id=eg260><a style="text-decoration: none" href="eg_260.html"><span class="extensionexampleletter">260</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_263.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">What Not To Wear</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_260.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">What Not To Wear</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A general-purpose clothing system that handles a variety of different clothing items layered in different combinations over different areas of the body.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg263><a style="text-decoration: none" href="WI_14_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg260><a style="text-decoration: none" href="WI_14_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg255><a style="text-decoration: none" href="eg_255.html"><span class="extensionexampleletter">255</span></a></span></div>
+                    <span id=eg252><a style="text-decoration: none" href="eg_252.html"><span class="extensionexampleletter">252</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_255.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bogart</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_252.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bogart</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Clothing for the player that layers, so that items cannot be taken off in the wrong order, and the player's inventory lists only the clothing that is currently visible.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg255><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg252><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg52><a style="text-decoration: none" href="eg_52.html"><span class="extensionexampleletter">52</span></a></span></div>
+                    <span id=eg51><a style="text-decoration: none" href="eg_51.html"><span class="extensionexampleletter">51</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_52.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Me to the Church on Time</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_51.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Get Me to the Church on Time</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using kinds of clothing to prevent the player from wearing several pairs of trousers at the same time.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg52><a style="text-decoration: none" href="WI_4_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg51><a style="text-decoration: none" href="WI_4_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_2.html"><span class="markdowncontent">Section 9.2: Bags, Bottles, Boxes and Safes</span></a> &bull; <a href="RB_9_4.html"><span class="markdowncontent">Section 9.4: Money</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

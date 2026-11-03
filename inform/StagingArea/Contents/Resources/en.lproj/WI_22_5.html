@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,100 +2212,148 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Regular expression matching" -->
+            <!-- SEARCH SECTION "22.5" -->
+            <!-- SEARCH SORT "001-022-005-000" -->
             <h3><span>Section 22.5: Regular expression matching</span></h3>
             <p>    </p>
             <p>When playing around with text, we tend to get into longer and trickier wrangles of matching – we find that we want to look not for simple text like <code class="inlinesourcetext">&quot;gold&quot;</code>, but for <code class="inlinesourcetext">&quot;gold&quot;</code> used only as a separate word, or for a date in YYYY-MM-DD format, or for a seemingly endless range of other possibilities. What we need is not just for Inform to provide a highly flexible matching program, but also a good notation in which to describe what we want.</p>
             <p>Fortunately, such a notation already exists. This is the &quot;regular expression&quot; notation, named for a 1950s mathematical model by the logician Stephen Kleene, applied to computing in the late 60s by Ken Thompson, borrowed almost at once by the early Unix tools of the 70s, and developed further by Henry Spencer in the 80s and Philip Hazel in the 90s. The glue holding the Internet together – the Apache web-server, the scripting languages Perl and Python, and so forth – makes indispensable use of regular expressions.</p>
             <p>As might be expected from the previous section, we simply have to describe the &quot;find&quot; text as <code class="inlinesourcetext">regular expression</code> rather than <code class="inlinesourcetext">text</code> and then the same facilities are available:</p>
             <div class="definition">
-                <p class="defnprototype">if (text) matches the/-- regular expression (text):</p>
+                <!-- START PHRASE "defn364" -->
+                <p class="defnprototype"><a id="defn364"></a>if (text) matches the/-- regular expression (text):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if any contiguous part of the text can be matched against the given regular expression. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a.\*l&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1529" -->
+                <blockquote class="extract-inform7"><a id="code1529"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;taramasalata&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a.\*l&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>is true, since this looks for a part of <code class="inlinesourcetext">&quot;taramasalata&quot;</code> which begins with <code class="inlinesourcetext">&quot;a&quot;</code>, continues with any number of characters, and finishes with <code class="inlinesourcetext">&quot;l&quot;</code>; so it matches <code class="inlinesourcetext">&quot;aramasal&quot;</code>. (Not <code class="inlinesourcetext">&quot;asal&quot;</code>, because it makes the leftmost match it can.) The option <code class="inlinesourcetext">case insensitively</code> causes lower and upper case letters to be treated as equivalent.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (text) exactly matches the/-- regular expression (text):</p>
+                <!-- START PHRASE "defn365" -->
+                <p class="defnprototype"><a id="defn365"></a>if (text) exactly matches the/-- regular expression (text):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the whole text (starting from the beginning and finishing at the end) can be matched against the given regular expression. The option <code class="inlinesourcetext">case insensitively</code> causes lower and upper case letters to be treated as equivalent.</p>
             </div>
             <p>And once again:</p>
             <div class="definition">
-                <p class="defnprototype">number of times (text) matches the/-- regular expression (text) ... number</p>
+                <!-- START PHRASE "defn366" -->
+                <p class="defnprototype"><a id="defn366"></a>number of times (text) matches the/-- regular expression (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This produces the number of times that contiguous pieces of the text can be matched against the regular expression, without allowing them to overlap.</p>
             </div>
             <p>Since a regular expression can match quite a variety of possibilities (for instance <code class="inlinesourcetext">&quot;b\w+t&quot;</code> could match <code class="inlinesourcetext">&quot;boast&quot;</code>, <code class="inlinesourcetext">&quot;boat&quot;</code>, <code class="inlinesourcetext">&quot;bonnet&quot;</code> and so on), it's sometimes useful to find what the match actually was:</p>
             <div class="definition">
-                <p class="defnprototype">text matching regular expression ... text</p>
+                <!-- START PHRASE "defn367" -->
+                <p class="defnprototype"><a id="defn367"></a>text matching regular expression ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;m.\*l&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1530" -->
+                <blockquote class="extract-inform7"><a id="code1530"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;taramasalata&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;m.\*l&quot;</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[text matching regular expression]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[text matching regular expression].&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>says <code class="inlinetranscript">masal.</code></p>
             </div>
             <p>Perhaps fairly, perhaps not, regular expressions have a reputation for being inscrutable. The basic idea is that although alphanumeric characters (letters, numbers and spaces) mean just what they look like, punctuation characters are commands with sometimes dramatic effects. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHATEVER</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fish&quot;</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code1531" -->
+            <blockquote class="extract-inform7"><a id="code1531"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">WHATEVER</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fish&quot;</span><span class="plain-syntax">, ...</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHATEVER</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;f.*h&quot;</span><span class="syntaxplain">, ...</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">WHATEVER</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;f.*h&quot;</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>behave very differently. The first is just like matching the text <code class="inlinesourcetext">&quot;fish&quot;</code>, but the second matches on any sequence of characters starting with an &quot;f&quot; and ending with an &quot;h&quot;. This is not at all obvious at first sight: reading regular expressions is a skill which must be learned, like reading a musical score. A really complex regular expression can look like a soup of punctuation and even an expert will blink for a few minutes before telling you what it does – but a beginner can pick up the basics very quickly. Newcomers might like to try out and become comfortable with the features a few at a time, reading down the following list.</p>
             <p><strong>1. Golden rule</strong>. Don't try to remember all the characters with weird effects. Instead, if you actually mean any symbol other than a letter, digit or space to be taken literally, place a backslash <code class="inlinesourcetext">\</code> in front of it. For instance, matching the regular expression</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;*A* of the Galactic Patrol&quot;</span>
+            <!-- START CODE "code1532" -->
+            <blockquote class="extract-inform7"><a id="code1532"></a><span class="indexdullblue"><span class="string-syntax">&quot;*A* of the Galactic Patrol&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is the same as matching the text <code class="inlinesourcetext">&quot;*A* of the Galactic Patrol&quot;</code>, because the asterisks are robbed of their normal powers. This includes backslash itself: <code class="inlinesourcetext">\</code> means a literal backslash. (Don't backslash letters or digits – that turns out to have a meaning all its own, but anyway, there is never any need.)</p>
             <p><strong>2. Alternatives</strong>. The vertical stroke <code class="inlinesourcetext">|</code> – not a letter I or L, nor the digit 1 – divides alternatives. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;the fish|fowl|crawling thing&quot;</span>
+            <!-- START CODE "code1533" -->
+            <blockquote class="extract-inform7"><a id="code1533"></a><span class="indexdullblue"><span class="string-syntax">&quot;the fish|fowl|crawling thing&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is the same as saying match <code class="inlinesourcetext">&quot;the fish&quot;</code>, or <code class="inlinesourcetext">&quot;fowl&quot;</code>, or <code class="inlinesourcetext">&quot;crawling thing&quot;</code>.</p>
             <p><strong>3. Dividing with brackets</strong>. Round brackets <code class="inlinesourcetext">(</code> and <code class="inlinesourcetext">)</code> group parts of the expression together.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;the (fish|fowl|crawling thing) in question&quot;</span>
+            <!-- START CODE "code1534" -->
+            <blockquote class="extract-inform7"><a id="code1534"></a><span class="indexdullblue"><span class="string-syntax">&quot;the (fish|fowl|crawling thing) in question&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is the same as saying match <code class="inlinesourcetext">&quot;the fish in question&quot;</code>, or <code class="inlinesourcetext">&quot;the fowl in question&quot;</code>, or <code class="inlinesourcetext">&quot;the crawling thing in question&quot;</code>. Note that the <code class="inlinesourcetext">|</code> ranges outwards only as far as the group it is in.</p>
             <p><strong>4. Any character</strong>. The period <code class="inlinesourcetext">.</code> means any single character. So</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;a...z&quot;</span>
+            <!-- START CODE "code1535" -->
+            <blockquote class="extract-inform7"><a id="code1535"></a><span class="indexdullblue"><span class="string-syntax">&quot;a...z&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches on any sequence of five characters so long as the first is &quot;a&quot; and the last is &quot;z&quot;.</p>
             <p><strong>5. Character alternatives</strong>. The angle brackets <code class="inlinesourcetext">&lt;</code> and <code class="inlinesourcetext">&gt;</code> are a more concise way of specifying alternatives for a single character. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;aeiou&gt;b&quot;</span>
+            <!-- START CODE "code1536" -->
+            <blockquote class="extract-inform7"><a id="code1536"></a><span class="indexdullblue"><span class="string-syntax">&quot;b&lt;aeiou&gt;b&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches on <code class="inlinesourcetext">&quot;bab&quot;</code>, <code class="inlinesourcetext">&quot;beb&quot;</code>, <code class="inlinesourcetext">&quot;bib&quot;</code>, <code class="inlinesourcetext">&quot;bob&quot;</code> or <code class="inlinesourcetext">&quot;bub&quot;</code>, but not <code class="inlinesourcetext">&quot;baob&quot;</code> or <code class="inlinesourcetext">&quot;beeb&quot;</code> – any single character within the angle brackets is accepted. Beginning the range with <code class="inlinesourcetext">^</code> means &quot;any single character so long as it is not one of these&quot;: thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;^aeiou&gt;b&quot;</span>
+            <!-- START CODE "code1537" -->
+            <blockquote class="extract-inform7"><a id="code1537"></a><span class="indexdullblue"><span class="string-syntax">&quot;b&lt;^aeiou&gt;b&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches on <code class="inlinesourcetext">&quot;blb&quot;</code> but not <code class="inlinesourcetext">&quot;bab&quot;</code>, <code class="inlinesourcetext">&quot;beb&quot;</code>, etc., nor on <code class="inlinesourcetext">&quot;blob&quot;</code> or <code class="inlinesourcetext">&quot;bb&quot;</code>. Because long runs like this can be a little tiresome, we are also allowed to use <code class="inlinesourcetext">-</code> to indicate whole ranges. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b&lt;a-z&gt;b&quot;</span>
+            <!-- START CODE "code1538" -->
+            <blockquote class="extract-inform7"><a id="code1538"></a><span class="indexdullblue"><span class="string-syntax">&quot;b&lt;a-z&gt;b&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches a &quot;b&quot;, then any lower case English letter, then another &quot;b&quot;.</p>
             <p>In traditional regular expression language, square brackets rather than angle brackets are used for character ranges. In fact Inform does understand this notation if there are actual square brackets <code class="inlinesourcetext">[</code> and <code class="inlinesourcetext">]</code> in the pattern text, but in practice this would be tiresome to achieve, since Inform uses those to achieve text substitutions. So Inform allows <code class="inlinesourcetext">&quot;b&lt;a-z&gt;b&quot;</code> rather than making us type something like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;b</span><span class="syntaxextract">[bracket]</span><span class="syntaxstring">a-z</span><span class="syntaxextract">[close bracket]</span><span class="syntaxstring">b&quot;</span>
+            <!-- START CODE "code1539" -->
+            <blockquote class="extract-inform7"><a id="code1539"></a><span class="indexdullblue"><span class="string-syntax">&quot;b[bracket]a-z[close bracket]b&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>to create the text <code class="inlinesourcetext">&quot;b[a-z]b&quot;</code>.</p>
             <p><strong>6. Popular character ranges</strong>. The range <code class="inlinesourcetext">&lt;0-9&gt;</code>, matching any decimal digit, is needed so often that it has an abbreviation: <code class="inlinesourcetext">\d</code>. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;\d\d\d\d-\d\d-\d\d&quot;</span>
+            <!-- START CODE "code1540" -->
+            <blockquote class="extract-inform7"><a id="code1540"></a><span class="indexdullblue"><span class="string-syntax">&quot;\d\d\d\d-\d\d-\d\d&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches, say, <code class="inlinesourcetext">&quot;2006-12-03&quot;</code>. Similarly, <code class="inlinesourcetext">\s</code> means &quot;any spacing character&quot; – a space, tab or line break. <code class="inlinesourcetext">\p</code> is a punctuation character, in the same sense used for word division in the previous section: it actually matches any of</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">. , ! ? - / </span><span class="syntaxstring">&quot; : ; ( ) </span><span class="syntaxextract">[ ]</span><span class="syntaxstring"> { }</span>
+            <!-- START CODE "code1541" -->
+            <blockquote class="extract-inform7"><a id="code1541"></a><span class="indexdullblue"><span class="plain-syntax">. , ! ? - / </span><span class="string-syntax">&quot; : ; ( ) [ ] { }</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">\w</code> means &quot;any character appearing in a word&quot;, and Inform defines it as anything not matching <code class="inlinesourcetext">\s</code> or <code class="inlinesourcetext">\p</code>.</p>
             <p><code class="inlinesourcetext">\l</code> and <code class="inlinesourcetext">\u</code> match lower and upper case letters, respectively. These are much stronger than <code class="inlinesourcetext">&lt;a-z&gt;</code> and <code class="inlinesourcetext">&lt;A-Z&gt;</code>, since they use the complete definition in the Unicode 4.0.0 standard, so that letter-forms from all languages are catered for: for example <code class="inlinesourcetext">δ</code> matches <code class="inlinesourcetext">\l</code> and <code class="inlinesourcetext">Δ</code> matches <code class="inlinesourcetext">\u</code>.</p>
             <p>The reverse of these is achieved by capitalising the letter. So <code class="inlinesourcetext">\D</code> means &quot;anything not a digit&quot;, <code class="inlinesourcetext">\P</code> means &quot;anything not punctuation&quot;, <code class="inlinesourcetext">\W</code> means &quot;anything not a word character&quot;, <code class="inlinesourcetext">\L</code> means &quot;anything not a lower case letter&quot; and so on.</p>
             <p><strong>7. Positional restrictions</strong>. The notation <code class="inlinesourcetext">^</code> does not match anything, as such, but instead requires that we be positioned at the start of the text. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;^fish&quot;</span>
+            <!-- START CODE "code1542" -->
+            <blockquote class="extract-inform7"><a id="code1542"></a><span class="indexdullblue"><span class="string-syntax">&quot;^fish&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches only <code class="inlinesourcetext">&quot;fish&quot;</code> at the start of the text, not occurring anywhere later on. Similarly, <code class="inlinesourcetext">$</code> requires that the position be the end of the text. So</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;fish$&quot;</span>
+            <!-- START CODE "code1543" -->
+            <blockquote class="extract-inform7"><a id="code1543"></a><span class="indexdullblue"><span class="string-syntax">&quot;fish$&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches only if the last four characters are <code class="inlinesourcetext">&quot;fish&quot;</code>. Matching <code class="inlinesourcetext">&quot;^fish$&quot;</code> is the same thing as what Inform calls exactly matching <code class="inlinesourcetext">&quot;fish&quot;</code>.</p>
             <p>Another useful notation is <code class="inlinesourcetext">\b</code>, which matches a word boundary: that is, it matches no actual text, but requires the position to be a junction between a word character and a non-word character (a <code class="inlinesourcetext">\w</code> and a <code class="inlinesourcetext">\W</code>) or vice versa. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;\bfish\b&quot;</span>
+            <!-- START CODE "code1544" -->
+            <blockquote class="extract-inform7"><a id="code1544"></a><span class="indexdullblue"><span class="string-syntax">&quot;\bfish\b&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches <code class="inlinesourcetext">&quot;fish&quot;</code> in <code class="inlinesourcetext">&quot;some fish&quot;</code> and also <code class="inlinesourcetext">&quot;some fish, please!&quot;</code>, but not in <code class="inlinesourcetext">&quot;shellfish&quot;</code>. (The regular expression <code class="inlinesourcetext">&quot;\w\*fish\b&quot;</code> catches all words ending in <code class="inlinesourcetext">&quot;fish&quot;</code>, as we will see below.) As usual, the capitalised version <code class="inlinesourcetext">\B</code> negates this, and means &quot;not at a word boundary&quot;.</p>
             <p><strong>8. Line break and tab</strong>. The notations <code class="inlinesourcetext">\n</code> and <code class="inlinesourcetext">\t</code> are used for a line break (&quot;n&quot; for &quot;new line&quot;) and tab, respectively. Tabs normally do not occur in Inform strings, but can do when reading from files. It makes no sense to reverse these, so <code class="inlinesourcetext">\N</code> and <code class="inlinesourcetext">\T</code> produce errors.</p>
             <p><strong>9. Repetition</strong>. Placing a number in braces <code class="inlinesourcetext">{</code> and <code class="inlinesourcetext">}</code> after something says that it should be repeated that many times. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;ax{25}&quot;</span>
+            <!-- START CODE "code1545" -->
+            <blockquote class="extract-inform7"><a id="code1545"></a><span class="indexdullblue"><span class="string-syntax">&quot;ax{25}&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches only on <code class="inlinesourcetext">&quot;axxxxxxxxxxxxxxxxxxxxxxxxx&quot;</code>. More usefully, perhaps, we can specify a range of the number of repetitions:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;ax{2,6}&quot;</span>
+            <!-- START CODE "code1546" -->
+            <blockquote class="extract-inform7"><a id="code1546"></a><span class="indexdullblue"><span class="string-syntax">&quot;ax{2,6}&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches only on <code class="inlinesourcetext">&quot;axx&quot;</code>, <code class="inlinesourcetext">&quot;axxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxxx&quot;</code>, <code class="inlinesourcetext">&quot;axxxxxx&quot;</code>. And we can leave the top end open: <code class="inlinesourcetext">ax{2,}</code> means <code class="inlinesourcetext">a</code> followed by at least two <code class="inlinesourcetext">x</code>s.</p>
             <p>Note that the braces attach only to most recent thing – so <code class="inlinesourcetext">ax{2}</code> means <code class="inlinesourcetext">a</code> followed by two of <code class="inlinesourcetext">x</code> – but, as always, we can use grouping brackets to change that. So <code class="inlinesourcetext">(ax){2,}</code> matches <code class="inlinesourcetext">&quot;axax&quot;</code>, <code class="inlinesourcetext">&quot;axaxax&quot;</code>, <code class="inlinesourcetext">&quot;axaxaxax&quot;</code>,...</p>
             <p>(It's probably best not to use Inform to try to match the human genome against <code class="inlinesourcetext">&quot;&lt;acgt&gt;{3000000000}&quot;</code>, but one of the most important practical uses of regular expression matching in science is in treating DNA as a string of nucleotides represented by the letters <code class="inlinesourcetext">a</code>, <code class="inlinesourcetext">c</code>, <code class="inlinesourcetext">g</code>, <code class="inlinesourcetext">t</code>, and looking for patterns.)</p>
@@ -2230,48 +2363,70 @@
             <p><code class="inlinesourcetext">{1,}</code>, which means 1 or more repetitions, is written <code class="inlinesourcetext">+</code>. So <code class="inlinesourcetext">\d+</code> matches any run of digits, for instance.</p>
             <p><strong>11. Greedy vs lazy.</strong> Once we allow things to repeat an unknown number of times, we run into an ambiguity. Sure, <code class="inlinesourcetext">\d+</code> matches the text <code class="inlinesourcetext">&quot;16339b&quot;</code>. But does it look only as far as the <code class="inlinesourcetext">1</code>, then reason that it now has one or more digits in a row, and stop? Or does it run onward devouring digits until it can do so no longer, so matching the <code class="inlinesourcetext">&quot;16339&quot;</code> part? These two strategies are called &quot;lazy&quot; and &quot;greedy&quot; respectively.</p>
             <p>Do we care? Well, the strategy used makes no difference to whether there is a match, but it does affect what part of the text is matched, and the number of matches there are. Unless we mark for it, all repetitions are greedy. Usually this is good, but it means that, for instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;-.+-&quot;</span>
+            <!-- START CODE "code1547" -->
+            <blockquote class="extract-inform7"><a id="code1547"></a><span class="indexdullblue"><span class="string-syntax">&quot;-.+-&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>applied to <code class="inlinesourcetext">&quot;-alpha- -beta- -gamma-&quot;</code> will match the whole text, because <code class="inlinesourcetext">.+</code> picks up all of <code class="inlinesourcetext">&quot;alpha- -beta- -gamma&quot;</code>. To get around this, we can mark any of the repetition operators as lazy by adding a question mark <code class="inlinesourcetext">?</code>. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;-.+?-&quot;</span>
+            <!-- START CODE "code1548" -->
+            <blockquote class="extract-inform7"><a id="code1548"></a><span class="indexdullblue"><span class="string-syntax">&quot;-.+?-&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>applied to <code class="inlinesourcetext">&quot;-alpha- -beta- -gamma-&quot;</code> matches three times, producing <code class="inlinesourcetext">&quot;-alpha-&quot;</code> then <code class="inlinesourcetext">&quot;-beta-&quot;</code> then <code class="inlinesourcetext">&quot;-gamma-&quot;</code>.</p>
             <p>A logical but sometimes confusing consequence is that a doubled question mark <code class="inlinesourcetext">??</code> means &quot;repeat 0 or 1 times, but prefer 0 matches to 1 if both are possibilities&quot;: whereas a single question mark <code class="inlinesourcetext">?</code>, being greedy, means &quot;repeat 0 or 1 times, but prefer 1 match to 0 if both are possibilities&quot;.</p>
             <p><strong>12. Numbered groups.</strong> We have already seen that round brackets are useful to clump together parts of the regular expression – to choose within them, or repeat them. In fact, Inform numbers these from 1 upwards as they are used from left to right, and we can subsequently refer back to their contents with the notation <code class="inlinesourcetext">\1</code>, <code class="inlinesourcetext">\2</code>, ... After a successful match, we can find the results of these subexpressions with:</p>
             <div class="definition">
-                <p class="defnprototype">text matching subexpression (number) ... text</p>
+                <!-- START PHRASE "defn368" -->
+                <p class="defnprototype"><a id="defn368"></a>text matching subexpression (number) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase is only meaningful immediately after a successful match of a regular expression against text, and it produces the text which matched. The number must be from 1 to 9, and must correspond to one of the bracketed groups in the expression just matched. Example: after</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taramasalata&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a(r.\*l)a(.)&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1549" -->
+                <blockquote class="extract-inform7"><a id="code1549"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;taramasalata&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a(r.\*l)a(.)&quot;</span><span class="plain-syntax">:</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>the <code class="inlinesourcetext">text matching regular expression</code> is <code class="inlinesourcetext">&quot;aramasalat&quot;</code>, the <code class="inlinesourcetext">text matching subexpression 1</code> is <code class="inlinesourcetext">&quot;ramasal&quot;</code>, and <code class="inlinesourcetext">text matching subexpression 2</code> is <code class="inlinesourcetext">&quot;t&quot;</code>.</p>
             </div>
             <p>For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;(\w)\w*\1&quot;</span>
+            <!-- START CODE "code1550" -->
+            <blockquote class="extract-inform7"><a id="code1550"></a><span class="indexdullblue"><span class="string-syntax">&quot;(\w)\w*\1&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>matches any run of two or more word-characters, subject to the restriction that the last one has to be the same as the first – so it matches <code class="inlinesourcetext">&quot;xerox&quot;</code> but not <code class="inlinesourcetext">&quot;alphabet&quot;</code>. When Inform matches this against <code class="inlinesourcetext">&quot;xerox&quot;</code>, first it matches the initial <code class="inlinesourcetext">x</code> against the group <code class="inlinesourcetext">(\w)</code>. It then matches <code class="inlinesourcetext">\w*</code> (&quot;any number of word-characters&quot;) against <code class="inlinesourcetext">ero</code>, so that the <code class="inlinesourcetext">*</code> runs up to 3 repetitions. It then matches &quot;\1&quot; against the final <code class="inlinesourcetext">x</code>, because <code class="inlinesourcetext">\1</code> requires it to match against whatever last matched in sub-expression 1 – which was an <code class="inlinesourcetext">x</code>.</p>
             <p>Similar to the situation with text matches, we can find the starting and ending character numbers of where a given subexpression occurred in the original text, as well as the length.</p>
             <div class="definition">
-                <p class="defnprototype">first index of subexpression (number) ... number</p>
+                <!-- START PHRASE "defn369" -->
+                <p class="defnprototype"><a id="defn369"></a>first index of subexpression (number) ... number</p>
+                <!-- END PHRASE -->
                 <p>Following a successful regular expression match, this produces the character number in the original text of the beginning of a given subexpression.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ham sandwich&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a(.+)\b(.+)&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1551" -->
+                <blockquote class="extract-inform7"><a id="code1551"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ham sandwich&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a(.+)\b(.+)&quot;</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">start</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">start</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">subexpression</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>would set x to 5. For the first index of the match as a whole, including what is outside any groups, use <code class="inlinesourcetext">subexpression 0</code>. For the example above, the start index of subexpression 0 would be 2.</p>
                 <p>As with the text case, use or store the result promptly. And as before, results are undefined in case of failure, but with an important additional caveat: even when a match succeeds, results are not guaranteed to be meaningful <em>for a given subexpression</em> if the text that matched that subexpression was empty. For instance, adding <code class="inlinesourcetext">(.*)</code> to the end of a regular expression won't make any of the texts that currently match it fail to match, but the results for first index, last index, and length for the corresponding subexpression number might not be meaningful.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">last index of subexpression (number) ... number</p>
+                <!-- START PHRASE "defn370" -->
+                <p class="defnprototype"><a id="defn370"></a>last index of subexpression (number) ... number</p>
+                <!-- END PHRASE -->
                 <p>Similarly, we can find the character number of the last character in the subexpression. For the &quot;ham sandwich&quot; example above:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">last</span><span class="syntaxplain"> </span><span class="syntaxidentifier">index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span>
+                <!-- START CODE "code1552" -->
+                <blockquote class="extract-inform7"><a id="code1552"></a><span class="indexdullblue"><span class="identifier-syntax">last</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">subexpression</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>would be 4 (<code class="inlinesourcetext">.+</code> matches <code class="inlinesourcetext">&quot;ham&quot;</code> <em>and</em> the following space). The same caveats noted above apply.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">length of subexpression  (number) ... number</p>
+                <!-- START PHRASE "defn371" -->
+                <p class="defnprototype"><a id="defn371"></a>length of subexpression  (number) ... number</p>
+                <!-- END PHRASE -->
                 <p>Finally, we can get the length of the match, e.g., for the above,</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">length</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subexpression</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span>
+                <!-- START CODE "code1553" -->
+                <blockquote class="extract-inform7"><a id="code1553"></a><span class="indexdullblue"><span class="identifier-syntax">length</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">subexpression</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>would be 8 (for <code class="inlinesourcetext">&quot;sandwich&quot;</code>).</p>
             </div>
             <p>Similar to the text case, any time the empty string <code class="inlinesourcetext">&quot;&quot;</code> matches a regular expression, the values of all of first index, last index, and length for subexpression 0 would be 0.</p>
@@ -2299,34 +2454,36 @@
             </li>
             <li>
             <p>Finally, conditionals can also use lookaheads or lookbehinds as their conditions. So for instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;(?(?=\d)\d\d\d\d|AY-\d\d\d\d)&quot;</span>
+            <!-- START CODE "code1554" -->
+            <blockquote class="extract-inform7"><a id="code1554"></a><span class="indexdullblue"><span class="string-syntax">&quot;(?(?=\d)\d\d\d\d|AY-\d\d\d\d)&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>means if you start with a digit, match four digits; otherwise match <code class="inlinesourcetext">AY-</code> followed by four digits. There are easier ways to do this, of course, but the really juicy uses of conditionals are only borderline legible and make poor examples – perhaps this is telling us something.</p>
             </li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg442><a style="text-decoration: none" href="eg_442.html"><span class="extensionexampleletter">442</span></a></span></div>
+                    <span id=eg439><a style="text-decoration: none" href="eg_439.html"><span class="extensionexampleletter">439</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_442.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">About Inform's regular expression support</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_439.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">About Inform's regular expression support</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Some footnotes on Inform's regular expressions, and how they compare to those of other programming languages.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg442><a style="text-decoration: none" href="RB_1_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg439><a style="text-decoration: none" href="RB_1_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg443><a style="text-decoration: none" href="eg_443.html"><span class="extensionexampleletter">443</span></a></span></div>
+                    <span id=eg440><a style="text-decoration: none" href="eg_440.html"><span class="extensionexampleletter">440</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_443.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpha</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_440.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpha</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a beta-testing command that matches any line starting with punctuation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg443><a style="text-decoration: none" href="RB_13_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg440><a style="text-decoration: none" href="RB_13_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_22_4.html"><span class="markdowncontent">Section 22.4: Matching and exactly matching</span></a> &bull; <a href="WI_22_6.html"><span class="markdowncontent">Section 22.6: Making new text with text substitutions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

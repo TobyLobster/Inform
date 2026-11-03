@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,103 +2212,153 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Characters, words, punctuated words, unpunctuated words, lines, paragraphs" -->
+            <!-- SEARCH SECTION "22.2" -->
+            <!-- SEARCH SORT "001-022-002-000" -->
             <h3><span>Section 22.2: Characters, words, punctuated words, unpunctuated words, lines, paragraphs</span></h3>
             <p>        </p>
             <p>Inform can get at the contents of text in a variety of ways. The lowest-level is by character – a character is a letter, digit, punctuation symbol, space or other letter-form. (We use the term <code class="inlinesourcetext">character</code> rather than <code class="inlinesourcetext">letter</code> because otherwise we would have to call <code class="inlinesourcetext">5</code> a letter, and so on.) Characters number upwards from 1: character number 1, to repeat that, starts the text. We can get the Nth character with:</p>
             <div class="definition">
-                <p class="defnprototype">character number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn340" -->
+                <p class="defnprototype"><a id="defn340"></a>character number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth character from the text, counting from 1. Characters include letters, digits, punctuation symbols, spaces or other letter-forms. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">character</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;numberless projects of social reform&quot;</span>
+                <!-- START CODE "code1503" -->
+                <blockquote class="extract-inform7"><a id="code1503"></a><span class="indexdullblue"><span class="identifier-syntax">character</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;numberless projects of social reform&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">&quot;e&quot;</code>. If the index is less than 1 or more than the length of the text, the result is an empty text, <code class="inlinesourcetext">&quot;&quot;</code>.</p>
             </div>
             <p>The maximum character number varies with the current length of the text, and can be evaluated as:</p>
             <div class="definition">
-                <p class="defnprototype">number of characters in (text) ... number</p>
+                <!-- START PHRASE "defn341" -->
+                <p class="defnprototype"><a id="defn341"></a>number of characters in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of characters from the text. Characters include letters, digits, punctuation symbols, spaces or other letter-forms. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">characters</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;War and Peace&quot;</span>
+                <!-- START CODE "code1504" -->
+                <blockquote class="extract-inform7"><a id="code1504"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">characters</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;War and Peace&quot;</span>
                 <br>
-                <span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">characters</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&quot;</span>
+                <span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">characters</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produce 13 and 0 respectively.</p>
             </div>
             <p>We can also use the adjective <code class="inlinesourcetext">empty</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code1505" -->
+            <blockquote class="extract-inform7"><a id="code1505"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The empty text, <code class="inlinesourcetext">&quot;&quot;</code>, is the only one with 0 characters. But note that <code class="inlinesourcetext">if T is empty</code> is never true for text with a substitution in it (see <a href="WI_22_1.html" title="Section 22.1: Hazards to be aware of">Hazards to be aware of</a>), so it is not quite the same test as <code class="inlinesourcetext">if T is &quot;&quot;</code>.</p>
             <p>We can also extract the contents by word, again numbered from 1. Thus:</p>
             <div class="definition">
-                <p class="defnprototype">word number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn342" -->
+                <p class="defnprototype"><a id="defn342"></a>word number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth word from the text, counting from 1. Words for this purpose are what's left after breaking the text up at punctuation or spacing (spaces, line breaks, paragraph breaks) and then removing that punctuation or spacing. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1506" -->
+                <blockquote class="extract-inform7"><a id="code1506"></a><span class="indexdullblue"><span class="identifier-syntax">word</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">&quot;don't&quot;</code>. If the index is less than 1 or more than the number of words in the text, the result is an empty text, <code class="inlinesourcetext">&quot;&quot;</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of words in (text) ... number</p>
+                <!-- START PHRASE "defn343" -->
+                <p class="defnprototype"><a id="defn343"></a>number of words in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of words from the text. Words for this purpose are what's left after breaking the text up at punctuation or spacing (spaces, line breaks, paragraph breaks) and then removing that punctuation or spacing. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">words</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1507" -->
+                <blockquote class="extract-inform7"><a id="code1507"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">words</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">5</code>.</p>
             </div>
             <p>Note that the contraction apostrophe in <code class="inlinesourcetext">&quot;don't&quot;</code> doesn't count as punctuation. Because this is not always quite what we want, Inform offers two variations:</p>
             <div class="definition">
-                <p class="defnprototype">punctuated word number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn344" -->
+                <p class="defnprototype"><a id="defn344"></a>punctuated word number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth word from the text, counting from 1. Words for this purpose are what's left after breaking the text up at punctuation or spacing (spaces, line breaks, paragraph breaks) and then removing the spacing, but leaving the punctuation as independent words. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">punctuated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1508" -->
+                <blockquote class="extract-inform7"><a id="code1508"></a><span class="indexdullblue"><span class="identifier-syntax">punctuated</span><span class="plain-syntax"> </span><span class="identifier-syntax">word</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">&quot;-&quot;</code>. The punctuated words here are <code class="inlinesourcetext">&quot;ice&quot;</code>, <code class="inlinesourcetext">&quot;-&quot;</code>, <code class="inlinesourcetext">&quot;hot&quot;</code>, <code class="inlinesourcetext">&quot;,&quot;</code>, <code class="inlinesourcetext">&quot;don't&quot;</code>, <code class="inlinesourcetext">&quot;you&quot;</code>, <code class="inlinesourcetext">&quot;think&quot;</code>, <code class="inlinesourcetext">&quot;?&quot;</code>. If two or more punctuation marks are adjacent, they are counted as different words, except for runs of dashes or periods: thus <code class="inlinesourcetext">&quot;,,&quot;</code> has two punctuated words, but <code class="inlinesourcetext">&quot;--&quot;</code> and <code class="inlinesourcetext">&quot;...&quot;</code> have only one each. If the index is less than 1 or more than the number of punctuated words in the text, the result is an empty text, <code class="inlinesourcetext">&quot;&quot;</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of punctuated words in (text) ... number</p>
+                <!-- START PHRASE "defn345" -->
+                <p class="defnprototype"><a id="defn345"></a>number of punctuated words in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of words from the text. Words for this purpose are what's left after breaking the text up at punctuation or spacing (spaces, line breaks, paragraph breaks) and then removing the spacing, but leaving the punctuation as independent words. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">punctuated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">words</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1509" -->
+                <blockquote class="extract-inform7"><a id="code1509"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">punctuated</span><span class="plain-syntax"> </span><span class="identifier-syntax">words</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">8</code>; see if you can find them all.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">unpunctuated word number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn346" -->
+                <p class="defnprototype"><a id="defn346"></a>unpunctuated word number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth word from the text, counting from 1. Words for this purpose are what's left after breaking the text up at spacing (spaces, line breaks, paragraph breaks) but including all punctuation as if it were part of the spelling of the words it joins to. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">unpunctuated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1510" -->
+                <blockquote class="extract-inform7"><a id="code1510"></a><span class="indexdullblue"><span class="identifier-syntax">unpunctuated</span><span class="plain-syntax"> </span><span class="identifier-syntax">word</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces <code class="inlinesourcetext">&quot;ice-hot,&quot;</code>. The unpunctuated words in <code class="inlinesourcetext">&quot;ice-hot, don't you think?&quot;</code> are <code class="inlinesourcetext">&quot;ice-hot,&quot;</code>, <code class="inlinesourcetext">&quot;don't&quot;</code>, <code class="inlinesourcetext">&quot;you&quot;</code>, <code class="inlinesourcetext">&quot;think?&quot;</code>. If the index is less than 1 or more than the number of punctuated words in the text, the result is an empty text, <code class="inlinesourcetext">&quot;&quot;</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of unpunctuated words in (text) ... number</p>
+                <!-- START PHRASE "defn347" -->
+                <p class="defnprototype"><a id="defn347"></a>number of unpunctuated words in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of words from the text. Words for this purpose are what's left after breaking the text up at spacing (spaces, line breaks, paragraph breaks) but including all punctuation as if it were part of the spelling of the words it joins to. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unpunctuated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">words</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ice-hot, don't you think?&quot;</span>
+                <!-- START CODE "code1511" -->
+                <blockquote class="extract-inform7"><a id="code1511"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">unpunctuated</span><span class="plain-syntax"> </span><span class="identifier-syntax">words</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice-hot, don't you think?&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces just <code class="inlinesourcetext">4</code>.</p>
             </div>
             <p>Finally, on the larger scale still, we also have:</p>
             <div class="definition">
-                <p class="defnprototype">line number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn348" -->
+                <p class="defnprototype"><a id="defn348"></a>line number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth line from the text, counting from 1. Unless explicit use is made of line-breaking, lines and paragraphs will be the same – it doesn't refer to lines as visible on screen, because we have no way of knowing what size screen the player might have. Note that white space is trimmed from both sides of what Inform considers a <code class="inlinesourcetext">line</code> here.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of lines in (text) ... number</p>
+                <!-- START PHRASE "defn349" -->
+                <p class="defnprototype"><a id="defn349"></a>number of lines in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of lines in the text. Unless explicit use is made of line-breaking, lines and paragraphs will be the same – it doesn't refer to lines as visible on screen, because we have no way of knowing what size screen the player might have. Example: the number of lines in</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Sensational news just in!</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">The Martians have invaded Miranda.</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">(One of the moons of Uranus, that is.)&quot;</span>
+                <!-- START CODE "code1512" -->
+                <blockquote class="extract-inform7"><a id="code1512"></a><span class="indexdullblue"><span class="string-syntax">&quot;Sensational news just in![paragraph break]The Martians have invaded Miranda.[line break](One of the moons of Uranus, that is.)&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>is <code class="inlinesourcetext">3</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">paragraph number (number) in (text) ... text</p>
+                <!-- START PHRASE "defn350" -->
+                <p class="defnprototype"><a id="defn350"></a>paragraph number (number) in (text) ... text</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the Nth paragraph from the text, counting from 1.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of paragraphs in (text) ... number</p>
+                <!-- START PHRASE "defn351" -->
+                <p class="defnprototype"><a id="defn351"></a>number of paragraphs in (text) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of paragraphs in the text. Example: the number of paragraphs in</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Sensational news just in!</span><span class="syntaxextract">[paragraph break]</span><span class="syntaxstring">The Martians have invaded Miranda.</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">(One of the moons of Uranus, that is.)&quot;</span>
+                <!-- START CODE "code1513" -->
+                <blockquote class="extract-inform7"><a id="code1513"></a><span class="indexdullblue"><span class="string-syntax">&quot;Sensational news just in![paragraph break]The Martians have invaded Miranda.[line break](One of the moons of Uranus, that is.)&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>is <code class="inlinesourcetext">2</code>.</p>
             </div>
             <p>(Attempting to make large enough texts to have a serious paragraph count is slightly risky if there is not much memory to play with, as on the Z-machine. But the facilities do exist.)</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_22_1.html"><span class="markdowncontent">Chapter 22: Advanced Text</span></a> &bull; <a href="WI_22_3.html"><span class="markdowncontent">Section 22.3: Upper and lower case letters</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

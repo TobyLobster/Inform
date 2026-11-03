@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,52 +2212,90 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Angle-bracketed part names" -->
+            <!-- SEARCH SECTION "17.5" -->
+            <!-- SEARCH SORT "001-017-005-000" -->
             <h3><span>Section 17.5: Angle-bracketed part names</span></h3>
+            <p>     </p>
             <p>In all the notations so far, the &quot;parts&quot; have been written in something resembling numerical form. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1122" -->
+            <blockquote class="extract-inform7"><a id="code1122"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxconstant">50</span><span class="syntaxplain">° </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain">° </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">latitude</span><span class="syntaxplain"> (7 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">85</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">longitude</span><span class="syntaxplain"> (20 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">179</span><span class="syntaxplain">).</span>
+            <span class="constant-syntax">50</span><span class="plain-syntax">° </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="constant-syntax">100</span><span class="plain-syntax">° </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">latitude</span><span class="plain-syntax"> (7 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">85</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">longitude</span><span class="plain-syntax"> (20 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">179</span><span class="plain-syntax">).</span>
             </span></blockquote>
-            <p>But this could also be written like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>(Let's not argue about Semisopochnoi Island and other outliers.) But this could also be written like so:</p>
+            <!-- START CODE "code1123" -->
+            <blockquote class="extract-inform7"><a id="code1123"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">latitude</span><span class="syntaxplain">&gt;° </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> &lt;</span><span class="syntaxidentifier">longitude</span><span class="syntaxplain">&gt;° </span><span class="syntaxidentifier">W</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">latitude</span><span class="syntaxplain"> (7 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">85</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">longitude</span><span class="syntaxplain"> (20 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">179</span><span class="syntaxplain">).</span>
+            <span class="plain-syntax">&lt;</span><span class="identifier-syntax">latitude</span><span class="plain-syntax">&gt;° </span><span class="identifier-syntax">N</span><span class="plain-syntax"> &lt;</span><span class="identifier-syntax">longitude</span><span class="plain-syntax">&gt;° </span><span class="identifier-syntax">W</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">American</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">reference</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">latitude</span><span class="plain-syntax"> (7 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">85</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">longitude</span><span class="plain-syntax"> (20 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">179</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This specification <code class="inlinesourcetext">&lt;latitude&gt;° N &lt;longitude&gt;° W</code> contains two parts, and Inform then requires the rest of the sentence to explain what they are.</p>
             <p>Angle brackets must <em>either</em> contain a double-quoted piece of text to be taken literally, <em>or</em> the name of one of the parts. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1124" -->
+            <blockquote class="extract-inform7"><a id="code1124"></a><span class="indexdullblue"><span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxstring">&quot;00&quot;</span><span class="syntaxplain">&gt;7 </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">agent</span><span class="syntaxplain">.</span>
+            <span class="plain-syntax">&lt;</span><span class="string-syntax">&quot;00&quot;</span><span class="plain-syntax">&gt;7 </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">agent</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>allows constants like <code class="inlinesourcetext">007</code> and <code class="inlinesourcetext">0011</code> to be used and printed back, with
             the double-0 prefix having no numerical meaning but signalling that this is
             an agent, not a number.</p>
-            <p>This makes it impossible to have a literal <code class="inlinesourcetext">&quot;</code> character in a specification, but those are impossible for Inform to read anyway because they would be mistaken for text, so this is no loss. But literal angle brackets can be written, so that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">&lt;</span><span class="syntaxstring">&quot;&lt;&quot;</span><span class="syntaxplain">&gt;99&lt;</span><span class="syntaxstring">&quot;&gt;&quot;</span><span class="syntaxplain">&gt;</span>
+            <p>This makes it impossible to have a literal <code class="inlinesourcetext">&quot;</code> character in a specification, but those are impossible for Inform to read anyway because they would be mistaken for text, so this is no loss. How about literal angle brackets, though? Suppose we want values to look like <code class="inlinesourcetext">&lt;1101&gt;</code>, <code class="inlinesourcetext">&lt;1102&gt;</code>, ...; we cannot write</p>
+            <!-- START CODE "code1125" -->
+            <blockquote class="extract-inform7"><a id="code1125"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">hotel</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="plain-syntax">&lt;1109&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">hotel</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>allows <code class="inlinesourcetext">&lt;99&gt;</code> to be a value. Similarly:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. $&lt;</span><span class="syntaxidentifier">dollars</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxstring">&quot;.&quot;</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">cents</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">monetary</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dollars</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cents</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">optional</span><span class="syntaxplain">, </span><span class="syntaxidentifier">preamble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">optional</span><span class="syntaxplain">).</span>
+            <!-- END CODE -->
+            <p>...because the <code class="inlinesourcetext">&lt;</code> and <code class="inlinesourcetext">&gt;</code> signs on either side of the <code class="inlinesourcetext">1109</code> lead Inform to think that what's between them will be the name of a part. Inform then complains, reasonably enough from its point of view, that <code class="inlinesourcetext">1109</code> <em>isn't</em> the name of a part. Instead:</p>
+            <!-- START CODE "code1126" -->
+            <blockquote class="extract-inform7"><a id="code1126"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">hotel</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="plain-syntax">&lt;</span><span class="string-syntax">&quot;&lt;&quot;</span><span class="plain-syntax">&gt;1109&lt;</span><span class="string-syntax">&quot;&gt;&quot;</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">hotel</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Note that putting the full stop in quotation marks here prevents Inform from thinking that one sentence has ended and another one has begun.</p>
+            <!-- END CODE -->
+            <p>This works nicely, because <code class="inlinesourcetext">&lt;&quot;&lt;&quot;&gt;</code> means &quot;match a literal <code class="inlinesourcetext">&lt;</code>&quot;. And then, say, <code class="inlinesourcetext">showme &lt;1109&gt;</code> replies:</p>
+            <!-- START CODE "code1127" -->
+            <blockquote class="extract-inform7"><a id="code1127"></a><span class="indexdullblue"><span class="identifier-syntax">hotel</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">: &lt;1109&gt;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>In other words, that cumbersome escaping needed to be done only when specifying the notation, not when using it.</p>
+            <p>Similarly:</p>
+            <!-- START CODE "code1128" -->
+            <blockquote class="extract-inform7"><a id="code1128"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. $&lt;</span><span class="identifier-syntax">dollars</span><span class="plain-syntax">&gt;&lt; </span><span class="string-syntax">&quot;.&quot;</span><span class="plain-syntax"> &gt;&lt;</span><span class="identifier-syntax">cents</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span><span class="plain-syntax"> </span><span class="identifier-syntax">dollars</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">cents</span><span class="plain-syntax"> (2 </span><span class="identifier-syntax">digits</span><span class="plain-syntax">, </span><span class="identifier-syntax">optional</span><span class="plain-syntax">, </span><span class="identifier-syntax">preamble</span><span class="plain-syntax"> </span><span class="identifier-syntax">optional</span><span class="plain-syntax">).</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Putting the full stop in quotation marks here prevents Inform from thinking that one sentence has ended and another one has begun; note the little spacing around this to ensure that Inform doesn't misread this. <code class="inlinesourcetext">showme $2.14</code> and <code class="inlinesourcetext">showme $31</code> then reply:</p>
+            <!-- START CODE "code1129" -->
+            <blockquote class="extract-inform7"><a id="code1129"></a><span class="indexdullblue"><span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">: $2.14</span>
+            <br>
+            <span class="identifier-syntax">monetary</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">: $31</span>
+            </span></blockquote>
+            <!-- END CODE -->
             <p>We can also use the angle-bracket syntax to have two parts of a specification jammed directly next to each other, with nothing in between:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">CSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1130" -->
+            <blockquote class="extract-inform7"><a id="code1130"></a><span class="indexdullblue"><span class="identifier-syntax">CSS</span><span class="plain-syntax"> </span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">#&lt;</span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">CSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <span class="plain-syntax">#&lt;</span><span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">blue</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">CSS</span><span class="plain-syntax"> </span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain"> (2 </span><span class="syntaxidentifier">hexadecimal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digits</span><span class="syntaxplain">),</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">red</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax"> (2 </span><span class="identifier-syntax">hexadecimal</span><span class="plain-syntax"> </span><span class="identifier-syntax">digits</span><span class="plain-syntax">),</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain"> (2 </span><span class="syntaxidentifier">hexadecimal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digits</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax"> (2 </span><span class="identifier-syntax">hexadecimal</span><span class="plain-syntax"> </span><span class="identifier-syntax">digits</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">level</span><span class="syntaxplain"> (2 </span><span class="syntaxidentifier">hexadecimal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digits</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">blue</span><span class="plain-syntax"> </span><span class="identifier-syntax">level</span><span class="plain-syntax"> (2 </span><span class="identifier-syntax">hexadecimal</span><span class="plain-syntax"> </span><span class="identifier-syntax">digits</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This enables <code class="inlinesourcetext">CSS colour</code> to have values like <code class="inlinesourcetext">#4169E1</code>, royal blue.</p>
             <p>The part names in the angle-bracket escapes have to exactly match those given
             in the tail of the sentence, and in the same order: Inform will throw a problem message if not.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_17_4.html"><span class="markdowncontent">Section 17.4: Range and number base of notation parts</span></a> &bull; <a href="WI_17_6.html"><span class="markdowncontent">Section 17.6: Unusual digits</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

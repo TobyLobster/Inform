@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,41 +2212,47 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Actions on consecutive turns" -->
+            <!-- SEARCH SECTION "7.18" -->
+            <!-- SEARCH SORT "001-007-018-000" -->
             <h3><span>Section 7.18: Actions on consecutive turns</span></h3>
             <p>      </p>
             <p>We can also reckon the number of consecutive turns on which an action has been repeated, by talking about <code class="inlinesourcetext">turns</code> instead of <code class="inlinesourcetext">times</code>, as demonstrated in the following example story. Note also that we are allowed to use the phrase <code class="inlinesourcetext">doing it</code> to mean &quot;the same description as the previous one except for the part about turns or times&quot;, like so:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Waiting Room[=0x0022=][=0x000A=][=0x000A=]The Antechamber is a room. The tattered copy of Women[=0x0027=]s Wear Daily is in the Antechamber. Instead of taking the Daily, say [=0x0022=]It is stamped NOT TO BE TAKEN AWAY.[=0x0022=][=0x000A=][=0x000A=]Instead of examining the Daily for the first time, say [=0x0022=]The best article seems to be about how your star sign affects your best swimsuit colour. Really: that[=0x0027=]s the best article.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it for the second time, say [=0x0022=]You now know a generous amount about a typical week in the life of a weather forecaster.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it for the third time, say [=0x0022=]You would now know how to cook herb bread, except that you have already forgotten the names of both of the herbs.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it more than three times, say [=0x0022=]Nope, you[=0x0027=]ve drained it of all conceivable sustenance, even the small ads about French farmhouses to let (sleeps 7) and breast reduction surgery (with alarming photographs in sallow light).[=0x0022=][=0x000A=][=0x000A=]After waiting for four to six turns, say [=0x0022=]This is getting mighty dull.[=0x0022=] After waiting for seven to eight turns, say [=0x0022=]Really, exceptionally dull.[=0x0022=] After waiting for nine turns, end the story saying [=0x0022=]You have died of boredom, something previously thought medically impossible[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Waiting Room&quot;</span>
+            <!-- START CODE "code434" -->
+            <blockquote class="extract-inform7"><a id="code434"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Waiting Room[=0x0022=][=0x000A=][=0x000A=]The Antechamber is a room. The tattered copy of Women[=0x0027=]s Wear Daily is in the Antechamber. Instead of taking the Daily, say [=0x0022=]It is stamped NOT TO BE TAKEN AWAY.[=0x0022=][=0x000A=][=0x000A=]Instead of examining the Daily for the first time, say [=0x0022=]The best article seems to be about how your star sign affects your best swimsuit colour. Really: that[=0x0027=]s the best article.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it for the second time, say [=0x0022=]You now know a generous amount about a typical week in the life of a weather forecaster.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it for the third time, say [=0x0022=]You would now know how to cook herb bread, except that you have already forgotten the names of both of the herbs.[=0x0022=][=0x000A=][=0x000A=]Instead of doing it more than three times, say [=0x0022=]Nope, you[=0x0027=]ve drained it of all conceivable sustenance, even the small ads about French farmhouses to let (sleeps 7) and breast reduction surgery (with alarming photographs in sallow light).[=0x0022=][=0x000A=][=0x000A=]After waiting for four to six turns, say [=0x0022=]This is getting mighty dull.[=0x0022=] After waiting for seven to eight turns, say [=0x0022=]Really, exceptionally dull.[=0x0022=] After waiting for nine turns, end the story saying [=0x0022=]You have died of boredom, something previously thought medically impossible[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Waiting Room&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Antechamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tattered</span><span class="syntaxplain"> </span><span class="syntaxidentifier">copy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Women</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wear</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Daily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Antechamber</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Daily</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It is stamped NOT TO BE TAKEN AWAY.&quot;</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Antechamber</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">tattered</span><span class="plain-syntax"> </span><span class="identifier-syntax">copy</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Women</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wear</span><span class="plain-syntax"> </span><span class="identifier-syntax">Daily</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Antechamber</span><span class="plain-syntax">. </span><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Daily</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It is stamped NOT TO BE TAKEN AWAY.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Daily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The best article seems to be about how your star sign affects your best swimsuit colour. Really: that's the best article.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Daily</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The best article seems to be about how your star sign affects your best swimsuit colour. Really: that's the best article.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You now know a generous amount about a typical week in the life of a weather forecaster.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You now know a generous amount about a typical week in the life of a weather forecaster.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">third</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You would now know how to cook herb bread, except that you have already forgotten the names of both of the herbs.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">third</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You would now know how to cook herb bread, except that you have already forgotten the names of both of the herbs.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">more</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">three</span><span class="syntaxplain"> </span><span class="syntaxidentifier">times</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Nope, you've drained it of all conceivable sustenance, even the small ads about French farmhouses to let (sleeps 7) and breast reduction surgery (with alarming photographs in sallow light).&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Nope, you've drained it of all conceivable sustenance, even the small ads about French farmhouses to let (sleeps 7) and breast reduction surgery (with alarming photographs in sallow light).&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">four</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">six</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;This is getting mighty dull.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">seven</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">eight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Really, exceptionally dull.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain">, </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain"> </span><span class="syntaxidentifier">saying</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You have died of boredom, something previously thought medically impossible&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">four</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">six</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;This is getting mighty dull.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">seven</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">eight</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Really, exceptionally dull.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">nine</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax">, </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You have died of boredom, something previously thought medically impossible&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note once again that numbers above twelve must not be written out, so <code class="inlinesourcetext">more than twelve times</code> would be acceptable, but we would write <code class="inlinesourcetext">more than 13 times</code>.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_7_17.html"><span class="markdowncontent">Section 7.17: Repeated actions</span></a> &bull; <a href="WI_7_19.html"><span class="markdowncontent">Section 7.19: Postscript on actions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

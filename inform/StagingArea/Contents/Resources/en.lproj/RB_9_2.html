@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,29 +2212,39 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Bags, Bottles, Boxes and Safes" -->
+            <!-- SEARCH SECTION "9.2" -->
+            <!-- SEARCH SORT "002-009-002-000" -->
             <h3><span>Section 9.2: Bags, Bottles, Boxes and Safes</span></h3>
             <p>                
             The kind <code class="inlinesourcetext">container</code> allows one thing to contain others. Things are sometimes containers automatically, sometimes by instruction:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">match</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matchbox</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bucket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2119" -->
+            <blockquote class="extract-inform7"><a id="code2119"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">match</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">matchbox</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">bucket</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The matchbox, like the bucket, is a container. Containers come in all sizes and have a variety of behaviours, mainly controlled by the properties we give them: they can be <code class="inlinesourcetext">open</code> or <code class="inlinesourcetext">closed</code>, <code class="inlinesourcetext">opaque</code> or <code class="inlinesourcetext">transparent</code> (when closed), <code class="inlinesourcetext">openable</code> or not, <code class="inlinesourcetext">lockable</code> or not, <code class="inlinesourcetext">enterable</code> or not. The basic ideas of containment are to do with carrying and sometimes hiding the contents, and Inform makes this easy. Allowing for locking and unlocking is again straightforward:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strongbox</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">locked</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">little</span><span class="syntaxplain"> </span><span class="syntaxidentifier">steel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unlocks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">strongbox</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2120" -->
+            <blockquote class="extract-inform7"><a id="code2120"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">strongbox</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">locked</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">little</span><span class="plain-syntax"> </span><span class="identifier-syntax">steel</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax"> </span><span class="identifier-syntax">unlocks</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">strongbox</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>For a container with a combination lock, rather than a key, see <a href="eg_325.html">Safety</a>; for a more sophisticated safe requiring digits dialed over multiple turns, see <a href="eg_461.html">Eyes, Fingers, Toes</a>.</p>
-            <p><a href="eg_369.html">Trachypachidae Maturin 1803</a> provides a bottle that is stoppered with a cork: when it is closed, the cork is part of the bottle, but otherwise the cork becomes a separate object we can carry around.</p>
+            <!-- END CODE -->
+            <p>For a container with a combination lock, rather than a key, see <a href="eg_322.html">Safety</a>; for a more sophisticated safe requiring digits dialed over multiple turns, see <a href="eg_458.html">Eyes, Fingers, Toes</a>.</p>
+            <p><a href="eg_366.html">Trachypachidae Maturin 1803</a> provides a bottle that is stoppered with a cork: when it is closed, the cork is part of the bottle, but otherwise the cork becomes a separate object we can carry around.</p>
             <p>The normal assumption is that there is no problem with any two portable items being carried together, but in reality they may affect each other. (For effects like magnetism, or getting each other wet, or setting each other on fire, see the Physics chapter.) Here is a cat which, if boxed up with one or more items of food, will eat something each turn until all is gone:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wicker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">basket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fish</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wicker</span><span class="syntaxplain"> </span><span class="syntaxidentifier">basket</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2121" -->
+            <blockquote class="extract-inform7"><a id="code2121"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">wicker</span><span class="plain-syntax"> </span><span class="identifier-syntax">basket</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scarlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">fish</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wicker</span><span class="plain-syntax"> </span><span class="identifier-syntax">basket</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">fish</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">edible</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foodstuff</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bag</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bag</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">edible</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">foodstuff</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bag</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">foodstuff</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">foodstuff</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;With mingled sounds of mewing and chomping, the cat nibbles up </span><span class="syntaxextract">[the foodstuff]</span><span class="syntaxstring">.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;With mingled sounds of mewing and chomping, the cat nibbles up [the foodstuff].&quot;</span>
             </span></blockquote>
-            <p>The examples below provide subtler effects, adapting text to the current situation. In <a href="eg_348.html">Cinco</a>, the container's name changes depending on what it contains: putting beef in a taco allows the player to call it a <code class="inlinetranscriptcommand">shredded beef taco</code>. In <a href="eg_373.html">Unpeeled</a> and <a href="eg_368.html">Shipping Trunk</a>, the description of something inside a container changes according to other things are alongside it. This is taken further in <a href="eg_371.html">Hudsucker Industries</a>, which describes the contents of a container as a group.</p>
-            <p>Finally, any action that destroys a container has to consider what to do with the things inside. <a href="eg_42.html">Fallout Enclosure</a> demonstrates a zapping action that destroys cash registers and shelves but leaves their contents tidily behind.</p>
+            <!-- END CODE -->
+            <p>The examples below provide subtler effects, adapting text to the current situation. In <a href="eg_345.html">Cinco</a>, the container's name changes depending on what it contains: putting beef in a taco allows the player to call it a <code class="inlinetranscriptcommand">shredded beef taco</code>. In <a href="eg_370.html">Unpeeled</a> and <a href="eg_365.html">Shipping Trunk</a>, the description of something inside a container changes according to other things are alongside it. This is taken further in <a href="eg_368.html">Hudsucker Industries</a>, which describes the contents of a container as a group.</p>
+            <p>Finally, any action that destroys a container has to consider what to do with the things inside. <a href="eg_41.html">Fallout Enclosure</a> demonstrates a zapping action that destroys cash registers and shelves but leaves their contents tidily behind.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_10_2.html" title="Section 10.2: Liquids">Liquids</a> for a SHAKE command that makes containers rattle when there are contents.</li>
@@ -2162,81 +2257,81 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg348><a style="text-decoration: none" href="eg_348.html"><span class="extensionexampleletter">348</span></a></span></div>
+                    <span id=eg345><a style="text-decoration: none" href="eg_345.html"><span class="extensionexampleletter">345</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_348.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cinco</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_345.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cinco</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A taco shell that can be referred to (when it contains things) in terms of its contents.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg348><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg345><a style="text-decoration: none" href="WI_19_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg461><a style="text-decoration: none" href="eg_461.html"><span class="extensionexampleletter">461</span></a></span></div>
+                    <span id=eg458><a style="text-decoration: none" href="eg_458.html"><span class="extensionexampleletter">458</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_461.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eyes, Fingers, Toes</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_458.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eyes, Fingers, Toes</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A safe with a multi-number combination, meant to be dialed over multiple turns, is implemented using a log of the last three numbers dialed. The log can then be compared to the safe's correct combination.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg461><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg458><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg325><a style="text-decoration: none" href="eg_325.html"><span class="extensionexampleletter">325</span></a></span></div>
+                    <span id=eg322><a style="text-decoration: none" href="eg_322.html"><span class="extensionexampleletter">322</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_325.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safety</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_322.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safety</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A safe whose dial can be turned with <code class="inlinetranscriptcommand">spin safe to</code> 1131, and which will open only with the correct combination.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg325><a style="text-decoration: none" href="WI_19_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg322><a style="text-decoration: none" href="WI_19_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg365><a style="text-decoration: none" href="eg_365.html"><span class="extensionexampleletter">365</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_365.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shipping Trunk</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A box of baking soda whose name changes to &quot;completely ineffective baking soda&quot; when it is in a container with something that smells funny.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg365><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg370><a style="text-decoration: none" href="eg_370.html"><span class="extensionexampleletter">370</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_370.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unpeeled</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Calling an onion &quot;a single yellow onion&quot; when (and only when) it is being listed as the sole content of a room or container.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg370><a style="text-decoration: none" href="WI_20_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg368><a style="text-decoration: none" href="eg_368.html"><span class="extensionexampleletter">368</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_368.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shipping Trunk</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A box of baking soda whose name changes to &quot;completely ineffective baking soda&quot; when it is in a container with something that smells funny.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg368><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg373><a style="text-decoration: none" href="eg_373.html"><span class="extensionexampleletter">373</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_373.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unpeeled</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Calling an onion &quot;a single yellow onion&quot; when (and only when) it is being listed as the sole content of a room or container.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg373><a style="text-decoration: none" href="WI_20_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg371><a style="text-decoration: none" href="eg_371.html"><span class="extensionexampleletter">371</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_371.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hudsucker Industries</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_368.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hudsucker Industries</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Letters which are described differently as a group, depending on whether the player has read none, some, or all of them, and on whether they are alike or unlike.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg371><a style="text-decoration: none" href="WI_20_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg368><a style="text-decoration: none" href="WI_20_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg369><a style="text-decoration: none" href="eg_369.html"><span class="extensionexampleletter">369</span></a></span></div>
+                    <span id=eg366><a style="text-decoration: none" href="eg_366.html"><span class="extensionexampleletter">366</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_369.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trachypachidae Maturin 1803</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_366.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trachypachidae Maturin 1803</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Bottles with removable stoppers: when the stopper is in the bottle, the bottle is functionally closed, but the stopper can also be removed and used elsewhere. Descriptions of the bottle reflect its state intelligently.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg369><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg366><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg42><a style="text-decoration: none" href="eg_42.html"><span class="extensionexampleletter">42</span></a></span></div>
+                    <span id=eg41><a style="text-decoration: none" href="eg_41.html"><span class="extensionexampleletter">41</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_42.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fallout Enclosure</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_41.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fallout Enclosure</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding an enclosure kind that includes both containers and supporters in order to simplify text that would apply to both.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg42><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg41><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_1.html"><span class="markdowncontent">Chapter 9: Props: Food, Clothing, Money, Toys, Books, Electronics</span></a> &bull; <a href="RB_9_3.html"><span class="markdowncontent">Section 9.3: Clothing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

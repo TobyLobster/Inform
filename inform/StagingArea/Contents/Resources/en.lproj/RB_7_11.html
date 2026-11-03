@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,48 +2212,55 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Character Knowledge and Reasoning" -->
+            <!-- SEARCH SECTION "7.11" -->
+            <!-- SEARCH SORT "002-007-011-000" -->
             <h3><span>Section 7.11: Character Knowledge and Reasoning</span></h3>
             <p>
             A character may be endowed with knowledge and even reasoning skills. Relations form quite a good way of keeping track of such problems: for instance, we can allow characters to be acquainted with one another with a relation such as</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Lucy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lady</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cardew</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2110" -->
+            <blockquote class="extract-inform7"><a id="code2110"></a><span class="indexdullblue"><span class="identifier-syntax">Lucy</span><span class="plain-syntax"> </span><span class="identifier-syntax">knows</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lady</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cardew</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Or we might keep track of more complicated attitudes between characters, as in <a href="eg_262.html">Murder on the Orient Express</a>, in which some characters suspect others of the crime.</p>
+            <!-- END CODE -->
+            <p>Or we might keep track of more complicated attitudes between characters, as in <a href="eg_259.html">Murder on the Orient Express</a>, in which some characters suspect others of the crime.</p>
             <p>Alternatively, we might have a list of salient facts that are important in our story. We might declare these as values, and then characters could know, learn, and forget entries as appropriate:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fact</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">facts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">All</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Known</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Facts</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2111" -->
+            <blockquote class="extract-inform7"><a id="code2111"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">fact</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">Some</span><span class="plain-syntax"> </span><span class="identifier-syntax">facts</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">defined</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">All</span><span class="plain-syntax"> </span><span class="identifier-syntax">Known</span><span class="plain-syntax"> </span><span class="identifier-syntax">Facts</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Knowledge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">people</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">facts</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">know</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">she</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knows</span><span class="syntaxplain">, </span><span class="syntaxidentifier">they</span><span class="syntaxplain"> </span><span class="syntaxidentifier">know</span><span class="syntaxplain">, </span><span class="syntaxidentifier">he</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knew</span><span class="syntaxplain">, </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">known</span><span class="syntaxplain">) </span><span class="syntaxidentifier">implies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knowledge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Knowledge</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">facts</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">know</span><span class="plain-syntax"> (</span><span class="identifier-syntax">she</span><span class="plain-syntax"> </span><span class="identifier-syntax">knows</span><span class="plain-syntax">, </span><span class="identifier-syntax">they</span><span class="plain-syntax"> </span><span class="identifier-syntax">know</span><span class="plain-syntax">, </span><span class="identifier-syntax">he</span><span class="plain-syntax"> </span><span class="identifier-syntax">knew</span><span class="plain-syntax">, </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">known</span><span class="plain-syntax">) </span><span class="identifier-syntax">implies</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">knowledge</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">All</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Known</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Facts</span></span><br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">All</span><span class="plain-syntax"> </span><span class="identifier-syntax">Known</span><span class="plain-syntax"> </span><span class="identifier-syntax">Facts</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">fact</span><span class="syntaxplain">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">fact</span><span class="plain-syntax">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">summary</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">shoe</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Lucy wears a size 9 shoe.&quot;</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">summary</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">sunset</span><span class="syntaxplain">-</span><span class="syntaxidentifier">time</span><span class="syntaxplain">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">shoe</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Sunset is at 8:22 PM this evening.&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Lucy wears a size 9 shoe.&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">sunset</span><span class="plain-syntax">-</span><span class="identifier-syntax">time</span><span class="plain-syntax">   </span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Sunset is at 8:22 PM this evening.&quot;</span></span>
                     </td>
                 </tr>
 
@@ -2176,13 +2268,14 @@
             </table>
             <span class="indexdullblue">
             <br>
-            <span class="syntaxidentifier">Lucy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shoe</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Lucy</span><span class="plain-syntax"> </span><span class="identifier-syntax">knows</span><span class="plain-syntax"> </span><span class="identifier-syntax">shoe</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Bob</span><span class="syntaxplain"> </span><span class="syntaxidentifier">knows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sunset</span><span class="syntaxplain">-</span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shoe</span><span class="syntaxplain">-</span><span class="syntaxidentifier">size</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Bob</span><span class="plain-syntax"> </span><span class="identifier-syntax">knows</span><span class="plain-syntax"> </span><span class="identifier-syntax">sunset</span><span class="plain-syntax">-</span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">shoe</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Or again we might keep a whole database of information in a table: the characters in <a href="eg_307.html">Questionable Revolutions</a> know dates, countries, and a short description for each of several rebellions and popular uprisings, while in <a href="eg_308.html">The Queen of Sheba</a>, Solomon is able to answer who, what, where, when, and why questions about a range of topics. This kind of approach is most useful when the characters need to display a deep knowledge of a particular field. The facts stored in the <code class="inlinesourcetext">Table of All Known Facts</code>, above, are comparatively sparse, because there we are designing a story in which not all data about the world is equally valuable: Lucy doesn't know the shoe size of every person in the story, because for some reason it is only her own shoe size that matters. On the other hand, the <code class="inlinesourcetext">Table of All Known Facts</code> can store different kinds of information, whereas the revolutions table has no way of storing shoe sizes or sunset times. And <a href="eg_262.html">Murder on the Orient Express</a> works differently again, because it is storing knowledge that concerns people and things that already exist in the world model, rather than abstract ideas. Our way of modeling character knowledge, in other words, will depend quite a lot on what kind of knowledge it is.</p>
-            <p>The possibilities of character reasoning are similarly broad, but <a href="eg_256.html">The Problem of Edith</a> introduces one kind: the character has a concept of how different conversation topics relate to one another, so that when she is asked about a new keyword, she picks a response that makes the question most relevant to the conversation already in progress.</p>
-            <p>We end with a longer scenario, in which we track what the character knows about the player and the conversational state: in <a href="eg_370.html">Chronic Hinting Syndrome</a>, the main character guides conversation in the direction they intend it to go, with the player's sometimes-reluctant participation.</p>
+            <!-- END CODE -->
+            <p>Or again we might keep a whole database of information in a table: the characters in <a href="eg_304.html">Questionable Revolutions</a> know dates, countries, and a short description for each of several rebellions and popular uprisings, while in <a href="eg_305.html">The Queen of Sheba</a>, Solomon is able to answer who, what, where, when, and why questions about a range of topics. This kind of approach is most useful when the characters need to display a deep knowledge of a particular field. The facts stored in the <code class="inlinesourcetext">Table of All Known Facts</code>, above, are comparatively sparse, because there we are designing a story in which not all data about the world is equally valuable: Lucy doesn't know the shoe size of every person in the story, because for some reason it is only her own shoe size that matters. On the other hand, the <code class="inlinesourcetext">Table of All Known Facts</code> can store different kinds of information, whereas the revolutions table has no way of storing shoe sizes or sunset times. And <a href="eg_259.html">Murder on the Orient Express</a> works differently again, because it is storing knowledge that concerns people and things that already exist in the world model, rather than abstract ideas. Our way of modeling character knowledge, in other words, will depend quite a lot on what kind of knowledge it is.</p>
+            <p>The possibilities of character reasoning are similarly broad, but <a href="eg_253.html">The Problem of Edith</a> introduces one kind: the character has a concept of how different conversation topics relate to one another, so that when she is asked about a new keyword, she picks a response that makes the question most relevant to the conversation already in progress.</p>
+            <p>We end with a longer scenario, in which we track what the character knows about the player and the conversational state: in <a href="eg_367.html">Chronic Hinting Syndrome</a>, the main character guides conversation in the direction they intend it to go, with the player's sometimes-reluctant participation.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_7_14.html" title="Section 7.14: Obedient Characters">Obedient Characters</a> for a character who needs to be taught how to perform actions before doing them.</li>
@@ -2190,54 +2283,54 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg262><a style="text-decoration: none" href="eg_262.html"><span class="extensionexampleletter">262</span></a></span></div>
+                    <span id=eg259><a style="text-decoration: none" href="eg_259.html"><span class="extensionexampleletter">259</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_262.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Murder on the Orient Express</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_259.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Murder on the Orient Express</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A number of sleuths (the player among them) find themselves aboard the Orient Express, where a murder has taken place, and one of them is apparently the culprit. Naturally they do not agree on whom, but there is physical evidence which may change their minds...</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg262><a style="text-decoration: none" href="WI_14_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg259><a style="text-decoration: none" href="WI_14_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg307><a style="text-decoration: none" href="eg_307.html"><span class="extensionexampleletter">307</span></a></span></div>
+                    <span id=eg304><a style="text-decoration: none" href="eg_304.html"><span class="extensionexampleletter">304</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_307.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Questionable Revolutions</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_304.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Questionable Revolutions</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An expansion on the previous idea, only this time we store information and let characters answer depending on their expertise in a given area.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg307><a style="text-decoration: none" href="WI_18_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg304><a style="text-decoration: none" href="WI_18_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg256><a style="text-decoration: none" href="eg_256.html"><span class="extensionexampleletter">256</span></a></span></div>
+                    <span id=eg253><a style="text-decoration: none" href="eg_253.html"><span class="extensionexampleletter">253</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_256.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Problem of Edith</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_253.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Problem of Edith</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A conversation in which the main character tries to build logical connections between what the player is saying now and what went immediately before.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg256><a style="text-decoration: none" href="WI_14_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg253><a style="text-decoration: none" href="WI_14_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg308><a style="text-decoration: none" href="eg_308.html"><span class="extensionexampleletter">308</span></a></span></div>
+                    <span id=eg305><a style="text-decoration: none" href="eg_305.html"><span class="extensionexampleletter">305</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_308.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Queen of Sheba</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_305.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Queen of Sheba</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to use question words, and using that information to modify the response given by the other character.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg308><a style="text-decoration: none" href="WI_18_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg305><a style="text-decoration: none" href="WI_18_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg370><a style="text-decoration: none" href="eg_370.html"><span class="extensionexampleletter">370</span></a></span></div>
+                    <span id=eg367><a style="text-decoration: none" href="eg_367.html"><span class="extensionexampleletter">367</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_370.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Chronic Hinting Syndrome</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_367.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Chronic Hinting Syndrome</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using name-printing rules to keep track of whether the player knows about objects, and also to highlight things they might want to follow up.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg370><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg367><a style="text-decoration: none" href="WI_20_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_10.html"><span class="markdowncontent">Section 7.10: Character Emotion</span></a> &bull; <a href="RB_7_12.html"><span class="markdowncontent">Section 7.12: Characters Following a Script</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

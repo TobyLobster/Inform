@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.15: Use options for extensions</span></title>
+    <title><span class="markdowncontent">Section 29.15: Republishing existing works of IF</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_14.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.15: Use options for extensions</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.15: Republishing existing works of IF</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_16.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,111 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.15: Use options for extensions</span></h3>
-            <p>   </p>
-            <p>Extensions should ideally cater for a range of possible uses, and one way to do that is to provide use options. We have seen many of these already, such as:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">American</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialect</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">serial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">comma</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Republishing existing works of IF" -->
+            <!-- SEARCH SECTION "29.15" -->
+            <!-- SEARCH SORT "001-029-015-000" -->
+            <h3><span>Section 29.15: Republishing existing works of IF</span></h3>
+            <p>  </p>
+            <p>Some long-time users of Inform will have projects which were originally made using the very different Inform 6 language. Story files produced with Inform 6 do not have any of the extra touches in this chapter: in particular, they have no cover art and no bibliographic data, which makes them rather plain and anonymous to newer Treaty of Babel-equipped programs like Zoom, Spatterlight or Windows Frotz.</p>
+            <p>To help with this, today's Inform can republish an Inform 6 project by combining an Inform 7 source text which contains only release instructions and bibliographic data with an already-compiled Inform 6 story file. We do this by writing a short source text which contains:</p>
+            <!-- START CODE "code1816" -->
+            <blockquote class="extract-inform7"><a id="code1816"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">existing</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Extensions can also create use options. There are two sorts: &quot;configuration flags&quot;, which are either set or not set; and &quot;configuration values&quot;, which are numbers. The following creates one of each:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">automatic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lintel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">flag</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">depth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>We then place the story file in the <code class="inlinesourcetext">.materials</code> folder. By default this will be called <code class="inlinesourcetext">Story.z8</code>, but we can alternatively name it:</p>
+            <!-- START CODE "code1817" -->
+            <blockquote class="extract-inform7"><a id="code1817"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">existing</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Zork1_sg.z5&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>The user's story could then begin:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">automatic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lintel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">depth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>The distinction between these:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">depth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>is that <code class="inlinesourcetext">duck sway</code> has a default value of 6 (i.e., will be that if
-            the source text never specifies anything), whereas <code class="inlinesourcetext">duck depth</code> has
-            a default value of 0.</p>
-            <p>If the user tries it, a problem message will reject this as a contradiction:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">depth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">17</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duck</span><span class="syntaxplain"> </span><span class="syntaxidentifier">depth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">22</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>If the idea is that a configuration value is some sort of maximum, which is often useful, then it can be defined as <code class="inlinesourcetext">at least</code> a value (which must be non-negative):</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">60</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>Should the user then say both of these:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">175</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">200</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>there is then no contradiction, and the value comes out as 200, which satisfies both requirements. (Of course, it's unlikely that any user will type both sentences. But that user might type one sentence into the source text, and also include an extension which, perhaps without the user even knowing, is also trying to configure <code class="inlinesourcetext">Philately</code>.) This would still produce a Problem:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">least</span><span class="syntaxplain"> </span><span class="syntaxconstant">175</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">height</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">160</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>Sneakily, we can also make what look to the user like several flags, but are actually mutually exclusive. For example, suppose we want the user to be able to select either of these, but not both:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bobbing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">swivelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>That can be done like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bobbing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DUCK_MOTION_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">swivelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DUCK_MOTION_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>As this suggests, under the hood a value called <code class="inlinecode">DUCK_MOTION_TYPE</code> is being set. Attempting to set both options will now cause Inform to throw a problem message for a contradiction, as will a sentence like <code class="inlinesourcetext">Use bobbing ducks of 3</code>. (We know that these settings are numerical; the user does not.)</p>
-            <p>So much for how we define these configuration flags or values, and how the user sets them: now for how to read back the settings which the user has made.</p>
-            <ol>
-            <li>
-            <p>The adjectives <code class="inlinesourcetext">active</code> and <code class="inlinesourcetext">inactive</code> apply to use options. A configuration flag is <code class="inlinesourcetext">active</code> if it has been used; a configuration value if it has been set to a non-zero value.</p>
-            </li>
-            <li>
-            <p>The phrase <code class="inlinesourcetext">numerical value of U</code>, for any use option <code class="inlinesourcetext">U</code>, produces its current value. (For a flag, that will be 1 if it is active, 0 if it is inactive.)</p>
-            </li>
-            </ol>
-            <p>Note that <code class="inlinesourcetext">active</code> and <code class="inlinesourcetext">numerical value</code> are <em>not</em> properties: they are set forever by the user, and cannot change at run-time. So <code class="inlinesourcetext">now U is active</code> and <code class="inlinesourcetext">now the numerical value of U is 10</code> do <em>not</em> work.</p>
-            <p>For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">automatic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lintel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">option</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(first ducking your head)</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>To return to our two mutually exclusive options:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bobbing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DUCK_MOTION_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">swivelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">translates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">configuration</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">DUCK_MOTION_TYPE</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>...suppose the user has chosen neither. Then both are inactive, and both have a numerical value of 0. If the user has chosen to <code class="inlinesourcetext">Use swivelling ducks</code> then <code class="inlinesourcetext">swivelling ducks option</code> is <code class="inlinesourcetext">active</code> and has a numerical value of 2.</p>
-            <p>In case helpful, here's a little diagnostic command called <code class="inlinetranscriptcommand">options</code>:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Showing use options is an action out of world, applying to nothing.[=0x000A=][=0x000A=]Understand [=0x0022=]OPTIONS[=0x0022=] as showing use options.[=0x000A=][=0x000A=]Carry out showing use options:[=0x000A=][=0x0009=]repeat with U running through active use options:[=0x000A=][=0x0009=][=0x0009=]if the numerical value of U [=0x003E=] 1:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][U] has been set to [numerical value of U].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][U] is on.[=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]Inactive: [list of inactive use options].[=0x0022=];[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Showing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">options</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain">, </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>The Settings panel must be switched to the Z-machine for this to work, since only Z-machine story files are supported this way, not Glulx. And we can now use the Release button to obtain the goods.</p>
+            <p>An existing story file can take advantage of all of the extra features – cover art, titling, website, feelies and so forth – earlier in this chapter, but not those – walkthrough, source text, map – which are still to come.</p>
+            <p>The following is a typical example of a source text used solely to bind up an old Inform 6-compiled story file:</p>
+            <!-- START CODE "code1818" -->
+            <blockquote class="extract-inform7"><a id="code1818"></a><span class="indexdullblue"><span class="string-syntax">&quot;Curses&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Graham</span><span class="plain-syntax"> </span><span class="identifier-syntax">Nelson</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;OPTIONS&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">showing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">options</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">genre</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Fantasy&quot;</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">showing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">options</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">headline</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;An Interactive Diversion&quot;</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">U</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">active</span><span class="syntaxplain"> </span><span class="syntaxidentifier">use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">options</span><span class="syntaxplain">:</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numerical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">U</span><span class="syntaxplain"> &gt; </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">creation</span><span class="plain-syntax"> </span><span class="identifier-syntax">year</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">1993</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[U]</span><span class="syntaxstring"> has been set to </span><span class="syntaxextract">[numerical value of U]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">release</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">16</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[U]</span><span class="syntaxstring"> is on.&quot;</span><span class="syntaxplain">;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Inactive: </span><span class="syntaxextract">[list of inactive use options]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It's become a matter of pride now not to give up. That tourist map of Paris must be up here somewhere in all this clutter, even if it has been five years since your last trip. And it's your own fault. It looks as if your great-grandfather was the last person to tidy up these lofts...&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">art</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">existing</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_14.html"><span class="markdowncontent">Section 29.14: Images and other resources</span></a> &bull; <a href="WI_29_16.html"><span class="markdowncontent">Section 29.16: Run-time problems</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_14.html"><span class="markdowncontent">Section 29.14: Advanced website templates</span></a> &bull; <a href="WI_29_16.html"><span class="markdowncontent">Section 29.16: Walkthrough solutions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

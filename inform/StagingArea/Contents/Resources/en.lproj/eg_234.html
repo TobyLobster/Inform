@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,73 +2193,82 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg234><a style="text-decoration: none" href="WI_13_16.html"><span class="extensionexampleletter">234</span></a></span></div>
+                <span id=eg234><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleletter">234</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Carnivale</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">An alternative to backdrops when we want something to be visible from a distance but only touchable from one room.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Magneto's Revenge</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Kitty Pryde of the X-Men is able to reach through solid objects, so we might implement her with special powers that the player does not have...</span></span></div>
             <div class="exampleright">
-                <span id=eg234><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg234><a style="text-decoration: none" href="RB_10_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>Suppose we want to make an object that (unlike a backdrop) is definitely located in one room, but can be seen from far off. We want to allow the player to interact with it from a distance, but only using those actions that require visibility. Other actions should be denied:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Carnivale[=0x0022=][=0x000A=][=0x000A=]The Fairground is a region. Park Entrance, By the Wheel, and Candy Stand are in Fairground. Candy Stand is north of By the Wheel. Park Entrance is west of Candy Stand and northwest of By the Wheel.[=0x000A=][=0x000A=]The ferris wheel is scenery in By the Wheel. [=0x0022=]It is extravagantly tall and carries several dozen glass gondolas for riders.[=0x0022=][=0x000A=][=0x000A=]The description of By the Wheel is [=0x0022=]You stand at the foot of an enormous ferris wheel, which turns far too quickly and never seems to stop for new riders.[=0x0022=][=0x000A=][=0x000A=]The description of Park Entrance is [=0x0022=]You are now just inside the gates. Behind you snakes a triple line of fairgoers all the way down the length of the valley to the railway station. Roughly southeast of here is the ferris wheel, towering over the other attractions.[=0x0022=][=0x000A=][=0x000A=]The description of Candy Stand is [=0x0022=]A hut in pale pink and baby blue dispenses marshmallow death[=0x0027=]s-heads, sugar-beetles, and other such treats. The giant ferris wheel is just off to the south from here.[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player:[=0x000A=][=0x0009=]if the location is in Fairground, place the ferris wheel in scope.[=0x000A=][=0x000A=]Rule for reaching inside a room:[=0x000A=][=0x0009=]say [=0x0022=]You can only look from this distance.[=0x0022=];[=0x000A=][=0x0009=]deny access.[=0x000A=][=0x000A=]Instead of touching the ferris wheel:[=0x000A=][=0x0009=]say [=0x0022=]You don[=0x0027=]t dare: it[=0x0027=]s spinning too fast.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x ferris wheel / touch ferris wheel / se / x ferris wheel / touch ferris wheel[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Carnivale&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Magneto's Revenge" -->
+        <!-- SEARCH SECTION "Example 234" -->
+        <!-- SEARCH SORT "003-234-000-000" -->
+        <p> </p>
+        <!-- START CODE "code3027" -->
+        <blockquote class="extract-inform7"><a id="code3027"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Magneto[=0x0027=]s Revenge[=0x0022=][=0x000A=][=0x000A=]The School for Gifted Youngsters is a room. Kitty Pryde is a woman in the School for Gifted Youngsters. [=0x0022=]Kitty Pryde waits for you to say why you summoned her out of class.[=0x0022=] The description is [=0x0022=]You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.[=0x0022=][=0x000A=][=0x000A=]The glass box is a container in the School for Gifted Youngsters. It is closed, openable, and transparent. In the box is a quantity of poisonous gas. In the box is a thing called the message from Magneto.[=0x000A=][=0x000A=]Instead of examining the message when the player is not carrying the message:[=0x000A=][=0x0009=]say [=0x0022=]You[=0x0027=]d need to be holding it before you could read it.[=0x0022=][=0x000A=][=0x000A=]Instead of opening the glass box: say [=0x0022=]You[=0x0027=]re deterred by the swirling bottle-green mist within.[=0x0022=][=0x000A=][=0x000A=]Check someone taking the gas (this is the gaseous object rule): rule fails.[=0x000A=][=0x000A=]Unsuccessful attempt by someone taking the gas: say [=0x0022=]The gas isn[=0x0027=]t something one can pick up in one[=0x0027=]s bare hands.[=0x0022=][=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the player can touch the gas:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]The gas has reached your lungs![=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]A rule for reaching inside something:[=0x000A=][=0x0009=]if the person reaching is Kitty, allow access.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try doing something: persuasion succeeds.[=0x000A=][=0x000A=]Test me with [=0x0022=]get message / kitty, get message / open box / kitty, open box[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Magneto's Revenge&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fairground</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">region</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Park</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Entrance</span><span class="syntaxplain">, </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fairground</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Park</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Entrance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">northwest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">School</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gifted</span><span class="plain-syntax"> </span><span class="identifier-syntax">Youngsters</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Kitty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pryde</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">School</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gifted</span><span class="plain-syntax"> </span><span class="identifier-syntax">Youngsters</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Kitty Pryde waits for you to say why you summoned her out of class.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You see nothing special about Kitty Pryde. But that is only because she has learned to conceal her mutant powers: in fact she has the alternative name Shadowcat, and the ability to phase through solid objects.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferris</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wheel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;It is extravagantly tall and carries several dozen glass gondolas for riders.&quot;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">glass</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">School</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gifted</span><span class="plain-syntax"> </span><span class="identifier-syntax">Youngsters</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax">, </span><span class="identifier-syntax">openable</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">transparent</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">quantity</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">poisonous</span><span class="plain-syntax"> </span><span class="identifier-syntax">gas</span><span class="plain-syntax">. </span><span class="identifier-syntax">In</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">message</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Magneto</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You stand at the foot of an enormous ferris wheel, which turns far too quickly and never seems to stop for new riders.&quot;</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">message</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">message</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You'd need to be holding it before you could read it.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Park</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Entrance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You are now just inside the gates. Behind you snakes a triple line of fairgoers all the way down the length of the valley to the railway station. Roughly southeast of here is the ferris wheel, towering over the other attractions.&quot;</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">glass</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You're deterred by the swirling bottle-green mist within.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Candy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;A hut in pale pink and baby blue dispenses marshmallow death's-heads, sugar-beetles, and other such treats. The giant ferris wheel is just off to the south from here.&quot;</span>
-        </span></blockquote>
-        <p>As the descriptions make clear, the ferris wheel should be visible from everywhere in the fair, so we'll borrow a line from the <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a> chapter to make that happen:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fairground</span><span class="syntaxplain">, </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferris</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wheel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>&quot;Scope&quot; determines what the player can interact with; by writing this rule, we make Inform understand all commands that refer to the ferris wheel when the player is anywhere in the fairground, instead of responding with</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">You</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">see</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">such</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>as it normally would.</p>
-        <p>Now, by default, if the player were to type <code class="inlinetranscriptcommand">touch ferris wheel</code> while in another room, the story would respond</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">You</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain">'</span><span class="syntaxidentifier">t</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reach</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain"> </span><span class="syntaxidentifier">By</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wheel</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>This may not be quite what we want, but we can replace this text with our own reaching inside rule:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reaching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inside</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can only look from this distance.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">deny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">access</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>And because our accessibility rules are considered before the <code class="inlinesourcetext">Instead</code> phase, we can write the following rule confident that it will apply only when the player is in fact in range to touch the ferris wheel:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">touching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferris</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wheel</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You don't dare: it's spinning too fast.&quot;</span>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gas</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gaseous</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">): </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">fails</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;x ferris wheel / touch ferris wheel / se / x ferris wheel / touch ferris wheel&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Unsuccessful</span><span class="plain-syntax"> </span><span class="identifier-syntax">attempt</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gas</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The gas isn't something one can pick up in one's bare hands.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">touch</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">gas</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The gas has reached your lungs!&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">reaching</span><span class="plain-syntax"> </span><span class="identifier-syntax">inside</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">reaching</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">Kitty</span><span class="plain-syntax">, </span><span class="identifier-syntax">allow</span><span class="plain-syntax"> </span><span class="identifier-syntax">access</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">: </span><span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;get message / kitty, get message / open box / kitty, open box&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>Now the player can get Kitty to take the message without releasing the poisonous gas:</p>
+        <div class="extract-transcript">
+            <pre><code class="language-transcript">Kitty Pride waits for you to tell her why you summoned her out of class.<br><br>You can also see a glass box (closed) (in which are some poisonous gas and a message from Magneto) here.<br><br>&gt;kitty, get message<br>Kitty Pryde picks up a message from Magneto.<br></code></pre></div>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_16.html>Section 13.16: Reaching inside and reaching outside rules</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_13_18.html>Section 13.18: Changing reachability</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

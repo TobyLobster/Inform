@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,86 +2212,118 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adding and removing rows" -->
+            <!-- SEARCH SECTION "18.10" -->
+            <!-- SEARCH SORT "001-018-010-000" -->
             <h3><span>Section 18.10: Adding and removing rows</span></h3>
             <p>    </p>
             <p>Writing in new rows is simple, once we can find space for them:</p>
             <div class="definition">
-                <p class="defnprototype">choose a/the/-- blank row in/from (table name)</p>
+                <!-- START PHRASE "defn285" -->
+                <p class="defnprototype"><a id="defn285"></a>choose a/the/-- blank row in/from (table name)</p>
+                <!-- END PHRASE -->
                 <p>This phrase chooses a row in the given table which is currently blank under every column. A run-time problem message is issued if no rows are blank. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1178" -->
+                <blockquote class="extract-inform7"><a id="code1178"></a><span class="indexdullblue"><span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">element</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Fluorine&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">element</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Fluorine&quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">symbol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;F&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">symbol</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;F&quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">9</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">9</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">atomic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">19</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">atomic</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">19</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>To avoid problem messages, it can be important to worry about free space. To that end we can not only find the number of rows (as we have already seen) but also the number currently blank and not blank:</p>
             <div class="definition">
-                <p class="defnprototype">number of blank rows in/from (table name) ... number</p>
+                <!-- START PHRASE "defn286" -->
+                <p class="defnprototype"><a id="defn286"></a>number of blank rows in/from (table name) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of rows in the given table which are entirely blank (that is, blank under every column).</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">number of filled rows in/from (table name) ... number</p>
+                <!-- START PHRASE "defn287" -->
+                <p class="defnprototype"><a id="defn287"></a>number of filled rows in/from (table name) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of rows in the given table which are not entirely blank (that is, at least one column has a value in this row).</p>
             </div>
             <p><code class="inlinesourcetext">Filled</code> here really means <code class="inlinesourcetext">non-blank</code>: a row can be filled in this sense even if only one of its values exists. Since every row is either blank or filled, it must be true that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span>
+            <!-- START CODE "code1179" -->
+            <blockquote class="extract-inform7"><a id="code1179"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span>
             <br>
-            <span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">filled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rows</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span>
+            <span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">filled</span><span class="plain-syntax"> </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>add up to <code class="inlinesourcetext">the number of rows in Table 3</code>.</p>
             <p>We've seen that blank entries can be filled with values using <code class="inlinesourcetext">now</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">symbol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;F&quot;</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1180" -->
+            <blockquote class="extract-inform7"><a id="code1180"></a><span class="indexdullblue"><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">symbol</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;F&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But the same method can't be used to put blanks back, since a blank is not a value. Instead:</p>
             <div class="definition">
-                <p class="defnprototype">blank out (a table entry)</p>
+                <!-- START PHRASE "defn288" -->
+                <p class="defnprototype"><a id="defn288"></a>blank out (a table entry)</p>
+                <!-- END PHRASE -->
                 <p>This phrase replaces the entry referred to with a blank, erasing any value previously stored there. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Habitats</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1181" -->
+                <blockquote class="extract-inform7"><a id="code1181"></a><span class="indexdullblue"><span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fish</span><span class="plain-syntax"> </span><span class="identifier-syntax">Habitats</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">salinity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">salinity</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>These more destructive phrases need a steady hand:</p>
             <div class="definition">
-                <p class="defnprototype">blank out the/-- whole row</p>
+                <!-- START PHRASE "defn289" -->
+                <p class="defnprototype"><a id="defn289"></a>blank out the/-- whole row</p>
+                <!-- END PHRASE -->
                 <p>This phrase replaces the currently chosen row with blanks, erasing any value previously stored under any of the columns. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">choose</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Habitats</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1182" -->
+                <blockquote class="extract-inform7"><a id="code1182"></a><span class="indexdullblue"><span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fish</span><span class="plain-syntax"> </span><span class="identifier-syntax">Habitats</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">blank out the/-- whole (table column) column in (table)</p>
+                <!-- START PHRASE "defn290" -->
+                <p class="defnprototype"><a id="defn290"></a>blank out the/-- whole (table column) column in (table)</p>
+                <!-- END PHRASE -->
                 <p>This phrase replaces the currently chosen column with blanks, erasing any value previously stored in any of the rows. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">salinity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">column</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Habitats</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1183" -->
+                <blockquote class="extract-inform7"><a id="code1183"></a><span class="indexdullblue"><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">salinity</span><span class="plain-syntax"> </span><span class="identifier-syntax">column</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fish</span><span class="plain-syntax"> </span><span class="identifier-syntax">Habitats</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">blank out the/-- whole of (table)</p>
+                <!-- START PHRASE "defn291" -->
+                <p class="defnprototype"><a id="defn291"></a>blank out the/-- whole of (table)</p>
+                <!-- END PHRASE -->
                 <p>This phrase replaces every row of the currently chosen table with blanks, erasing any value previously stored anywhere in it. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fish</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Habitats</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1184" -->
+                <blockquote class="extract-inform7"><a id="code1184"></a><span class="indexdullblue"><span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fish</span><span class="plain-syntax"> </span><span class="identifier-syntax">Habitats</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This is only really useful when a Table is being used to hold working space for some calculation or other.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg302><a style="text-decoration: none" href="eg_302.html"><span class="extensionexampleletter">302</span></a></span></div>
+                    <span id=eg299><a style="text-decoration: none" href="eg_299.html"><span class="extensionexampleletter">299</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_302.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odyssey</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_299.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odyssey</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A person who follows a path predetermined and stored in a table, and who can be delayed if the player tries to interact with her.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg302><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg299><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_9.html"><span class="markdowncontent">Section 18.9: Blank rows</span></a> &bull; <a href="WI_18_11.html"><span class="markdowncontent">Section 18.11: Sorting</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

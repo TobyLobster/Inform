@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Printing the banner text" -->
+            <!-- SEARCH SECTION "20.39" -->
+            <!-- SEARCH SORT "001-020-039-000" -->
             <h3><span>Section 20.39: Printing the banner text</span></h3>
             <p>       </p>
             <p><strong>1. When it happens.</strong> The banner is the bibliographic masthead text, which typically looks something like this:</p>
             <p></p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Relations</span>
+            <!-- START CODE "code1425" -->
+            <blockquote class="extract-inform7"><a id="code1425"></a><span class="indexdullblue"><span class="identifier-syntax">Relations</span>
             <br>
-            <span class="syntaxidentifier">An</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Interactive</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Fiction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span>
+            <span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">Interactive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fiction</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Emily</span><span class="plain-syntax"> </span><span class="identifier-syntax">Short</span>
             <br>
-
-            <br>
-            <span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> / </span><span class="syntaxidentifier">Serial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">050630</span><span class="syntaxplain"> / </span><span class="syntaxidentifier">Inform</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">build</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxidentifier">U98</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">I6</span><span class="syntaxplain">/</span><span class="syntaxidentifier">v6</span><span class="syntaxplain">.30 </span><span class="syntaxidentifier">lib</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain">/10</span><span class="syntaxidentifier">N</span><span class="syntaxplain">) </span><span class="syntaxidentifier">SD</span>
+            <span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> / </span><span class="identifier-syntax">Serial</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">050630</span><span class="plain-syntax"> / </span><span class="identifier-syntax">Inform</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">v10</span><span class="plain-syntax">.2.0</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(The serial and build numbers are those applying when the story file was last made: these ones are from the mid-2000s.) The banner is printed at the start of play, and when the player types <code class="inlinetranscriptcommand">version</code> at the command line, and when say <code class="inlinesourcetext">&quot;[banner text]&quot;</code> occurs.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[the/-- banner text]&quot;</p>
+                <!-- START PHRASE "defn324" -->
+                <p class="defnprototype"><a id="defn324"></a>say &quot;[the/-- banner text]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution expands to the banner text giving bibliographic details of the current story file, rather like the opening credits of a movie, or the title page of a book.</p>
             </div>
-            <p><strong>2. The default behaviour.</strong> Prints the text above, giving the title, the headline, the author, the release number, the date of compilation (that's the serial number: YYMMDD), and version numbers of the Inform components used to put the story together.</p>
+            <p><strong>2. The default behaviour.</strong> Prints the text above, giving the title, the headline, the author, the release number, the date of compilation (that's the serial number: YYMMDD), and version numbers of the Inform components used to put the story together. This is done by the <code class="inlinesourcetext">standard printing the banner text rule</code>. Lines 1 to 3 of the standard banner are responses <code class="inlinesourcetext">(A)</code> to <code class="inlinesourcetext">(C)</code> of this rule.</p>
             <p><strong>3. Examples.</strong> (a) Adding a line to the banner:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">banner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;DRM authentication code: 13S-451-2034u75y65u%%a1248.&quot;</span>
+            <!-- START CODE "code1426" -->
+            <blockquote class="extract-inform7"><a id="code1426"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">banner</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;DRM authentication code: 13S-451-2034u75y65u%%a1248.&quot;</span>
             </span></blockquote>
-            <p>(b) Simplifying the banner:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">banner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Welcome.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>(b) Amending a line in the banner:</p>
+            <!-- START CODE "code1427" -->
+            <blockquote class="extract-inform7"><a id="code1427"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">standard</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">banner</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">response</span><span class="plain-syntax"> (</span><span class="identifier-syntax">C</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;There are versions, but it's not like you care.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <p>(c) Replacing the banner altogether:</p>
+            <!-- START CODE "code1428" -->
+            <blockquote class="extract-inform7"><a id="code1428"></a><span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">banner</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Welcome.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg411><a style="text-decoration: none" href="eg_411.html"><span class="extensionexampleletter">411</span></a></span></div>
+                    <span id=eg408><a style="text-decoration: none" href="eg_408.html"><span class="extensionexampleletter">408</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_411.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bikini Atoll</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_408.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bikini Atoll</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Delaying the banner for later.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg411><a style="text-decoration: none" href="RB_11_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg408><a style="text-decoration: none" href="RB_11_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_38.html"><span class="markdowncontent">Section 20.38: Deciding whether all includes</span></a> &bull; <a href="WI_20_40.html"><span class="markdowncontent">Section 20.40: Printing the player's obituary</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

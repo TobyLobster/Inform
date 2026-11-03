@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,43 +2212,51 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Multiple action processing" -->
+            <!-- SEARCH SECTION "19.21" -->
+            <!-- SEARCH SORT "001-019-021-000" -->
             <h3><span>Section 19.21: Multiple action processing</span></h3>
             <p>  </p>
             <p>When the player types a command like <code class="inlinetranscriptcommand">drop all</code>, this is (usually) a request to carry out more than one action. After the command parser has decided what constitutes <code class="inlinetranscriptcommand">all</code> (a process which can be influenced using the <code class="inlinesourcetext">deciding whether all includes</code> activity), it forms up a list and then runs through it, starting an action for each in turn. The result usually looks something like this:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET ALL</span><br><span class="syntaxidentifier">foxglove: Taken.</span><br><span class="syntaxidentifier">snake's head fritillary: Taken.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; GET ALL<br>foxglove: Taken.<br>snake's head fritillary: Taken.<br></code></pre></div>
             <p>However, by adding rules to the <code class="inlinesourcetext">multiple action processing rulebook</code>, we can take a look at the actions intended, and rearrange or indeed change them before they take effect. To do that, we have to deal with a special list of objects. For two technical reasons this isn't stored as a <code class="inlinesourcetext">list of objects that varies</code> – first because it needs to exist even in low-memory situations where we can't afford full list-processing, and second because there are times when changing it might be hazardous. Instead, two phrases are provided to read the list and to write it back:</p>
             <div class="definition">
-                <p class="defnprototype">multiple object list ... list of objects</p>
+                <!-- START PHRASE "defn297" -->
+                <p class="defnprototype"><a id="defn297"></a>multiple object list ... list of objects</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the current multiple object list as a value. The list will be the collection of objects found to match a plural noun like <code class="inlinetranscriptcommand">all</code> in the most recent command typed by the player. If there is no multiple object, say if the command was <code class="inlinetranscriptcommand">take pear</code>, the list will be empty: it won't be a list of size 1.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">alter the/-- multiple object list to (list of objects)</p>
+                <!-- START PHRASE "defn298" -->
+                <p class="defnprototype"><a id="defn298"></a>alter the/-- multiple object list to (list of objects)</p>
+                <!-- END PHRASE -->
                 <p>This phrase sets the multiple object list to the given value. The list is ordinarily the collection of objects found to match a plural noun like <code class="inlinetranscriptcommand">all</code> in the most recent command typed by the player, but using this phrase at the right moment (before the <code class="inlinesourcetext">generate action rule</code> in the turn sequence rules takes effect).</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg356><a style="text-decoration: none" href="eg_356.html"><span class="extensionexampleletter">356</span></a></span></div>
+                    <span id=eg353><a style="text-decoration: none" href="eg_353.html"><span class="extensionexampleletter">353</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_356.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Best Till Last</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_353.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Best Till Last</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Reordering multiple objects for dramatic effect.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg356><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg353><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg357><a style="text-decoration: none" href="eg_357.html"><span class="extensionexampleletter">357</span></a></span></div>
+                    <span id=eg354><a style="text-decoration: none" href="eg_354.html"><span class="extensionexampleletter">354</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_357.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Western Art History 305</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_354.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Western Art History 305</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing <code class="inlinetranscriptcommand">examine</code> to see multiple objects with a single command.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg357><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg354><a style="text-decoration: none" href="RB_6_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_20.html"><span class="markdowncontent">Section 19.20: Does the player mean...</span></a> &bull; <a href="WI_19_22.html"><span class="markdowncontent">Section 19.22: Understanding mistakes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

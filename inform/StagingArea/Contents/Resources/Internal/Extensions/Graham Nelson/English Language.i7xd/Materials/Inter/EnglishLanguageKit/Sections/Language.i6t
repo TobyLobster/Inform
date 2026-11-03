@@ -1,7 +1,7 @@
-Language Template.
+Language
 
 The fundamental definitions needed by the parser and the verb
-library in order to specify the language of play -- that is, the language
+library in order to specify the language of play — that is, the language
 used for communications between the story file and the player.
 
 @h Initialisation.
@@ -149,8 +149,8 @@ Array LanguageNumbers table
 These are all opportunities to meddle with the normal (Anglo-centric) running
 of things, which we will decline.
 
-Until April 2023, it was optional for a kit to provide |LanguageRefers| and
-|LanguagePrintShortName|, but this is now compulsory.
+Until April 2023, it was optional for a kit to provide `LanguageRefers` and
+`LanguagePrintShortName`, but this is now compulsory.
 
 =
 [ LanguageToInformese; ];
@@ -181,33 +181,41 @@ Constant LanguageContractionForms = 2;     ! English has two:
     return 0;
 ];
 
+Constant LanguageCases = 1;     ! The number of article cases; English has one
+
 Array LanguageArticles -->
 
- !   Contraction form 0:     Contraction form 1:
- !   Cdef   Def    Indef     Cdef   Def    Indef
+ !   Contraction form 0:             Contraction form 1:
+ !   Cdef   Def    CIndef  Indef     Cdef   Def    CIndef  Indef
 
-     "The " "the " "a "      "The " "the " "an "          ! Articles 0
-     "The " "the " "some "   "The " "the " "some ";       ! Articles 1
 
+     "The " "the " "A "    "a "      "The " "the " "An "   "an "       ! Articles 0
+     "The " "the " "Some " "some "   "The " "the " "Some " "some ";    ! Articles 1
                    !             a           i
                    !             s     p     s     p
                    !             m f n m f n m f n m f n
 
 Array LanguageGNAsToArticles --> 0 0 0 1 1 1 0 0 0 1 1 1;
 
+Constant CDEFART_INDEX = 0;
+Constant DEFART_INDEX = 1;
+Constant CINDEFART_INDEX = 2;
+Constant INDEFART_INDEX = 3;
+Constant ARTBLOCK_LEN = 4;
+
 @h Commands.
-|LanguageVerbLikesAdverb| is called by |PrintCommand| when printing an |UPTO_PE|
+`LanguageVerbLikesAdverb` is called by `PrintCommand` when printing an `UPTO_PE`
 error or an inference message.  Words which are intransitive verbs, i.e.,
 which require a direction name as an adverb ("walk west"), not a noun
 ("I only understood you as far as wanting to touch the ground"), should
-cause the routine to return |true|.
+cause the routine to return `true`.
 
-|LanguageVerbMayBeName| is called by |NounDomain| when dealing with
+`LanguageVerbMayBeName` is called by `NounDomain` when dealing with
 the player's reply to a "Which do you mean, the short stick or the
 long stick?" prompt from the parser. If the reply is another verb
 (for example, LOOK) then then previous ambiguous command is discarded
 unless it is one of these words which could be both a verb and an
-adjective in a |name| property.
+adjective in a `name` property.
 
 =
 [ LanguageVerb i;

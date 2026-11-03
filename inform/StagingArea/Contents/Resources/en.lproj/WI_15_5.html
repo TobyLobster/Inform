@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,26 +2212,34 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adapting text referring to other things" -->
+            <!-- SEARCH SECTION "15.5" -->
+            <!-- SEARCH SORT "001-015-005-000" -->
             <h3><span>Section 15.5: Adapting text referring to other things</span></h3>
             <p>              </p>
             <p>The family in the previous section – <code class="inlinesourcetext">&quot;[we]&quot;</code>, <code class="inlinesourcetext">&quot;[us]&quot;</code>, <code class="inlinesourcetext">&quot;[our]&quot;</code>, <code class="inlinesourcetext">&quot;[ours]&quot;</code>, <code class="inlinesourcetext">&quot;[ourselves]&quot;</code> – always referred to the player. But we also sometimes want to refer to other things without naming them. For example, how should we adapt this?</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> EXAMINE TREE</span><br><span class="syntaxidentifier">It has no clear outline in this misty netherworld.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; EXAMINE TREE<br>It has no clear outline in this misty netherworld.<br></code></pre></div>
             <p>We can easily make the verb adapt – change the &quot;has&quot; to <code class="inlinesourcetext">&quot;[have]&quot;</code> – but the trick here is to make the <code class="inlinetranscript">It</code> adapt to cases where what's examined is plural, or animate. What we want is:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Netherworld</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code967" -->
+            <blockquote class="extract-inform7"><a id="code967"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Netherworld</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[regarding the noun][They]</span><span class="syntaxstring"> </span><span class="syntaxextract">[have]</span><span class="syntaxstring"> no clear outline in this misty netherworld.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[regarding the noun][They] [have] no clear outline in this misty netherworld.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>For example, this produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> EXAMINE ME</span><br><span class="syntaxidentifier">You have no clear outline in this misty netherworld.</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> EXAMINE MARK</span><br><span class="syntaxidentifier">He has no clear outline in this misty netherworld.</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> EXAMINE DRUMS</span><br><span class="syntaxidentifier">They have no clear outline in this misty netherworld.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; EXAMINE ME<br>You have no clear outline in this misty netherworld.<br>&gt; EXAMINE MARK<br>He has no clear outline in this misty netherworld.<br>&gt; EXAMINE DRUMS<br>They have no clear outline in this misty netherworld.<br></code></pre></div>
             <p>Note that we have to say <code class="inlinesourcetext">&quot;[regarding the noun]&quot;</code>, not just start in with <code class="inlinesourcetext">&quot;[They]&quot;</code>, because nothing has been named so far in the sentence – so Inform doesn't know what object it refers to. <code class="inlinesourcetext">&quot;[regarding the noun]&quot;</code> prints nothing, and simply tells the printing part of Inform that the subject has changed.</p>
             <p>This isn't always needed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]</span><span class="syntaxstring"> </span><span class="syntaxextract">[have]</span><span class="syntaxstring"> a look at </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">, but </span><span class="syntaxextract">[they]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> just too big.&quot;</span>
+            <!-- START CODE "code968" -->
+            <blockquote class="extract-inform7"><a id="code968"></a><span class="indexdullblue"><span class="string-syntax">&quot;[We] [have] a look at [the noun], but [they] [are] just too big.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>works fine, because printing <code class="inlinesourcetext">&quot;[the noun]&quot;</code> changes the subject to that, and then <code class="inlinesourcetext">&quot;[they]&quot;</code> agrees with it automatically. The text might come out, for example, as:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">I had a look at Peter Rabbit, but he was just too big.</span><br><span class="syntaxidentifier">You have a look at the chessmen, but they are just too big.</span><br><span class="syntaxidentifier">We have a look at ourselves, but we are just too big.</span><br></code></pre></div>
+                <pre><code class="language-transcript">I had a look at Peter Rabbit, but he was just too big.<br>You have a look at the chessmen, but they are just too big.<br>We have a look at ourselves, but we are just too big.<br></code></pre></div>
             <p>We have a family of five text substitutions here, matching those in the previous section:</p>
             <ul>
             <li><code class="inlinesourcetext">&quot;[They]&quot;</code> or <code class="inlinesourcetext">&quot;[they]&quot;</code></li>
@@ -2161,10 +2254,12 @@
             <li><code class="inlinesourcetext">&quot;[There]&quot;</code> or <code class="inlinesourcetext">&quot;[there]&quot;</code></li>
             </ul>
             <p>These look pointless – but consider the two texts</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]</span><span class="syntaxstring"> </span><span class="syntaxextract">[take]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">. It </span><span class="syntaxextract">[rain]</span><span class="syntaxstring"> harder.&quot;</span>
+            <!-- START CODE "code969" -->
+            <blockquote class="extract-inform7"><a id="code969"></a><span class="indexdullblue"><span class="string-syntax">&quot;[We] [take] [the noun]. It [rain] harder.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]</span><span class="syntaxstring"> </span><span class="syntaxextract">[take]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">. </span><span class="syntaxextract">[It]</span><span class="syntaxstring"> </span><span class="syntaxextract">[rain]</span><span class="syntaxstring"> harder.&quot;</span>
+            <span class="string-syntax">&quot;[We] [take] [the noun]. [It] [rain] harder.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The first one risks printing <code class="inlinetranscript">We took the scissors. It rain harder.</code>, because it makes <code class="inlinesourcetext">&quot;[rain]&quot;</code> agree with &quot;scissors&quot;, which are plural. But the second text makes <code class="inlinesourcetext">&quot;[rain]&quot;</code> agree with <code class="inlinesourcetext">&quot;[it]&quot;</code>. And, as a convenience:</p>
             <ul>
             <li><code class="inlinesourcetext">&quot;[It's]&quot;</code> or <code class="inlinesourcetext">&quot;[it's]&quot;</code></li>
@@ -2172,13 +2267,21 @@
             </ul>
             <p>do the obvious thing using the current story tense.</p>
             <p>Finally, we occasionally want to agree with a number:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Honestly, </span><span class="syntaxextract">[dud count][regarding the dud count]</span><span class="syntaxstring"> of these </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> broken.&quot;</span>
+            <!-- START CODE "code970" -->
+            <blockquote class="extract-inform7"><a id="code970"></a><span class="indexdullblue"><span class="string-syntax">&quot;Honestly, [dud count][regarding the dud count] of these [are] broken.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <p>As a convenience, <code class="inlinesourcetext">[regarding...]</code> also affects <code class="inlinesourcetext">[s]</code>, the text substitution which adds an &quot;s&quot; if the last thing(s) discussed are plural:</p>
+            <!-- START CODE "code971" -->
+            <blockquote class="extract-inform7"><a id="code971"></a><span class="indexdullblue"><span class="string-syntax">&quot;the [regarding the number of animals in the crate]animal[s] in the crate&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Which prints &quot;animals&quot; if the number is 0 or at least 2, and &quot;animal&quot; if there's just one in the crate.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_4.html"><span class="markdowncontent">Section 15.4: Adapting text about the player</span></a> &bull; <a href="WI_15_6.html"><span class="markdowncontent">Section 15.6: Adapting demonstratives and possessives</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

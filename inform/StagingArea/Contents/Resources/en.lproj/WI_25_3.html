@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.3: Virtual machines and story file formats</span></title>
+    <title><span class="markdowncontent">Section 25.3: Basic text formatting</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_25_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.3: Virtual machines and story file formats</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.3: Basic text formatting</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,17 +2212,79 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.3: Virtual machines and story file formats</span></h3>
-            <p>  </p>
-            <p>Back in the [Source Text] chapter, we saw that the Settings panel allows any given Inform project to be produced in either of two possible story file formats. Recall that story files are the released IF works: what the player sees. The source text, the Index, and so on are not part of this.</p>
-            <p>A story file is not like a word-processed document, or a photograph. There are many rival formats for these – for instance, an image on a web page might be in JPEG or PNG format, among many others – but basically they are simple things for the reader to look at, and see everything in one go. An IF story file is more complicated, because the &quot;reader&quot; reacts to it, types in to it, is surprised by it, never quite knows what might happen next.</p>
-            <p>A story file is in fact a computer program in its own right, but not a program like iTunes or Firefox which runs on a typical home or business computer. Instead it is a program for an imaginary computer, called a &quot;virtual machine&quot; or &quot;VM&quot;. This has a design ideally suited to IF, and it would be the perfect IF player's computer if only it actually existed. Because it doesn't, the player instead runs an &quot;interpreter&quot; program like Windows Glulxe or Zoom or Spatterlight – and this one is a program like iTunes or Firefox – and the interpreter acts as a middle-man. It creates a software version of the virtual machine, and then runs the IF story file on that VM. This sounds slow and impractical, but in fact it works well, and is also much safer since programs on the VM are not allowed to touch the real computer – so they cannot at all easily contain viruses or other malware. (In theory a malicious story file might try to exploit a bug in one of the various VM implementations in use, just as malicious image files have been used to attack bugs in web browsers, but this has never in practice happened. Nothing can be absolutely safe, but a story file belongs in the &quot;mostly harmless&quot; category of files – like images – rather than the &quot;how far do you trust this person?&quot; category – like programs.)</p>
-            <p>The different formats of story file are programs for different virtual machines. Just as Windows and Mac OS X offer basically similar services to the user but are very different in appearance and their workings, so the different VMs are quite different. Some can display pictures, others not.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Basic text formatting" -->
+            <!-- SEARCH SECTION "25.3" -->
+            <!-- SEARCH SORT "001-025-003-000" -->
+            <h3><span>Section 25.3: Basic text formatting</span></h3>
+            <p>  
+            </p>
+            <p>Inform does not go in for the use of fonts: a work of IF will be rendered with different fonts on different machines anyway, from tiny personal organisers up to huge workstations. However, it does allow for a modest amount of styling. Unusually, the features of this section work on both our virtual machines.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn429" -->
+                <p class="defnprototype"><a id="defn429"></a>say &quot;[bold type]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear in bold face. <code class="inlinesourcetext">&quot;[roman type]&quot;</code> should be used to switch back to normal. Example:</p>
+                <!-- START CODE "code1721" -->
+                <blockquote class="extract-inform7"><a id="code1721"></a><span class="indexdullblue"><span class="string-syntax">&quot;Jane looked down. [bold type]Danger[roman type], the sign read.&quot;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn430" -->
+                <p class="defnprototype"><a id="defn430"></a>say &quot;[italic type]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear in italics. <code class="inlinesourcetext">&quot;[roman type]&quot;</code> should be used to switch back to normal. Example:</p>
+                <!-- START CODE "code1722" -->
+                <blockquote class="extract-inform7"><a id="code1722"></a><span class="indexdullblue"><span class="string-syntax">&quot;This is [italic type]very suspicious[roman type], said Peter.&quot;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn431" -->
+                <p class="defnprototype"><a id="defn431"></a>say &quot;[roman type]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution produces no text. It's used only for a side-effect: to return to ordinary Roman type after a previous use of <code class="inlinesourcetext">&quot;[bold type]&quot;</code> or <code class="inlinesourcetext">&quot;[italic type]&quot;</code>.</p>
+            </div>
+            <p>Two other effects can be employed:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn432" -->
+                <p class="defnprototype"><a id="defn432"></a>say &quot;[fixed letter spacing]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear with fixed letter spacing. In variable letter spacing, a lower case &quot;m&quot; is much wider than an &quot;l&quot;, which is natural to the eye since it has been printing practice since the Renaissance. Fixed letter spacing is more like typewriting, and it is best used to reproduce typewritten text or printed notices; it can also be convenient for making simple diagrams. Example:</p>
+                <!-- START CODE "code1723" -->
+                <blockquote class="extract-inform7"><a id="code1723"></a><span class="indexdullblue"><span class="string-syntax">&quot;On the door is written: [fixed letter spacing]-J45--O-O-O[variable letter spacing].&quot;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn433" -->
+                <p class="defnprototype"><a id="defn433"></a>say &quot;[variable letter spacing]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution produces no text. It's used only for a side-effect: to return to ordinary letter spacing after a previous use of <code class="inlinesourcetext">&quot;[fixed letter spacing]&quot;</code>.</p>
+            </div>
+            <p>Whichever effect we use, we should be careful to ensure that we return to normal – roman type and variable letter spacing – after any specially-treated text has been printed. Combining these effects (for, say, bold fixed-spaced lettering) is not guaranteed to work, though on some platforms it will.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn434" -->
+                <p class="defnprototype"><a id="defn434"></a>say &quot;[reverse mode]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution switches to &quot;reverse&quot; mode, where the foreground and background colours are reversed.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn435" -->
+                <p class="defnprototype"><a id="defn435"></a>say &quot;[reverse mode off]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text substitution switches reverse mode off.</p>
+            </div>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>Reverse-mode text is a feature of the Z-Machine. On Glulx, it is available only if the <code class="inlinesourcetext">text formatting feature</code> is <code class="inlinesourcetext">supported</code>. See <a href="WI_25_2.html" title="Section 25.2: Glulx features and Glk features">Glulx features and Glk features</a> for more on features.</p>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_2.html"><span class="markdowncontent">Section 25.2: How IF views pictures</span></a> &bull; <a href="WI_25_4.html"><span class="markdowncontent">Section 25.4: Gathering the figures</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_2.html"><span class="markdowncontent">Section 25.2: Glulx features and Glk features</span></a> &bull; <a href="WI_25_4.html"><span class="markdowncontent">Section 25.4: Coloured text</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

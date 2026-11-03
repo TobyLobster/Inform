@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,55 +2212,59 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Looking Under and Hiding" -->
+            <!-- SEARCH SECTION "6.6" -->
+            <!-- SEARCH SORT "002-006-006-000" -->
             <h3><span>Section 6.6: Looking Under and Hiding</span></h3>
             <p>
-            Finding hidden objects is a classic puzzle in IF. <a href="eg_104.html">Beachfront</a> provides the most basic example, an object that becomes visible only when we have searched the papers on a cluttered desk. <a href="eg_252.html">Beneath the Surface</a> takes this further, giving all large furnishings the ability to conceal items, and allowing the player to put things underneath other things, as well as find them. <a href="eg_240.html">Flashlight</a> adds an extra twist to the puzzle by requiring that the player have a flashlight to shine under a bulky object in order to find what lies underneath.</p>
-            <p>Looking inside an object is generally handled by the <code class="inlinesourcetext">searching</code> action, and we could extend that to allow the player to search multiple or complex objects. <a href="eg_194.html">Matreshka</a> turns the puzzle on its head by allowing the player to search a whole room systematically with only a single command.</p>
+            Finding hidden objects is a classic puzzle in IF. <a href="eg_103.html">Beachfront</a> provides the most basic example, an object that becomes visible only when we have searched the papers on a cluttered desk. <a href="eg_249.html">Beneath the Surface</a> takes this further, giving all large furnishings the ability to conceal items, and allowing the player to put things underneath other things, as well as find them. <a href="eg_237.html">Flashlight</a> adds an extra twist to the puzzle by requiring that the player have a flashlight to shine under a bulky object in order to find what lies underneath.</p>
+            <p>Looking inside an object is generally handled by the <code class="inlinesourcetext">searching</code> action, and we could extend that to allow the player to search multiple or complex objects. <a href="eg_191.html">Matreshka</a> turns the puzzle on its head by allowing the player to search a whole room systematically with only a single command.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_8_5.html" title="Section 8.5: Kitchen and Bathroom">Kitchen and Bathroom</a> for the related case of needing to look in a mirror.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg104><a style="text-decoration: none" href="eg_104.html"><span class="extensionexampleletter">104</span></a></span></div>
+                    <span id=eg103><a style="text-decoration: none" href="eg_103.html"><span class="extensionexampleletter">103</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_104.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beachfront</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_103.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beachfront</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An item that the player can't interact with until they have found it by searching the scenery.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg104><a style="text-decoration: none" href="WI_7_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg103><a style="text-decoration: none" href="WI_7_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg252><a style="text-decoration: none" href="eg_252.html"><span class="extensionexampleletter">252</span></a></span></div>
+                    <span id=eg249><a style="text-decoration: none" href="eg_249.html"><span class="extensionexampleletter">249</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_252.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beneath the Surface</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_249.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beneath the Surface</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An &quot;underlying&quot; relation which adds to the world model the idea of objects hidden under other objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg252><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg249><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg240><a style="text-decoration: none" href="eg_240.html"><span class="extensionexampleletter">240</span></a></span></div>
+                    <span id=eg237><a style="text-decoration: none" href="eg_237.html"><span class="extensionexampleletter">237</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_240.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Flashlight</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_237.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Flashlight</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Visibility set so that looking under objects produces no result unless the player has a light source to shine there (regardless of the light level of the room).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg240><a style="text-decoration: none" href="WI_13_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg237><a style="text-decoration: none" href="WI_13_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg194><a style="text-decoration: none" href="eg_194.html"><span class="extensionexampleletter">194</span></a></span></div>
+                    <span id=eg191><a style="text-decoration: none" href="eg_191.html"><span class="extensionexampleletter">191</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_194.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Matreshka</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_191.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Matreshka</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">search [room] action</code> that will open every container the player can see, stopping only when there don't remain any that are closed, unlocked, and openable.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg194><a style="text-decoration: none" href="WI_12_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg191><a style="text-decoration: none" href="WI_12_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_5.html"><span class="markdowncontent">Section 6.5: Examining</span></a> &bull; <a href="RB_6_7.html"><span class="markdowncontent">Section 6.7: Inventory</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,37 +2212,43 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Saving and Undoing" -->
+            <!-- SEARCH SECTION "11.2" -->
+            <!-- SEARCH SORT "002-011-002-000" -->
             <h3><span>Section 11.2: Saving and Undoing</span></h3>
             <p> 
             A very few titles in the IF literature–very few being still too many, some would say–restrict the player's ability to save the story.</p>
             <p>Removing the player's ability to <code class="inlinetranscriptcommand">undo</code> is also a risky choice. Inform does provide the facility with the use option</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">undo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevention</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2132" -->
+            <blockquote class="extract-inform7"><a id="code2132"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">undo</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevention</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which makes it impossible to <code class="inlinetranscriptcommand">undo</code> at any time (unless, that is, the player is playing on an interpreter that itself has a built-in <code class="inlinetranscriptcommand">undo</code> feature – these do exist). When it works, undo prevention safeguards a randomised story or combat session against brute-force solutions, but it also means that the player who makes even a minor mistake of typing will be stuck with the undesired results.</p>
             <p>In many cases it may be preferable to use some subtler method to enforce random effects in a story. Several extensions exist for Inform that either allow selective manipulation of the <code class="inlinetranscriptcommand">undo</code> command or rig randomisation to prevent <code class="inlinetranscriptcommand">undo</code> and replay attempts.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg232><a style="text-decoration: none" href="eg_232.html"><span class="extensionexampleletter">232</span></a></span></div>
+                    <span id=eg229><a style="text-decoration: none" href="eg_229.html"><span class="extensionexampleletter">229</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_232.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Spellbreaker</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_229.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Spellbreaker</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">P. David Lebling's classic <em>Spellbreaker</em> (1986) includes a room where the game cannot be saved: here is an Inform implementation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg232><a style="text-decoration: none" href="WI_13_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg229><a style="text-decoration: none" href="WI_13_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg233><a style="text-decoration: none" href="eg_233.html"><span class="extensionexampleletter">233</span></a></span></div>
+                    <span id=eg230><a style="text-decoration: none" href="eg_230.html"><span class="extensionexampleletter">230</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_233.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A point for never saving the game</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_230.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A point for never saving the game</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">In some of the late 1970s cave-crawl adventure games, an elaborate scoring system might still leave the player perplexed as to why an apparently perfect play-through resulted in a score which was still one point short of the supposed maximum. Why only 349 out of 350? The answer varied, but sometimes the last point was earned by never saving the game - in other words by playing it right through with nothing to guard against mistakes (except perhaps <code class="inlinetranscriptcommand">undo</code> for the last command), and in one long session.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg233><a style="text-decoration: none" href="WI_13_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg230><a style="text-decoration: none" href="WI_13_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_11_1.html"><span class="markdowncontent">Chapter 11: Out Of World Actions and Effects</span></a> &bull; <a href="RB_11_3.html"><span class="markdowncontent">Section 11.3: Helping and Hinting</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

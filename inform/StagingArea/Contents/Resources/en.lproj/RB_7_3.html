@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,88 +2212,92 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Reactive Characters" -->
+            <!-- SEARCH SECTION "7.3" -->
+            <!-- SEARCH SORT "002-007-003-000" -->
             <h3><span>Section 7.3: Reactive Characters</span></h3>
             <p>
-            As we observe characters, so they observe us. Those who seem to have no awareness of what the player is doing often come across more like waxworks than like people. <a href="eg_102.html">Zodiac</a> demonstrates a scenario where the watchful presence of a dangerous criminal keeps the player from doing what they otherwise might, while <a href="eg_208.html">Police State</a> expands on this idea with a policeman who reacts to entire types of behaviour in his presence, regardless of whether the culprit is the player or a third party. <a href="eg_219.html">Noisemaking</a> has a crow who will fly away in response to any loud noises the player makes.</p>
-            <p>And, of course, we definitely want to have characters react to being looked at or otherwise interfered with. <a href="eg_47.html">Search and Seizure</a> implements a smuggler who reacts when we try to confiscate their possessions. <a href="eg_160.html">Pine 1</a> gives us a sleeping princess who can be woken by a variety of methods.</p>
-            <p>We wrap up this section with two complete puzzle scenarios that demonstrate what can be achieved by giving characters reactions to the player's behaviour. <a href="eg_118.html">A Day For Fresh Sushi</a> has a fish who watches the player's actions and comments on them, while the live furnishings in <a href="eg_88.html">Revenge of the Fussy Table</a> instead comment every turn on the current state of the world, until the player has successfully sorted out all their complaints.</p>
+            As we observe characters, so they observe us. Those who seem to have no awareness of what the player is doing often come across more like waxworks than like people. <a href="eg_101.html">Zodiac</a> demonstrates a scenario where the watchful presence of a dangerous criminal keeps the player from doing what they otherwise might, while <a href="eg_205.html">Police State</a> expands on this idea with a policeman who reacts to entire types of behaviour in his presence, regardless of whether the culprit is the player or a third party. <a href="eg_216.html">Noisemaking</a> has a crow who will fly away in response to any loud noises the player makes.</p>
+            <p>And, of course, we definitely want to have characters react to being looked at or otherwise interfered with. <a href="eg_46.html">Search and Seizure</a> implements a smuggler who reacts when we try to confiscate their possessions. <a href="eg_157.html">Pine 1</a> gives us a sleeping princess who can be woken by a variety of methods.</p>
+            <p>We wrap up this section with two complete puzzle scenarios that demonstrate what can be achieved by giving characters reactions to the player's behaviour. <a href="eg_115.html">A Day For Fresh Sushi</a> has a fish who watches the player's actions and comments on them, while the live furnishings in <a href="eg_87.html">Revenge of the Fussy Table</a> instead comment every turn on the current state of the world, until the player has successfully sorted out all their complaints.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg160><a style="text-decoration: none" href="eg_160.html"><span class="extensionexampleletter">160</span></a></span></div>
+                    <span id=eg157><a style="text-decoration: none" href="eg_157.html"><span class="extensionexampleletter">157</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_160.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_157.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Pine: Using a scene to watch for the solution of a puzzle, however arrived-at by the player.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg160><a style="text-decoration: none" href="WI_10_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg157><a style="text-decoration: none" href="WI_10_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg208><a style="text-decoration: none" href="eg_208.html"><span class="extensionexampleletter">208</span></a></span></div>
+                    <span id=eg205><a style="text-decoration: none" href="eg_205.html"><span class="extensionexampleletter">205</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_208.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Police State</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_205.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Police State</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Several friends who obey you; a policeman who doesn't (but who takes a dim view of certain kinds of antics).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg208><a style="text-decoration: none" href="WI_13_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg205><a style="text-decoration: none" href="WI_13_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg102><a style="text-decoration: none" href="eg_102.html"><span class="extensionexampleletter">102</span></a></span></div>
+                    <span id=eg101><a style="text-decoration: none" href="eg_101.html"><span class="extensionexampleletter">101</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_102.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zodiac</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_101.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zodiac</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Several variations on &quot;doing something other than...&quot;, demonstrating different degrees of restriction.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg102><a style="text-decoration: none" href="WI_7_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg101><a style="text-decoration: none" href="WI_7_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg219><a style="text-decoration: none" href="eg_219.html"><span class="extensionexampleletter">219</span></a></span></div>
+                    <span id=eg216><a style="text-decoration: none" href="eg_216.html"><span class="extensionexampleletter">216</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_219.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Noisemaking</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_216.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Noisemaking</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a stage after the report stage of an action, during which other characters may observe and react.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg219><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg216><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg47><a style="text-decoration: none" href="eg_47.html"><span class="extensionexampleletter">47</span></a></span></div>
+                    <span id=eg46><a style="text-decoration: none" href="eg_46.html"><span class="extensionexampleletter">46</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_47.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Search and Seizure</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_46.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Search and Seizure</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A smuggler who has items, some of which are hidden.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg47><a style="text-decoration: none" href="WI_3_25.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg46><a style="text-decoration: none" href="WI_3_25.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg184><a style="text-decoration: none" href="eg_184.html"><span class="extensionexampleletter">184</span></a></span></div>
+                    <span id=eg181><a style="text-decoration: none" href="eg_181.html"><span class="extensionexampleletter">181</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_184.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skills Test</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_181.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skills Test</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The judges of Masterchef comment on the player's attempt to cook John Dory.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg184><a style="text-decoration: none" href="WI_11_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg181><a style="text-decoration: none" href="WI_11_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg118><a style="text-decoration: none" href="eg_118.html"><span class="extensionexampleletter">118</span></a></span></div>
+                    <span id=eg115><a style="text-decoration: none" href="eg_115.html"><span class="extensionexampleletter">115</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_118.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Day For Fresh Sushi</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_115.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Day For Fresh Sushi</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A complete story by Emily Short, called &quot;A Day for Fresh Sushi&quot;, rewritten using Inform 7. Noteworthy is the snarky commenter who remarks on everything the player does, but only the first time each action is performed.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg118><a style="text-decoration: none" href="WI_7_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg115><a style="text-decoration: none" href="WI_7_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg88><a style="text-decoration: none" href="eg_88.html"><span class="extensionexampleletter">88</span></a></span></div>
+                    <span id=eg87><a style="text-decoration: none" href="eg_87.html"><span class="extensionexampleletter">87</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_88.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Revenge of the Fussy Table</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_87.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Revenge of the Fussy Table</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A small game about resentful furniture and inconvenient objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg88><a style="text-decoration: none" href="WI_6_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg87><a style="text-decoration: none" href="WI_6_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_2.html"><span class="markdowncontent">Section 7.2: Liveliness</span></a> &bull; <a href="RB_7_4.html"><span class="markdowncontent">Section 7.4: Barter and Exchange</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

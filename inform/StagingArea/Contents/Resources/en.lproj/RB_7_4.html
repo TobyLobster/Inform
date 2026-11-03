@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,14 +2212,20 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Barter and Exchange" -->
+            <!-- SEARCH SECTION "7.4" -->
+            <!-- SEARCH SORT "002-007-004-000" -->
             <h3><span>Section 7.4: Barter and Exchange</span></h3>
             <p>
             By default, Inform characters are a bit grudging about giving and sharing objects: they react with disinterest when they're shown things and refuse everything they're offered.</p>
             <p>If we'd like to change this, we can simply remove the default <code class="inlinesourcetext">block giving rule</code>, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">block</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">giving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2107" -->
+            <blockquote class="extract-inform7"><a id="code2107"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">block</span><span class="plain-syntax"> </span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">giving</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>If we do this, giving items to characters will have the result of moving our possessions to the other person's inventory. Of course, without more customisation, the player may not ever be able to persuade the other character to return their possessions. <a href="eg_421.html">Bribery</a> demonstrates a scenario in which a character will accept gifts that interest them, and respond with a changed attitude to the player.</p>
-            <p><a href="eg_229.html">Barter Barter</a> expands further on this by allowing other characters to trade things with one another.</p>
+            <!-- END CODE -->
+            <p>If we do this, giving items to characters will have the result of moving our possessions to the other person's inventory. Of course, without more customisation, the player may not ever be able to persuade the other character to return their possessions. <a href="eg_418.html">Bribery</a> demonstrates a scenario in which a character will accept gifts that interest them, and respond with a changed attitude to the player.</p>
+            <p><a href="eg_226.html">Barter Barter</a> expands further on this by allowing other characters to trade things with one another.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_6_3.html" title="Section 6.3: Modifying Existing Commands">Modifying Existing Commands</a> for ways to allow the player to give or show things that they aren't currently carrying.</li>
@@ -2143,27 +2234,27 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg421><a style="text-decoration: none" href="eg_421.html"><span class="extensionexampleletter">421</span></a></span></div>
+                    <span id=eg418><a style="text-decoration: none" href="eg_418.html"><span class="extensionexampleletter">418</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_421.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bribery</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_418.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bribery</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">give</code> command that gets rid of Inform's default refusal message in favor of something a bit more sophisticated.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg421><a style="text-decoration: none" href="WI_21_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg418><a style="text-decoration: none" href="WI_21_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg229><a style="text-decoration: none" href="eg_229.html"><span class="extensionexampleletter">229</span></a></span></div>
+                    <span id=eg226><a style="text-decoration: none" href="eg_226.html"><span class="extensionexampleletter">226</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_229.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_226.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing characters other than the player to give objects to one another, accounting for the possibility that some items may not be desired by the intended recipients.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg229><a style="text-decoration: none" href="WI_13_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg226><a style="text-decoration: none" href="WI_13_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_3.html"><span class="markdowncontent">Section 7.3: Reactive Characters</span></a> &bull; <a href="RB_7_5.html"><span class="markdowncontent">Section 7.5: Combat and Death</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

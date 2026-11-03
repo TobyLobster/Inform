@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,70 +2212,88 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Repeat" -->
+            <!-- SEARCH SECTION "12.10" -->
+            <!-- SEARCH SORT "001-012-010-000" -->
             <h3><span>Section 12.10: Repeat</span></h3>
             <p>         </p>
             <p>The other kind of loop in Inform is <code class="inlinesourcetext">repeat</code>. The trouble with <code class="inlinesourcetext">while</code> is that it's not obvious at a glance when or whether the loop will finish, and nor is there any book-keeping to measure progress. A <code class="inlinesourcetext">repeat</code> loop is much more predictable, and is more or less certain to finish.</p>
             <p>There are several forms of <code class="inlinesourcetext">repeat</code>, of which the simplest is similar to the old &quot;FOR ... NEXT&quot; loop from the home-computer programming language BASIC, for those with long memories:</p>
             <div class="definition">
-                <p class="defnprototype">repeat with (a name not so far used) running from (arithmetic value) to (arithmetic value)</p>
-                <p class="defnprototype">repeat with (a name not so far used) running from (enumerated value) to (enumerated value):</p>
+                <!-- START PHRASE "defn162" -->
+                <p class="defnprototype"><a id="defn162"></a>repeat with (a name not so far used) running from (arithmetic value) to (arithmetic value)</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn163" -->
+                <p class="defnprototype"><a id="defn163"></a>repeat with (a name not so far used) running from (enumerated value) to (enumerated value):</p>
+                <!-- END PHRASE -->
                 <p>This phrase causes the block of phrases following it to be repeated once for each value in the given range, storing that value in the named variable. (The variable exists only temporarily, within the repetition.) Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">counter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code766" -->
+                <blockquote class="extract-inform7"><a id="code766"></a><span class="indexdullblue"><span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">counter</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxplain">...</span>
+                <span class="plain-syntax">...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This, and runs through the given phrases ten times. Within those phrases, a special value called <code class="inlinesourcetext">counter</code> has the value 1 the first time through, then the value 2, then 3 and so on up to 10. (It can of course be called whatever we like: this is only an example.) The range can be from any kind where ranges make sense – anything on which arithmetic can be done, so for instance</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">moment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain"> </span><span class="syntaxidentifier">PM</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">:07 </span><span class="syntaxidentifier">PM</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code767" -->
+                <blockquote class="extract-inform7"><a id="code767"></a><span class="indexdullblue"><span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">moment</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax"> </span><span class="identifier-syntax">PM</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">:07 </span><span class="identifier-syntax">PM</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxplain">...</span>
+                <span class="plain-syntax">...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>and also any enumeration:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code768" -->
+                <blockquote class="extract-inform7"><a id="code768"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
                 <br>
 
                 <br>
-                <span class="syntaxplain">...</span>
+                <span class="plain-syntax">...</span>
                 <br>
-                <span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">orange</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain">:</span>
+                <span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">hue</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">orange</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">indigo</span><span class="plain-syntax">:</span>
                 <br>
-                &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">...</span>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>We are allowed to &quot;nest&quot; loops, that is, to put one inside another.</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('To plot a grid with size (S - a number):[=0x000A=][=0x0009=]repeat with x running from 1 to S:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Row [x]:[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]repeat with y running from 1 to S:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] [y][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grid</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">size</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">S</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code769" -->
+            <blockquote class="extract-inform7"><a id="code769"></a><a class="actionlink" href="javascript:pasteCode('To plot a grid with size (S - a number):[=0x000A=][=0x0009=]repeat with x running from 1 to S:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Row [x]:[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]repeat with y running from 1 to S:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=] [y][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=].[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">plot</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">grid</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">size</span><span class="plain-syntax"> (</span><span class="identifier-syntax">S</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Row </span><span class="syntaxextract">[x]</span><span class="syntaxstring">:&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Row [x]:&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">y</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; </span><span class="syntaxextract">[y]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot; [y]&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If we then write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">plot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grid</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code770" -->
+            <blockquote class="extract-inform7"><a id="code770"></a><span class="indexdullblue"><span class="identifier-syntax">plot</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">grid</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then the result is</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Row 1: 1 2 3 4 5.</span><br><span class="syntaxidentifier">Row 2: 1 2 3 4 5.</span><br><span class="syntaxidentifier">Row 3: 1 2 3 4 5.</span><br><span class="syntaxidentifier">Row 4: 1 2 3 4 5.</span><br><span class="syntaxidentifier">Row 5: 1 2 3 4 5.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Row 1: 1 2 3 4 5.<br>Row 2: 1 2 3 4 5.<br>Row 3: 1 2 3 4 5.<br>Row 4: 1 2 3 4 5.<br>Row 5: 1 2 3 4 5.<br></code></pre></div>
             <p>Thus the innermost phrase, the say which mentions <code class="inlinesourcetext">y</code>, happens 25 times.</p>
             <p>Whenever dealing with numbers in Inform we may need to remember that if the Settings for the project are set to use the Z-machine, the range is restricted to -32768 up to 32767. Repeating with a counter up to exactly 32767 is hazardous, because the counter can never break through this barrier: it's infinity, so far as Inform is concerned, and that can cause the repetitions to go on forever. (On Glulx, numbers can be very much larger.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg197><a style="text-decoration: none" href="eg_197.html"><span class="extensionexampleletter">197</span></a></span></div>
+                    <span id=eg194><a style="text-decoration: none" href="eg_194.html"><span class="extensionexampleletter">194</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_197.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wonka's Revenge</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_194.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Wonka's Revenge</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A lottery drum which redistributes the tickets inside whenever the player spins it.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg197><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg194><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_9.html"><span class="markdowncontent">Section 12.9: While</span></a> &bull; <a href="WI_12_11.html"><span class="markdowncontent">Section 12.11: Repeat running through</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

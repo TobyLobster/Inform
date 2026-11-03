@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Variations: arrays, logs, queues, stacks, sets, sieves and rings" -->
+            <!-- SEARCH SECTION "23.11" -->
+            <!-- SEARCH SORT "001-023-011-000" -->
             <h3><span>Section 23.11: Variations: arrays, logs, queues, stacks, sets, sieves and rings</span></h3>
             <p></p>
             <p>Lists are highly adaptable, and many other collection-like constructions can be made using them. This section introduces no new material, but simply suggests some of the variations which are possible.</p>
@@ -2149,61 +2238,81 @@
             <li>A <strong>queue</strong> is a list of values which are waiting for attention. New values join at the back, while those being dealt with are removed from the front (whereupon the whole queue moves up one). An empty queue means that nobody is waiting for attention: but there is, in principle, no upper limit to the size of a queue, as anyone who has tried to make a couchette reservation at Roma Termini will know.</li>
             </ol>
             <p>Queues typically form when two independent processes are at work, but going at different or variable speeds. An empty queue looks just like any other list:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">queue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">objects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1642" -->
+            <blockquote class="extract-inform7"><a id="code1642"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">queue</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">objects</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Invariably people, in what follows, but we'll make it a <code class="inlinesourcetext">list of objects</code> to allow for other possibilities too.) Once we identify a <code class="inlinesourcetext">new customer</code>, we can join them to the queue thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain"> </span><span class="syntaxidentifier">customer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">queue</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1643" -->
+            <blockquote class="extract-inform7"><a id="code1643"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">customer</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">queue</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The process of serving the customers needs to make sure there is actually somebody waiting in the queue before it does anything:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">queue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1644" -->
+            <blockquote class="extract-inform7"><a id="code1644"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">queue</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">customer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">queue</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">customer</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">queue</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The next customer]</span><span class="syntaxstring"> is served and leaves.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The next customer] is served and leaves.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">queue</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">queue</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Of course queues can also be constructed which empty from other positions, rather than the front: or we could make what computer scientists sometimes call a <strong>deque</strong>, a &quot;double-ended queue&quot; where new values arrive at both ends.</p>
             <ol start="4">
             <li>A <strong>stack</strong> is like a queue except that values arrive at, and are removed from, the same end. Stacks are slightly faster if the active end is the back rather than the front, though this will only be noticeable if they grow quite large.</li>
             </ol>
             <p>To put a value <code class="inlinesourcetext">V</code> onto a stack <code class="inlinesourcetext">S</code> (which is known as &quot;pushing&quot;) is simple:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1645" -->
+            <blockquote class="extract-inform7"><a id="code1645"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="identifier-syntax">V</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And to remove a value from the top of the stack (which is known as &quot;pulling&quot;):</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1646" -->
+            <blockquote class="extract-inform7"><a id="code1646"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">V</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that the middle line, accessing entry <code class="inlinesourcetext">N</code>, will fail if <code class="inlinesourcetext">N</code> is 0, that is, if the stack is empty: Inform's list routines will produce a run-time problem message.</p>
             <p>Stacks are useful if some long-term process is constantly being interrupted by newer and more urgent demands, but they can also be used in planning. If a character has a long-term goal, which needs various short-term goals to be achieved along the way, then a stack can represent the goals currently being pursued. The top of the stack represents what the character is trying to achieve now. If the character realises that it needs to achieve something else first, we put that new goal onto the top of the stack, and it becomes the new current goal. When the character completes a task, it can be removed, and we can go back to trying to finish whatever is now on top. When the stack is empty, the character has achieved the original goal.</p>
             <ol start="5">
             <li>Notoriously, <strong>set</strong> has 464 distinct meanings in the Oxford English Dictionary, making it the single most ambiguous word in the language. Here we mean not the home of a badger or the Egyptian god of the desert, but the mathematical sense: a collection of values (sometimes called &quot;elements&quot;) without duplicates, and which is normally written in brace notation and in some natural order for the reader's convenience.</li>
             </ol>
             <p>The trick here is to maintain the principle that, at all times, our list is sorted in order and contains no duplicates. To provide an example, we start with two sets of numbers:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">16</span><span class="syntaxplain">, </span><span class="syntaxconstant">32</span><span class="syntaxplain">, </span><span class="syntaxconstant">64</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1647" -->
+            <blockquote class="extract-inform7"><a id="code1647"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">16</span><span class="plain-syntax">, </span><span class="constant-syntax">32</span><span class="plain-syntax">, </span><span class="constant-syntax">64</span><span class="plain-syntax">};</span>
             <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">10</span><span class="syntaxplain">};</span>
+            <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">10</span><span class="plain-syntax">};</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here we add an element to <code class="inlinesourcetext">T</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">; </span><span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1648" -->
+            <blockquote class="extract-inform7"><a id="code1648"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">; </span><span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">if absent</code> clause ensures that no duplicate can occur, and by sorting <code class="inlinesourcetext">T</code> afterwards, we maintain the principle that a set must remain in order – so <code class="inlinesourcetext">T</code> is now <code class="inlinesourcetext">{2, 4, 6, 8, 10}</code>, not <code class="inlinesourcetext">{2, 4, 6, 10, 8}</code>. (Inform's sorting algorithm is fast on nearly-sorted lists, so frequent sorting is not as inefficient as it might look.)</p>
             <p>We next take the union of <code class="inlinesourcetext">T</code> and <code class="inlinesourcetext">S</code>, that is, the set containing everything which is in either or both:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">U</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">; </span><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">U</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">; </span><span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">U</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1649" -->
+            <blockquote class="extract-inform7"><a id="code1649"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">U</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">; </span><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">U</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">; </span><span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">U</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This makes <code class="inlinesourcetext">U</code> equal to <code class="inlinesourcetext">{2, 4, 6, 8, 10, 16, 32, 64}</code>, and once again no duplicates occur and we preserve the sorting. The intersection of <code class="inlinesourcetext">T</code> and <code class="inlinesourcetext">S</code>, the set of elements in both of them, is a little trickier:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">I</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1650" -->
+            <blockquote class="extract-inform7"><a id="code1650"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">I</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">element</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">element</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">element</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">, </span><span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">element</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">I</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">element</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">, </span><span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">element</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">I</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Faster methods could be devised which exploit the sortedness of <code class="inlinesourcetext">T</code> and <code class="inlinesourcetext">S</code>, but are not worth it for shortish lists.) This results in <code class="inlinesourcetext">I</code> set to <code class="inlinesourcetext">{2, 4, 8}</code>. Lastly, we can form the set difference, consisting of those elements which are in <code class="inlinesourcetext">S</code> but not in <code class="inlinesourcetext">T</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">D</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain">; </span><span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">D</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">present</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1651" -->
+            <blockquote class="extract-inform7"><a id="code1651"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">D</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax">; </span><span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">D</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">present</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here, as with intersection, since all we do is to strike out unwanted elements, the surviving ones remain in order and there is no need to sort when we are finished. This sets <code class="inlinesourcetext">D</code> to <code class="inlinesourcetext">{16, 32, 64}</code>.</p>
             <ol start="6">
             <li>A <strong>sieve</strong> is used to make a complicated choice where there are many constraints, by ruling out impossible cases to see what is left. The term derives from the kitchen utensil (for sieving fine grains of flour), but via the name of the &quot;sieve of Eratosthenes&quot;, an ancient Greek method for determining the prime numbers.</li>
@@ -2216,107 +2325,119 @@
             </li>
             </ol>
             <p>To set <code class="inlinesourcetext">item</code> to the frontmost value and extract it from the ring:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ring</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1652" -->
+            <blockquote class="extract-inform7"><a id="code1652"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">item</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ring</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ring</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ring</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And we can rotate the ring in either direction, making a different entry the new entry 1 and therefore the new frontmost value:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">rotate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ring</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1653" -->
+            <blockquote class="extract-inform7"><a id="code1653"></a><span class="indexdullblue"><span class="identifier-syntax">rotate</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ring</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">rotate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">backwards</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">rotate</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ring</span><span class="plain-syntax"> </span><span class="identifier-syntax">backwards</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>A last note to conclude the chapter on lists. Lists, like almost all other values in Inform, can be passed to phrases as parameters. However, note that they are genuine values, not what some programming languages call &quot;references&quot; or &quot;pointers&quot;. So the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mess</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">L</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code1654" -->
+            <blockquote class="extract-inform7"><a id="code1654"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">mess</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">L</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>does nothing, in practice. If given a list, it adds 7 to the list, but then throws it away again, so the longer list is never seen; it's exactly like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mess</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code1655" -->
+            <blockquote class="extract-inform7"><a id="code1655"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">mess</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which can never affect anything other than its own temporary value <code class="inlinesourcetext">N</code>, which expires almost immediately in any case.</p>
             <p>If we want a phrase which changes a list in a useful way and gives it back to us, we need a phrase which both takes in and gives back:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">extended</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">L</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code1656" -->
+            <blockquote class="extract-inform7"><a id="code1656"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">extended</span><span class="plain-syntax"> (</span><span class="identifier-syntax">L</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And then, for example –</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">extended</span><span class="syntaxplain"> { </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain"> };</span>
+            <!-- START CODE "code1657" -->
+            <blockquote class="extract-inform7"><a id="code1657"></a><span class="indexdullblue"><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">extended</span><span class="plain-syntax"> { </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax"> };</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">{ 2, 4, 6, 7 }</span><br></code></pre></div>
+                <pre><code class="language-transcript">{ 2, 4, 6, 7 }<br></code></pre></div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg457><a style="text-decoration: none" href="eg_457.html"><span class="extensionexampleletter">457</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_457.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Circle of Misery</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Retrieving items from an airport luggage carousel is such fun, how can we resist simulating it, using a list as a ring buffer?</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg457><a style="text-decoration: none" href="RB_8_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg458><a style="text-decoration: none" href="eg_458.html"><span class="extensionexampleletter">458</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_458.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eyes, Fingers, Toes</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A safe with a multi-number combination, meant to be dialed over multiple turns, is implemented using a log of the last three numbers dialed. The log can then be compared to the safe's correct combination.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg458><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg459><a style="text-decoration: none" href="eg_459.html"><span class="extensionexampleletter">459</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_459.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">I Didn't Come All The Way From Great Portland Street</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">In this fiendishly difficult puzzle, which may perhaps owe some inspiration to a certain BBC Radio panel game (1967-), a list is used as a set of actions to help enforce the rule that the player must keep going for ten turns without hesitation, repetition, or deviating from the subject on the card.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg459><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg460><a style="text-decoration: none" href="eg_460.html"><span class="extensionexampleletter">460</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_460.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Circle of Misery</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Retrieving items from an airport luggage carousel is such fun, how can we resist simulating it, using a list as a ring buffer?</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_460.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lugubrious Pete's Delicatessen</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">In this evocation of supermarket deli counter life, a list is used as a queue to keep track of who is waiting to be served.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg460><a style="text-decoration: none" href="RB_8_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg460><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg461><a style="text-decoration: none" href="eg_461.html"><span class="extensionexampleletter">461</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_461.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Eyes, Fingers, Toes</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A safe with a multi-number combination, meant to be dialed over multiple turns, is implemented using a log of the last three numbers dialed. The log can then be compared to the safe's correct combination.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_461.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sieve of Eratosthenes</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">The haughty Eratosthenes of Cyrene will nevertheless consent to sieve prime numbers on request.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg461><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg461><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg462><a style="text-decoration: none" href="eg_462.html"><span class="extensionexampleletter">462</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_462.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">I Didn't Come All The Way From Great Portland Street</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">In this fiendishly difficult puzzle, which may perhaps owe some inspiration to a certain BBC Radio panel game (1967-), a list is used as a set of actions to help enforce the rule that the player must keep going for ten turns without hesitation, repetition, or deviating from the subject on the card.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_462.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">The modest Leonardo Fibonacci of Pisa will be only too happy to construct his sequence on request, using an array.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg462><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg462><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg463><a style="text-decoration: none" href="eg_463.html"><span class="extensionexampleletter">463</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_463.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lugubrious Pete's Delicatessen</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">In this evocation of supermarket deli counter life, a list is used as a queue to keep track of who is waiting to be served.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg463><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg464><a style="text-decoration: none" href="eg_464.html"><span class="extensionexampleletter">464</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_464.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sieve of Eratosthenes</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">The haughty Eratosthenes of Cyrene will nevertheless consent to sieve prime numbers on request.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg464><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg465><a style="text-decoration: none" href="eg_465.html"><span class="extensionexampleletter">465</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_465.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fibonacci Sequence</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">The modest Leonardo Fibonacci of Pisa will be only too happy to construct his sequence on request, using an array.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg465><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg466><a style="text-decoration: none" href="eg_466.html"><span class="extensionexampleletter">466</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_466.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Your Mother Doesn't Work Here</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_463.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Your Mother Doesn't Work Here</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Your hard-working mother uses a list as a stack: urgent tasks are added to the end of the list, interrupting longer-term plans.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg466><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg463><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_23_10.html"><span class="markdowncontent">Section 23.10: Lengthening or shortening a list</span></a> &bull; <a href="WI_24_1.html"><span class="markdowncontent">Chapter 24: Advanced Phrases</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

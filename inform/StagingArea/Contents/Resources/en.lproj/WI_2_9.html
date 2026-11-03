@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,32 +2212,40 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Material not for release" -->
+            <!-- SEARCH SECTION "2.9" -->
+            <!-- SEARCH SORT "001-002-009-000" -->
             <h3><span>Section 2.9: Material not for release</span></h3>
             <p>          </p>
             <p>Special testing commands, like <code class="inlinetranscriptcommand">test</code> and <code class="inlinetranscriptcommand">showme</code>, are automatically excluded from the story if it is exported from the Inform application using the Release button. We sometimes want to write our own for-testing-purposes-only code, though, and for this purpose we are allowed to designate whole headings as being &quot;not for release&quot;:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Section 10 - Open sesame - Not for release[=0x000A=][=0x000A=]Universal opening is an action applying to nothing.[=0x000A=]Understand [=0x0022=]open sesame[=0x0022=] as universal opening.[=0x000A=]Carry out universal opening: now all doors are open.[=0x000A=]Report universal opening: say [=0x0022=]Open Sesame![=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxheading">Section 10 - Open sesame - Not for release</span>
+            <!-- START CODE "code32" -->
+            <blockquote class="extract-inform7"><a id="code32"></a><a class="actionlink" href="javascript:pasteCode('Section 10 - Open sesame - Not for release[=0x000A=][=0x000A=]Universal opening is an action applying to nothing.[=0x000A=]Understand [=0x0022=]open sesame[=0x0022=] as universal opening.[=0x000A=]Carry out universal opening: now all doors are open.[=0x000A=]Report universal opening: say [=0x0022=]Open Sesame![=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Open</span><span class="plain-syntax"> </span><span class="identifier-syntax">sesame</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Not</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">release</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Universal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Universal</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;open sesame&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">universal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;open sesame&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">universal</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">universal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">universal</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax">: </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">all</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">universal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Open Sesame!&quot;</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">universal</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Open Sesame!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Clearly we do not wish the final reader to be able to type <code class="inlinetranscriptcommand">open sesame</code>, so this whole heading will be disregarded in the Release version, as will any heading whose name includes <code class="inlinesourcetext">not for release</code>.</p>
             <p>Note that if a chapter, say, is marked as <code class="inlinesourcetext">not for release</code>, then its subheadings (mere sections) will also not be for release. If in doubt, check the &quot;Contents&quot; index: if any section is <code class="inlinesourcetext">not for release</code> then so are all of its subheadings.</p>
             <p>The reverse effect is produced by:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 10 - Open sesame - For release only</span>
+            <!-- START CODE "code33" -->
+            <blockquote class="extract-inform7"><a id="code33"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Open</span><span class="plain-syntax"> </span><span class="identifier-syntax">sesame</span><span class="plain-syntax"> - </span><span class="identifier-syntax">For</span><span class="plain-syntax"> </span><span class="identifier-syntax">release</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>That is, it marks material included only in a Release version.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_8.html"><span class="markdowncontent">Section 2.8: The TEST command</span></a> &bull; <a href="WI_2_10.html"><span class="markdowncontent">Section 2.10: Including extensions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

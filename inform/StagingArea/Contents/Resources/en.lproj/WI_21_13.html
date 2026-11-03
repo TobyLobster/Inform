@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,8 +2212,13 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Rulebooks producing values" -->
+            <!-- SEARCH SECTION "21.13" -->
+            <!-- SEARCH SORT "001-021-013-000" -->
             <h3><span>Section 21.13: Rulebooks producing values</span></h3>
-            <p>   </p>
+            <p>    
+            </p>
             <p>We have now seen two ways to write the outcome of a rule: as simple success or failure, with more or less explicit phrases like:</p>
             <ul>
             <li><code class="inlinesourcetext">rule succeeds;</code></li>
@@ -2137,8 +2227,10 @@
             <li><code class="inlinesourcetext">stop the action;</code></li>
             </ul>
             <p>and by using a named outcome for the current rulebook as if it were a phrase, as in:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">low</span><span class="syntaxplain"> </span><span class="syntaxidentifier">background</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noise</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1474" -->
+            <blockquote class="extract-inform7"><a id="code1474"></a><span class="indexdullblue"><span class="identifier-syntax">low</span><span class="plain-syntax"> </span><span class="identifier-syntax">background</span><span class="plain-syntax"> </span><span class="identifier-syntax">noise</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>There is still a third way: we can stop a rule and at the same time produce a value. Producing a value allows much greater flexibility than producing a named outcome: a rulebook producing a number can end in a more or less infinite number of possible ways, after all. The two cannot be combined: if a rulebook is to produce a value, it cannot also have named outcomes.</p>
             <p>As we've seen, every rulebook has one kind of value as its basis, and it also has another kind of value for it to produce. If we call these <code class="inlinesourcetext">K</code> and <code class="inlinesourcetext">L</code>, then we have altogether four ways to write down the kind of a rulebook:</p>
             <ul>
@@ -2148,73 +2240,93 @@
             <li><code class="inlinesourcetext">K based rulebook producing L</code></li>
             </ul>
             <p>If we don't mention <code class="inlinesourcetext">K</code>, Inform assumes the rulebook is action based. If we don't mention <code class="inlinesourcetext">L</code>, Inform assumes <code class="inlinesourcetext">L</code> is <code class="inlinesourcetext">nothing</code>, that is, Inform assumes no value is ever produced. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">summons</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1475" -->
+            <blockquote class="extract-inform7"><a id="code1475"></a><span class="indexdullblue"><span class="identifier-syntax">Drum</span><span class="plain-syntax"> </span><span class="identifier-syntax">summons</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is equivalent to</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Drum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">summons</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">based</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">producing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1476" -->
+            <blockquote class="extract-inform7"><a id="code1476"></a><span class="indexdullblue"><span class="identifier-syntax">Drum</span><span class="plain-syntax"> </span><span class="identifier-syntax">summons</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">based</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">producing</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But let's now look at a rulebook which does produce something.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">behavior</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain"> </span><span class="syntaxidentifier">producing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1477" -->
+            <blockquote class="extract-inform7"><a id="code1477"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">behavior</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax"> </span><span class="identifier-syntax">producing</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This rulebook works out which thing the cat will destroy next. We might have rules like this one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">behavior</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Austin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">see</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wool</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1478" -->
+            <blockquote class="extract-inform7"><a id="code1478"></a><span class="indexdullblue"><span class="identifier-syntax">Cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">behavior</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Austin</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ball</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">wool</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">result</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wool</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">result</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ball</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">wool</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The value is produced only when a rule succeeds, using this phrase:</p>
             <div class="definition">
-                <p class="defnprototype">rule succeeds with result (value)</p>
+                <!-- START PHRASE "defn333" -->
+                <p class="defnprototype"><a id="defn333"></a>rule succeeds with result (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase can only be used in a rule which produces a value, and the value given must be of the right kind. It causes the current rule to finish immediately, to succeed, and to produce the value given.</p>
             </div>
             <p>How are we to use the cat behaviour rulebook? If we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">follow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">behavior</span>
+            <!-- START CODE "code1479" -->
+            <blockquote class="extract-inform7"><a id="code1479"></a><span class="indexdullblue"><span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">behavior</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then the rulebook runs just as any other rulebook would, but the value produced is lost at the end, which defeats the point. Instead, we might write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1480" -->
+            <blockquote class="extract-inform7"><a id="code1480"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destroyed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">produced</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">behavior</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">destroyed</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">produced</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">behavior</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destroyed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">destroyed</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Austin pounces on </span><span class="syntaxextract">[the destroyed object]</span><span class="syntaxstring"> in a flurry.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Austin pounces on [the destroyed object] in a flurry.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">destroyed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">destroyed</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The key phrase here is</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">object</span><span class="syntaxplain"> </span><span class="syntaxidentifier">produced</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">behavior</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span>
+            <!-- START CODE "code1481" -->
+            <blockquote class="extract-inform7"><a id="code1481"></a><span class="indexdullblue"><span class="identifier-syntax">object</span><span class="plain-syntax"> </span><span class="identifier-syntax">produced</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cat</span><span class="plain-syntax"> </span><span class="identifier-syntax">behavior</span><span class="plain-syntax"> </span><span class="identifier-syntax">rules</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which accesses the value this rulebook produces. In general, we write:</p>
             <div class="definition">
-                <p class="defnprototype">(name of kind) produced by (rule producing values) ... value</p>
+                <!-- START PHRASE "defn334" -->
+                <p class="defnprototype"><a id="defn334"></a>(name of kind) produced by (rule producing values) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase is used to follow the named rule, and to collect the resulting value.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">(name of kind) produced by (values based rule producing values) for (value) ... value</p>
+                <!-- START PHRASE "defn335" -->
+                <p class="defnprototype"><a id="defn335"></a>(name of kind) produced by (values based rule producing values) for (value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase is used to follow the named rule based on the value given, and to collect the resulting value.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg434><a style="text-decoration: none" href="eg_434.html"><span class="extensionexampleletter">434</span></a></span></div>
+                    <span id=eg431><a style="text-decoration: none" href="eg_431.html"><span class="extensionexampleletter">431</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_434.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Feline Behaviour</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_431.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Feline Behaviour</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A cat which reacts to whatever items it has handy, returning the result of a rulebook for further processing.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg434><a style="text-decoration: none" href="RB_8_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg431><a style="text-decoration: none" href="RB_8_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg435><a style="text-decoration: none" href="eg_435.html"><span class="extensionexampleletter">435</span></a></span></div>
+                    <span id=eg432><a style="text-decoration: none" href="eg_432.html"><span class="extensionexampleletter">432</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_435.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_432.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A deck of cards with fully implemented individual cards; when the player has a full poker hand, the inventory listing describes the resulting hand accordingly.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg435><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg432><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_12.html"><span class="markdowncontent">Section 21.12: Named outcomes</span></a> &bull; <a href="WI_21_14.html"><span class="markdowncontent">Section 21.14: Abide by</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

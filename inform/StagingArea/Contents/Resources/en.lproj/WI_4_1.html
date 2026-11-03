@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,18 +2212,24 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New kinds" -->
+            <!-- SEARCH SECTION "4.1" -->
+            <!-- SEARCH SORT "001-004-001-000" -->
             <h2><span>Chapter 4: Kinds</span></h2>
             <h3><span>Section 4.1: New kinds</span></h3>
             <p>                    </p>
             <p>Values in Inform are the nouns in its sentences. They represent numbers, times of day, pieces of text, places, people, doors, and so on. Because values have such an enormous variety, and because we often want to talk about what some of them have in common, we need a way to sort these values into categories, and those are called <em>kinds</em>. Some examples:</p>
             <p>The Kinds index panel shows the kinds present in the current Inform project, which will always include a wide range of built-in kinds, and usually also some new ones created in that project.</p>
             <p>Some kinds are more general than others. For example, if we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Savannah</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">day</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain">:30 </span><span class="syntaxidentifier">am</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code131" -->
+            <blockquote class="extract-inform7"><a id="code131"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Savannah</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">day</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">:30 </span><span class="identifier-syntax">am</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Growler</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Savannah</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Growler crouches in the tall grass.&quot;</span>
+            <span class="identifier-syntax">Growler</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Savannah</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Growler crouches in the tall grass.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then Growler is an <code class="inlinesourcetext">animal</code>, which is a kind of <code class="inlinesourcetext">person</code>, which is a kind of <code class="inlinesourcetext">thing</code>, which is a kind of <code class="inlinesourcetext">object</code>. When we talk about <em>the</em> kind of Growler, we mean <code class="inlinesourcetext">animal</code>, the most specific one, but actually Growler belongs to all of those kinds. The Savannah is a <code class="inlinesourcetext">room</code>, which is a kind of <code class="inlinesourcetext">object</code>, too, but not everything is. To diagram the values involved in the story above:</p>
             <blockquote>
             <p><code class="inlinesourcetext">time</code> ▹ the constant <code class="inlinesourcetext">11:30 am</code></p>
@@ -2149,47 +2240,61 @@
             <p><code class="inlinesourcetext">object</code> ▸ <code class="inlinesourcetext">thing</code> ▸ <code class="inlinesourcetext">person</code> ▹ yourself</p>
             </blockquote>
             <p>As we see from this example, kinds have a whole hierarchy. Browsing the Kinds index for a project will show what kinds it has. At first sight this is a complicated diagram, but really Inform aims to start each new story with as simple a set of kinds as it can. It has some fundamental kinds like <code class="inlinesourcetext">room</code>, <code class="inlinesourcetext">thing</code>, <code class="inlinesourcetext">direction</code> and <code class="inlinesourcetext">region</code>, but not <code class="inlinesourcetext">mammal</code> or <code class="inlinesourcetext">Bengal tiger</code>. Every story will have different needs, so the idea is to create new kinds as we need them. For example, we could write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bengal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiger</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Growler</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bengal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiger</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Savannah</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code132" -->
+            <blockquote class="extract-inform7"><a id="code132"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bengal</span><span class="plain-syntax"> </span><span class="identifier-syntax">tiger</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">. </span><span class="identifier-syntax">Growler</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bengal</span><span class="plain-syntax"> </span><span class="identifier-syntax">tiger</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Savannah</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In general, it's best always to create kinds using the singular, because Inform knows how to turn singulars into plurals but not vice versa. Now that we have defined <code class="inlinesourcetext">Bengal tiger</code>, Inform will understand the phrase <code class="inlinesourcetext">three Bengal tigers</code>, for example, because it knows that <code class="inlinesourcetext">Bengal tigers</code> is the plural of <code class="inlinesourcetext">Bengal tiger</code>. But this is not a good idea:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bengal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tigers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code133" -->
+            <blockquote class="extract-inform7"><a id="code133"></a><span class="indexdullblue"><span class="identifier-syntax">Bengal</span><span class="plain-syntax"> </span><span class="identifier-syntax">tigers</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So much for a specific kind like <code class="inlinesourcetext">Bengal tiger</code>. How about a more general one, like <code class="inlinesourcetext">mammal</code>? This looks awkward because it seems to belong in between. All Bengal tigers are mammals, but not all animals are mammals. But Inform can sort this out:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mammal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bengal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tiger</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mammal</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code134" -->
+            <blockquote class="extract-inform7"><a id="code134"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">mammal</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bengal</span><span class="plain-syntax"> </span><span class="identifier-syntax">tiger</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">mammal</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So now we have:</p>
             <blockquote>
             <p><code class="inlinesourcetext">object</code> ▸ <code class="inlinesourcetext">thing</code> ▸ <code class="inlinesourcetext">person</code> ▸ <code class="inlinesourcetext">animal</code> ▸ <code class="inlinesourcetext">mammal</code> ▸ <code class="inlinesourcetext">Bengal tiger</code> ▹ Growler</p>
             </blockquote>
             <p>Of course, a zoologist would say that a human being is a sort of animal, and indeed a mammal, so that this layout is all wrong. But Inform is for narratives, not for doing science. When people ask if an animal is in the garden, they wouldn't normally count somebody who is cutting the grass. In its everyday meaning, &quot;animal&quot; implies non-human, and Inform goes along with that.</p>
             <p>If we really want to rearrange Inform's default ideas, we can in fact do so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code135" -->
+            <blockquote class="extract-inform7"><a id="code135"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">animal</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or indeed we could say:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">human</span><span class="syntaxplain"> </span><span class="syntaxidentifier">being</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mammal</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kinds</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">human</span><span class="syntaxplain"> </span><span class="syntaxidentifier">being</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code136" -->
+            <blockquote class="extract-inform7"><a id="code136"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">human</span><span class="plain-syntax"> </span><span class="identifier-syntax">being</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">mammal</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">kinds</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">human</span><span class="plain-syntax"> </span><span class="identifier-syntax">being</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Making more specific kinds of existing ones is an excellent way to build out the physical world, but doesn't make sense for every sort of value. For instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">glob</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code137" -->
+            <blockquote class="extract-inform7"><a id="code137"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">glob</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>isn't allowed. The numbers are fixed and all exist already; we can write a story where the world has no Bengal tigers, but not a story where the world has no number between 4 and 6. That doesn't mean numbers are all alike, of course, and we will later see that we can use words like <code class="inlinesourcetext">even</code> and <code class="inlinesourcetext">odd</code> to describe numbers, and even create new adjectives like <code class="inlinesourcetext">unlucky</code> or <code class="inlinesourcetext">perfect</code> for them. But these are not kinds. Saying that 2 is an even number does not create a new number, and saying that 3 is an even number makes no sense. So it is not possible in Inform to create a <code class="inlinesourcetext">kind of number</code>.</p>
             <p>But what we can do is to invent entirely new sorts of quantity, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">distance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code138" -->
+            <blockquote class="extract-inform7"><a id="code138"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">distance</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We will see more of these later. The word <code class="inlinesourcetext">value</code> here does not count as a kind (it's too vague to be useful), so <code class="inlinesourcetext">distance</code>, like <code class="inlinesourcetext">number</code>, is a top-level kind and not a specialised form of something else.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg49><a style="text-decoration: none" href="eg_49.html"><span class="extensionexampleletter">49</span></a></span></div>
+                    <span id=eg48><a style="text-decoration: none" href="eg_48.html"><span class="extensionexampleletter">48</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_49.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vouvray</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_48.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vouvray</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding synonyms to an entire kind of thing.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg49><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg48><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_26.html"><span class="markdowncontent">Section 3.26: The location of something</span></a> &bull; <a href="WI_4_2.html"><span class="markdowncontent">Section 4.2: Using new kinds</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

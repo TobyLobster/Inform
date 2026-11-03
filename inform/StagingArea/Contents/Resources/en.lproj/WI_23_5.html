@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,108 +2212,150 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Building lists" -->
+            <!-- SEARCH SECTION "23.5" -->
+            <!-- SEARCH SORT "001-023-005-000" -->
             <h3><span>Section 23.5: Building lists</span></h3>
             <p> </p>
             <p>We have already seen <code class="inlinesourcetext">add... to...</code>. This in fact comes in two forms:</p>
             <div class="definition">
-                <p class="defnprototype">add (value) to (list of values)</p>
+                <!-- START PHRASE "defn390" -->
+                <p class="defnprototype"><a id="defn390"></a>add (value) to (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase adds the given value to the end of the list. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {60, </span><span class="syntaxconstant">168</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1603" -->
+                <blockquote class="extract-inform7"><a id="code1603"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {60, </span><span class="constant-syntax">168</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">360</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">360</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{60, 168, 360}</code>. Note that the value is added even if it already occurs somewhere in <code class="inlinesourcetext">L</code>; this can be avoided with <code class="inlinesourcetext">if absent</code>. So:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">168</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">absent</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1604" -->
+                <blockquote class="extract-inform7"><a id="code1604"></a><span class="indexdullblue"><span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">168</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">absent</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>would do nothing – it is already there.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">add (list of values) to (list of values)</p>
+                <!-- START PHRASE "defn391" -->
+                <p class="defnprototype"><a id="defn391"></a>add (list of values) to (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase adds the first list to the end of the second. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1605" -->
+                <blockquote class="extract-inform7"><a id="code1605"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">add</span><span class="syntaxplain"> {11, </span><span class="syntaxconstant">13</span><span class="syntaxplain">, </span><span class="syntaxconstant">17</span><span class="syntaxplain">, </span><span class="syntaxconstant">19</span><span class="syntaxplain">} </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">add</span><span class="plain-syntax"> {11, </span><span class="constant-syntax">13</span><span class="plain-syntax">, </span><span class="constant-syntax">17</span><span class="plain-syntax">, </span><span class="constant-syntax">19</span><span class="plain-syntax">} </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{2, 3, 5, 7, 11, 13, 17, 19}</code>.</p>
             </div>
             <p>If we don't want to add new entries at the end, we can instead say where they should go:</p>
             <div class="definition">
-                <p class="defnprototype">add (value) at entry (number) in/from (list of values)</p>
+                <!-- START PHRASE "defn392" -->
+                <p class="defnprototype"><a id="defn392"></a>add (value) at entry (number) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase adds the given value so that it becomes the entry with that index number in the list. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {1, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">24</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1606" -->
+                <blockquote class="extract-inform7"><a id="code1606"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {1, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">24</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">add</span><span class="syntaxplain"> </span><span class="syntaxconstant">12</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">add</span><span class="plain-syntax"> </span><span class="constant-syntax">12</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>sets <code class="inlinesourcetext">L</code> to <code class="inlinesourcetext">{1, 2, 3, 4, 8, 12, 24}</code>. If there are N entries in <code class="inlinesourcetext">L</code>, then we can add at any of entries 1 up to N+1: adding at entry N+1 means adding at the end. The phrase option <code class="inlinesourcetext">if absent</code> makes the phrase do nothing if the value already exists anywhere in <code class="inlinesourcetext">L</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">add (list of values) at entry (number) in/from (list of values)</p>
+                <!-- START PHRASE "defn393" -->
+                <p class="defnprototype"><a id="defn393"></a>add (list of values) at entry (number) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase adds the first list to the second so that it begins at the given position. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {1, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1607" -->
+                <blockquote class="extract-inform7"><a id="code1607"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {1, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">add</span><span class="syntaxplain"> {4, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">12</span><span class="syntaxplain">} </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">add</span><span class="plain-syntax"> {4, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">12</span><span class="plain-syntax">} </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in L being {1, 2, 4, 8, 12, 3, 4}.</p>
             </div>
             <p>A list is allowed to contain duplicates, and the order matters. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1608" -->
+            <blockquote class="extract-inform7"><a id="code1608"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">};</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>makes <code class="inlinesourcetext">L</code> into what a human would read as &quot;2, 2 and 3&quot;. This is a different list to the one made by:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1609" -->
+            <blockquote class="extract-inform7"><a id="code1609"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">};</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>even though <code class="inlinesourcetext">L</code> and <code class="inlinesourcetext">M</code> have the same values, repeated the same number of times – for two lists to be equal, they must have the same kind of entry, the same number of entries, and the same entries in each position.</p>
             <p>We can also strike out values:</p>
             <div class="definition">
-                <p class="defnprototype">remove (value) in/from (list of values)</p>
+                <!-- START PHRASE "defn394" -->
+                <p class="defnprototype"><a id="defn394"></a>remove (value) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase removes every instance of the given value from the list. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1610" -->
+                <blockquote class="extract-inform7"><a id="code1610"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">9</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{3, 4, 5, 9, 2, 6, 5, 3}</code>. Ordinarily <code class="inlinesourcetext">remove 7 from L</code> would produce a run-time problem, since <code class="inlinesourcetext">L</code> does not contain the value 7, but using the <code class="inlinesourcetext">if present</code> option lets us off this: the phrase then does nothing if <code class="inlinesourcetext">L</code> does not contain the value to be removed.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">remove (list of values) in/from (list of values)</p>
+                <!-- START PHRASE "defn395" -->
+                <p class="defnprototype"><a id="defn395"></a>remove (list of values) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase removes every instance of any value in the first list from the second. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1611" -->
+                <blockquote class="extract-inform7"><a id="code1611"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">9</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">remove</span><span class="syntaxplain"> {0, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">8</span><span class="syntaxplain">} </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">remove</span><span class="plain-syntax"> {0, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">8</span><span class="plain-syntax">} </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{3, 1, 1, 5, 9, 5, 3}</code>. If both lists are large, this can be a slow process, and we might do better by sorting them and trying a more sophisticated method. But this is convenient for anything reasonable-sized.</p>
             </div>
             <p>Again, we can also remove from specific positions:</p>
             <div class="definition">
-                <p class="defnprototype">remove entry (number) in/from (list of values)</p>
+                <!-- START PHRASE "defn396" -->
+                <p class="defnprototype"><a id="defn396"></a>remove entry (number) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase removes the entry at the given position, counting from 1 as the first entry. (Once it is removed, the other entries shuffle down.) Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1612" -->
+                <blockquote class="extract-inform7"><a id="code1612"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">9</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{3, 1, 1, 5, 9, 2, 6, 5, 3}</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">remove entries (number) to (number) in/from (list of values)</p>
+                <!-- START PHRASE "defn397" -->
+                <p class="defnprototype"><a id="defn397"></a>remove entries (number) to (number) in/from (list of values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase removes the entries at the given range of positions, counting from 1 as the first entry. (Once they are removed, the other entries shuffle down.) Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">9</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">6</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1613" -->
+                <blockquote class="extract-inform7"><a id="code1613"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">9</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">6</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">remove</span><span class="plain-syntax"> </span><span class="identifier-syntax">entries</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>results in <code class="inlinesourcetext">L</code> being <code class="inlinesourcetext">{3, 1, 2, 6, 5, 3}</code>.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg454><a style="text-decoration: none" href="eg_454.html"><span class="extensionexampleletter">454</span></a></span></div>
+                    <span id=eg451><a style="text-decoration: none" href="eg_451.html"><span class="extensionexampleletter">451</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_454.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Robo 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_451.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Robo 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A robot which watches and records the player's actions, then tries to repeat them back in the same order when it is switched into play-back mode.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg454><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg451><a style="text-decoration: none" href="RB_7_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_23_4.html"><span class="markdowncontent">Section 23.4: Testing and iterating over lists</span></a> &bull; <a href="WI_23_6.html"><span class="markdowncontent">Section 23.6: Lists of objects</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

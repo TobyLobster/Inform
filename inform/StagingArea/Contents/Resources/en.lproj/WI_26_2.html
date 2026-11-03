@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 26.2: Checking against the Index</span></title>
+    <title><span class="markdowncontent">Section 26.2: Character and line events</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_26_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.2: Checking against the Index</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.2: Character and line events</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,24 +2212,68 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 26.2: Checking against the Index</span></h3>
-            <p>  </p>
-            <p>Testing a story – and indeed writing a story so that it is easy to test consistently – is an art in itself. We should expect that we'll do some preliminary testing, both by running test commands and by playing through the story ourselves, and that we'll then hand on the story to beta-testers who will tell us about faults in the play experience that we haven't been able to see.</p>
-            <p>Every time Inform builds a new story file, it assembles a vast amount of information about that world, in the form of the Index. Often a visit to the Index is all that's needed to explain a piece of undesired behaviour.</p>
-            <p>Is travel not working as it should? Check the World index and see whether the map shows the rooms arranged the way you thought.</p>
-            <p>Are objects not showing the behaviour you'd expect based on their kind? Check the Kinds index and make sure they've been defined as the kind of thing you expected. For instance, we might find that we've written</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Foo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bar</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>but not</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>A human reader wouldn't make this mistake, but Inform hasn't actually registered the red door as belonging to the door kind, and consequently has treated it as a room instead. All we need to do is add the kind declaration. The Kinds index will make that obvious.</p>
-            <p>When an error appears in the Index, there is often a link back to the source text that defined that room or object. If not, there's often at least some information about what rule or phrase might be responsible for it.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Character and line events" -->
+            <!-- SEARCH SECTION "26.2" -->
+            <!-- SEARCH SORT "001-026-002-000" -->
+            <h3><span>Section 26.2: Character and line events</span></h3>
+            <p>There are times when individual key-presses matter — for example, if the user presses a cursor key to navigate a menu, and we have to react immediately — and then there are times when we don't care what is being typed until an entire command has been entered. That's why there are two different types of keyboard event: <code class="inlinesourcetext">character event</code> and <code class="inlinesourcetext">line event</code>.</p>
+            <ul>
+            <li>
+            <p>A <code class="inlinesourcetext">character event</code> is the pressing of a key, or strictly speaking, the input of a character from the keyboard. If the user presses and releases the shift key, for example, that won't generate a character event. Typing the 7 key will do, however, as will typing shift-7, which on most keyboards will lead to a character event with the <code class="inlinetranscriptcommand">&amp;</code> symbol. Most function keys other than shift or alt will result in a character event.</p>
+            </li>
+            <li>
+            <p>A <code class="inlinesourcetext">line event</code> marks when a complete line has been fully typed in, and the user has indicated that it's finished by pressing the RETURN or ENTER key. (That end-marker does not become part of the text of the command.)</p>
+            </li>
+            </ul>
+            <h4><span>How to request these events</span></h4>
+            <p>Glk sends us these events only if we have requested them. By default, an Inform story never requests character events. Traditionally, turn-by-turn command parser stories only care about entire commands, not individual keypresses. If the player is typing <code class="inlinetranscriptcommand">eat cake</code>, we don't want to receive a stream of character events (E, A, Y, delete, T, space, ...).</p>
+            <p>An Inform story requests a line event only when it has, in effect, halted waiting for a command to be typed in. But since Inform stories usually print quickly and spend most of their time waiting for player input, this means they are almost always requesting line events.</p>
+            <p>But you can also request them at other times: see [Keyboard input].</p>
+            <h4><span>Details for these events</span></h4>
+            <p>Both character and line events are tied to windows, because players who type are always typing into whichever window currently has the focus. Given a character or line event, <code class="inlinesourcetext">window of (glk event)</code> can be used to find which window it came from.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn459" -->
+                <p class="defnprototype"><a id="defn459"></a>character value of (glk event) ... unicode character</p>
+                <!-- END PHRASE -->
+                <p>For a character event, this returns the character in question. For any other event, a run-time problem is issued.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn460" -->
+                <p class="defnprototype"><a id="defn460"></a>text value of (glk event) ... text</p>
+                <!-- END PHRASE -->
+                <p>For a line event, this returns the text of the line. For any other event, it throws a run-time problem.</p>
+            </div>
+            <h4><span>Fictitious character and line events</span></h4>
+            <p>Some types of event can be created even though they haven't happened yet, and the two keyboard types are a case in point. It may seem peculiar to create fictitious Glk events, but it turns out be very useful in order to, say, treat mouse clicks as if they were keypresses or commands, as we shall see. Here are the phrases to create such events:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn461" -->
+                <p class="defnprototype"><a id="defn461"></a>character event with (unicode character) in (IO window) ... glk event</p>
+                <!-- END PHRASE -->
+                <p>This produces an event value exactly like that which would have been generated by glk if a key with the given character had been typed in the given window.</p>
+                <p>The <code class="inlinesourcetext">in (IO window)</code> can be omitted, in which case the event is in the <code class="inlinesourcetext">main window</code>.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn462" -->
+                <p class="defnprototype"><a id="defn462"></a>line event with (text) in (IO window) ... glk event</p>
+                <!-- END PHRASE -->
+                <p>This produces an event value exactly like that which would have been generated by glk if the given whole command had been typed in the given window. There's no necessity for the text to be in upper case, or for that matter in lower case. These all produce different events:</p>
+                <!-- START CODE "code1729" -->
+                <blockquote class="extract-inform7"><a id="code1729"></a><span class="indexdullblue"><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;GATHER YE ROSEBUDS&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">main</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span>
+                <br>
+                <span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;GATHER   YE   ROSEBUDS&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">main</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span>
+                <br>
+                <span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;gather ye rosebuds&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">main</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                <p>Though the Inform command parser would treat all three commands just the same, that all happens much higher up than in this input-output layer. The texts are different, so the events are different.</p>
+                <p>The <code class="inlinesourcetext">in (IO window)</code> can be omitted, in which case the event is in the <code class="inlinesourcetext">main window</code>.</p>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_26_1.html"><span class="markdowncontent">Chapter 26: Testing and Debugging</span></a> &bull; <a href="WI_26_3.html"><span class="markdowncontent">Section 26.3: Testing commands to inspect the situation</span></a></em></p>
+        <p><em> &bull; <a href="WI_26_1.html"><span class="markdowncontent">Chapter 26: Events and Hyperlinks</span></a> &bull; <a href="WI_26_3.html"><span class="markdowncontent">Section 26.3: Timer events</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

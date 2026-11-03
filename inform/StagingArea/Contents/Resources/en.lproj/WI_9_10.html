@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,62 +2212,78 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Calculating times" -->
+            <!-- SEARCH SECTION "9.10" -->
+            <!-- SEARCH SORT "001-009-010-000" -->
             <h3><span>Section 9.10: Calculating times</span></h3>
             <p>  </p>
             <p>The ordinary arithmetic for numbers doesn't quite work for times. What would it even mean to add <code class="inlinesourcetext">1:00 PM</code> to <code class="inlinesourcetext">3:10 PM</code>, or, worse still, to multiply or divide them, or to take the square root of <code class="inlinesourcetext">9:00 AM</code>? But we <em>can</em> subtract them: <code class="inlinesourcetext">3:10 PM minus 1:00 PM</code> does mean something — it produces <code class="inlinesourcetext">2 hours 10 minutes</code>, which is a value of the kind <code class="inlinesourcetext">time period</code>. And similarly we can add a time period to a time, to get a changed time: <code class="inlinesourcetext">9:00 AM plus 75 minutes</code> is <code class="inlinesourcetext">10:15 AM</code>, and <code class="inlinesourcetext">9:00 AM plus 24 hours</code> is just <code class="inlinesourcetext">9:00 AM</code> again.</p>
             <p>So, for example:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The Horological Chamber is a room.[=0x000A=][=0x000A=]The clock error is a time period that varies.[=0x000A=][=0x000A=]The broken grandfather clock is in the Chamber. [=0x0022=]An erratic grandfather clock seems to say it is [the time of day plus the clock error].[=0x0022=][=0x000A=][=0x000A=]To thump the mechanism:[=0x000A=][=0x0009=]now the clock error is a random time period from -10 minutes to 10 minutes.[=0x000A=][=0x000A=]When play begins, thump the mechanism.[=0x000A=][=0x000A=]Instead of attacking the broken clock:[=0x000A=][=0x0009=]thump the mechanism;[=0x000A=][=0x0009=]say [=0x0022=]You thump the clock, which now reads [the time of day plus the clock error].[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Horological</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code543" -->
+            <blockquote class="extract-inform7"><a id="code543"></a><a class="actionlink" href="javascript:pasteCode('The Horological Chamber is a room.[=0x000A=][=0x000A=]The clock error is a time period that varies.[=0x000A=][=0x000A=]The broken grandfather clock is in the Chamber. [=0x0022=]An erratic grandfather clock seems to say it is [the time of day plus the clock error].[=0x0022=][=0x000A=][=0x000A=]To thump the mechanism:[=0x000A=][=0x0009=]now the clock error is a random time period from -10 minutes to 10 minutes.[=0x000A=][=0x000A=]When play begins, thump the mechanism.[=0x000A=][=0x000A=]Instead of attacking the broken clock:[=0x000A=][=0x0009=]thump the mechanism;[=0x000A=][=0x0009=]say [=0x0022=]You thump the clock, which now reads [the time of day plus the clock error].[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Horological</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chamber</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">period</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grandfather</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;An erratic grandfather clock seems to say it is </span><span class="syntaxextract">[the time of day plus the clock error]</span><span class="syntaxstring">.&quot;</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax"> </span><span class="identifier-syntax">grandfather</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chamber</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;An erratic grandfather clock seems to say it is [the time of day plus the clock error].&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mechanism</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">thump</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">mechanism</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">period</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> -10 </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">, </span><span class="syntaxidentifier">thump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mechanism</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> -10 </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attacking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">broken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clock</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">, </span><span class="identifier-syntax">thump</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">mechanism</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">thump</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mechanism</span><span class="syntaxplain">;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You thump the clock, which now reads </span><span class="syntaxextract">[the time of day plus the clock error]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">attacking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">broken</span><span class="plain-syntax"> </span><span class="identifier-syntax">clock</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">thump</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">mechanism</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You thump the clock, which now reads [the time of day plus the clock error].&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We will occasionally need to perform more complex calculations with time, and in order to do that, it's a convenience to have a way to convert the time of day to numbers. Thus the phrase <code class="inlinesourcetext">the minutes part of ...</code> takes a time and produces a number from 0 to 59; similarly <code class="inlinesourcetext">the hours part of ...</code> extracts a number from 0 to 23, using the twenty-four hour clock.</p>
             <div class="definition">
-                <p class="defnprototype">minutes part of (time) ... number</p>
+                <!-- START PHRASE "defn116" -->
+                <p class="defnprototype"><a id="defn116"></a>minutes part of (time) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase converts a time to a number, then takes the result mod 60, which in effect produces the number of minutes after the hours are thrown away. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">12</span><span class="syntaxplain">:41 </span><span class="syntaxidentifier">PM</span>
+                <!-- START CODE "code544" -->
+                <blockquote class="extract-inform7"><a id="code544"></a><span class="indexdullblue"><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">12</span><span class="plain-syntax">:41 </span><span class="identifier-syntax">PM</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces 41.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hours part of (time) ... number</p>
+                <!-- START PHRASE "defn117" -->
+                <p class="defnprototype"><a id="defn117"></a>hours part of (time) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase converts a time to a number, then divides the result by 60, which in effect produces the number of hours after minutes are thrown away. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">hours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">:21 </span><span class="syntaxidentifier">AM</span>
+                <!-- START CODE "code545" -->
+                <blockquote class="extract-inform7"><a id="code545"></a><span class="indexdullblue"><span class="identifier-syntax">hours</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">:21 </span><span class="identifier-syntax">AM</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces 8.</p>
             </div>
             <p>If we need to convert a time period to a number of minutes, a nifty way to do this is to divide it by <code class="inlinesourcetext">1 minute</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">14</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minute</span>
+            <!-- START CODE "code546" -->
+            <blockquote class="extract-inform7"><a id="code546"></a><span class="indexdullblue"><span class="constant-syntax">14</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">minute</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The result being the number 14. And to go the other way, we can convert any number to a <code class="inlinesourcetext">time period</code> by writing <code class="inlinesourcetext">minutes</code> or <code class="inlinesourcetext">hours</code> after it.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_9_9.html"><span class="markdowncontent">Section 9.9: Comparing and shifting times</span></a> &bull; <a href="WI_9_11.html"><span class="markdowncontent">Section 9.11: Future events</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

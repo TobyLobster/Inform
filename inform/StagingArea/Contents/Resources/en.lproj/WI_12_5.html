@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,74 +2212,102 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Conditions and questions" -->
+            <!-- SEARCH SECTION "12.5" -->
+            <!-- SEARCH SORT "001-012-005-000" -->
             <h3><span>Section 12.5: Conditions and questions</span></h3>
             <p>           </p>
             <p>A variety of &quot;conditions&quot; have already appeared in this documentation. A condition is a phrase which describes a situation which might be true, or might be false, and examples might include:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Kite</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bishopsgate</span>
+            <!-- START CODE "code742" -->
+            <blockquote class="extract-inform7"><a id="code742"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Kite</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bishopsgate</span>
             <br>
-            <span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span>
+            <span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span>
             <br>
-            <span class="syntaxidentifier">Sherlock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Holmes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span>
+            <span class="identifier-syntax">Sherlock</span><span class="plain-syntax"> </span><span class="identifier-syntax">Holmes</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspects</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These are all examples of sentences, formed by putting nouns either side of a verb, and clearly a wide range of conditions can be written this way. But there are also a few special conditions built into Inform which have a fixed wording, and test questions difficult to address with ordinary sentences. For instance:</p>
             <div class="definition">
-                <p class="defnprototype">if in darkness:</p>
+                <!-- START PHRASE "defn147" -->
+                <p class="defnprototype"><a id="defn147"></a>if in darkness:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the player currently has no light to see by. Note that the test is more complicated than simply testing</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code743" -->
+                <blockquote class="extract-inform7"><a id="code743"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dark</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>since the player might have a torch, or be inside a cage which is itself in a dark room, and so on.</p>
             </div>
             <p>Another example of a condition not easily written as a sentence is:</p>
             <div class="definition">
-                <p class="defnprototype">if player consents:</p>
+                <!-- START PHRASE "defn148" -->
+                <p class="defnprototype"><a id="defn148"></a>if player consents:</p>
+                <!-- END PHRASE -->
                 <p>This condition is unusual in doing something and not simply making a silent check: it waits for the player to type <code class="inlinetranscriptcommand">yes</code> (or Y) or NO (or N) at the keyboard, and then is true if the answer was yes. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Are you quite sure you want to kiss the Queen? &quot;</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code744" -->
+                <blockquote class="extract-inform7"><a id="code744"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Are you quite sure you want to kiss the Queen? &quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">consents</span><span class="syntaxplain">:</span>
+                <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">consents</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxplain">...</span>
+                <span class="plain-syntax">...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Whether it's put to the player like this or not, testing a condition is really asking a question, and there is always a yes/no answer. In Inform this answer is not usually a value (unlike in some other computer programming languages), but it can be made into one.</p>
             <p>Firstly, we need a special kind of value to hold answers like this. It's called <code class="inlinesourcetext">truth state</code>, and it has just two possible values, written as <code class="inlinesourcetext">true</code> and <code class="inlinesourcetext">false</code>. We then need:</p>
             <div class="definition">
-                <p class="defnprototype">whether or not (a condition) ... truth state</p>
+                <!-- START PHRASE "defn149" -->
+                <p class="defnprototype"><a id="defn149"></a>whether or not (a condition) ... truth state</p>
+                <!-- END PHRASE -->
                 <p>This phrase converts a condition into its result as a value, which is always either <code class="inlinesourcetext">true</code> or <code class="inlinesourcetext">false</code>. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxconstant">20</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odd</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span>
+                <!-- START CODE "code745" -->
+                <blockquote class="extract-inform7"><a id="code745"></a><span class="indexdullblue"><span class="identifier-syntax">whether</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="constant-syntax">20</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">odd</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces the truth state <code class="inlinesourcetext">false</code>. This is mostly useful for storing up results to look at later:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">victory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">all</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">treasures</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cabinet</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code746" -->
+                <blockquote class="extract-inform7"><a id="code746"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">victory</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">whether</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">all</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">treasures</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cabinet</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>and then subsequently:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">victory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">true</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code747" -->
+                <blockquote class="extract-inform7"><a id="code747"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">victory</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">true</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>As another example, in most stories this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code748" -->
+            <blockquote class="extract-inform7"><a id="code748"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">darkness</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">whether</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">darkness</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...will produce a line:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;whether or not in darkness&quot;</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">truth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">state</span><span class="syntaxplain">: </span><span class="syntaxidentifier">false</span>
+            <!-- START CODE "code749" -->
+            <blockquote class="extract-inform7"><a id="code749"></a><span class="indexdullblue"><span class="string-syntax">&quot;whether or not in darkness&quot;</span><span class="plain-syntax"> = </span><span class="identifier-syntax">truth</span><span class="plain-syntax"> </span><span class="identifier-syntax">state</span><span class="plain-syntax">: </span><span class="identifier-syntax">false</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In short, <code class="inlinesourcetext">truth state</code> is a kind of value like any other. That means it can be the kind of a variable:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Salvation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">earned</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">truth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">state</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code750" -->
+            <blockquote class="extract-inform7"><a id="code750"></a><span class="indexdullblue"><span class="identifier-syntax">Salvation</span><span class="plain-syntax"> </span><span class="identifier-syntax">earned</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">truth</span><span class="plain-syntax"> </span><span class="identifier-syntax">state</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and it can similarly be used in table columns, lists, or anywhere else where values are allowed.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg193><a style="text-decoration: none" href="eg_193.html"><span class="extensionexampleletter">193</span></a></span></div>
+                    <span id=eg190><a style="text-decoration: none" href="eg_190.html"><span class="extensionexampleletter">190</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_193.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_190.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Asking the player a yes/no question which they must answer, and another which they may answer or not as they choose.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg193><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg190><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_4.html"><span class="markdowncontent">Section 12.4: The showme phrase</span></a> &bull; <a href="WI_12_6.html"><span class="markdowncontent">Section 12.6: If</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

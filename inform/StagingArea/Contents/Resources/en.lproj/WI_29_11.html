@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.11: Compatibility with story file formats</span></title>
+    <title><span class="markdowncontent">Section 29.11: A playable web page</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_10.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.11: Compatibility with story file formats</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.11: A playable web page</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_12.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,59 +2212,34 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.11: Compatibility with story file formats</span></h3>
-            <p>     </p>
-            <p>The Inform app gives each project a Settings panel, and the most consequential setting by far looks like this:</p>
-            <blockquote>
-            <p><strong>Story File Format</strong></p>
-            <p>Inform translates the source text into a story file which can have either of two standard formats. You can change your mind about the format at any time, but some language features require Glulx to be used.</p>
-            <ul>
-            <li>
-            <p>Z-Code version 8 (medium-sized textual projects: most portable)</p>
-            </li>
-            <li>
-            <p>Glulx (large and multimedia projects: most capable)</p>
-            </li>
-            </ul>
-            </blockquote>
-            <p>The default is Glulx, and that is what almost all users accept, but there are certainly still users creating small Z-machine story files. The setting matters a great deal because Z-code story files are not only small, they handle data in smaller chunks: it's a 16-bit virtual computer, not a 32-bit one like Glulx. This is why <code class="inlinesourcetext">number</code> values can be so much larger in Glulx. Glulx also offers the <code class="inlinesourcetext">real number</code> kind, which is not available with the Z-code setting, and so on. There are further differences to do with visual effects.</p>
-            <p>Though it is not offered as a setting in the Inform apps, there's a third platform too: command-line Inform tools can compile to a C program which can then be compiled as a binary program on almost any computer. C behaves very like Glulx as a platform for Inform, but there are a handful of differences.</p>
-            <p>So although an extension should ideally work fine on all platforms, some inevitably can't, and they need to signal that to Inform.</p>
-            <p>So let's suppose that <code class="inlinesourcetext">Ducking Action</code> needs to compute the precise head velocity of the player in meters per second, and needs real arithmetic to do that. If so, it cannot run on the Z-machine, and the extension header ought to say so. To do that, it can optionally contain a <em>compatibility note</em>, like the one here:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain">-</span><span class="syntaxidentifier">machine</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "A playable web page" -->
+            <!-- SEARCH SECTION "29.11" -->
+            <!-- SEARCH SORT "001-029-011-000" -->
+            <h3><span>Section 29.11: A playable web page</span></h3>
+            <p> </p>
+            <p>Modern web browsers are now so powerful as computing environments that they almost amount to general-purpose computers in their own right. The websites made in the previous section were passive, and simply displayed information about a story file. But it's also possible to make a more active page – one which can play the story file, right inside the browser, for anybody who visits.</p>
+            <p>To make such a page, we must:</p>
+            <!-- START CODE "code1809" -->
+            <blockquote class="extract-inform7"><a id="code1809"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">interpreter</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Historically, Inform only supported four compatibility notes:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">(</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain">-</span><span class="syntaxidentifier">machine</span><span class="syntaxplain">)</span>
-            <br>
-            <span class="syntaxplain">(</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Glulx</span><span class="syntaxplain">)</span>
-            <br>
-            <span class="syntaxplain">(</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain">-</span><span class="syntaxidentifier">machine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">)</span>
-            <br>
-            <span class="syntaxplain">(</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Glulx</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">)</span>
+            <!-- END CODE -->
+            <p>This automatically releases along with a website as well, since we need the website in order to house the new page, which will be called <code class="inlinesourcetext">play.html</code>. This page will be bundled up with a customised copy of a story file interpreter coded in Javascript – in effect, a program for a web browser to follow – and a suitably encoded version of the story file. The practical effect should be that anyone visiting the page with any modern browser can just play.</p>
+            <p>Inform ships with the &quot;Parchment&quot; and &quot;Quixe&quot; interpreters built in. By default Inform will use Parchment if the format (on the project's Settings panel) is set to Z-code, and Quixe if the format is Glulx. In fact, though, Parchment works with either format, and some users prefer using it. If we want to have Parchment even for a Glulx project, we can write:</p>
+            <!-- START CODE "code1810" -->
+            <blockquote class="extract-inform7"><a id="code1810"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Parchment&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">interpreter</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>But it now supports quite a variety of compatibility notes. As noted above, there's now a third platform, <code class="inlinesourcetext">C</code>, so these are possible too:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">(</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">C</span><span class="syntaxplain">)</span>
-            <br>
-            <span class="syntaxplain">(</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">C</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">)</span>
+            <!-- END CODE -->
+            <p>...and that's just what will happen. In fact, Inform also supports the use of any other interpreter the author wants to try. If we have access to an exotic Javascript-based interpreter called, let's say, &quot;Urbzig&quot;, then we can install it by putting it into the <code class="inlinesourcetext">Templates</code> subfolder of the <code class="inlinesourcetext">.materials</code> folder for the project:</p>
+            <!-- START CODE "code1811" -->
+            <blockquote class="extract-inform7"><a id="code1811"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Urbzig&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">interpreter</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Inform also accepts <code class="inlinesourcetext">16-bit</code> and <code class="inlinesourcetext">32-bit</code> to mean any platform where values occupy that many bits: the Z-machine is 16-bit and C and Glulx are 32-bit. Moreover, for backwards compatibility reasons, Inform in fact interprets the terms <code class="inlinesourcetext">Z-machine</code> and <code class="inlinesourcetext">Glulx</code> as synonyms for <code class="inlinesourcetext">16-bit</code> and <code class="inlinesourcetext">32-bit</code>, rather than as requiring these specific platforms. So these all have the same practical effect:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain">-</span><span class="syntaxidentifier">machine</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span><span class="syntaxplain">-</span><span class="syntaxidentifier">bit</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Glulx</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">32</span><span class="syntaxplain">-</span><span class="syntaxidentifier">bit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>If more platforms are added in future, it seems likely that this system will be made more flexible still. In general, good advice is to choose the simplest compatibility note possible. Here this seems clearest:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span><span class="syntaxplain">-</span><span class="syntaxidentifier">bit</span><span class="syntaxplain">) </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>An alternative to restricting <code class="inlinesourcetext">Ducking Action</code> like this is for it to provide two different versions of its functionality, one which works on each platform — then anybody can use it. This is the feature we will explore next.</p>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_10.html"><span class="markdowncontent">Section 29.10: Licence</span></a> &bull; <a href="WI_29_12.html"><span class="markdowncontent">Section 29.12: Extensions which vary with use</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_10.html"><span class="markdowncontent">Section 29.10: A website</span></a> &bull; <a href="WI_29_12.html"><span class="markdowncontent">Section 29.12: Using Inform with Vorple</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

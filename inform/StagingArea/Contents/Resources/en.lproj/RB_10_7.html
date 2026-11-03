@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,48 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Electricity and Magnetism" -->
+            <!-- SEARCH SECTION "10.7" -->
+            <!-- SEARCH SORT "002-010-007-000" -->
             <h3><span>Section 10.7: Electricity and Magnetism</span></h3>
             <p>   
             Electrons are so tiny, and move so fast, that we will never want to simulate them in ordinary IF. So we simply regard electricity and magnetism as behaviours which are either present or not present, and which have instantaneous effects.</p>
-            <p>In <a href="eg_145.html">Witnessed 1</a>, batteries provide electricity to enable a <code class="inlinesourcetext">device</code> to work. Even if switched on, a device with no battery will be ineffective.</p>
-            <p>Larger voltages are exposed in <a href="eg_436.html">Electrified</a>, which makes certain items untouchable, and ensures that an experienced electrician will not even try.</p>
-            <p><a href="eg_375.html">Rules of Attraction</a> provides for a magnet which attracts metallic items just strongly enough to stick together until pulled apart for any reason.</p>
+            <p>In <a href="eg_142.html">Witnessed 1</a>, batteries provide electricity to enable a <code class="inlinesourcetext">device</code> to work. Even if switched on, a device with no battery will be ineffective.</p>
+            <p>Larger voltages are exposed in <a href="eg_433.html">Electrified</a>, which makes certain items untouchable, and ensures that an experienced electrician will not even try.</p>
+            <p><a href="eg_372.html">Rules of Attraction</a> provides for a magnet which attracts metallic items just strongly enough to stick together until pulled apart for any reason.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg436><a style="text-decoration: none" href="eg_436.html"><span class="extensionexampleletter">436</span></a></span></div>
+                    <span id=eg433><a style="text-decoration: none" href="eg_433.html"><span class="extensionexampleletter">433</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_436.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Electrified</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_433.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Electrified</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a rule before the basic accessibility rule that will prevent the player from touching electrified objects under the wrong circumstances.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg436><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg433><a style="text-decoration: none" href="WI_21_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg375><a style="text-decoration: none" href="eg_375.html"><span class="extensionexampleletter">375</span></a></span></div>
+                    <span id=eg372><a style="text-decoration: none" href="eg_372.html"><span class="extensionexampleletter">372</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_375.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rules of Attraction</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_372.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rules of Attraction</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A magnet which picks up nearby metal objects, and describes itself appropriately in room descriptions and inventory listings, but otherwise goes by its ordinary name.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg375><a style="text-decoration: none" href="WI_20_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg372><a style="text-decoration: none" href="WI_20_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg145><a style="text-decoration: none" href="eg_145.html"><span class="extensionexampleletter">145</span></a></span></div>
+                    <span id=eg142><a style="text-decoration: none" href="eg_142.html"><span class="extensionexampleletter">142</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_145.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Witnessed 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_142.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Witnessed 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A kind of battery which can be put into different devices, and which will lose power after extended use.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg145><a style="text-decoration: none" href="WI_9_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg142><a style="text-decoration: none" href="WI_9_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_6.html"><span class="markdowncontent">Section 10.6: Ropes</span></a> &bull; <a href="RB_10_8.html"><span class="markdowncontent">Section 10.8: Fire</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

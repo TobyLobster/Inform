@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,222 +2193,86 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg256><a style="text-decoration: none" href="WI_14_12.html"><span class="extensionexampleletter">256</span></a></span></div>
+                <span id=eg256><a style="text-decoration: none" href="WI_14_14.html"><span class="extensionexampleletter">256</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Problem of Edith</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A conversation in which the main character tries to build logical connections between what the player is saying now and what went immediately before.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meet Market</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A case in which relations give characters multiple values of the same kind.</span></span></div>
             <div class="exampleright">
-                <span id=eg256><a style="text-decoration: none" href="RB_7_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg256><a style="text-decoration: none" href="RB_7_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Meet Market" -->
+        <!-- SEARCH SECTION "Example 256" -->
+        <!-- SEARCH SORT "003-256-000-000" -->
         <p></p>
-        <p>Suppose that we have a core set of issues we want to be able to bring up with all the characters, and we want characters to draw intelligent connections between different conversation topics. We will need some model of how things relate to one another, so:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Problem of Edith[=0x0022=][=0x000A=][=0x000A=]Suggestion relates things to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]A subject is a kind of thing. The current subject is a thing that varies. greeting is a subject.[=0x000A=][=0x000A=]Understand [=0x0022=]ask [someone] about [any subject][=0x0022=] as asking it about the subject. Understand [=0x0022=]tell [someone] about [any subject][=0x0022=] as asking it about the subject.[=0x000A=][=0x000A=]Asking it about the subject is an action applying to one thing and one visible thing.[=0x000A=][=0x000A=]Carry out asking it about the subject:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Hmm, [the second noun],[=0x0027=] says [the noun]. [=0x0022=];[=0x000A=][=0x0009=]relate the current subject with the second noun;[=0x000A=][=0x0009=]now the current subject is the second noun.[=0x000A=][=0x000A=]Instead of thinking:[=0x000A=][=0x0009=]say [=0x0022=]You contemplate [a list of things suggested by the current subject].[=0x0022=][=0x000A=][=0x000A=]Instead of showing something which suggests the current subject to someone:[=0x000A=][=0x0009=]say [=0x0022=][The second noun] nods impatiently.[=0x0022=][=0x000A=][=0x000A=]Instead of showing something to someone:[=0x000A=][=0x0009=]let the next subject be the next step via the suggestion relation from the noun to the current subject;[=0x000A=][=0x0009=]if the next subject is a subject:[=0x000A=][=0x0009=][=0x0009=]try asking the second noun about the subject the next subject;[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][The second noun] shrugs.[=0x0022=][=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Discussing: [current subject][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=] [=0x0022=].[=0x000A=][=0x000A=]Broughton Hall is a room. Lady Uckfield is a woman in Broughton Hall. [=0x0022=]Lady Uckfield sits at her desk, looking wholly composed.[=0x0022=][=0x000A=][=0x000A=]The nasty letter is a thing carried by the player. The nasty letter suggests infidelity and penmanship. The ten-pound note is carried by the player. It suggests money.[=0x000A=][=0x000A=]Infidelity is a subject. Infidelity suggests marriage and divorce. Marriage suggests love. Marriage, love, and divorce are subjects.[=0x000A=][=0x000A=]Penmanship is a subject. Penmanship suggests education. Education is a subject. Class status and money are subjects. Class status suggests education. Money suggests class status and marriage.[=0x000A=][=0x000A=]The current subject is divorce.[=0x000A=][=0x000A=]To relate (initial - a subject) with (next - a subject):[=0x000A=][=0x0009=]repeat through Table of Remarks:[=0x000A=][=0x0009=][=0x0009=]if the initial is starting entry and the next is the final entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][comment entry][paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]Table of Remarks[=0x000A=]starting[=0x0009=]final[=0x0009=]comment[=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]As it seems to me, all the love is on one side,[=0x0027=] she says crisply. [=0x0027=]And that rarely works.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]love[=0x0009=][=0x0022=][=0x0027=]Stop making that plea: it won[=0x0027=]t work.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]infidelity[=0x0009=][=0x0022=][=0x0027=]Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.[=0x0027=][=0x0022=][=0x000A=]divorce[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you mean that the divorce will be expensive, I know it,[=0x0027=] she says. [=0x0027=]But I can think of no happier investment.[=0x0027=][=0x0022=][=0x000A=]marriage[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.[=0x0027=][=0x0022=][=0x000A=]infidelity[=0x0009=]money[=0x0009=][=0x0022=][=0x0027=]I[=0x0027=]m sorry, but I don[=0x0027=]t see how having married for money excuses a subsequent infidelity.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Instead of asking Lady Uckfield about the subject penmanship:[=0x000A=][=0x0009=]now the current subject is penmanship;[=0x000A=][=0x0009=]say [=0x0022=]She sighs. [=0x0027=]So few people write really beautifully these days.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;The Problem of Edith&quot;</span>
+        <p>We have already seen that we can give things value properties – a lamp has a brightness, for instance. Relations give us additional flexibility: since we may relate various things to various values, it is possible to describe a thing as having more than one value at the same time.</p>
+        <p>To demonstrate:</p>
+        <!-- START CODE "code3391" -->
+        <blockquote class="extract-inform7"><a id="code3391"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Meet Market[=0x0022=] by [=0x0022=]K M and Eric Rossing[=0x0022=][=0x000A=][=0x000A=]Feature is a kind of value.  The features are snub-nosed, gangly, comely, bright-eyed, and sulky.[=0x000A=][=0x000A=]Appearance relates various persons to various features.  The verb to appear means the appearance relation.[=0x000A=][=0x000A=]Meet Market is a room.[=0x000A=][=0x000A=]Bob, Carol, Ted, and Alice are people in the Meet Market.[=0x000A=][=0x000A=]Bob appears snub-nosed and gangly.[=0x000A=][=0x000A=]Ted appears sulky and snub-nosed.[=0x000A=][=0x000A=]Carol appears comely and bright-eyed.[=0x000A=][=0x000A=]Alice appears bright-eyed and comely.[=0x000A=][=0x000A=]Yourself appears sulky and gangly.[=0x000A=][=0x000A=]Instead of looking:[=0x000A=][=0x0009=]say [=0x0022=]The snub-nosed ones: [list of people who appear snub-nosed][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]The gangly ones: [list of people who appear gangly][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]The comely ones: [list of people who appear comely][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]The bright-eyed ones: [list of people who appear bright-eyed][line break][=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]The sulky ones: [list of people who appear sulky][paragraph break][=0x0022=].[=0x000A=][=0x000A=]Test me with [=0x0022=]look[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Meet Market&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;K M and Eric Rossing&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Suggestion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">each</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggestion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Feature</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.  </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">features</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">snub</span><span class="plain-syntax">-</span><span class="identifier-syntax">nosed</span><span class="plain-syntax">, </span><span class="identifier-syntax">gangly</span><span class="plain-syntax">, </span><span class="identifier-syntax">comely</span><span class="plain-syntax">, </span><span class="identifier-syntax">bright</span><span class="plain-syntax">-</span><span class="identifier-syntax">eyed</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">sulky</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">greeting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Appearance</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">persons</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">features</span><span class="plain-syntax">.  </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">appear</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">appearance</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;ask </span><span class="syntaxextract">[someone]</span><span class="syntaxstring"> about </span><span class="syntaxextract">[any subject]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;tell </span><span class="syntaxextract">[someone]</span><span class="syntaxstring"> about </span><span class="syntaxextract">[any subject]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Meet</span><span class="plain-syntax"> </span><span class="identifier-syntax">Market</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Bob</span><span class="plain-syntax">, </span><span class="identifier-syntax">Carol</span><span class="plain-syntax">, </span><span class="identifier-syntax">Ted</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alice</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Meet</span><span class="plain-syntax"> </span><span class="identifier-syntax">Market</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Bob</span><span class="plain-syntax"> </span><span class="identifier-syntax">appears</span><span class="plain-syntax"> </span><span class="identifier-syntax">snub</span><span class="plain-syntax">-</span><span class="identifier-syntax">nosed</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">gangly</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'Hmm, </span><span class="syntaxextract">[the second noun]</span><span class="syntaxstring">,' says </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">. &quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">relate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Ted</span><span class="plain-syntax"> </span><span class="identifier-syntax">appears</span><span class="plain-syntax"> </span><span class="identifier-syntax">sulky</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">snub</span><span class="plain-syntax">-</span><span class="identifier-syntax">nosed</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Carol</span><span class="plain-syntax"> </span><span class="identifier-syntax">appears</span><span class="plain-syntax"> </span><span class="identifier-syntax">comely</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">bright</span><span class="plain-syntax">-</span><span class="identifier-syntax">eyed</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Alice</span><span class="plain-syntax"> </span><span class="identifier-syntax">appears</span><span class="plain-syntax"> </span><span class="identifier-syntax">bright</span><span class="plain-syntax">-</span><span class="identifier-syntax">eyed</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">comely</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Yourself</span><span class="plain-syntax"> </span><span class="identifier-syntax">appears</span><span class="plain-syntax"> </span><span class="identifier-syntax">sulky</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">gangly</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The snub-nosed ones: [list of people who appear snub-nosed][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The gangly ones: [list of people who appear gangly][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The comely ones: [list of people who appear comely][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The bright-eyed ones: [list of people who appear bright-eyed][line break]&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The sulky ones: [list of people who appear sulky][paragraph break]&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;look&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>And if we wanted to offer the player some hints about angles they could pursue:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thinking</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You contemplate </span><span class="syntaxextract">[a list of things suggested by the current subject]</span><span class="syntaxstring">.&quot;</span>
-        </span></blockquote>
-        <p>For that matter, we could use the same system to have characters make sense of any physical evidence the character shows them:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">showing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The second noun]</span><span class="syntaxstring"> nods impatiently.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">showing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">step</span><span class="syntaxplain"> </span><span class="syntaxidentifier">via</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggestion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The second noun]</span><span class="syntaxstring"> shrugs.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">left</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Discussing: </span><span class="syntaxextract">[current subject]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">right</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; &quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Broughton</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Lady</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Uckfield</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Broughton</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Lady Uckfield sits at her desk, looking wholly composed.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nasty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">letter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nasty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">letter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infidelity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penmanship</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ten</span><span class="syntaxplain">-</span><span class="syntaxidentifier">pound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">note</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">. </span><span class="syntaxidentifier">It</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">money</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Infidelity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Infidelity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">marriage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divorce</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Marriage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">love</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Marriage</span><span class="syntaxplain">, </span><span class="syntaxidentifier">love</span><span class="syntaxplain">, </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divorce</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subjects</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Penmanship</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Penmanship</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">education</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Education</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Class</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">money</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subjects</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Class</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">education</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Money</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">class</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">marriage</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divorce</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>Now we can define what gets said when the subject is changed, regardless of whether the segue was introduced in speech or by a shown object. Since rows are blanked after use, the speaker will never repeat herself; if we provide more than one line about the same pair of topics, the first one will be used, then the second, and so on, until the table runs out:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relate</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">initial</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">) </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">next</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Remarks</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initial</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">starting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">next</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">final</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[comment entry][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paragraph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">break</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Remarks</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">starting</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">final</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">comment</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">divorce</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">love</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'As it seems to me, all the love is on one side,' she says crisply. 'And that rarely works.'&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">divorce</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">love</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'Stop making that plea: it won't work.'&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">divorce</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">infidelity</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'Frankly, I rather think there would have been cause enough for divorce without the perversely plentiful evidence of unfaithfulness.'&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">divorce</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">money</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'If you mean that the divorce will be expensive, I know it,' she says. 'But I can think of no happier investment.'&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">marriage</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">money</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'If you wish me to understand that it was a marriage for money, you could have spared your energy. That was patent from the outset.'&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">infidelity</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">money</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;'I'm sorry, but I don't see how having married for money excuses a subsequent infidelity.'&quot;</span></span>
-                </td>
-            </tr>
-
-        </table>
-        <span class="indexdullblue"></span></blockquote>
-        <p>If we had more than one character in the scenario, we could provide multiple tables, but this will do to demonstrate the idea.</p>
-        <p>Of course, we can override specific instances, if we want the character always to say the same thing regardless of how we came to this point:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lady</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Uckfield</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penmanship</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">penmanship</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;She sighs. 'So few people write really beautifully these days.'&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;think / ask lady about infidelity / show nasty letter to lady / show note to lady / think / ask lady about divorce / ask lady about love / ask lady about marriage / ask lady about divorce / ask lady about love / ask lady about penmanship&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>We would have to be careful about this system, since we have applied a various-to-various relation to every single object in the game. In practice it would probably be wisest to restrict it a bit, with judicious definitions of kind and so on.</p>
+        <!-- END CODE -->
+        <p>The same logic might be used to provide characters who have complex mood states: a person might be angry and sad, not merely one or the other – feelings being what they are.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_14_12.html>Section 14.12: Indirect relations</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_14_14.html>Section 14.14: Relations involving values</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

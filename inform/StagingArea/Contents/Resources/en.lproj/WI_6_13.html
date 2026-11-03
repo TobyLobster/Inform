@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,73 +2212,111 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adjacent rooms and routes through the map" -->
+            <!-- SEARCH SECTION "6.13" -->
+            <!-- SEARCH SORT "001-006-013-000" -->
             <h3><span>Section 6.13: Adjacent rooms and routes through the map</span></h3>
             <p>               </p>
             <p>Another useful adjective built into Inform is <code class="inlinesourcetext">adjacent</code>. Two rooms are said to be adjacent if there is a map connection between them which does not pass through some barrier such as a door. This is easily tested:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjacent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Study</span><span class="syntaxplain"> ...</span>
+            <!-- START CODE "code356" -->
+            <blockquote class="extract-inform7"><a id="code356"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hallway</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjacent</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Study</span><span class="plain-syntax"> ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We usually want to know about the places adjacent to the current scene of the action, so that is what the adjective <code class="inlinesourcetext">adjacent</code> means when applied to rooms. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">somebody</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjacent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code357" -->
+            <blockquote class="extract-inform7"><a id="code357"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">somebody</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjacent</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As with the case of <code class="inlinesourcetext">visible</code>, the adjective is a cut-down version of the more general relationship. This often happens: <code class="inlinesourcetext">worn</code> and <code class="inlinesourcetext">carried</code>, for instance, imply <code class="inlinesourcetext">by the player</code> unless something else is specified.</p>
             <p>If we want to ask a more direct question, we can obtain specific map connections as follows. (Recall that every map connection leads either to a door, to a room, or to nothing.) If we know which direction we want to look in, then the easiest thing is to use its relation – every direction in the map, say <code class="inlinesourcetext">north</code>, has its own relation, say <code class="inlinesourcetext">mapped north of</code>. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ballroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mapped</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hallway</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code358" -->
+            <blockquote class="extract-inform7"><a id="code358"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ballroom</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">mapped</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hallway</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Alternatively, and particularly if the direction is not a constant,</p>
             <div class="definition">
-                <p class="defnprototype">room (direction) from/of (room) ... room</p>
+                <!-- START PHRASE "defn66" -->
+                <p class="defnprototype"><a id="defn66"></a>room (direction) from/of (room) ... room</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the room which the given map direction leads to, or the special value <code class="inlinesourcetext">nothing</code> if it leads nowhere. If it leads to a door, the result is the room through that door. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You look north into </span><span class="syntaxextract">[the room north from the Garden]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code359" -->
+                <blockquote class="extract-inform7"><a id="code359"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You look north into [the room north from the Garden].&quot;</span>
                 <br>
-                <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The grass leads nowhere.&quot;</span>
+                <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garden</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The grass leads nowhere.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">door (direction) from/of (room) ... door</p>
+                <!-- START PHRASE "defn67" -->
+                <p class="defnprototype"><a id="defn67"></a>door (direction) from/of (room) ... door</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the door which the given map direction leads to, or the special value <code class="inlinesourcetext">nothing</code> if it leads nowhere or to a room. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barrier</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Garden</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code360" -->
+                <blockquote class="extract-inform7"><a id="code360"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">barrier</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Garden</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">barrier</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Well, </span><span class="syntaxextract">[the barrier]</span><span class="syntaxstring"> is in the way.&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">barrier</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Well, [the barrier] is in the way.&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">room-or-door (direction) from/of (room) ... object</p>
+                <!-- START PHRASE "defn68" -->
+                <p class="defnprototype"><a id="defn68"></a>room-or-door (direction) from/of (room) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the object which the given map direction leads to, which will always be either a room, a door or the special value <code class="inlinesourcetext">nothing</code>. The phrase is used mainly by the Standard Rules, for technical reasons, and usually it's better to use <code class="inlinesourcetext">room ... from ...</code> or <code class="inlinesourcetext">door ... from ...</code> instead.</p>
             </div>
             <p>The map can be a great sprawling mass of rooms and doors connected together, and it can be quite hard to find a way through it one step at a time.</p>
             <div class="definition">
-                <p class="defnprototype">best route from (object) to (object) ... object</p>
+                <!-- START PHRASE "defn69" -->
+                <p class="defnprototype"><a id="defn69"></a>best route from (object) to (object) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a direction to take in order to get from A to B by the shortest number of movements between rooms, or produces <code class="inlinesourcetext">nothing</code> if there is no way through at all. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">compass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The dial points quiveringly to </span><span class="syntaxextract">[best route from the location to the Lodestone Room]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code361" -->
+                <blockquote class="extract-inform7"><a id="code361"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">compass</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The dial points quiveringly to [best route from the location to the Lodestone Room].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Best routes are ordinarily forbidden to go through doors, but if the suffix <code class="inlinesourcetext">using doors</code> is added as an option then any open or openable and unlocked door may be used on the way; and if <code class="inlinesourcetext">using even locked doors</code> is given, then any door at all will do. Since magnetism is no respecter of property, that seems right here:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">compass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The dial points quiveringly to </span><span class="syntaxextract">[best route from the location to the Lodestone Room, using even locked doors]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code362" -->
+                <blockquote class="extract-inform7"><a id="code362"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">compass</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The dial points quiveringly to [best route from the location to the Lodestone Room, using even locked doors].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>In practice this simple approach sometimes produces impossible journeys, rather the way Google Maps directions from New York to London would recommend driving down to the docks and then swimming. A more careful approach is to use:</p>
             <div class="definition">
-                <p class="defnprototype">best route from (object) to (object) through (description of objects) ... object</p>
+                <!-- START PHRASE "defn70" -->
+                <p class="defnprototype"><a id="defn70"></a>best route from (object) to (object) through (description of objects) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a direction to take in order to get from A to B by the shortest number of movements between rooms which match the given description, or produces <code class="inlinesourcetext">nothing</code> if there is no way through at all. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">route</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drawbridge</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Keep</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visited</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rooms</span>
+                <!-- START CODE "code363" -->
+                <blockquote class="extract-inform7"><a id="code363"></a><span class="indexdullblue"><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">route</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drawbridge</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Keep</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">visited</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The condition – in this case, that <code class="inlinesourcetext">visited rooms</code> must be used – also applies to both ends of the journey, so if either Drawbridge or Keep are unvisited then this is <code class="inlinesourcetext">nothing</code>. (Similarly, saying something like <code class="inlinesourcetext">...through containers</code> would mean there is never a route.)</p>
             </div>
             <p>Lastly, the following phrases can find out how long the journey would be. (They are quite a bit faster than using the <code class="inlinesourcetext">best route...</code> phrases repeatedly and counting.)</p>
             <div class="definition">
-                <p class="defnprototype">number of moves from (object) to (object) ... number</p>
+                <!-- START PHRASE "defn71" -->
+                <p class="defnprototype"><a id="defn71"></a>number of moves from (object) to (object) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of map connections which must be followed in order to get from A to B by the shortest number of movements between rooms. If A and B are the same, the answer is 0; if there is no route at all, the answer is -1. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proximity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gadget</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You are now </span><span class="syntaxextract">[number of moves from the location to the Sundial]</span><span class="syntaxstring"> moves from the Sundial.&quot;</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code364" -->
+                <blockquote class="extract-inform7"><a id="code364"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">proximity</span><span class="plain-syntax"> </span><span class="identifier-syntax">gadget</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are now [number of moves from the location to the Sundial] moves from the Sundial.&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">number of moves from (object) to (object) through (description of objects) ... number</p>
+                <!-- START PHRASE "defn72" -->
+                <p class="defnprototype"><a id="defn72"></a>number of moves from (object) to (object) through (description of objects) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the number of map connections which must be followed in order to get from A to B by the shortest number of movements between rooms matching the given description. If A and B are the same, the answer is 0; if there is no route at all, or if either A or B fail to match the description themselves, the answer is -1.</p>
             </div>
             <p>Route-finding makes it possible to write quite sophisticated conditions concisely. But these sometimes run slowly, because they call for large amounts of computation. How rapidly Inform can find routes depends on which of two methods it uses. Both have advantages – one is fast but needs large amounts of memory, the other is slow but economical. We can choose between them with one of these two use options:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fast</span><span class="syntaxplain"> </span><span class="syntaxidentifier">route</span><span class="syntaxplain">-</span><span class="syntaxidentifier">finding</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code365" -->
+            <blockquote class="extract-inform7"><a id="code365"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">fast</span><span class="plain-syntax"> </span><span class="identifier-syntax">route</span><span class="plain-syntax">-</span><span class="identifier-syntax">finding</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">route</span><span class="syntaxplain">-</span><span class="syntaxidentifier">finding</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">slow</span><span class="plain-syntax"> </span><span class="identifier-syntax">route</span><span class="plain-syntax">-</span><span class="identifier-syntax">finding</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If neither is specified, <code class="inlinesourcetext">fast</code> is used where the project uses the Glulx virtual machine (see the Settings panel), and <code class="inlinesourcetext">slow</code> on the Z-machine, where memory is tighter. Fast route-finding is ideally suited to situations where dozens of characters are constantly route-finding through the map as they meander around in a landscape.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2201,28 +2324,37 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg83><a style="text-decoration: none" href="eg_83.html"><span class="extensionexampleletter">83</span></a></span></div>
+                    <span id=eg82><a style="text-decoration: none" href="eg_82.html"><span class="extensionexampleletter">82</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_83.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">All Roads Lead to Mars</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_82.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">All Roads Lead to Mars</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Layout where the player is allowed to wander any direction he likes, and the map will arrange itself in order so that he finds the correct next location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg83><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg82><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg83><a style="text-decoration: none" href="eg_83.html"><span class="extensionexampleletter">83</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_83.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mistress of Animals</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A person who moves randomly between rooms of the map.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg83><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg84><a style="text-decoration: none" href="eg_84.html"><span class="extensionexampleletter">84</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_84.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mistress of Animals</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A person who moves randomly between rooms of the map.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_84.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hotel Stechelberg</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Signposts such as those provided on hiking paths in the Swiss Alps, which show the correct direction and hiking time to all other locations.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg84><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg84><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg85><a style="text-decoration: none" href="eg_85.html"><span class="extensionexampleletter">85</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_85.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hotel Stechelberg</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Signposts such as those provided on hiking paths in the Swiss Alps, which show the correct direction and hiking time to all other locations.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_85.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A View of Green Hills</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">look</code> [direction] command which allows the player to see descriptions of the nearby landscape.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg85><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
@@ -2230,25 +2362,16 @@
                 <div class="exampleleft">
                     <span id=eg86><a style="text-decoration: none" href="eg_86.html"><span class="extensionexampleletter">86</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_86.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A View of Green Hills</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">look</code> [direction] command which allows the player to see descriptions of the nearby landscape.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg86><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg87><a style="text-decoration: none" href="eg_87.html"><span class="extensionexampleletter">87</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_87.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unblinking</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_86.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unblinking</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Finding a best route through light-filled rooms only, leaving aside any that might be dark.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg87><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg86><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_6_12.html"><span class="markdowncontent">Section 6.12: To be able to see and touch</span></a> &bull; <a href="WI_6_14.html"><span class="markdowncontent">Section 6.14: All, each and every</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

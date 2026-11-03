@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,18 +2212,24 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Getting Acquainted" -->
+            <!-- SEARCH SECTION "7.1" -->
+            <!-- SEARCH SORT "002-007-001-000" -->
             <h2><span>Chapter 7: Other Characters</span></h2>
             <h3><span>Section 7.1: Getting Acquainted</span></h3>
             <p> 
             Talking about characters presents some special challenges. For one thing, some characters are referred to by a proper name, but others are not: so the story might want to talk about &quot;Jack&quot; but also about &quot;the drunk pedestrian&quot;. In the absence of other information, Inform attempts to divine our intentions based on the words with which we defined a new character: but we can always override its guess with an explicit statement, such as</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Great</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Malefactor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">proper</span><span class="syntaxplain">-</span><span class="syntaxidentifier">named</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2104" -->
+            <blockquote class="extract-inform7"><a id="code2104"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Great</span><span class="plain-syntax"> </span><span class="identifier-syntax">Malefactor</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">proper</span><span class="plain-syntax">-</span><span class="identifier-syntax">named</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p><a href="eg_37.html">Belfry</a> demonstrates further how titles are set at the start of play.</p>
-            <p>The relation between the player and the other characters is not always static, however. Sometimes we want the player to learn a character's name part-way through play, and start referring to &quot;the drunk pedestrian&quot; as <code class="inlinetranscriptcommand">fernando</code>. Similarly, the status of another character may change due to some twist of the plot. <a href="eg_38.html">Gopher-wood</a> shows how to change the name of a character mid-story, and <a href="eg_343.html">Peers</a> handles changing the character's rank.</p>
-            <p>Alternatively, of course, the player character may already know some of the other characters when the story begins, even if the player does not. In that case, we may want to add a tag-line or so of identification to a character's name when they first appear in the story. <a href="eg_258.html">A Humble Wayside Flower</a> shows one way of doing this.</p>
+            <!-- END CODE -->
+            <p><a href="eg_36.html">Belfry</a> demonstrates further how titles are set at the start of play.</p>
+            <p>The relation between the player and the other characters is not always static, however. Sometimes we want the player to learn a character's name part-way through play, and start referring to &quot;the drunk pedestrian&quot; as <code class="inlinetranscriptcommand">fernando</code>. Similarly, the status of another character may change due to some twist of the plot. <a href="eg_37.html">Gopher-wood</a> shows how to change the name of a character mid-story, and <a href="eg_340.html">Peers</a> handles changing the character's rank.</p>
+            <p>Alternatively, of course, the player character may already know some of the other characters when the story begins, even if the player does not. In that case, we may want to add a tag-line or so of identification to a character's name when they first appear in the story. <a href="eg_255.html">A Humble Wayside Flower</a> shows one way of doing this.</p>
             <p>Another occasional challenge is dealing with such commands as <code class="inlinetranscriptcommand">examine dr. thisby</code>. The problem here is that Inform by default will understand the full stop in <code class="inlinetranscriptcommand">dr.</code> to be the end of one command and the beginning of another, and will try to interpret <code class="inlinetranscriptcommand">thisby</code> as a verb. If we do have a story populated by such formally-addressed characters, we may turn to Punctuation Removal, which provides a phrase to remove the full stops in standard titles before attempting to interpret the command.</p>
-            <p>Other characters have physical characteristics as well as names, of course, and <a href="eg_259.html">Meet Market</a> demonstrates one way of implementing people with notable features.</p>
-            <p>Finally, in some IF, the roles of characters may change from playing to playing. If we are writing a replayable murder mystery, we might want to select a new culprit each time the story starts; for this, see <a href="eg_141.html">Clueless</a>.</p>
+            <p>Other characters have physical characteristics as well as names, of course, and <a href="eg_256.html">Meet Market</a> demonstrates one way of implementing people with notable features.</p>
+            <p>Finally, in some IF, the roles of characters may change from playing to playing. If we are writing a replayable murder mystery, we might want to select a new culprit each time the story starts; for this, see <a href="eg_138.html">Clueless</a>.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_5_1.html" title="Section 5.1: The Human Body">The Human Body</a> for more on body parts and physical description.</li>
@@ -2146,63 +2237,63 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
+                    <span id=eg36><a style="text-decoration: none" href="eg_36.html"><span class="extensionexampleletter">36</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_36.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Belfry</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">You can see a bat, a bell, some woodworm, William Snelson, the sexton's wife, a bellringer and your local vicar here.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg36><a style="text-decoration: none" href="WI_3_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg138><a style="text-decoration: none" href="eg_138.html"><span class="extensionexampleletter">138</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_138.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Clueless</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A murderer for the mystery is selected randomly at the beginning of the game.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg138><a style="text-decoration: none" href="WI_9_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg256><a style="text-decoration: none" href="eg_256.html"><span class="extensionexampleletter">256</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_256.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meet Market</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A case in which relations give characters multiple values of the same kind.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg256><a style="text-decoration: none" href="WI_14_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
                     <span id=eg37><a style="text-decoration: none" href="eg_37.html"><span class="extensionexampleletter">37</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_37.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Belfry</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">You can see a bat, a bell, some woodworm, William Snelson, the sexton's wife, a bellringer and your local vicar here.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_37.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Gopher-wood</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Changing the name of a character in the middle of play, removing the article.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg37><a style="text-decoration: none" href="WI_3_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg141><a style="text-decoration: none" href="eg_141.html"><span class="extensionexampleletter">141</span></a></span></div>
+                    <span id=eg340><a style="text-decoration: none" href="eg_340.html"><span class="extensionexampleletter">340</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_141.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Clueless</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A murderer for the mystery is selected randomly at the beginning of the game.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg141><a style="text-decoration: none" href="WI_9_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg259><a style="text-decoration: none" href="eg_259.html"><span class="extensionexampleletter">259</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_259.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meet Market</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A case in which relations give characters multiple values of the same kind.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg259><a style="text-decoration: none" href="WI_14_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg38><a style="text-decoration: none" href="eg_38.html"><span class="extensionexampleletter">38</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_38.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Gopher-wood</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Changing the name of a character in the middle of play, removing the article.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg38><a style="text-decoration: none" href="WI_3_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg343><a style="text-decoration: none" href="eg_343.html"><span class="extensionexampleletter">343</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_343.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peers</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_340.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peers</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The peers of the English realm come in six flavours - Baron, Viscount, Earl, Marquess, Duke and Prince - and must always be addressed properly. While a peerage is for life, it may at the royal pleasure be promoted.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg343><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg340><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg258><a style="text-decoration: none" href="eg_258.html"><span class="extensionexampleletter">258</span></a></span></div>
+                    <span id=eg255><a style="text-decoration: none" href="eg_255.html"><span class="extensionexampleletter">255</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_258.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Humble Wayside Flower</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_255.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Humble Wayside Flower</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Relations track the relationships between one character and another. Whenever the player meets a relative of someone they already know, they receive a brief introduction.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg258><a style="text-decoration: none" href="WI_14_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg255><a style="text-decoration: none" href="WI_14_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_18.html"><span class="markdowncontent">Section 6.18: Alternatives To Standard Parsing</span></a> &bull; <a href="RB_7_2.html"><span class="markdowncontent">Section 7.2: Liveliness</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,26 +2212,39 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "About about" -->
+            <!-- SEARCH SECTION "11.8" -->
+            <!-- SEARCH SORT "001-011-008-000" -->
             <h3><span>Section 11.8: About about</span></h3>
+            <p>  
+
+
+
+            </p>
             <p>The whole idea of making the dialogue director &quot;active&quot; is that it enables conversation to develop naturally, in a way which dovetails with everything else that happens in the story. This works best if dialogue beats are marked up with what they are <code class="inlinesourcetext">about</code>, and if good use is made of marking lines as <code class="inlinesourcetext">mentioning</code> things.</p>
             <p>A beat can be <code class="inlinesourcetext">about</code> any object, but it's mostly sensible to have beats about things — interesting items in the story, or people — or else objects of the <code class="inlinesourcetext">concept</code> kind, which are used for more abstract ideas. We can freely create those, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Denmark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Horatio</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">philosophy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concepts</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code654" -->
+            <blockquote class="extract-inform7"><a id="code654"></a><span class="indexdullblue"><span class="identifier-syntax">Denmark</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Horatio</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">philosophy</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">concepts</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And then dialogue sections can make use of them:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the ghost.)</span>
+            <!-- START CODE "code655" -->
+            <blockquote class="extract-inform7"><a id="code655"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ghost</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Denmark</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Something is rotten in the state of Denmark.&quot;</span>
+            <span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">mentioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">Denmark</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Something is rotten in the state of Denmark.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(About Horatio's philosophy.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">Horatio</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">philosophy</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Hamlet</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Horatio</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.&quot;</span><span class="syntaxplain">	</span>
+            <span class="identifier-syntax">Hamlet</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Horatio</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;There are more things in heaven and earth, Horatio, than are dreamt of in your philosophy.&quot;</span><span class="plain-syntax">	</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Being <code class="inlinesourcetext">about X, Y and Z</code> means that it involves all of the subjects <code class="inlinesourcetext">X</code>, <code class="inlinesourcetext">Y</code> and <code class="inlinesourcetext">Z</code>. This plays in two directions:</p>
             <ul>
             <li>
@@ -2157,69 +2255,87 @@
             </li>
             </ul>
             <p>For example, the first beat below is <code class="inlinesourcetext">about Velma and the robbery</code>. As we begin, Velma is live, but the robbery is not. Performance of the first beat changes that, and makes the second beat suitable to be performed soon.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">(</span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Velma</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">robbery</span><span class="syntaxplain">)</span>
+            <!-- START CODE "code656" -->
+            <blockquote class="extract-inform7"><a id="code656"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">Velma</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">robbery</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Fred</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Velma totally hasn't been the same since that bullion robbery.&quot;</span>
+            <span class="identifier-syntax">Fred</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Velma totally hasn't been the same since that bullion robbery.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">(</span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">robbery</span><span class="syntaxplain">)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">robbery</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Fred</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Velma used to work the Lufthansa cargo desk at Stuttgart, and...&quot;</span>
+            <span class="identifier-syntax">Fred</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Velma used to work the Lufthansa cargo desk at Stuttgart, and...&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">About</code> clauses only have to describe objects, not necessarily name them exactly. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">frightening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">safe</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code657" -->
+            <blockquote class="extract-inform7"><a id="code657"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">frightening</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">safe</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paranormal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">frightening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">paranormal</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">frightening</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Garden</span><span class="syntaxplain"> </span><span class="syntaxidentifier">design</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">safe</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concept</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Garden</span><span class="plain-syntax"> </span><span class="identifier-syntax">design</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">safe</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...then:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About any frightening concept.)</span>
+            <!-- START CODE "code658" -->
+            <blockquote class="extract-inform7"><a id="code658"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">frightening</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would make the beat suitable if the paranormal were in play, but not for garden design. Similarly:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About any woman in the Dining Room.)</span>
+            <!-- START CODE "code659" -->
+            <blockquote class="extract-inform7"><a id="code659"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dining</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or one might, for example, create a <code class="inlinesourcetext">discrediting</code> relation from concepts to people, and then have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About any concept which discredits Gordon.)</span>
+            <!-- START CODE "code660" -->
+            <blockquote class="extract-inform7"><a id="code660"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">discredits</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gordon</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Douglas</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Carolyn</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;And you say the marriage wasn't a success?&quot;</span>
+            <span class="identifier-syntax">Douglas</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Carolyn</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;And you say the marriage wasn't a success?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Vague descriptions like this will match the current live subject list, for purposes of choosing relevant beats, but will not add to the live list when the beat is performed. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About a dwarf.)</span>
+            <!-- START CODE "code661" -->
+            <blockquote class="extract-inform7"><a id="code661"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dwarf</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Snow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">White</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I have eight? no, seven indentured miners right now. No point remembering their names, they die so quickly. I just go by appearances. The present lot are Doc, Grumpy, Happy, Sleepy, Bashful, Sneezy, and Dopey. Might let Sneezy go, actually, don't want a sudden cave-in to knock out all seven at once. You can only buy fresh dwarfs on Wednesdays, you see, so one bad sneeze on a Thursday and...&quot;</span>
+            <span class="identifier-syntax">Snow</span><span class="plain-syntax"> </span><span class="identifier-syntax">White</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I have eight? no, seven indentured miners right now. No point remembering their names, they die so quickly. I just go by appearances. The present lot are Doc, Grumpy, Happy, Sleepy, Bashful, Sneezy, and Dopey. Might let Sneezy go, actually, don't want a sudden cave-in to knock out all seven at once. You can only buy fresh dwarfs on Wednesdays, you see, so one bad sneeze on a Thursday and...&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...would match any of the dwarfs for purposes of relevance, but not make any of them live topics when the beat is performed. Writing it this way, on the other hand, would:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About Doc, Grumpy, Happy, Sleepy, Bashful, Sneezy, and Dopey.)</span>
+            <!-- START CODE "code662" -->
+            <blockquote class="extract-inform7"><a id="code662"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">Doc</span><span class="plain-syntax">, </span><span class="identifier-syntax">Grumpy</span><span class="plain-syntax">, </span><span class="identifier-syntax">Happy</span><span class="plain-syntax">, </span><span class="identifier-syntax">Sleepy</span><span class="plain-syntax">, </span><span class="identifier-syntax">Bashful</span><span class="plain-syntax">, </span><span class="identifier-syntax">Sneezy</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dopey</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And then, for example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About Bashful.)</span>
+            <!-- START CODE "code663" -->
+            <blockquote class="extract-inform7"><a id="code663"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bashful</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Snow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">White</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;He's a varmint like all the rest of them.&quot;</span>
+            <span class="identifier-syntax">Snow</span><span class="plain-syntax"> </span><span class="identifier-syntax">White</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;He's a varmint like all the rest of them.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If a beat is bringing up unexpected new information, which should not be matched for relevance purposes when the beat is being chosen, <code class="inlinesourcetext">mentioning</code> should instead be used on the dialogue itself. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About a dwarf.)</span>
+            <!-- START CODE "code664" -->
+            <blockquote class="extract-inform7"><a id="code664"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dwarf</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Snow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">White</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">diamonds</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;He's a varmint like all the rest, but the diamonds are in these crazy low tunnels, and I can't afford to muss my hair. I'm still super-active on the pageanting circuit, you know.&quot;</span>
+            <span class="identifier-syntax">Snow</span><span class="plain-syntax"> </span><span class="identifier-syntax">White</span><span class="plain-syntax"> (</span><span class="identifier-syntax">mentioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">diamonds</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;He's a varmint like all the rest, but the diamonds are in these crazy low tunnels, and I can't afford to muss my hair. I'm still super-active on the pageanting circuit, you know.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_7.html"><span class="markdowncontent">Section 11.7: Managing dialogue beats</span></a> &bull; <a href="WI_11_9.html"><span class="markdowncontent">Section 11.9: Dialogue lines</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

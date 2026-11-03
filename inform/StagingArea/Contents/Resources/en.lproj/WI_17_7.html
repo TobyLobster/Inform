@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,96 +2212,111 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Parts which do not look like numbers" -->
+            <!-- SEARCH SECTION "17.7" -->
+            <!-- SEARCH SORT "001-017-007-000" -->
             <h3><span>Section 17.7: Parts which do not look like numbers</span></h3>
+            <p> </p>
             <p>So far, all the parts of a specification have been basically numerical, if possibly with unusual digits. But we can break away from that completely with two more options supplied for parts.</p>
             <p><code class="inlinesourcetext">values &quot;TEXT&quot;</code> gives a comma-separated list of the text to use for the values. For example, <code class="inlinesourcetext">values &quot;LF, RF, LH, RH&quot;</code>, where there are exactly 4 possible values, and this is how they are written. Internally, these will be stored as the numbers 1 to 4 respectively. The individual values must be all different from each other, and must not include spaces, double-quotation marks, square brackets, or commas. At least two values must be provided.</p>
             <p>If the <code class="inlinesourcetext">values &quot;TEXT&quot;</code> option is used on a part, then the various other options to do with digits, leading zeros and ranges are all forbidden, since the list we've given already defines the range exactly.</p>
             <p>To see why this might be useful, let's work through a practical problem. In modern chess, the squares are written a1 to h8, where the letter represents
             the &quot;file&quot; (or column) and the number represents the &quot;rank&quot; (or row). For example, White's leftmost pawn begins on a2, and is called the a-pawn; and Black's king spends the early game hiding on the 8th rank.</p>
             <p>So, then, we will try to make an Inform kind whose values are exactly the 64 squares <code class="inlinesourcetext">a1</code> to <code class="inlinesourcetext">h8</code>. A devious option would be:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1133" -->
+            <blockquote class="extract-inform7"><a id="code1133"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">file</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">rank</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <span class="plain-syntax">&lt;</span><span class="identifier-syntax">file</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">rank</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">file</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">octal</span><span class="syntaxplain"> </span><span class="syntaxidentifier">digit</span><span class="syntaxplain">, </span><span class="syntaxidentifier">digits</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;abcdefgh&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">file</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">octal</span><span class="plain-syntax"> </span><span class="identifier-syntax">digit</span><span class="plain-syntax">, </span><span class="identifier-syntax">digits</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;abcdefgh&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rank</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rank</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But this is not ideal. We would find that <code class="inlinesourcetext">file part of a1</code> was 0, whereas <code class="inlinesourcetext">rank part of a1</code> was 1: it seems clumsy to number files from 0 and ranks from 1. The following would fix that, but hardly seems elegant:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1134" -->
+            <blockquote class="extract-inform7"><a id="code1134"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">file</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">rank</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <span class="plain-syntax">&lt;</span><span class="identifier-syntax">file</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">rank</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">file</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxidentifier">digits</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;0abcdefgh9&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">file</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="identifier-syntax">digits</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;0abcdefgh9&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rank</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rank</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>where, of course, the digits <code class="inlinesourcetext">0</code> and <code class="inlinesourcetext">9</code> can never be needed for the file, because its range is constrained as <code class="inlinesourcetext">1 to 8</code>. But this is much clearer:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1135" -->
+            <blockquote class="extract-inform7"><a id="code1135"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">file</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">rank</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <span class="plain-syntax">&lt;</span><span class="identifier-syntax">file</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">rank</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">file</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a, b, c, d, e, f, g, h&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">file</span><span class="plain-syntax"> (</span><span class="identifier-syntax">values</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a, b, c, d, e, f, g, h&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rank</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rank</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The file part is automatically constrained as 1 to 8 because there are 8
             notations in the text <code class="inlinesourcetext">&quot;a, b, c, d, e, f, g, h&quot;</code>.</p>
             <p>The following little game works with any of the three definitions above:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Chess Fundamentals[=0x0022=][=0x000A=][=0x000A=]Capablanca[=0x0027=]s Dining Room is a room.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]showme c4;[=0x000A=][=0x0009=]showme d7;[=0x000A=][=0x0009=]repeat with S running from a1 to h8:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][S] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]...and that[=0x0027=]s all.[=0x0022=][=0x000A=][=0x000A=]Square pressing is an action applying to one chessboard square.[=0x000A=][=0x000A=]Carry out square pressing: say [=0x0022=]You press square [chessboard square understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]press [chessboard square][=0x0022=] as square pressing.[=0x000A=][=0x000A=]Test chess with [=0x0022=]press a1 / press a0 / press h8 / press c3 / press i3[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Chess Fundamentals&quot;</span>
+            <!-- START CODE "code1136" -->
+            <blockquote class="extract-inform7"><a id="code1136"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Chess Fundamentals[=0x0022=][=0x000A=][=0x000A=]Capablanca[=0x0027=]s Dining Room is a room.[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]showme c4;[=0x000A=][=0x0009=]showme d7;[=0x000A=][=0x0009=]repeat with S running from a1 to h8:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][S] [=0x0022=];[=0x000A=][=0x0009=]say [=0x0022=]...and that[=0x0027=]s all.[=0x0022=][=0x000A=][=0x000A=]Square pressing is an action applying to one chessboard square.[=0x000A=][=0x000A=]Carry out square pressing: say [=0x0022=]You press square [chessboard square understood].[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]press [chessboard square][=0x0022=] as square pressing.[=0x000A=][=0x000A=]Test chess with [=0x0022=]press a1 / press a0 / press h8 / press c3 / press i3[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Chess Fundamentals&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Capablanca</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Capablanca</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dining</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">c4</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">c4</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">d7</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">d7</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">h8</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">h8</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[S]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[S] &quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;...and that's all.&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pressing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;...and that's all.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pressing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You press square </span><span class="syntaxextract">[chessboard square understood]</span><span class="syntaxstring">.&quot;</span>
+            <span class="identifier-syntax">Square</span><span class="plain-syntax"> </span><span class="identifier-syntax">pressing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;press </span><span class="syntaxextract">[chessboard square]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pressing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">pressing</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You press square [chessboard square understood].&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chess</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;press a1 / press a0 / press h8 / press c3 / press i3&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;press [chessboard square]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">pressing</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">chess</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;press a1 / press a0 / press h8 / press c3 / press i3&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Which all works as expected:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">chessboard square: c4</span><br><span class="syntaxidentifier">chessboard square: d7</span><br><span class="syntaxidentifier">a1 a2 a3 a4 a5 a6 a7 a8 b1 b2 b3 b4 b5 b6 b7 b8 c1 c2 c3 c4 c5 c6 c7 c8</span><br><span class="syntaxidentifier">d1 d2 d3 d4 d5 d6 d7 d8 e1 e2 e3 e4 e5 e6 e7 e8 f1 f2 f3 f4 f5 f6 f7 f8</span><br><span class="syntaxidentifier">g1 g2 g3 g4 g5 g6 g7 g8 h1 h2 h3 h4 h5 h6 h7 h8 ...and that's all.</span><br><br><span class="syntaxidentifier">Capablanca's Dining Room</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PRESS A1</span><br><span class="syntaxidentifier">You press square a1.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PRESS A0</span><br><span class="syntaxidentifier">You can't see any such thing.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PRESS H8</span><br><span class="syntaxidentifier">You press square h8.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PRESS C3</span><br><span class="syntaxidentifier">You press square c3.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PRESS I3</span><br><span class="syntaxidentifier">You can't see any such thing.</span><br></code></pre></div>
+                <pre><code class="language-transcript">chessboard square: c4<br>chessboard square: d7<br>a1 a2 a3 a4 a5 a6 a7 a8 b1 b2 b3 b4 b5 b6 b7 b8 c1 c2 c3 c4 c5 c6 c7 c8<br>d1 d2 d3 d4 d5 d6 d7 d8 e1 e2 e3 e4 e5 e6 e7 e8 f1 f2 f3 f4 f5 f6 f7 f8<br>g1 g2 g3 g4 g5 g6 g7 g8 h1 h2 h3 h4 h5 h6 h7 h8 ...and that's all.<br><br>Capablanca's Dining Room<br>&gt; PRESS A1<br>You press square a1.<br><br>&gt; PRESS A0<br>You can't see any such thing.<br><br>&gt; PRESS H8<br>You press square h8.<br><br>&gt; PRESS C3<br>You press square c3.<br><br>&gt; PRESS I3<br>You can't see any such thing.<br></code></pre></div>
             <p>The so-called English notation, which not even the English use any longer, would also be possible:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1137" -->
+            <blockquote class="extract-inform7"><a id="code1137"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxplain">&lt;</span><span class="syntaxidentifier">file</span><span class="syntaxplain">&gt;&lt;</span><span class="syntaxidentifier">rank</span><span class="syntaxplain">&gt; </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chessboard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parts</span>
+            <span class="plain-syntax">&lt;</span><span class="identifier-syntax">file</span><span class="plain-syntax">&gt;&lt;</span><span class="identifier-syntax">rank</span><span class="plain-syntax">&gt; </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">chessboard</span><span class="plain-syntax"> </span><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">parts</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">file</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">values</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;QR, QN, QB, Q, K, KB, KN, KR&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">file</span><span class="plain-syntax"> (</span><span class="identifier-syntax">values</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;QR, QN, QB, Q, K, KB, KN, KR&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rank</span><span class="syntaxplain"> (1 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">).</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rank</span><span class="plain-syntax"> (1 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The trouble with this is that the square which White calls KB2 is the square Black calls KB7, and we cannot know who is asking.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_17_6.html"><span class="markdowncontent">Section 17.6: Unusual digits</span></a> &bull; <a href="WI_17_8.html"><span class="markdowncontent">Section 17.8: Parts corresponding to kinds</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,59 +2212,69 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Understand" -->
+            <!-- SEARCH SECTION "19.1" -->
+            <!-- SEARCH SORT "001-019-001-000" -->
             <h2><span>Chapter 19: Understanding</span></h2>
             <h3><span>Section 19.1: Understand</span></h3>
             <p>                </p>
             <p>During play, the computer and the player alternate in writing messages to each other: in the player's case, these are short instructions, usually saying what to do next. A wide range of such &quot;commands&quot; are automatically understood, but these only apply to the standard built-in actions. (This wide range is conveniently tabulated in the Commands part of the Actions index.) If we want the player to be able to command new actions, then we need to specify what is to be understood as what. For this, we supply special sentences starting with the word &quot;Understand&quot;.</p>
             <p>Suppose we return to the earlier example of a newly created action:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Photographing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">requiring</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1218" -->
+            <blockquote class="extract-inform7"><a id="code1218"></a><span class="indexdullblue"><span class="identifier-syntax">Photographing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">requiring</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We then supply lines of grammar (as they are called) for Inform to recognise, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;photograph </span><span class="syntaxextract">[someone]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1219" -->
+            <blockquote class="extract-inform7"><a id="code1219"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;photograph [someone]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;photograph </span><span class="syntaxextract">[an open door]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;photograph [an open door]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The part in quotation marks after the word <code class="inlinesourcetext">Understand</code> looks like text — something which Inform can say, or can manipulate in various letter-by-letter ways. The square brackets even look like text substitutions. In fact, though, <code class="inlinesourcetext">&quot;photograph [an open door]&quot;</code> is <em>not</em> a text value. It is a pattern used to match the words in a command. It will match the word <code class="inlinetranscriptcommand">photograph</code> followed by the name of an open door which is currently &quot;in scope&quot; (an idea we will come back to, but which roughly means nearby). It will not match any other wording.</p>
             <p>For obvious reasons, this pattern of words needs to match the expectations of the action. Photographing applies to <code class="inlinesourcetext">one thing</code>, so these instructions are both a little odd: one supplies no things, and the other supplies two.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;photograph&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1220" -->
+            <blockquote class="extract-inform7"><a id="code1220"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;photograph&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;photograph </span><span class="syntaxextract">[someone]</span><span class="syntaxstring"> standing next to </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;photograph [someone] standing next to [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The first is actually allowed by Inform, even though it supplies no things at all, but should only be used in conjunction with a rule for the <code class="inlinesourcetext">supplying a missing noun</code> activity which makes an automatic choice of the missing thing. But the second line is always wrong and is rejected with a problem message.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg315><a style="text-decoration: none" href="eg_315.html"><span class="extensionexampleletter">315</span></a></span></div>
+                    <span id=eg312><a style="text-decoration: none" href="eg_312.html"><span class="extensionexampleletter">312</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_315.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Indirection</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_312.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Indirection</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Renaming the directions of the compass so that &quot;white&quot; corresponds to north, &quot;red&quot; to east, &quot;yellow&quot; to south, and &quot;black&quot; to west.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg315><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg312><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg316><a style="text-decoration: none" href="eg_316.html"><span class="extensionexampleletter">316</span></a></span></div>
+                    <span id=eg313><a style="text-decoration: none" href="eg_313.html"><span class="extensionexampleletter">313</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_316.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">XYZZY</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_313.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">XYZZY</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Basics of adding a new command reviewed, for the case of the simple magic word <code class="inlinetranscriptcommand">xyzzy</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg316><a style="text-decoration: none" href="RB_6_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg313><a style="text-decoration: none" href="RB_6_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg317><a style="text-decoration: none" href="eg_317.html"><span class="extensionexampleletter">317</span></a></span></div>
+                    <span id=eg314><a style="text-decoration: none" href="eg_314.html"><span class="extensionexampleletter">314</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_317.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xylan</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_314.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xylan</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a new command that does require an object to be named; and some comments about the choice of vocabulary, in general.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg317><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg314><a style="text-decoration: none" href="RB_10_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_20.html"><span class="markdowncontent">Section 18.20: Recap of the syntax for tables</span></a> &bull; <a href="WI_19_2.html"><span class="markdowncontent">Section 19.2: New commands for old grammar</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

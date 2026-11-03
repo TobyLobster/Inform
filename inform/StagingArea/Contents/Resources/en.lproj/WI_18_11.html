@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,84 +2212,106 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Sorting" -->
+            <!-- SEARCH SECTION "18.11" -->
+            <!-- SEARCH SORT "001-018-011-000" -->
             <h3><span>Section 18.11: Sorting</span></h3>
             <p>  </p>
             <p>There are several ways to sort a table, corresponding loosely to the different orders in which tables can be repeated through. First:</p>
             <div class="definition">
-                <p class="defnprototype">sort (table name) in random order</p>
+                <!-- START PHRASE "defn292" -->
+                <p class="defnprototype"><a id="defn292"></a>sort (table name) in random order</p>
+                <!-- END PHRASE -->
                 <p>This phrase rearranges the rows of the given table so that the non-blank rows occur at the top, in a uniformly random order, and any blank rows at the bottom. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Monarchs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1185" -->
+                <blockquote class="extract-inform7"><a id="code1185"></a><span class="indexdullblue"><span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Recent</span><span class="plain-syntax"> </span><span class="identifier-syntax">Monarchs</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Secondly:</p>
             <div class="definition">
-                <p class="defnprototype">sort (table name) in (table column) order</p>
+                <!-- START PHRASE "defn293" -->
+                <p class="defnprototype"><a id="defn293"></a>sort (table name) in (table column) order</p>
+                <!-- END PHRASE -->
                 <p>This phrase rearranges the rows of the given table so that the non-blank rows occur at the top, so that the given column has ascending order, and any blank rows at the bottom. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Monarchs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accession</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1186" -->
+                <blockquote class="extract-inform7"><a id="code1186"></a><span class="indexdullblue"><span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Recent</span><span class="plain-syntax"> </span><span class="identifier-syntax">Monarchs</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">accession</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Ascending order means 1 up to 10, say, or A up to Z, with blank values coming last.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">sort (table name) in reverse (table column) order</p>
+                <!-- START PHRASE "defn294" -->
+                <p class="defnprototype"><a id="defn294"></a>sort (table name) in reverse (table column) order</p>
+                <!-- END PHRASE -->
                 <p>This phrase rearranges the rows of the given table so that the non-blank rows occur at the top, so that the given column has descending order, and any blank rows at the bottom. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">sort</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Recent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Monarchs</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reverse</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">order</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1187" -->
+                <blockquote class="extract-inform7"><a id="code1187"></a><span class="indexdullblue"><span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Recent</span><span class="plain-syntax"> </span><span class="identifier-syntax">Monarchs</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">reverse</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Descending order means 10 down to 1, say, or Z down to A, with blank values coming last.</p>
             </div>
             <p>How sorting is done depends on the contents of the column being sorted on. If it holds numbers then numerical order is used, with 2 coming before 7, and so on. (And similarly for real numbers, though the existence of infinities makes this more interesting.) If times are sorted then they are sorted from midnight to midnight, following the <code class="inlinesourcetext">is greater than</code> relation, not with 4 AM as the zero point, as with <code class="inlinesourcetext">is after</code>.</p>
             <p>If text is sorted then alphabetical order is used, though this doesn't always come out the way you might expect, because upper case and lower case letters are treated as different: A-Z come before a-z, and accented letters such as é come after the regular alphabet. (What's happening here is that Inform is sorting on raw  character values, not performing the full Unicode collation algorithm, which would be too slow at run-time.)</p>
             <p>Note that blank values will always be placed below non-blank ones, and entirely blank rows last of all. This is true even if we use <code class="inlinesourcetext">reverse</code>.</p>
             <p>The method of sorting is &quot;stable&quot;, that is, if two rows have the same value then they will stay the same way round in the sorted table, rather than being swapped over. For example, if we sort this into reverse index order:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Index</span><span class="syntaxplain">	</span><span class="syntaxidentifier">Comment</span>
+            <!-- START CODE "code1188" -->
+            <blockquote class="extract-inform7"><a id="code1188"></a><span class="indexdullblue"><span class="identifier-syntax">Index</span><span class="plain-syntax">	</span><span class="identifier-syntax">Comment</span>
             <br>
-            <span class="syntaxconstant">1</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 1&quot;</span>
+            <span class="constant-syntax">1</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 1&quot;</span>
             <br>
-            <span class="syntaxconstant">2</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 2&quot;</span>
+            <span class="constant-syntax">2</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 2&quot;</span>
             <br>
-            <span class="syntaxconstant">2</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 3&quot;</span>
+            <span class="constant-syntax">2</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 3&quot;</span>
             <br>
-            <span class="syntaxconstant">3</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 4&quot;</span>
+            <span class="constant-syntax">3</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 4&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then we get</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Index</span><span class="syntaxplain">	</span><span class="syntaxidentifier">Comment</span>
+            <!-- START CODE "code1189" -->
+            <blockquote class="extract-inform7"><a id="code1189"></a><span class="indexdullblue"><span class="identifier-syntax">Index</span><span class="plain-syntax">	</span><span class="identifier-syntax">Comment</span>
             <br>
-            <span class="syntaxconstant">3</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 4&quot;</span>
+            <span class="constant-syntax">3</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 4&quot;</span>
             <br>
-            <span class="syntaxconstant">2</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 2&quot;</span>
+            <span class="constant-syntax">2</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 2&quot;</span>
             <br>
-            <span class="syntaxconstant">2</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 3&quot;</span>
+            <span class="constant-syntax">2</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 3&quot;</span>
             <br>
-            <span class="syntaxconstant">1</span><span class="syntaxplain">		</span><span class="syntaxstring">&quot;Originally row 1&quot;</span>
+            <span class="constant-syntax">1</span><span class="plain-syntax">		</span><span class="string-syntax">&quot;Originally row 1&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As a result note that repeating through this sorted table goes through the original rows in order 4, 2, 3, 1; whereas repeating through the original table in reverse order goes through in order 4, 3, 2, 1. (This is all to explain the word &quot;loosely&quot; in the opening sentence of this section.)</p>
             <div class="definition">
-                <p class="defnprototype">sort (table name) with (phrase (table name, number, number) -&gt; number)</p>
+                <!-- START PHRASE "defn295" -->
+                <p class="defnprototype"><a id="defn295"></a>sort (table name) with (phrase (table name, number, number) -&gt; number)</p>
+                <!-- END PHRASE -->
                 <p>This phrase sorts the table with a custom comparison phrase. The phrase is given the table name and two row numbers to compare, and it must return a number which indicates the relative order of the two rows: negative if the left row should come before the right, zero if the rows should be sorted as if they are equal, and positive if the left row should come after the right. Any completely blank rows will be put at the bottom, but if the table has partially blank rows, then the comparison phrase must be designed to account for the possibility of blank entries.</p>
-                <p>The <a href="eg_304.html">Olympic Medals</a> example demonstrates two custom comparison phrases.</p>
+                <p>The <a href="eg_301.html">Olympic Medals</a> example demonstrates two custom comparison phrases.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg303><a style="text-decoration: none" href="eg_303.html"><span class="extensionexampleletter">303</span></a></span></div>
+                    <span id=eg300><a style="text-decoration: none" href="eg_300.html"><span class="extensionexampleletter">300</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_303.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Jokers Wild</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_300.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Jokers Wild</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A deck of cards which can be shuffled and dealt from.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg303><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg300><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg304><a style="text-decoration: none" href="eg_304.html"><span class="extensionexampleletter">304</span></a></span></div>
+                    <span id=eg301><a style="text-decoration: none" href="eg_301.html"><span class="extensionexampleletter">301</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_304.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olympic Medals</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_301.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olympic Medals</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Sort the table of Olympic Medals in two different ways.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg304><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg301><a style="text-decoration: none" href="RB_10_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_10.html"><span class="markdowncontent">Section 18.10: Adding and removing rows</span></a> &bull; <a href="WI_18_12.html"><span class="markdowncontent">Section 18.12: Listed in...</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

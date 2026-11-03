@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Check, carry out, report" -->
+            <!-- SEARCH SECTION "13.9" -->
+            <!-- SEARCH SORT "001-013-009-000" -->
             <h3><span>Section 13.9: Check, carry out, report</span></h3>
             <p>      </p>
             <p>The normal behaviour of an action is specified by its three associated rulebooks – check, carry out and report. In the case of our <code class="inlinesourcetext">photographing</code> example, these rulebooks will be:</p>
@@ -2142,75 +2231,81 @@
             </li>
             </ol>
             <p>So far we have not really gone into the business of what rulebooks are, and we don't do so here either – suffice to say that we can now create whatever rules we need:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code833" -->
+            <blockquote class="extract-inform7"><a id="code833"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">check</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can hardly photograph without a camera, now can you?&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can hardly photograph without a camera, now can you?&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In fact, writing <code class="inlinesourcetext">a check photographing rule</code> is over-formal. We can more simply label our rules like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code834" -->
+            <blockquote class="extract-inform7"><a id="code834"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">have</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">we</span><span class="plain-syntax"> </span><span class="identifier-syntax">have</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographed</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You've already snapped </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You've already snapped [the noun].&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Click!&quot;</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Click!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>For the sake of brevity, photography has no interesting consequence (no points to be won, no film to use up), so there are no carry out rules here. Note the way we used the word <code class="inlinesourcetext">instead</code> once again to stop actions in their tracks.</p>
             <p>We can continue to add rules at any point, and a classic thing that happens when testing a new work is that the designer realises there is a case which has not been thought of:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code835" -->
+            <blockquote class="extract-inform7"><a id="code835"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">camera</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">camera</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;That would require some sort of contraption with mirrors.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;That would require some sort of contraption with mirrors.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As a pedantic footnote here: It sometimes comes as a surprise to power users of Inform that with a two-noun action like our example <code class="inlinesourcetext">scraping it with</code>, rules like <code class="inlinesourcetext">Check scraping it with</code> can legally be written (and similarly for carry out and report). This appears to contradict what we said about rules like <code class="inlinesourcetext">Instead of scraping it with</code> being wrong, because <code class="inlinesourcetext">scraping it with</code> is an action name not an action pattern.</p>
             <p>In fact this is not a contradiction. For reasons of efficiency, there is not one single <code class="inlinesourcetext">Check</code> rulebook with hundreds or thousands of rules in: there is one for each action, whose name consists of the word <code class="inlinesourcetext">Check</code> followed by the action name. So <code class="inlinesourcetext">Check photographing</code> is the rulebook holding the example rules above. Similarly for <code class="inlinesourcetext">Check scraping it with</code>.</p>
-            <p>As it happens, it is <em>also</em> legal to write <code class="inlinesourcetext">Check scraping something with</code>, or <code class="inlinesourcetext">Check scraping a door with something edible</code>, and similar. Moreover something like <code class="inlinesourcetext">Check asking somebody to try scraping something with something</code> will work where <code class="inlinesourcetext">Check asking somebody to try scraping it with:</code> will not. So there is no actual need to use <code class="inlinesourcetext">it</code> in the names of <code class="inlinesourcetext">Check</code> rules, and it's perhaps better style not to, but the fact that <code class="inlinesourcetext">Check scraping it with</code> works is not a bug.</p>
+            <p>In any case, it is <em>also</em> legal to write <code class="inlinesourcetext">Check scraping something with</code>, or <code class="inlinesourcetext">Check scraping a door with something edible</code>, and similar. So there is no actual need to use <code class="inlinesourcetext">it</code> in the names of <code class="inlinesourcetext">Check</code> rules, and it's perhaps better style not to, but the fact that <code class="inlinesourcetext">Check scraping it with</code> works is not a bug.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg213><a style="text-decoration: none" href="eg_213.html"><span class="extensionexampleletter">213</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_213.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Dark Ages Revisited</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">An electric light kind of device which becomes lit when switched on and dark when switched off.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg213><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg214><a style="text-decoration: none" href="eg_214.html"><span class="extensionexampleletter">214</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_214.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Paddington</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">cut [something] with [something]</code> command which acts differently on different types of objects.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg214><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg215><a style="text-decoration: none" href="eg_215.html"><span class="extensionexampleletter">215</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_215.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delicious, Delicious Rocks</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding a sanity-check stage to decide whether an action makes any sense, which occurs before any before rules, implicit taking, or check rules.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg215><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg216><a style="text-decoration: none" href="eg_216.html"><span class="extensionexampleletter">216</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_216.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Dark Ages Revisited</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">An electric light kind of device which becomes lit when switched on and dark when switched off.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg216><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg217><a style="text-decoration: none" href="eg_217.html"><span class="extensionexampleletter">217</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_217.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Paddington</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">cut [something] with [something]</code> command which acts differently on different types of objects.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg217><a style="text-decoration: none" href="RB_10_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg218><a style="text-decoration: none" href="eg_218.html"><span class="extensionexampleletter">218</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_218.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Delicious, Delicious Rocks</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding a sanity-check stage to decide whether an action makes any sense, which occurs before any before rules, implicit taking, or check rules.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg218><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg219><a style="text-decoration: none" href="eg_219.html"><span class="extensionexampleletter">219</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_219.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Noisemaking</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_216.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Noisemaking</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a stage after the report stage of an action, during which other characters may observe and react.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg219><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg216><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_8.html"><span class="markdowncontent">Section 13.8: Irregular English verbs</span></a> &bull; <a href="WI_13_10.html"><span class="markdowncontent">Section 13.10: Action variables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

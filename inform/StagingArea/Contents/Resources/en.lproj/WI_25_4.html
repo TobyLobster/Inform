@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.4: Gathering the figures</span></title>
+    <title><span class="markdowncontent">Section 25.4: Coloured text</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_25_3.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.4: Gathering the figures</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.4: Coloured text</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_5.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,30 +2212,75 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.4: Gathering the figures</span></h3>
-            <p>  </p>
-            <p>Inform provides basic support for displaying pictures and leaves more exotic effects for Extensions to provide. But either way, for reasons explained in the previous section, <strong>we can only have pictures if the Settings for the project are set to the Glulx story file format</strong>.</p>
-            <p>Inform calls these pictures <em>figures</em>, following the usual Inform analogy with books. We will think of our work of IF as being like a mostly textual book which in broken up with illustrations here and there – Figure 1, Figure 2, and so on. These might be used to mark each new chapter of the plot, or each new location: whatever the author would like. So the first thing we need to do is decide when pictures should appear.</p>
-            <p>The second thing to do is to get hold of the pictures we want to use. These might be photographs, or artwork, or diagrams: anything, really, but we will need them to be in either JPEG or PNG format. Inform does not itself try to be an image editor, or an artwork program – there are many such programs already which do these things much better than Inform could.</p>
-            <p>The pictures then need to be put in a special place where Inform can reach them. Suppose the Inform project is called Example.inform. Then we need to create a folder alongside it called <code class="inlinesourcetext">Example.materials</code>, and create a further folder inside that called <code class="inlinesourcetext">Figures</code>. The actual images go inside <code class="inlinesourcetext">Figures</code>. So we might then have files like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Example</span><span class="syntaxplain">.</span><span class="syntaxidentifier">inform</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Coloured text" -->
+            <!-- SEARCH SECTION "25.4" -->
+            <!-- SEARCH SORT "001-025-004-000" -->
+            <h3><span>Section 25.4: Coloured text</span></h3>
+            <p></p>
+            <p>Inform's two virtual machines support colour differently, so this section will have be divided in two.</p>
+            <p><strong>The Z-Machine</strong>. Here there are just eight colours, which Inform represents in a kind of value called <code class="inlinesourcetext">basic colour</code>. The colours are:</p>
+            <!-- START CODE "code1724" -->
+            <blockquote class="extract-inform7"><a id="code1724"></a><span class="indexdullblue"><span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">black</span>
             <br>
-            <span class="syntaxidentifier">Example</span><span class="syntaxplain">.</span><span class="syntaxidentifier">materials</span>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Figures</span>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Woodlands</span><span class="syntaxplain">.</span><span class="syntaxidentifier">png</span>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">yellow</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Blackberry</span><span class="syntaxplain">.</span><span class="syntaxidentifier">jpg</span>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">blue</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Red</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Admiral</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Butterfly</span><span class="syntaxplain">.</span><span class="syntaxidentifier">png</span>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">magenta</span>
+            <br>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">cyan</span>
+            <br>
+            <span class="identifier-syntax">basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">white</span>
             </span></blockquote>
-            <p>The <code class="inlinesourcetext">.materials</code> folder for an Inform project will turn out to have many other uses in the chapter on <a href="WI_28_1.html" title="Chapter 28: Publishing">Publishing</a>, and will be explained further there.</p>
+            <!-- END CODE -->
+            <p>These colour names are each prefixed with <code class="inlinesourcetext">basic</code> because authors often want to use colour-words like &quot;red&quot; in their own definitions or names of things. <code class="inlinesourcetext">basic red</code> is less likely to clash with such definitions.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn436" -->
+                <p class="defnprototype"><a id="defn436"></a>say &quot;[(basic colour) letters]&quot;</p>
+                <!-- END PHRASE -->
+                <p>Sets the foreground colour for text to a basic colour.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn437" -->
+                <p class="defnprototype"><a id="defn437"></a>say &quot;[(basic colour) background]&quot;</p>
+                <!-- END PHRASE -->
+                <p>Sets the background colour for text to a basic colour. This is not the way to, for example, turn the whole play area background green; it only affects the background of subsequent printed text from the point at which the change is made. If lengthy text is then produced, the effect is likely to look ragged, since the background tint extends only under the letters themselves, not all the way to the right-hand margin.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn438" -->
+                <p class="defnprototype"><a id="defn438"></a>say &quot;[default colours]&quot;</p>
+                <!-- END PHRASE -->
+                <p>Resets both the foreground and background colours to their usual setting. The American spelling <code class="inlinesourcetext">say [default colors]</code> can also be used.</p>
+            </div>
+            <p><strong>Glulx</strong>. Direct styling of colours is not part of the Glulx/Glk specification, and there are principled reasons for that. Glulx was designed both for portability and also accessibility, with the needs of partially-sighted players kept always in mind. The model was intended to be more like that of a Kindle ebook, where it is (largely) for the reader to choose how the text will appear: the author of the book just writes the words.</p>
+            <p>However, the Glk specification is extensible, and some though not all interpreters today do support an extension to Glk providing for coloured text. Not every author will want to use this feature. It is mainly intended for stories which will only be played on web browsers, where we can be fairly confident that the colours will come out as intended, and where (on good browsers, at least) accessibility features are provided so that readers can indeed choose how text appears to them.</p>
+            <p>Still, in for a penny, in for a pound: if we do want colours on Glulx, we can have 16 million of them, because we have the entire 24-bit RGB colour range available, which provides far more shades than most people can actually distinguish. These colours are values of the kind <code class="inlinesourcetext">RGB colour</code>, where RGB stands for red-green-blue, because they are specified in terms of how much red light, green light, and blue light goes to make them up.</p>
+            <p>RGB colour values in Inform look like those in the ubiquitous web-styling language CSS, or at least the commonest six-digit form of those. The notation is <code class="inlinesourcetext">#RRGGBB</code> using six hexadecimal digits. <code class="inlinesourcetext">RR</code> is the amount of red, from <code class="inlinesourcetext">00</code> (none) to <code class="inlinesourcetext">ff</code> (full on), and similarly for <code class="inlinesourcetext">GG</code> and <code class="inlinesourcetext">BB</code>: thus, <code class="inlinesourcetext">#000000</code> is black, and <code class="inlinesourcetext">#ffffff</code> is white. <code class="inlinesourcetext">#ff00ff</code> is an in-your-face fuchsia, <code class="inlinesourcetext">#ccff99</code> is a fairly zingy light lime, <code class="inlinesourcetext">#73264d</code> a muddy dark reddish-purple, and so on, and so on. Many websites provide handy tools for finding these hexadecimal values: a good one is <a href="https://www.w3schools.com/colors/colors_picker.asp">https://www.w3schools.com/colors/colors_picker.asp</a>.</p>
+            <p>The phrases used for foreground and background colour selection are exactly as for the Z-machine above.</p>
+            <blockquote class="alerttip">
+            <p class="alertheading">☂ Tip</p>
+            <p><code class="inlinesourcetext">basic colour</code> values like <code class="inlinesourcetext">basic magenta</code> remain available on Glulx, so they can also still be used, and can also be converted:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn439" -->
+                <p class="defnprototype"><a id="defn439"></a>(basic colour) as a/an/-- RGB colour ... RGB colour</p>
+                <!-- END PHRASE -->
+                <p>Converts a <code class="inlinesourcetext">basic colour</code> to an <code class="inlinesourcetext">RGB colour</code>. For example, <code class="inlinesourcetext">basic red as RGB colour</code> evaluates to <code class="inlinesourcetext">#ff0000</code>.</p>
+            </div>
+            </blockquote>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>Foreground and background colours on Glulx are available only if the <code class="inlinesourcetext">text formatting feature</code> is <code class="inlinesourcetext">supported</code>. See <a href="WI_25_2.html" title="Section 25.2: Glulx features and Glk features">Glulx features and Glk features</a> for more on features.</p>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_3.html"><span class="markdowncontent">Section 25.3: Virtual machines and story file formats</span></a> &bull; <a href="WI_25_5.html"><span class="markdowncontent">Section 25.5: Declaring and previewing the figures</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_3.html"><span class="markdowncontent">Section 25.3: Basic text formatting</span></a> &bull; <a href="WI_25_5.html"><span class="markdowncontent">Section 25.5: The main screen and the status window</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

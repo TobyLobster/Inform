@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.11: A playable web page</span></title>
+    <title><span class="markdowncontent">Section 27.11: Declaring files</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_10.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.11: A playable web page</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.11: Declaring files</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_12.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,24 +2212,39 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.11: A playable web page</span></h3>
-            <p> </p>
-            <p>Modern web browsers are now so powerful as computing environments that they almost amount to general-purpose computers in their own right. The websites made in the previous section were passive, and simply displayed information about a story file. But it's also possible to make a more active page – one which can play the story file, right inside the browser, for anybody who visits.</p>
-            <p>To make such a page, we must:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">interpreter</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Declaring files" -->
+            <!-- SEARCH SECTION "27.11" -->
+            <!-- SEARCH SORT "001-027-011-000" -->
+            <h3><span>Section 27.11: Declaring files</span></h3>
+            <p>     </p>
+            <p>Like figures and sounds, files must be declared before they can be used. For instance:</p>
+            <!-- START CODE "code1759" -->
+            <blockquote class="extract-inform7"><a id="code1759"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciers</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;ice&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>This automatically releases along with a website as well, since we need the website in order to house the new page, which will be called <code class="inlinesourcetext">play.html</code>. This page will be bundled up with a customised copy of a story file interpreter coded in Javascript – in effect, a program for a web browser to follow – and a suitably encoded version of the story file. The practical effect should be that anyone visiting the page with any modern browser can just play.</p>
-            <p>Inform ships with the &quot;Parchment&quot; and &quot;Quixe&quot; interpreters built in. By default Inform will use Parchment if the format (on the project's Settings panel) is set to Z-code, and Quixe if the format is Glulx. In fact, though, Parchment works with either format, and some users prefer using it. If we want to have Parchment even for a Glulx project, we can write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Parchment&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">interpreter</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>This creates a new named constant <code class="inlinesourcetext">File of Glaciers</code> to refer to the file, throughout the source text. We use this name for it whether or not the actual disc file exists yet: it might be one that will only be created if something unusual happens in play, for instance.</p>
+            <p>Quoted filenames should contain only letters and digits, should be 23 characters or fewer, and should begin with a letter. (In particular they can contain no slashes or dots – no subfolders or extensions can be indicated.) The actual filename this translates to will vary from platform to platform, but <code class="inlinesourcetext">ice.glkdata</code> is typical, stored in some sensible folder.</p>
+            <p>Every file has an &quot;owner&quot; – not a person, but the project which normally writes to it. This is nothing to do with ownership or permission rules about files which the host computer might have, where a file might be owned by another user account or by the system itself, and so on. It's simply that when Inform writes a file, it marks it with the identity of the story which caused this to happen. Ownership in the Inform sense is used to prevent one story from reading a file which only makes sense to a different story, because that won't end well.</p>
+            <p>Inform assumes that the current project will be owning any file which it declares – the File of Glaciers, for instance. But we can optionally specify that it is owned by somebody else:</p>
+            <!-- START CODE "code1760" -->
+            <blockquote class="extract-inform7"><a id="code1760"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Boundaries</span><span class="plain-syntax"> (</span><span class="identifier-syntax">owned</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">another</span><span class="plain-syntax"> </span><span class="identifier-syntax">project</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;milnor&quot;</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spectral</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sequences</span><span class="plain-syntax"> (</span><span class="identifier-syntax">owned</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">project</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;4122DDA8-A153-46BC-8F57-42220F9D8795&quot;</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;adams&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>...and that's just what will happen. In fact, Inform also supports the use of any other interpreter the author wants to try. If we have access to an exotic Javascript-based interpreter called, let's say, &quot;Urbzig&quot;, then we can install it by putting it into the <code class="inlinesourcetext">Templates</code> subfolder of the <code class="inlinesourcetext">.materials</code> folder for the project:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Urbzig&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">interpreter</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>Inform uses ownership to make sure that we do not accidentally read in a file which has nothing to do with us, but merely happens to use the same name. Thus it is an error to read a file whose ownership does not agree with our declaration. Saying that a file is owned by &quot;another project&quot; allows us to read it whatever the owner is (so this can be used for files shared between multiple projects); specifying exactly where it needs to come from allows us to pass information from one project to another. Note that we identify projects using the IFID number – this can be found in the Contents index for a project, or by typing <code class="inlinetranscriptcommand">version</code> during play; see the chapter on <a href="WI_30_1.html" title="Chapter 30: Publishing">Publishing</a> for more about IFIDs.</p>
+            <p>Files are indexed in the Contents index, alongside figures and sound effects.</p>
+            <p>Two technicalities. First, constants such as <code class="inlinesourcetext">File of Glaciers</code> are of a kind of value called <code class="inlinesourcetext">external file</code> (compare <code class="inlinesourcetext">figure name</code> and <code class="inlinesourcetext">sound name</code>). Second, Inform's file-handling is provided for the Glulx machine, which in turn uses the Glk interface. This allows for either text or binary files. Inform's higher-level phrases to do with files, described in this chapter, all use text files, and all declared files are text files by default. But we can optionally add the keyword <code class="inlinesourcetext">binary</code> to declare a binary file, if needed:</p>
+            <!-- START CODE "code1761" -->
+            <blockquote class="extract-inform7"><a id="code1761"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">binary</span><span class="plain-syntax"> </span><span class="identifier-syntax">File</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Glaciation</span><span class="plain-syntax"> </span><span class="identifier-syntax">Data</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;icedata&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_10.html"><span class="markdowncontent">Section 27.10: A website</span></a> &bull; <a href="WI_27_12.html"><span class="markdowncontent">Section 27.12: Using Inform with Vorple</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_10.html"><span class="markdowncontent">Section 27.10: Files</span></a> &bull; <a href="WI_27_12.html"><span class="markdowncontent">Section 27.12: Writing and reading tables to external files</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

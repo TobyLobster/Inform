@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,66 +2212,84 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Flow markers" -->
+            <!-- SEARCH SECTION "11.13" -->
+            <!-- SEARCH SORT "001-011-013-000" -->
             <h3><span>Section 11.13: Flow markers</span></h3>
+            <p> 
+             
+
+
+
+
+
+             </p>
             <p>Flow markers are written <code class="inlinesourcetext">&lt;-</code> or <code class="inlinesourcetext">-&gt;</code>, and cause the dialogue director to interrupt its normal performance of a beat. <code class="inlinesourcetext">&lt;-</code> generally makes a backwards jump in the same beat, while <code class="inlinesourcetext">-&gt;</code> leads out to another beat.</p>
             <p>Flow markers actually have much in common with choices, and can accept exactly the same bracketed notes as choices have: they can be named and they can be conditional. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">&lt;- (unless Polonius is in Elsinore)</span>
+            <!-- START CODE "code703" -->
+            <blockquote class="extract-inform7"><a id="code703"></a><span class="indexdullblue"><span class="plain-syntax">&lt;- (</span><span class="identifier-syntax">unless</span><span class="plain-syntax"> </span><span class="identifier-syntax">Polonius</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elsinore</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">-&gt; (if Hamlet is not in the Graveyard) stop</span>
+            <span class="plain-syntax">-&gt; (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hamlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Graveyard</span><span class="plain-syntax">) </span><span class="identifier-syntax">stop</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>All flow markers are always <code class="inlinesourcetext">recurring</code>, without any need to say this.</p>
             <h4><span>Flow back</span></h4>
             <p><code class="inlinesourcetext">&lt;-</code> on its own goes back to either the most recent decision point in the
             same beat, or (if there hasn't been a decision) to the start of the beat.</p>
             <p>As with control mechanisms in all programming languages, that makes it
             possible to get into endless loops:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(This is the ill-advised beat; fully recurring.)</span>
+            <!-- START CODE "code704" -->
+            <blockquote class="extract-inform7"><a id="code704"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ill</span><span class="plain-syntax">-</span><span class="identifier-syntax">advised</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">; </span><span class="identifier-syntax">fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Fatboy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Slim</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Right about now, the funk soul brother.&quot;</span>
+            <span class="identifier-syntax">Fatboy</span><span class="plain-syntax"> </span><span class="identifier-syntax">Slim</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Right about now, the funk soul brother.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Fatboy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Slim</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Check it out now, the funk soul brother.&quot;</span>
+            <span class="identifier-syntax">Fatboy</span><span class="plain-syntax"> </span><span class="identifier-syntax">Slim</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Check it out now, the funk soul brother.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">&lt;-</span>
+            <span class="plain-syntax">&lt;-</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But it is extremely useful for situations like this one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Option which turns out not to work.&quot;</span>
+            <!-- START CODE "code705" -->
+            <blockquote class="extract-inform7"><a id="code705"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Option which turns out not to work.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Recording</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angel</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;That didn't work. Try again.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Recording</span><span class="plain-syntax"> </span><span class="identifier-syntax">angel</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;That didn't work. Try again.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">&lt;-</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Another option which turns out not to work.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Another option which turns out not to work.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Recording</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angel</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;No, try again.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Recording</span><span class="plain-syntax"> </span><span class="identifier-syntax">angel</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;No, try again.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">&lt;-</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;The one option which works.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;The one option which works.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Recording</span><span class="syntaxplain"> </span><span class="syntaxidentifier">angel</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Well done.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Recording</span><span class="plain-syntax"> </span><span class="identifier-syntax">angel</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Well done.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In effect this repeats the decision up to three times until the player heads
             down the track we want. Because the options above are <code class="inlinesourcetext">non-recurring</code>, the choices dwindle with each wrong guess until the player can only choose <code class="inlinesourcetext">&quot;The one option which works.&quot;</code>.</p>
             <h4><span>Flow through another beat</span></h4>
@@ -2194,171 +2297,183 @@
             perform that beat at this point. Note that after <code class="inlinesourcetext">B</code> finishes, the original
             beat <em>continues where it left off</em>. That nesting can go up to 20 beats deep.</p>
             <p>This too can be dangerous if wrongly handled:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(This is the equally ill-advised beat; fully recurring.)</span>
+            <!-- START CODE "code706" -->
+            <blockquote class="extract-inform7"><a id="code706"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">equally</span><span class="plain-syntax"> </span><span class="identifier-syntax">ill</span><span class="plain-syntax">-</span><span class="identifier-syntax">advised</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">; </span><span class="identifier-syntax">fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Fatboy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Slim</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Right here, right now.&quot;</span>
+            <span class="identifier-syntax">Fatboy</span><span class="plain-syntax"> </span><span class="identifier-syntax">Slim</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Right here, right now.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">-&gt; perform the equally ill-advised beat</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">equally</span><span class="plain-syntax"> </span><span class="identifier-syntax">ill</span><span class="plain-syntax">-</span><span class="identifier-syntax">advised</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But <code class="inlinesourcetext">-&gt; perform</code> is very useful as a way of incorporating what amounts to a complicated sub-scene which is only needed in some situations.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Climb the chimney&quot;</span>
+            <!-- START CODE "code707" -->
+            <blockquote class="extract-inform7"><a id="code707"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Climb the chimney&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You get only a few feet, and covered in soot.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You get only a few feet, and covered in soot.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">&lt;-</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Get into the wardrobe.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Get into the wardrobe.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Hmm, there seems no end to these fur coats.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Hmm, there seems no end to these fur coats.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the Narnia visit beat</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Narnia</span><span class="plain-syntax"> </span><span class="identifier-syntax">visit</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Goodness, back at that wardrobe you only dimly remember.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Goodness, back at that wardrobe you only dimly remember.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The beat to be performed can also be the name of a variable, as in <code class="inlinesourcetext">the redirected beat</code> in the following example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">redirected</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">redirected</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Queensryche</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code708" -->
+            <blockquote class="extract-inform7"><a id="code708"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">redirected</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">redirected</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queensryche</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxheading">Section 1 - Specific chat (dialogue)</span>
+            <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Specific</span><span class="plain-syntax"> </span><span class="identifier-syntax">chat</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(This is the starting beat.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Example</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Friend</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Shall we listen to some music?&quot;</span>
+            <span class="identifier-syntax">Example</span><span class="plain-syntax"> </span><span class="identifier-syntax">Friend</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Shall we listen to some music?&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">-&gt; perform the redirected beat</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">redirected</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(This is the Queensryche beat.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Queensryche</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Example</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Friend</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I so like Queensryche, even without the diacritic.&quot;</span>
+            <span class="identifier-syntax">Example</span><span class="plain-syntax"> </span><span class="identifier-syntax">Friend</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I so like Queensryche, even without the diacritic.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <h4><span>Flow to a stop</span></h4>
             <p><code class="inlinesourcetext">-&gt; stop</code> causes the current beat to finish right here, and is convenient
             when a drastic choice short-circuits what might otherwise have been a
             lengthy conversation.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Run for the Numidian desert and live off locusts and honey&quot;</span>
+            <!-- START CODE "code709" -->
+            <blockquote class="extract-inform7"><a id="code709"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Run for the Numidian desert and live off locusts and honey&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">stop</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Ask if the eternal fate of the soul is determined at death&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Ask if the eternal fate of the soul is determined at death&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Augustine</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;The purgatorial fires purify only those who die in communion.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Augustine</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;The purgatorial fires purify only those who die in communion.&quot;</span>
             <br>
             &nbsp;&nbsp;&nbsp;&nbsp;
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;But ...&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;But ...&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that <code class="inlinesourcetext">-&gt; stop</code> stops only the current beat. If one beat is performing another one using <code class="inlinesourcetext">-&gt; perform</code>, and the second one stops, the first one then resumes.</p>
             <h4><span>Flow to the end of the story</span></h4>
             <p>There are four variants of this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">-&gt; end the story          </span>
+            <!-- START CODE "code710" -->
+            <blockquote class="extract-inform7"><a id="code710"></a><span class="indexdullblue"><span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax">          </span>
             <br>
-            <span class="syntaxfunction">-&gt; end the story finally</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span>
             <br>
-            <span class="syntaxfunction">-&gt; end the story saying &quot;TEXT&quot;</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;TEXT&quot;</span>
             <br>
-            <span class="syntaxfunction">-&gt; end the story finally saying &quot;TEXT&quot;</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;TEXT&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These correspond exactly to the Inform phrases which <code class="inlinesourcetext">end the story</code>. All beats are abandoned at this point, of course, so this is even more drastic than <code class="inlinesourcetext">-&gt; stop</code>.</p>
             <h4><span>Flow to another choice</span></h4>
             <p>Finally, and only seldom needed, <code class="inlinesourcetext">-&gt; another choice</code> can be used to clarify that what look like lots of options for a single decision are in fact two decisions in a row. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Boxers.&quot;</span>
+            <!-- START CODE "code711" -->
+            <blockquote class="extract-inform7"><a id="code711"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Boxers.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">boxer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shorts</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You feel less naked.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">boxer</span><span class="plain-syntax"> </span><span class="identifier-syntax">shorts</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You feel less naked.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Briefs.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Briefs.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">briefs</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You feel somewhat less naked.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">briefs</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You feel somewhat less naked.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">-&gt; another choice</span>
+            <span class="plain-syntax">-&gt; </span><span class="identifier-syntax">another</span><span class="plain-syntax"> </span><span class="identifier-syntax">choice</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;White hat.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;White hat.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">white</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You feel noble.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">white</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You feel noble.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Black hat.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Black hat.&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">black</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You feel ignoble.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">black</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You feel ignoble.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The reason for the <code class="inlinesourcetext">-&gt; another choice</code> flow marker is simply that we want two sets of two options, not one set of four. If any dialogue had appeared in between the two decisions, there would have been no need for the <code class="inlinesourcetext">-&gt; another choice</code>, but since it didn't, we need some marker to hold the decisions apart from each other. <code class="inlinesourcetext">-&gt; another choice</code> has to be unconditional, and doesn't get a name or properties: it isn't really present in the story at all.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg187><a style="text-decoration: none" href="eg_187.html"><span class="extensionexampleletter">187</span></a></span></div>
+                    <span id=eg184><a style="text-decoration: none" href="eg_184.html"><span class="extensionexampleletter">184</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_187.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter Barter</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_184.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Barter Barter Barter</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to create reusable dialogue sequences in which the player can negotiate a complex trade.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg187><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg184><a style="text-decoration: none" href="RB_7_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg188><a style="text-decoration: none" href="eg_188.html"><span class="extensionexampleletter">188</span></a></span></div>
+                    <span id=eg185><a style="text-decoration: none" href="eg_185.html"><span class="extensionexampleletter">185</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_188.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shelob's Little Sister</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_185.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shelob's Little Sister</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a combat scene where the player's success depends on their stats.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg188><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg185><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg189><span class="extensionexampleletter">189</span></span></div>
+                    <span id=eg186><span class="extensionexampleletter">186</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_189.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Customer Is Always Right</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_186.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Customer Is Always Right</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A character who changes her responses to dialogue gambits depending on her emotional state.</span></span></a></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_12.html"><span class="markdowncontent">Section 11.12: Dialogue choices</span></a> &bull; <a href="WI_11_14.html"><span class="markdowncontent">Section 11.14: Managing dialogue choices</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

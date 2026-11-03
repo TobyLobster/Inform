@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,186 +2193,146 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg183><a style="text-decoration: none" href="WI_11_7.html"><span class="extensionexampleletter">183</span></a></span></div>
+                <span id=eg183><a style="text-decoration: none" href="WI_11_11.html"><span class="extensionexampleletter">183</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">More Idol Talk</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Modifying the <code class="inlinetranscriptcommand">talk about</code> command so that it offers a choice of conversational gambits.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swift Persuasion</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">We combine persuasion rules with the dialogue system so that the character who is asked to do a task can require something of the player in turn.</span></span></div>
             <div class="exampleright">
-                <span id=eg183><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg183><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>This example involves rewriting the <code class="inlinesourcetext">talking about</code> action, which powers the <code class="inlinetranscriptcommand">talk about</code> and <code class="inlinetranscriptcommand">ask about</code> commands, to give the player more choice over what is said. To do that, we'll first need to understand how the action normally works. It's an action which first sets up two private-to-it variables:</p>
-        <ul>
-        <li>
-        <p><code class="inlinesourcetext">leading beats</code> is a list of dialogue beats which could in principle be performed and for which the actor is the first speaker;</p>
-        </li>
-        <li>
-        <p><code class="inlinesourcetext">other beats</code> is a list of dialogue beats which could in principle be performed but for which the actor is not the first speaker.</p>
-        </li>
-        </ul>
-        <p>The actual talking is then done by the following rule:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">talking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">)</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Swift Persuasion" -->
+        <!-- SEARCH SECTION "Example 183" -->
+        <!-- SEARCH SORT "003-183-000-000" -->
+        <p>
+        </p>
+        <p>Sometimes characters are easily persuaded to do things and sometimes they aren't. But we might want sometimes to place conditions on their cooperation.</p>
+        <p>In this example, we give the player a menu option choice that they have to resolve — and which in turn will determine whether the other character does as they're asked.</p>
+        <!-- START CODE "code2950" -->
+        <blockquote class="extract-inform7"><a id="code2950"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Swift Persuasion[=0x0022=][=0x000A=][=0x000A=]Section 1 - Scenario[=0x000A=][=0x000A=]Backstage is a room. Taylor is a woman in Backstage.[=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]You sing a rousing rendition of Yankee Doodle Dandy. For some reason it[=0x0027=]s the only song whose lyrics you can fully remember right now.[=0x0022=][=0x000A=][=0x000A=]Report Taylor singing:[=0x000A=][=0x0009=]say [=0x0022=]Taylor launches into [=0x0027=]Electric Touch.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Bargaining success is a truth state that varies.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try singing:  [=0x000A=][=0x0009=]now bargaining success is false;[=0x000A=][=0x0009=]perform the suggestion beat;[=0x000A=][=0x0009=]if bargaining success is false:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]So much for that.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]persuasion fails;[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x0009=][=0x000A=]Test me with [=0x0022=]taylor, sing / 1 / taylor, sing / 2[=0x0022=].[=0x000A=][=0x000A=]Section 2 - Persuasion text (dialogue)[=0x000A=][=0x000A=](Fully recurring. This is the suggestion beat.)[=0x000A=][=0x000A=]Player (to person asked; without speaking): [=0x0022=]You ask Taylor to sing your favorite song, the one that was unaccountably left off tonight[=0x0027=]s set list. Just one verse would do.[=0x0022=][=0x000A=][=0x000A=]The person asked: [=0x0022=]I[=0x0027=]ll consider your request, but only if you sing something first.[=0x0022=] [=0x000A=][=0x000A=]Player: [=0x0022=]You can[=0x0027=]t be serious.[=0x0022=][=0x000A=][=0x000A=]The person asked: [=0x0022=]I absolutely am. I want to see what you[=0x0027=]ve got.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Okay.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player (without speaking; before singing; now bargaining success is true): [=0x0022=]You nod anxiously, aware of all the other VIP ticket holders standing around and poised to judge you.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Taylor: [=0x0022=]Little shaky on the intro, but not bad. I[=0x0027=]d say you[=0x0027=]ve earned your piece. Wouldn[=0x0027=]t you?[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]She turns to the other fans expectantly, and they cheer.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]Definitely not.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=]No, the deal is off.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]The person asked: [=0x0022=]Then I can[=0x0027=]t help you.[=0x0022=] [=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Swift Persuasion&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain">-</span><span class="syntaxidentifier">declared</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Scenario</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Backstage</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Taylor</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Backstage</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">:</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Singing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sing&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;There is no reply.&quot;</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You sing a rousing rendition of Yankee Doodle Dandy. For some reason it's the only song whose lyrics you can fully remember right now.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">Taylor</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[talk]</span><span class="syntaxstring"> about </span><span class="syntaxextract">[T]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Taylor launches into 'Electric Touch.'&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Bargaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">success</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">truth</span><span class="plain-syntax"> </span><span class="identifier-syntax">state</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">:  </span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">bargaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">success</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">false</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggestion</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">bargaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">success</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">false</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;So much for that.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">fails</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;taylor, sing / 1 / taylor, sing / 2&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Persuasion</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">Fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggestion</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax">; </span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You ask Taylor to sing your favorite song, the one that was unaccountably left off tonight's set list. Just one verse would do.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I'll consider your request, but only if you sing something first.&quot;</span><span class="plain-syntax"> </span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You can't be serious.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I absolutely am. I want to see what you've got.&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;Okay.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">; </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">bargaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">success</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">true</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You nod anxiously, aware of all the other VIP ticket holders standing around and poised to judge you.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Taylor</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Little shaky on the intro, but not bad. I'd say you've earned your piece. Wouldn't you?&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;She turns to the other fans expectantly, and they cheer.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="string-syntax">&quot;Definitely not.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;No, the deal is off.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Then I can't help you.&quot;</span><span class="plain-syntax"> </span>
         </span></blockquote>
-        <p>As we can see, if multiple beats all seem performable, the first leading beat is chosen, and failing that the first other beat. But the player is not consulted.</p>
-        <p>Here is our rewrite:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]More Idol Talk[=0x0022=][=0x000A=][=0x000A=]Section 1 - Talking About Action[=0x000A=][=0x000A=]First carry out an actor talking about an object (called T):[=0x000A=][=0x0009=]if the leading beats is not empty:[=0x000A=][=0x0009=][=0x0009=]let N be the number of entries in the leading beats;[=0x000A=][=0x0009=][=0x0009=]if the actor is not the player:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]perform entry 1 of the leading beats;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]if N is 1:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]perform entry 1 of the leading beats;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]continue the action;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Choose...[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][conditional paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let X be 0;[=0x000A=][=0x0009=][=0x0009=]repeat with B running through the leading beats:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]increase X by 1;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]([X]). [textual content of opening line of B][line break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=][conditional paragraph break][=0x0022=];[=0x000A=][=0x0009=][=0x0009=]let Y be a number chosen by the player from 1 to X;[=0x000A=][=0x0009=][=0x0009=]perform entry Y of the leading beats;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]if the other beats is not empty:[=0x000A=][=0x0009=][=0x0009=]let N be the number of entries in the other beats;[=0x000A=][=0x0009=][=0x0009=]let R be a random number from 1 to N;[=0x000A=][=0x0009=][=0x0009=]perform entry R of the other beats;[=0x000A=][=0x0009=][=0x0009=]stop the action;[=0x000A=][=0x0009=]continue the action.[=0x000A=][=0x000A=]Section 2 - Shi-Xioafang Temple[=0x000A=][=0x000A=]The Jade Temple of Shi is a room. A green idol is here. [=0x0022=]The legendary green idol sits on a simple plinth.[=0x0022=][=0x000A=][=0x000A=]Louisiana Smith is a man in the Jade Temple.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about idol / 2 / talk about idol / 1 / talk about idol / talk about idol[=0x0022=].[=0x000A=][=0x000A=]Section 3 conversation (dialogue)[=0x000A=][=0x000A=](About the green idol.)[=0x000A=][=0x000A=]Player: [=0x0022=]Is that idol genuine jade?[=0x0022=][=0x000A=][=0x000A=]Louisiana: [=0x0022=]It[=0x0027=]s genuinely old, kid. That[=0x0027=]s what counts.[=0x0022=][=0x000A=][=0x000A=](About the green idol.)[=0x000A=][=0x000A=]Player: [=0x0022=]That looks... far too easy to steal.[=0x0022=][=0x000A=][=0x000A=]Louisiana: [=0x0022=]You[=0x0027=]re learning.[=0x0022=][=0x000A=][=0x000A=](About the green idol.)[=0x000A=][=0x000A=]Player: [=0x0022=]Exactly why was this ugly little thing sacred to the Shi-Xioafang peoples of the Delta?[=0x0022=][=0x000A=][=0x000A=]Louisiana: [=0x0022=]It opens the portal to the Kingdom of the Clouds. If you believe that sort of thing.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;More Idol Talk&quot;</span>
+        <!-- END CODE -->
+        <p>Note that this method would not work if the choice relied on parsed input. We could imagine giving the player a choice like:</p>
+        <!-- START CODE "code2951" -->
+        <blockquote class="extract-inform7"><a id="code2951"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">asked</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I absolutely am. I want to see what you've got.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Talking About Action</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">singing</span><span class="plain-syntax"> </span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">First</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">talking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Choose...&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[conditional paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">B</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(</span><span class="syntaxextract">[X]</span><span class="syntaxstring">). </span><span class="syntaxextract">[textual content of opening line of B][line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[conditional paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">leading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beats</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">...</span>
         </span></blockquote>
-        <p>This rule only falls through into the existing <code class="inlinesourcetext">first-declared beat rule</code> if there's nothing performable. A couple of points to note here:</p>
-        <ul>
-        <li>
-        <p>This won't work well if there are beats whose opening line is spoken by the player but <code class="inlinesourcetext">to</code> an unknown interlocutor who is then mentioned in the course of a text substitution in the line. That's quite unlikely, but still.</p>
-        </li>
-        <li>
-        <p><code class="inlinesourcetext">chosen dialogue number up to X</code> uses a phrase which we've borrowed from the ordinary dialogue system. It just requires the player to type a number from 1 to <code class="inlinesourcetext">X</code> inclusive.</p>
-        </li>
-        </ul>
-        <p>For the sake of testing this:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 2 - Shi-Xioafang Temple</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The legendary green idol sits on a simple plinth.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Smith</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;talk about idol / 2 / talk about idol / 1 / talk about idol / talk about idol&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 3 conversation (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About the green idol.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Is that idol genuine jade?&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;It's genuinely old, kid. That's what counts.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About the green idol.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;That looks... far too easy to steal.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You're learning.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(About the green idol.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Exactly why was this ugly little thing sacred to the Shi-Xioafang peoples of the Delta?&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;It opens the portal to the Kingdom of the Clouds. If you believe that sort of thing.&quot;</span>
-        </span></blockquote>
-        <p>And this is the result:</p>
-        <div class="extract-transcript">
-            <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TALK ABOUT IDOL</span><br><span class="syntaxidentifier">Choose...</span><br><br><span class="syntaxidentifier">(1). Is that idol genuine jade?</span><br><span class="syntaxidentifier">(2). That looks... far too easy to steal.</span><br><span class="syntaxidentifier">(3). Exactly why was this ugly little thing sacred to the Shi-Xioafang peoples of the Delta?</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> 2</span><br><span class="syntaxidentifier">You: &quot;That looks... far too easy to steal.&quot;</span><br><br><span class="syntaxidentifier">Louisiana Smith: &quot;You're learning.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TALK ABOUT IDOL</span><br><span class="syntaxidentifier">Choose...</span><br><br><span class="syntaxidentifier">(1). Is that idol genuine jade?</span><br><span class="syntaxidentifier">(2). Exactly why was this ugly little thing sacred to the Shi-Xioafang peoples of the Delta?</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> 1</span><br><span class="syntaxidentifier">You: &quot;Is that idol genuine jade?&quot;</span><br><br><span class="syntaxidentifier">Louisiana Smith: &quot;It's genuinely old, kid. That's what counts.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TALK ABOUT IDOL</span><br><span class="syntaxidentifier">You: &quot;Exactly why was this ugly little thing sacred to the Shi-Xioafang peoples of the Delta?&quot;</span><br><br><span class="syntaxidentifier">Louisiana Smith: &quot;It opens the portal to the Kingdom of the Clouds. If you believe that sort of thing.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> TALK ABOUT IDOL</span><br><span class="syntaxidentifier">There is no reply.</span><br></code></pre></div>
+        <!-- END CODE -->
+        <p>and allowing the player to type SING (or not) as their next turn. The problem there, however, is that the interaction stretches over multiple turns. The system will print Taylor's request to the player, but it will then return to the persuasion rule in progress (and conclude that the player didn't succeed at the bargain) before it ever has a chance to see whether we sang or not.</p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_7.html>Section 11.7: Managing dialogue beats</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_11.html>Section 11.11: Decision points</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

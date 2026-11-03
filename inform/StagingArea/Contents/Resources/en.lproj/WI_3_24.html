@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,38 +2212,61 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Directions" -->
+            <!-- SEARCH SECTION "3.24" -->
+            <!-- SEARCH SORT "001-003-024-000" -->
             <h3><span>Section 3.24: Directions</span></h3>
             <p>         </p>
             <p><code class="inlinesourcetext">Direction</code> is a kind which is quite unlike most of those seen so far. While it has to do with the physical world, a direction does not exactly belong to it. One cannot find <code class="inlinesourcetext">southeast</code> sitting on a shelf. <code class="inlinesourcetext">Direction</code> is not a kind of <code class="inlinesourcetext">thing</code>, and nor is it a kind of <code class="inlinesourcetext">room</code>: it is a kind in its own right.</p>
             <p>Every direction has an <code class="inlinesourcetext">opposite</code> property, which is always another <code class="inlinesourcetext">direction</code>. These occur in matched pairs. The opposite of north is south, just as the opposite of south is north. The opposite of southeast is northwest, the opposite of inside is outside, and so on. When Inform reads a sentence like...</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bangkok</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">south</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nakhon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sawan</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code118" -->
+            <blockquote class="extract-inform7"><a id="code118"></a><span class="indexdullblue"><span class="identifier-syntax">Bangkok</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Nakhon</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sawan</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...it assumes that the opposite map connection is probably also valid, so that</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Nakhon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sawan</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">north</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bangkok</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code119" -->
+            <blockquote class="extract-inform7"><a id="code119"></a><span class="indexdullblue"><span class="identifier-syntax">Nakhon</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sawan</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">north</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bangkok</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The chapter began with the twelve directions built into Inform: north, northeast, east, southeast, south, southwest, west, northwest, up, down, inside, outside.</p>
             <p>That basically compass-based frame of reference is traditional in interactive fiction, but it doesn't suit every story. Terry Pratchett's <em>Discworld</em> comedies (1983-2015), set on a rotating disc, use the directions turnwise, widdershins, hubwards and rimwards. Or suppose a story takes place on board a Zeppelin airship, which constantly changes its course. The cockpit then has no fixed compass bearing from the passenger cabin, and is not very naturally &quot;north&quot;. Instead, it's fore rather than aft. For such situations, it's possible to create new directions. These have to be created in opposing pairs, and each <strong>must</strong> be declared with a clear simple sentence of the form <code class="inlinesourcetext">X is a direction.</code> For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Turnwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opposite</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turnwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">widdershins</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code120" -->
+            <blockquote class="extract-inform7"><a id="code120"></a><span class="indexdullblue"><span class="identifier-syntax">Turnwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">turnwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">widdershins</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Widdershins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opposite</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">widdershins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turnwise</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Widdershins</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">widdershins</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">turnwise</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Hubwards</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opposite</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hubwards</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rimwards</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Hubwards</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">hubwards</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">rimwards</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Rimwards</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">direction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opposite</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rimwards</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hubwards</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Rimwards</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">direction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">opposite</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rimwards</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">hubwards</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It is then possible to write, say, that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Ankh</span><span class="syntaxplain">-</span><span class="syntaxidentifier">Morpork</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hubwards</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lancre</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turnwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Borogravia</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code121" -->
+            <blockquote class="extract-inform7"><a id="code121"></a><span class="indexdullblue"><span class="identifier-syntax">Ankh</span><span class="plain-syntax">-</span><span class="identifier-syntax">Morpork</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">hubwards</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lancre</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">turnwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">Borogravia</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The Map page of the Index for a project relies on regular compass bearings, so it will get a little befuddled by this. Purely as a convenience for the author (since players never see the Index), it's possible to give Inform hints to improve the map's legibility. More on this later, but for now note that</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Index</span><span class="syntaxplain"> </span><span class="syntaxidentifier">map</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turnwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mapped</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code122" -->
+            <blockquote class="extract-inform7"><a id="code122"></a><span class="indexdullblue"><span class="identifier-syntax">Index</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">turnwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">mapped</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>maps turnwise directions as if they were east, that is, pointing rightwards on the page. But to reiterate: this has no effect on the story as experienced by a player.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg43><a style="text-decoration: none" href="eg_43.html"><span class="extensionexampleletter">43</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_43.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prisoner's Dilemma</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A button that causes a previously non-existent exit to come into being.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg43><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg44><a style="text-decoration: none" href="eg_44.html"><span class="extensionexampleletter">44</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_44.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prisoner's Dilemma</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A button that causes a previously non-existent exit to come into being.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_44.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The World of Charles S. Roberts</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Replacing the ordinary compass bearings with a set of six directions to impose a hexagonal rather than square grid on the landscape.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg44><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
@@ -2166,25 +2274,16 @@
                 <div class="exampleleft">
                     <span id=eg45><a style="text-decoration: none" href="eg_45.html"><span class="extensionexampleletter">45</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_45.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The World of Charles S. Roberts</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Replacing the ordinary compass bearings with a set of six directions to impose a hexagonal rather than square grid on the landscape.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg45><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg46><a style="text-decoration: none" href="eg_46.html"><span class="extensionexampleletter">46</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_46.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fore</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_45.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fore</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Understand &quot;fore&quot;, &quot;aft&quot;, &quot;port&quot;, and &quot;starboard&quot;, but only when the player is on a vessel.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg46><a style="text-decoration: none" href="RB_8_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg45><a style="text-decoration: none" href="RB_8_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_23.html"><span class="markdowncontent">Section 3.23: Parts of things</span></a> &bull; <a href="WI_3_25.html"><span class="markdowncontent">Section 3.25: Concealment</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

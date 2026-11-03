@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 26.3: Testing commands to inspect the situation</span></title>
+    <title><span class="markdowncontent">Section 26.3: Timer events</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_26_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.3: Testing commands to inspect the situation</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.3: Timer events</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,36 +2212,51 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 26.3: Testing commands to inspect the situation</span></h3>
-            <p>                </p>
-            <p>In this and the following sections, we run through the testing commands which authors can use, but which are not present in a released story. <code class="inlinetranscriptcommand">test</code> has already been covered: see <a href="WI_2_8.html" title="Section 2.8: The TEST command">The TEST command</a>.</p>
-            <p>We'll begin with some ways to inspect what is happening in the story, but without changing it, using <code class="inlinetranscriptcommand">showme</code>, <code class="inlinetranscriptcommand">actions</code>, <code class="inlinetranscriptcommand">rules</code>, <code class="inlinetranscriptcommand">scenes</code>, <code class="inlinetranscriptcommand">relations</code> and <code class="inlinetranscriptcommand">responses</code>.</p>
-            <p><code class="inlinetranscriptcommand">showme</code>. We can find our current location and the things around us by typing</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOWME</span><br><span class="syntaxidentifier">Boudoir - room</span><br><span class="syntaxidentifier">    four-poster bed - supporter</span><br><span class="syntaxidentifier">    yourself - person</span><br><span class="syntaxidentifier">    pillow</span><br></code></pre></div>
-            <p>and similarly we can inquire about the status of a particular object during play by typing <code class="inlinetranscriptcommand">showme</code> and the object's name:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOWME BAT</span><br><span class="syntaxidentifier">bat - thing</span><br><span class="syntaxidentifier">location: on the table in Locker Room</span><br><span class="syntaxidentifier">singular-named, improper-named; unlit, inedible, portable, patterned</span><br><span class="syntaxidentifier">printed name: &quot;bat&quot;</span><br><span class="syntaxidentifier">printed plural name: none</span><br><span class="syntaxidentifier">indefinite article: none</span><br><span class="syntaxidentifier">description: none</span><br><span class="syntaxidentifier">initial appearance: none</span><br></code></pre></div>
-            <p>This will work even if we're not in the same location as the object we want shown.</p>
-            <p><code class="inlinetranscriptcommand">actions</code> is intended to help with a common type of problem: we type a command but Inform does not perform the action that we were expecting. In some cases, this is because the command we're typing is actually triggering some other action. An easy way to check on this is to type <code class="inlinetranscriptcommand">actions</code> before issuing the command that is behaving unsatisfactorily. Thus:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> ACTIONS</span><br><span class="syntaxidentifier">Actions listing on.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> JUMP</span><br><span class="syntaxidentifier">[jumping]</span><br><span class="syntaxidentifier">You jump on the spot.</span><br><span class="syntaxidentifier">[jumping - succeeded]</span><br></code></pre></div>
-            <p>This tells us how Inform interpreted our input and whether the action was successful or failed for some reason. If the command is being understood as a different command than we expected, that may mean that we have made a mistake in our Understand instructions, and need to double-check these.</p>
-            <p><code class="inlinetranscriptcommand">actions off</code> stops this logging again.</p>
-            <p><code class="inlinetranscriptcommand">rules</code> tends to produce rather more output, because it shows exactly which rules are run. Actions are processed with a long series of rules, and it can be helpful to know exactly which ones run and in what order. For example:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> RULES</span><br><span class="syntaxidentifier">Rules tracing now switched on. Type &quot;rules off&quot; to switch it off again, or &quot;rules all&quot; to include even rules which do not apply.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> JUMP</span><br><span class="syntaxidentifier">[Rule &quot;announce items from multiple object lists rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;set pronouns from items from multiple object lists rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;before stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;instead stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;investigate player's awareness before action rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;player aware of his own actions rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;check stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;carry out stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;after stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;investigate player's awareness after action rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;report stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;report jumping rule&quot; applies.]</span><br><span class="syntaxidentifier">You jump on the spot.</span><br><span class="syntaxidentifier">[Rule &quot;last specific action-processing rule&quot; applies.]</span><br><br><span class="syntaxidentifier">[Rule &quot;A first turn sequence rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;every turn stage rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;A last turn sequence rule&quot; applies.]</span><br><span class="syntaxidentifier">[Rule &quot;notify score changes rule&quot; applies.]</span><br><span class="syntaxelement">&gt;</span><br></code></pre></div>
-            <p>As we can see, <code class="inlinetranscriptcommand">rules</code> produces a lot of output, much of which is probably irrelevant. Nonetheless, knowing exactly which rule is printing undesirable output is helpful, especially if that rule comes out of an extension or some other source that we did not write ourselves: this output has told us that the text we saw came from the <code class="inlinesourcetext">report jumping rule</code>.</p>
-            <p>To find out more about what is going on in specific rules, we can also turn to the Index tab under Actions and click through to that specific action. From there we will be able to see which rules are included, what responses they're writing, and where they were defined in the source text.</p>
-            <p><code class="inlinetranscriptcommand">scenes</code> lists which scenes are currently playing and which are complete. This is valuable if scene-triggered events are not happening when we expect them to.</p>
-            <p><code class="inlinetranscriptcommand">relations</code> lists all the relations defined in the story, except for things like support and containment that are part of the world model and are so numerous that the output would be overwhelming.</p>
-            <p><code class="inlinetranscriptcommand">responses</code> lists all the named responses established by all the extensions currently included. This can be informative, or it can be a bit overwhelming. Except where responses have been changed at runtime, the same information is available in a different form in the Index on Actions. If we're interested in a particular single response, digging into the actions index is probably the easiest way to find it.</p>
-            <p>If, however, we want a rapid overview of all the responses provided by a given extension (perhaps an extension we are ourselves writing), the <code class="inlinetranscriptcommand">responses</code> command can be a help.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Timer events" -->
+            <!-- SEARCH SECTION "26.3" -->
+            <!-- SEARCH SORT "001-026-003-000" -->
+            <h3><span>Section 26.3: Timer events</span></h3>
+            <p></p>
+            <p>Glk contains a real-time timer. This is more like a pulse than a magazine
+            subscription: it is intended for regular pings at short intervals — for example, to move the game state on every five seconds — rather than to make something
+            happen after an hour of play. Bearing in mind that a player might save the game in between pulses of a timer, and that we cannot reliably assume that the restored game would continue the timer at the same exact moment, it's probably best to use this feature for rapid updates.</p>
+            <p>Glk has just one timer, and it is either running or not: and even so, the feature is available only if <code class="inlinesourcetext">timers feature</code> is <code class="inlinesourcetext">supported</code>. When the timer pings, a timer event is issued.</p>
+            <h4><span>How to request these events</span></h4>
+            <p>Glk sends us these events only if we have requested them. By default, an Inform story never requests character events.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn463" -->
+                <p class="defnprototype"><a id="defn463"></a>request timer events every (N - number) milliseconds</p>
+                <!-- END PHRASE -->
+                <p><code class="inlinesourcetext">N</code> should be positive. This tells Glk to send timer events once every <code class="inlinesourcetext">N</code> milliseconds until further notice, that is, until we either <code class="inlinesourcetext">cancel timer events</code> or use this phrase again with a different frequency. Does nothing if the <code class="inlinesourcetext">timers feature</code> is not <code class="inlinesourcetext">supported</code>.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn464" -->
+                <p class="defnprototype"><a id="defn464"></a>cancel timer events</p>
+                <!-- END PHRASE -->
+                <p>Causes Glk to stop sending timer events, if in fact it was. Does nothing if the <code class="inlinesourcetext">timers feature</code> is not <code class="inlinesourcetext">supported</code>.</p>
+            </div>
+            <h4><span>Details for these events</span></h4>
+            <p>None, really. For example:</p>
+            <!-- START CODE "code1730" -->
+            <blockquote class="extract-inform7"><a id="code1730"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Ping! [event].&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>prints back only <code class="inlinetranscript">Ping! timer event.</code>, because there are no other details attached to the event. It is not associated with any window, and carries no information.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg465><span class="extensionexampleletter">465</span></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_465.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lost In My Thoughts</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Create and handle timer events.</span></span></a></div>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_26_2.html"><span class="markdowncontent">Section 26.2: Checking against the Index</span></a> &bull; <a href="WI_26_4.html"><span class="markdowncontent">Section 26.4: Testing commands for cheating</span></a></em></p>
+        <p><em> &bull; <a href="WI_26_2.html"><span class="markdowncontent">Section 26.2: Character and line events</span></a> &bull; <a href="WI_26_4.html"><span class="markdowncontent">Section 26.4: Hyperlinks</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

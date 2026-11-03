@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,969 +2193,727 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg300><a style="text-decoration: none" href="WI_18_6.html"><span class="extensionexampleletter">300</span></a></span></div>
+                <span id=eg300><a style="text-decoration: none" href="WI_18_11.html"><span class="extensionexampleletter">300</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 4</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A cell window through which the player can see people who were in Port Royal in the current year of game-time.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Jokers Wild</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A deck of cards which can be shuffled and dealt from.</span></span></div>
             <div class="exampleright">
-                <span id=eg300><a style="text-decoration: none" href="RB_3_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg300><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Jokers Wild" -->
+        <!-- SEARCH SECTION "Example 300" -->
+        <!-- SEARCH SORT "003-300-000-000" -->
         <p></p>
-        <p>Our protagonist is imprisoned in Port Royal, waiting out their years, and sometimes through the window of the cell they are able to see someone.</p>
-        <p>We are, however, obsessive about historical accuracy, so we provide a table of people who really lived in the city, together with the year in which their existence is attested. We want these people to appear in the description only in the year when they are known to have been present. (After all, mortality was high in Port Royal and new people were constantly arriving, so someone's presence one year is no guarantee of their continued existence the next.)</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Waiting for Godot, Chyrurgeon[=0x0022=][=0x000A=][=0x000A=]New New Prison is a room. [=0x0022=]You have a not very interesting room. Through the window you see passing [current denizen].[=0x0022=][=0x000A=][=0x000A=]Instead of waiting:[=0x000A=][=0x0009=]increment the current year;[=0x000A=][=0x0009=]say [=0x0022=]It is now the year [the current year].[=0x0022=];[=0x000A=][=0x0009=]try looking.[=0x000A=][=0x000A=]When play begins: now the right hand status line is [=0x0022=][current year][=0x0022=].[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]if the current year is 1692:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]It turns out you have remained imprisoned until the great earthquake of 1692! Oops.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]end the story.[=0x000A=][=0x000A=]Current year is a number that varies. The current year is 1664.[=0x000A=][=0x000A=]To say current denizen:[=0x000A=][=0x0009=]repeat through the Table of Occupations and People:[=0x000A=][=0x0009=][=0x0009=]if the date attested entry is the current year:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][nickname entry] [family entry], [trade entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds;[=0x000A=][=0x0009=]say [=0x0022=]absolutely no one[=0x0022=].[=0x000A=][=0x000A=]Table of Occupations and People[=0x000A=]Trade[=0x0009=]nickname[=0x0009=]family[=0x0009=]Date attested[=0x000A=][=0x0022=]architect[=0x0022=][=0x0009=][=0x0022=]Robert[=0x0022=][=0x0009=][=0x0022=]Snead[=0x0022=][=0x0009=]1684[=0x000A=][=0x0022=]baker[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Wingar[=0x0022=][=0x0009=]1683[=0x000A=][=0x0022=]barber[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Alcocke[=0x0022=][=0x0009=]1676[=0x000A=][=0x0022=]blacksmith[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Davidson[=0x0022=][=0x0009=]1679[=0x000A=][=0x0022=]bricklayer[=0x0022=][=0x0009=][=0x0022=]Samuel[=0x0022=][=0x0009=][=0x0022=]Richardson[=0x0022=][=0x0009=]1683[=0x000A=][=0x0022=]butcher[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Dennis[=0x0022=][=0x0009=]1676[=0x000A=][=0x0022=]carpenter[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Albert[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]cabinet-maker[=0x0022=][=0x0009=][=0x0022=]Robert[=0x0022=][=0x0009=][=0x0022=]Avis[=0x0022=][=0x0009=]1666[=0x000A=][=0x0022=]joiner[=0x0022=][=0x0009=][=0x0022=]Peter[=0x0022=][=0x0009=][=0x0022=]Bartaboa[=0x0022=][=0x0009=]1666[=0x000A=][=0x0022=]chandler[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Bates[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]chyrurgeon[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Axtell[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]chyrurgeon[=0x0022=][=0x0009=][=0x0022=]Thomas[=0x0022=][=0x0009=][=0x0022=]Trapham[=0x0022=][=0x0009=]1678[=0x000A=][=0x0022=]combmaker[=0x0022=][=0x0009=][=0x0022=]Paul[=0x0022=][=0x0009=][=0x0022=]Bennett[=0x0022=][=0x0009=]1673[=0x000A=][=0x0022=]cooper[=0x0022=][=0x0009=][=0x0022=]James[=0x0022=][=0x0009=][=0x0022=]Hall[=0x0022=][=0x0009=]1676[=0x000A=][=0x0022=]cooper[=0x0022=][=0x0009=][=0x0022=]Henry[=0x0022=][=0x0009=][=0x0022=]Pullein[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]cordwainer[=0x0022=][=0x0009=][=0x0022=]George[=0x0022=][=0x0009=][=0x0022=]Barnard[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]cordwainer[=0x0022=][=0x0009=][=0x0022=]Edward[=0x0022=][=0x0009=][=0x0022=]Skannon[=0x0022=][=0x0009=]1680[=0x000A=][=0x0022=]cordwainer[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Wilmott[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]drugster[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Mathews[=0x0022=][=0x0009=]1682[=0x000A=][=0x0022=]fisherman[=0x0022=][=0x0009=][=0x0022=]Richard[=0x0022=][=0x0009=][=0x0022=]Collingwood[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]glazier[=0x0022=][=0x0009=][=0x0022=]Thomas[=0x0022=][=0x0009=][=0x0022=]Hudson[=0x0022=][=0x0009=]1684[=0x000A=][=0x0022=]goldsmith[=0x0022=][=0x0009=][=0x0022=]Richard[=0x0022=][=0x0009=][=0x0022=]Lord[=0x0022=][=0x0009=]1677[=0x000A=][=0x0022=]gunsmith[=0x0022=][=0x0009=][=0x0022=]Stephen[=0x0022=][=0x0009=][=0x0022=]Massey[=0x0022=][=0x0009=]1664[=0x000A=][=0x0022=]hatmaker[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Rosewell[=0x0022=][=0x0009=]1683[=0x000A=][=0x0022=]ivory turner[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Clifton[=0x0022=][=0x0009=]1691[=0x000A=][=0x0022=]labourer[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Dennis[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]limeburner[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Hardwick[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]mariner[=0x0022=][=0x0009=][=0x0022=]Alexander[=0x0022=][=0x0009=][=0x0022=]Bailing[=0x0022=][=0x0009=]1680[=0x000A=][=0x0022=]mariner[=0x0022=][=0x0009=][=0x0022=]Thomas[=0x0022=][=0x0009=][=0x0022=]Bowtell[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]mariner[=0x0022=][=0x0009=][=0x0022=]Peter[=0x0022=][=0x0009=][=0x0022=]Claiton[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]mariner[=0x0022=][=0x0009=][=0x0022=]Joseph[=0x0022=][=0x0009=][=0x0022=]Cupid[=0x0022=][=0x0009=]1672[=0x000A=][=0x0022=]mariner[=0x0022=][=0x0009=][=0x0022=]Michael[=0x0022=][=0x0009=][=0x0022=]Dunn[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]mason[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Stone[=0x0022=][=0x0009=]1673[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Agard[=0x0022=][=0x0009=]1680[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]David Lopez[=0x0022=][=0x0009=][=0x0022=]Narbona[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]Abraham[=0x0022=][=0x0009=][=0x0022=]Langford[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Sweeting[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]Charles[=0x0022=][=0x0009=][=0x0022=]Knight[=0x0022=][=0x0009=]1680[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]Cornelius[=0x0022=][=0x0009=][=0x0022=]Vandananker[=0x0022=][=0x0009=]1670[=0x000A=][=0x0022=]merchant[=0x0022=][=0x0009=][=0x0022=]Moses Jesurum[=0x0022=][=0x0009=][=0x0022=]Cordova[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]pewterer[=0x0022=][=0x0009=][=0x0022=]Simon[=0x0022=][=0x0009=][=0x0022=]Benning[=0x0022=][=0x0009=]1667[=0x000A=][=0x0022=]pipemaker[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Pope[=0x0022=][=0x0009=]1680[=0x000A=][=0x0022=]porter[=0x0022=][=0x0009=][=0x0022=]George[=0x0022=][=0x0009=][=0x0022=]Paul[=0x0022=][=0x0009=]1670[=0x000A=][=0x0022=]poulterer[=0x0022=][=0x0009=][=0x0022=]Richard[=0x0022=][=0x0009=][=0x0022=]Jeffreys[=0x0022=][=0x0009=]1677[=0x000A=][=0x0022=]sailmaker[=0x0022=][=0x0009=][=0x0022=]Adam[=0x0022=][=0x0009=][=0x0022=]Brewer[=0x0022=][=0x0009=]1671[=0x000A=][=0x0022=]schoolmaster[=0x0022=][=0x0009=][=0x0022=]Peter[=0x0022=][=0x0009=][=0x0022=]Bird[=0x0022=][=0x0009=]1677[=0x000A=][=0x0022=]shipwright[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Cavell[=0x0022=][=0x0009=]1676[=0x000A=][=0x0022=]tailor[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Case[=0x0022=][=0x0009=]1676[=0x000A=][=0x0022=]tailor[=0x0022=][=0x0009=][=0x0022=]Pewter[=0x0022=][=0x0009=][=0x0022=]Ebden[=0x0022=][=0x0009=]1683[=0x000A=][=0x0022=]waterman[=0x0022=][=0x0009=][=0x0022=]William[=0x0022=][=0x0009=][=0x0022=]Brocke[=0x0022=][=0x0009=]1674[=0x000A=][=0x0022=]waterman[=0x0022=][=0x0009=][=0x0022=]Joel[=0x0022=][=0x0009=][=0x0022=]Clements[=0x0022=][=0x0009=]1668[=0x000A=][=0x0022=]wherryman[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Grant[=0x0022=][=0x0009=]1669[=0x000A=][=0x0022=]victualler[=0x0022=][=0x0009=][=0x0022=]Barnaby[=0x0022=][=0x0009=][=0x0022=]Adams[=0x0022=][=0x0009=]1675[=0x000A=][=0x0022=]vintner[=0x0022=][=0x0009=][=0x0022=]Gabriel[=0x0022=][=0x0009=][=0x0022=]Adkins[=0x0022=][=0x0009=]1668[=0x000A=][=0x0022=]tavern-keeper[=0x0022=][=0x0009=][=0x0022=]John[=0x0022=][=0x0009=][=0x0022=]Baldwin[=0x0022=][=0x0009=]1670[=0x000A=][=0x0022=]tavern-keeper[=0x0022=][=0x0009=][=0x0022=]Mary[=0x0022=][=0x0009=][=0x0022=]Dayton[=0x0022=][=0x0009=]1664[=0x000A=][=0x0022=]tavern-keeper[=0x0022=][=0x0009=][=0x0022=]James[=0x0022=][=0x0009=][=0x0022=]Turpin[=0x0022=][=0x0009=]1679[=0x000A=][=0x0022=]tavern-keeper[=0x0022=][=0x0009=][=0x0022=]Christopher[=0x0022=][=0x0009=][=0x0022=]Mayham[=0x0022=][=0x0009=]1664[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / wait / wait / wait / wait / wait / wait / wait / wait / wait[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Waiting for Godot, Chyrurgeon&quot;</span>
+        <p>Suppose we want a deck of cards which the player can shuffle and draw from. Our first (rather tedious) task is merely to set up the deck as a table:</p>
+        <!-- START CODE "code2305" -->
+        <blockquote class="extract-inform7"><a id="code2305"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Jokers Wild[=0x0022=][=0x000A=][=0x000A=]Suit is a kind of value. The suits are hearts, clubs, diamonds, and spades.[=0x000A=][=0x000A=]Table of Cards[=0x000A=]suit[=0x0009=]value[=0x000A=]diamonds[=0x0009=]1[=0x000A=]diamonds[=0x0009=]2[=0x000A=]diamonds[=0x0009=]3[=0x000A=]diamonds[=0x0009=]4[=0x000A=]diamonds[=0x0009=]5[=0x000A=]diamonds[=0x0009=]6[=0x000A=]diamonds[=0x0009=]7[=0x000A=]diamonds[=0x0009=]8[=0x000A=]diamonds[=0x0009=]9[=0x000A=]diamonds[=0x0009=]10[=0x000A=]diamonds[=0x0009=]11[=0x000A=]diamonds[=0x0009=]12[=0x000A=]diamonds[=0x0009=]13[=0x000A=]spades[=0x0009=]1[=0x000A=]spades[=0x0009=]2[=0x000A=]spades[=0x0009=]3[=0x000A=]spades[=0x0009=]4[=0x000A=]spades[=0x0009=]5[=0x000A=]spades[=0x0009=]6[=0x000A=]spades[=0x0009=]7[=0x000A=]spades[=0x0009=]8[=0x000A=]spades[=0x0009=]9[=0x000A=]spades[=0x0009=]10[=0x000A=]spades[=0x0009=]11[=0x000A=]spades[=0x0009=]12[=0x000A=]spades[=0x0009=]13[=0x000A=]hearts[=0x0009=]1[=0x000A=]hearts[=0x0009=]2[=0x000A=]hearts[=0x0009=]3[=0x000A=]hearts[=0x0009=]4[=0x000A=]hearts[=0x0009=]5[=0x000A=]hearts[=0x0009=]6[=0x000A=]hearts[=0x0009=]7[=0x000A=]hearts[=0x0009=]8[=0x000A=]hearts[=0x0009=]9[=0x000A=]hearts[=0x0009=]10[=0x000A=]hearts[=0x0009=]11[=0x000A=]hearts[=0x0009=]12[=0x000A=]hearts[=0x0009=]13[=0x000A=]clubs[=0x0009=]1[=0x000A=]clubs[=0x0009=]2[=0x000A=]clubs[=0x0009=]3[=0x000A=]clubs[=0x0009=]4[=0x000A=]clubs[=0x0009=]5[=0x000A=]clubs[=0x0009=]6[=0x000A=]clubs[=0x0009=]7[=0x000A=]clubs[=0x0009=]8[=0x000A=]clubs[=0x0009=]9[=0x000A=]clubs[=0x0009=]10[=0x000A=]clubs[=0x0009=]11[=0x000A=]clubs[=0x0009=]12[=0x000A=]clubs[=0x0009=]13[=0x000A=][=0x000A=]To say (count - a number) as a card value:[=0x000A=][=0x0009=]choose row with a value of count in the Table of Value Names;[=0x000A=][=0x0009=]say [=0x0022=][term entry][=0x0022=].[=0x000A=][=0x000A=]Table of Value Names[=0x000A=]value[=0x0009=]term[=0x000A=]1[=0x0009=][=0x0022=]ace[=0x0022=][=0x000A=]2[=0x0009=][=0x0022=]deuce[=0x0022=][=0x000A=]3[=0x0009=][=0x0022=]three[=0x0022=][=0x000A=]4[=0x0009=][=0x0022=]four[=0x0022=][=0x000A=]5[=0x0009=][=0x0022=]five[=0x0022=][=0x000A=]6[=0x0009=][=0x0022=]six[=0x0022=][=0x000A=]7[=0x0009=][=0x0022=]seven[=0x0022=][=0x000A=]8[=0x0009=][=0x0022=]eight[=0x0022=][=0x000A=]9[=0x0009=][=0x0022=]nine[=0x0022=][=0x000A=]10[=0x0009=][=0x0022=]ten[=0x0022=][=0x000A=]11[=0x0009=][=0x0022=]jack[=0x0022=][=0x000A=]12[=0x0009=][=0x0022=]queen[=0x0022=][=0x000A=]13[=0x0009=][=0x0022=]king[=0x0022=][=0x000A=][=0x000A=]Understand [=0x0022=]shuffle[=0x0022=] as shuffling. Shuffling is an action applying to nothing.[=0x000A=][=0x000A=]Carry out shuffling:[=0x000A=][=0x0009=]sort the Table of Cards in random order;[=0x000A=][=0x0009=]say [=0x0022=]You expertly rearrange the cards.[=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]sort the Table of Cards in random order.[=0x000A=][=0x000A=]Understand [=0x0022=]toss[=0x0022=] or [=0x0022=]toss a card[=0x0022=] or [=0x0022=]toss card[=0x0022=] as tossing.[=0x000A=][=0x000A=]Tossing is an action applying to nothing.[=0x000A=][=0x000A=]Check tossing:[=0x000A=][=0x0009=]if the number of filled rows in the Table of Cards is 0, say [=0x0022=]The deck is empty.[=0x0022=] instead.[=0x000A=][=0x000A=]Carry out tossing:[=0x000A=][=0x0009=]repeat through the Table of Cards:[=0x000A=][=0x0009=][=0x0009=]let new value be value entry;[=0x000A=][=0x0009=][=0x0009=]let new suit be suit entry;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]You throw the [value entry as a card value] of [suit entry] at the top hat, and [if a random chance of 1 in 3 succeeds]hit[otherwise]miss[end if].[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]blank out the whole row;[=0x000A=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]The Empty Room is a room. [=0x0022=]It has come to this: sitting on the bare floor of Lulu[=0x0027=]s apartment with nothing to amuse you but a deck of cards and the top hat from last year[=0x0027=]s act. You reckon [the number of filled rows in the Table of Cards in words] cardtosses are all that stand between you and the utter pointlessness of existence.[=0x000A=][=0x000A=]Once again you curse Lulu for running off with that joker.[=0x0022=][=0x000A=][=0x000A=]The player is carrying the deck of cards. The top hat is an open container in the Empty Room. It is scenery.[=0x000A=][=0x000A=]Test me with [=0x0022=]toss / again / again / again / again / again / again / again[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Jokers Wild&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">New</span><span class="syntaxplain"> </span><span class="syntaxidentifier">New</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Prison</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;You have a not very interesting room. Through the window you see passing </span><span class="syntaxextract">[current denizen]</span><span class="syntaxstring">.&quot;</span>
+        <span class="identifier-syntax">Suit</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">suits</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">hearts</span><span class="plain-syntax">, </span><span class="identifier-syntax">clubs</span><span class="plain-syntax">, </span><span class="identifier-syntax">diamonds</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">spades</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increment</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It is now the year </span><span class="syntaxextract">[the current year]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">: </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">right</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[current year]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1692</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It turns out you have remained imprisoned until the great earthquake of 1692! Oops.&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">story</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1664</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">denizen</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Occupations</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">People</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">date</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attested</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">year</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[nickname entry]</span><span class="syntaxstring"> </span><span class="syntaxextract">[family entry]</span><span class="syntaxstring">, </span><span class="syntaxextract">[trade entry]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">blank</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">row</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;absolutely no one&quot;</span><span class="syntaxplain">.</span>
-        </span></blockquote>
-        <p>It is possible to look up a row corresponding to, say, a specific year value using <code class="inlinesourcetext">listed in</code>, but repeat through is convenient here because we know that we will never wind up trying to print entries when no row can be successfully selected.</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Occupations</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">People</span></span><br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cards</span></span><br>
         <table border="0" cellspacing="0" cellpadding="0">
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">Trade</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">suit</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">nickname</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">family</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">Date</span><span class="syntaxplain"> </span><span class="syntaxidentifier">attested</span></span>
+                    <span class="indexdullblue"><span class="identifier-syntax">value</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;architect&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Robert&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Snead&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1684</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">1</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;baker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Wingar&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1683</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">2</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;barber&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Alcocke&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1676</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">3</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;blacksmith&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Davidson&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1679</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">4</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;bricklayer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Samuel&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Richardson&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1683</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">5</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;butcher&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Dennis&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1676</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">6</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;carpenter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Albert&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cabinet-maker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Robert&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Avis&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1666</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">8</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;joiner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Peter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bartaboa&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1666</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">9</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;chandler&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bates&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;chyrurgeon&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Axtell&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;chyrurgeon&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Thomas&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Trapham&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1678</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;combmaker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">diamonds</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Paul&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bennett&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1673</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">13</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cooper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;James&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Hall&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1676</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">1</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cooper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Henry&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Pullein&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">2</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cordwainer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;George&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Barnard&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">3</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cordwainer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Edward&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Skannon&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1680</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">4</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;cordwainer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Wilmott&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">5</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;drugster&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Mathews&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1682</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">6</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;fisherman&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Richard&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Collingwood&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;glazier&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Thomas&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Hudson&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1684</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">8</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;goldsmith&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Richard&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Lord&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1677</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">9</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;gunsmith&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Stephen&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Massey&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1664</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;hatmaker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Rosewell&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1683</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;ivory turner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Clifton&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1691</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;labourer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">spades</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Dennis&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">13</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;limeburner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Hardwick&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">1</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mariner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Alexander&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bailing&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1680</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">2</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mariner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Thomas&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bowtell&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">3</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mariner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Peter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Claiton&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">4</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mariner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Joseph&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Cupid&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1672</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">5</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mariner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Michael&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Dunn&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">6</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;mason&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Stone&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1673</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Agard&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1680</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">8</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;David Lopez&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Narbona&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">9</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Abraham&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Langford&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Sweeting&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Charles&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Knight&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1680</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">hearts</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Cornelius&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Vandananker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1670</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">13</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;merchant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Moses Jesurum&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Cordova&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">1</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;pewterer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Simon&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Benning&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1667</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">2</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;pipemaker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Pope&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1680</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">3</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;porter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;George&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Paul&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1670</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">4</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;poulterer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Richard&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Jeffreys&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1677</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">5</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;sailmaker&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Adam&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Brewer&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1671</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">6</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;schoolmaster&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Peter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Bird&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1677</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;shipwright&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Cavell&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1676</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">8</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tailor&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Case&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1676</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">9</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tailor&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Pewter&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Ebden&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1683</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;waterman&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;William&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Brocke&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1674</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;waterman&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Joel&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Clements&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1668</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>
                 </td>
             </tr>
 
             <tr>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;wherryman&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    <span class="indexdullblue"><span class="identifier-syntax">clubs</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                 </td>
                 <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Grant&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1669</span></span>
+                    <span class="indexdullblue"><span class="constant-syntax">13</span></span>
                 </td>
             </tr>
 
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;victualler&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Barnaby&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Adams&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1675</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;vintner&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Gabriel&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Adkins&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1668</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tavern-keeper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;John&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Baldwin&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1670</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tavern-keeper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Mary&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Dayton&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1664</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tavern-keeper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;James&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Turpin&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1679</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;tavern-keeper&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Christopher&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;Mayham&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1664</span></span>
-                </td>
-            </tr>
-
-            <br>
         </table>
-        <span class="indexdullblue">
+        <span class="indexdullblue"></span></blockquote>
+        <!-- END CODE -->
+        <p>We're going to describe the higher numbers as face cards, so it helps to write a new <code class="inlinesourcetext">to say</code> phrase.</p>
+        <!-- START CODE "code2306" -->
+        <blockquote class="extract-inform7"><a id="code2306"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> (</span><span class="identifier-syntax">count</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">card</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">:</span>
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;wait / wait / wait / wait / wait / wait / wait / wait / wait / wait&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">choose</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Value</span><span class="plain-syntax"> </span><span class="identifier-syntax">Names</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[term entry]&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Value</span><span class="plain-syntax"> </span><span class="identifier-syntax">Names</span></span><br>
+        <table border="0" cellspacing="0" cellpadding="0">
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">value</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="identifier-syntax">term</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;ace&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;deuce&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">3</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;three&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">4</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;four&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">5</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;five&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">6</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;six&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">7</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;seven&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">8</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;eight&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">9</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;nine&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">10</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;ten&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">11</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;jack&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">12</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;queen&quot;</span></span>
+                </td>
+            </tr>
+
+            <tr>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="constant-syntax">13</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                </td>
+                <td align="left" valign="top">
+                    <span class="indexdullblue"><span class="string-syntax">&quot;king&quot;</span></span>
+                </td>
+            </tr>
+
+        </table>
+        <span class="indexdullblue"></span></blockquote>
+        <!-- END CODE -->
+        <p>Now we get the shuffling of the deck from <code class="inlinesourcetext">sort in random order</code>, so:</p>
+        <!-- START CODE "code2307" -->
+        <blockquote class="extract-inform7"><a id="code2307"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;shuffle&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">shuffling</span><span class="plain-syntax">. </span><span class="identifier-syntax">Shuffling</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">shuffling</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cards</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You expertly rearrange the cards.&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">sort</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cards</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">order</span><span class="plain-syntax">.</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>This will continue to work properly even as the deck is partially depleted. Speaking of which, suppose we want the player to be able to toss the cards one-by-one into a hat. They are going to need to be removed from the deck, so:</p>
+        <!-- START CODE "code2308" -->
+        <blockquote class="extract-inform7"><a id="code2308"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;toss&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;toss a card&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;toss card&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">tossing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Tossing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">tossing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">filled</span><span class="plain-syntax"> </span><span class="identifier-syntax">rows</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cards</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The deck is empty.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">tossing</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cards</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax"> </span><span class="identifier-syntax">suit</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">suit</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You throw the [value entry as a card value] of [suit entry] at the top hat, and [if a random chance of 1 in 3 succeeds]hit[otherwise]miss[end if].&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">blank</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">row</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>If we wanted to simulate a slightly more stimulating game, we could instead have a second table to represent the player's hand of cards and record each card drawn. That would get long for the purposes of example, however, so instead we will just admit that the player's life is an empty husk of existence:</p>
+        <!-- START CODE "code2309" -->
+        <blockquote class="extract-inform7"><a id="code2309"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;It has come to this: sitting on the bare floor of Lulu's apartment with nothing to amuse you but a deck of cards and the top hat from last year's act. You reckon [the number of filled rows in the Table of Cards in words] cardtosses are all that stand between you and the utter pointlessness of existence.</span>
+        <br>
+
+        <br>
+        <span class="string-syntax">Once again you curse Lulu for running off with that joker.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carrying</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">deck</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">cards</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;toss / again / again / again / again / again / again / again&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_18_6.html>Section 18.6: Repeating through tables</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_18_11.html>Section 18.11: Sorting</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

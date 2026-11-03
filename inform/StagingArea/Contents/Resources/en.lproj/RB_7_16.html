@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,76 +2212,80 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Social Groups" -->
+            <!-- SEARCH SECTION "7.16" -->
+            <!-- SEARCH SORT "002-007-016-000" -->
             <h3><span>Section 7.16: Social Groups</span></h3>
             <p>
             Crowds of characters introduce new challenges, because we often want to show them interacting with one another, or to describe individuals in less detail when a whole group is present.</p>
-            <p><a href="eg_198.html">Strictly Ballroom</a> gives us a set of characters who pair off each turn, making sure to mention each one once, and leaving one unfortunate person behind as a wallflower: this exemplifies how we might use a behavioural rule not to dictate the behaviour of each individual separately but rather to model a whole group together. <a href="eg_385.html">Happy Hour</a> does calculate movements for characters individually, but then collates the descriptions, creating a single paragraph to describe whatever group is currently in the room.</p>
-            <p>Characters can also have complicated attitudes to one another, and it can be helpful to use relations to track these. <a href="eg_250.html">Unthinkable Alliances</a> demonstrates the grouping of characters into alliance factions, while <a href="eg_254.html">The Abolition of Love</a> provides a host of relations to track love affairs, marriages, memberships in families, and mere mutual respect.</p>
-            <p><a href="eg_382.html">Emma</a> combines these two effects: its characters move between social groups depending on how they feel about the others in their particular talking circle, and descriptions change depending on who is where in the room.</p>
-            <p><a href="eg_463.html">Lugubrious Pete's Delicatessen</a> simulates a queue at a deli, in which the customers who most impress Pete get served first.</p>
+            <p><a href="eg_195.html">Strictly Ballroom</a> gives us a set of characters who pair off each turn, making sure to mention each one once, and leaving one unfortunate person behind as a wallflower: this exemplifies how we might use a behavioural rule not to dictate the behaviour of each individual separately but rather to model a whole group together. <a href="eg_382.html">Happy Hour</a> does calculate movements for characters individually, but then collates the descriptions, creating a single paragraph to describe whatever group is currently in the room.</p>
+            <p>Characters can also have complicated attitudes to one another, and it can be helpful to use relations to track these. <a href="eg_247.html">Unthinkable Alliances</a> demonstrates the grouping of characters into alliance factions, while <a href="eg_251.html">The Abolition of Love</a> provides a host of relations to track love affairs, marriages, memberships in families, and mere mutual respect.</p>
+            <p><a href="eg_379.html">Emma</a> combines these two effects: its characters move between social groups depending on how they feel about the others in their particular talking circle, and descriptions change depending on who is where in the room.</p>
+            <p><a href="eg_460.html">Lugubrious Pete's Delicatessen</a> simulates a queue at a deli, in which the customers who most impress Pete get served first.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_7_13.html" title="Section 7.13: Travelling Characters">Travelling Characters</a> for groups of characters who move around and have their movements collated into a joint description.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg463><a style="text-decoration: none" href="eg_463.html"><span class="extensionexampleletter">463</span></a></span></div>
+                    <span id=eg460><a style="text-decoration: none" href="eg_460.html"><span class="extensionexampleletter">460</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_463.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lugubrious Pete's Delicatessen</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_460.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lugubrious Pete's Delicatessen</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">In this evocation of supermarket deli counter life, a list is used as a queue to keep track of who is waiting to be served.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg463><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg460><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg254><a style="text-decoration: none" href="eg_254.html"><span class="extensionexampleletter">254</span></a></span></div>
+                    <span id=eg251><a style="text-decoration: none" href="eg_251.html"><span class="extensionexampleletter">251</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_254.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Abolition of Love</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_251.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Abolition of Love</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A thorough exploration of all the kinds of relations established so far, with the syntax to set and unset them.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg254><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg251><a style="text-decoration: none" href="WI_14_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg250><a style="text-decoration: none" href="eg_250.html"><span class="extensionexampleletter">250</span></a></span></div>
+                    <span id=eg247><a style="text-decoration: none" href="eg_247.html"><span class="extensionexampleletter">247</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_250.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unthinkable Alliances</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_247.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unthinkable Alliances</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">People are to be grouped into alliances. To kiss someone is to join their faction, which may make a grand alliance; to strike them is to give notice of quitting, and to become a lone wolf.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg250><a style="text-decoration: none" href="WI_14_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg247><a style="text-decoration: none" href="WI_14_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg379><a style="text-decoration: none" href="eg_379.html"><span class="extensionexampleletter">379</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_379.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Emma</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Social dynamics in which groups of people form and circulate during a party.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg379><a style="text-decoration: none" href="WI_20_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg382><a style="text-decoration: none" href="eg_382.html"><span class="extensionexampleletter">382</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_382.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Emma</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Social dynamics in which groups of people form and circulate during a party.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg382><a style="text-decoration: none" href="WI_20_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg385><a style="text-decoration: none" href="eg_385.html"><span class="extensionexampleletter">385</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_385.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Happy Hour</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_382.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Happy Hour</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Listing visible characters as a group, then giving some followup details in the same paragraph about specific ones.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg385><a style="text-decoration: none" href="WI_20_25.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg382><a style="text-decoration: none" href="WI_20_25.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg198><a style="text-decoration: none" href="eg_198.html"><span class="extensionexampleletter">198</span></a></span></div>
+                    <span id=eg195><a style="text-decoration: none" href="eg_195.html"><span class="extensionexampleletter">195</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_198.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Strictly Ballroom</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_195.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Strictly Ballroom</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">People who select partners for dance lessons each turn.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg198><a style="text-decoration: none" href="WI_12_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg195><a style="text-decoration: none" href="WI_12_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_15.html"><span class="markdowncontent">Section 7.15: Goal-Seeking Characters</span></a> &bull; <a href="RB_8_1.html"><span class="markdowncontent">Chapter 8: Vehicles, Animals and Furniture</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

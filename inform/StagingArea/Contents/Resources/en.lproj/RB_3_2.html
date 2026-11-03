@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,19 +2212,27 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Map" -->
+            <!-- SEARCH SECTION "3.2" -->
+            <!-- SEARCH SORT "002-003-002-000" -->
             <h3><span>Section 3.2: Map</span></h3>
             <p>
             A work of IF contains many spectacles and activities, and these must not all present themselves at once, or the player will be overwhelmed. One way to spread them out is in time, by having them available only as a plot develops, but another is to spread them out literally in space. The player has to walk between the Library and the Swimming Pool, and thus bookish and athletic tasks are not both presenting themselves at once. There have been valiant &quot;one-room&quot; IFs, and it forms a respectable sub-genre of the art, but most works of any size need a map.</p>
             <p>Inform, following IF conventions, divides the world up into locations called <code class="inlinesourcetext">rooms</code>, connected together by so-called &quot;map connections&quot; along compass bearings. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Library</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Swimming</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pool</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2043" -->
+            <blockquote class="extract-inform7"><a id="code2043"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Library</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Swimming</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pool</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>The example <a href="eg_12.html">Port Royal 1</a> develops a medium-sized map from such sentences. This develops in <a href="eg_15.html">Port Royal 2</a> to include connections which bend around, allowing the rooms not to lie on an imaginary square grid.</p>
+            <!-- END CODE -->
+            <p>The example <a href="eg_11.html">Port Royal 1</a> develops a medium-sized map from such sentences. This develops in <a href="eg_14.html">Port Royal 2</a> to include connections which bend around, allowing the rooms not to lie on an imaginary square grid.</p>
             <p>Because it is useful to group rooms together under names describing whole areas, Inform also allows rooms to be placed in &quot;regions&quot;. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Campus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">region</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Library</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Swimming</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Pool</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Campus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Area</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2044" -->
+            <blockquote class="extract-inform7"><a id="code2044"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Campus</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">region</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Library</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Swimming</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pool</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Campus</span><span class="plain-syntax"> </span><span class="identifier-syntax">Area</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p><a href="eg_17.html">Port Royal 3</a> demonstrates this further. <a href="eg_107.html">A&amp;E</a> shows how regions can be used to write simple rules which regulate access to and from whole areas of the map.</p>
-            <p>Many old-school IF puzzles involve journeys through the map which are confused, randomised or otherwise frustrated: see <a href="eg_131.html">Bee Chambers</a> for a typical maze, <a href="eg_140.html">Zork II</a> for a randomised connection, <a href="eg_44.html">Prisoner's Dilemma</a> for a change in the map occurring during play. A completely random map takes us away from traditional IF and more towards a different sort of old-school game, the computerised role-playing game with its endless quests through dungeons with randomly generated treasures and monsters. This style of map–building itself one step at a time, as the player explores–can sometimes be useful to provide an illusion of infinite expanse: see <a href="eg_83.html">All Roads Lead To Mars</a>.</p>
-            <p>While the standard compass directions are conventional in IF, there are times when we may want to replace them without other forms of directional relationship. <a href="eg_315.html">Indirection</a> renames the compass directions to correspond to primary colours, as in Mayan thinking. <a href="eg_45.html">The World of Charles S. Roberts</a> substitutes new ones, instead, introducing a hex-grid map in place of the usual one.</p>
+            <!-- END CODE -->
+            <p><a href="eg_16.html">Port Royal 3</a> demonstrates this further. <a href="eg_106.html">A&amp;E</a> shows how regions can be used to write simple rules which regulate access to and from whole areas of the map.</p>
+            <p>Many old-school IF puzzles involve journeys through the map which are confused, randomised or otherwise frustrated: see <a href="eg_128.html">Bee Chambers</a> for a typical maze, <a href="eg_137.html">Zork II</a> for a randomised connection, <a href="eg_43.html">Prisoner's Dilemma</a> for a change in the map occurring during play. A completely random map takes us away from traditional IF and more towards a different sort of old-school game, the computerised role-playing game with its endless quests through dungeons with randomly generated treasures and monsters. This style of map–building itself one step at a time, as the player explores–can sometimes be useful to provide an illusion of infinite expanse: see <a href="eg_82.html">All Roads Lead To Mars</a>.</p>
+            <p>While the standard compass directions are conventional in IF, there are times when we may want to replace them without other forms of directional relationship. <a href="eg_312.html">Indirection</a> renames the compass directions to correspond to primary colours, as in Mayan thinking. <a href="eg_44.html">The World of Charles S. Roberts</a> substitutes new ones, instead, introducing a hex-grid map in place of the usual one.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_6_9.html" title="Section 6.9: Going, Pushing Things in Directions">Going, Pushing Things in Directions</a> for ways to add more relative directions, such as context-sensitive understanding of <code class="inlinetranscriptcommand">out</code> and <code class="inlinetranscriptcommand">in</code>.</li>
@@ -2148,99 +2241,99 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg83><a style="text-decoration: none" href="eg_83.html"><span class="extensionexampleletter">83</span></a></span></div>
+                    <span id=eg82><a style="text-decoration: none" href="eg_82.html"><span class="extensionexampleletter">82</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_83.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">All Roads Lead to Mars</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_82.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">All Roads Lead to Mars</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Layout where the player is allowed to wander any direction he likes, and the map will arrange itself in order so that he finds the correct next location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg83><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg82><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg131><a style="text-decoration: none" href="eg_131.html"><span class="extensionexampleletter">131</span></a></span></div>
+                    <span id=eg128><a style="text-decoration: none" href="eg_128.html"><span class="extensionexampleletter">128</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_131.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bee Chambers</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_128.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bee Chambers</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A maze with directions between rooms randomised at the start of play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg131><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg128><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg315><a style="text-decoration: none" href="eg_315.html"><span class="extensionexampleletter">315</span></a></span></div>
+                    <span id=eg312><a style="text-decoration: none" href="eg_312.html"><span class="extensionexampleletter">312</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_315.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Indirection</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_312.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Indirection</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Renaming the directions of the compass so that &quot;white&quot; corresponds to north, &quot;red&quot; to east, &quot;yellow&quot; to south, and &quot;black&quot; to west.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg315><a style="text-decoration: none" href="WI_19_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg312><a style="text-decoration: none" href="WI_19_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg12><a style="text-decoration: none" href="eg_12.html"><span class="extensionexampleletter">12</span></a></span></div>
+                    <span id=eg11><a style="text-decoration: none" href="eg_11.html"><span class="extensionexampleletter">11</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_12.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_11.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A partial implementation of Port Royal, Jamaica, set before the earthquake of 1692 demolished large portions of the city.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg12><a style="text-decoration: none" href="WI_3_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg11><a style="text-decoration: none" href="WI_3_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg15><a style="text-decoration: none" href="eg_15.html"><span class="extensionexampleletter">15</span></a></span></div>
+                    <span id=eg14><a style="text-decoration: none" href="eg_14.html"><span class="extensionexampleletter">14</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_15.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_14.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Another part of Port Royal, with less typical map connections.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg15><a style="text-decoration: none" href="WI_3_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg14><a style="text-decoration: none" href="WI_3_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg17><a style="text-decoration: none" href="eg_17.html"><span class="extensionexampleletter">17</span></a></span></div>
+                    <span id=eg16><a style="text-decoration: none" href="eg_16.html"><span class="extensionexampleletter">16</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_17.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 3</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_16.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 3</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Division of Port Royal into regions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg17><a style="text-decoration: none" href="WI_3_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg16><a style="text-decoration: none" href="WI_3_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg140><a style="text-decoration: none" href="eg_140.html"><span class="extensionexampleletter">140</span></a></span></div>
+                    <span id=eg137><a style="text-decoration: none" href="eg_137.html"><span class="extensionexampleletter">137</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_140.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zork II</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_137.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zork II</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A &quot;Carousel Room&quot;, as in Zork II, where moving in any direction from the room leads (at random) to one of the eight rooms nearby.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg140><a style="text-decoration: none" href="WI_8_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg137><a style="text-decoration: none" href="WI_8_19.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg107><a style="text-decoration: none" href="eg_107.html"><span class="extensionexampleletter">107</span></a></span></div>
+                    <span id=eg106><a style="text-decoration: none" href="eg_106.html"><span class="extensionexampleletter">106</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_107.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A&amp;E</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_106.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A&amp;E</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using regions to block access to an entire area when the player does not carry a pass, regardless of which entrance they use.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg107><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg106><a style="text-decoration: none" href="WI_7_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg43><a style="text-decoration: none" href="eg_43.html"><span class="extensionexampleletter">43</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_43.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prisoner's Dilemma</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A button that causes a previously non-existent exit to come into being.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg43><a style="text-decoration: none" href="WI_3_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg44><a style="text-decoration: none" href="eg_44.html"><span class="extensionexampleletter">44</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_44.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Prisoner's Dilemma</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A button that causes a previously non-existent exit to come into being.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_44.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The World of Charles S. Roberts</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Replacing the ordinary compass bearings with a set of six directions to impose a hexagonal rather than square grid on the landscape.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg44><a style="text-decoration: none" href="WI_3_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg45><a style="text-decoration: none" href="eg_45.html"><span class="extensionexampleletter">45</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_45.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The World of Charles S. Roberts</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Replacing the ordinary compass bearings with a set of six directions to impose a hexagonal rather than square grid on the landscape.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg45><a style="text-decoration: none" href="WI_3_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_3_1.html"><span class="markdowncontent">Chapter 3: Place</span></a> &bull; <a href="RB_3_3.html"><span class="markdowncontent">Section 3.3: Position Within Rooms</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

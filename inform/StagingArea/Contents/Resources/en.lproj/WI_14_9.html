@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,28 +2212,42 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Defining new assertion verbs" -->
+            <!-- SEARCH SECTION "14.9" -->
+            <!-- SEARCH SORT "001-014-009-000" -->
             <h3><span>Section 14.9: Defining new assertion verbs</span></h3>
             <p>      </p>
             <p>Creating a new verb is easy:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code896" -->
+            <blockquote class="extract-inform7"><a id="code896"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But this is of limited use because it doesn't give <code class="inlinesourcetext">to admire</code> a meaning. Better is to write something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sport</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code897" -->
+            <blockquote class="extract-inform7"><a id="code897"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">sport</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>That creates the verb <code class="inlinesourcetext">to sport</code>, if it doesn't exist already, and gives it a meaning, all in one sentence. Inform can now use sentences like <code class="inlinesourcetext">Mr Wickham sports a Tory rosette.</code>, whereas it remains helpless to act on <code class="inlinesourcetext">Mr Darcy admires Miss Elizabeth.</code>, because it doesn't know what <code class="inlinesourcetext">admires</code> means.</p>
             <p>Occasionally it's convenient to have the relation the other way around. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reversed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code898" -->
+            <blockquote class="extract-inform7"><a id="code898"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">grace</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Reversed in this sense means that the things related – the subject and object of the verb – are the other way round. So these two sentences have identical meanings:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sports</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rosette</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code899" -->
+            <blockquote class="extract-inform7"><a id="code899"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax"> </span><span class="identifier-syntax">sports</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tory</span><span class="plain-syntax"> </span><span class="identifier-syntax">rosette</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rosette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">graces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tory</span><span class="plain-syntax"> </span><span class="identifier-syntax">rosette</span><span class="plain-syntax"> </span><span class="identifier-syntax">graces</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform uses the regular rules of English grammar to work out the many forms it can take in sentences (though see the notes below on multi-word verbs). This is how it knew that <code class="inlinesourcetext">sports</code> was a usage of <code class="inlinesourcetext">sport</code>, even though those are different spellings. It can read this verb in singular and plural, and in four different tenses. It also recognises <code class="inlinesourcetext">to be sporting</code> and <code class="inlinesourcetext">to be sported by</code>, as in these examples:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">was</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sporting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rosette</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code900" -->
+            <blockquote class="extract-inform7"><a id="code900"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax"> </span><span class="identifier-syntax">was</span><span class="plain-syntax"> </span><span class="identifier-syntax">sporting</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">rosette</span><span class="plain-syntax">, ...</span>
             <br>
-            <span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rosette</span><span class="syntaxplain"> </span><span class="syntaxidentifier">had</span><span class="syntaxplain"> </span><span class="syntaxidentifier">been</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sported</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain">, ...</span>
+            <span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">rosette</span><span class="plain-syntax"> </span><span class="identifier-syntax">had</span><span class="plain-syntax"> </span><span class="identifier-syntax">been</span><span class="plain-syntax"> </span><span class="identifier-syntax">sported</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform's system of &quot;adaptive text&quot; allows a still wider range of linguistic tricks with verbs, which is why people sometimes create verbs without giving them meanings, just to be able to print them back in interesting ways (though, again, see the notes below on multi-word verbs). See <a href="WI_15_3.html" title="Section 15.3: More on adapting verbs">More on adapting verbs</a> for more.</p>
             <ol>
             <li>
@@ -2157,33 +2256,43 @@
             <li>
             <p>Multiple-word verbs do not pick up the two <code class="inlinesourcetext">to be ...</code> forms mentioned above. So whereas <code class="inlinesourcetext">to sport</code> allowed <code class="inlinesourcetext">to be sporting</code> and <code class="inlinesourcetext">to be sported by</code>, <code class="inlinesourcetext">to run amok in</code> does not allow <code class="inlinesourcetext">to be running amok in</code> and <code class="inlinesourcetext">to be run amok in by</code>. Inform takes the view that multiple-word &quot;verbs&quot; may be grammatically complicated already (often having a preposition — in this case, <code class="inlinesourcetext">in</code>) and that it runs some risk of producing nonsense.</p>
             <p>Of course, if we do want them, they can still be created manually:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">run</span><span class="syntaxplain"> </span><span class="syntaxidentifier">amok</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">territory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code901" -->
+            <blockquote class="extract-inform7"><a id="code901"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">run</span><span class="plain-syntax"> </span><span class="identifier-syntax">amok</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">territory</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">amok</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">territory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">amok</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">territory</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">run</span><span class="syntaxplain"> </span><span class="syntaxidentifier">amok</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reversed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">territory</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">run</span><span class="plain-syntax"> </span><span class="identifier-syntax">amok</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax"> </span><span class="identifier-syntax">territory</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             </li>
             <li>
             <p>But with that said, multiple-word verbs are still often useful:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cover</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code902" -->
+            <blockquote class="extract-inform7"><a id="code902"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">covering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">up</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tent</span><span class="syntaxplain">-</span><span class="syntaxidentifier">like</span><span class="syntaxplain"> </span><span class="syntaxidentifier">raincoat</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Peter</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">covering</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">tent</span><span class="plain-syntax">-</span><span class="identifier-syntax">like</span><span class="plain-syntax"> </span><span class="identifier-syntax">raincoat</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here there are three words in the verb: the limit is 29.</p>
             <p>As this example suggests, conjugation is performed on the first word, which is assumed to be the actual verb. So it is not a good idea to write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">drying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code903" -->
+            <blockquote class="extract-inform7"><a id="code903"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax"> </span><span class="identifier-syntax">dry</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">drying</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because this will generate <code class="inlinesourcetext">airs dry</code>, not <code class="inlinesourcetext">air dries</code>. Better to use a hyphen and squash this into being a single-word verb after all:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">dry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">drying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code904" -->
+            <blockquote class="extract-inform7"><a id="code904"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">dry</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">drying</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             </li>
             <li>
             <p>In general, Inform does not like to have verbs which look like symbols. Still, these work (though the emoji one requires the Glulx setting):</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> &gt;---&gt; </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code905" -->
+            <blockquote class="extract-inform7"><a id="code905"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> &gt;---&gt; </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> ❤️ </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">loving</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Bingley</span><span class="syntaxplain"> ❤️ </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> ❤️ </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">loving</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">. </span><span class="identifier-syntax">Bingley</span><span class="plain-syntax"> ❤️ </span><span class="identifier-syntax">Jane</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Be warned that Inform will stubbornly try to treat this symbol as if it were a regular English verb, though, so it will also allow <code class="inlinesourcetext">Jane is ❤️ed by Bingley</code>, for example, turning <code class="inlinesourcetext">❤️</code> into <code class="inlinesourcetext">❤️ed</code> in the same way that it would turn <code class="inlinesourcetext">cover</code> into <code class="inlinesourcetext">covered</code>.</p>
             </li>
             <li>
@@ -2192,27 +2301,27 @@
             </ol>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg250><a style="text-decoration: none" href="eg_250.html"><span class="extensionexampleletter">250</span></a></span></div>
+                    <span id=eg247><a style="text-decoration: none" href="eg_247.html"><span class="extensionexampleletter">247</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_250.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unthinkable Alliances</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_247.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Unthinkable Alliances</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">People are to be grouped into alliances. To kiss someone is to join their faction, which may make a grand alliance; to strike them is to give notice of quitting, and to become a lone wolf.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg250><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg247><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg251><a style="text-decoration: none" href="eg_251.html"><span class="extensionexampleletter">251</span></a></span></div>
+                    <span id=eg248><a style="text-decoration: none" href="eg_248.html"><span class="extensionexampleletter">248</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_251.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Unexamined Life</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_248.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Unexamined Life</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An adaptive hint system that tracks what the player needs to have seen or to possess in order to solve a given puzzle, and doles out suggestions accordingly. Handles changes in the game state with remarkable flexibility, and allows the player to decide how explicit a nudge they want at any given moment.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg251><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg248><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_14_8.html"><span class="markdowncontent">Section 14.8: The built-in verbs and their meanings</span></a> &bull; <a href="WI_14_10.html"><span class="markdowncontent">Section 14.10: Defining new prepositions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

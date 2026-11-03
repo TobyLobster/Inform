@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,20 +2212,28 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Multiple endings" -->
+            <!-- SEARCH SECTION "10.8" -->
+            <!-- SEARCH SORT "001-010-008-000" -->
             <h3><span>Section 10.8: Multiple endings</span></h3>
             <p> </p>
             <p>Interactive fictions vary considerably in the extent to which the player is allowed to influence the story-line. Sometimes the appearance of making choices is wholly bogus, as only one possible line is given more than lip service. But in other works, the player can radically change the outcome, and whole rafts of plot differ between one person's experience and another's. Inform allows multiple endings to its scenes to make this kind of branching story-line easy to achieve.</p>
             <p>Any scene can have up to 31 alternate endings, differentiated by name (unless the Z-machine format has been selected on the Settings panel, in which case, 15). These alternates are created as and when conditions are set for them:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">happily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> ...</span>
+            <!-- START CODE "code593" -->
+            <blockquote class="extract-inform7"><a id="code593"></a><span class="indexdullblue"><span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">happily</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> ...</span>
             <br>
-            <span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wisely</span><span class="syntaxplain"> </span><span class="syntaxidentifier">but</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sadly</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> ...</span>
+            <span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">wisely</span><span class="plain-syntax"> </span><span class="identifier-syntax">but</span><span class="plain-syntax"> </span><span class="identifier-syntax">sadly</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Ends happily</code> and <code class="inlinesourcetext">ends wisely but sadly</code> behave just like <code class="inlinesourcetext">ends</code>. We can have rules <code class="inlinesourcetext">When Brief Encounter ends happily, ...</code> and so forth, in addition to rules <code class="inlinesourcetext">When Brief Encounter ends, ...</code> – if a rule doesn't specify any particular ending, it applies to all of them.</p>
             <p>We can also link rules together from these branches, so</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Stranger</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Acceptance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">happily</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code594" -->
+            <blockquote class="extract-inform7"><a id="code594"></a><span class="indexdullblue"><span class="identifier-syntax">Stranger</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Acceptance</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">happily</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Stranger</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Rejection</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wisely</span><span class="syntaxplain"> </span><span class="syntaxidentifier">but</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sadly</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Stranger</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Rejection</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">wisely</span><span class="plain-syntax"> </span><span class="identifier-syntax">but</span><span class="plain-syntax"> </span><span class="identifier-syntax">sadly</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>With this set-up and that of the previous section, there are now two possible paths through the story:</p>
             <ul>
             <li>(i) Train Stop - Brief Encounter - Stranger's Acceptance - Bittersweet Ending</li>
@@ -2156,27 +2249,27 @@
             <p>(For a scene which repeats, note that these conditions apply only to the most recent repetition: and that such conditions are always false if the scene is currently going on. <code class="inlinesourcetext">Brief Encounter did not end happily</code> will be true only when the scene has finished but in a different way.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg172><a style="text-decoration: none" href="eg_172.html"><span class="extensionexampleletter">172</span></a></span></div>
+                    <span id=eg169><a style="text-decoration: none" href="eg_169.html"><span class="extensionexampleletter">169</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_172.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Panache</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_169.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Panache</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing the score with a plot summary that records the events of the plot, scene by scene.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg172><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg169><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg173><a style="text-decoration: none" href="eg_173.html"><span class="extensionexampleletter">173</span></a></span></div>
+                    <span id=eg170><a style="text-decoration: none" href="eg_170.html"><span class="extensionexampleletter">170</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_173.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 4</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_170.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 4</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Pine: Adding a flashback scene that, instead of repeating endlessly, repeats only until the Princess has understood the point.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg173><a style="text-decoration: none" href="RB_4_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg170><a style="text-decoration: none" href="RB_4_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_10_7.html"><span class="markdowncontent">Section 10.7: Multiple beginnings and repeats</span></a> &bull; <a href="WI_10_9.html"><span class="markdowncontent">Section 10.9: Why are scenes designed this way?</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

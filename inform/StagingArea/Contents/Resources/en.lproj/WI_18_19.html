@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,46 +2212,51 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Table amendments" -->
+            <!-- SEARCH SECTION "18.19" -->
+            <!-- SEARCH SORT "001-018-019-000" -->
             <h3><span>Section 18.19: Table amendments</span></h3>
             <p> </p>
             <p>Tables can have amendments as well as continuations. The arrangement is much the same: a supplementary table supplies new rows for the original table. But instead of adding the new rows at the end of the original, as a continuation would, an amendment replaces matching rows in the original. (So the original stays the same size.)</p>
             <p>The amendment table must have exactly the columns of the original and in the same order. Moreover, each row in the amended table must match exactly one row in the original. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Plans</span></span><br>
+            <!-- START CODE "code1216" -->
+            <blockquote class="extract-inform7"><a id="code1216"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Plans</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">moment</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">moment</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">outcome</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;takeover of Mars&quot;</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">outcome</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">11</span><span class="syntaxplain">:30 </span><span class="syntaxidentifier">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;canals reflooded&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;takeover of Mars&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">11</span><span class="syntaxplain">:45 </span><span class="syntaxidentifier">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">11</span><span class="plain-syntax">:30 </span><span class="identifier-syntax">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;chocolate bar production doubled&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;canals reflooded&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">11</span><span class="plain-syntax">:45 </span><span class="identifier-syntax">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;chocolate bar production doubled&quot;</span></span>
                     </td>
                 </tr>
 
@@ -2174,95 +2264,97 @@
             </table>
             <span class="indexdullblue">
             <br>
-            <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Plans</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">amended</span><span class="syntaxplain">)</span></span><br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Plans</span><span class="plain-syntax"> (</span><span class="identifier-syntax">amended</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">moment</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">moment</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">outcome</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">outcome</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">11</span><span class="syntaxplain">:45 </span><span class="syntaxidentifier">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">11</span><span class="plain-syntax">:45 </span><span class="identifier-syntax">AM</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;volcanic cave production doubled&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;volcanic cave production doubled&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>creates a three-row <code class="inlinesourcetext">Table of Plans</code>, with reference to the chocolate bars struck out.</p>
             <p>Amendment rows may be given in any order. The process of matching a row begins at the left-most column: Inform tries to see if any single row in the original table has a matching entry. If none does, a Problem is issued. If more than one do, Inform then looks at the second column, and so on. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Enthusiasm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enthusiasms</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pumped</span><span class="syntaxplain">, </span><span class="syntaxidentifier">wired</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">languid</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1217" -->
+            <blockquote class="extract-inform7"><a id="code1217"></a><span class="indexdullblue"><span class="identifier-syntax">Enthusiasm</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">enthusiasms</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">pumped</span><span class="plain-syntax">, </span><span class="identifier-syntax">wired</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">languid</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mental</span><span class="syntaxplain"> </span><span class="syntaxidentifier">States</span></span><br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mental</span><span class="plain-syntax"> </span><span class="identifier-syntax">States</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">feeling</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">feeling</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">extent</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">extent</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">consequence</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;you feel able to run for your life&quot;</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">consequence</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;you feel able to run for President&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">wired</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;you feel able to run&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;you feel able to run for your life&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">languid</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;you feel&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;you feel able to run for President&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">wired</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;you feel able to run&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">languid</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;you feel&quot;</span></span>
                     </td>
                 </tr>
 
@@ -2270,51 +2362,52 @@
             </table>
             <span class="indexdullblue">
             <br>
-            <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mental</span><span class="syntaxplain"> </span><span class="syntaxidentifier">States</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">amended</span><span class="syntaxplain">)</span></span><br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mental</span><span class="plain-syntax"> </span><span class="identifier-syntax">States</span><span class="plain-syntax"> (</span><span class="identifier-syntax">amended</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">feeling</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">feeling</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">extent</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">extent</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">consequence</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">consequence</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">pumped</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="constant-syntax">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;you feel able to run for the Nebraska State Legislature&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;you feel able to run for the Nebraska State Legislature&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>Here the amendment is made to the second row of the original table. The value in the leftmost column, <code class="inlinesourcetext">pumped</code>, matches two rows in the original, so Inform moves on to the next column, reads <code class="inlinesourcetext">2</code>, and finds that only one row in the original still qualifies – so that is the one replaced.</p>
             <p>For the present, at least, the columns used for matching may only contain: numbers, times, objects, action names, activities, figure names, sound names, truth states and any new kinds of value or units which have been declared.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg314><a style="text-decoration: none" href="eg_314.html"><span class="extensionexampleletter">314</span></a></span></div>
+                    <span id=eg311><a style="text-decoration: none" href="eg_311.html"><span class="extensionexampleletter">311</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_314.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trieste</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_311.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Trieste</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Table amendment to adjust <code class="inlinetranscriptcommand">help</code> commands provided for the player.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg314><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg311><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_18.html"><span class="markdowncontent">Section 18.18: Table continuations</span></a> &bull; <a href="WI_18_20.html"><span class="markdowncontent">Section 18.20: Recap of the syntax for tables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

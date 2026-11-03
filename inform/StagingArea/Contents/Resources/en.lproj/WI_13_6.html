@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,54 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Spontaneous actions by other people" -->
+            <!-- SEARCH SECTION "13.6" -->
+            <!-- SEARCH SORT "001-013-006-000" -->
             <h3><span>Section 13.6: Spontaneous actions by other people</span></h3>
             <p>    </p>
             <p>The player's actions happen not only when they type a command, but can also happen spontaneously as a result of a <code class="inlinesourcetext">try</code> phrase.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <!-- START CODE "code822" -->
+            <blockquote class="extract-inform7"><a id="code822"></a><span class="indexdullblue"><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             <br>
-            <span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Will</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Will</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The latter might, of course, result in Will trying going west: or it might not – that depends on the persuasion rules. But as the author, we have the ultimate powers of persuasion, and can make Will act in any way we like, without asking:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Will</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <!-- START CODE "code823" -->
+            <blockquote class="extract-inform7"><a id="code823"></a><span class="indexdullblue"><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">Will</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Nobody in the simulated world requested this: it is an impulse felt by Will alone, so that – from the player's point of view – Will is acting spontaneously. The player need not be anywhere nearby, and may never know what happened. Recall that when actions work their way down through the flow-chart, they are stopped before reaching the <code class="inlinesourcetext">report</code> stage – when the player is told about them – if they are running <code class="inlinesourcetext">silently</code>. This is also where Inform stops an action which is not witnessed by the player.</p>
             <p>To repeat a point in the previous section: <code class="inlinesourcetext">unsuccessful attempt</code> rules do not apply to actions which the author has caused to happen, using <code class="inlinesourcetext">try</code>. When such actions fail, they invoke no special set of rules. Indeed, when <code class="inlinesourcetext">try</code> causes somebody other than the player to try an action, nothing will be printed to report back on success or failure. If Will can't go west, that's his problem.</p>
             <p>Note that the text <code class="inlinesourcetext">try Will going west</code> involves the actor's name immediately placed next to the action he is to try, which in a very few cases might cause ambiguities. If the actor's name contains a participle like <code class="inlinesourcetext">going</code> – say, if Will's full name turned out to be Mr Will Going – then we would have to write out the action name in full, using <code class="inlinesourcetext">trying</code> to clarify matters:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Will</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span>
+            <!-- START CODE "code824" -->
+            <blockquote class="extract-inform7"><a id="code824"></a><span class="indexdullblue"><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">Will</span><span class="plain-syntax"> </span><span class="identifier-syntax">Going</span><span class="plain-syntax"> </span><span class="identifier-syntax">trying</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg211><a style="text-decoration: none" href="eg_211.html"><span class="extensionexampleletter">211</span></a></span></div>
+                    <span id=eg208><a style="text-decoration: none" href="eg_208.html"><span class="extensionexampleletter">208</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_211.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">IQ Test</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_208.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">IQ Test</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Introducing Ogg, a person who will unlock and open a container when the player tells him to get something inside.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg211><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg208><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg212><a style="text-decoration: none" href="eg_212.html"><span class="extensionexampleletter">212</span></a></span></div>
+                    <span id=eg209><a style="text-decoration: none" href="eg_209.html"><span class="extensionexampleletter">209</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_212.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Boston Cream</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_209.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Boston Cream</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A fuller implementation of Ogg, giving him a motivation of his own and allowing him to react to the situation created by the player.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg212><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg209><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_5.html"><span class="markdowncontent">Section 13.5: Unsuccessful attempts</span></a> &bull; <a href="WI_13_7.html"><span class="markdowncontent">Section 13.7: New actions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

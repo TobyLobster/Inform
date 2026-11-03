@@ -131,6 +131,12 @@
     --example-cartouche-label-colour: #000000;
     --example-cartouche-label-background-colour: #C0C0C0;
 	--example-cartouche-star-colour: #DFB700;
+
+	--gh-alert-note-colour: #0e6ad1;
+	--gh-alert-tip-colour: #1a8130;
+	--gh-alert-important-colour: #8253dd;
+	--gh-alert-warning-colour: #9a6903;
+	--gh-alert-caution-colour: #ce2528;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -251,6 +257,12 @@
     --example-cartouche-label-colour: #ffffff;
     --example-cartouche-label-background-colour: #FF2020;
 	--example-cartouche-star-colour: #FFD700;
+
+	--gh-alert-note-colour: #0e6ad1;
+	--gh-alert-tip-colour: #1a8130;
+	--gh-alert-important-colour: #8253dd;
+	--gh-alert-warning-colour: #9a6903;
+	--gh-alert-caution-colour: #ce2528;
    }
 }
 
@@ -831,6 +843,56 @@ button.dangerousbutton {
 .markdowncontent table th, .markdowncontent table td {
 	padding: 4px 10px;
 	border: 1px solid var(--light-border-colour);
+}
+
+.markdowncontent blockquote.alertnote {
+	border-left: 3px solid var(--gh-alert-note-colour);
+	margin: 0.4em 20px;
+	padding: 0em 10px;
+}
+.markdowncontent blockquote.alertnote p.alertheading {
+	color: var(--gh-alert-note-colour);
+    font-weight: bold;
+}
+
+.markdowncontent blockquote.alerttip {
+	border-left: 3px solid var(--gh-alert-tip-colour);
+	margin: 0.4em 20px;
+	padding: 0em 10px;
+}
+.markdowncontent blockquote.alerttip p.alertheading {
+	color: var(--gh-alert-tip-colour);
+    font-weight: bold;
+}
+
+.markdowncontent blockquote.alertimportant {
+	border-left: 3px solid var(--gh-alert-important-colour);
+	margin: 0.4em 20px;
+	padding: 0em 10px;
+}
+.markdowncontent blockquote.alertimportant p.alertheading {
+	color: var(--gh-alert-important-colour);
+    font-weight: bold;
+}
+
+.markdowncontent blockquote.alertwarning {
+	border-left: 3px solid var(--gh-alert-warning-colour);
+	margin: 0.4em 20px;
+	padding: 0em 10px;
+}
+.markdowncontent blockquote.alertwarning p.alertheading {
+	color: var(--gh-alert-warning-colour);
+    font-weight: bold;
+}
+
+.markdowncontent blockquote.alertcaution {
+	border-left: 3px solid var(--gh-alert-caution-colour);
+	margin: 0.4em 20px;
+	padding: 0em 10px;
+}
+.markdowncontent blockquote.alertcaution p.alertheading {
+	color: var(--gh-alert-caution-colour);
+    font-weight: bold;
 }
 
 /* Used in syntax-colouring for extension documentation */
@@ -1865,6 +1927,30 @@ div.generalindex span.indextokenbracketed {
 	font-style: italic;
 }
 
+div.generalindex span.indexcue {
+	color: var(--documentation-index-a-colour);
+    font-family: var(--informcode-fontfamily);
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexcuebracketed {
+	color: var(--documentation-index-b-colour);
+    font-family: var(--informdefault-fontfamily);
+	font-style: italic;
+}
+
+div.generalindex span.indexperfnote {
+	color: var(--documentation-index-a-colour);
+    font-family: var(--informcode-fontfamily);
+	font-size: 0.9em;
+}
+
+div.generalindex span.indexperfnotebracketed {
+	color: var(--documentation-index-b-colour);
+    font-family: var(--informdefault-fontfamily);
+	font-style: italic;
+}
+
 div.generalindex span.indexcommand {
 	color: var(--documentation-index-c-colour);
 	font-family: var(--informcommand-fontfamily);
@@ -2096,12 +2182,16 @@ upper limits, usually on the number of things of a particular sort which can be
 created, or on the amount of memory available for a given purpose.</p>
 <p>To get around this, look at the actual output produced by Inform 6 to see which
 memory setting was broken. For instance, suppose it said:</p>
-<blockquote class="extract-inform7"><span class="indexdullblue">The memory setting MAX_PROP_TABLE_SIZE (which is 30000 at present) has been exceeded.
+<!-- START CODE "code1" -->
+<blockquote class="extract-inform7"><a id="code1"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">memory</span><span class="plain-syntax"> </span><span class="identifier-syntax">setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">MAX_PROP_TABLE_SIZE</span><span class="plain-syntax"> (</span><span class="identifier-syntax">which</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">30000</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">present</span><span class="plain-syntax">) </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">been</span><span class="plain-syntax"> </span><span class="identifier-syntax">exceeded</span><span class="plain-syntax">.</span>
 </span></blockquote>
+<!-- END CODE -->
 <p>You then need to amend your Inform 7 source text to take account of this, by
 adding a sentence like the following:</p>
-<blockquote class="extract-inform7"><span class="indexdullblue">Use MAX_PROP_TABLE_SIZE of 50000.
+<!-- START CODE "code2" -->
+<blockquote class="extract-inform7"><a id="code2"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">MAX_PROP_TABLE_SIZE</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">50000</span><span class="plain-syntax">.</span>
 </span></blockquote>
+<!-- END CODE -->
 <p>With sentences like this, you can make Inform 6 raise its limits until there's
 no longer any problem.</p>
 

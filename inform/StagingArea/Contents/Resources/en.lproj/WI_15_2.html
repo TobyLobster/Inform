@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,49 +2212,69 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adaptive text" -->
+            <!-- SEARCH SECTION "15.2" -->
+            <!-- SEARCH SORT "001-015-002-000" -->
             <h3><span>Section 15.2: Adaptive text</span></h3>
             <p>                    </p>
             <p>Paying attention to the tense and viewpoint is one reason why text might need to adapt. Another is that it might need to adapt according to whether nouns are singular or plural, or whether it talks about the player or some third party. For example, the following rule isn't ideal:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> is pinned down by Dr Zarkov's force field.&quot;</span>
+            <!-- START CODE "code954" -->
+            <blockquote class="extract-inform7"><a id="code954"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] is pinned down by Dr Zarkov's force field.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Most of the time it's fine (<code class="inlinetranscript">The V-ray is pinned down by Dr Zarkov's force field</code>), but then:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET ME</span><br><span class="syntaxidentifier">You is pinned down by Dr Zarkov's force field.</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET CONDENSERS</span><br><span class="syntaxidentifier">The condensers is pinned down by Dr Zarkov's force field.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; GET ME<br>You is pinned down by Dr Zarkov's force field.<br>&gt; GET CONDENSERS<br>The condensers is pinned down by Dr Zarkov's force field.<br></code></pre></div>
             <p>Which is a little unfortunate. But the correction is very easy:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> pinned down by Dr Zarkov's force field.&quot;</span>
+            <!-- START CODE "code955" -->
+            <blockquote class="extract-inform7"><a id="code955"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] [are] pinned down by Dr Zarkov's force field.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The result is much better: <code class="inlinetranscript">The V-ray is pinned down...</code>; <code class="inlinetranscript">You are...</code>; <code class="inlinetranscript">The condensers are...</code>. In fact, it's also convenient because it adapts to the story viewpoint and story tense: <code class="inlinetranscript">The condensers will be pinned down...</code>; <code class="inlinetranscript">He was pinned down...</code>.</p>
             <p>How does Inform do this? The answer is not that <code class="inlinesourcetext">&quot;[are]&quot;</code> is a specially-written text substitution. In fact Inform can do this with any verb that it has a definition of. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[carry]</span><span class="syntaxstring"> too much static charge.&quot;</span>
+            <!-- START CODE "code956" -->
+            <blockquote class="extract-inform7"><a id="code956"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The noun] [carry] too much static charge.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would also adapt itself – <code class="inlinetranscript">The V-ray carries too much static charge</code>, and so on. There aren't many verbs built in to Inform, but <code class="inlinesourcetext">&quot;[have]&quot;</code> and <code class="inlinesourcetext">&quot;[carry]&quot;</code> and <code class="inlinesourcetext">&quot;[wear]&quot;</code> and <code class="inlinesourcetext">&quot;[can]&quot;</code> may be useful, and <code class="inlinesourcetext">&quot;[can see]&quot;</code> and <code class="inlinesourcetext">&quot;[can touch]&quot;</code>. Negative forms like <code class="inlinesourcetext">&quot;[are not]&quot;</code> are also available:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[cannot touch]</span><span class="syntaxstring"> the ionizer terminal.&quot;</span>
+            <!-- START CODE "code957" -->
+            <blockquote class="extract-inform7"><a id="code957"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The noun] [cannot touch] the ionizer terminal.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might produce <code class="inlinetranscript">The V-ray will not be able to touch the ionizer terminal.</code>, for example.</p>
             <p>As these examples hint, the verb adapts itself to the most recently printed object name. All of this only works if the previous object's name is printed from a substitution. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The condensers]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> working.&quot;</span>
+            <!-- START CODE "code958" -->
+            <blockquote class="extract-inform7"><a id="code958"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The condensers] [are] working.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will work – correctly forming <code class="inlinetranscript">The condensers are working.</code>, <code class="inlinetranscript">The condensers will be working.</code> or <code class="inlinetranscript">The condensers were working.</code>, according to the story tense – but</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The condensers </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> working.&quot;</span>
+            <!-- START CODE "code959" -->
+            <blockquote class="extract-inform7"><a id="code959"></a><span class="indexdullblue"><span class="string-syntax">&quot;The condensers [are] working.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>probably won't work. Inform doesn't have any way to understand the raw text outside of the text substitution marks <code class="inlinesourcetext">&quot;[&quot; and &quot;]&quot;</code>, and it doesn't recognise <code class="inlinesourcetext">The condensers</code> as being something's name.</p>
             <p>Something else to be careful with is the use of lists. If we write this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The condensers]</span><span class="syntaxstring"> and </span><span class="syntaxextract">[the V-ray]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> smashed by Voltan's birdmen.&quot;</span>
+            <!-- START CODE "code960" -->
+            <blockquote class="extract-inform7"><a id="code960"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The condensers] and [the V-ray] [are] smashed by Voltan's birdmen.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then Inform is likely to print:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The condensers and the V-ray is smashed by Voltan's birdmen.</span><br></code></pre></div>
+                <pre><code class="language-transcript">The condensers and the V-ray is smashed by Voltan's birdmen.<br></code></pre></div>
             <p>because it looks at the most recently named object – the V-ray, singular – to decide whether to use <code class="inlinetranscript">is</code> or <code class="inlinetranscript">are</code>. On the other hand, Inform gets this right:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The list of things on the bench]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> smashed by Voltan's birdmen.&quot;</span>
+            <!-- START CODE "code961" -->
+            <blockquote class="extract-inform7"><a id="code961"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The list of things on the bench] [are] smashed by Voltan's birdmen.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Because Inform constructs the list itself, it's able to appreciate that the things listed are jointly the subject of the verb, and it uses that information to decide on <code class="inlinetranscript">is</code> or <code class="inlinetranscript">are</code>. So:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The condensers and the V-ray are smashed by Voltan's birdmen.</span><br><span class="syntaxidentifier">The Atomic Furnace shovel is smashed by Voltan's birdmen.</span><br></code></pre></div>
+                <pre><code class="language-transcript">The condensers and the V-ray are smashed by Voltan's birdmen.<br>The Atomic Furnace shovel is smashed by Voltan's birdmen.<br></code></pre></div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_1.html"><span class="markdowncontent">Chapter 15: Adaptive Text and Responses</span></a> &bull; <a href="WI_15_3.html"><span class="markdowncontent">Section 15.3: More on adapting verbs</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

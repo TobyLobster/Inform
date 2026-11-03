@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.14: Images and other resources</span></title>
+    <title><span class="markdowncontent">Section 29.14: Advanced website templates</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_13.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.14: Images and other resources</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.14: Advanced website templates</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_15.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,44 +2212,132 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.14: Images and other resources</span></h3>
-            <p>An extension directory can, optionally, contain a subdirectory called <code class="inlinecode">Materials</code>. If it does, this can then contain a wide variety of useful things, laid out almost exactly like the materials folder for a project. Because it's included in the extension, anybody downloading the extension gets all of these extras along with it.</p>
-            <p>So, then:</p>
-            <ul>
-            <li>
-            <p>Figures can be provided in <code class="inlinecode">Materials/Figures</code>.</p>
-            </li>
-            <li>
-            <p>Sound effects can be provided in <code class="inlinecode">Materials/Sounds</code>.</p>
-            </li>
-            <li>
-            <p>Data files can be provided in <code class="inlinecode">Materials/Data</code>.</p>
-            </li>
-            <li>
-            <p>Templates for websites or interpreters can be provided in <code class="inlinecode">Materials/Templates</code>. This means extensions can be wrappers for these, so that users of such templates do not even need to write their own release instructions - because those can be put in the extension's source text.</p>
-            </li>
-            <li>
-            <p>Kits can be provided in <code class="inlinecode">Materials/Inter</code>. They are private to this extension, and are linked into a project including the extension <em>if the extension metadata says so</em>. See <a href="WI_32_1.html" title="Chapter 32: Kits">Kits</a>.</p>
-            </li>
-            <li>
-            <p>Language bundles can be provided in <code class="inlinecode">Materials/Languages</code>. That goes beyond the scope of this manual, but language bundles enable stories to use natural languages other than English.</p>
-            </li>
-            </ul>
-            <p>But an important exception is that extensions may <em>not</em> be provided in <code class="inlinecode">Materials/Extensions</code>. Extensions containing other extensions... is a regress too far.</p>
-            <p>As an example, Inform supports figure and sound effect declarations like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Figure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dalmatian</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mascot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;dalmatian.jpg&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">water</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;gushing.ogg&quot;</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Advanced website templates" -->
+            <!-- SEARCH SECTION "29.14" -->
+            <!-- SEARCH SORT "001-029-014-000" -->
+            <h3><span>Section 29.14: Advanced website templates</span></h3>
+            <p> </p>
+            <p>The following describes how Inform uses the extras file and the two HTML pages in a template, and will only be needed if a new template has to make changes so radical that altering the CSS alone won't be enough.</p>
+            <p>The optional <code class="inlinesourcetext">(extras).txt</code> file – note brackets – is a text file which contains a list of named extras to throw in. For instance:</p>
+            <!-- START CODE "code1815" -->
+            <blockquote class="extract-inform7"><a id="code1815"></a><span class="indexdullblue"><span class="identifier-syntax">easter</span><span class="plain-syntax">.</span><span class="identifier-syntax">html</span>
+            <br>
+            <span class="identifier-syntax">egg</span><span class="plain-syntax">.</span><span class="identifier-syntax">png</span>
             </span></blockquote>
-            <p>If such sentences are found in the main source text, nothing changes about their meaning: the files, <code class="inlinecode">dalmatian.jpg</code> and <code class="inlinecode">gushing.ogg</code>, are looked for in the project's materials folder, as before.</p>
-            <p>But if such sentences are found in the source text for an extension directory, then Inform looks for the files first in the materials for the extension. If it doesn't find them there, it then turns to the project's materials folder.</p>
-            <p>If Inform does find that the extension directory has provided the resource, it then just checks to see if the author has <em>overridden</em> this. For example, suppose the author using <code class="inlinesourcetext">Red Fire Hydrants by Emily Short</code> doesn't like the dog picture, and wants to substitute a better one. That author can then supply this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Hypothetical Project.materials/Figures/Red Fire Hydrants/dalmatian.jpg</span><br></code></pre></div>
-            <p>Note that this is in a subdirectory of <code class="inlinecode">Figures</code>, with the same name as that of the extension. This means the author could replace <code class="inlinecode">dalmatian.jpg</code> from multiple different extensions, while still having a quite unrelated <code class="inlinecode">dalmatian.jpg</code> used by the project's main source text.</p>
+            <!-- END CODE -->
+            <p>These named files need to be present in the template folder. Files with the extension <code class="inlinesourcetext">.html</code> go through the placeholder expansion process just like the index and source pages; all other files are copied verbatim.</p>
+            <p>HTML templates like <code class="inlinesourcetext">index.html</code> and <code class="inlinesourcetext">source.html</code> are fully valid HTML pages in their own right, though they have placeholder text where Inform will substitute the project's bibliographic data (see below). The <code class="inlinesourcetext">&lt;head&gt;</code> element should include a reference to <code class="inlinesourcetext">style.css</code>, which of course will mean the CSS file given in the template (or the one from <code class="inlinesourcetext">Standard</code> if no CSS file is given) – for instance,</p>
+            <div class="extract-html">
+                <pre><code class="language-html">&lt;link rel=&quot;stylesheet&quot; href=&quot;style.css&quot; type=&quot;text/css&quot; media=&quot;all&quot; /&gt;<br></code></pre></div>
+            <p>When it turns the template into the final web page, what Inform does is to replace certain capitalised words in square brackets with the appropriate text:</p>
+            <table>
+            <thead>
+            <tr>
+            <th>Placeholder</th>
+            <th>Becomes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><code class="inlinesourcetext">[TITLE]</code></td>
+            <td>the story title</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[AUTHOR]</code></td>
+            <td>the author's name</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[YEAR]</code></td>
+            <td>the story creation year</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[BLURB]</code></td>
+            <td>the story description</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[RELEASE]</code></td>
+            <td>the release number</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[COVER]</code></td>
+            <td>an image of the cover art (the small 120x120 cover image)</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[DOWNLOAD]</code></td>
+            <td>the download link</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[AUXILIARY]</code></td>
+            <td>the list of feelie-like files, if any</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[IFID]</code></td>
+            <td>the IFID</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[STORYFILE]</code></td>
+            <td>the &quot;leafname&quot; of the story file, e.g., <code class="inlinesourcetext">Bronze.gblorb</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[TEMPLATE]</code></td>
+            <td>the name of the template used to make the page</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[SMALLCOVER]</code></td>
+            <td>the filename of the cover when used at a smaller size</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[BIGCOVER]</code></td>
+            <td>the filename of the cover when used at full size</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[TIMESTAMP]</code></td>
+            <td>the time of releasing</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[DATESTAMP]</code></td>
+            <td>the date of releasing</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>Everything else is left alone. In source pages, five further placeholders are available:</p>
+            <table>
+            <thead>
+            <tr>
+            <th>Placeholder</th>
+            <th>Becomes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><code class="inlinesourcetext">[SOURCE]</code></td>
+            <td>the portion of the source text on this page</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[SOURCELINKS]</code></td>
+            <td>the navigational links</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[SOURCENOTES]</code></td>
+            <td>the footnote matter at the bottom of the source</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[PAGENUMBER]</code></td>
+            <td>the first number in &quot;page 2 of 7&quot;-like page counts</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">[PAGEEXTENT]</code></td>
+            <td>the second number in &quot;page 2 of 7&quot;-like page counts</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>Both [SOURCE] and [SOURCENOTES] must exist on the page, and [SOURCENOTES] must appear after [SOURCE] does in the file. (Of course the CSS in <code class="inlinesourcetext">style.css</code> might move the copy around on screen, but that's another matter.)</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_13.html"><span class="markdowncontent">Section 29.13: Extensions in the Index</span></a> &bull; <a href="WI_29_15.html"><span class="markdowncontent">Section 29.15: Use options for extensions</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_13.html"><span class="markdowncontent">Section 29.13: Website templates</span></a> &bull; <a href="WI_29_15.html"><span class="markdowncontent">Section 29.15: Republishing existing works of IF</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

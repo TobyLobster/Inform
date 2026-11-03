@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.7: The Joy of Feelies</span></title>
+    <title><span class="markdowncontent">Section 27.7: Declaring and playing back sounds</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_6.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.7: The Joy of Feelies</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.7: Declaring and playing back sounds</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_8.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,24 +2212,52 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.7: The Joy of Feelies</span></h3>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Declaring and playing back sounds" -->
+            <!-- SEARCH SECTION "27.7" -->
+            <!-- SEARCH SORT "001-027-007-000" -->
+            <h3><span>Section 27.7: Declaring and playing back sounds</span></h3>
             <p>   </p>
-            <p>&quot;Feelie&quot; is a slang word, again going back to the early days of IF, for something tactile included with commercially sold copies of IF games. For instance, Infocom's <em>Wishbringer</em> was not just a diskette in a pretty box: the box also contained a map, a letter, an envelope, a magic stone (well, a stone) and a booklet. Most of this was purely for fun, and to flesh out background to the story, but there would usually be clues sneaked into the text or artwork as well.</p>
-            <p>Today's IF is usually not supplied in physical packaging, and not accompanied by physical objects. But authors do sometimes want to include extraneous matter, whether it's a simple read-me file of instructions or a multimedia extravaganza. Inform does not provide facilities to make artwork, movies, soundscapes, booklets, etc.: there are plenty of programs out there to do all of that already.</p>
-            <p>But Inform does help with the collation and packaging-together. For instance, by placing the following sentence in the source text:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio magazine&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio.pdf&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The mating call of the green wyvern&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Mating Wyverns.mp3&quot;</span><span class="syntaxplain">.</span>
+            <p>Sound effects are accommodated on the same basis as illustrations. The relevant media files need to be placed in a subfolder of the project's <code class="inlinesourcetext">.materials</code> folder, but this time called Sounds rather than Figures, so for instance:</p>
+            <!-- START CODE "code1752" -->
+            <blockquote class="extract-inform7"><a id="code1752"></a><span class="indexdullblue"><span class="identifier-syntax">Example</span><span class="plain-syntax">.</span><span class="identifier-syntax">inform</span>
+            <br>
+            <span class="identifier-syntax">Example</span><span class="plain-syntax">.</span><span class="identifier-syntax">materials</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Figures</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Woodlands</span><span class="plain-syntax">.</span><span class="identifier-syntax">png</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Blackberry</span><span class="plain-syntax">.</span><span class="identifier-syntax">jpg</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Red</span><span class="plain-syntax"> </span><span class="identifier-syntax">Admiral</span><span class="plain-syntax"> </span><span class="identifier-syntax">Butterfly</span><span class="plain-syntax">.</span><span class="identifier-syntax">png</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Sounds</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Rustling</span><span class="plain-syntax"> </span><span class="identifier-syntax">leaves</span><span class="plain-syntax">.</span><span class="identifier-syntax">ogg</span>
             </span></blockquote>
-            <p>...we tell Inform that we will also be providing two additional files. Note that in each case we supply a brief description and a filename. The filename should always have a standard file extension for a well-known and thoroughly standardised file format – <code class="inlinesourcetext">.pdf</code> and <code class="inlinesourcetext">.mp3</code> are pretty safe: so for instance are <code class="inlinesourcetext">.txt</code>, <code class="inlinesourcetext">.png</code>, <code class="inlinesourcetext">.jpg</code>, <code class="inlinesourcetext">.html</code>. The filename should not include punctuation marks other than the full stop dividing name from extension, and should not exceed 30 characters in length.</p>
-            <p>It is also possible to supply a feelie which is not a single file, but is a mini-website: that is, a collection of interlinked HTML (and perhaps other) files. The convention here would be:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Baltrazar's Guide to Magic&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Guide&quot;</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>Again, these must be declared in the source text:</p>
+            <!-- START CODE "code1753" -->
+            <blockquote class="extract-inform7"><a id="code1753"></a><span class="indexdullblue"><span class="identifier-syntax">Sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rustling</span><span class="plain-syntax"> </span><span class="identifier-syntax">leaves</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Rustling leaves.ogg&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>The absence of a file extension on the filename <code class="inlinesourcetext">Guide</code> tells Inform that the feelie in question is a mini-website: it is expected to sit inside a folder called <code class="inlinesourcetext">Guide</code>, with its home page being <code class="inlinesourcetext">Guide/index.html</code>. However, a mini-website like this must be created by hand: Inform does not copy it into place, it only creates links to the place where it ought to be put.</p>
-            <p>We have seen that Inform takes the story file, which is analogous to the pages of a book, and places it into a Blorb archive, analogous to the binding. These new additional files are not placed in the Blorb, because that would make the Blorb archive rather large (and would hide them from the player, which defeats the purpose). But references to them do appear in the Blorb, so that any interpreter playing the Blorb would be able to tell that there are supposed to be additional files available. Similarly, references are entered onto the library card.</p>
+            <!-- END CODE -->
+            <p>And they can be played using a special phrase:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn482" -->
+                <p class="defnprototype"><a id="defn482"></a>play (sound name)</p>
+                <!-- END PHRASE -->
+                <p>This phrase causes the sound effect to be played. If the option <code class="inlinesourcetext">one time only</code> is used, it will have no effect if the sound effect has been played before. Example:</p>
+                <!-- START CODE "code1754" -->
+                <blockquote class="extract-inform7"><a id="code1754"></a><span class="indexdullblue"><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">rustling</span><span class="plain-syntax"> </span><span class="identifier-syntax">leaves</span><span class="plain-syntax">;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_6.html"><span class="markdowncontent">Section 27.6: The Release button and the Materials folder</span></a> &bull; <a href="WI_27_8.html"><span class="markdowncontent">Section 27.8: Cover art</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_6.html"><span class="markdowncontent">Section 27.6: Recorded sounds</span></a> &bull; <a href="WI_27_8.html"><span class="markdowncontent">Section 27.8: Providing accessibility text</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

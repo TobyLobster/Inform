@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Getting Started with Conversation" -->
+            <!-- SEARCH SECTION "7.6" -->
+            <!-- SEARCH SORT "002-007-006-000" -->
             <h3><span>Section 7.6: Getting Started with Conversation</span></h3>
             <p>
             Traditionally, conversation is one of the most difficult things to program in interactive fiction, because of the number of factors affecting the outcome of everything the player does. While it's acceptable for <code class="inlinetranscriptcommand">examine pot</code> to produce the same response every time the player types it, it's a bit less acceptable for <code class="inlinetranscriptcommand">ask joe about his adultery</code> to make Joe react the same way every time.</p>
@@ -2135,30 +2224,28 @@
             <p>The challenge is to create an interface that is both easy for the player to use and expressive enough to be interesting. We will look at some of the common solutions in <a href="RB_7_8.html" title="Section 7.8: Saying Complicated Things">Saying Complicated Things</a>.</p>
             <p>The examples in the following sections point out ways to approach common conversation problems. None of them will offer an adequate system if we want to write a very conversationally rich story, however. This is partly because a thorough conversation system requires quite a lot of code in its own right. It's also partly because there is no one right solution to the problem of conversation design. Different games will have quite different requirements. When making decisions about a new story we have planned, it may be useful to glance through the conversation extensions available for Inform: there are quite a few, offering a range of different interfaces. Even if none is exactly suited for our needs, they may suggest ways to solve particular implementation challenges.</p>
             <p>At the other end of the scale, though, there are times when Inform's default implementation is too complicated for what we want to do: so we will start with ways to simplify conversation, before moving to all the exotic complexities.</p>
-            <p>Before we get into these details, though, we have a couple of examples that are literally about getting started with a conversation: <a href="eg_116.html">Mimicry</a> introduces the feature that we must greet other characters before beginning to speak to them; <a href="eg_359.html">The Gorge at George</a> corrects the player's attempts to use a <code class="inlinetranscriptcommand">talk to</code> command where a different mode of interaction is appropriate instead.</p>
+            <p>Before we get into these details, though, we have a couple of examples that are literally about getting started with a conversation: <a href="eg_2.html">Mimicry</a> introduces the feature that we must greet other characters before beginning to speak to them; <a href="eg_356.html">The Gorge at George</a> corrects the player's attempts to use a <code class="inlinetranscriptcommand">talk to</code> command where a different mode of interaction is appropriate instead.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg359><a style="text-decoration: none" href="eg_359.html"><span class="extensionexampleletter">359</span></a></span></div>
+                    <span id=eg356><a style="text-decoration: none" href="eg_356.html"><span class="extensionexampleletter">356</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_359.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Gorge at George</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_356.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Gorge at George</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">If the player tries to <code class="inlinetranscriptcommand">talk to</code> a character, suggest alternative modes of conversation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg359><a style="text-decoration: none" href="WI_19_22.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg356><a style="text-decoration: none" href="WI_19_22.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg116><a style="text-decoration: none" href="eg_116.html"><span class="extensionexampleletter">116</span></a></span></div>
+                    <span id=eg2><span class="extensionexampleletter">2</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_116.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mimicry</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_2.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mimicry</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">People who must be greeted before conversation can begin.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg116><a style="text-decoration: none" href="WI_7_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_5.html"><span class="markdowncontent">Section 7.5: Combat and Death</span></a> &bull; <a href="RB_7_7.html"><span class="markdowncontent">Section 7.7: Saying Simple Things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

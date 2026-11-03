@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.6: Controlling how kits are linked</span></title>
+    <title><span class="markdowncontent">Section 32.6: Notes, tips, and cautions</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_5.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.6: Controlling how kits are linked</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.6: Notes, tips, and cautions</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_7.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,134 +2212,51 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.6: Controlling how kits are linked</span></h3>
-            <p>Towards the end of building an Inform project, any kits needed by its extensions are <em>linked</em> into it. (They may need to be built first.)</p>
-            <p>Because certain extensions are automatically present in projects, certain kits are always part of the linking. Specifically:</p>
-            <table>
-            <thead>
-            <tr>
-            <th>Kit</th>
-            <th>Belongs to</th>
-            <th>Included when</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td><code class="inlinecode">BasicInformKit</code></td>
-            <td><code class="inlinesourcetext">Basic Inform</code></td>
-            <td>Always</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">Architecture16Kit</code></td>
-            <td><code class="inlinesourcetext">Basic Inform</code></td>
-            <td>If building for 16-bit architectures</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">Architecture32Kit</code></td>
-            <td><code class="inlinesourcetext">Basic Inform</code></td>
-            <td>If building for 32-bit architectures</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">WorldModelKit</code></td>
-            <td><code class="inlinesourcetext">Standard Rules</code></td>
-            <td>All non-basic projects</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">CommandParserKit</code></td>
-            <td><code class="inlinesourcetext">Standard Rules</code></td>
-            <td>All non-basic projects</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">DialogueKit</code></td>
-            <td><code class="inlinesourcetext">Standard Rules</code></td>
-            <td>Projects using dialogue features</td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">EnglishLanguageKit</code></td>
-            <td><code class="inlinesourcetext">English Language</code></td>
-            <td>All projects communicating in English</td>
-            </tr>
-            </tbody>
-            </table>
-            <p>So it is safe to say that our kit will not be the only one in the project, and besides the kits, of course, there is also the &quot;trunk&quot; of Inter code coming from compilation of the source text.</p>
-            <h4><span>Private and public names</span></h4>
-            <p>How do kits interact? For the most part, one kit can refer to functions, arrays and variables in another just by name. For example, <code class="inlinecode">RootsOfEquationsKit</code> can call <code class="inlinecode">SquareRoot</code> from <code class="inlinecode">BasicInformKit</code> just as if it were one of its own functions. This is because <code class="inlinecode">SquareRoot</code> is a <em>public</em> function of <code class="inlinecode">BasicInformKit</code>. &quot;Public&quot; names are the ones which are visible to other kits.</p>
-            <p>By default, all names are public. But this has a down side. We might want a tricky bit of memory manipulation to happen exactly right, and so would not want to let anybody else call a particularly delicate function from out of context. Or we might want just to hide names which aren't important, in order to avoid name-clashes. At present, if two kits both define a public function called <code class="inlinecode">SquareRoot</code>, and both are linked into a project, an error will halt linking.</p>
-            <p>So perhaps kits ought to make only a limited and carefully chosen set of names public, and make the rest <em>private</em>. Here's how to make a private function:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Notes, tips, and cautions" -->
+            <!-- SEARCH SECTION "32.6" -->
+            <!-- SEARCH SORT "001-032-006-000" -->
+            <h3><span>Section 32.6: Notes, tips, and cautions</span></h3>
+            <p>Inform supports a modest extension to Markdown format made by GitHub which
+            allows block quotations to become informational or warning notices. Thus:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+private [ MyFunction;</span><br><span class="syntaxidentifier">    &quot;Only I can use this.&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Note the <em>annotation</em> <code class="inlinecode">+private</code>. This is an I6 syntax allowed only in kits, and is not strictly speaking part of the Inform 6 language. The practical result is that other code in <code class="inlinecode">RootsOfEquationsKit</code> can call <code class="inlinecode">MyFunction()</code>, but other kits cannot. Indeed, another kit could have its own function also called <code class="inlinecode">MyFunction</code>, without any clash of names occurring.</p>
-            <p>To prevent confusion, Inform throws a problem message if these markers are used redundantly - for example, if a function is marked <code class="inlinecode">+public</code> in a context where it would have been public anyway.</p>
-            <h4><span>Namespaces</span></h4>
-            <p>All code in a kit is considered as belonging to some <em>namespace</em>. Where none is declared, this will be <code class="inlinecode">main</code>, the global namespace.</p>
-            <p>The annotation:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+namespace(SomeName);</span><br></code></pre></div>
-            <p>which must occur on its own (note the semicolon <code class="inlinecode">;</code> rather than any directive following on from it) declares that the directives which follow all belong to the namespace <code class="inlinecode">SomeName</code> This continues to the end of the kit, or to the next <code class="inlinecode">+namespace</code> marker, whichever comes first.</p>
-            <p>Within a namespace, all identifiers are implicitly prefixed with the namespace name and a backtick (except for <code class="inlinesourcetext">main</code>, where identifiers are as written). Thus:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+namespace(Secret);</span><br><span class="syntaxidentifier">[ Function x;</span><br><span class="syntaxidentifier">    ...</span><br><span class="syntaxidentifier">];</span><br><span class="syntaxidentifier">Constant z = 2;</span><br><span class="syntaxidentifier">+namespace(main);</span><br><span class="syntaxidentifier">Constant z = 1;</span><br></code></pre></div>
-            <p>creates the identifiers <code class="inlinecode">Secret`Function</code>, <code class="inlinecode">Secret`z</code>, and <code class="inlinecode">z</code>. The two definitions of what looks like <code class="inlinecode">z</code> are therefore not contradictory, because they define two different things.</p>
-            <p>Within a namespace other than <code class="inlinecode">main</code>, writing an unqualified identifier will implicitly mean &quot;the definition in this namespace if there is one, and the definition in <code class="inlinecode">main</code> if not&quot;. For example:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+namespace(Secret);</span><br><span class="syntaxidentifier">[ Example;</span><br><span class="syntaxidentifier">    Hello(z);           ! Calls Hello in the namespace Secret with argument 2 </span><br><span class="syntaxidentifier">    main`Example();     ! Calls Example in the namespace main</span><br><span class="syntaxidentifier">];</span><br><span class="syntaxidentifier">Constant z = 2;</span><br><br><span class="syntaxidentifier">[ Hello x;</span><br><span class="syntaxidentifier">    print &quot;Hello to &quot;, x, &quot;.^&quot;;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">+namespace(main);</span><br><span class="syntaxidentifier">Constant z = 7;</span><br><span class="syntaxidentifier">[ Example;</span><br><span class="syntaxidentifier">    Secret`Hello(z);    ! Calls Hello in the namespace Secret with argument 7</span><br><span class="syntaxidentifier">    Hello(13);          ! An error: there is no Hello in the namespace main</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Namespaces cannot be nested and can be reopened at any point. If two different
-            kits both use a namespace called <code class="inlinecode">SoundEffects</code>, then it's the same namespace.</p>
-            <p>Optionally, <code class="inlinecode">+namespace</code> can specify a default access. For example:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+namespace(Secret, access private);</span><br></code></pre></div>
-            <p>puts us in namespace <code class="inlinecode">Secret</code>, and says that until the next namespace marker, all definitions are by default private, as if they were all marked <code class="inlinecode">+private</code>. Similarly for <code class="inlinecode">access public</code>, though that is the default.</p>
-            <p>Note that it's fine to write something like:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+namespace(main, access public);</span><br><br><span class="syntaxidentifier">[ MyAPIFunction;</span><br><span class="syntaxidentifier">    MyImplementation(1745);</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">+namespace(main, access private);</span><br><br><span class="syntaxidentifier">[ MyImplementation undocumented_number;</span><br><span class="syntaxidentifier">    ...</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>thus dividing a kit into a public half and a private half, but keeping all of the names in the default <code class="inlinecode">main</code> namespace.</p>
-            <p>The namespace <code class="inlinecode">replaced</code> is reserved for the linker's own use, and attempting to create anything in it will throw an error.</p>
-            <h4><span>Replacing public definitions from other kits</span></h4>
-            <p>When the linker joins blocks of Inter code together, it looks for clashes between names. A clash can only occur if both names are the same, are in the same namespace, and are both public.</p>
-            <p>Even then, if exactly one of these definitions was annotated <code class="inlinecode">+replacing</code> then there is no clash: the replacing definition wins. So, for example, if <code class="inlinecode">SomeNewKit</code> includes:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+replacing [ SquareRoot num;</span><br><span class="syntaxidentifier">    &quot;Nobody cares about square roots, son.&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>then both it and <code class="inlinecode">BasicInformKit</code> define functions of the same name: but this definition wins, because it is marked <code class="inlinecode">+replacing</code>. And the practical effect is that <code class="inlinecode">SomeNewKit</code> can therefore replace any public function it likes from <code class="inlinecode">BasicInformKit</code>, or <code class="inlinecode">WorldModelKit</code>.</p>
-            <p><code class="inlinecode">+replacing</code> means &quot;let this definition triumph over any other&quot;. If the linker finds two definitions both marked as <code class="inlinecode">+replacing</code> in this way, there's once again an error message, since they can't both win.</p>
-            <p>Optionally, the annotation can be more specific:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+replacing(from BasicInformKit) [ SquareRoot num;</span><br><span class="syntaxidentifier">    ...</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>allows this definition to replace the one in <code class="inlinecode">BasicInformKit</code>, but continue
-            to throw a linking error if an unexpected rival appears from elsewhere.</p>
-            <p>Replacement is a more slippery idea than it first seems. Some things to bear
-            in mind:</p>
-            <ul>
-            <li>
-            <p>If no clash ever occurs, no error is produced. The <code class="inlinecode">+replacing</code> definition
-            may not in fact have replaced anything, but it's still the valid one. So
-            it's possible to mark a definition as <code class="inlinecode">+replacing</code> which would overlap a
-            definition in some other kit which might or might not be being used.</p>
-            </li>
-            <li>
-            <p>It is not possible to use <code class="inlinecode">+replacing</code> to override a <code class="inlinecode">+private</code> definition in another kit. Private names really are private.</p>
-            </li>
-            <li>
-            <p>By default, the replaced definition is simply thrown away, but if <code class="inlinecode">+replacing(keeping)</code> is used instead then the discarded definition is kept alongside the new one. It clearly cannot have the same name as before, so it is moved into the namespace <code class="inlinecode">replaced</code>.</p>
-            </li>
-            </ul>
-            <p>For example, this effectively says &quot;double the value of <code class="inlinecode">REQUISITION_STACK_SIZE</code>, whatever that is&quot;:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+replacing(keeping) Constant REQUISITION_STACK_SIZE = (2 * replaced`REQUISITION_STACK_SIZE);</span><br></code></pre></div>
-            <p>Whereas this would produce an error:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+replacing Constant REQUISITION_STACK_SIZE = (2 * replaced`REQUISITION_STACK_SIZE);</span><br></code></pre></div>
-            <p>since then <code class="inlinecode">replaced`REQUISITION_STACK_SIZE</code> would not exist: the old definition
-            would have been destroyed, and so could not have been used.</p>
-            <p>Or for another example, the following &quot;corrects&quot; the output of the existing definition of <code class="inlinecode">SquareRoot</code> from <code class="inlinecode">BasicInformKit</code> by rounding up to the nearest natural number, rather than down:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">+replacing(keeping) [ SquareRoot num x;</span><br><span class="syntaxidentifier">    x = replaced`SquareRoot(num);</span><br><span class="syntaxidentifier">    if (x*x &lt; num) x++;</span><br><span class="syntaxidentifier">    return x;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>so that <code class="inlinesourcetext">the square root of 17</code> will then evaluate to 5, not 4.</p>
-            <p>Note that <code class="inlinecode">+replacing(keeping)</code> can only be applied to global variables (<code class="inlinecode">Global ...</code>), constants, arrays and functions: a problem message will be thrown for attempts to use it with any other constructs.</p>
+                <pre><code class="language-code">&gt; [!NOTE]<br>&gt; Useful information that users should know, even when skimming content.<br><br>&gt; [!TIP]<br>&gt; Helpful advice for doing things better or more easily.<br><br>&gt; [!IMPORTANT]<br>&gt; Key information users need to know to achieve their goal.<br><br>&gt; [!WARNING]<br>&gt; Urgent info that needs immediate user attention to avoid problems.<br><br>&gt; [!CAUTION]<br>&gt; Advises about risks or negative outcomes of certain actions.<br></code></pre></div>
+            <p>(This is GitHub's own description of what these tags are for.) The result is:</p>
+            <blockquote class="alertnote">
+            <p class="alertheading">ⓘ Note</p>
+            <p>Useful information that users should know, even when skimming content.</p>
+            </blockquote>
+            <blockquote class="alerttip">
+            <p class="alertheading">☂ Tip</p>
+            <p>Helpful advice for doing things better or more easily.</p>
+            </blockquote>
+            <blockquote class="alertimportant">
+            <p class="alertheading">☞ Important</p>
+            <p>Key information users need to know to achieve their goal.</p>
+            </blockquote>
+            <blockquote class="alertwarning">
+            <p class="alertheading">⚠ Warning</p>
+            <p>Urgent info that needs immediate user attention to avoid problems.</p>
+            </blockquote>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>Advises about risks or negative outcomes of certain actions.</p>
+            </blockquote>
+            <p>Thus:</p>
+            <blockquote class="alerttip">
+            <p class="alertheading">☂ Tip</p>
+            <p>A stamp sold as mint condition should have undisturbed gum for anything
+            issued after about 1930. Look for very fine (VF) centering, intact
+            perforations, postmarks (on used examples) that don't obscure the design,
+            ideally with clear date and city details.</p>
+            </blockquote>
+            <p>Like all other block quotations, these can contain all manner of other
+            material inside, and not only text.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_5.html"><span class="markdowncontent">Section 32.5: Assigning use options to kits</span></a> &bull; <a href="WI_32_7.html"><span class="markdowncontent">Section 32.7: Neptune and enumerative kinds</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_5.html"><span class="markdowncontent">Section 32.5: Block quotations and phrase boxes</span></a> &bull; <a href="WI_32_7.html"><span class="markdowncontent">Section 32.7: Tables</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

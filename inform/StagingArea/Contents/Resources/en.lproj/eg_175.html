@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,114 +2193,206 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg175><a style="text-decoration: none" href="WI_11_4.html"><span class="extensionexampleletter">175</span></a></span></div>
+                <span id=eg175><a style="text-decoration: none" href="WI_11_5.html"><span class="extensionexampleletter">175</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pure Choice</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a branching text with no world model to speak of.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">German Chocolate</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Allowing a character to doggedly pursue a particular subject of conversation.</span></span></div>
             <div class="exampleright">
-                <span id=eg175><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg175><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>It's quite possible to implement a choice-based story entirely within the dialogue system, so that no commands are ever typed in.</p>
-        <p>And it's then almost possible to have the source text consist only of a great big dialogue section, but not quite. We still need a room for the player to be in, which we'll call <code class="inlinesourcetext">Stage Set</code> here. And if there were other actors who spoke in the story, they'd also need to be created as <code class="inlinesourcetext">people</code> and put in this same room.</p>
-        <p>In this example, though, we'll make things look even less like traditional interactive fiction by suppressing the standard room description entirely. And as nobody speaks except the narrator, we don't need any <code class="inlinesourcetext">people</code> either. We needn't even create a room: Inform will automatically make a room for the story to take place in, but players won't ever be aware of it.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Pure Choice[=0x0022=][=0x000A=][=0x000A=]Section 1 - The play (dialogue)[=0x000A=][=0x000A=](This is the starting beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]Here we might place our opening narration.[=0x000A=][=0x000A=]We could go on for several paragraphs, if we like. There[=0x0027=]s no need to make them separate lines of narration if we do not want to.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I get the general idea.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]Good.[=0x0022=] [=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Cool. Now show me something else.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]This text is only shown because of the choice you just made. But in a moment, we[=0x0027=]ll rejoin the same storyline as though you[=0x0027=]d made the opposite decision. Right about... NOW.[=0x0022=] [=0x000A=][=0x000A=]Narration: [=0x0022=]Speaking of choices, the following two won[=0x0027=]t make any difference at all. The player[=0x0027=]s decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I will remember this.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]I will forget this almost immediately.[=0x0022=][=0x000A=][=0x000A=]Narration: [=0x0022=]Here, by contrast...[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]This branch is actually significant.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the lefthand beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]As is this one.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the righthand beat[=0x000A=][=0x0009=][=0x0009=][=0x000A=](This is the lefthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the left door.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=][=0x000A=](This is the righthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Pure Choice&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "German Chocolate" -->
+        <!-- SEARCH SECTION "Example 175" -->
+        <!-- SEARCH SORT "003-175-000-000" -->
+        <p>
+
+         </p>
+        <p>Sometimes instead of free-flowing dialogue we may want a character who is able to persistently go after a particular question. Here, we allow goal-seeking so that even if the player changes the topic, the character will keep looking for segues to the important point.</p>
+        <!-- START CODE "code3157" -->
+        <blockquote class="extract-inform7"><a id="code3157"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]German Chocolate[=0x0022=][=0x000A=][=0x000A=]Chapter 1 - Setting[=0x000A=] [=0x000A=]Parlour is a room. Louisa is a person in Parlour.[=0x000A=][=0x000A=]Before reading a command while the turn count is 1:[=0x000A=][=0x0009=]make the dialogue director active.[=0x000A=][=0x0009=][=0x000A=]Test me with [=0x0022=]z / talk about lunch / talk about money / z / z[=0x0022=].[=0x000A=][=0x000A=]Chapter 2 - Content[=0x000A=][=0x000A=]Section 1 - Concepts[=0x000A=][=0x000A=]Suggestion relates various concepts to each other. The verb to suggest means the suggestion relation.[=0x000A=][=0x000A=]Food is a concept. Food suggests breakfast, lunch, dinner, dessert, and beverages.[=0x000A=][=0x000A=]Dessert suggests chocolate cake.[=0x000A=][=0x000A=]The target concept is a concept that varies. The target concept is chocolate cake.[=0x000A=][=0x000A=]Money is a concept. Money suggests economics. Economics suggests the cocoa industry. The cocoa industry suggests chocolate.[=0x000A=][=0x000A=]Section 2 - Traversal[=0x000A=][=0x000A=]Every turn:[=0x000A=][=0x0009=]let current concept be entry 1 in the live conversational subject list;[=0x000A=][=0x0009=]let proximate concept be the next step via the suggestion relation from current concept to the target concept;[=0x000A=][=0x0009=]clear conversational subjects;[=0x000A=][=0x0009=]try Louisa talking about the proximate concept;[=0x000A=][=0x0009=]if the proximate concept is the target concept:[=0x000A=][=0x0009=][=0x0009=]end the story finally saying [=0x0022=]She got to the point in the end.[=0x0022=][=0x000A=][=0x000A=][=0x000A=]Section 3 - Actual content (dialogue) [=0x000A=][=0x000A=](This is the starting beat. About food.)[=0x000A=][=0x000A=]Louisa: [=0x0022=]I am so hungry.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About food. Fully recurring.)[=0x000A=][=0x000A=]Louisa: [=0x0022=][one of]Gosh, I could really go for something to eat![or]...okay, I know I[=0x0027=]m getting annoying on this subject but I am still so hungry.[or]I get so feisty when my blood sugar drops.[or]Is there really nothing to eat around here?[stopping][=0x0022=][=0x000A=][=0x000A=][=0x000A=](About lunch.)[=0x000A=][=0x000A=]Player: [=0x0022=]I missed lunch, but it[=0x0027=]s no big deal.[=0x0022=][=0x000A=][=0x000A=]Louisa: [=0x0022=]You[=0x0027=]re so brave.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About dessert.)[=0x000A=][=0x000A=]Louisa: [=0x0022=]I could really go for something sweet.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About dessert. Fully recurring.)[=0x000A=][=0x000A=]Louisa (without speaking): [=0x0022=]Louisa comes back around to the subject of desserts.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About chocolate cake.)[=0x000A=][=0x000A=]Louisa: [=0x0022=]Are you eating the leftover chocolate cake? Because if you[=0x0027=]re not, I mean, if you don[=0x0027=]t want it... it[=0x0027=]s only that I[=0x0027=]m starving.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About money.)[=0x000A=][=0x000A=]Player: [=0x0022=]I[=0x0027=]m broke this month. I[=0x0027=]ve got to keep my expenses down until next month[=0x0027=]s paycheck comes in.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About economics.)[=0x000A=][=0x000A=]Louisa: [=0x0022=]Things are difficult all over, I think. It[=0x0027=]s a shame, really. Though... it could be worse. Some countries are in much worse economic condition than we are.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About cocoa industry.)[=0x000A=][=0x000A=]Louisa: [=0x0022=]I saw a documentary about the cocoa industry just recently. It really makes you think, you know, about where we get our chocolate from.[=0x0022=][=0x000A=][=0x000A=][=0x000A=](About the cocoa industry and economics. Fully recurring.)[=0x000A=][=0x000A=]Louisa (without speaking): [=0x0022=]Louisa revisits the topic of fair trade chocolate.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;German Chocolate&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - The play (dialogue)</span>
+        <span class="identifier-syntax">Chapter</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Setting</span>
         <br>
 
         <br>
-        <span class="syntaxfunction">(This is the starting beat.)</span>
+        <span class="identifier-syntax">Parlour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Louisa</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Parlour</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Here we might place our opening narration.</span>
+        <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">:</span>
         <br>
-
-        <br>
-        <span class="syntaxstring">We could go on for several paragraphs, if we like. There's no need to make them separate lines of narration if we do not want to.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I get the general idea.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">director</span><span class="plain-syntax"> </span><span class="identifier-syntax">active</span><span class="plain-syntax">.</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Good.&quot;</span><span class="syntaxplain"> </span>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;z / talk about lunch / talk about money / z / z&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Cool. Now show me something else.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;This text is only shown because of the choice you just made. But in a moment, we'll rejoin the same storyline as though you'd made the opposite decision. Right about... NOW.&quot;</span><span class="syntaxplain"> </span>
+        <span class="identifier-syntax">Chapter</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Content</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Speaking of choices, the following two won't make any difference at all. The player's decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.&quot;</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Concepts</span>
         <br>
 
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I will remember this.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I will forget this almost immediately.&quot;</span>
+        <span class="identifier-syntax">Suggestion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">concepts</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">each</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggest</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggestion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Here, by contrast...&quot;</span>
+        <span class="identifier-syntax">Food</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">. </span><span class="identifier-syntax">Food</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggests</span><span class="plain-syntax"> </span><span class="identifier-syntax">breakfast</span><span class="plain-syntax">, </span><span class="identifier-syntax">lunch</span><span class="plain-syntax">, </span><span class="identifier-syntax">dinner</span><span class="plain-syntax">, </span><span class="identifier-syntax">dessert</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">beverages</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;This branch is actually significant.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the lefthand beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;As is this one.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the righthand beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxfunction">(This is the lefthand beat.)</span>
+        <span class="identifier-syntax">Dessert</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggests</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You have passed through the left door.&quot;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxfunction">-&gt; end the story finally</span>
+        <span class="identifier-syntax">Money</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">. </span><span class="identifier-syntax">Money</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggests</span><span class="plain-syntax"> </span><span class="identifier-syntax">economics</span><span class="plain-syntax">. </span><span class="identifier-syntax">Economics</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggests</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cocoa</span><span class="plain-syntax"> </span><span class="identifier-syntax">industry</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cocoa</span><span class="plain-syntax"> </span><span class="identifier-syntax">industry</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggests</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxfunction">(This is the righthand beat.)</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Traversal</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.&quot;</span>
+        <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">entry</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">live</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subject</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">proximate</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">next</span><span class="plain-syntax"> </span><span class="identifier-syntax">step</span><span class="plain-syntax"> </span><span class="identifier-syntax">via</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suggestion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">clear</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subjects</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">Louisa</span><span class="plain-syntax"> </span><span class="identifier-syntax">talking</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">proximate</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">proximate</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">target</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;She got to the point in the end.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxfunction">-&gt; end the story finally</span>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Actual</span><span class="plain-syntax"> </span><span class="identifier-syntax">content</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">) </span>
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">starting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">. </span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">food</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I am so hungry.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">food</span><span class="plain-syntax">. </span><span class="identifier-syntax">Fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;[one of]Gosh, I could really go for something to eat![or]...okay, I know I'm getting annoying on this subject but I am still so hungry.[or]I get so feisty when my blood sugar drops.[or]Is there really nothing to eat around here?[stopping]&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">lunch</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I missed lunch, but it's no big deal.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You're so brave.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">dessert</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I could really go for something sweet.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">dessert</span><span class="plain-syntax">. </span><span class="identifier-syntax">Fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Louisa comes back around to the subject of desserts.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">chocolate</span><span class="plain-syntax"> </span><span class="identifier-syntax">cake</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Are you eating the leftover chocolate cake? Because if you're not, I mean, if you don't want it... it's only that I'm starving.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">money</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I'm broke this month. I've got to keep my expenses down until next month's paycheck comes in.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">economics</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Things are difficult all over, I think. It's a shame, really. Though... it could be worse. Some countries are in much worse economic condition than we are.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">cocoa</span><span class="plain-syntax"> </span><span class="identifier-syntax">industry</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I saw a documentary about the cocoa industry just recently. It really makes you think, you know, about where we get our chocolate from.&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cocoa</span><span class="plain-syntax"> </span><span class="identifier-syntax">industry</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">economics</span><span class="plain-syntax">. </span><span class="identifier-syntax">Fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Louisa</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Louisa revisits the topic of fair trade chocolate.&quot;</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_4.html>Section 11.4: When the director is passive</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_5.html>Section 11.5: When the director is active</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

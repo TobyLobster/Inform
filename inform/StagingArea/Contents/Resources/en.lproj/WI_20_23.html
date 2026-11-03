@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,39 +2212,139 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Constructing the status line" -->
+            <!-- SEARCH SECTION "20.23" -->
+            <!-- SEARCH SORT "001-020-023-000" -->
             <h3><span>Section 20.23: Constructing the status line</span></h3>
             <p>   </p>
-            <p><strong>1. When it happens.</strong> Just before input is accepted from the keyboard, Inform constructs a &quot;status line&quot; at the top of the window which is normally displayed in reverse colours (white on black instead of black on white, say).</p>
-            <p><strong>2. The default behaviour.</strong> Makes the status line up out of two pieces, the <code class="inlinesourcetext">left hand status line</code> and the <code class="inlinesourcetext">right hand status line</code>. Since these can freely be changed, note that the status line is already very customisable without using rules applied to this activity.</p>
-            <p><strong>3. Examples.</strong> (a) The most useful thing about this activity is that it allows us to vary descriptions in the status line. This is especially helpful to abbreviate unduly long room names, which might not otherwise fit:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Thousand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mightily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peeved</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Deities</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">constructing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Temple&quot;</span><span class="syntaxplain">.</span>
+            <p><strong>1. When it happens.</strong> Just before input is accepted from the keyboard, Inform constructs a &quot;status window&quot; at the top of the window which is normally displayed in reverse colours (white on black instead of black on white, say). This was once just a single line, and the name of this activity is a reminder of those simpler times.</p>
+            <p><strong>2. The default behaviour.</strong> Makes the status window up as a single line with two pieces, printed from the text variables <code class="inlinesourcetext">left hand status line</code> and the <code class="inlinesourcetext">right hand status line</code>. Since these can freely be changed, note that the status window is already very customisable without using rules applied to this activity. (See <a href="WI_8_3.html" title="Section 8.3: Changing the status line">Changing the status line</a>.)</p>
+            <p><strong>3. Examples.</strong> (a) One use for this activity is to vary location names in the status window. This is especially helpful to abbreviate unduly long names, which might not otherwise fit:</p>
+            <!-- START CODE "code1377" -->
+            <blockquote class="extract-inform7"><a id="code1377"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax"> </span><span class="identifier-syntax">Of</span><span class="plain-syntax"> </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thousand</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mightily</span><span class="plain-syntax"> </span><span class="identifier-syntax">Peeved</span><span class="plain-syntax"> </span><span class="identifier-syntax">Deities</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">constructing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Temple&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <p>Note that this works not by adding a rule to the activity, but by detecting whether or not it is currently running.</p>
             <p>(b) Again, it's usually not necessary to apply activity rules to this, but occasionally amusing effects are possible if we do:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blindfold</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">constructing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blindfold</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">worn</span><span class="syntaxplain">: </span><span class="syntaxidentifier">do</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1378" -->
+            <blockquote class="extract-inform7"><a id="code1378"></a><a class="actionlink" href="javascript:pasteCode('The blindfold is wearable and carried. Rule for constructing the status line while the blindfold is worn: do nothing.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">blindfold</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearable</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax">. </span><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">constructing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">blindfold</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">worn</span><span class="plain-syntax">: </span><span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <p>(c) More dramatically:</p>
+            <!-- START CODE "code1379" -->
+            <blockquote class="extract-inform7"><a id="code1379"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">dry</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax">. </span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beach</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">South</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beach</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Continental</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shelf</span><span class="plain-syntax">.</span>
+            <br>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shelf</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Oxygen</span><span class="plain-syntax"> </span><span class="identifier-syntax">remaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decrement</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">oxygen</span><span class="plain-syntax"> </span><span class="identifier-syntax">remaining</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">oxygen</span><span class="plain-syntax"> </span><span class="identifier-syntax">remaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">less</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You have drowned&quot;</span><span class="plain-syntax">.</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dry</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">oxygen</span><span class="plain-syntax"> </span><span class="identifier-syntax">remaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You hold your breath.&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dry</span><span class="plain-syntax"> </span><span class="identifier-syntax">land</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">oxygen</span><span class="plain-syntax"> </span><span class="identifier-syntax">remaining</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You take a breath with great relief.&quot;</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">undersea</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">details</span></span><br>
+            <table border="0" cellspacing="0" cellpadding="0">
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">left</span><span class="plain-syntax"> </span><span class="identifier-syntax">column</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">middle</span><span class="plain-syntax"> </span><span class="identifier-syntax">column</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">right</span><span class="plain-syntax"> </span><span class="identifier-syntax">column</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;[the player's surroundings]&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="plain-syntax">--</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;[score]/[turn count]&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;[bold type]Submerged[roman type]&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Oxygen: [oxygen remaining]&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;DANGER&quot;</span></span>
+                    </td>
+                </tr>
+
+                <br>
+            </table>
+            <span class="indexdullblue">
+            <br>
+            <span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">constructing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">underwater</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">draw</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">undersea</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">details</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>For further effects, see <a href="WI_25_5.html" title="Section 25.5: The main screen and the status window">The main screen and the status window</a>.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg379><a style="text-decoration: none" href="eg_379.html"><span class="extensionexampleletter">379</span></a></span></div>
+                    <span id=eg376><a style="text-decoration: none" href="eg_376.html"><span class="extensionexampleletter">376</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_379.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ways Out</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_376.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ways Out</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A status line that lists the available exits from the current location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg379><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg376><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg380><a style="text-decoration: none" href="eg_380.html"><span class="extensionexampleletter">380</span></a></span></div>
+                    <span id=eg377><a style="text-decoration: none" href="eg_377.html"><span class="extensionexampleletter">377</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_380.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Guided Tour</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_377.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Guided Tour</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A status line that lists the available exits from the current location, changing the names of these exits depending on whether the room has been visited or not.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg380><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg377><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_22.html"><span class="markdowncontent">Section 20.22: Printing the description of a dark room</span></a> &bull; <a href="WI_20_24.html"><span class="markdowncontent">Section 20.24: Writing a paragraph about</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

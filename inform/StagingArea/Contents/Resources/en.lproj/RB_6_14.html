@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,71 +2212,75 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Remembering, Converting and Combining Actions" -->
+            <!-- SEARCH SECTION "6.14" -->
+            <!-- SEARCH SORT "002-006-014-000" -->
             <h3><span>Section 6.14: Remembering, Converting and Combining Actions</span></h3>
             <p>
-            Sometimes we want Inform to apply a player's action to a different target than the one specified: for instance, directing all (or almost all) commands from the doorknob to the door of which it is a part. <a href="eg_94.html">Fine Laid</a> demonstrates how to do this. Along the same lines, <a href="eg_97.html">Lucy</a> shows how to direct a player's conversation action to apply to a new conversation topic.</p>
+            Sometimes we want Inform to apply a player's action to a different target than the one specified: for instance, directing all (or almost all) commands from the doorknob to the door of which it is a part. <a href="eg_93.html">Fine Laid</a> demonstrates how to do this. Along the same lines, <a href="eg_96.html">Lucy</a> shows how to direct a player's conversation action to apply to a new conversation topic.</p>
             <p>We can also record a series of actions performed by the player or by another character.</p>
-            <p><a href="eg_242.html">Cactus Will Outlive Us All</a> demonstrates characters each of whom reacts to a very specific provocation; <a href="eg_462.html">I Didn't Come All The Way From Great Portland Street</a> implements a game show in which the player is not allowed ever to repeat an action they have already performed; and <a href="eg_458.html">Leopard-skin</a> implements a maze which the player can escape only by performing a specific sequence of actions.</p>
-            <p><a href="eg_244.html">Anteaters</a> provides a peculiar gizmo that can remember actions performed in its presence and force the player to reiterate them.</p>
+            <p><a href="eg_239.html">Cactus Will Outlive Us All</a> demonstrates characters each of whom reacts to a very specific provocation; <a href="eg_459.html">I Didn't Come All The Way From Great Portland Street</a> implements a game show in which the player is not allowed ever to repeat an action they have already performed; and <a href="eg_455.html">Leopard-skin</a> implements a maze which the player can escape only by performing a specific sequence of actions.</p>
+            <p><a href="eg_241.html">Anteaters</a> provides a peculiar gizmo that can remember actions performed in its presence and force the player to reiterate them.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg242><a style="text-decoration: none" href="eg_242.html"><span class="extensionexampleletter">242</span></a></span></div>
+                    <span id=eg239><a style="text-decoration: none" href="eg_239.html"><span class="extensionexampleletter">239</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_242.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cactus Will Outlive Us All</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_239.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cactus Will Outlive Us All</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">For every character besides the player, there is an action that will cause that character to wither right up and die.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg242><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg239><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg94><a style="text-decoration: none" href="eg_94.html"><span class="extensionexampleletter">94</span></a></span></div>
+                    <span id=eg93><a style="text-decoration: none" href="eg_93.html"><span class="extensionexampleletter">93</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_94.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fine Laid</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_93.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fine Laid</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making writing that can be separately examined from the paper on which it appears, but which directs all other actions to the paper.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg94><a style="text-decoration: none" href="WI_7_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg93><a style="text-decoration: none" href="WI_7_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg462><a style="text-decoration: none" href="eg_462.html"><span class="extensionexampleletter">462</span></a></span></div>
+                    <span id=eg459><a style="text-decoration: none" href="eg_459.html"><span class="extensionexampleletter">459</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_462.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">I Didn't Come All The Way From Great Portland Street</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_459.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">I Didn't Come All The Way From Great Portland Street</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">In this fiendishly difficult puzzle, which may perhaps owe some inspiration to a certain BBC Radio panel game (1967-), a list is used as a set of actions to help enforce the rule that the player must keep going for ten turns without hesitation, repetition, or deviating from the subject on the card.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg462><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg459><a style="text-decoration: none" href="WI_23_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg458><a style="text-decoration: none" href="eg_458.html"><span class="extensionexampleletter">458</span></a></span></div>
+                    <span id=eg455><a style="text-decoration: none" href="eg_455.html"><span class="extensionexampleletter">455</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_458.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Leopard-skin</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_455.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Leopard-skin</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A maze that the player can escape if they perform an exact sequence of actions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg458><a style="text-decoration: none" href="WI_23_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg455><a style="text-decoration: none" href="WI_23_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg97><a style="text-decoration: none" href="eg_97.html"><span class="extensionexampleletter">97</span></a></span></div>
+                    <span id=eg96><a style="text-decoration: none" href="eg_96.html"><span class="extensionexampleletter">96</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_97.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lucy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_96.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lucy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Redirecting a question about one topic to ask about another.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg97><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg96><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg244><a style="text-decoration: none" href="eg_244.html"><span class="extensionexampleletter">244</span></a></span></div>
+                    <span id=eg241><a style="text-decoration: none" href="eg_241.html"><span class="extensionexampleletter">241</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_244.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anteaters</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_241.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anteaters</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The player carries a gizmo that is able to record actions performed by the player, then force them to repeat those actions when the gizmo is dropped. This includes storing actions that apply to topics, as in <code class="inlinetranscriptcommand">look up anteater colonies in the guide</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg244><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg241><a style="text-decoration: none" href="WI_13_20.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_13.html"><span class="markdowncontent">Section 6.13: Magic Words</span></a> &bull; <a href="RB_6_15.html"><span class="markdowncontent">Section 6.15: Actions on Multiple Objects</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 30.6: Tables</span></title>
+    <title><span class="markdowncontent">Section 30.6: Competitions, Exhibitions, and Jams</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_30_5.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.6: Tables</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 30.6: Competitions, Exhibitions, and Jams</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_30_7.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,105 +2212,23 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 30.6: Tables</span></h3>
-            <p></p>
-            <p>A simple table looks like so, with pipe characters <code class="inlinecode">|</code> dividing the columns; it will only become a table if there is a ruler line under the column headings.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Column 1 | Column 2 | Column 3</span><br><span class="syntaxidentifier">-------- | -------- | --------</span><br><span class="syntaxidentifier">A        | B        | C</span><br><span class="syntaxidentifier">D        | E        | F</span><br><span class="syntaxidentifier">G        | H        | I</span><br></code></pre></div>
-            <p>which produces</p>
-            <blockquote>
-            <table>
-            <thead>
-            <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>Column 3</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>A</td>
-            <td>B</td>
-            <td>C</td>
-            </tr>
-            <tr>
-            <td>D</td>
-            <td>E</td>
-            <td>F</td>
-            </tr>
-            <tr>
-            <td>G</td>
-            <td>H</td>
-            <td>I</td>
-            </tr>
-            </tbody>
-            </table>
-            </blockquote>
-            <p>There's no actual need to be tidy about lining up the pipes.</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Column 1 | Column 2 | Column 3</span><br><span class="syntaxidentifier">-------- | -------- | --------</span><br><span class="syntaxidentifier">A | B | C</span><br><span class="syntaxidentifier">D             | E        |       F</span><br><span class="syntaxidentifier">     G |    H          | I</span><br></code></pre></div>
-            <p>produces exactly the same result.</p>
-            <p>Table entries cannot contain other tables, or block code samples, or lists, or anything like that: but they can happily contain the simpler markup:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Column 1  | Column 2    | Column 3</span><br><span class="syntaxidentifier">--------- | ----------- | ---------</span><br><span class="syntaxidentifier">**Alpha** | _Beta_      | ~~Gamma~~</span><br><span class="syntaxidentifier">`Delta`   | ``EPSILON`` | ``Zeta``</span><br><span class="syntaxidentifier">```Eta``` | Theta       | ι</span><br></code></pre></div>
-            <p>producing:</p>
-            <blockquote>
-            <table>
-            <thead>
-            <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
-            <th>Column 3</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td><strong>Alpha</strong></td>
-            <td><em>Beta</em></td>
-            <td><del>Gamma</del></td>
-            </tr>
-            <tr>
-            <td><code class="inlinesourcetext">Delta</code></td>
-            <td><code class="inlinetranscriptcommand">epsilon</code></td>
-            <td><code class="inlinetranscript">Zeta</code></td>
-            </tr>
-            <tr>
-            <td><code class="inlinecode">Eta</code></td>
-            <td>Theta</td>
-            <td>ι</td>
-            </tr>
-            </tbody>
-            </table>
-            </blockquote>
-            <p>Table columns can be aligned leftwards or rightwards by adding colons <code class="inlinecode">:</code> to the ruler line, as in this example:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">| Stamp                                                 | Price   |</span><br><span class="syntaxidentifier">| :---------------------------------------------------- | ------: |</span><br><span class="syntaxidentifier">| GB 1883 SG183 10s Ultramarine                         | €614.72 |</span><br><span class="syntaxidentifier">| GB 1862 SG77 3d Pale carmine-rose (Wmk. Emblems) Pl.2 | €234.18 |</span><br></code></pre></div>
-            <p>producing:</p>
-            <blockquote>
-            <table>
-            <thead>
-            <tr>
-            <th align="left">Stamp</th>
-            <th align="right">Price</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td align="left">GB 1883 SG183 10s Ultramarine</td>
-            <td align="right">€614.72</td>
-            </tr>
-            <tr>
-            <td align="left">GB 1862 SG77 3d Pale carmine-rose (Wmk. Emblems) Pl.2</td>
-            <td align="right">€234.18</td>
-            </tr>
-            </tbody>
-            </table>
-            </blockquote>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Competitions, Exhibitions, and Jams" -->
+            <!-- SEARCH SECTION "30.6" -->
+            <!-- SEARCH SORT "001-030-006-000" -->
+            <h3><span>Section 30.6: Competitions, Exhibitions, and Jams</span></h3>
+            <p>   </p>
+            <p>One very common way to get players for IF is to enter the story into an IF competition. The annual IF Competition, often just called IFComp, is the most prestigious and has the widest field, but the Spring Thing, ParserComp, EctoComp, and other events also catch people's attention. Entering a competition is a path of least effort for authors promoting their new work, because the competition organiser usually takes care of hosting and archiving submitted stories, promoting the competition as a whole, collecting votes, and encouraging players to post reviews. Different contests have different arrangements. The <a href="https://ifwiki.org">IFWiki</a> usually posts a list of current and upcoming competitions, as well as lists of results for those recently past, on its front page.</p>
+            <p>Some competitions also have their own websites, at least at the relevant times of year.</p>
+            <p>All the same, there are many IF works that aren't cut out for competition release. Competitions tend to be best for short or medium-short works, because judges don't necessarily have time to play a lot of long stories at once, and sometimes this is a condition of entry.</p>
+            <p>It's also good for publicity to win one of the annual <a href="https://xyzzyawards.org">XYZZY Awards</a>. All interactive fiction stories released in a given year are eligible, as long as they are listed on IFDB.</p>
+            <p>Meanwhile, itch.io hosts many jams every year. A small handful of these are specifically intended for interactive fiction or parser-based adventures, but there are many other jams that allow entrants to put up any game with an appropriate theme, regardless of its format. The <a href="https://itch.io/jams">itch.io Jams Calendar</a> lists the jams that are coming up.</p>
+            <p>Finally, if your project is heavily focused on procedural generation – creating or remixing elements on each playthrough – then it may have a natural home at <a href="https://www.procjam.com/">Procjam</a>, a yearly event to &quot;make something that makes something&quot;, and welcomes all kinds of generative projects, whether they are games or not.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_30_5.html"><span class="markdowncontent">Section 30.5: Block quotations and phrase boxes</span></a> &bull; <a href="WI_30_7.html"><span class="markdowncontent">Section 30.7: Lists and to-do items</span></a></em></p>
+        <p><em> &bull; <a href="WI_30_5.html"><span class="markdowncontent">Section 30.5: IFDB: The Interactive Fiction Database</span></a> &bull; <a href="WI_30_7.html"><span class="markdowncontent">Section 30.7: Meetups and Conferences</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

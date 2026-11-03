@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.12: Neptune and short-block-only values</span></title>
+    <title><span class="markdowncontent">Section 32.12: Testing</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_11.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.12: Neptune and short-block-only values</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.12: Testing</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_13.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,40 +2212,28 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.12: Neptune and short-block-only values</span></h3>
-            <p>In this section we look at still another way to set up a base kind. Instead of having a short block which points to a long block, and putting all the data in the long block, we'll try for something a touch faster with less memory overhead: putting the data itself in the short block.</p>
-            <p>This can only work where a small amount of data is all that's needed. (In fact, <code class="inlinesourcetext">CMYK colour</code> would have been a good candidate for this, but never mind.) Here we'll make something very minimal: a vector of three numbers, which we can think of as x-, y- and z-coordinates.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Testing" -->
+            <!-- SEARCH SECTION "32.12" -->
+            <!-- SEARCH SORT "001-032-012-000" -->
+            <h3><span>Section 32.12: Testing</span></h3>
+            <p> </p>
+            <p>Like any software, extensions need to be tested. They should ideally be exercised on a variety of plausible use-cases, with each feature being tried out. The examples are often ideal for doing that. So, for example, any bug fix made in <code class="inlinesourcetext">Philately by Peter Drake</code> can be checked out for safety by making sure that its four existing examples run as they should.</p>
+            <p>Of course, this can be done by hand: by pasting in the example sources, running them in the Inform app, typing <code class="inlinetranscriptcommand">test me</code>, and then looking over the resulting transcript of play to make sure it's all as it should be.</p>
+            <p>But automated testing makes this much easier. From the documentation page on an extension, as displayed in the app, there is a link to a sub-page called <code class="inlinecode">run its 2 test case(s)</code> (or whatever number there are, of course). That page provides a menu of testing options: it's possible to test an individual example, or all of them at once. On each test, four options are provided:</p>
+            <p><em>Test</em>. Compile the paste-me-in source text, play its <code class="inlinetranscriptcommand">test me</code> script of commands, and check the transcript of the story which results against the correct or <em>blessed</em> transcript. This test can fail either if the story won't compile because of Problem messages, or if the story then plays incorrectly, or if no blessed transcript is available to check against.</p>
+            <p><em>Bless</em>. Compile the paste-me-in source text, play its <code class="inlinetranscriptcommand">test me</code> script of commands, and &quot;bless&quot; the transcript of the story which results as being the correct outcome.</p>
+            <p><em>Curse</em>. Remove the blessed transcript; there is then no officially correct version.</p>
+            <p><em>Rebless</em>. Equivalent to <em>curse</em> then <em>bless</em>. Effectively says that the new behaviour may be different to the old, but that that's intentional, and that the new way is good.</p>
+            <p>If we do bless the transcript of play from the two examples from <code class="inlinesourcetext">Philately</code>, and look inside the extension again, we see this:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">new base VECTOR_TY {</span><br><span class="syntaxidentifier">    conforms-to: POINTER_VALUE_TY</span><br><span class="syntaxidentifier">    conforms-to: SAYABLE_VALUE_TY</span><br><span class="syntaxidentifier">    singular: vector</span><br><span class="syntaxidentifier">    plural: vectors</span><br><span class="syntaxidentifier">    </span><br><span class="syntaxidentifier">    short-block-size: 5</span><br><span class="syntaxidentifier">    long-block-size: 0</span><br><span class="syntaxidentifier">    </span><br><span class="syntaxidentifier">    say-function: VECTOR_TY_Say</span><br><span class="syntaxidentifier">    compare-function: VECTOR_TY_Compare</span><br><span class="syntaxidentifier">    create-function: VECTOR_TY_Create</span><br><span class="syntaxidentifier">    copy-function: VECTOR_TY_Copy</span><br><br><span class="syntaxidentifier">    index-priority: 2</span><br><span class="syntaxidentifier">    index-default-value: 0</span><br><span class="syntaxidentifier">    specification-text: A three-vector which holds number values in its x, y, z coordinates.</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>The create function is a little different now:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Constant VECTOR_X_SF = 2;</span><br><span class="syntaxidentifier">Constant VECTOR_Y_SF = 3;</span><br><span class="syntaxidentifier">Constant VECTOR_Z_SF = 4;</span><br><br><span class="syntaxidentifier">[ VECTOR_TY_Create kind_id sb_address</span><br><span class="syntaxidentifier">    short_block;</span><br><br><span class="syntaxidentifier">    short_block = CreatePVShortBlock(sb_address, kind_id);</span><br><span class="syntaxidentifier">    short_block--&gt;VECTOR_X_SF = 0;</span><br><span class="syntaxidentifier">    short_block--&gt;VECTOR_Y_SF = 0;</span><br><span class="syntaxidentifier">    short_block--&gt;VECTOR_Z_SF = 0;</span><br><br><span class="syntaxidentifier">    return short_block;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Note that the fields are read and written <em>directly</em> from the short block, and not via the access functions <code class="inlinecode">PVField</code> and <code class="inlinecode">WritePVField</code>. Those write data to a long block, and this kind has no long block. This is good: it's fast, for one thing.</p>
-            <p>But the responsibility for writing only in range is now entirely on us, and we can use only words 2, 3 and 4: words 0 and 1 belong to the memory manager. That's why we defined</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Constant VECTOR_X_SF = 2;</span><br><span class="syntaxidentifier">Constant VECTOR_Y_SF = 3;</span><br><span class="syntaxidentifier">Constant VECTOR_Z_SF = 4;</span><br></code></pre></div>
-            <p>and not equating these to 0, 1, 2. In fact, we get slightly more storage than this: the memory manager leaves us 4 bits free in its own two words of the short block. See <a href="WI_32_14.html" title="Section 32.14: Neptune and optionals">Neptune and optionals</a> for how these can be used: we won't need them for <code class="inlinesourcetext">vector</code>.</p>
-            <p>The say and compare functions are quite concise:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ VECTOR_TY_Say vec;</span><br><span class="syntaxidentifier">    print &quot;(&quot;, vec--&gt;VECTOR_X_SF, &quot;,&quot;;</span><br><span class="syntaxidentifier">    print vec--&gt;VECTOR_Y_SF, &quot;,&quot;;</span><br><span class="syntaxidentifier">    print vec--&gt;VECTOR_Z_SF, &quot;)&quot;;</span><br><span class="syntaxidentifier">];</span><br><br><span class="syntaxidentifier">[ VECTOR_TY_Compare vec1 vec2 n1 n2 i j d;</span><br><span class="syntaxidentifier">    d = vec1--&gt;VECTOR_X_SF - vec2--&gt;VECTOR_X_SF; if (d ~= 0) return d;</span><br><span class="syntaxidentifier">    d = vec1--&gt;VECTOR_Y_SF - vec2--&gt;VECTOR_Y_SF; if (d ~= 0) return d;</span><br><span class="syntaxidentifier">    d = vec1--&gt;VECTOR_Z_SF - vec2--&gt;VECTOR_Z_SF; if (d ~= 0) return d;</span><br><span class="syntaxidentifier">    return 0;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>There's no need for a destroy function at all, since the data in a vector is only ordinary <code class="inlinesourcetext">number</code> values which need no destruction.</p>
-            <p>The copy function is now simple:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ VECTOR_TY_Copy vecto vecfrom;</span><br><span class="syntaxidentifier">    vecto--&gt;VECTOR_X_SF = vecfrom--&gt;VECTOR_X_SF;</span><br><span class="syntaxidentifier">    vecto--&gt;VECTOR_Y_SF = vecfrom--&gt;VECTOR_Y_SF;</span><br><span class="syntaxidentifier">    vecto--&gt;VECTOR_Z_SF = vecfrom--&gt;VECTOR_Z_SF;</span><br><span class="syntaxidentifier">    return false;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>And that's it. Still, we want a convenience initialiser too, as with <code class="inlinesourcetext">CMYK colour</code>, so:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ VECTOR_TY_New vec x y z;</span><br><span class="syntaxidentifier">    vec--&gt;VECTOR_X_SF = x;</span><br><span class="syntaxidentifier">    vec--&gt;VECTOR_Y_SF = y;</span><br><span class="syntaxidentifier">    vec--&gt;VECTOR_Z_SF = z;</span><br><span class="syntaxidentifier">    return vec;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>And we can then define this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vector</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vector</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">y</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">z</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">Z</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">VECTOR_TY_New</span><span class="syntaxplain">({-</span><span class="syntaxidentifier">new</span><span class="syntaxplain">: </span><span class="syntaxidentifier">vector</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">X</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">Y</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">Z</span><span class="syntaxplain">})) -).</span>
-            </span></blockquote>
-            <p>After which <code class="inlinesourcetext">vector x 10 y 12 z 20</code>, for example, will be said back as <code class="inlinetranscriptcommand">(10,12,20)</code>. Of course, there are lots of functions we could define for useful things to do with vectors, but the kind itself now exists.</p>
+                <pre><code class="language-code">Philately-v1.i7xd<br>    ...<br>    Documentation<br>        Documentation.md<br>        Examples<br>            Unhinged.txt<br>            Unhinged--I.txt<br>            PleaseDoNotPerforate.txt<br>            PleaseDoNotPerforate--I.txt<br>        Images<br>            InvertedJenny.jpg<br></code></pre></div>
+            <p>Two new files have appeared: <code class="inlinecode">Unhinged--I.txt</code> and <code class="inlinecode">PleaseDoNotPerforate--I.txt</code>. These are the ideal transcripts of play from those examples.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_11.html"><span class="markdowncontent">Section 32.11: Neptune and kinds stored in multiple words of data</span></a> &bull; <a href="WI_32_13.html"><span class="markdowncontent">Section 32.13: Neptune and kind constructors</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_11.html"><span class="markdowncontent">Section 32.11: Examples for extensions</span></a> &bull; <a href="WI_32_13.html"><span class="markdowncontent">Section 32.13: Test cases which are not examples</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

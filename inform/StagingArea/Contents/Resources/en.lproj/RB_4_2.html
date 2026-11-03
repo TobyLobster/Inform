@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,12 +2212,16 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Scripted Scenes" -->
+            <!-- SEARCH SECTION "4.2" -->
+            <!-- SEARCH SORT "002-004-002-000" -->
             <h3><span>Section 4.2: Scripted Scenes</span></h3>
             <p>
             Sometimes we want to arrange a scene in which something goes on in the background (as though it were a movie playing) while the player goes about their business; or where a series of things has to happen before the player gets to the end.</p>
-            <p>The simplest way to arrange background events for a scene is to write the sequence of events into a table and work our way through it, printing one line per turn, until the scene runs out. <a href="eg_166.html">Day One</a> does exactly this.</p>
-            <p>At other times, we want a scene to last as long as it takes the <em>player</em> to do something. <a href="eg_161.html">Entrapment</a> lets the player poke around and explore as much as they like, but ends as soon as they have accomplished the scene's goal–which, unfortunately for them, is to get into an embarrassing situation so that another character can walk in and make fun of them. <a href="eg_168.html">The Prague Job</a> has a scene that requires the player to do a more specific set of tasks, but nags them and hurries them along until they're done.</p>
-            <p><a href="eg_165.html">Bowler Hats and Baby Geese</a> assumes that our story is going to be assembled with a number of scenes, some of which will need to prevent the player from leaving the location until the scene is complete: it thus defines a <code class="inlinesourcetext">restricted</code> property for scenes, so that all such elements of the plot will work in the same way.</p>
+            <p>The simplest way to arrange background events for a scene is to write the sequence of events into a table and work our way through it, printing one line per turn, until the scene runs out. <a href="eg_163.html">Day One</a> does exactly this.</p>
+            <p>At other times, we want a scene to last as long as it takes the <em>player</em> to do something. <a href="eg_158.html">Entrapment</a> lets the player poke around and explore as much as they like, but ends as soon as they have accomplished the scene's goal–which, unfortunately for them, is to get into an embarrassing situation so that another character can walk in and make fun of them. <a href="eg_165.html">The Prague Job</a> has a scene that requires the player to do a more specific set of tasks, but nags them and hurries them along until they're done.</p>
+            <p><a href="eg_162.html">Bowler Hats and Baby Geese</a> assumes that our story is going to be assembled with a number of scenes, some of which will need to prevent the player from leaving the location until the scene is complete: it thus defines a <code class="inlinesourcetext">restricted</code> property for scenes, so that all such elements of the plot will work in the same way.</p>
             <p>For more complex sorts of scripts and schedules, it may be worth consulting the extensions.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2140,45 +2229,45 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg168><a style="text-decoration: none" href="eg_168.html"><span class="extensionexampleletter">168</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_168.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Prague Job</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Scenes used to provide pacing while the player goes through their possessions.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg168><a style="text-decoration: none" href="WI_10_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg161><a style="text-decoration: none" href="eg_161.html"><span class="extensionexampleletter">161</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_161.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrapment</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A scene in which the player is allowed to explore as much as they like, but another character strolls in as soon as they have gotten into an awkward or embarrassing situation.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg161><a style="text-decoration: none" href="WI_10_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
                     <span id=eg165><a style="text-decoration: none" href="eg_165.html"><span class="extensionexampleletter">165</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_165.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bowler Hats and Baby Geese</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Creating a category of scenes that restrict the player's behaviour.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_165.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Prague Job</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Scenes used to provide pacing while the player goes through their possessions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg165><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg165><a style="text-decoration: none" href="WI_10_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg166><a style="text-decoration: none" href="eg_166.html"><span class="extensionexampleletter">166</span></a></span></div>
+                    <span id=eg158><a style="text-decoration: none" href="eg_158.html"><span class="extensionexampleletter">158</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_166.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Day One</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_158.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrapment</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A scene in which the player is allowed to explore as much as they like, but another character strolls in as soon as they have gotten into an awkward or embarrassing situation.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg158><a style="text-decoration: none" href="WI_10_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg162><a style="text-decoration: none" href="eg_162.html"><span class="extensionexampleletter">162</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_162.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bowler Hats and Baby Geese</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating a category of scenes that restrict the player's behaviour.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg162><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg163><a style="text-decoration: none" href="eg_163.html"><span class="extensionexampleletter">163</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_163.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Day One</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A scene which plays through a series of events in order, then ends when the list of events is exhausted.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg166><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg163><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_1.html"><span class="markdowncontent">Chapter 4: Time and Plot</span></a> &bull; <a href="RB_4_3.html"><span class="markdowncontent">Section 4.3: Event Scheduling</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

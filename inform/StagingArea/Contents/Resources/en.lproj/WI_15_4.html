@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adapting text about the player" -->
+            <!-- SEARCH SECTION "15.4" -->
+            <!-- SEARCH SORT "001-015-004-000" -->
             <h3><span>Section 15.4: Adapting text about the player</span></h3>
             <p>           </p>
             <p>In second-person-singular IF, the player is always <code class="inlinetranscript">you</code>. Many messages look like so: <code class="inlinetranscript">You have twenty minutes remaining.</code> The subject, or the object, of the sentence is <code class="inlinetranscript">you</code>. But what if we want to have this text adapt itself to different narrative viewpoints?</p>
@@ -2139,18 +2228,20 @@
             <li><code class="inlinesourcetext">&quot;[Ourselves]&quot;</code> or <code class="inlinesourcetext">&quot;[ourselves]&quot;</code></li>
             </ul>
             <p>The capitalised and uncapitalised versions are identical except, of course, that the initial letter of the resulting text is upper case in one but not the other. As examples of these:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]</span><span class="syntaxstring"> </span><span class="syntaxextract">[carry]</span><span class="syntaxstring"> the Queen's warrant.&quot;</span>
+            <!-- START CODE "code966" -->
+            <blockquote class="extract-inform7"><a id="code966"></a><span class="indexdullblue"><span class="string-syntax">&quot;[We] [carry] the Queen's warrant.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;The birds drop pebbles on </span><span class="syntaxextract">[us]</span><span class="syntaxstring">. Right on </span><span class="syntaxextract">[our]</span><span class="syntaxstring"> heads!&quot;</span>
+            <span class="string-syntax">&quot;The birds drop pebbles on [us]. Right on [our] heads!&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;</span><span class="syntaxextract">[Ours]</span><span class="syntaxstring"> are the burdens of office, which </span><span class="syntaxextract">[we]</span><span class="syntaxstring"> take on </span><span class="syntaxextract">[ourselves]</span><span class="syntaxstring">.&quot;</span>
+            <span class="string-syntax">&quot;[Ours] are the burdens of office, which [we] take on [ourselves].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Notice that all five of these forms are differently worded, in English. That's the reason why we use the plural to write them – the traditional second person plural forms would be &quot;you&quot;, &quot;you&quot;, &quot;your&quot;, &quot;yours&quot; and &quot;yourself&quot;, so we wouldn't know if <code class="inlinesourcetext">&quot;[you]&quot;</code> was supposed to be the subject or the object of the verb. So the convention with all of these adaptive forms is that we use &quot;we&quot; and its variations. (That's also why the verbs are written in the plural – <code class="inlinesourcetext">&quot;[carry]&quot;</code>, not <code class="inlinesourcetext">&quot;[carries]&quot;</code>.)</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_3.html"><span class="markdowncontent">Section 15.3: More on adapting verbs</span></a> &bull; <a href="WI_15_5.html"><span class="markdowncontent">Section 15.5: Adapting text referring to other things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

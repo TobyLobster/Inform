@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,34 +2212,46 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Headings" -->
+            <!-- SEARCH SECTION "2.5" -->
+            <!-- SEARCH SORT "001-002-005-000" -->
             <h3><span>Section 2.5: Headings</span></h3>
             <p>          </p>
             <p>Once the source grows beyond 1000 words or so, it can all too easily become disorganised, and by the time it reaches the size of a novella it can be difficult to find things. (Though nearly all editors provide a Find function, and the keyboard short-cuts Command-F (Mac OS X) or Ctrl-F (Windows) do the trick in the Inform application.)</p>
             <p>Inform provides for us to organise the source code in just the way that a printed book would be organised: with headings and subheadings. Firstly, we can put the title at the top. If the first paragraph consists only of a single quoted piece of text, then that's the title; and an author can also be given, as follows:</p>
             <p></p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Spellbreaker&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dave</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lebling</span>
+            <!-- START CODE "code22" -->
+            <blockquote class="extract-inform7"><a id="code22"></a><span class="indexdullblue"><span class="string-syntax">&quot;Spellbreaker&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dave</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lebling</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We will later see that more bibliographic information can also be placed here, in the same way that the imprint page of a novel comes before the text gets going. The author's name can normally be given without quotation marks, so long as it contains no punctuation. For instance:</p>
             <p></p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Three Men in a Boat&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Jerome K. Jerome&quot;</span>
+            <!-- START CODE "code23" -->
+            <blockquote class="extract-inform7"><a id="code23"></a><span class="indexdullblue"><span class="string-syntax">&quot;Three Men in a Boat&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Jerome K. Jerome&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>needs quotes as otherwise the full stop after the K will be mistaken for the end of a sentence.</p>
             <p>A sentence which is the only one in its paragraph and which begins with any of the words <code class="inlinesourcetext">Volume</code>, <code class="inlinesourcetext">Book</code>, <code class="inlinesourcetext">Part</code>, <code class="inlinesourcetext">Chapter</code> or <code class="inlinesourcetext">Section</code> is considered to be a heading or a sub-heading. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 2 - Flamsteed's Balloon</span>
+            <!-- START CODE "code24" -->
+            <blockquote class="extract-inform7"><a id="code24"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Flamsteed</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Balloon</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It must not contain a typed line break, and in order to stand alone in its paragraph there should be a skipped line both before and after it. There's no need for a number to have any particular format, or to be used at all:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Book of Locations</span>
+            <!-- START CODE "code25" -->
+            <blockquote class="extract-inform7"><a id="code25"></a><span class="indexdullblue"><span class="identifier-syntax">Book</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Locations</span>
             <br>
 
             <br>
-            <span class="syntaxheading">Part II - The Sky</span>
+            <span class="identifier-syntax">Part</span><span class="plain-syntax"> </span><span class="identifier-syntax">II</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sky</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Headings are hierarchical: a <code class="inlinesourcetext">Part</code> heading is considered more significant than a <code class="inlinesourcetext">Chapter</code> heading but not so significant as a <code class="inlinesourcetext">Book</code> heading, and so on. Most stories do not use all five levels, of course.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_4.html"><span class="markdowncontent">Section 2.4: Problems</span></a> &bull; <a href="WI_2_6.html"><span class="markdowncontent">Section 2.6: Why using headings is a good idea</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

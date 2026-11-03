@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,107 +2212,137 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Map, filter and reduce" -->
+            <!-- SEARCH SECTION "24.5" -->
+            <!-- SEARCH SORT "001-024-005-000" -->
             <h3><span>Section 24.5: Map, filter and reduce</span></h3>
             <p>  </p>
             <p>When a mass of computations has to be done, the traditional approach is to work through them in a <code class="inlinesourcetext">repeat</code> loop. One modern alternative, growing in popularity, is to form a list of inputs; then apply the same computation to each input in turn to form a list of results (this is called &quot;mapping&quot;); throw out any bad or unwanted results (&quot;filtering&quot;); and then combine the surviving results into a single composite answer (&quot;reducing&quot;, though some programming languages call this &quot;folding&quot; or &quot;accumulation&quot;; it's a much-reinvented idea).</p>
             <p>Inform provides all three of these fundamental list-processing operations. There is no special term for a &quot;map&quot;, because Inform treats it as another case of <code class="inlinesourcetext">applied to</code>.</p>
             <div class="definition">
-                <p class="defnprototype">(phrase value -&gt; value) applied to (list of values) ... list of values</p>
+                <!-- START PHRASE "defn423" -->
+                <p class="defnprototype"><a id="defn423"></a>(phrase value -&gt; value) applied to (list of values) ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase takes the list, applies the phrase to each entry in the list, and forms a new list of the result. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">double</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doubling</span><span class="syntaxplain">):</span>
+                <!-- START CODE "code1688" -->
+                <blockquote class="extract-inform7"><a id="code1688"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">double</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">doubling</span><span class="plain-syntax">):</span>
                 <br>
-                <span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Then <code class="inlinesourcetext">doubling applied to 2</code> produces 4, by the simpler definition of <code class="inlinesourcetext">applied to</code>, but also:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">doubling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">}</span>
+                <!-- START CODE "code1689" -->
+                <blockquote class="extract-inform7"><a id="code1689"></a><span class="indexdullblue"><span class="identifier-syntax">doubling</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">}</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <blockquote>
             <p>produces the list <code class="inlinesourcetext">{4, 6, 8}</code>.</p>
             </blockquote>
             <p>More divertingly, suppose we define:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">longhand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">form</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">)</span>
+            <!-- START CODE "code1690" -->
+            <blockquote class="extract-inform7"><a id="code1690"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">longhand</span><span class="plain-syntax"> </span><span class="identifier-syntax">form</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain">):</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">spelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[N in words]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[N in words]&quot;</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">consonant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">form</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">T</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">text</span><span class="syntaxplain">)</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">consonant</span><span class="plain-syntax"> </span><span class="identifier-syntax">form</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">text</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">txtng</span><span class="syntaxplain">):</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">txtng</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">replace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&lt;aeiou&gt;&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&lt;aeiou&gt;&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Then we can write a chain of three maps in succession:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">txtng</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doubling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">19</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">}</span>
+            <!-- START CODE "code1691" -->
+            <blockquote class="extract-inform7"><a id="code1691"></a><span class="indexdullblue"><span class="identifier-syntax">txtng</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">spelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">doubling</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">19</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">}</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>to produce the value <code class="inlinesourcetext">{&quot;sx&quot;, &quot;sxtn&quot;, &quot;ght&quot;, &quot;thrty-ght&quot;, &quot;frtn&quot;}</code>.</p>
             <p>Next, filtering. Here we make use of descriptions, in order to say what values will be allowed through the filter. So:</p>
             <div class="definition">
-                <p class="defnprototype">filter to (description of values) of (list of values) ... list of values</p>
+                <!-- START PHRASE "defn424" -->
+                <p class="defnprototype"><a id="defn424"></a>filter to (description of values) of (list of values) ... list of values</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a new list which is a thinner version of the one given, so that it contains only those values which match the description given. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">filter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">even</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">19</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">}</span>
+                <!-- START CODE "code1692" -->
+                <blockquote class="extract-inform7"><a id="code1692"></a><span class="indexdullblue"><span class="identifier-syntax">filter</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">even</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">19</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">}</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <blockquote>
             <p>produces <code class="inlinesourcetext">{8, 4}</code>, with the values <code class="inlinesourcetext">3</code>, <code class="inlinesourcetext">19</code>, and <code class="inlinesourcetext">7</code> failing to make it through. A sufficiently fine filter may well thin out a list to a single entry, or even no entries at all, but the result is always a list.</p>
             </blockquote>
             <p>To get the full effect of filtering, we probably need to define an adjective or two. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Definition</span><span class="syntaxplain">: </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lengthy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">characters</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1693" -->
+            <blockquote class="extract-inform7"><a id="code1693"></a><span class="indexdullblue"><span class="identifier-syntax">Definition</span><span class="plain-syntax">: </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> (</span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">) </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">lengthy</span><span class="plain-syntax"> </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">characters</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can then write, for example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">filter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lengthy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">texts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> {15, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">20</span><span class="syntaxplain">, </span><span class="syntaxconstant">29</span><span class="syntaxplain">, -4};</span>
+            <!-- START CODE "code1694" -->
+            <blockquote class="extract-inform7"><a id="code1694"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">filter</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">lengthy</span><span class="plain-syntax"> </span><span class="identifier-syntax">texts</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">spelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> {15, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">20</span><span class="plain-syntax">, </span><span class="constant-syntax">29</span><span class="plain-syntax">, -4};</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which produces the list <code class="inlinesourcetext">{&quot;fifteen&quot;, &quot;twenty-nine&quot;, &quot;minus four&quot;}</code>.</p>
             <p>Lastly, reduction. In order to combine a whole list of values, we need a phrase to combine any two. Here are some samples:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">larger</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">M</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">)</span>
+            <!-- START CODE "code1695" -->
+            <blockquote class="extract-inform7"><a id="code1695"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">larger</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> (</span><span class="identifier-syntax">M</span><span class="plain-syntax"> - </span><span class="identifier-syntax">number</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximisation</span><span class="syntaxplain">):</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">maximisation</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> &gt; </span><span class="syntaxidentifier">M</span><span class="syntaxplain">, </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> &gt; </span><span class="identifier-syntax">M</span><span class="plain-syntax">, </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">M</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concatenation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">text</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">text</span><span class="syntaxplain">)</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">concatenation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">X</span><span class="plain-syntax"> - </span><span class="identifier-syntax">text</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> (</span><span class="identifier-syntax">Y</span><span class="plain-syntax"> - </span><span class="identifier-syntax">text</span><span class="plain-syntax">)</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concatenation</span><span class="syntaxplain">):</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">concatenation</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[X][Y]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[X][Y]&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And here are some sample reductions:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">maximisation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reduction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">19</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1696" -->
+            <blockquote class="extract-inform7"><a id="code1696"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">maximisation</span><span class="plain-syntax"> </span><span class="identifier-syntax">reduction</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">19</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">};</span>
             <br>
-            <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">concatenation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reduction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">txtng</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span>
+            <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">concatenation</span><span class="plain-syntax"> </span><span class="identifier-syntax">reduction</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">txtng</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">spelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doubling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> {3, </span><span class="syntaxconstant">8</span><span class="syntaxplain">, </span><span class="syntaxconstant">4</span><span class="syntaxplain">, </span><span class="syntaxconstant">19</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">};</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">doubling</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> {3, </span><span class="constant-syntax">8</span><span class="plain-syntax">, </span><span class="constant-syntax">4</span><span class="plain-syntax">, </span><span class="constant-syntax">19</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">};</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>sets <code class="inlinesourcetext">X</code> to <code class="inlinesourcetext">19</code>, the highest of the values, and <code class="inlinesourcetext">Y</code> to the text <code class="inlinesourcetext">&quot;sxsxtnghtthrty-ghtfrtn&quot;</code>. In each case a list has been reduced to a single value which somehow combines the contents.</p>
             <div class="definition">
-                <p class="defnprototype">(phrase (value, value) -&gt; value) reduction of (list of values) ... value</p>
+                <!-- START PHRASE "defn425" -->
+                <p class="defnprototype"><a id="defn425"></a>(phrase (value, value) -&gt; value) reduction of (list of values) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase works through the list and accumulates the values in it, using the phrase supplied. Example: if we have</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">what</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sum</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">M</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">)</span>
+                <!-- START CODE "code1697" -->
+                <blockquote class="extract-inform7"><a id="code1697"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">what</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">sum</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">and</span><span class="plain-syntax"> (</span><span class="identifier-syntax">M</span><span class="plain-syntax"> - </span><span class="identifier-syntax">number</span><span class="plain-syntax">)</span>
                 <br>
-                <span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">summing</span><span class="syntaxplain">):</span>
+                <span class="plain-syntax">(</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">summing</span><span class="plain-syntax">):</span>
                 <br>
-                <span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> + </span><span class="syntaxidentifier">M</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">decide</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax"> + </span><span class="identifier-syntax">M</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then the summing reduction of <code class="inlinesourcetext">{3, 8, 4, 19, 7}</code> is the number <code class="inlinesourcetext">41</code>, obtained by (((3 + 8) + 4) + 19) + 7, so that the <code class="inlinesourcetext">summing</code> phrase has been used four times.</p>
             </div>
             <p>Is map/filter/reduce always a good idea? Devotees point out that almost any computation can be thought of in this way, and in systems where the work has to be distributed around multiple processors it can be a very powerful tool. (There are programming languages without loops where it's essentially the only tool.) At its best, it reads very elegantly: one assembles all of the tools needed – definitions of doubling, lengthy, spelling out, concatenation and so on – and then each actual task is expressed in a single line at the end.</p>
             <p>On the other hand, there are also times when this is a needlessly complicated disguise for what could more easily be done with a <code class="inlinesourcetext">repeat</code> loop, and also more efficiently since assembling and dismantling lists in memory does take some overhead time. So these list operations are not a panacea, but it's good to have them available.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_24_4.html"><span class="markdowncontent">Section 24.4: Default values for phrase kinds</span></a> &bull; <a href="WI_24_6.html"><span class="markdowncontent">Section 24.6: Generic phrases</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

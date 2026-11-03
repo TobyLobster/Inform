@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 31.2: Defining To phrases with I6</span></title>
+    <title><span class="markdowncontent">Section 31.2: Review of how extensions are used</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_31_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.2: Defining To phrases with I6</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.2: Review of how extensions are used</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_31_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,69 +2212,44 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 31.2: Defining To phrases with I6</span></h3>
-            <p>    </p>
-            <p>The phrases described in this book all have definitions given in the extensions automatically included with all projects — <code class="inlinesourcetext">Basic Inform</code>, the <code class="inlinesourcetext">Standard Rules</code> or, in a few cases, <code class="inlinesourcetext">English Language</code>. Those phrases are mostly, though not universally, defined using I6 notation, using the feature described below.</p>
-            <p>For example, <code class="inlinesourcetext">Basic Inform</code> makes this definition:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">something</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">words</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- </span><span class="syntaxidentifier">print</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">say__n</span><span class="syntaxplain">=({</span><span class="syntaxidentifier">something</span><span class="syntaxplain">}); -).</span>
-            </span></blockquote>
-            <p>The minus sign in <code class="inlinesourcetext">(-</code> and <code class="inlinesourcetext">-)</code> is supposed to be a mnemonic for the decrease from 7 to 6: later we shall use <code class="inlinesourcetext">(+</code> and <code class="inlinesourcetext">+)</code> to go back up the other way, from 6 to 7.</p>
-            <p>The use of the <code class="inlinesourcetext">(-</code> and <code class="inlinesourcetext">-)</code> notation, in place of an ordinary phrase body, tells Inform how to convert an <em>invocation</em> of the phrase into Inter code. For example, <code class="inlinesourcetext">say 125;</code> would then be converted to the Inter resulting from this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    print (number) say__n=(125);</span><br></code></pre></div>
-            <p>whereas <code class="inlinesourcetext">say the capacity of the basket</code> might become:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    print (number) say__n=(I_basket_U1.A_capacity);</span><br></code></pre></div>
-            <p>What has happened here, then, is that the <em>token</em> <code class="inlinesourcetext">{something}</code> in the definition has been replaced by the value supplied to the <code class="inlinesourcetext">say</code> phrase.</p>
-            <p>A few notes:</p>
-            <ol>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Review of how extensions are used" -->
+            <!-- SEARCH SECTION "31.2" -->
+            <!-- SEARCH SORT "001-031-002-000" -->
+            <h3><span>Section 31.2: Review of how extensions are used</span></h3>
+            <p> 
+             
+             
+                 </p>
+            <p>Extensions are identified by the combination of their title and author name, and sometimes by a version number as well. <code class="inlinesourcetext">Locksmith by Emily Short</code> is an extension; version 11 is one of the various versions it has had over the years.</p>
+            <p>An extension becomes part of a story by being <em>included</em>. Three extensions are usually included by Inform, in a silent and automatic sort of way:</p>
+            <ul>
             <li>
-            <p>The I6 code given can contain multiple statements, not just one, and can include loops, function calls and so on. In practice they seldom run to more than a line or two, but they absolutely can.</p>
+            <p><code class="inlinesourcetext">Basic Inform by Graham Nelson</code>. This sets up the fundamentals of the Inform language, and defines phrases for dealing with data like text, lists and real numbers.</p>
             </li>
             <li>
-            <p>These fragments of I6 will, once they become Inter code, eventually be translated to a target program. Even if that program is written in Inform 6, the original <code class="inlinesourcetext">say 125</code> and <code class="inlinesourcetext">say the capacity of the basket</code> would now come out differently again:</p>
-            <div class="extract-inform6">
-                <pre><code class="language-inform6"><span class="syntaxidentifier">LanguageNumber</span><span class="syntaxplain">((</span><span class="syntaxidentifier">say__n</span><span class="syntaxplain"> = </span><span class="syntaxconstant">125</span><span class="syntaxplain">));</span><br><br><span class="syntaxplain">@</span><span class="syntaxidentifier">push</span><span class="syntaxplain"> </span><span class="syntaxidentifier">self</span><span class="syntaxplain">;</span><br><span class="syntaxidentifier">LanguageNumber</span><span class="syntaxplain">((</span><span class="syntaxidentifier">say__n</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">GProperty</span><span class="syntaxplain">(</span><span class="syntaxidentifier">OBJECT_TY</span><span class="syntaxplain">, (</span><span class="syntaxidentifier">self</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">I_basket_U1</span><span class="syntaxplain">), </span><span class="syntaxidentifier">A_capacity</span><span class="syntaxplain">)));</span><br><span class="syntaxplain">@</span><span class="syntaxidentifier">pull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">self</span><span class="syntaxplain">;</span><br></code></pre></div>
-            <p>The details are unimportant. But it illustrates the point that writing I6 guides the compiler to create Inter: it doesn't compose literal Inform 6 material.</p>
+            <p><code class="inlinesourcetext">English Language by Graham Nelson</code>. This is needed for the story to use English as its language of story-telling with the player. If the story were to be in some other language, a different extension would be substituted.</p>
             </li>
             <li>
-            <p>Programmers may want to note the difference between this and a more regular definition:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">something</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">words</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;I don't know how to say </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> in words.&quot;</span>
-            </span></blockquote>
-            <p>This second definition would create a <em>function</em>, and would call that function with the argument <code class="inlinesourcetext">125</code> or <code class="inlinesourcetext">I_basket_U1.A_capacity</code>. Phrases defined by <code class="inlinesourcetext">(-</code> and <code class="inlinesourcetext">-)</code> are more like what are called <em>macros</em>, though since they are type-checked they are more like the modern-day macros of languages like Swift or Rust than like the old-school macros of C.</p>
+            <p><code class="inlinesourcetext">Standard Rules by Graham Nelson</code>. This sets up the kinds and properties used in the world model for interactive fiction: rooms, doors, directions and so on. In so-called &quot;basic projects&quot;, which do not have a command parser and are not games, the Standard Rules are not included.</p>
             </li>
-            </ol>
-            <p>There can of course be more than one token in a phrase:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sort</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">T</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">TC</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">column</span><span class="syntaxplain">) </span><span class="syntaxidentifier">order</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- </span><span class="syntaxidentifier">TableSort</span><span class="syntaxplain">({</span><span class="syntaxidentifier">T</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">TC</span><span class="syntaxplain">}, </span><span class="syntaxconstant">1</span><span class="syntaxplain">); -).</span>
+            </ul>
+            <p>Other extensions are included only because the source text calls for them:</p>
+            <!-- START CODE "code1843" -->
+            <blockquote class="extract-inform7"><a id="code1843"></a><span class="indexdullblue"><span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Locksmith</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Emily</span><span class="plain-syntax"> </span><span class="identifier-syntax">Short</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>When the braced name of a token appears in the I6 — for example, <code class="inlinecode">{TC}</code> — this is compiled to the I6 expression for whatever was supplied in that token.</p>
-            <p>Braces <code class="inlinesourcetext">{</code> are significant in I6, so this syntax rule might cause ambiguity. To obtain a real brace, it's enough to ensure that the character following it is a space.</p>
-            <p>It's also possible for the pair of characters <code class="inlinesourcetext">-)</code> to occur in I6 code, particularly with <code class="inlinecode">for</code> loops like this one:</p>
-            <div class="extract-inform6">
-                <pre><code class="language-inform6"><span class="syntaxidentifier">for</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">i</span><span class="syntaxplain">=3 : </span><span class="syntaxidentifier">i</span><span class="syntaxplain">&gt;0 : </span><span class="syntaxidentifier">i</span><span class="syntaxplain">--)</span><br></code></pre></div>
-            <p>We can prevent Inform from reading the <code class="inlinesourcetext">-)</code> as terminating the I6 by again adding an extra space:</p>
-            <div class="extract-inform6">
-                <pre><code class="language-inform6"><span class="syntaxidentifier">for</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">i</span><span class="syntaxplain">=3 : </span><span class="syntaxidentifier">i</span><span class="syntaxplain">&gt;0 : </span><span class="syntaxidentifier">i</span><span class="syntaxplain">-- )</span><br></code></pre></div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg477><a style="text-decoration: none" href="eg_477.html"><span class="extensionexampleletter">477</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_477.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Good or Evil</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Asking the player to select whether to be a good or evil character to begin play.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg477><a style="text-decoration: none" href="RB_5_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- END CODE -->
+            <p>Note, though, that extensions contain source text too, and can also have <code class="inlinesourcetext">Include</code> instructions like this: so one extension can call for another one to be included as well. It's not an error to make multiple requests for the same extension, but that extension is then included only once. This means it is quite safe for extension A to ask to include extension B, and for extension B to ask to include extension A. This will not cause infinite regress: it will simply mean that both are included.</p>
+            <p>The one restriction here is that the same project cannot simultaneously include two different versions of the same extension. If Inform has both version 13 and version 15 of <code class="inlinesourcetext">Locksmith by Emily Short</code> available to it, it will make a choice of which to include, and will not include both. (Unless told otherwise, it will choose the one with the higher version number.)</p>
+            <p>Where do these extensions live? Except for the three special cases above, Inform now always looks for them in the <code class="inlinecode">Extensions</code> subdirectory of the project's &quot;materials&quot; folder. Extensions filed there are said to be <em>installed in the project</em>. Long-time Inform users might be expecting extensions to be installed in some cache stored elsewhere on the computer, but as of 2023 we no longer do that, and all extensions used by a story should be installed in the project. (A project can have extensions installed which it is not currently using, and can even have multiple versions of the same extension installed.)</p>
+            <p>Experienced users might also be expecting to see the extension as a single file with a filename like <code class="inlinecode">Locksmith-v15.i7x</code>. That's still supported, but now deprecated. Modern extensions occupy directories — the <code class="inlinecode">d</code> at the end of <code class="inlinecode">Locksmith-v15.i7xd</code> stands for &quot;directory&quot;.</p>
+            <p>When distributed on the Internet, this may well be zipped up as <code class="inlinesourcetext">Locksmith.zip</code> or similar. The Inform app has the ability to download such a file, unzip it, identify its identity and version, and install it. But this can also be done by hand, of course.</p>
+            <p>The Extensions tab in the Inform app displays details of all of the extensions installed in a project, and whether they are currently being used or not. It's accompanied by the Public Library tab, which allows other extensions to be downloaded directly from the Public Library into the project.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_31_1.html"><span class="markdowncontent">Chapter 31: Low-Level Programming</span></a> &bull; <a href="WI_31_3.html"><span class="markdowncontent">Section 31.3: Defining To decide phrases with I6</span></a></em></p>
+        <p><em> &bull; <a href="WI_31_1.html"><span class="markdowncontent">Chapter 31: Extensions</span></a> &bull; <a href="WI_31_3.html"><span class="markdowncontent">Section 31.3: Title and authorship</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

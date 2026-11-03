@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,98 +2212,136 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Trigonometry" -->
+            <!-- SEARCH SECTION "16.8" -->
+            <!-- SEARCH SORT "001-016-008-000" -->
             <h3><span>Section 16.8: Trigonometry</span></h3>
             <p>  </p>
             <p>We have twelve functions left to cover, though they are all closely related.</p>
             <div class="definition">
-                <p class="defnprototype">(real number) degrees ... real number</p>
+                <!-- START PHRASE "defn255" -->
+                <p class="defnprototype"><a id="defn255"></a>(real number) degrees ... real number</p>
+                <!-- END PHRASE -->
                 <p>Inform measures angles in radians, a convention in which the angle for a half circle is pi, and a right angle is pi divided by 2. This is better from a mathematical point of view, but in practice most people think about angles using degrees, where 180 degrees is a half-circle and a right angle is 90 degrees. This phrase helps with that by converting from degrees to radians: in other words, it multiplies by 0.0174532925, since that's roughly 1/180th of pi. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">90</span><span class="syntaxplain"> </span><span class="syntaxidentifier">degrees</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1038" -->
+                <blockquote class="extract-inform7"><a id="code1038"></a><span class="indexdullblue"><span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">90</span><span class="plain-syntax"> </span><span class="identifier-syntax">degrees</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">60</span><span class="syntaxplain"> </span><span class="syntaxidentifier">degrees</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.5</span>
+                <span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">60</span><span class="plain-syntax"> </span><span class="identifier-syntax">degrees</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.5</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">sine of (real number) ... real number</p>
+                <!-- START PHRASE "defn256" -->
+                <p class="defnprototype"><a id="defn256"></a>sine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The length of the upright of a right-angled triangle with this angle and a hypotenuse of length 1, where angle is measured in radians. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span>
+                <!-- START CODE "code1039" -->
+                <blockquote class="extract-inform7"><a id="code1039"></a><span class="indexdullblue"><span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span>
                 <br>
-                <span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">45</span><span class="syntaxplain"> </span><span class="syntaxidentifier">degrees</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.70711</span>
+                <span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">45</span><span class="plain-syntax"> </span><span class="identifier-syntax">degrees</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.70711</span>
                 <br>
-                <span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">) = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.70711</span>
+                <span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">) = </span><span class="constant-syntax">0</span><span class="plain-syntax">.70711</span>
                 <br>
-                <span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">) = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">) = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">sine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span>
+                <span class="identifier-syntax">sine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pi</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">cosine of (real number) ... real number</p>
+                <!-- START PHRASE "defn257" -->
+                <p class="defnprototype"><a id="defn257"></a>cosine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The length of the base of a right-angled triangle with this angle and a hypotenuse of length 1, where angle is measured in radians. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1040" -->
+                <blockquote class="extract-inform7"><a id="code1040"></a><span class="indexdullblue"><span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">45</span><span class="syntaxplain"> </span><span class="syntaxidentifier">degrees</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.70711</span>
+                <span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">45</span><span class="plain-syntax"> </span><span class="identifier-syntax">degrees</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.70711</span>
                 <br>
-                <span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">) = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.70711</span>
+                <span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">) = </span><span class="constant-syntax">0</span><span class="plain-syntax">.70711</span>
                 <br>
-                <span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">) = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">) = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> = -1.0</span>
+                <span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pi</span><span class="plain-syntax"> = -1.0</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">tangent of (real number) ... real number</p>
+                <!-- START PHRASE "defn258" -->
+                <p class="defnprototype"><a id="defn258"></a>tangent of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The ratio of the upright length to the base length in a right-angled triangle with this angle and a hypotenuse of length 1, where angle is measured in radians. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">tangent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> = </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0</span>
+                <!-- START CODE "code1041" -->
+                <blockquote class="extract-inform7"><a id="code1041"></a><span class="indexdullblue"><span class="identifier-syntax">tangent</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> = </span><span class="constant-syntax">0</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">tangent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">45</span><span class="syntaxplain"> </span><span class="syntaxidentifier">degrees</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">tangent</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">45</span><span class="plain-syntax"> </span><span class="identifier-syntax">degrees</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">tangent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">) = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0</span>
+                <span class="identifier-syntax">tangent</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">) = </span><span class="constant-syntax">1</span><span class="plain-syntax">.0</span>
                 <br>
-                <span class="syntaxidentifier">tangent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">pi</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">) = </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infinity</span>
+                <span class="identifier-syntax">tangent</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">pi</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">) = </span><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">infinity</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">arcsine of (real number) ... real number</p>
+                <!-- START PHRASE "defn259" -->
+                <p class="defnprototype"><a id="defn259"></a>arcsine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the sine function.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">arccosine of (real number) ... real number</p>
+                <!-- START PHRASE "defn260" -->
+                <p class="defnprototype"><a id="defn260"></a>arccosine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the cosine function.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">arctangent of (real number) ... real number</p>
+                <!-- START PHRASE "defn261" -->
+                <p class="defnprototype"><a id="defn261"></a>arctangent of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the tangent function.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic sine of (real number) ... real number</p>
+                <!-- START PHRASE "defn262" -->
+                <p class="defnprototype"><a id="defn262"></a>hyperbolic sine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The hyperbolic sine function, often written &quot;sinh&quot; but pronounced &quot;shine&quot;.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic cosine of (real number) ... real number</p>
+                <!-- START PHRASE "defn263" -->
+                <p class="defnprototype"><a id="defn263"></a>hyperbolic cosine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The hyperbolic cosine function, often written &quot;cosh&quot;.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic tangent of (real number) ... real number</p>
+                <!-- START PHRASE "defn264" -->
+                <p class="defnprototype"><a id="defn264"></a>hyperbolic tangent of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The hyperbolic tangent function, often written &quot;tanh&quot;.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic arcsine of (real number) ... real number</p>
+                <!-- START PHRASE "defn265" -->
+                <p class="defnprototype"><a id="defn265"></a>hyperbolic arcsine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the hyperbolic sine function.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic arccosine of (real number) ... real number</p>
+                <!-- START PHRASE "defn266" -->
+                <p class="defnprototype"><a id="defn266"></a>hyperbolic arccosine of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the hyperbolic cosine function.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">hyperbolic arctangent of (real number) ... real number</p>
+                <!-- START PHRASE "defn267" -->
+                <p class="defnprototype"><a id="defn267"></a>hyperbolic arctangent of (real number) ... real number</p>
+                <!-- END PHRASE -->
                 <p>The inverse of the hyperbolic tangent function.</p>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_7.html"><span class="markdowncontent">Section 16.7: Powers and logarithms</span></a> &bull; <a href="WI_16_9.html"><span class="markdowncontent">Section 16.9: Units</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

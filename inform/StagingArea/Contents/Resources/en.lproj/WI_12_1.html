@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,60 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "What are phrases?" -->
+            <!-- SEARCH SECTION "12.1" -->
+            <!-- SEARCH SORT "001-012-001-000" -->
             <h2><span>Chapter 12: Phrases</span></h2>
             <h3><span>Section 12.1: What are phrases?</span></h3>
             <p> </p>
             <p>Phrases are instructions to Inform to do something, or to decide whether something is true or false, or to produce a value, or to say something. Inform has around 350 phrases built-in, and the chapters so far have already defined about 100 of those. In this chapter we'll see some key phrases for organising instructions of what to do, and also see how to define entirely new phrases.</p>
             <p>Just to run through the four sorts of phrase with examples:</p>
             <p>(a) Phrases to do something. These are the ones used in the body of a rule. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Train</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code713" -->
+            <blockquote class="extract-inform7"><a id="code713"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">Train</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stop</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Flying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scotsman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Station</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Flying</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scotsman</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Station</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The Flying Scotsman pulls up at the platform.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Flying Scotsman pulls up at the platform.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Rules like this begin with a &quot;preamble&quot;, the beginning part which tells Inform when or how they apply, and then follow on with a list of instructions – here, just two of them. <code class="inlinesourcetext">move ... to ...</code> and <code class="inlinesourcetext">say ...</code> are both phrases. Inform provides about 130 of these built-in. It's actually not quite true that they all do something, because one of them is:</p>
             <div class="definition">
-                <p class="defnprototype">do nothing</p>
+                <!-- START PHRASE "defn145" -->
+                <p class="defnprototype"><a id="defn145"></a>do nothing</p>
+                <!-- END PHRASE -->
                 <p>This phrase does nothing at all. It is very occasionally useful to make a rule which does nothing:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">This</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">largely</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ineffective</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code714" -->
+                <blockquote class="extract-inform7"><a id="code714"></a><span class="indexdullblue"><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">largely</span><span class="plain-syntax"> </span><span class="identifier-syntax">ineffective</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">do</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>(b) Phrases to decide whether a condition is true. These are the ones which can  be used in an <code class="inlinesourcetext">if</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">requires</span><span class="syntaxplain"> </span><span class="syntaxidentifier">light</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code715" -->
+            <blockquote class="extract-inform7"><a id="code715"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">requires</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Not all conditions come from phrases. For example, <code class="inlinesourcetext">if the front door is closed</code> and <code class="inlinesourcetext">if Peter is wearing the sandals</code> have meanings which come from the verbs <code class="inlinesourcetext">to be</code> and <code class="inlinesourcetext">to wear</code>. Inform provides about 60 built-in conditions, which give a friendly wording for questions which would be lengthy or difficult to write in any other way.</p>
             <p>(c) Phrases to decide a value. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">square</span><span class="syntaxplain"> </span><span class="syntaxidentifier">root</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">16</span>
+            <!-- START CODE "code716" -->
+            <blockquote class="extract-inform7"><a id="code716"></a><span class="indexdullblue"><span class="identifier-syntax">square</span><span class="plain-syntax"> </span><span class="identifier-syntax">root</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">16</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces a number, 4 of course, and can be used whenever a number is expected. Inform provides about 100 built-in phrases like this.</p>
             <p>(d) Text substitutions. These are actually just phrases whose definition begins with <code class="inlinesourcetext">To say ...</code>. Example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;It's now </span><span class="syntaxextract">[time of day in words]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code717" -->
+            <blockquote class="extract-inform7"><a id="code717"></a><span class="indexdullblue"><span class="string-syntax">&quot;It's now [time of day in words].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform provides about 60 built-in text substitutions.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_14.html"><span class="markdowncontent">Section 11.14: Managing dialogue choices</span></a> &bull; <a href="WI_12_2.html"><span class="markdowncontent">Section 12.2: The phrasebook</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

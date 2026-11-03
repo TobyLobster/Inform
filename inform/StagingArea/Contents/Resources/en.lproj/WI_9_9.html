@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,41 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Comparing and shifting times" -->
+            <!-- SEARCH SECTION "9.9" -->
+            <!-- SEARCH SORT "001-009-009-000" -->
             <h3><span>Section 9.9: Comparing and shifting times</span></h3>
             <p>  </p>
             <p>Carrying out easy calculations with times is straightforward:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The chronometer is in the Clock Chamber. [=0x0022=]On one wall is a terribly self-important chronometer showing the time in major world cities. London: [time of day]. Paris: [one hour after the time of day]. Tokyo: [9 hours after the time of day]. Cupertino, California: [7 hours before the time of day].[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chronometer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Clock</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Chamber</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;On one wall is a terribly self-important chronometer showing the time in major world cities. London: </span><span class="syntaxextract">[time of day]</span><span class="syntaxstring">. Paris: </span><span class="syntaxextract">[one hour after the time of day]</span><span class="syntaxstring">. Tokyo: </span><span class="syntaxextract">[9 hours after the time of day]</span><span class="syntaxstring">. Cupertino, California: </span><span class="syntaxextract">[7 hours before the time of day]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code540" -->
+            <blockquote class="extract-inform7"><a id="code540"></a><a class="actionlink" href="javascript:pasteCode('The chronometer is in the Clock Chamber. [=0x0022=]On one wall is a terribly self-important chronometer showing the time in major world cities. London: [time of day]. Paris: [one hour after the time of day]. Tokyo: [9 hours after the time of day]. Cupertino, California: [7 hours before the time of day].[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">chronometer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Clock</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chamber</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;On one wall is a terribly self-important chronometer showing the time in major world cities. London: [time of day]. Paris: [one hour after the time of day]. Tokyo: [9 hours after the time of day]. Cupertino, California: [7 hours before the time of day].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here we are using two phrases:</p>
             <div class="definition">
-                <p class="defnprototype">(time period) before (time) ... time</p>
+                <!-- START PHRASE "defn112" -->
+                <p class="defnprototype"><a id="defn112"></a>(time period) before (time) ... time</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a time earlier by the amount given, keeping within the 24 hour clock. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain">:30 </span><span class="syntaxidentifier">AM</span>
+                <!-- START CODE "code541" -->
+                <blockquote class="extract-inform7"><a id="code541"></a><span class="indexdullblue"><span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">hours</span><span class="plain-syntax"> </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span><span class="plain-syntax">:30 </span><span class="identifier-syntax">AM</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces 10:30 PM.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">(time period) after (time) ... time</p>
+                <!-- START PHRASE "defn113" -->
+                <p class="defnprototype"><a id="defn113"></a>(time period) after (time) ... time</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a time later by the amount given, keeping within the 24 hour clock. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">9</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AM</span>
+                <!-- START CODE "code542" -->
+                <blockquote class="extract-inform7"><a id="code542"></a><span class="indexdullblue"><span class="constant-syntax">9</span><span class="plain-syntax"> </span><span class="identifier-syntax">hours</span><span class="plain-syntax"> </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax"> </span><span class="identifier-syntax">AM</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces 8 PM.</p>
             </div>
             <p>Similarly, we have conditions:</p>
             <div class="definition">
-                <p class="defnprototype">if (time) is before (time):</p>
+                <!-- START PHRASE "defn114" -->
+                <p class="defnprototype"><a id="defn114"></a>if (time) is before (time):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the first time occurs earlier in the day than the second. In recognition of the fact that very few stories begin before 4 AM, whereas many run on past midnight, the start of the day is taken to be 4 AM: thus 3:59 AM is after 11:10 PM, but 4:04 AM is before it.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (time) is after (time):</p>
+                <!-- START PHRASE "defn115" -->
+                <p class="defnprototype"><a id="defn115"></a>if (time) is after (time):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the first time occurs later in the day than the second. In recognition of the fact that very few stories begin before 4 AM, whereas many run on past midnight, the start of the day is taken to be 4 AM: thus 3:59 AM is after 11:10 PM, but 4:04 AM is before it.</p>
             </div>
             <p>These phrases are really just verbal conveniences, though, because we can do the same thing with everyday arithmetic. <code class="inlinesourcetext">10 minutes before 9:00 AM</code> is the same thing as calculating <code class="inlinesourcetext">9:00 AM minus 10 minutes</code>.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_9_8.html"><span class="markdowncontent">Section 9.8: Approximate times, lengths of time</span></a> &bull; <a href="WI_9_10.html"><span class="markdowncontent">Section 9.10: Calculating times</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

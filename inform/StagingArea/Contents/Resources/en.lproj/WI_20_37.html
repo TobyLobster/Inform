@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,11 +2212,15 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Printing a parser error" -->
+            <!-- SEARCH SECTION "20.37" -->
+            <!-- SEARCH SORT "001-020-037-000" -->
             <h3><span>Section 20.37: Printing a parser error</span></h3>
             <p>   </p>
             <p><strong>1. When it happens.</strong> The parser is the part of the run-time software, included in all works produced by Inform, which tries to match the player's command against the grammar provided by the work. When it is unable to make a valid match, the parser prints an error to the player: for instance,</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> BIFURCATE TREE</span><br><span class="syntaxidentifier">That's not a verb I recognise.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; BIFURCATE TREE<br>That's not a verb I recognise.<br></code></pre></div>
             <p>There are more than twenty possible messages. The one which the parser wants to say is stored in the variable <code class="inlinesourcetext">latest parser error</code>, which has the convenient kind <code class="inlinesourcetext">command parser error</code>. This has the following possible values:</p>
             <ul>
             <li>didn't understand error</li>
@@ -2162,51 +2251,57 @@
             </ul>
             <p><strong>2. The default behaviour.</strong> Prints the message in question.</p>
             <p><strong>3. Examples.</strong> (a) Perhaps for newcomers:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('After printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]If you are new to interactive fiction, you may like to try typing HELP.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1419" -->
+            <blockquote class="extract-inform7"><a id="code1419"></a><a class="actionlink" href="javascript:pasteCode('After printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]If you are new to interactive fiction, you may like to try typing HELP.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;If you are new to interactive fiction, you may like to try typing HELP.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;If you are new to interactive fiction, you may like to try typing HELP.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(b) Or to give the parser a certain amount of character:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Rule for printing a parser error when the latest parser error is the I beg your pardon error:[=0x000A=][=0x0009=]say [=0x0022=]What[=0x0027=]s that? Speak up, speak up.[=0x0022=] instead.[=0x000A=][=0x000A=]{*}Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">latest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">I</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">your</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pardon</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1420" -->
+            <blockquote class="extract-inform7"><a id="code1420"></a><a class="actionlink" href="javascript:pasteCode('Rule for printing a parser error when the latest parser error is the I beg your pardon error:[=0x000A=][=0x0009=]say [=0x0022=]What[=0x0027=]s that? Speak up, speak up.[=0x0022=] instead.[=0x000A=][=0x000A=]{*}Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]That[=0x0027=]s a rum thing to say, and no mistake.[=0x0022=] instead.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">latest</span><span class="plain-syntax"> </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">I</span><span class="plain-syntax"> </span><span class="identifier-syntax">beg</span><span class="plain-syntax"> </span><span class="identifier-syntax">your</span><span class="plain-syntax"> </span><span class="identifier-syntax">pardon</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;What's that? Speak up, speak up.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;What's that? Speak up, speak up.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxplain">{*}</span><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain">:</span>
+            <span class="plain-syntax">{*}</span><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;That's a rum thing to say, and no mistake.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instead</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;That's a rum thing to say, and no mistake.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(c) This can be helpful for seeing what's going on:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]The [latest parser error] happened.[=0x0022=];[=0x000A=][=0x0009=]continue the activity.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">parser</span><span class="syntaxplain"> </span><span class="syntaxidentifier">error</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1421" -->
+            <blockquote class="extract-inform7"><a id="code1421"></a><a class="actionlink" href="javascript:pasteCode('Rule for printing a parser error:[=0x000A=][=0x0009=]say [=0x0022=]The [latest parser error] happened.[=0x0022=];[=0x000A=][=0x0009=]continue the activity.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">parser</span><span class="plain-syntax"> </span><span class="identifier-syntax">error</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The </span><span class="syntaxextract">[latest parser error]</span><span class="syntaxstring"> happened.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The [latest parser error] happened.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">activity</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">continue</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">activity</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg409><a style="text-decoration: none" href="eg_409.html"><span class="extensionexampleletter">409</span></a></span></div>
+                    <span id=eg406><a style="text-decoration: none" href="eg_406.html"><span class="extensionexampleletter">406</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_409.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">WXPQ</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_406.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">WXPQ</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a more sensible parser error than &quot;that noun did not make sense in this context&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg409><a style="text-decoration: none" href="RB_6_17.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg406><a style="text-decoration: none" href="RB_6_17.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg410><a style="text-decoration: none" href="eg_410.html"><span class="extensionexampleletter">410</span></a></span></div>
+                    <span id=eg407><a style="text-decoration: none" href="eg_407.html"><span class="extensionexampleletter">407</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_410.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xot</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_407.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Xot</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Storing an invalid command to be repeated as text later in the game.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg410><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg407><a style="text-decoration: none" href="RB_2_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_36.html"><span class="markdowncontent">Section 20.36: Implicitly taking something</span></a> &bull; <a href="WI_20_38.html"><span class="markdowncontent">Section 20.38: Deciding whether all includes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

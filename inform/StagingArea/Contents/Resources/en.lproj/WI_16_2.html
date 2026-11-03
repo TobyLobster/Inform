@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,20 +2212,31 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Numbers, ranges, overflows, and number bases" -->
+            <!-- SEARCH SECTION "16.2" -->
+            <!-- SEARCH SORT "001-016-002-000" -->
             <h3><span>Section 16.2: Numbers, ranges, overflows, and number bases</span></h3>
+            <p>         </p>
             <p>What Inform calls a <code class="inlinesourcetext">number</code> is a whole number, positive, negative or zero. Numbers from <code class="inlinesourcetext">zero</code> to <code class="inlinesourcetext">twelve</code> may also be written out in words, but all others must be written as numerals. So <code class="inlinesourcetext">twelve</code> or <code class="inlinesourcetext">12</code>, but <code class="inlinesourcetext">13</code> only.</p>
             <p>For efficiency reasons, only a limited range of whole numbers close to 0 can be stored as a <code class="inlinesourcetext">number</code>, but in practice that range is large enough for all everyday purposes:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-2147483648, -2147483647, ..., -3, -2, -1, </span><span class="syntaxconstant">0</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, ..., </span><span class="syntaxconstant">2147483647</span>
+            <!-- START CODE "code996" -->
+            <blockquote class="extract-inform7"><a id="code996"></a><span class="indexdullblue"><span class="plain-syntax">-2147483648, -2147483647, ..., -3, -2, -1, </span><span class="constant-syntax">0</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">, ..., </span><span class="constant-syntax">2147483647</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If the Settings for a project make it use the very memory-constrained Z-machine format, this number range is very much smaller, which is one reason Z should only be used when absolutely necessary:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-32768, -32767, ..., -3, -2, -1, </span><span class="syntaxconstant">0</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, ..., </span><span class="syntaxconstant">32767</span>
+            <!-- START CODE "code997" -->
+            <blockquote class="extract-inform7"><a id="code997"></a><span class="indexdullblue"><span class="plain-syntax">-32768, -32767, ..., -3, -2, -1, </span><span class="constant-syntax">0</span><span class="plain-syntax">, </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="constant-syntax">2</span><span class="plain-syntax">, </span><span class="constant-syntax">3</span><span class="plain-syntax">, ..., </span><span class="constant-syntax">32767</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>By default, all projects use Glulx, though, and the examples of numbers below assume that.</p>
             <p>This limited range raises the question: what happens if we take the theoretical maximum, <code class="inlinesourcetext">2147483647</code>, and add <code class="inlinesourcetext">1</code> to it? This is <em>not</em> a run-time problem: &quot;overflows&quot; like this are entirely legal. The result is in fact <code class="inlinesourcetext">-2147483648</code>.  So, for example, the condition <code class="inlinesourcetext">N is less than N plus 1</code> is true for every number <code class="inlinesourcetext">N</code> <em>except</em> <code class="inlinesourcetext">2147483647</code>.</p>
             <p>What is going on here is that the number line described above is really more of a circle, and this is the point where we loop back to the beginning. This strange-looking phenomenon has to do with the standard way numbers are stored inside computers: see, for example, the Wikipedia page on <em>two's complement</em> for an explanation of why this is done.</p>
             <p>It is also possible to print back a <code class="inlinesourcetext">number</code> in <em>unsigned form</em>, using this phrase:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(number) in unsigned decimal]&quot;</p>
+                <!-- START PHRASE "defn222" -->
+                <p class="defnprototype"><a id="defn222"></a>say &quot;[(number) in unsigned decimal]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in unsigned decimal, following the two's complement system, so that negative numbers close to zero appear large. Examples:</p>
                 <table>
                 <thead>
@@ -2186,12 +2282,14 @@
                 </table>
             </div>
             <p>These notations so far are all in base 10, that is, they use the decimal digits <code class="inlinesourcetext">0</code>, <code class="inlinesourcetext">1</code>, ..., <code class="inlinesourcetext">9</code>, sometimes with a minus sign <code class="inlinesourcetext">-</code> in front. But Inform allows us to type numbers in the source text which use three other bases as alternatives. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">hexadecimal</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxidentifier">EF12C</span>
+            <!-- START CODE "code998" -->
+            <blockquote class="extract-inform7"><a id="code998"></a><span class="indexdullblue"><span class="identifier-syntax">hexadecimal</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="identifier-syntax">EF12C</span>
             <br>
-            <span class="syntaxidentifier">binary</span><span class="syntaxplain"> </span><span class="syntaxconstant">001110101101</span>
+            <span class="identifier-syntax">binary</span><span class="plain-syntax"> </span><span class="constant-syntax">001110101101</span>
             <br>
-            <span class="syntaxidentifier">octal</span><span class="syntaxplain"> </span><span class="syntaxconstant">077</span>
+            <span class="identifier-syntax">octal</span><span class="plain-syntax"> </span><span class="constant-syntax">077</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>all produce <code class="inlinesourcetext">number</code> values, and are exactly equivalent to writing <code class="inlinesourcetext">5173548</code>, <code class="inlinesourcetext">941</code> and <code class="inlinesourcetext">63</code> respectively. Hexadecimal is base 16, using the letters <code class="inlinesourcetext">A</code> to <code class="inlinesourcetext">F</code> for the six further digits past <code class="inlinesourcetext">9</code>; octal is base 8, using only the digits <code class="inlinesourcetext">0</code> to <code class="inlinesourcetext">7</code>; and binary is base 2, using only <code class="inlinesourcetext">0</code> and <code class="inlinesourcetext">1</code>. Three notes to bear in mind:</p>
             <ol>
             <li>
@@ -2206,7 +2304,9 @@
             </ol>
             <p>We can also print back numbers in other number bases:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(number) in (base)]&quot;</p>
+                <!-- START PHRASE "defn223" -->
+                <p class="defnprototype"><a id="defn223"></a>say &quot;[(number) in (base)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in the given number base, which must be between 2 and 36. Bases can be written as <code class="inlinesourcetext">base 2</code>, ..., <code class="inlinesourcetext">base 36</code>, or as <code class="inlinesourcetext">binary</code> (equivalent to <code class="inlinesourcetext">base 2</code>), <code class="inlinesourcetext">octal</code> (equals <code class="inlinesourcetext">base 8</code>), <code class="inlinesourcetext">decimal</code> (equals <code class="inlinesourcetext">base 10</code>) or <code class="inlinesourcetext">hexadecimal</code> (equals <code class="inlinesourcetext">base 16</code>). The number is printed unsigned <em>unless the base is 10</em>, in which case it is signed. If the digits 10 to 35 are needed, they are printed as upper-case letters.</p>
                 <p>For example, <code class="inlinesourcetext">&quot;[14302 in binary].&quot;</code> produces <code class="inlinetranscriptcommand">11011111011110</code> and <code class="inlinesourcetext">&quot;[14302 in hexadecimal].&quot;</code> produces <code class="inlinetranscriptcommand">37de</code>.</p>
                 <p>The extreme example is the number <code class="inlinesourcetext">-1</code> which, provided the default Glulx setting is used for a project, prints as <code class="inlinetranscriptcommand">ffffffff</code> in hexadecimal, <code class="inlinetranscriptcommand">-1</code> in decimal, <code class="inlinetranscriptcommand">37777777777</code> in octal, <code class="inlinetranscriptcommand">11111111111111111111111111111111</code> in binary, <code class="inlinetranscriptcommand">102002022201221111200</code> in base 3 and <code class="inlinetranscriptcommand">1z141y3</code> in base 36.</p>
@@ -2214,27 +2314,33 @@
             </div>
             <p>These too can be padded with zeros:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(number) in (number) (base) digit/digits]&quot;</p>
+                <!-- START PHRASE "defn224" -->
+                <p class="defnprototype"><a id="defn224"></a>say &quot;[(number) in (number) (base) digit/digits]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in the given number base, which must be between 2 and 36, padding with initial zeros to ensure that the result is at least the given number of digits in length. The number is printed unsigned, whatever the number base.</p>
                 <p>For example, <code class="inlinesourcetext">&quot;[232 in 4 decimal digits].&quot;</code> produces <code class="inlinetranscriptcommand">0232</code> and <code class="inlinesourcetext">&quot;[232 in 4 hexadecimal digits].&quot;</code> produces <code class="inlinetranscriptcommand">00e8</code>.</p>
             </div>
             <p>Lastly, for completeness, we also provide:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(number) in (number) unsigned decimal digit/digits]&quot;</p>
+                <!-- START PHRASE "defn225" -->
+                <p class="defnprototype"><a id="defn225"></a>say &quot;[(number) in (number) unsigned decimal digit/digits]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the number in unsigned decimal, in such a way that numbers normally considered decimal appear large, padding with initial zeros to ensure that the result is at least the given number of digits in length.</p>
             </div>
             <p>One more phrase about <code class="inlinesourcetext">number</code> values is occasionally handy:</p>
             <div class="definition">
-                <p class="defnprototype">a/-- number chosen by the player from 1 to (number) ... number</p>
+                <!-- START PHRASE "defn226" -->
+                <p class="defnprototype"><a id="defn226"></a>a/-- number chosen by the player from 1 to (number) ... number</p>
+                <!-- END PHRASE -->
                 <p>This prints an <code class="inlinesourcetext">&gt;</code> prompt and then waits for the player to type a number (and press RETURN), and keeps asking until the player enters something in the range allowed. If the maximum value supplied is negative or zero, the phrase does not ask for player input, and simply returns 1.</p>
             </div>
             <p>To reiterate, though: all these different notations for typing in, and for saying back, whole numbers are all to do with a single kind, <code class="inlinesourcetext">number</code>. Unlike some programming languages, Inform has no kind for &quot;unsigned integer&quot;, nor for &quot;integer which should always be written in binary&quot;.</p>
             <p>But it does also provide a <code class="inlinesourcetext">real number</code> kind, and that's where we go next. Those are always written in a signed way, and always use decimal digits.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_1.html"><span class="markdowncontent">Chapter 16: Quantities and Equations</span></a> &bull; <a href="WI_16_3.html"><span class="markdowncontent">Section 16.3: Real numbers</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

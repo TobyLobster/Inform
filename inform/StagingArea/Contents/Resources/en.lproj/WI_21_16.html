@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,15 +2212,21 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Laws for Sorting Rulebooks" -->
+            <!-- SEARCH SECTION "21.16" -->
+            <!-- SEARCH SORT "001-021-016-000" -->
             <h3><span>Section 21.16: The Laws for Sorting Rulebooks</span></h3>
             <p>        </p>
             <p>Large works created by Inform are heaped high with rules, most of them instead rules, but with a leavening of befores and afters as well. What will happen if these conflict with each other? For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Your mother-in-law looks on with such evident disappointment that you withdraw your hand again.&quot;</span>
+            <!-- START CODE "code1487" -->
+            <blockquote class="extract-inform7"><a id="code1487"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Your mother-in-law looks on with such evident disappointment that you withdraw your hand again.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Your daughter tuts in theatrical exasperation at your, like, lameness.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Your daughter tuts in theatrical exasperation at your, like, lameness.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And the general answer is that a more specific rule takes precedence over a less specific one, so that your daughter gets in before your mother-in-law: <code class="inlinesourcetext">an open container</code> is more specific than <code class="inlinesourcetext">a container</code>. But &quot;more specific&quot; is a slippery term, so the description below lays out exactly what Inform does.</p>
             <h4><span>First, last, and being listed first or last</span></h4>
             <p>Before getting into the details, note that Inform provides two ways to jump or hang back in the queue:</p>
@@ -2166,15 +2257,15 @@
             <p><strong>Law III.3.2 – Action/What/Thing Acted On</strong>. A more specific constraint on the first noun beats a less specific. Thus <code class="inlinesourcetext">taking a container which is on a supporter</code> beats <code class="inlinesourcetext">taking a container</code>.</p>
             <p>In the case of <code class="inlinesourcetext">going</code> actions, the first noun is a direction. The special constraint <code class="inlinesourcetext">going nowhere</code> (which means: a direction in which the actor's location has no map connection) is considered more general than any other constraint placed on the first noun, but more specific than having no constraint at all. Thus <code class="inlinesourcetext">Instead of going north</code> beats <code class="inlinesourcetext">Instead of going nowhere</code> which beats <code class="inlinesourcetext">Instead of going</code>.</p>
             <p><strong>Law III.3.3 – Action/What/Actor Performing Action</strong>. A more specific constraint on the actor beats a less specific.</p>
-            <p><strong>Law III.4.1 – Action/How/What Happens</strong>. A more specific set of actions beats a less specific. For instance, <code class="inlinesourcetext">taking</code> beats <code class="inlinesourcetext">taking or dropping</code> beats <code class="inlinesourcetext">doing something other than looking</code> beats <code class="inlinesourcetext">doing something</code>. A named kind of action (such as <code class="inlinesourcetext">behaving badly</code>) is more specific than <code class="inlinesourcetext">doing something</code>, but considered less specific than any explicitly spelled out list of actions.</p>
+            <p><strong>Law III.4.1 – Action/How/What Happens</strong>. A more specific set of actions beats a less specific. For instance, <code class="inlinesourcetext">taking</code> beats <code class="inlinesourcetext">taking or dropping</code> beats <code class="inlinesourcetext">doing something other than looking</code> beats <code class="inlinesourcetext">doing something</code>. A named action pattern (such as <code class="inlinesourcetext">behaving badly</code>) is more specific than <code class="inlinesourcetext">doing something</code>, but considered less specific than any explicitly spelled out list of actions.</p>
             <p><strong>Law III.5.1 – Action/When/Duration</strong>. An action with a constraint on its history (<code class="inlinesourcetext">for the fifth time</code>, say, or <code class="inlinesourcetext">for the fifth turn</code>) beats one without. If both rules place constraints on history, then the one occurring on the smaller number of possible turns wins (thus <code class="inlinesourcetext">for the third to seventh time</code> – 5 possible turns of applicability – beats <code class="inlinesourcetext">for less than the tenth turn</code> – 9 possible turns).</p>
             <p><strong>Law III.5.2 – Action/When/Circumstances</strong>. A more specific condition under <code class="inlinesourcetext">...when...</code> beats a less specific one. These conditions could potentially be complex: Inform judges how specific they are by counting the clauses found in them. The more clauses, the more specific the condition, it is assumed.</p>
             <p><strong>Law III.6.1 – Action/Name/Is This Named</strong>. A rule with a name (<code class="inlinesourcetext">the apple blossom rule</code>, say) beats a rule without.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_21_15.html"><span class="markdowncontent">Section 21.15: The internal rulebooks which keep stories running</span></a> &bull; <a href="WI_22_1.html"><span class="markdowncontent">Chapter 22: Advanced Text</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

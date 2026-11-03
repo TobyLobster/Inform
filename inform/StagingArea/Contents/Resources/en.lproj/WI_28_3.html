@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 28.3: A Page of Its Own</span></title>
+    <title><span class="markdowncontent">Section 28.3: Testing commands to inspect the situation</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_28_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 28.3: A Page of Its Own</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 28.3: Testing commands to inspect the situation</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_28_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,19 +2212,40 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 28.3: A Page of Its Own</span></h3>
-            <p>    </p>
-            <p>One option for sharing your work with the world is to set up a web page and a copy of the story file on a private web host. That host should ideally be as stable as possible, so that the URL is likely to remain fixed for what might be a long period. Freeware stories have a long period of viability relative to commercial games, which means that players may still be hearing about and checking out a story years after its initial release. A stable address helps everyone with links, and makes it easier for search engines to direct people.</p>
-            <p>Of course creating a web page involves a little design work, but tools are widely available which make this quite easy nowadays. And as we've seen, Inform can automatically generate web pages and whole small mini-sites to put all the information about a story file into a tidy format, even including the ability to play online.</p>
-            <p>A second approach — instead of or alongside giving the game its own website — is to put it on a distribution platform designed for sharing games.</p>
-            <p>One of the most accessible is <a href="https://itch.io">itch.io</a>. While it's a lot of work to put a game on a mobile app store or on Steam, setting up a storefront at the itch.io site takes only a few minutes. Doing so enables an author to list a game for download, set a price for their work or just to accept donations of the player's choosing.</p>
-            <p>A game on itch.io will still need promotion and other attention if the author hopes to make any significant amount of money, but the barriers to listing something for sale are much lower than they once were. And itch.io can be a viable way to share a game that isn't intended to charge money at all.</p>
-            <p>At the time of this writing, the itch.io platform lists 15,988 games tagged &quot;interactive fiction.&quot;</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Testing commands to inspect the situation" -->
+            <!-- SEARCH SECTION "28.3" -->
+            <!-- SEARCH SORT "001-028-003-000" -->
+            <h3><span>Section 28.3: Testing commands to inspect the situation</span></h3>
+            <p>                </p>
+            <p>In this and the following sections, we run through the testing commands which authors can use, but which are not present in a released story. <code class="inlinetranscriptcommand">test</code> has already been covered: see <a href="WI_2_8.html" title="Section 2.8: The TEST command">The TEST command</a>.</p>
+            <p>We'll begin with some ways to inspect what is happening in the story, but without changing it, using <code class="inlinetranscriptcommand">showme</code>, <code class="inlinetranscriptcommand">actions</code>, <code class="inlinetranscriptcommand">rules</code>, <code class="inlinetranscriptcommand">scenes</code>, <code class="inlinetranscriptcommand">relations</code> and <code class="inlinetranscriptcommand">responses</code>.</p>
+            <p><code class="inlinetranscriptcommand">showme</code>. We can find our current location and the things around us by typing</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; SHOWME<br>Boudoir - room<br>    four-poster bed - supporter<br>    yourself - person<br>    pillow<br></code></pre></div>
+            <p>and similarly we can inquire about the status of a particular object during play by typing <code class="inlinetranscriptcommand">showme</code> and the object's name:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; SHOWME BAT<br>bat - thing<br>location: on the table in Locker Room<br>singular-named, improper-named; unlit, inedible, portable, patterned<br>printed name: &quot;bat&quot;<br>printed plural name: none<br>indefinite article: none<br>description: none<br>initial appearance: none<br></code></pre></div>
+            <p>This will work even if we're not in the same location as the object we want shown.</p>
+            <p><code class="inlinetranscriptcommand">actions</code> is intended to help with a common type of problem: we type a command but Inform does not perform the action that we were expecting. In some cases, this is because the command we're typing is actually triggering some other action. An easy way to check on this is to type <code class="inlinetranscriptcommand">actions</code> before issuing the command that is behaving unsatisfactorily. Thus:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; ACTIONS<br>Actions listing on.<br><br>&gt; JUMP<br>[jumping]<br>You jump on the spot.<br>[jumping - succeeded]<br></code></pre></div>
+            <p>This tells us how Inform interpreted our input and whether the action was successful or failed for some reason. If the command is being understood as a different command than we expected, that may mean that we have made a mistake in our Understand instructions, and need to double-check these.</p>
+            <p><code class="inlinetranscriptcommand">actions off</code> stops this logging again.</p>
+            <p><code class="inlinetranscriptcommand">rules</code> tends to produce rather more output, because it shows exactly which rules are run. Actions are processed with a long series of rules, and it can be helpful to know exactly which ones run and in what order. For example:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; RULES<br>Rules tracing now switched on. Type &quot;rules off&quot; to switch it off again, or &quot;rules all&quot; to include even rules which do not apply.<br><br>&gt; JUMP<br>[Rule &quot;announce items from multiple object lists rule&quot; applies.]<br>[Rule &quot;set pronouns from items from multiple object lists rule&quot; applies.]<br>[Rule &quot;before stage rule&quot; applies.]<br>[Rule &quot;instead stage rule&quot; applies.]<br>[Rule &quot;investigate player's awareness before action rule&quot; applies.]<br>[Rule &quot;player aware of his own actions rule&quot; applies.]<br>[Rule &quot;check stage rule&quot; applies.]<br>[Rule &quot;carry out stage rule&quot; applies.]<br>[Rule &quot;after stage rule&quot; applies.]<br>[Rule &quot;investigate player's awareness after action rule&quot; applies.]<br>[Rule &quot;report stage rule&quot; applies.]<br>[Rule &quot;report jumping rule&quot; applies.]<br>You jump on the spot.<br>[Rule &quot;last specific action-processing rule&quot; applies.]<br><br>[Rule &quot;A first turn sequence rule&quot; applies.]<br>[Rule &quot;every turn stage rule&quot; applies.]<br>[Rule &quot;A last turn sequence rule&quot; applies.]<br>[Rule &quot;notify score changes rule&quot; applies.]<br>&gt;<br></code></pre></div>
+            <p>As we can see, <code class="inlinetranscriptcommand">rules</code> produces a lot of output, much of which is probably irrelevant. Nonetheless, knowing exactly which rule is printing undesirable output is helpful, especially if that rule comes out of an extension or some other source that we did not write ourselves: this output has told us that the text we saw came from the <code class="inlinesourcetext">report jumping rule</code>.</p>
+            <p>To find out more about what is going on in specific rules, we can also turn to the Index tab under Actions and click through to that specific action. From there we will be able to see which rules are included, what responses they're writing, and where they were defined in the source text.</p>
+            <p><code class="inlinetranscriptcommand">scenes</code> lists which scenes are currently playing and which are complete. This is valuable if scene-triggered events are not happening when we expect them to.</p>
+            <p><code class="inlinetranscriptcommand">relations</code> lists all the relations defined in the story, except for things like support and containment that are part of the world model and are so numerous that the output would be overwhelming.</p>
+            <p><code class="inlinetranscriptcommand">responses</code> lists all the named responses established by all the extensions currently included. This can be informative, or it can be a bit overwhelming. Except where responses have been changed at runtime, the same information is available in a different form in the Index on Actions. If we're interested in a particular single response, digging into the actions index is probably the easiest way to find it.</p>
+            <p>If, however, we want a rapid overview of all the responses provided by a given extension (perhaps an extension we are ourselves writing), the <code class="inlinetranscriptcommand">responses</code> command can be a help.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_28_2.html"><span class="markdowncontent">Section 28.2: Editing and Quality Assurance</span></a> &bull; <a href="WI_28_4.html"><span class="markdowncontent">Section 28.4: The IF Archive</span></a></em></p>
+        <p><em> &bull; <a href="WI_28_2.html"><span class="markdowncontent">Section 28.2: Checking against the Index</span></a> &bull; <a href="WI_28_4.html"><span class="markdowncontent">Section 28.4: Testing commands for cheating</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

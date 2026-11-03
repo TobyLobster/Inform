@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,21 +2212,33 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Possessions and clothing" -->
+            <!-- SEARCH SECTION "3.20" -->
+            <!-- SEARCH SORT "001-003-020-000" -->
             <h3><span>Section 3.20: Possessions and clothing</span></h3>
             <p>          </p>
             <p>We have seen how to place objects in rooms, and in containers or on supporters. But what about people? Perhaps it could be said that they &quot;contain&quot; the fillings in their teeth, or &quot;support&quot; a top hat, but this is not very natural. Inform therefore never speaks of things being <code class="inlinesourcetext">in</code> or <code class="inlinesourcetext">on</code> people. Instead, they have two sorts of possessions: the things they <code class="inlinesourcetext">carry</code>, and the things they <code class="inlinesourcetext">wear</code>. (Body parts, such as arms and legs, are different again: see <a href="WI_3_23.html" title="Section 3.23: Parts of things">Parts of things</a> below for a clue to how to do these.) Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Darcy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wears</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">top</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Darcy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silver</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sword</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code111" -->
+            <blockquote class="extract-inform7"><a id="code111"></a><span class="indexdullblue"><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Darcy</span><span class="plain-syntax"> </span><span class="identifier-syntax">wears</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">top</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Darcy</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">silver</span><span class="plain-syntax"> </span><span class="identifier-syntax">sword</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In fact, Inform deduces from this not only who owns the hat and the sword, but also that Darcy has the kind <code class="inlinesourcetext">person</code>, because only people can wear or carry.</p>
             <p>As all the assertion verbs do, &quot;to wear&quot; and &quot;to carry&quot; have participles which Inform knows about. So we could equally well write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">coat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">worn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">duelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pistol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wickham</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code112" -->
+            <blockquote class="extract-inform7"><a id="code112"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">scarlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">coat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">worn</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">duelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">pistol</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wickham</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If we do not specify who does the wearing, or carrying, then this is assumed to be the player. Thus:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lantern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rusty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">iron</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">mosquito</span><span class="syntaxplain">-</span><span class="syntaxidentifier">repellent</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">worn</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code113" -->
+            <blockquote class="extract-inform7"><a id="code113"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">lantern</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rusty</span><span class="plain-syntax"> </span><span class="identifier-syntax">iron</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">carried</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">mosquito</span><span class="plain-syntax">-</span><span class="identifier-syntax">repellent</span><span class="plain-syntax"> </span><span class="identifier-syntax">hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">worn</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It would make no sense to <code class="inlinesourcetext">wear</code> the key, for instance, so Inform needs to distinguish between what is clothing and what is not. It does this with an either/or property called <code class="inlinesourcetext">wearable</code>: if something has this property then the player will be allowed to wear it, provided it can first be picked up. Anything which is worn by somebody at the start of play is assumed to be <code class="inlinesourcetext">wearable</code> (unless we say otherwise). But if nobody is initially wearing the item in question, then we have to be explicit:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carries</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scarlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gown</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gown</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearable</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code114" -->
+            <blockquote class="extract-inform7"><a id="code114"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">carries</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scarlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">gown</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">gown</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearable</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>&quot;To carry&quot; and &quot;to wear&quot; are different verbs, with different meanings. For example, <code class="inlinesourcetext">if Lancelot carries the plate armour</code> will not be true if he is wearing it rather than carrying it under his arm. As we will later see, we can instead vaguely say <code class="inlinesourcetext">if Lancelot has the plate armour</code> if what we mean is &quot;if he is either carrying or wearing the armour&quot;.</p>
             <h4><span>See Also</span></h4>
             <ul>
@@ -2149,18 +2246,18 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg39><a style="text-decoration: none" href="eg_39.html"><span class="extensionexampleletter">39</span></a></span></div>
+                    <span id=eg38><a style="text-decoration: none" href="eg_38.html"><span class="extensionexampleletter">38</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_39.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 10</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_38.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 10</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: things for the player and the characters to wear and carry.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg39><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg38><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_19.html"><span class="markdowncontent">Section 3.19: Carrying capacity</span></a> &bull; <a href="WI_3_21.html"><span class="markdowncontent">Section 3.21: The player's holdall</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

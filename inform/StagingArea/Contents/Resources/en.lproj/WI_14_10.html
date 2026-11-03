@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,80 +2212,94 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Defining new prepositions" -->
+            <!-- SEARCH SECTION "14.10" -->
+            <!-- SEARCH SORT "001-014-010-000" -->
             <h3><span>Section 14.10: Defining new prepositions</span></h3>
             <p>      </p>
             <p>The term preposition is used here, a little loosely, to mean anything which we add to the verb <em>to be</em> in order to talk about some relation or other. We have seen many examples already, such as:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ball</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code906" -->
+            <blockquote class="extract-inform7"><a id="code906"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">ball</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lever</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">machine</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> - </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">lever</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">slot</span><span class="plain-syntax"> </span><span class="identifier-syntax">machine</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>These are defined just the way verbs are. Compare the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Suspicion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">various</span><span class="syntaxplain"> </span><span class="syntaxidentifier">people</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code907" -->
+            <blockquote class="extract-inform7"><a id="code907"></a><span class="indexdullblue"><span class="identifier-syntax">Suspicion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">various</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspect</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspicion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspect</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspicion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspicious</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspicion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspicious</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspicion</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The result of this is that</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Hercule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Poirot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Colonel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hotchkiss</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code908" -->
+            <blockquote class="extract-inform7"><a id="code908"></a><span class="indexdullblue"><span class="identifier-syntax">Hercule</span><span class="plain-syntax"> </span><span class="identifier-syntax">Poirot</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspects</span><span class="plain-syntax"> </span><span class="identifier-syntax">Colonel</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hotchkiss</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Hercule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Poirot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspicious</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Colonel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hotchkiss</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Hercule</span><span class="plain-syntax"> </span><span class="identifier-syntax">Poirot</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspicious</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Colonel</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hotchkiss</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>are exactly equivalent, and so are these two descriptions:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">somebody</span><span class="syntaxplain"> </span><span class="syntaxidentifier">who</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Colonel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hotchkiss</span>
+            <!-- START CODE "code909" -->
+            <blockquote class="extract-inform7"><a id="code909"></a><span class="indexdullblue"><span class="identifier-syntax">somebody</span><span class="plain-syntax"> </span><span class="identifier-syntax">who</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspects</span><span class="plain-syntax"> </span><span class="identifier-syntax">Colonel</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hotchkiss</span>
             <br>
-            <span class="syntaxidentifier">somebody</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suspicious</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Colonel</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hotchkiss</span>
+            <span class="identifier-syntax">somebody</span><span class="plain-syntax"> </span><span class="identifier-syntax">suspicious</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Colonel</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hotchkiss</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>While most prepositions are short (<code class="inlinesourcetext">in</code>, <code class="inlinesourcetext">part of</code>, <code class="inlinesourcetext">suspicious of</code>), they're free to be longer if need be (<code class="inlinesourcetext">inordinately far away from</code>): the limit is 30 words, which should be ample.</p>
             <p>We can also define verbs as auxiliaries, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">able</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approach</span><span class="syntaxplain"> </span><span class="syntaxidentifier">means</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">approachability</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relation</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code910" -->
+            <blockquote class="extract-inform7"><a id="code910"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">able</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">approach</span><span class="plain-syntax"> </span><span class="identifier-syntax">means</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">approachability</span><span class="plain-syntax"> </span><span class="identifier-syntax">relation</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Now we can ask if Poirot <code class="inlinesourcetext">can approach</code> Hotchkiss, and so on.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg249><a style="text-decoration: none" href="eg_249.html"><span class="extensionexampleletter">249</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_249.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beneath the Surface</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">An &quot;underlying&quot; relation which adds to the world model the idea of objects hidden under other objects.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg249><a style="text-decoration: none" href="RB_6_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg250><a style="text-decoration: none" href="eg_250.html"><span class="extensionexampleletter">250</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_250.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swerve left? Swerve right? Or think about it and die?</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Building a marble chute track in which a dropped marble will automatically roll downhill.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg250><a style="text-decoration: none" href="RB_10_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg251><a style="text-decoration: none" href="eg_251.html"><span class="extensionexampleletter">251</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_251.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Abolition of Love</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A thorough exploration of all the kinds of relations established so far, with the syntax to set and unset them.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg251><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg252><a style="text-decoration: none" href="eg_252.html"><span class="extensionexampleletter">252</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_252.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beneath the Surface</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">An &quot;underlying&quot; relation which adds to the world model the idea of objects hidden under other objects.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg252><a style="text-decoration: none" href="RB_6_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg253><a style="text-decoration: none" href="eg_253.html"><span class="extensionexampleletter">253</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_253.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swerve left? Swerve right? Or think about it and die?</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Building a marble chute track in which a dropped marble will automatically roll downhill.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg253><a style="text-decoration: none" href="RB_10_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg254><a style="text-decoration: none" href="eg_254.html"><span class="extensionexampleletter">254</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_254.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Abolition of Love</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A thorough exploration of all the kinds of relations established so far, with the syntax to set and unset them.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg254><a style="text-decoration: none" href="RB_7_16.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg255><a style="text-decoration: none" href="eg_255.html"><span class="extensionexampleletter">255</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_255.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bogart</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_252.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bogart</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Clothing for the player that layers, so that items cannot be taken off in the wrong order, and the player's inventory lists only the clothing that is currently visible.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg255><a style="text-decoration: none" href="RB_9_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg252><a style="text-decoration: none" href="RB_9_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_14_9.html"><span class="markdowncontent">Section 14.9: Defining new assertion verbs</span></a> &bull; <a href="WI_14_11.html"><span class="markdowncontent">Section 14.11: Verbs which mean properties</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

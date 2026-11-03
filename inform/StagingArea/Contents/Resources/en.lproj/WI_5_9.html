@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,51 +2212,72 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Text with type styles" -->
+            <!-- SEARCH SECTION "5.9" -->
+            <!-- SEARCH SORT "001-005-009-000" -->
             <h3><span>Section 5.9: Text with type styles</span></h3>
-            <p>   </p>
+            <p>  
+            </p>
             <p>Inform does not go in for the use of fonts: a work of IF will be rendered with different fonts on different machines anyway, from tiny personal organisers up to huge workstations. However, it does allow for a modest amount of styling.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[bold type]&quot;</p>
+                <!-- START PHRASE "defn59" -->
+                <p class="defnprototype"><a id="defn59"></a>say &quot;[bold type]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear in bold face. <code class="inlinesourcetext">&quot;[roman type]&quot;</code> should be used to switch back to normal. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Jane looked down. </span><span class="syntaxextract">[bold type]</span><span class="syntaxstring">Danger</span><span class="syntaxextract">[roman type]</span><span class="syntaxstring">, the sign read.&quot;</span>
+                <!-- START CODE "code290" -->
+                <blockquote class="extract-inform7"><a id="code290"></a><span class="indexdullblue"><span class="string-syntax">&quot;Jane looked down. [bold type]Danger[roman type], the sign read.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[italic type]&quot;</p>
+                <!-- START PHRASE "defn60" -->
+                <p class="defnprototype"><a id="defn60"></a>say &quot;[italic type]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear in italics. <code class="inlinesourcetext">&quot;[roman type]&quot;</code> should be used to switch back to normal. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;This is </span><span class="syntaxextract">[italic type]</span><span class="syntaxstring">very suspicious</span><span class="syntaxextract">[roman type]</span><span class="syntaxstring">, said Peter.&quot;</span>
+                <!-- START CODE "code291" -->
+                <blockquote class="extract-inform7"><a id="code291"></a><span class="indexdullblue"><span class="string-syntax">&quot;This is [italic type]very suspicious[roman type], said Peter.&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[roman type]&quot;</p>
+                <!-- START PHRASE "defn61" -->
+                <p class="defnprototype"><a id="defn61"></a>say &quot;[roman type]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: to return to ordinary Roman type after a previous use of <code class="inlinesourcetext">&quot;[bold type]&quot;</code> or <code class="inlinesourcetext">&quot;[italic type]&quot;</code>.</p>
             </div>
             <p>but there is one other effect we can employ:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[fixed letter spacing]&quot;</p>
+                <!-- START PHRASE "defn62" -->
+                <p class="defnprototype"><a id="defn62"></a>say &quot;[fixed letter spacing]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: to make the text following it appear with fixed letter spacing. In variable letter spacing, a lower case &quot;m&quot; is much wider than an &quot;l&quot;, which is natural to the eye since it has been printing practice since the Renaissance. Fixed letter spacing is more like typewriting, and it is best used to reproduce typewritten text or printed notices; it can also be convenient for making simple diagrams. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;On the door is written: </span><span class="syntaxextract">[fixed letter spacing]</span><span class="syntaxstring">J45--O-O-O</span><span class="syntaxextract">[variable letter spacing]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code292" -->
+                <blockquote class="extract-inform7"><a id="code292"></a><span class="indexdullblue"><span class="string-syntax">&quot;On the door is written: [fixed letter spacing]J45--O-O-O[variable letter spacing].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[variable letter spacing]&quot;</p>
+                <!-- START PHRASE "defn63" -->
+                <p class="defnprototype"><a id="defn63"></a>say &quot;[variable letter spacing]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: to return to ordinary letter spacing after a previous use of <code class="inlinesourcetext">&quot;[fixed letter spacing]&quot;</code>.</p>
             </div>
             <p>Whichever effect we use, we should be careful to ensure that we return to normal – roman type and variable letter spacing – after any specially-treated text has been printed. Combining these effects (for, say, bold fixed-spaced lettering) is not guaranteed to work, though on some platforms it will.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg75><a style="text-decoration: none" href="eg_75.html"><span class="extensionexampleletter">75</span></a></span></div>
+                    <span id=eg74><a style="text-decoration: none" href="eg_74.html"><span class="extensionexampleletter">74</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_75.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_74.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding coloured text to the example of door-status readouts.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg75><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg74><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_8.html"><span class="markdowncontent">Section 5.8: Line breaks and paragraph breaks</span></a> &bull; <a href="WI_5_10.html"><span class="markdowncontent">Section 5.10: Accented letters</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

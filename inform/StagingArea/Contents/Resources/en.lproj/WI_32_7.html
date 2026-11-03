@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.7: Neptune and enumerative kinds</span></title>
+    <title><span class="markdowncontent">Section 32.7: Tables</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_6.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.7: Neptune and enumerative kinds</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.7: Tables</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_8.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,192 +2212,109 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.7: Neptune and enumerative kinds</span></h3>
-            <p>Inform already provides a range of ways to create new kinds of object, and new kinds of value in general, using source text alone. If a kit simply needs, say, a concept of &quot;bottle&quot;, then its wrapper extension can include something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bottle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bottle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bottle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxidentifier">transparent</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bottle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">accessible</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;K_bottle&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>And then code in the kit can do this sort of thing:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Tables" -->
+            <!-- SEARCH SECTION "32.7" -->
+            <!-- SEARCH SORT "001-032-007-000" -->
+            <h3><span>Section 32.7: Tables</span></h3>
+            <p> </p>
+            <p>A simple table looks like so, with pipe characters <code class="inlinecode">|</code> dividing the columns; it will only become a table if there is a ruler line under the column headings.</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    if (obj ofclass K_bottle) ...</span><br></code></pre></div>
-            <p>But certain kinds cannot be made in source text. For example, no source text defines <code class="inlinesourcetext">time</code>, or the <code class="inlinesourcetext">list of K</code> kind (or properly speaking, kind constructor, since it is a way of making a new kind out of an old one). All kinds which are <em>not</em> defined in source text are defined in <em>Neptune files</em>.</p>
-            <p>Neptune is a simple mini-language whose sole task is to define kinds for Inform. It's named for the fountain in the Place Neptune in Carcassonne, not the gas giant. We'll first use this mini-language to define an enumerative kind of value with values which are not 1, 2, 3, ...</p>
-            <p>A kit can only use Neptune files if its JSON metadata says so. So we'll amend <code class="inlinecode">kit_metadata.json</code> to:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;InternationalTelephonyKit&quot;</span><br><span class="syntaxidentifier">    },</span><br><span class="syntaxidentifier">    &quot;kit-details&quot;: {</span><br><span class="syntaxidentifier">        &quot;provides-kinds&quot;: [ &quot;CountryCodes.neptune&quot; ]</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>This simply says that it provides a Neptune file to declare one or more kinds. We will follow through on that by giving the kit a <code class="inlinecode">kinds</code> directory, inside which we put <code class="inlinecode">CountryCodes.neptune</code>:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">InternationalTelephonyKit</span><br><span class="syntaxidentifier">    Contents.w</span><br><span class="syntaxidentifier">    kinds</span><br><span class="syntaxidentifier">        CountryCodes.neptune</span><br><span class="syntaxidentifier">    kit_metadata.json</span><br><span class="syntaxidentifier">    Sections</span><br><span class="syntaxidentifier">        Dialling Codes.w</span><br></code></pre></div>
-            <p>And this will be our Neptune file <code class="inlinecode">CountryCodes.neptune</code>:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">new base COUNTRY_CODE_TY {</span><br><span class="syntaxidentifier">    conforms-to: ENUMERATED_VALUE_TY</span><br><span class="syntaxidentifier">    singular: country code</span><br><span class="syntaxidentifier">    plural: country codes</span><br><br><span class="syntaxidentifier">    instance: Saint Helena code  = ST_HELENA_CC     = 290</span><br><span class="syntaxidentifier">    instance: New Caledonia code = NEW_CALEDONIA_CC = 687</span><br><span class="syntaxidentifier">    instance: Montserrat code    = MONTSERRAT_CC    = 1664</span><br><span class="syntaxidentifier">    instance: Svalbard code      = SVALBARD_CC      = 4779</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>When this kit is linked into a project, any source text in that project can now use the kind <code class="inlinesourcetext">country code</code>. So for example, this rule:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Saint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Helena</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">codes</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">codes</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>produces the text:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">country code: Saint Helena code</span><br><span class="syntaxidentifier">&quot;list of country codes&quot; = list of country codes: {Saint Helena code, New Caledonia code, Montserrat code, Svalbard code}</span><br><span class="syntaxidentifier">&quot;a random country code&quot; = country code: New Caledonia code</span><br><span class="syntaxidentifier">&quot;number of country codes&quot; = number: 4</span><br></code></pre></div>
-            <p>On the face of it, that's not so interesting. We could just as easily have written:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">codes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Saint</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Helena</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">, </span><span class="syntaxidentifier">New</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Caledonia</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">, </span><span class="syntaxidentifier">Montserrat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Svalbard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>But if we had done <em>that</em>, then the values representing these codes at runtime would be 1, 2, 3 and 4; instead of which, they are 290, 687, 1664 and 4779. For example, suppose we define:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dial</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">code</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">country</span><span class="syntaxplain"> </span><span class="syntaxidentifier">code</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- </span><span class="syntaxidentifier">Dialup</span><span class="syntaxplain">({</span><span class="syntaxidentifier">code</span><span class="syntaxplain">}); -).</span>
-            </span></blockquote>
-            <p>and then provide the necessary <code class="inlinecode">Dialup</code> function in <code class="inlinecode">InternationalTelephonyKit</code>:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ Dialup code;</span><br><span class="syntaxidentifier">    print &quot;You dial &quot;, code, &quot;^&quot;;</span><br><span class="syntaxidentifier">    if (code == SVALBARD_CC) print &quot;The phone does feel a little chilly.^&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>The result of the phrase <code class="inlinesourcetext">dial Svalbard code</code> is then to print:</p>
-            <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">You dial 4779</span><br><span class="syntaxidentifier">The phone does feel a little chilly.</span><br></code></pre></div>
-            <p>As this example function suggests, the constants
-            <code class="inlinecode">ST_HELENA_CC</code>, <code class="inlinecode">NEW_CALEDONIA_CC</code>, <code class="inlinecode">MONTSERRAT_CC</code>, and <code class="inlinecode">SVALBARD_CC</code> are all now accessible to code in the kit.</p>
-            <p>To get back to the Neptune file syntax, let's unpick what is going on. The basic shape of our file was like so:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">new base COUNTRY_CODE_TY {</span><br><span class="syntaxidentifier">    ...</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>It consisted of a single declaration, with all the details being inside the braces <code class="inlinecode">{</code> and <code class="inlinecode">}</code>. The four main declarations are:</p>
-            <ul>
-            <li>
-            <p><code class="inlinecode">new base</code>. Makes a new base kind, on a par with <code class="inlinesourcetext">time</code> or <code class="inlinesourcetext">number</code>.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">new constructor</code>. Makes a new constructor for kinds, on a par with <code class="inlinesourcetext">list of K</code> or <code class="inlinesourcetext">relation of K to L</code>.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">builtin base</code>. Supplies details about a base kind which the compiler is expecting to be defined, like <code class="inlinesourcetext">time</code> or <code class="inlinesourcetext">number</code>.</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">builtin constructor</code>. Supplies details about a constructor for kinds which the compiler is expecting to be defined, like <code class="inlinesourcetext">time</code> or <code class="inlinesourcetext">number</code>.</p>
-            </li>
-            </ul>
-            <p>And for creating kinds which are not normally supplied with Inform, then, <code class="inlinecode">new base</code> and <code class="inlinecode">new constructor</code> are the ones which matter. <code class="inlinesourcetext">country code</code> is going to be a new base kind.</p>
-            <p>Next after <code class="inlinecode">new base</code> was the name <code class="inlinecode">COUNTRY_CODE_TY</code>. This is a defined constant accessible to I6, and its value is used inside kit-level code as the &quot;kind ID&quot; representing what kind this is. For example, the function call <code class="inlinecode">DefaultValueOfKOV(COUNTRY_CODE_TY)</code> returns 290, the dialling code for the island of Saint Helena, and <code class="inlinecode">PrintKindValuePair(COUNTRY_CODE_TY, MONTSERRAT_CC)</code> prints <code class="inlinetranscript">Montserrat</code>.</p>
-            <p>By convention all kind IDs have names in <code class="inlinecode">ALL_CAPITALS_WITH_UNDERSCORES</code> and ending in <code class="inlinecode">_TY</code>. This goes so far back into the early days of Inform that the letters &quot;TY&quot; here were short for &quot;type&quot;, which we would now call &quot;kind&quot;.</p>
-            <p>Inside the braces, then, the Neptune file specifies some details about this new base kind <code class="inlinesourcetext">country code</code>, and begins like this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    conforms-to: ENUMERATED_VALUE_TY</span><br><span class="syntaxidentifier">    singular: country code</span><br><span class="syntaxidentifier">    plural: country codes</span><br></code></pre></div>
-            <p>The <code class="inlinecode">singular</code> and <code class="inlinecode">plural</code> lines are easily explained: they are the source-text names for the kind. We know from the header line of the declaration that it is called <code class="inlinecode">COUNTRY_CODE_TY</code> at the I6 end; at the Inform source text end, it is called <code class="inlinesourcetext">country code</code>.</p>
-            <p><code class="inlinecode">conforms-to</code> tells Inform that this kind behaves in the way you would expect from the <em>protocol</em> <code class="inlinecode">ENUMERATED_VALUE_TY</code>, which is the I6 way to write <code class="inlinesourcetext">enumerated value</code>. A kind can conform to many protocols — for example, all kinds automatically conform to <code class="inlinesourcetext">value</code>, a.k.a. <code class="inlinecode">VALUE_TY</code>. Saying that <code class="inlinesourcetext">country code</code> conforms to <code class="inlinesourcetext">enumerated value</code> means that, for example, it would be valid to supply a country code when using the phrase:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speculate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enumerated</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">): ...</span>
-            </span></blockquote>
-            <p>Being an enumerated value means that Inform allows us to count the instances with <code class="inlinesourcetext">number of...</code>, or repeat through them, and so on. But Inform would not allow us to add together two country codes: it would throw a problem message if the source text asked to do that. If, however, we added:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    conforms-to: ENUMERATED_VALUE_TY</span><br><span class="syntaxidentifier">    conforms-to: ARITHMETIC_VALUE_TY</span><br><span class="syntaxidentifier">    singular: country code</span><br><span class="syntaxidentifier">    plural: country codes</span><br></code></pre></div>
-            <p>then Inform would now allow us to add together the Saint Helena code and the Montserrat code, making 290 + 1664 = 1954. That isn't one of our four possible values, so this would quickly lead to disaster. In any case, it really doesn't mean anything to add together two phone numbers, so it's easy to see why we want <code class="inlinesourcetext">country code</code> to conform to <code class="inlinesourcetext">enumerated value</code> but not <code class="inlinesourcetext">arithmetic value</code>.</p>
-            <p>All base kinds should conform to one or more of the following:</p>
+                <pre><code class="language-code">Column 1 | Column 2 | Column 3<br>-------- | -------- | --------<br>A        | B        | C<br>D        | E        | F<br>G        | H        | I<br></code></pre></div>
+            <p>which produces</p>
+            <blockquote>
             <table>
             <thead>
             <tr>
-            <th>Source text name</th>
-            <th>I6-level name</th>
-            <th>What conforms to this</th>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
             </tr>
             </thead>
             <tbody>
             <tr>
-            <td><code class="inlinesourcetext">value</code></td>
-            <td>VALUE_TY</td>
-            <td>All kinds by definition</td>
+            <td>A</td>
+            <td>B</td>
+            <td>C</td>
             </tr>
             <tr>
-            <td><em>none</em></td>
-            <td>STORED_VALUE_TY</td>
-            <td>All kinds whose values can be stored in a variable or property</td>
+            <td>D</td>
+            <td>E</td>
+            <td>F</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">sayable value</code></td>
-            <td>SAYABLE_VALUE_TY</td>
-            <td>All kinds whose values can sensibly be printed</td>
-            </tr>
-            <tr>
-            <td><code class="inlinesourcetext">understandable value</code></td>
-            <td>UNDERSTANDABLE_VALUE_TY</td>
-            <td>All kinds whose values can be recognised in typed commands</td>
-            </tr>
-            <tr>
-            <td><code class="inlinesourcetext">arithmetic value</code></td>
-            <td>ARITHMETIC_VALUE_TY</td>
-            <td>All kinds whose values can sensibly and safely be added, multiplied and so on</td>
-            </tr>
-            <tr>
-            <td><code class="inlinesourcetext">real arithmetic value</code></td>
-            <td>REAL_ARITHMETIC_VALUE_TY</td>
-            <td>Ditto, but using real not integer arithmetic</td>
-            </tr>
-            <tr>
-            <td><code class="inlinesourcetext">enumerated value</code></td>
-            <td>ENUMERATED_VALUE_TY</td>
-            <td>All kinds with a limited range</td>
-            </tr>
-            <tr>
-            <td><em>none</em></td>
-            <td>POINTER_VALUE_TY</td>
-            <td>All kinds with values represented by I6 pointers</td>
+            <td>G</td>
+            <td>H</td>
+            <td>I</td>
             </tr>
             </tbody>
             </table>
-            <p>In practice, it's not necessary to give much of a list, though, because:</p>
-            <ul>
-            <li>
-            <p>Saying that a kind conforms to <code class="inlinecode">REAL_ARITHMETIC_VALUE_TY</code> automatically makes it conform to <code class="inlinecode">ARITHMETIC_VALUE_TY</code> too.</p>
-            </li>
-            <li>
-            <p>Saying that a kind conforms to either <code class="inlinecode">ARITHMETIC_VALUE_TY</code> or  <code class="inlinecode">ENUMERATED_VALUE_TY</code> automatically makes it conform to <code class="inlinecode">UNDERSTANDABLE_VALUE_TY</code> too.</p>
-            </li>
-            <li>
-            <p>Saying that a kind conforms to <code class="inlinecode">UNDERSTANDABLE_VALUE_TY</code> automatically makes it conform to <code class="inlinecode">SAYABLE_VALUE_TY</code> too.</p>
-            </li>
-            <li>
-            <p>Saying that a kind conforms to <code class="inlinecode">SAYABLE_VALUE_TY</code> automatically makes it conform to <code class="inlinecode">STORED_VALUE_TY</code> too.</p>
-            </li>
-            <li>
-            <p>All kinds always conform to <code class="inlinecode">VALUE_TY</code>.</p>
-            </li>
-            </ul>
-            <p>So although we only declared <code class="inlinesourcetext">country code</code> as conforming to <code class="inlinecode">ENUMERATED_VALUE_TY</code>, we picked up conformance to <code class="inlinecode">UNDERSTANDABLE_VALUE_TY</code>, <code class="inlinecode">SAYABLE_VALUE_TY</code>, <code class="inlinecode">STORED_VALUE_TY</code> and <code class="inlinecode">VALUE_TY</code> automatically.</p>
-            <p>That is quite enough about conformance. The rest of the declaration is simply a list of the <em>instances</em> of this kind: i.e., of what those specific values are.</p>
+            </blockquote>
+            <p>There's no actual need to be tidy about lining up the pipes.</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    instance: Saint Helena code  = ST_HELENA_CC     = 290</span><br><span class="syntaxidentifier">    instance: New Caledonia code = NEW_CALEDONIA_CC = 687</span><br><span class="syntaxidentifier">    instance: Montserrat code    = MONTSERRAT_CC    = 1664</span><br><span class="syntaxidentifier">    instance: Svalbard code      = SVALBARD_CC      = 4779</span><br></code></pre></div>
-            <p>In an enumerated kind like this, at least one instance must be provided, and they must be given in strictly increasing value order.</p>
-            <p>Values are actually optional. For example:</p>
+                <pre><code class="language-code">Column 1 | Column 2 | Column 3<br>-------- | -------- | --------<br>A | B | C<br>D             | E        |       F<br>     G |    H          | I<br></code></pre></div>
+            <p>produces exactly the same result.</p>
+            <p>Table entries cannot contain other tables, or block code samples, or lists, or anything like that: but they can happily contain the simpler markup:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    instance: Fellowship of the Ring = FOTR_LOTR</span><br><span class="syntaxidentifier">    instance: Two Towers = TT_LOTR</span><br><span class="syntaxidentifier">    instance: Return of the King = ROTK_LOTR</span><br></code></pre></div>
-            <p>would create a three-element enumeration with values 1, 2, 3. This:</p>
+                <pre><code class="language-code">Column 1  | Column 2    | Column 3<br>--------- | ----------- | ---------<br>**Alpha** | _Beta_      | ~~Gamma~~<br>`Delta`   | ``EPSILON`` | ``Zeta``<br>```Eta``` | Theta       | ι<br></code></pre></div>
+            <p>producing:</p>
+            <blockquote>
+            <table>
+            <thead>
+            <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><strong>Alpha</strong></td>
+            <td><em>Beta</em></td>
+            <td><del>Gamma</del></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">Delta</code></td>
+            <td><code class="inlinetranscriptcommand">epsilon</code></td>
+            <td><code class="inlinetranscript">Zeta</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinecode">Eta</code></td>
+            <td>Theta</td>
+            <td>ι</td>
+            </tr>
+            </tbody>
+            </table>
+            </blockquote>
+            <p>Table columns can be aligned leftwards or rightwards by adding colons <code class="inlinecode">:</code> to the ruler line, as in this example:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    instance: cyan = CYAN_COL = 10</span><br><span class="syntaxidentifier">    instance: blue = BLUE_COL</span><br><span class="syntaxidentifier">    instance: grey = GREY_COL = 20</span><br><span class="syntaxidentifier">    instance: pink = PINK_COL</span><br></code></pre></div>
-            <p>creates the values as 10, 11, 20, 21.</p>
-            <p>Values can alternatively be given in Inform 6 hexadecimal or binary notation:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    instance: JSR instruction = JSR_6502 = $20</span><br><span class="syntaxidentifier">    instance: RTS instruction = RTS_6502 = $60</span><br><span class="syntaxidentifier">    instance: STA instruction = STA_6502 = $85</span><br></code></pre></div>
-            <p>Once enumerations are numbered other than in the obvious way 1, 2, 3, ..., it becomes convenient to have ways to distinguish their sequence position from their numerical value. So:</p>
-            <div class="definition">
-                <p class="defnprototype">numerical value of (V - enumerated value) ... number</p>
-                <p>The value stored at run-time to represent <code class="inlinesourcetext">V</code>. For a typical enumeration, the first-created value of its kind is internally stored as the number 1, the second 2, and so on. But for some non-standard enumerations, this is not always true.</p>
-            </div>
-            <div class="definition">
-                <p class="defnprototype">sequence number of (V - enumerated value) ... number</p>
-                <p>1 if <code class="inlinesourcetext">V</code> is the first-created value of its kind, 2 if it is the second, and so on. For a typical enumeration, this the same thing as <code class="inlinesourcetext">numerical value of V</code>. But for some non-standard enumerations, this is not always true.</p>
-            </div>
-            <p>For example, <code class="inlinesourcetext">numerical value of Svalbard code</code> is 4779, whereas <code class="inlinesourcetext">sequence number of Svalbard code</code> is 4.</p>
+                <pre><code class="language-code">| Stamp                                                 | Price   |<br>| :---------------------------------------------------- | ------: |<br>| GB 1883 SG183 10s Ultramarine                         | €614.72 |<br>| GB 1862 SG77 3d Pale carmine-rose (Wmk. Emblems) Pl.2 | €234.18 |<br></code></pre></div>
+            <p>producing:</p>
+            <blockquote>
+            <table>
+            <thead>
+            <tr>
+            <th align="left">Stamp</th>
+            <th align="right">Price</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td align="left">GB 1883 SG183 10s Ultramarine</td>
+            <td align="right">€614.72</td>
+            </tr>
+            <tr>
+            <td align="left">GB 1862 SG77 3d Pale carmine-rose (Wmk. Emblems) Pl.2</td>
+            <td align="right">€234.18</td>
+            </tr>
+            </tbody>
+            </table>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_6.html"><span class="markdowncontent">Section 32.6: Controlling how kits are linked</span></a> &bull; <a href="WI_32_8.html"><span class="markdowncontent">Section 32.8: Neptune and arithmetic kinds</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_6.html"><span class="markdowncontent">Section 32.6: Notes, tips, and cautions</span></a> &bull; <a href="WI_32_8.html"><span class="markdowncontent">Section 32.8: Lists and to-do items</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

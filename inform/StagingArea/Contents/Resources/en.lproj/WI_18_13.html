@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,252 +2212,266 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Topic columns" -->
+            <!-- SEARCH SECTION "18.13" -->
+            <!-- SEARCH SORT "001-018-013-000" -->
             <h3><span>Section 18.13: Topic columns</span></h3>
             <p>   </p>
             <p>A column whose name is just <code class="inlinesourcetext">Topic</code>, or whose name has <code class="inlinesourcetext">(topic)</code> in brackets after it, is special. It is used for matching fragments of a typed-in command, so the use of topics here is really an overlap with the <code class="inlinesourcetext">Understand...</code> system for making sense of typed command. That will be the subject of its own chapter, <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>.</p>
             <p>For example, suppose the player meets a Sybil who has a penchant for telling passers-by which is the Greek muse for what. <code class="inlinetranscriptcommand">ask sybil about polyhymnia</code>, the player at once types. How is Inform to work out what to say? Here is a solution:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('After asking the Sybil about a topic listed in the Table of Sybil[=0x0027=]s Replies:[=0x000A=][=0x0009=]say [=0x0022=]The Sybil declaims for a while, the gist being that the muse in question looks after [muse entry].[=0x0022=][=0x000A=][=0x000A=]Table of Sybil[=0x0027=]s Replies[=0x000A=]Topic[=0x0009=][=0x0009=][=0x0009=]Muse[=0x000A=][=0x0022=]calliope[=0x0022=][=0x0009=][=0x0009=][=0x0022=]epic poetry[=0x0022=][=0x000A=][=0x0022=]clio[=0x0022=][=0x0009=][=0x0009=][=0x0009=][=0x0022=]history[=0x0022=][=0x000A=][=0x0022=]erato[=0x0022=][=0x0009=][=0x0009=][=0x0009=][=0x0022=]love poetry[=0x0022=][=0x000A=][=0x0022=]euterpe[=0x0022=][=0x0009=][=0x0009=][=0x0022=]music[=0x0022=][=0x000A=][=0x0022=]melpomene[=0x0022=][=0x0009=][=0x0009=][=0x0022=]tragedy[=0x0022=][=0x000A=][=0x0022=]polyhymnia[=0x0022=][=0x0009=][=0x0022=]sacred poetry[=0x0022=][=0x000A=][=0x0022=]terpsichore[=0x0022=][=0x0009=][=0x0022=]dancing[=0x0022=][=0x000A=][=0x0022=]thalia[=0x0022=][=0x0009=][=0x0009=][=0x0022=]comedy[=0x0022=][=0x000A=][=0x0022=]urania[=0x0022=][=0x0009=][=0x0009=][=0x0022=]astronomy[=0x0022=][=0x000A=][=0x0022=]monica[=0x0022=][=0x0009=][=0x0009=][=0x0022=]tidiness[=0x0022=][=0x000A=][=0x0022=]phoebe[=0x0022=][=0x0009=][=0x0009=][=0x0022=]massage[=0x0022=][=0x000A=][=0x0022=]rachel[=0x0022=][=0x0009=][=0x0009=][=0x0022=]oval hair-cuts[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1193" -->
+            <blockquote class="extract-inform7"><a id="code1193"></a><a class="actionlink" href="javascript:pasteCode('After asking the Sybil about a topic listed in the Table of Sybil[=0x0027=]s Replies:[=0x000A=][=0x0009=]say [=0x0022=]The Sybil declaims for a while, the gist being that the muse in question looks after [muse entry].[=0x0022=][=0x000A=][=0x000A=]Table of Sybil[=0x0027=]s Replies[=0x000A=]Topic[=0x0009=][=0x0009=][=0x0009=]Muse[=0x000A=][=0x0022=]calliope[=0x0022=][=0x0009=][=0x0009=][=0x0022=]epic poetry[=0x0022=][=0x000A=][=0x0022=]clio[=0x0022=][=0x0009=][=0x0009=][=0x0009=][=0x0022=]history[=0x0022=][=0x000A=][=0x0022=]erato[=0x0022=][=0x0009=][=0x0009=][=0x0009=][=0x0022=]love poetry[=0x0022=][=0x000A=][=0x0022=]euterpe[=0x0022=][=0x0009=][=0x0009=][=0x0022=]music[=0x0022=][=0x000A=][=0x0022=]melpomene[=0x0022=][=0x0009=][=0x0009=][=0x0022=]tragedy[=0x0022=][=0x000A=][=0x0022=]polyhymnia[=0x0022=][=0x0009=][=0x0022=]sacred poetry[=0x0022=][=0x000A=][=0x0022=]terpsichore[=0x0022=][=0x0009=][=0x0022=]dancing[=0x0022=][=0x000A=][=0x0022=]thalia[=0x0022=][=0x0009=][=0x0009=][=0x0022=]comedy[=0x0022=][=0x000A=][=0x0022=]urania[=0x0022=][=0x0009=][=0x0009=][=0x0022=]astronomy[=0x0022=][=0x000A=][=0x0022=]monica[=0x0022=][=0x0009=][=0x0009=][=0x0022=]tidiness[=0x0022=][=0x000A=][=0x0022=]phoebe[=0x0022=][=0x0009=][=0x0009=][=0x0022=]massage[=0x0022=][=0x000A=][=0x0022=]rachel[=0x0022=][=0x0009=][=0x0009=][=0x0022=]oval hair-cuts[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">topic</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The Sybil declaims for a while, the gist being that the muse in question looks after </span><span class="syntaxextract">[muse entry]</span><span class="syntaxstring">.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Sybil declaims for a while, the gist being that the muse in question looks after [muse entry].&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span></span><br>
+            <span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Topic</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Topic</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Muse</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;calliope&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;epic poetry&quot;</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">Muse</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;clio&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;calliope&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;history&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;erato&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;love poetry&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;epic poetry&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;euterpe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;clio&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;music&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;melpomene&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;tragedy&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;history&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;polyhymnia&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;erato&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;sacred poetry&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;terpsichore&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;dancing&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;love poetry&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;thalia&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;euterpe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;comedy&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;urania&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;astronomy&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;music&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;monica&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;melpomene&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;tidiness&quot;</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;phoebe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;massage&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;tragedy&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;rachel&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;polyhymnia&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;oval hair-cuts&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;sacred poetry&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;terpsichore&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;dancing&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;thalia&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;comedy&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;urania&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;astronomy&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;monica&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;tidiness&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;phoebe&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;massage&quot;</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;rachel&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="string-syntax">&quot;oval hair-cuts&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>What is special about <code class="inlinesourcetext">Topic</code> columns is that they do <em>not</em> contain text in the ordinary way, even though that's what the entries look like, because of the quotation marks. The entry <code class="inlinesourcetext">&quot;polyhymnia&quot;</code> (about half-way down) is not read as a value of the kind <code class="inlinesourcetext">text</code> — a string of letters, <code class="inlinesourcetext">p</code> then <code class="inlinesourcetext">o</code> then... and so on; it is read as a very simple &quot;grammar&quot; which looks at a fragment of typed command to see if it is equal to the word <code class="inlinetranscriptcommand">polyhymnia</code> or not. This is a value of the kind <code class="inlinesourcetext">topic</code>, not <code class="inlinesourcetext">text</code>. Topic values can't normally be typed in Inform, but they do occur in these columns, and in the text-like part following the word <code class="inlinesourcetext">Understand</code>.</p>
             <p>Topics do not have to be single words, and do not have to be fixed pieces of wording. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
+            <!-- START CODE "code1194" -->
+            <blockquote class="extract-inform7"><a id="code1194"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span><span class="plain-syntax"> (</span><span class="identifier-syntax">continued</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;suzanne vega&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;suzanne vega&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;love songs&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;love songs&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;muse </span><span class="syntaxextract">[number]</span><span class="syntaxstring">&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;muse [number]&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;dreary everyday stuff&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;dreary everyday stuff&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>And we can now <code class="inlinetranscriptcommand">ask sybil about muse 17</code>, or <code class="inlinetranscriptcommand">ask sybil about suzanne vega</code>
             Note that there is no point capitalising topics (<code class="inlinesourcetext">&quot;Suzanne Vega&quot;</code>, or <code class="inlinesourcetext">&quot;Polyhymnia&quot;</code>) because commands are read case-insensitively. As texts, <code class="inlinesourcetext">&quot;clio&quot;</code> and <code class="inlinesourcetext">&quot;CLIO&quot;</code> and <code class="inlinesourcetext">&quot;Clio&quot;</code> would all be different from each other, but as topics, they are all the same because they match the same word.</p>
             <p>Topics can be written to use the full range of abilities of the &quot;understanding&quot; system, so for more possibilities, see the chapter <a href="WI_19_1.html" title="Chapter 19: Understanding">Understanding</a>. With that said, topic columns in tables are mostly used for quite simple cases like the ones above, because that is what authors most often need. Still, one more feature is worth drawing attention to here.</p>
             <p>It would be clumsy to have to write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
+            <!-- START CODE "code1195" -->
+            <blockquote class="extract-inform7"><a id="code1195"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span><span class="plain-syntax"> (</span><span class="identifier-syntax">continued</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;flora&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;flora&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;flowers&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;flowers&quot;</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;eve&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;eve&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;flowers&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;flowers&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>where we want <code class="inlinetranscriptcommand">eve</code> to be another name for <code class="inlinetranscriptcommand">flora</code>. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
+            <!-- START CODE "code1196" -->
+            <blockquote class="extract-inform7"><a id="code1196"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span><span class="plain-syntax"> (</span><span class="identifier-syntax">continued</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;flora/eve&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;flora/eve&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;flowers&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;flowers&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">/</code> notation works only for single words, so if we wanted to have alternative possibilities some or all of which were longer, then:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Sybil</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Replies</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
+            <!-- START CODE "code1197" -->
+            <blockquote class="extract-inform7"><a id="code1197"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Sybil</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Replies</span><span class="plain-syntax"> (</span><span class="identifier-syntax">continued</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;Bridget&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bridge&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bridget Jones&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="string-syntax">&quot;Bridget&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bridge&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bridget Jones&quot;</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxstring">&quot;publishing&quot;</span></span>
+                        <span class="indexdullblue"><span class="string-syntax">&quot;publishing&quot;</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg306><a style="text-decoration: none" href="eg_306.html"><span class="extensionexampleletter">306</span></a></span></div>
+                    <span id=eg303><a style="text-decoration: none" href="eg_303.html"><span class="extensionexampleletter">303</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_306.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Merlin</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_303.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Merlin</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">remember</code> command which accepts any text and looks up a response in a table of recollections.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg306><a style="text-decoration: none" href="RB_5_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg303><a style="text-decoration: none" href="RB_5_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg307><a style="text-decoration: none" href="eg_307.html"><span class="extensionexampleletter">307</span></a></span></div>
+                    <span id=eg304><a style="text-decoration: none" href="eg_304.html"><span class="extensionexampleletter">304</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_307.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Questionable Revolutions</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_304.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Questionable Revolutions</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An expansion on the previous idea, only this time we store information and let characters answer depending on their expertise in a given area.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg307><a style="text-decoration: none" href="RB_7_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg304><a style="text-decoration: none" href="RB_7_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg308><a style="text-decoration: none" href="eg_308.html"><span class="extensionexampleletter">308</span></a></span></div>
+                    <span id=eg305><a style="text-decoration: none" href="eg_305.html"><span class="extensionexampleletter">305</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_308.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Queen of Sheba</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_305.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Queen of Sheba</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to use question words, and using that information to modify the response given by the other character.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg308><a style="text-decoration: none" href="RB_7_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg305><a style="text-decoration: none" href="RB_7_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_12.html"><span class="markdowncontent">Section 18.12: Listed in...</span></a> &bull; <a href="WI_18_14.html"><span class="markdowncontent">Section 18.14: Another scoring example</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

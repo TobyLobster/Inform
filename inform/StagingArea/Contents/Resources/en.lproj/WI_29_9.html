@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.9: Extension rubrics</span></title>
+    <title><span class="markdowncontent">Section 29.9: An introductory booklet and postcard</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_8.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.9: Extension rubrics</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.9: An introductory booklet and postcard</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_10.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,48 +2212,30 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.9: Extension rubrics</span></h3>
-            <p>It's very helpful for an extension to be accompanied by a brief description of what it does, so that a user browsing through lists of extensions can see more than just the title. This is called a <em>rubric</em>.</p>
-            <p>Every extension should give a rubric. It's written as a double-quoted text placed immediately after the beginning sentence, and with no intervening comments. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxstring">&quot;An action for ducking one's head, to avoid a projectile or pass under a low doorframe.&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck!&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "An introductory booklet and postcard" -->
+            <!-- SEARCH SECTION "29.9" -->
+            <!-- SEARCH SORT "001-029-009-000" -->
+            <h3><span>Section 29.9: An introductory booklet and postcard</span></h3>
+            <p>   </p>
+            <p>When IF is aimed particularly at people who have never played IF before, there are certain conventions which it's a good idea to explain, or players will simply not know what to do. It can become a chore writing a clear set of instructions, and then there is the further nuisance of explaining about the need for an interpreter program to play the IF story file.</p>
+            <p>To alleviate this, Inform can <code class="inlinesourcetext">Release along with an introductory booklet</code>, as for instance in this example:</p>
+            <!-- START CODE "code1805" -->
+            <blockquote class="extract-inform7"><a id="code1805"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">art</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">introductory</span><span class="plain-syntax"> </span><span class="identifier-syntax">booklet</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio magazine&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio.pdf&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The mating call of the green wyvern&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mating Wyverns.mp3&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>A few considerations about rubrics:</p>
-            <ol>
-            <li>
-            <p>Rubrics are never printed in play, and they cannot make use of text substitutions in square brackets.</p>
-            </li>
-            <li>
-            <p>A rubric should not exceed 500 characters at the outside, and should if possible be shorter than that. Most extensions can be summed up fairly in a sentence or two.</p>
-            </li>
-            <li>
-            <p>The rubric is a good place to explain the title, if there's any ambiguity. For example, &quot;ducking&quot; might suggest skipping a class, or a meeting, or avoiding some task. The text &quot;to avoid a projectile or pass under a low doorframe&quot; above makes clear that we mean something more physical and in-the-moment.</p>
-            </li>
-            </ol>
-            <p>A second double-quoted text can also, optionally, be added in yet a third special starting paragraph. This is to provide additional credits to people who have contributed to this or earlier versions. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;based on original Inform 6 code by Marc Canard&quot;</span>
+            <!-- END CODE -->
+            <p>The introductory booklet is a standard 8-page PDF file, written and designed by Emily Short, which contains all the basic information needed for a player to get started. It has been written to be as general-purpose as possible, in the hope of being useful for a range of widely different works of IF. There will certainly be works to which it would not be an appropriate supplement, and some authors will certainly prefer to write their own notes for players, but of course it is not compulsory. By making it available as a convenience, the authors of Inform do not intend to say that these are the &quot;official&quot; instructions or that others are not. It is simply intended as a time-saver.</p>
+            <p>As an alternative, or a supplement, it's also possible to:</p>
+            <!-- START CODE "code1806" -->
+            <blockquote class="extract-inform7"><a id="code1806"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">introductory</span><span class="plain-syntax"> </span><span class="identifier-syntax">postcard</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Note the typical style here: it's a phrase rather than a sentence, and neither starts with an upper-case letter nor ends with a full stop. (The additional credit is then used in documentation and also in the <code class="inlinetranscriptcommand">version</code> text of any Inform story file using the extension.)</p>
+            <!-- END CODE -->
+            <p>which supplies a standard postcard about IF (everything new players need to know, at one glance) written and designed by Andrew Plotkin and Lea Albaugh.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_8.html"><span class="markdowncontent">Section 29.8: Extensions including other extensions</span></a> &bull; <a href="WI_29_10.html"><span class="markdowncontent">Section 29.10: Licence</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_8.html"><span class="markdowncontent">Section 29.8: Cover art</span></a> &bull; <a href="WI_29_10.html"><span class="markdowncontent">Section 29.10: A website</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

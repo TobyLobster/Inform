@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 27.13: Website templates</span></title>
+    <title><span class="markdowncontent">Section 27.13: Writing, reading and appending text to files</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_27_12.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.13: Website templates</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 27.13: Writing, reading and appending text to files</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_27_14.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,52 +2212,73 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 27.13: Website templates</span></h3>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Writing, reading and appending text to files" -->
+            <!-- SEARCH SECTION "27.13" -->
+            <!-- SEARCH SORT "001-027-013-000" -->
+            <h3><span>Section 27.13: Writing, reading and appending text to files</span></h3>
             <p> </p>
-            <p>Web pages are very idiosyncratic things and Inform will almost certainly not produce exactly what we want. What it actually does is to take an existing &quot;template&quot; web page, and paste in the relevant information to make the final product. So by starting with a different template, we can end up with an entirely different-looking web page: like this one, for instance –</p>
-            <p><img src="doc_images/sampleweb2.jpg" alt="sampleweb2" /></p>
-            <p>The template ordinarily used by Inform is called <code class="inlinesourcetext">Standard</code> and comes built in. (A second built-in template, <code class="inlinesourcetext">Classic</code>, imitates the look used in 2005-08. The word &quot;classic&quot; here is to be understood in the sense of Classic Mac OS, the classic Doctor Who adventure <em>Time and the Rani</em>, classic Mayan civilisation, and so forth – really pretty awful.)</p>
-            <p>Any other templates we must make ourselves, giving each one a different name, by convention a single word. In this section, we'll make a new one called <code class="inlinesourcetext">Platinum</code>.</p>
-            <p>Suppose we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Release</span><span class="syntaxplain"> </span><span class="syntaxidentifier">along</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cover</span><span class="syntaxplain"> </span><span class="syntaxidentifier">art</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Platinum&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">website</span><span class="syntaxplain">, </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio magazine&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Collegio.pdf&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The mating call of the green wyvern&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Mating Wyverns.mp3&quot;</span><span class="syntaxplain">.</span>
+            <p>Text can also be saved to a file, and again all file-handling is automatic:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn488" -->
+                <p class="defnprototype"><a id="defn488"></a>write (text) to (external file)</p>
+                <!-- END PHRASE -->
+                <p>This phrase makes the given text become the entire contents of the named file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
+                <!-- START CODE "code1766" -->
+                <blockquote class="extract-inform7"><a id="code1766"></a><span class="indexdullblue"><span class="identifier-syntax">write</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Jackdaws love my big sphinx of quartz.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Abecedary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wisdom</span><span class="plain-syntax">;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn489" -->
+                <p class="defnprototype"><a id="defn489"></a>append (text) to (external file)</p>
+                <!-- END PHRASE -->
+                <p>This phrase adds the given text to the end of the current contents of the named file (creating it if it does not exist on disc). Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
+                <!-- START CODE "code1767" -->
+                <blockquote class="extract-inform7"><a id="code1767"></a><span class="indexdullblue"><span class="identifier-syntax">append</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Jinxed wizards pluck ivy from the big quilt.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Abecedary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wisdom</span><span class="plain-syntax">;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <p>The quoted text can, of course, contain substitutions, so can be long and complex if need be.</p>
+            <p>Text from a file is printed back with the text substitution:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn490" -->
+                <p class="defnprototype"><a id="defn490"></a>say &quot;[text of (external file)]&quot;</p>
+                <!-- END PHRASE -->
+                <p>This text expands to the contents of the named file. Note that files must have been declared, and must be referred to by their Inform names, not by textual filenames. Example:</p>
+                <!-- START CODE "code1768" -->
+                <blockquote class="extract-inform7"><a id="code1768"></a><span class="indexdullblue"><span class="string-syntax">&quot;[text of the File of Abecedary Wisdom]&quot;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <p>To copy one file to another, for instance,</p>
+            <!-- START CODE "code1769" -->
+            <blockquote class="extract-inform7"><a id="code1769"></a><span class="indexdullblue"><span class="identifier-syntax">write</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[text of the file of Abecedary Wisdom]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Secondary</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wisdom</span><span class="plain-syntax">;</span>
             </span></blockquote>
-            <p>This is identical to the previous version except for the <code class="inlinesourcetext">Platinum</code>: note the quotation marks. When it needs to find a template, Inform searches the following places in sequence:</p>
-            <ol>
-            <li>the <code class="inlinesourcetext">Templates</code> subfolder of the project's own <code class="inlinesourcetext">.materials</code> folder, if this subfolder should exist;</li>
-            <li>the <code class="inlinesourcetext">Templates</code> folder in the user's own library:
-            <ul>
-            <li>on MacOS, this is <code class="inlinesourcetext">~/Library/Inform/Templates</code></li>
-            <li>on Windows, <code class="inlinesourcetext">My Documents\Inform\Templates</code></li>
-            <li>or on Linux, <code class="inlinesourcetext">/Inform/Templates</code>
-            (c) the built-in stock of templates, currently only <code class="inlinesourcetext">Standard</code> and <code class="inlinesourcetext">Classic</code>.</li>
-            </ul>
-            </li>
-            </ol>
-            <p>What Inform looks for is a folder name matching that of the template – so in our case we need to provide a folder called <code class="inlinesourcetext">Platinum</code>, and put it in either location (a) or (b).</p>
-            <p>The template folder is expected to contain some combination of the following files:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Platinum</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">index</span><span class="syntaxplain">.</span><span class="syntaxidentifier">html</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">source</span><span class="syntaxplain">.</span><span class="syntaxidentifier">html</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">style</span><span class="syntaxplain">.</span><span class="syntaxidentifier">css</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">extras</span><span class="syntaxplain">).</span><span class="syntaxidentifier">txt</span>
-            </span></blockquote>
-            <p>There are two HTML pages here, one for the main front page, the other for pages of displayed source text (if we release along with the source text – see later in the chapter). The CSS file defines styles of text – sizes, fonts, colours, and so on – and positions material on the page. The <code class="inlinesourcetext">(extras).txt</code> – which is optional, of course – allows additional HTML pages, images, movies and so on to be added.</p>
-            <p>If any of these is missing, Inform uses the one in <code class="inlinesourcetext">Standard</code> instead. In practice, this means the easiest way to create a new template is to supply just a new CSS file, which can change the colour, font, type size, and position of more or less everything in the site:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Platinum</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">style</span><span class="syntaxplain">.</span><span class="syntaxidentifier">css</span>
-            </span></blockquote>
-            <p>We probably want to start from the <code class="inlinesourcetext">Standard</code> version of <code class="inlinesourcetext">style.css</code> and edit in a few changes; the easiest way to get a clean copy of <code class="inlinesourcetext">Standard</code>'s CSS file to work on is to release the project with a <code class="inlinesourcetext">Standard</code> template, which causes this default <code class="inlinesourcetext">style.css</code> to appear in the <code class="inlinesourcetext">Release</code> subfolder of the project's .materials folder. (But it's wise to move the file out of <code class="inlinesourcetext">Release</code> before starting to edit it – files in <code class="inlinesourcetext">Release</code> are overwritten by Inform whenever a release is made.)</p>
-            <p>This is not the place to describe how CSS works. CSS is a more or less universal format today for describing how web pages should look – their style rather than their content. A dazzling variety of possibilities can be seen at the excellent <a href="http://csszengarden.com/">CSS Zen Garden</a>, but of course there are many, many other textbooks and websites which describe CSS.</p>
+            <!-- END CODE -->
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg469><a style="text-decoration: none" href="eg_469.html"><span class="extensionexampleletter">469</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_469.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fourth Body</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Notebooks in which the player can record assorted notes throughout play.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg469><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg470><a style="text-decoration: none" href="eg_470.html"><span class="extensionexampleletter">470</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_470.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fifth Body</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">An expansion on the notebook, allowing the player somewhat more room in which to type their recorded remark.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg470><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_27_12.html"><span class="markdowncontent">Section 27.12: Using Inform with Vorple</span></a> &bull; <a href="WI_27_14.html"><span class="markdowncontent">Section 27.14: Advanced website templates</span></a></em></p>
+        <p><em> &bull; <a href="WI_27_12.html"><span class="markdowncontent">Section 27.12: Writing and reading tables to external files</span></a> &bull; <a href="WI_27_14.html"><span class="markdowncontent">Section 27.14: Exchanging files with other programs</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

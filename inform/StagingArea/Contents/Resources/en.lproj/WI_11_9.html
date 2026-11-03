@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,21 +2212,55 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dialogue lines" -->
+            <!-- SEARCH SECTION "11.9" -->
+            <!-- SEARCH SORT "001-011-009-000" -->
             <h3><span>Section 11.9: Dialogue lines</span></h3>
+            <p>
+             
+             
+             
+
+
+
+
+
+
+
+               
+               
+               
+               
+             
+             
+             
+              
+             
+             
+             
+             
+             
+             
+             </p>
             <p>By this point many lines of dialogue have already appeared, some of them with cryptic notes in brackets. It's time now to look at the full range of possibilities.</p>
             <p>A dialogue line occupies a single complete paragraph, and takes one of these forms:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Speaker</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Line which is said.&quot;</span>
+            <!-- START CODE "code665" -->
+            <blockquote class="extract-inform7"><a id="code665"></a><span class="indexdullblue"><span class="identifier-syntax">Speaker</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Line which is said.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Speaker</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">performance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">details</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Line which is said.&quot;</span>
+            <span class="identifier-syntax">Speaker</span><span class="plain-syntax"> (</span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">performance</span><span class="plain-syntax"> </span><span class="identifier-syntax">details</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Line which is said.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If given, the performance details are one or more clauses, divided by full stops
             or semicolons, and placed in round brackets after the speaker name.</p>
             <h4><span>The speaker</span></h4>
             <p>The speaker is either the word <code class="inlinesourcetext">Narration</code>, which means that the line is not dialogue, but bridging narration in the story:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Jojo walks over to the jeep.&quot;</span>
+            <!-- START CODE "code666" -->
+            <blockquote class="extract-inform7"><a id="code666"></a><span class="indexdullblue"><span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Jojo walks over to the jeep.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Or else it is a description of who speaks. Usually that will be a literal name of somebody, but it need not be. These are all potentially valid speakers:</p>
             <ul>
             <li>
@@ -2163,7 +2282,7 @@
             <p>On-stage (i.e., enclosed by some room) rather than off-stage.</p>
             </li>
             <li>
-            <p>Audible to the plyer rather than not.</p>
+            <p>Audible to the player rather than not.</p>
             </li>
             <li>
             <p>Being the interlocutor of the previous speech in the same beat rather than not.</p>
@@ -2178,23 +2297,31 @@
             <p>If there are several equally good possibilities under these criteria, a random choice is made. If there are none, the line of dialogue is skipped and not performed at all (and therefore is not given the <code class="inlinesourcetext">performed</code> property).</p>
             <h4><span>The name</span></h4>
             <p>Just as every beat is a value of the kind <code class="inlinesourcetext">dialogue beat</code>, so every line is a value of the kind <code class="inlinesourcetext">dialogue line</code>. These are usually nameless, but can be given names, which would allow the source text to manipulate them. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reluctant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">admission</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Something is rotten.&quot;</span>
+            <!-- START CODE "code667" -->
+            <blockquote class="extract-inform7"><a id="code667"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reluctant</span><span class="plain-syntax"> </span><span class="identifier-syntax">admission</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Something is rotten.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The name has to end with <code class="inlinesourcetext">line</code>, and has to be unique: two different lines cannot have the same name.</p>
             <p>Most lines never need naming, of course, but the occasional use of names allows for tricks like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reluctant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">admission</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">performed</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Look, we've got to face it. Marcellus was right, Denmark's in trouble.&quot;</span>
+            <!-- START CODE "code668" -->
+            <blockquote class="extract-inform7"><a id="code668"></a><span class="indexdullblue"><span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">reluctant</span><span class="plain-syntax"> </span><span class="identifier-syntax">admission</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">performed</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Look, we've got to face it. Marcellus was right, Denmark's in trouble.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <h4><span>The interlocutor</span></h4>
             <p>Most lines are delivered to the whole room in general, but some are pointedly spoken <em>to</em> somebody, even if others are listening. If so, that person is called the <em>interlocutor</em>. <code class="inlinesourcetext">to</code> plus a description of an object specifies who that person is.</p>
             <p>This is useful for lines which make sense only in the presence of somebody else. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">; </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Prince</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cannot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hear</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;The Prince looks moody tonight, i'faith.&quot;</span>
+            <!-- START CODE "code669" -->
+            <blockquote class="extract-inform7"><a id="code669"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bernardo</span><span class="plain-syntax">; </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Prince</span><span class="plain-syntax"> </span><span class="identifier-syntax">cannot</span><span class="plain-syntax"> </span><span class="identifier-syntax">hear</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;The Prince looks moody tonight, i'faith.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The line will not be performed unless Marcellus can hear Bernardo. Being the interlocutor also makes somebody slightly more likely to be chosen as the next speaker: see above.</p>
             <h4><span>What is mentioned</span></h4>
             <p><code class="inlinesourcetext">mentioning ...</code> says that the line makes a conversation subject live
             when it is performed. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">mentioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;I be mighty afear'd of the Ghost.&quot;</span>
+            <!-- START CODE "code670" -->
+            <blockquote class="extract-inform7"><a id="code670"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">mentioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ghost</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;I be mighty afear'd of the Ghost.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>A whole list of subjects can be given: <code class="inlinesourcetext">mentioning the Ghost and Denmark</code>
             would give two, for example. As usual, it's possible to be vague: <code class="inlinesourcetext">mentioning the people in the Dining Room</code>, for example. But the whole point of <code class="inlinesourcetext">mentioning</code> is to single out what's important, so it's unlikely to be a good idea to allow too many things to be caught at a time by such a description.</p>
             <h4><span>Making the line conditional</span></h4>
@@ -2202,53 +2329,71 @@
             <h4><span>Actions as stage directions</span></h4>
             <p>The <code class="inlinesourcetext">before</code> and <code class="inlinesourcetext">after</code> clauses say that an Inform action should be tried along with the performance of the line. Note that <code class="inlinesourcetext">before</code> means the line is performed before the action, and <code class="inlinesourcetext">after</code> means it is performed after.</p>
             <p>Unless otherwise specified, the actor of the action is the speaker, so this is an exception to the general rule of Inform that the default actor is the player. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Gravedigger</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shovel</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Here goes another shallow one.&quot;</span>
+            <!-- START CODE "code671" -->
+            <blockquote class="extract-inform7"><a id="code671"></a><span class="indexdullblue"><span class="identifier-syntax">Gravedigger</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shovel</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Here goes another shallow one.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would be performed as:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The gravedigger takes the shovel.</span><br><span class="syntaxidentifier">    </span><br><span class="syntaxidentifier">Gravedigger: &quot;Here goes another shallow one.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">The gravedigger takes the shovel.<br>    <br>Gravedigger: &quot;Here goes another shallow one.&quot;<br></code></pre></div>
             <p>In the case of <code class="inlinesourcetext">after</code>, the action must succeed, or else the line is not performed after all. For example, if some rule made it impossible for any person to take the shovel, the Gravedigger would not in fact get it, and therefore his line would make no sense: so it would not be performed.</p>
             <p>The actor need not be the speaker, but the action has to succeed whoever the actor may be:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Gravedigger</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hamlet</span><span class="syntaxplain">; </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hamlet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">silently</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shovel</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code672" -->
+            <blockquote class="extract-inform7"><a id="code672"></a><span class="indexdullblue"><span class="identifier-syntax">Gravedigger</span><span class="plain-syntax"> (</span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hamlet</span><span class="plain-syntax">; </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hamlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">silently</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">shovel</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxstring">&quot;Hey, I saw you picking up that shovel! That's a union job, sweet Prince!&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">&quot;Hey, I saw you picking up that shovel! That's a union job, sweet Prince!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As with <code class="inlinesourcetext">try</code>, the keyword <code class="inlinesourcetext">silently</code> causes uninteresting text such as <code class="inlinetranscript">The gravedigger takes the shovel.</code> to be left unsaid.</p>
             <h4><span>Now conditions as stage directions</span></h4>
             <p><code class="inlinesourcetext">now</code> plus a condition allows the world model to be changed immediately after
             the line is performed. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Banqueting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Oh my. I'm running for it!&quot;</span>
+            <!-- START CODE "code673" -->
+            <blockquote class="extract-inform7"><a id="code673"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Banqueting</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hall</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Oh my. I'm running for it!&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It's legal to pile up multiple <code class="inlinesourcetext">after</code>, <code class="inlinesourcetext">before</code> and <code class="inlinesourcetext">now</code> clauses on the
             same line, at your own risk:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain"> </span><span class="syntaxidentifier">detector</span><span class="syntaxplain">; </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ghost</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Banqueting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain">; </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">jumping</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Marcellus grabs the equipment, takes a quick reading, and panics. 'Oh my. I'm running for it!' And he makes a running jump.&quot;</span>
+            <!-- START CODE "code674" -->
+            <blockquote class="extract-inform7"><a id="code674"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ghost</span><span class="plain-syntax"> </span><span class="identifier-syntax">detector</span><span class="plain-syntax">; </span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ghost</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Banqueting</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hall</span><span class="plain-syntax">; </span><span class="identifier-syntax">before</span><span class="plain-syntax"> </span><span class="identifier-syntax">jumping</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Marcellus grabs the equipment, takes a quick reading, and panics. 'Oh my. I'm running for it!' And he makes a running jump.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The sequence is: <code class="inlinesourcetext">after</code> actions first, in declaration order; then actual
             performance of the line; then <code class="inlinesourcetext">now</code> effects; then <code class="inlinesourcetext">before</code> actions, in
             declaration order. If any of the <code class="inlinesourcetext">after</code> actions should fail, the process
             stops there.</p>
             <h4><span>Lines without speaking</span></h4>
             <p>The performance note <code class="inlinesourcetext">without speaking</code> makes a line non-verbal: something like a gesture, which may not involve words but is still performed by somebody.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Marcellus throws up his hands, appalled.&quot;</span>
+            <!-- START CODE "code675" -->
+            <blockquote class="extract-inform7"><a id="code675"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Marcellus throws up his hands, appalled.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The difference between this and <code class="inlinesourcetext">Narration:</code> is that there is a speaker,
             <code class="inlinesourcetext">Marcellus</code>. Because this is non-verbal, he needs to be visible, not audible.
             Similarly there can be an interlocutor, who must be visible to the speaker
             rather than audible to him. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">, </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Marcellus points a horrified finger, and nudges Bernardo.&quot;</span>
+            <!-- START CODE "code676" -->
+            <blockquote class="extract-inform7"><a id="code676"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">, </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Bernardo</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Marcellus points a horrified finger, and nudges Bernardo.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Unlike regular dialogue lines, this won't be performed if it's dark, and needs both Marcellus and Bernardo to be present.</p>
             <h4><span>Performance styles</span></h4>
             <p>Using just the name of a <code class="inlinesourcetext">performance style</code>, but with the word <code class="inlinesourcetext">spoken</code> removed, indicates that the line is performed this way. By default it is performed in the style <code class="inlinesourcetext">spoken normally</code>: that is,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Well, good night.&quot;</span>
+            <!-- START CODE "code677" -->
+            <blockquote class="extract-inform7"><a id="code677"></a><span class="indexdullblue"><span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Well, good night.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is equivalent to:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">normally</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Well, good night.&quot;</span>
+            <!-- START CODE "code678" -->
+            <blockquote class="extract-inform7"><a id="code678"></a><span class="indexdullblue"><span class="identifier-syntax">Bernardo</span><span class="plain-syntax"> (</span><span class="identifier-syntax">normally</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Well, good night.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But if we have created a performance style called <code class="inlinesourcetext">spoken with asperity</code>, then:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Marcellus</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asperity</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;I've had it with these goddam ghosts.&quot;</span>
+            <!-- START CODE "code679" -->
+            <blockquote class="extract-inform7"><a id="code679"></a><span class="indexdullblue"><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">asperity</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;I've had it with these goddam ghosts.&quot;</span>
             </span></blockquote>
-            <p>...would perform it that way. See <a href="WI_11_9.html#heading3353" title="Performance styles">Performance styles</a> for more.</p>
+            <!-- END CODE -->
+            <p>...would perform it that way. See <a href="WI_11_10.html" title="Section 11.10: Managing dialogue lines">Managing dialogue lines</a> for more.</p>
             <h4><span>Properties of lines</span></h4>
             <p><code class="inlinesourcetext">dialogue line</code> comes with the following either-or properties built in:</p>
             <ul>
@@ -2269,12 +2414,14 @@
             </li>
             </ul>
             <p>By default, lines are <code class="inlinesourcetext">unperformed</code> and <code class="inlinesourcetext">non-recurring</code>. Whether they are <code class="inlinesourcetext">narrated</code> depends on whether they give the speaker as <code class="inlinesourcetext">Narration</code>, and whether they are <code class="inlinesourcetext">elaborated</code> depends on the text of the line. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Katie</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I suppose.&quot;</span>
+            <!-- START CODE "code680" -->
+            <blockquote class="extract-inform7"><a id="code680"></a><span class="indexdullblue"><span class="identifier-syntax">Katie</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I suppose.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Katie</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Your daughter gives her most grown-up pout. 'Whatever.'&quot;</span>
+            <span class="identifier-syntax">Katie</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Your daughter gives her most grown-up pout. 'Whatever.'&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The first line there is <code class="inlinesourcetext">unelaborated</code>, the second <code class="inlinesourcetext">elaborated</code> - because it
             contains internal quotation marks, so it's read as being a mixture of
             narration and speech, rather than purely being speech. It affects only how
@@ -2283,14 +2430,18 @@
             being that it will contain its own indication of who's speaking and which
             words are actually said. So we see:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Katie: &quot;I suppose.&quot;</span><br><br><span class="syntaxidentifier">Your daughter gives her most grown-up pout. &quot;Whatever.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">Katie: &quot;I suppose.&quot;<br><br>Your daughter gives her most grown-up pout. &quot;Whatever.&quot;<br></code></pre></div>
             <p>To qualify as <code class="inlinesourcetext">elaborated</code>, a speech must have at least two quotation marks <code class="inlinesourcetext">'</code>
             at word boundaries. The source text can override this in either direction:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Katie</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">unelaborated</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You call this 'peanut butter' but it's really icky.&quot;</span>
+            <!-- START CODE "code681" -->
+            <blockquote class="extract-inform7"><a id="code681"></a><span class="indexdullblue"><span class="identifier-syntax">Katie</span><span class="plain-syntax"> (</span><span class="identifier-syntax">unelaborated</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You call this 'peanut butter' but it's really icky.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In practice, the commonest property to specify is <code class="inlinesourcetext">recurring</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Katie</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Have you seen my iPad cable?&quot;</span>
+            <!-- START CODE "code682" -->
+            <blockquote class="extract-inform7"><a id="code682"></a><span class="indexdullblue"><span class="identifier-syntax">Katie</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Have you seen my iPad cable?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This allows the line to be performed any number of times: otherwise it will be skipped on a second performance of the same beat.</p>
             <h4><span>The speech text for a line</span></h4>
             <p>The performed line is an Inform text, in double-quotes.</p>
@@ -2300,20 +2451,22 @@
             and will hold the identity of the speaker performing the line. (If the line
             is narration, it will still exist, but will be equal to <code class="inlinesourcetext">nothing</code>.) Similarly
             for <code class="inlinesourcetext">interlocutor</code> and <code class="inlinesourcetext">style</code>. So for example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code683" -->
+            <blockquote class="extract-inform7"><a id="code683"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lounge</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxstring">&quot;</span><span class="syntaxextract">[The speaker]</span><span class="syntaxstring"> self-importantly </span><span class="syntaxextract">[declare]</span><span class="syntaxstring">: 'The greatest TV show of all</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">&quot;[The speaker] self-importantly [declare]: 'The greatest TV show of all</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxstring">time is </span><span class="syntaxextract">[if the speaker is female]</span><span class="syntaxstring">Gilmore Girls</span><span class="syntaxextract">[if not]</span><span class="syntaxstring">24</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">.'&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">time is [if the speaker is female]Gilmore Girls[if not]24[end if].'&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might be performed as:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Henry self-importantly declared: &quot;The greatest TV show of all time is 24.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">Henry self-importantly declared: &quot;The greatest TV show of all time is 24.&quot;<br></code></pre></div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_8.html"><span class="markdowncontent">Section 11.8: About about</span></a> &bull; <a href="WI_11_10.html"><span class="markdowncontent">Section 11.10: Managing dialogue lines</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

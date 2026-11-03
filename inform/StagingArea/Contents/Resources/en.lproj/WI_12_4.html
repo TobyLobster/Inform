@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,49 +2212,74 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The showme phrase" -->
+            <!-- SEARCH SECTION "12.4" -->
+            <!-- SEARCH SORT "001-012-004-000" -->
             <h3><span>Section 12.4: The showme phrase</span></h3>
+            <p></p>
             <p>We've already seen the <code class="inlinetranscriptcommand">showme</code> command, which can be typed into the Story panel to look at the state of something, usually a thing or room. <code class="inlinetranscriptcommand">showme</code> is a testing command which has no effect once the work is released; eventual players can't use it.</p>
-            <p>Inform also has a phrase called <code class="inlinetranscriptcommand">showme</code>, which works in much the same way:</p>
+            <p>Inform also has a phrase called <code class="inlinesourcetext">showme</code>, which works in much the same way:</p>
             <div class="definition">
-                <p class="defnprototype">showme (value)</p>
+                <!-- START PHRASE "defn146" -->
+                <p class="defnprototype"><a id="defn146"></a>showme (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase is intended for testing purposes only. If used in a story file running inside the Inform application, it prints a line of text showing the given value and its kind; in a Released story file, it does nothing at all. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">: </span><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code733" -->
+                <blockquote class="extract-inform7"><a id="code733"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">: </span><span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain">: </span><span class="syntaxconstant">11</span>
+                <!-- START CODE "code734" -->
+                <blockquote class="extract-inform7"><a id="code734"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax">: </span><span class="constant-syntax">11</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>More usefully:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">: </span><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code735" -->
+                <blockquote class="extract-inform7"><a id="code735"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">: </span><span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Now, every turn, we get a line in the story's transcript like so:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;score&quot;</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">number</span><span class="syntaxplain">: </span><span class="syntaxconstant">0</span>
+                <!-- START CODE "code736" -->
+                <blockquote class="extract-inform7"><a id="code736"></a><span class="indexdullblue"><span class="string-syntax">&quot;score&quot;</span><span class="plain-syntax"> = </span><span class="identifier-syntax">number</span><span class="plain-syntax">: </span><span class="constant-syntax">0</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Inform uses the quotation marks and equals sign to show that it had to do some work to find the answer. <code class="inlinesourcetext">score</code> wasn't a constant value – it was a variable, and Inform had to look up the current value.</p>
             </div>
-            <p><code class="inlinetranscriptcommand">showme</code> is a convenient way to see what's going on inside a phrase which isn't behaving as expected, or to find out the kind of a value. Here are some trickier examples. Suppose our design includes:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Yale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">.</span>
+            <p><code class="inlinesourcetext">Showme</code> is a convenient way to see what's going on inside a phrase which isn't behaving as expected, or to find out the kind of a value. Here are some trickier examples. Suppose our design includes:</p>
+            <!-- START CODE "code737" -->
+            <blockquote class="extract-inform7"><a id="code737"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">matching</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">blue</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">Yale</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If we then try this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code738" -->
+            <blockquote class="extract-inform7"><a id="code738"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matching</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">matching</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">blue</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>we get, when the story starts up,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;matching key of the blue door&quot;</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">object</span><span class="syntaxplain">: </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Yale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span>
+            <!-- START CODE "code739" -->
+            <blockquote class="extract-inform7"><a id="code739"></a><span class="indexdullblue"><span class="string-syntax">&quot;matching key of the blue door&quot;</span><span class="plain-syntax"> = </span><span class="identifier-syntax">object</span><span class="plain-syntax">: </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">Yale</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span>
             </span></blockquote>
-            <p>Why is this an <code class="inlinesourcetext">object</code>, when we know that the key is actually a <code class="inlinesourcetext">thing</code>? After all, if we <code class="inlinetranscriptcommand">showme key</code> instead, we get:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">thing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">brass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Yale</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span>
+            <!-- END CODE -->
+            <p>Why is this an <code class="inlinesourcetext">object</code>, when we know that the key is actually a <code class="inlinesourcetext">thing</code>? After all, if we <code class="inlinesourcetext">showme key</code> instead, we get:</p>
+            <!-- START CODE "code740" -->
+            <blockquote class="extract-inform7"><a id="code740"></a><span class="indexdullblue"><span class="identifier-syntax">thing</span><span class="plain-syntax">: </span><span class="identifier-syntax">brass</span><span class="plain-syntax"> </span><span class="identifier-syntax">Yale</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span>
             </span></blockquote>
-            <p>The answer is a little technical: it's because Inform guarantees that the matching key is always an object, but not that it's always a thing – it just happens to be a thing at the moment. There's not really a contradiction, because a <code class="inlinesourcetext">thing</code> is a kind of <code class="inlinesourcetext">object</code>, so in fact the key is both. If we try <code class="inlinetranscriptcommand">showme matching key</code>, we get something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">objects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">valued</span><span class="syntaxplain"> </span><span class="syntaxidentifier">property</span><span class="syntaxplain">: </span><span class="syntaxidentifier">property</span><span class="syntaxplain"> </span><span class="syntaxconstant">23</span>
+            <!-- END CODE -->
+            <p>The answer is a little technical: it's because Inform guarantees that the matching key is always an object, but not that it's always a thing – it just happens to be a thing at the moment. There's not really a contradiction, because a <code class="inlinesourcetext">thing</code> is a kind of <code class="inlinesourcetext">object</code>, so in fact the key is both. If we try <code class="inlinesourcetext">showme matching key</code>, we get something like this:</p>
+            <!-- START CODE "code741" -->
+            <blockquote class="extract-inform7"><a id="code741"></a><span class="indexdullblue"><span class="identifier-syntax">objects</span><span class="plain-syntax"> </span><span class="identifier-syntax">valued</span><span class="plain-syntax"> </span><span class="identifier-syntax">property</span><span class="plain-syntax">: </span><span class="identifier-syntax">property</span><span class="plain-syntax"> </span><span class="constant-syntax">23</span>
             </span></blockquote>
-            <p>which is even more technical – people never need to print the names of abstract property names during play, so Inform doesn't provide any good way of doing it. It is reduced to printing out an internal ID number (<code class="inlinesourcetext">property 23</code>) instead of the name (<code class="inlinesourcetext">matching key</code>). This can't be helped: <code class="inlinetranscriptcommand">showme</code> is a way to lift the lid and see what's going on inside Inform's machinery, and some of the corners are dark.</p>
-            <p>All the same, <code class="inlinetranscriptcommand">showme</code> can be very useful in tinkering with rules to make them work properly. It prints nothing at all in a Release version of a project, so it's impossible for these private notes to be shown accidentally to our eventual readers.</p>
+            <!-- END CODE -->
+            <p>which is even more technical – people never need to print the names of abstract property names during play, so Inform doesn't provide any good way of doing it. It is reduced to printing out an internal ID number (<code class="inlinesourcetext">property 23</code>) instead of the name (<code class="inlinesourcetext">matching key</code>). This can't be helped: <code class="inlinesourcetext">showme</code> is a way to lift the lid and see what's going on inside Inform's machinery, and some of the corners are dark.</p>
+            <p>All the same, <code class="inlinesourcetext">showme</code> can be very useful in tinkering with rules to make them work properly. It prints nothing at all in a Release version of a project, so it's impossible for these private notes to be shown accidentally to our eventual readers.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_3.html"><span class="markdowncontent">Section 12.3: Pattern matching</span></a> &bull; <a href="WI_12_5.html"><span class="markdowncontent">Section 12.5: Conditions and questions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

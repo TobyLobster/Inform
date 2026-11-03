@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,46 +2212,58 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Overriding existing commands" -->
+            <!-- SEARCH SECTION "19.3" -->
+            <!-- SEARCH SORT "001-019-003-000" -->
             <h3><span>Section 19.3: Overriding existing commands</span></h3>
             <p>           </p>
             <p>Suppose we are devising specialist commands for a game of whist, and we want <code class="inlinetranscriptcommand">discard</code> as one of them. Looking at the table of commands in the Action index, we find that, inconveniently enough, <code class="inlinetranscriptcommand">discard</code> already has a meaning: it is synonymous with <code class="inlinetranscriptcommand">drop</code>, and while that might be sensible most of the time, it is perfectly wrong now. We need a way to free up <code class="inlinetranscriptcommand">discard</code> for our own use. We can do that by:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;discard&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1226" -->
+            <blockquote class="extract-inform7"><a id="code1226"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;discard&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This cuts it loose, so to speak, and ready to be given new meanings. If we check the Actions index again, we find no mention of <code class="inlinetranscriptcommand">discard</code> – it is now a blank slate – but <code class="inlinetranscriptcommand">drop</code> is still exactly as it was. We could now say something like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;discard </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">discarding</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1227" -->
+            <blockquote class="extract-inform7"><a id="code1227"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;discard [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">discarding</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(If we had declared that <code class="inlinetranscriptcommand">drop</code> was something new, the whole thing would have happened in reverse, with <code class="inlinetranscriptcommand">discard</code> retaining all of the original grammar. Inform does not distinguish between a command and its synonym.)</p>
             <p>The <code class="inlinesourcetext">... as something new</code> sentence works even for a command which did not exist anyway, for instance with:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;zylqix&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">new</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1228" -->
+            <blockquote class="extract-inform7"><a id="code1228"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;zylqix&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">new</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Of course this does nothing – but it is intentional that it generates no problem messages: it means that the sentence can be used to force a command to be fresh and untouched by previous definitions, which might be useful when working with extensions by other people.</p>
             <p>It is also possible to clear out all the commands leading to a given action:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1229" -->
+            <blockquote class="extract-inform7"><a id="code1229"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The commands <code class="inlinetranscriptcommand">take</code> and <code class="inlinetranscriptcommand">get</code> will still exist, but now they'll only have their other senses (for taking off clothes, for getting out of boxes).</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg321><a style="text-decoration: none" href="eg_321.html"><span class="extensionexampleletter">321</span></a></span></div>
+                    <span id=eg318><a style="text-decoration: none" href="eg_318.html"><span class="extensionexampleletter">318</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_321.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Trouble with Printing</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_318.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Trouble with Printing</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making a <code class="inlinetranscriptcommand">read</code> command, distinct from <code class="inlinetranscriptcommand">examine</code>, for legible objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg321><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg318><a style="text-decoration: none" href="RB_9_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg322><a style="text-decoration: none" href="eg_322.html"><span class="extensionexampleletter">322</span></a></span></div>
+                    <span id=eg319><a style="text-decoration: none" href="eg_319.html"><span class="extensionexampleletter">319</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_322.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 2</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_319.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 2</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Randomised combat in which the damage done depends on what weapons the characters are wielding, and in which an <code class="inlinetranscriptcommand">attack it with</code> action is created to replace regular attacking. Also folds a new <code class="inlinetranscriptcommand">diagnose</code> command into the system.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg322><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg319><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_2.html"><span class="markdowncontent">Section 19.2: New commands for old grammar</span></a> &bull; <a href="WI_19_4.html"><span class="markdowncontent">Section 19.4: Standard tokens of grammar</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

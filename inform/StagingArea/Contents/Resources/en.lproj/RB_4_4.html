@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,56 +2212,60 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Scene Changes" -->
+            <!-- SEARCH SECTION "4.4" -->
+            <!-- SEARCH SORT "002-004-004-000" -->
             <h3><span>Section 4.4: Scene Changes</span></h3>
             <p>
-            In a plot that takes place over multiple locations or has several distinct scenes, we may want to move the player or change the scenery around them. <a href="eg_162.html">Age of Steam</a> brings a train on and off-stage as the plot requires. <a href="eg_125.html">Meteoric</a> similarly brings a meteor into view at a certain time of day, showing off several implementations depending on whether or not the player is supposed to be able to refer to the meteor after it has gone.</p>
-            <p><a href="eg_169.html">Entrevaux</a> constructs an organised system such that all scenes have their own lists of props and associated locations, and props are moved on and off automatically. Scene changes are also announced with a pause and a new title, such as &quot;[Chapter 2, Adaptive Prose]: Abduction&quot;.</p>
-            <p><a href="eg_164.html">Space Patrol - Stranded on Jupiter</a> inserts an interlude in which the player's possessions and clothes are switched for new ones and the player moved to a new location–and then put back where they started from.</p>
+            In a plot that takes place over multiple locations or has several distinct scenes, we may want to move the player or change the scenery around them. <a href="eg_159.html">Age of Steam</a> brings a train on and off-stage as the plot requires. <a href="eg_122.html">Meteoric</a> similarly brings a meteor into view at a certain time of day, showing off several implementations depending on whether or not the player is supposed to be able to refer to the meteor after it has gone.</p>
+            <p><a href="eg_166.html">Entrevaux</a> constructs an organised system such that all scenes have their own lists of props and associated locations, and props are moved on and off automatically. Scene changes are also announced with a pause and a new title, such as &quot;[Chapter 2, Adaptive Prose]: Abduction&quot;.</p>
+            <p><a href="eg_161.html">Space Patrol - Stranded on Jupiter</a> inserts an interlude in which the player's possessions and clothes are switched for new ones and the player moved to a new location–and then put back where they started from.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_4_5.html" title="Section 4.5: Flashbacks">Flashbacks</a> for more ways to move the player from one level of reality to another.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg162><a style="text-decoration: none" href="eg_162.html"><span class="extensionexampleletter">162</span></a></span></div>
+                    <span id=eg159><a style="text-decoration: none" href="eg_159.html"><span class="extensionexampleletter">159</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_162.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Age of Steam</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_159.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Age of Steam</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The railway-station examples so far put together into a short game called &quot;Age of Steam&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg162><a style="text-decoration: none" href="WI_10_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg159><a style="text-decoration: none" href="WI_10_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg125><a style="text-decoration: none" href="eg_125.html"><span class="extensionexampleletter">125</span></a></span></div>
+                    <span id=eg122><a style="text-decoration: none" href="eg_122.html"><span class="extensionexampleletter">122</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_125.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meteoric</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_122.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Meteoric</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A meteor in the night sky which is visible from many rooms, so needs to be a backdrop, but which does not appear until 11:31 PM.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg125><a style="text-decoration: none" href="WI_8_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg122><a style="text-decoration: none" href="WI_8_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg164><a style="text-decoration: none" href="eg_164.html"><span class="extensionexampleletter">164</span></a></span></div>
+                    <span id=eg161><a style="text-decoration: none" href="eg_161.html"><span class="extensionexampleletter">161</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_164.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Space Patrol - Stranded on Jupiter</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_161.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Space Patrol - Stranded on Jupiter</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">We'll be back in just a moment, with more exciting adventures of the... Space Patrol!</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg164><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg161><a style="text-decoration: none" href="WI_10_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg169><a style="text-decoration: none" href="eg_169.html"><span class="extensionexampleletter">169</span></a></span></div>
+                    <span id=eg166><a style="text-decoration: none" href="eg_166.html"><span class="extensionexampleletter">166</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_169.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrevaux</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_166.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrevaux</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Organising the game by scenes, where each scene has a location and prop lists so that it can be set up automatically.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg169><a style="text-decoration: none" href="WI_10_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg166><a style="text-decoration: none" href="WI_10_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_3.html"><span class="markdowncontent">Section 4.3: Event Scheduling</span></a> &bull; <a href="RB_4_5.html"><span class="markdowncontent">Section 4.5: Flashbacks</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,72 +2212,100 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Let and temporary variables" -->
+            <!-- SEARCH SECTION "12.15" -->
+            <!-- SEARCH SORT "001-012-015-000" -->
             <h3><span>Section 12.15: Let and temporary variables</span></h3>
             <p>       </p>
             <p>A variable, as we have seen, is a name for a value which changes, though always remaining of the same kind. For instance, if <code class="inlinesourcetext">target</code> is a number variable (or <code class="inlinesourcetext">number that varies</code>) then it may change value from 2 to 4, but not from 2 to <code class="inlinesourcetext">&quot;fishknife&quot;</code>.</p>
             <p>To make complicated decisions, phrases often need to remember values on a temporary basis. We have already seen this for the counter in a <code class="inlinesourcetext">repeat</code> loop, which exists only inside that loop, and then is no longer needed.</p>
             <p>We can also make temporary variables using <code class="inlinesourcetext">let</code>:</p>
             <div class="definition">
-                <p class="defnprototype">let (a name not so far used) be (value)</p>
-                <p class="defnprototype">let (a temporary named value) be (value)</p>
+                <!-- START PHRASE "defn169" -->
+                <p class="defnprototype"><a id="defn169"></a>let (a name not so far used) be (value)</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn170" -->
+                <p class="defnprototype"><a id="defn170"></a>let (a temporary named value) be (value)</p>
+                <!-- END PHRASE -->
                 <p>This phrase creates a new temporary variable, starting it with the value supplied. The variable lasts only for the present block of phrases, which certainly means that it lasts only for the current rule. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">25</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code785" -->
+                <blockquote class="extract-inform7"><a id="code785"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">bull</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">25</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">appearance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;reddish brown&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">appearance</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;reddish brown&quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">special</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marley</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wood</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">special</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marley</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wood</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The kinds of these are deduced from the values given, so that, for instance,</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The outer bull scores </span><span class="syntaxextract">[the outer bull in words]</span><span class="syntaxstring"> when you practice archery in </span><span class="syntaxextract">[special room]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code786" -->
+                <blockquote class="extract-inform7"><a id="code786"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The outer bull scores [the outer bull in words] when you practice archery in [special room].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scores</span><span class="syntaxplain"> </span><span class="syntaxidentifier">twenty</span><span class="syntaxplain">-</span><span class="syntaxidentifier">five</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">you</span><span class="syntaxplain"> </span><span class="syntaxidentifier">practice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">archery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marley</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Wood</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code787" -->
+                <blockquote class="extract-inform7"><a id="code787"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">bull</span><span class="plain-syntax"> </span><span class="identifier-syntax">scores</span><span class="plain-syntax"> </span><span class="identifier-syntax">twenty</span><span class="plain-syntax">-</span><span class="identifier-syntax">five</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">you</span><span class="plain-syntax"> </span><span class="identifier-syntax">practice</span><span class="plain-syntax"> </span><span class="identifier-syntax">archery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marley</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wood</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The variable name should be a new one; if it's the name of an existing one, then the kinds must agree. So:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">25</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code788" -->
+                <blockquote class="extract-inform7"><a id="code788"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">bull</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">25</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">50</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">bull</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">50</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>is a legal combination, because the second <code class="inlinesourcetext">let</code> simply changes the value of the existing <code class="inlinesourcetext">outer bull</code> variable to a different number.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">let (a name not so far used) be (name of kind)</p>
+                <!-- START PHRASE "defn171" -->
+                <p class="defnprototype"><a id="defn171"></a>let (a name not so far used) be (name of kind)</p>
+                <!-- END PHRASE -->
                 <p>This phrase creates a new temporary variable of the given kind. The variable lasts only for the present block of phrases, which certainly means that it lasts only for the current rule. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bull</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code789" -->
+                <blockquote class="extract-inform7"><a id="code789"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">inner</span><span class="plain-syntax"> </span><span class="identifier-syntax">bull</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The variable created holding the default value for that kind – in this case, the number 0. A handful of very obscure kinds have no default values, and then a problem message is produced. Inform also disallows:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conveyance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vehicle</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code790" -->
+                <blockquote class="extract-inform7"><a id="code790"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">conveyance</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>because temporary variables aren't allowed to have kinds more specific than <code class="inlinesourcetext">object</code>. (This is a good thing: suppose there are no vehicles in the world?) It's quite safe in such cases to use</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conveyance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code791" -->
+                <blockquote class="extract-inform7"><a id="code791"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">conveyance</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>instead, which creates it as the special object value <code class="inlinesourcetext">nothing</code>.</p>
             </div>
             <p>Temporary variables made by <code class="inlinesourcetext">let</code> are only temporarily in existence while a phrase is being carried out. Their values often change: we could say</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code792" -->
+            <blockquote class="extract-inform7"><a id="code792"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>for instance, or indeed we could <code class="inlinesourcetext">let x be 10</code> and then <code class="inlinesourcetext">let x be 11</code>. But although we are allowed to change the value, we are not allowed to change the kind of value. The name <code class="inlinesourcetext">x</code> must always have the same kind of value throughout the phrase to which it belongs, so the following will not be allowed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">45</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code793" -->
+            <blockquote class="extract-inform7"><a id="code793"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="constant-syntax">45</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Norway&quot;</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Norway&quot;</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(The difference between using <code class="inlinesourcetext">let</code> and <code class="inlinesourcetext">now</code> here is that <code class="inlinesourcetext">let</code> can create a new temporary variable, whereas <code class="inlinesourcetext">now</code> can only alter things already existing: on the other hand, <code class="inlinesourcetext">now</code> can change many other things as well, whereas <code class="inlinesourcetext">let</code> applies only to temporary variables.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg200><a style="text-decoration: none" href="eg_200.html"><span class="extensionexampleletter">200</span></a></span></div>
+                    <span id=eg197><a style="text-decoration: none" href="eg_197.html"><span class="extensionexampleletter">197</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_200.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">M. Melmoth's Duel</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_197.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">M. Melmoth's Duel</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Three basic ways to inject random or not-so-random variations into text.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg200><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg197><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_14.html"><span class="markdowncontent">Section 12.14: Phrase options</span></a> &bull; <a href="WI_12_16.html"><span class="markdowncontent">Section 12.16: New conditions, new adjectives</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

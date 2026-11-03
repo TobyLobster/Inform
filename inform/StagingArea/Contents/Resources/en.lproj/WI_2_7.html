@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,23 +2212,27 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The SHOWME command" -->
+            <!-- SEARCH SECTION "2.7" -->
+            <!-- SEARCH SORT "001-002-007-000" -->
             <h3><span>Section 2.7: The SHOWME command</span></h3>
             <p>      </p>
             <p>Problem messages are generated when the source text does not make sense to Inform. Even if it does make sense, though, there is no guarantee that it does what the author intends, and the only way to find out is to test it. When testing, it is sometimes highly convenient to have the god-like powers which are every author's right. These are provided by special testing commands, which are present in the story right up until the final release version (generated by the Release button). They will be introduced in this manual as they become relevant: here is the first.</p>
             <p>The testing command <code class="inlinetranscriptcommand">showme</code> prints out a brief summary about a room or thing, and any contents or parts it may have. Typing <code class="inlinetranscriptcommand">showme</code> on its own shows the current room, but any item or room in the story, however distant, can be named instead. For instance:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOWME</span><br><span class="syntaxidentifier">Boudoir - room</span><br><span class="syntaxidentifier">    four-poster bed - supporter</span><br><span class="syntaxidentifier">    yourself - person</span><br><span class="syntaxidentifier">    pillow</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> SHOWME DIAMONDS</span><br><span class="syntaxidentifier">diamonds - thing</span><br><span class="syntaxidentifier">location: in the strongbox on the dresser in the Drawing Room</span><br><span class="syntaxidentifier">unlit; inedible; opaque; portable; singular-named; improper-named</span><br><span class="syntaxidentifier">description: The diamonds glitter dangerously.</span><br><span class="syntaxidentifier">printed name: diamonds</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; SHOWME<br>Boudoir - room<br>    four-poster bed - supporter<br>    yourself - person<br>    pillow<br><br>&gt; SHOWME DIAMONDS<br>diamonds - thing<br>location: in the strongbox on the dresser in the Drawing Room<br>unlit; inedible; opaque; portable; singular-named; improper-named<br>description: The diamonds glitter dangerously.<br>printed name: diamonds<br></code></pre></div>
             <p>Much of this can be seen, and seen more easily, in the World tab of the Index panel: but that only shows the initial state of play, whereas the <code class="inlinetranscriptcommand">showme</code> command reveals the situation in mid-story. (<code class="inlinesourcetext">Room</code>, <code class="inlinesourcetext">supporter</code> and so on are kinds, of which more in Chapter 3, <a href="WI_3_1.html" title="Chapter 3: Things">Things</a>.)</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="WI_2_8.html" title="Section 2.8: The TEST command">The TEST command</a> for another frequently-used testing command.</li>
-            <li><a href="WI_26_3.html" title="Section 26.3: Testing commands to inspect the situation">Testing commands to inspect the situation</a> for the full roster of them.</li>
+            <li><a href="WI_28_3.html" title="Section 28.3: Testing commands to inspect the situation">Testing commands to inspect the situation</a> for the full roster of them.</li>
             </ul>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_2_6.html"><span class="markdowncontent">Section 2.6: Why using headings is a good idea</span></a> &bull; <a href="WI_2_8.html"><span class="markdowncontent">Section 2.8: The TEST command</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

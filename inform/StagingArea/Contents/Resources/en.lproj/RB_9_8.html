@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,68 +2212,74 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Simple Machines" -->
+            <!-- SEARCH SECTION "9.8" -->
+            <!-- SEARCH SORT "002-009-008-000" -->
             <h3><span>Section 9.8: Simple Machines</span></h3>
             <p>   
             The <code class="inlinesourcetext">device</code> kind provides for the simplest form of machine: one which is, at any given moment, switched on or switched off. Inform looks after this state, but leaves it to us to make the machine actually do something:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">conditioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">device</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Florist</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shop</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">conditioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2128" -->
+            <blockquote class="extract-inform7"><a id="code2128"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">conditioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">unit</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">device</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Florist</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shop</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">conditioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Florist</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shop</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Florist</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shop</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">air</span><span class="syntaxplain">-</span><span class="syntaxidentifier">conditioning</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">switched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">off</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You worry about the cut flowers in this jungle-hot air.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">air</span><span class="plain-syntax">-</span><span class="identifier-syntax">conditioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">switched</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You worry about the cut flowers in this jungle-hot air.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;There is an low susurration from the air-conditioning unit.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;There is an low susurration from the air-conditioning unit.&quot;</span>
             </span></blockquote>
-            <p>One primary dictionary definition for a machine is &quot;an apparatus using or applying mechanical power and having several parts&quot;, and we often use the <code class="inlinesourcetext">part of</code> relationship to build machinery. <a href="eg_67.html">Control Center</a> provides a neat way to display the component parts of a machine to the player who examines it.</p>
-            <p>One component almost always part of an electrical machine is the (literal) switch, lever or button to control whether it is switched on or off. In <a href="eg_63.html">Model Shop</a> just such an on/off button is automatically made part of every device.</p>
-            <p>While an electrical device has only two states, a mechanical machine might have many, and for these the best approach is to define a kind of value naming the possibilities: see <a href="eg_58.html">Signs and Portents</a>, where the states are the possible destinations pointed towards.</p>
-            <p>Perhaps stretching the definition of &quot;machine&quot;, <a href="eg_455.html">What Makes You Tick</a> demonstrates a fishing pole which the player can put together from several pieces.</p>
+            <!-- END CODE -->
+            <p>One primary dictionary definition for a machine is &quot;an apparatus using or applying mechanical power and having several parts&quot;, and we often use the <code class="inlinesourcetext">part of</code> relationship to build machinery. <a href="eg_66.html">Control Center</a> provides a neat way to display the component parts of a machine to the player who examines it.</p>
+            <p>One component almost always part of an electrical machine is the (literal) switch, lever or button to control whether it is switched on or off. In <a href="eg_62.html">Model Shop</a> just such an on/off button is automatically made part of every device.</p>
+            <p>While an electrical device has only two states, a mechanical machine might have many, and for these the best approach is to define a kind of value naming the possibilities: see <a href="eg_57.html">Signs and Portents</a>, where the states are the possible destinations pointed towards.</p>
+            <p>Perhaps stretching the definition of &quot;machine&quot;, <a href="eg_452.html">What Makes You Tick</a> demonstrates a fishing pole which the player can put together from several pieces.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_9_2.html" title="Section 9.2: Bags, Bottles, Boxes and Safes">Bags, Bottles, Boxes and Safes</a> for a safe that can be dialed to different combinations.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg67><a style="text-decoration: none" href="eg_67.html"><span class="extensionexampleletter">67</span></a></span></div>
+                    <span id=eg66><a style="text-decoration: none" href="eg_66.html"><span class="extensionexampleletter">66</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_67.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Control Center</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_66.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Control Center</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Objects which automatically include a description of their component parts whenever they are examined.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg67><a style="text-decoration: none" href="WI_5_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg66><a style="text-decoration: none" href="WI_5_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg455><a style="text-decoration: none" href="eg_455.html"><span class="extensionexampleletter">455</span></a></span></div>
+                    <span id=eg452><a style="text-decoration: none" href="eg_452.html"><span class="extensionexampleletter">452</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_455.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">What Makes You Tick</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_452.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">What Makes You Tick</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Building a fishing pole from several component parts that the player might put together in any order.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg455><a style="text-decoration: none" href="WI_23_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg452><a style="text-decoration: none" href="WI_23_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg63><a style="text-decoration: none" href="eg_63.html"><span class="extensionexampleletter">63</span></a></span></div>
+                    <span id=eg62><a style="text-decoration: none" href="eg_62.html"><span class="extensionexampleletter">62</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_63.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Model Shop</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_62.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Model Shop</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An &quot;on/off button&quot; which controls whatever device it is part of.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg63><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg62><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg58><a style="text-decoration: none" href="eg_58.html"><span class="extensionexampleletter">58</span></a></span></div>
+                    <span id=eg57><a style="text-decoration: none" href="eg_57.html"><span class="extensionexampleletter">57</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_58.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Signs and Portents</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_57.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Signs and Portents</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Signpost that points to various destinations, depending on how the player has turned it.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg58><a style="text-decoration: none" href="WI_4_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg57><a style="text-decoration: none" href="WI_4_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_7.html"><span class="markdowncontent">Section 9.7: Painting and Labelling Devices</span></a> &bull; <a href="RB_9_9.html"><span class="markdowncontent">Section 9.9: Televisions and Radios</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

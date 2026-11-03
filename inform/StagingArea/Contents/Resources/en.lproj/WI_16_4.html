@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,62 +2212,88 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Real number conversions" -->
+            <!-- SEARCH SECTION "16.4" -->
+            <!-- SEARCH SORT "001-016-004-000" -->
             <h3><span>Section 16.4: Real number conversions</span></h3>
             <p>              </p>
             <p>This section notes down some technicalities about real numbers which need to be put down in writing somewhere, but won't affect most people most of the time.</p>
             <p>Inform allows us to use numbers whenever real numbers are expected, and converts them automatically. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span>
+            <!-- START CODE "code1004" -->
+            <blockquote class="extract-inform7"><a id="code1004"></a><span class="indexdullblue"><span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>is read as if it were</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">cosine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">.0</span>
+            <!-- START CODE "code1005" -->
+            <blockquote class="extract-inform7"><a id="code1005"></a><span class="indexdullblue"><span class="identifier-syntax">cosine</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">.0</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and produces -0.41615 either way. This conversion goes from exactness to approximation, so we may lose a little accuracy: real numbers measure to an accuracy of about 1 part in 16000000, so they'll have trouble telling the difference between 16000000 and 16000001. But this is unlikely to matter, since real numbers are used only for approximate calculations anyway.</p>
             <p>The ordinary arithmetic operations work on both numbers and real numbers, so the meaning of <code class="inlinesourcetext">N plus M</code> depends on the kinds of N and M. In general the rule is that if either is a real number then the other one is automatically converted, and real arithmetic is used. So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span>
+            <!-- START CODE "code1006" -->
+            <blockquote class="extract-inform7"><a id="code1006"></a><span class="indexdullblue"><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span>
             <br>
-            <span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">.0 = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.5</span>
+            <span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">.0 = </span><span class="constant-syntax">1</span><span class="plain-syntax">.5</span>
             <br>
-            <span class="syntaxconstant">3</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.5</span>
+            <span class="constant-syntax">3</span><span class="plain-syntax">.0 </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span><span class="plain-syntax">.5</span>
             <br>
-            <span class="syntaxconstant">3</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">.0 = </span><span class="syntaxconstant">1</span><span class="syntaxplain">.5</span>
+            <span class="constant-syntax">3</span><span class="plain-syntax">.0 </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">.0 = </span><span class="constant-syntax">1</span><span class="plain-syntax">.5</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In general we can't do the reverse, that is, we can't silently use a real number where a number is expected. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">word</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">.6 </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The Great Wall of China&quot;</span>
+            <!-- START CODE "code1007" -->
+            <blockquote class="extract-inform7"><a id="code1007"></a><span class="indexdullblue"><span class="identifier-syntax">word</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">.6 </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Great Wall of China&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>makes no sense. But we can explicitly convert them:</p>
             <div class="definition">
-                <p class="defnprototype">(real number) to the/-- nearest whole number ... number</p>
+                <!-- START PHRASE "defn227" -->
+                <p class="defnprototype"><a id="defn227"></a>(real number) to the/-- nearest whole number ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase performs signed addition on the given values, whose kinds must agree, and produces the result. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">1</span><span class="syntaxplain">.4 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> = </span><span class="syntaxconstant">1</span>
+                <!-- START CODE "code1008" -->
+                <blockquote class="extract-inform7"><a id="code1008"></a><span class="indexdullblue"><span class="constant-syntax">1</span><span class="plain-syntax">.4 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> = </span><span class="constant-syntax">1</span>
                 <br>
-                <span class="syntaxconstant">1</span><span class="syntaxplain">.6 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2</span>
+                <span class="constant-syntax">1</span><span class="plain-syntax">.6 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> = </span><span class="constant-syntax">2</span>
                 <br>
-                <span class="syntaxplain">-1.6 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> = -2</span>
+                <span class="plain-syntax">-1.6 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> = -2</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>We probably ought to bear in mind that the limited range of <code class="inlinesourcetext">number</code> means that the nearest whole number might not be all that near. For example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">x</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">^23 </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> = </span><span class="syntaxconstant">2147483647</span>
+                <!-- START CODE "code1009" -->
+                <blockquote class="extract-inform7"><a id="code1009"></a><span class="indexdullblue"><span class="constant-syntax">6</span><span class="plain-syntax"> </span><span class="identifier-syntax">x</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax">^23 </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> = </span><span class="constant-syntax">2147483647</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>because 2147483647 is the highest value a <code class="inlinesourcetext">number</code> can have.</p>
             </div>
             <p>Finally, real number can also store two interesting not-really-number sorts of value. First, we have <code class="inlinesourcetext">plus infinity</code> and <code class="inlinesourcetext">minus infinity</code>, which are used to keep track of what happens when we divide by really small quantities. It's mathematically impossible to divide by 0, but this can be hard to avoid when we're using real numbers, because they're only approximately stored – so it's not always possible to say whether they're exactly 0 or not. So in real number arithmetic,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.0;</span>
+            <!-- START CODE "code1010" -->
+            <blockquote class="extract-inform7"><a id="code1010"></a><span class="indexdullblue"><span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">.0 </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">.0;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>doesn't throw a run-time problem the way that</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">divided</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1011" -->
+            <blockquote class="extract-inform7"><a id="code1011"></a><span class="indexdullblue"><span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">divided</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>does. Instead, it produces <code class="inlinesourcetext">plus infinity</code>. Infinity behaves roughly the way we might expect — for example, <code class="inlinesourcetext">2 divided by plus infinity</code> produces 0.0 – but once it comes into a calculation the result probably lies on some extreme and won't be very useful. Amusingly, the following is correct Inform syntax:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">infinity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nearest</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whole</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span>
+            <!-- START CODE "code1012" -->
+            <blockquote class="extract-inform7"><a id="code1012"></a><span class="indexdullblue"><span class="identifier-syntax">plus</span><span class="plain-syntax"> </span><span class="identifier-syntax">infinity</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">nearest</span><span class="plain-syntax"> </span><span class="identifier-syntax">whole</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and evaluates of course to 2147483647. We can use the adjectives <code class="inlinesourcetext">infinite</code> and <code class="inlinesourcetext">finite</code> to talk about these numbers: <code class="inlinesourcetext">plus infinity</code> and <code class="inlinesourcetext">minus infinity</code> are <code class="inlinesourcetext">infinite</code>, everything else is <code class="inlinesourcetext">finite</code>.</p>
             <p>The same problem occurs for calculations like square roots. It's impossible to take the square root of a negative number, but we don't want to throw a run-time problem, because approximation means we can't always guarantee to stay the right side of 0. So for a few calculations like this, Inform generates what's called a <code class="inlinesourcetext">nonexistent</code> real number. We can use the adjectives nonexistent or existent to talk about this. Every number mentioned on this page so far is <code class="inlinesourcetext">existent</code>, including the infinities. The only way to get a nonexistent number is to carry out an impossible mathematical operation such as</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">logarithm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> -10</span>
+            <!-- START CODE "code1013" -->
+            <blockquote class="extract-inform7"><a id="code1013"></a><span class="indexdullblue"><span class="identifier-syntax">logarithm</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> -10</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(The design of <code class="inlinesourcetext">real number</code> here follows well established trade-offs for scientific computing. Inform follows the IEEE-754 binary32 standard for floating-point arithmetic, so Inform's <code class="inlinesourcetext">real number</code> behaves very like the <code class="inlinecode">float</code> type in C, C++, Java and similar programming languages. A <code class="inlinesourcetext">nonexistent</code> number is what's often called a NaN – a Not-a-Number.)</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_16_3.html"><span class="markdowncontent">Section 16.3: Real numbers</span></a> &bull; <a href="WI_16_5.html"><span class="markdowncontent">Section 16.5: Printing real numbers</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

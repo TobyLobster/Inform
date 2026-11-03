@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Random choices of things" -->
+            <!-- SEARCH SECTION "8.19" -->
+            <!-- SEARCH SORT "001-008-019-000" -->
             <h3><span>Section 8.19: Random choices of things</span></h3>
-            <p></p>
+            <p> </p>
             <p>Writing <code class="inlinesourcetext">a random number</code> is not allowed, because the possible range is too large, but that was the only reason why not.</p>
             <div class="definition">
-                <p class="defnprototype">a/-- random (description of values) ... value</p>
+                <!-- START PHRASE "defn99" -->
+                <p class="defnprototype"><a id="defn99"></a>a/-- random (description of values) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase makes a uniformly random choice from values satisfying the description given. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">visited</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span>
+                <!-- START CODE "code511" -->
+                <blockquote class="extract-inform7"><a id="code511"></a><span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">visited</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span>
                 <br>
-                <span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span>
+                <span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>A problem message is issued if the range is too large (for instance, <code class="inlinesourcetext">a random text</code>). Unexpected results may follow if no value fits the description, unless we are describing objects, in which case the result is the special value <code class="inlinesourcetext">nothing</code>.</p>
             </div>
             <p>For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You can see </span><span class="syntaxextract">[number of adjacent rooms]</span><span class="syntaxstring"> way</span><span class="syntaxextract">[s]</span><span class="syntaxstring"> from here; how about </span><span class="syntaxextract">[random adjacent room]</span><span class="syntaxstring">?&quot;</span>
+            <!-- START CODE "code512" -->
+            <blockquote class="extract-inform7"><a id="code512"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can see [number of adjacent rooms] way[s] from here; how about [random adjacent room]?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But it's important to worry about the possibility that nothing qualifies – here, that no adjacent rooms exist. The above would then say:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">You</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">see</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ways</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">; </span><span class="syntaxidentifier">how</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">?</span>
+            <!-- START CODE "code513" -->
+            <blockquote class="extract-inform7"><a id="code513"></a><span class="indexdullblue"><span class="identifier-syntax">You</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="constant-syntax">0</span><span class="plain-syntax"> </span><span class="identifier-syntax">ways</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">; </span><span class="identifier-syntax">how</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">?</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg139><a style="text-decoration: none" href="eg_139.html"><span class="extensionexampleletter">139</span></a></span></div>
+                    <span id=eg136><a style="text-decoration: none" href="eg_136.html"><span class="extensionexampleletter">136</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_139.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Candy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_136.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Candy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">One of several identical candies chosen at the start of play to be poisonous.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg139><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg136><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg140><a style="text-decoration: none" href="eg_140.html"><span class="extensionexampleletter">140</span></a></span></div>
+                    <span id=eg137><a style="text-decoration: none" href="eg_137.html"><span class="extensionexampleletter">137</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_140.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zork II</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_137.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zork II</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A &quot;Carousel Room&quot;, as in Zork II, where moving in any direction from the room leads (at random) to one of the eight rooms nearby.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg140><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg137><a style="text-decoration: none" href="RB_3_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_8_18.html"><span class="markdowncontent">Section 8.18: Randomness</span></a> &bull; <a href="WI_9_1.html"><span class="markdowncontent">Chapter 9: Time</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

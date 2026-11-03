@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,136 +2212,144 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Table continuations" -->
+            <!-- SEARCH SECTION "18.18" -->
+            <!-- SEARCH SORT "001-018-018-000" -->
             <h3><span>Section 18.18: Table continuations</span></h3>
             <p> </p>
             <p>A table is an arrangement for putting information together concisely in a single place, so it might seem odd that we sometimes need to divide it up: but once in a while, we do. Suppose we have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Planets</span></span><br>
+            <!-- START CODE "code1214" -->
+            <blockquote class="extract-inform7"><a id="code1214"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">Planets</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">planet</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">planet</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">semimajor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">axis</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Jupiter</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">5</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">semimajor</span><span class="plain-syntax"> </span><span class="identifier-syntax">axis</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Saturn</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Jupiter</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Uranus</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">19</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">5</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Neptune</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Saturn</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">30</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Pluto</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Uranus</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">39</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">19</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">Neptune</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">30</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">Pluto</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">39</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>But then someone in Chile with a telescope the size of God's own teacup notices something a long, long way out, and the newspapers get terribly excited. We can write an addendum:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Outer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Planets</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">continued</span><span class="syntaxplain">)</span></span><br>
+            <!-- START CODE "code1215" -->
+            <blockquote class="extract-inform7"><a id="code1215"></a><span class="indexdullblue"><span class="identifier-syntax">Table</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Outer</span><span class="plain-syntax"> </span><span class="identifier-syntax">Planets</span><span class="plain-syntax"> (</span><span class="identifier-syntax">continued</span><span class="plain-syntax">)</span></span><br>
             <table border="0" cellspacing="0" cellpadding="0">
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">planet</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">planet</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">semimajor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">axis</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Orcus</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">39</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="identifier-syntax">semimajor</span><span class="plain-syntax"> </span><span class="identifier-syntax">axis</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Quaoar</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Orcus</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">43</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
-                    </td>
-                </tr>
-
-                <tr>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Xena</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                    </td>
-                    <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">68</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">39</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
                     </td>
                 </tr>
 
                 <tr>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxidentifier">Sedna</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                        <span class="indexdullblue"><span class="identifier-syntax">Quaoar</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
                     </td>
                     <td align="left" valign="top">
-                        <span class="indexdullblue"><span class="syntaxconstant">524</span><span class="syntaxplain"> </span><span class="syntaxidentifier">AU</span></span>
+                        <span class="indexdullblue"><span class="constant-syntax">43</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">Xena</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">68</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="identifier-syntax">Sedna</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
+                    </td>
+                    <td align="left" valign="top">
+                        <span class="indexdullblue"><span class="constant-syntax">524</span><span class="plain-syntax"> </span><span class="identifier-syntax">AU</span></span>
                     </td>
                 </tr>
 
             </table>
             <span class="indexdullblue"></span></blockquote>
+            <!-- END CODE -->
             <p>This may seem unnecessary – why not simply add extra rows to the original table? – but it allows us to split the table between different parts of the source text, if we want to, or to continue a table which exists only in an extension. (Thus if we were using an extension which involved the planets, and had a table like this one, we would be able to add new planets without changing the extension.)</p>
             <p>The name for the continuation must be identical to the original. The continuation has no existence in its own right: Inform simply splices the two (or more) pieces together, exactly as if the table were all in one piece at the place where it first occurred. Thus the above creates only one table, the <code class="inlinesourcetext">Table of Outer Planets</code>, with nine rows. Each column in the continuation must exist in the original, but not every column need be given: those omitted are filled with blank entries. The columns need not be in the same order. Both original and continuations are allowed to quote a number of blank rows: if so, the combined total is used.</p>
             <p>At time of writing the International Astronomical Union has not yet consented to name 2003 UB313 after Xena, the Warrior Princess, but this is surely only a bureaucratic delay. (Footnote: on 24 August 2006 it was demoted to dwarf planet status, like the luckless Pluto, and on 13 September renamed Eris; though its moon's official name, Dysnomia, is an ingenious double-meaning to do with the name of Xena's actress, Lucy Lawless.)</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg313><a style="text-decoration: none" href="eg_313.html"><span class="extensionexampleletter">313</span></a></span></div>
+                    <span id=eg310><a style="text-decoration: none" href="eg_310.html"><span class="extensionexampleletter">310</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_313.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Food Network Interactive</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_310.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Food Network Interactive</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using a menu system from an extension, but adding our own material to it for this game.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg313><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg310><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_18_17.html"><span class="markdowncontent">Section 18.17: Defining values with tables</span></a> &bull; <a href="WI_18_19.html"><span class="markdowncontent">Section 18.19: Table amendments</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

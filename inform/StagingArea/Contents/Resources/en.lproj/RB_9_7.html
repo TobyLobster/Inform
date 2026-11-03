@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,51 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Painting and Labelling Devices" -->
+            <!-- SEARCH SECTION "9.7" -->
+            <!-- SEARCH SORT "002-009-007-000" -->
             <h3><span>Section 9.7: Painting and Labelling Devices</span></h3>
             <p>
             Writing on something is only one way a player can change its visual appearance. IF authors have long been wary of paint brushes, because a sufficiently motivated player could go through a whole landscape like a graffiti artist with a railway bridge. We want to give the player the illusion of freedom of action, while avoiding a situation where unlimited numbers of different decorations might be needed–that would need a table of potentially unlimited size.</p>
-            <p>One approach is to limit the number of items which can be decorated. In <a href="eg_337.html">Palette</a>, only the canvas can be painted, and each image overlays the last. <a href="eg_61.html">Early Childhood</a> increases the range to allow a whole kind (<code class="inlinesourcetext">block</code>) to be painted, and also shows how the changing colours can be used to distinguish between otherwise identical objects.</p>
-            <p><a href="eg_41.html">Brown</a> finds a different way to limit the number of simultaneous decorations: almost anything can have a red sticky label attached, but there is only one red sticky label. (So to decorate a new item, the player must first un-decorate an old one.)</p>
+            <p>One approach is to limit the number of items which can be decorated. In <a href="eg_334.html">Palette</a>, only the canvas can be painted, and each image overlays the last. <a href="eg_60.html">Early Childhood</a> increases the range to allow a whole kind (<code class="inlinesourcetext">block</code>) to be painted, and also shows how the changing colours can be used to distinguish between otherwise identical objects.</p>
+            <p><a href="eg_40.html">Brown</a> finds a different way to limit the number of simultaneous decorations: almost anything can have a red sticky label attached, but there is only one red sticky label. (So to decorate a new item, the player must first un-decorate an old one.)</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_10_7.html" title="Section 10.7: Electricity and Magnetism">Electricity and Magnetism</a> for another form of stickiness.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg337><a style="text-decoration: none" href="eg_337.html"><span class="extensionexampleletter">337</span></a></span></div>
+                    <span id=eg334><a style="text-decoration: none" href="eg_334.html"><span class="extensionexampleletter">334</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_337.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Palette</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_334.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Palette</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An artist's workshop in which the canvas can be painted in any colour, and where painterly names for pigments (&quot;cerulean&quot;) are accepted alongside everyday ones (&quot;blue&quot;).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg337><a style="text-decoration: none" href="WI_19_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg334><a style="text-decoration: none" href="WI_19_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg41><a style="text-decoration: none" href="eg_41.html"><span class="extensionexampleletter">41</span></a></span></div>
+                    <span id=eg40><a style="text-decoration: none" href="eg_40.html"><span class="extensionexampleletter">40</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_41.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Brown</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_40.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Brown</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A red sticky label which can be attached to anything in the game, or removed again.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg41><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg40><a style="text-decoration: none" href="WI_3_23.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg61><a style="text-decoration: none" href="eg_61.html"><span class="extensionexampleletter">61</span></a></span></div>
+                    <span id=eg60><a style="text-decoration: none" href="eg_60.html"><span class="extensionexampleletter">60</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_61.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Early Childhood</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_60.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Early Childhood</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A child's set of building blocks, which come in three different colours - red, green and blue - but which can be repainted during play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg61><a style="text-decoration: none" href="WI_4_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg60><a style="text-decoration: none" href="WI_4_15.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_6.html"><span class="markdowncontent">Section 9.6: Reading Matter</span></a> &bull; <a href="RB_9_8.html"><span class="markdowncontent">Section 9.8: Simple Machines</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

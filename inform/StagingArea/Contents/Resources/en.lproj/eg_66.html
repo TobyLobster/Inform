@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,130 +2193,66 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg66><a style="text-decoration: none" href="WI_5_4.html"><span class="extensionexampleletter">66</span></a></span></div>
+                <span id=eg66><a style="text-decoration: none" href="WI_5_5.html"><span class="extensionexampleletter">66</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ballpark</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">A new <code class="inlinesourcetext">to say</code> definition which allows the author to say <code class="inlinesourcetext">&quot;[a number in round numbers]&quot;</code> and get verbal descriptions like <code class="inlinetranscript">a couple of</code> or <code class="inlinetranscript">a few</code> as a result.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Control Center</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Objects which automatically include a description of their component parts whenever they are examined.</span></span></div>
             <div class="exampleright">
-                <span id=eg66><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg66><a style="text-decoration: none" href="RB_9_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Control Center" -->
+        <!-- SEARCH SECTION "Example 66" -->
+        <!-- SEARCH SORT "003-066-000-000" -->
         <p></p>
-        <p>Sometimes it is more sensible to describe numbers roughly than in exact terms. For instance, we might want to have our player perceive <code class="inlinetranscript">many people</code> rather than <code class="inlinetranscript">forty-two people</code> on entering a room. To achieve this, we might write our own <code class="inlinesourcetext">to say</code> phrase.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Ballpark[=0x0022=][=0x000A=][=0x000A=]To say (count - a number) in round numbers:[=0x000A=][=0x0009=]repeat through the Table of Numerical Approximation:[=0x000A=][=0x0009=][=0x0009=]if count is less than threshold entry:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=][approximation entry][=0x0022=];[=0x000A=][=0x0009=][=0x0009=][=0x0009=]rule succeeds.[=0x000A=][=0x000A=]Table of Numerical Approximation[=0x000A=]threshold[=0x0009=]approximation[=0x000A=]1[=0x0009=][=0x0022=]no[=0x0022=][=0x000A=]2[=0x0009=][=0x0022=]one[=0x0022=][=0x000A=]3[=0x0009=][=0x0022=]a couple of[=0x0022=][=0x000A=]6[=0x0009=][=0x0022=]a few[=0x0022=][=0x000A=]11[=0x0009=][=0x0022=]some[=0x0022=][=0x000A=]21[=0x0009=][=0x0022=]many[=0x0022=][=0x000A=]1000[=0x0009=][=0x0022=]lots and lots of[=0x0022=][=0x000A=][=0x000A=]A room has a number called the population. The population of a room is usually 0. The description of a room is usually [=0x0022=]You observe [population of the location in round numbers] [if population of the location is 1]person [otherwise]people [end if]here.[=0x0022=].[=0x000A=][=0x000A=]The Stadium is a room. The Hot Dog Stand is west of the Stadium. The Women[=0x0027=]s Restroom is south of the Stadium.[=0x000A=][=0x000A=]The population of the Stadium is 500. The population of the Hot Dog Stand is 3. The population of the Restroom is 750.[=0x000A=][=0x000A=]Test me with [=0x0022=]w / e / s[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Ballpark&quot;</span>
+        <p>It is straightforward to make a rule that anything with parts must mention all those parts during an <code class="inlinetranscriptcommand">examine</code> command:</p>
+        <!-- START CODE "code2315" -->
+        <blockquote class="extract-inform7"><a id="code2315"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Control Center[=0x0022=][=0x000A=][=0x000A=]After examining a thing when something is part of the noun:[=0x000A=][=0x0009=]say [=0x0022=][The noun] includes [a list of things which are part of the noun].[=0x0022=][=0x000A=][=0x000A=]The Control Center is a room. [=0x0022=]Here you are at the Control Center of the universe.[=0x0022=][=0x000A=][=0x000A=]The Universe Management Computer is a fixed in place thing in the Control Center. [=0x0022=]The Universe Management Computer sits directly before you, unguarded.[=0x0022=] The description of the Universe Management Computer is [=0x0022=]The computer is so large that you would be unable to operate it all from one position. Alas, it does not come with a manual.[=0x0022=][=0x000A=][=0x000A=]A chartreuse indicator light, an ennui meter, a golden knob settable to 15,000 positions, a toothpick dispenser, and a button labeled RESTART are part of the Universe Management Computer.[=0x000A=][=0x000A=]The command chair is an enterable supporter in the Control Center. It is pushable between rooms. [=0x0022=]Because the computer is too large for you to reach all of the front panel from a standing position, there is a command chair on casters which allows you to push back and forth.[=0x0022=] The description of the command chair is [=0x0022=]Quite ordinary, really, but for the heady rush of power that comes of sitting in it.[=0x0022=]. Some casters are part of the command chair.[=0x000A=][=0x000A=]A hair-thick needle is part of the ennui meter.[=0x000A=][=0x000A=]Instead of examining the ennui meter: say [=0x0022=]You can[=0x0027=]t be bothered.[=0x0022=][=0x000A=][=0x000A=]Test me with [=0x0022=]x chair / x computer / x ennui meter[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Control Center&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">count</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">round</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Numerical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Approximation</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] includes [a list of things which are part of the noun].&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">less</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">threshold</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain">:</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[approximation entry]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Control</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Here you are at the Control Center of the universe.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Universe</span><span class="plain-syntax"> </span><span class="identifier-syntax">Management</span><span class="plain-syntax"> </span><span class="identifier-syntax">Computer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Control</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The Universe Management Computer sits directly before you, unguarded.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Universe</span><span class="plain-syntax"> </span><span class="identifier-syntax">Management</span><span class="plain-syntax"> </span><span class="identifier-syntax">Computer</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The computer is so large that you would be unable to operate it all from one position. Alas, it does not come with a manual.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">chartreuse</span><span class="plain-syntax"> </span><span class="identifier-syntax">indicator</span><span class="plain-syntax"> </span><span class="identifier-syntax">light</span><span class="plain-syntax">, </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennui</span><span class="plain-syntax"> </span><span class="identifier-syntax">meter</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">golden</span><span class="plain-syntax"> </span><span class="identifier-syntax">knob</span><span class="plain-syntax"> </span><span class="identifier-syntax">settable</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">15</span><span class="plain-syntax">,000 </span><span class="identifier-syntax">positions</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">toothpick</span><span class="plain-syntax"> </span><span class="identifier-syntax">dispenser</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax"> </span><span class="identifier-syntax">labeled</span><span class="plain-syntax"> </span><span class="identifier-syntax">RESTART</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Universe</span><span class="plain-syntax"> </span><span class="identifier-syntax">Management</span><span class="plain-syntax"> </span><span class="identifier-syntax">Computer</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">chair</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">enterable</span><span class="plain-syntax"> </span><span class="identifier-syntax">supporter</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Control</span><span class="plain-syntax"> </span><span class="identifier-syntax">Center</span><span class="plain-syntax">. </span><span class="identifier-syntax">It</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushable</span><span class="plain-syntax"> </span><span class="identifier-syntax">between</span><span class="plain-syntax"> </span><span class="identifier-syntax">rooms</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Because the computer is too large for you to reach all of the front panel from a standing position, there is a command chair on casters which allows you to push back and forth.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">chair</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Quite ordinary, really, but for the heady rush of power that comes of sitting in it.&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">Some</span><span class="plain-syntax"> </span><span class="identifier-syntax">casters</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">chair</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p><a href="WI_12_1.html" title="Chapter 12: Phrases">Phrases</a> will be explained more thoroughly in a later chapter, but as we have already seen in the examples, we can make a <code class="inlinesourcetext">To say...</code> phrase that will allow us to create our own text substitutions. In this case, we are going to replace the specific number with a vaguer one chosen from a chart, so:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Table</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Numerical</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Approximation</span></span><br>
-        <table border="0" cellspacing="0" cellpadding="0">
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">threshold</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxidentifier">approximation</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;no&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">2</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;one&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">3</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;a couple of&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">6</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;a few&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">11</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;some&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">21</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;many&quot;</span></span>
-                </td>
-            </tr>
-
-            <tr>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxconstant">1000</span></span>&nbsp;&nbsp;&nbsp;&nbsp;
-                </td>
-                <td align="left" valign="top">
-                    <span class="indexdullblue"><span class="syntaxstring">&quot;lots and lots of&quot;</span></span>
-                </td>
-            </tr>
-
-        </table>
-        <span class="indexdullblue"></span></blockquote>
-        <p>The idea here is that we will work our way through the table until we hit a line where the threshold number is higher than the number we want to express, and then print that output: so if we have less than one item, we'll print <code class="inlinetranscript">no</code>; if we have more than none but less than two, we'll print <code class="inlinetranscript">one</code>; if we have less than three, we'll print <code class="inlinetranscript">a couple of</code>; if we have three, four, or five (but not six), we'll print <code class="inlinetranscript">a few.</code></p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">population</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">population</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You observe </span><span class="syntaxextract">[population of the location in round numbers]</span><span class="syntaxstring"> </span><span class="syntaxextract">[if population of the location is 1]</span><span class="syntaxstring">person </span><span class="syntaxextract">[otherwise]</span><span class="syntaxstring">people </span><span class="syntaxextract">[end if]</span><span class="syntaxstring">here.&quot;</span><span class="syntaxplain">.</span>
+        <!-- END CODE -->
+        <p>Now whenever we look at any object with components, we will first see the description, then a list of parts which belong to it. The following refinement brings in elements of later chapters, but it may be worth noting: because we've written our rule as an <code class="inlinesourcetext">After examining</code>, anything that pre-empts the operation of the examine command will also prevent that rule from occurring. So for instance:</p>
+        <!-- START CODE "code2316" -->
+        <blockquote class="extract-inform7"><a id="code2316"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">hair</span><span class="plain-syntax">-</span><span class="identifier-syntax">thick</span><span class="plain-syntax"> </span><span class="identifier-syntax">needle</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennui</span><span class="plain-syntax"> </span><span class="identifier-syntax">meter</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stadium</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stadium</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Women</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Restroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">south</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stadium</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">population</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stadium</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">500</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">population</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hot</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dog</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">population</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Restroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">750</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;w / e / s&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ennui</span><span class="plain-syntax"> </span><span class="identifier-syntax">meter</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can't be bothered.&quot;</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>...would not result in the needle being mentioned.</p>
+        <!-- START CODE "code2317" -->
+        <blockquote class="extract-inform7"><a id="code2317"></a><span class="indexdullblue"><span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;x chair / x computer / x ennui meter&quot;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_5_4.html>Section 5.4: Text with numbers</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_5_5.html>Section 5.5: Text with lists</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

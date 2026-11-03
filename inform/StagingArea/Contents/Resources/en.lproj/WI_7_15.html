@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,83 +2212,97 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Going by, going through, going with" -->
+            <!-- SEARCH SECTION "7.15" -->
+            <!-- SEARCH SORT "001-007-015-000" -->
             <h3><span>Section 7.15: Going by, going through, going with</span></h3>
             <p>                </p>
             <p>Adding to the previous example story, we apply rules which depend on travelling by a particular vehicle:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">book</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Musicology</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Section</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;The book trolley, a sort of motorised tractor for trundling around through the stacks, is parked here.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">vehicle</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nowhere</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Don't go crashing the trolley into walls.&quot;</span>
+            <!-- START CODE "code421" -->
+            <blockquote class="extract-inform7"><a id="code421"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">book</span><span class="plain-syntax"> </span><span class="identifier-syntax">trolley</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Musicology</span><span class="plain-syntax"> </span><span class="identifier-syntax">Section</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;The book trolley, a sort of motorised tractor for trundling around through the stacks, is parked here.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">trolley</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">vehicle</span><span class="plain-syntax">. </span><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">nowhere</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">trolley</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Don't go crashing the trolley into walls.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Front</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Stacks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The Front Stacks are far too confined for the trolley to manoeuvre into them.&quot;</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Front</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stacks</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">trolley</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The Front Stacks are far too confined for the trolley to manoeuvre into them.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And, lastly, rules which apply to movements through particular doors:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baize</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">east</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Catalogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">west</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Clerk</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baize</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code422" -->
+            <blockquote class="extract-inform7"><a id="code422"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">baize</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Catalogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Clerk</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">baize</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baize</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Through you go...&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baize</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">: </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;...and here you are.&quot;</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">baize</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Through you go...&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">baize</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">: </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax">; </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;...and here you are.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(Note that these apply whether the action is <code class="inlinesourcetext">going east</code> or <code class="inlinesourcetext">entering the green baize door</code>, each having the same effect.) The last rule is worth a second look: the normal way that a <code class="inlinesourcetext">going</code> action is reported is to produce the room description of the new location. So if an <code class="inlinesourcetext">after</code> rule stops the action before we get to reporting, we have to produce any room description by hand (hence the <code class="inlinesourcetext">try looking</code> to cause the looking action). Alternatively, we could simply say something and let the normal course of events take place:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">baize</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;...and here you are:&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">continue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code423" -->
+            <blockquote class="extract-inform7"><a id="code423"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">baize</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;...and here you are:&quot;</span><span class="plain-syntax">; </span><span class="identifier-syntax">continue</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Finally, going is an action which can also happen while the player is pushing something from one room to another, and we can describe this like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Office</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trolley</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;But it looks perfectly placed here. Why push any further?&quot;</span>
+            <!-- START CODE "code424" -->
+            <blockquote class="extract-inform7"><a id="code424"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Office</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">trolley</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;But it looks perfectly placed here. Why push any further?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Going</code> is not the only action which moves the player. Another is <code class="inlinesourcetext">exiting</code>, an action which moves the player out of whatever they are currently in or on. This action is often caused by the player typing just <code class="inlinetranscriptcommand">out</code> or <code class="inlinetranscriptcommand">get down</code>, and there's no noun as such. But Inform allows the syntax <code class="inlinesourcetext">exiting from</code> to make it easier to write rules about the exiting of particular containers or supporters:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">exiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mini</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cooper</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code425" -->
+            <blockquote class="extract-inform7"><a id="code425"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">exiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mini</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cooper</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You painstakingly unpack your limbs from the tiny car.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You painstakingly unpack your limbs from the tiny car.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg109><a style="text-decoration: none" href="eg_109.html"><span class="extensionexampleletter">109</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_109.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mattress King</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding extra phrasing to the action to <code class="inlinetranscriptcommand">push</code> something in a direction.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg109><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg110><a style="text-decoration: none" href="eg_110.html"><span class="extensionexampleletter">110</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_110.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mattress King</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding extra phrasing to the action to <code class="inlinetranscriptcommand">push</code> something in a direction.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_110.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">No Relation</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A car which must be turned on before it can be driven, and can only go to roads.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg110><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg110><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg111><a style="text-decoration: none" href="eg_111.html"><span class="extensionexampleletter">111</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_111.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">No Relation</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A car which must be turned on before it can be driven, and can only go to roads.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_111.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One Short Plank</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A plank bridge which breaks if the player is carrying something when they cross it. Pushing anything over the bridge is forbidden outright.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg111><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg111><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg112><a style="text-decoration: none" href="eg_112.html"><span class="extensionexampleletter">112</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_112.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One Short Plank</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A plank bridge which breaks if the player is carrying something when they cross it. Pushing anything over the bridge is forbidden outright.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_112.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Provenance Unknown</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Allowing something like <code class="inlinetranscriptcommand">push television east</code> to push the cart on which the television rests.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg112><a style="text-decoration: none" href="RB_3_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg112><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg113><a style="text-decoration: none" href="eg_113.html"><span class="extensionexampleletter">113</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_113.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Provenance Unknown</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Allowing something like <code class="inlinetranscriptcommand">push television east</code> to push the cart on which the television rests.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_113.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorb</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Replacing the message the player receives when attempting to push something that isn't pushable, and also to remove the restriction that objects cannot be pushed up or down.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg113><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg114><a style="text-decoration: none" href="eg_114.html"><span class="extensionexampleletter">114</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_114.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Zorb</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Replacing the message the player receives when attempting to push something that isn't pushable, and also to remove the restriction that objects cannot be pushed up or down.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg114><a style="text-decoration: none" href="RB_6_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_7_14.html"><span class="markdowncontent">Section 7.14: Going from, going to</span></a> &bull; <a href="WI_7_16.html"><span class="markdowncontent">Section 7.16: Kinds of action</span></a></em></p>
+        <p><em> &bull; <a href="WI_7_14.html"><span class="markdowncontent">Section 7.14: Going from, going to</span></a> &bull; <a href="WI_7_16.html"><span class="markdowncontent">Section 7.16: Named action patterns</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

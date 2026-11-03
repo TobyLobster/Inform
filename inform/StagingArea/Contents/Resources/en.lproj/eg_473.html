@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,74 +2193,60 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg473><a style="text-decoration: none" href="WI_25_15.html"><span class="extensionexampleletter">473</span></a></span></div>
+                <span id=eg473><a style="text-decoration: none" href="WI_29_23.html"><span class="extensionexampleletter">473</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Flathead News Network</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Using external files, together with a simple Unix script running in the background, to provide live news headlines inside a story file.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bay Leaves and Honey Wine</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Creating a map of Greece using the locations from previous examples.</span></span></div>
             <div class="exampleright">
-                <span id=eg473><a style="text-decoration: none" href="RB_12_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg473><a style="text-decoration: none" href="RB_13_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p></p>
-        <p>This example can only work if we have a separate program running in the background while the story file is being played, and as such it will only work if we set things up in a special way. Exactly how to do this will vary from platform to platform.</p>
-        <p>First, the source text for the Inform end of the communication line:</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Flathead News Network[=0x0022=][=0x000A=][=0x000A=]The file of RSS Requests is called [=0x0022=]rssrequest[=0x0022=].[=0x000A=][=0x000A=]The file of RSS Responses (owned by project [=0x0022=]RSS-SCRIPT[=0x0022=]) is called [=0x0022=]rssreply[=0x0022=].[=0x000A=][=0x000A=]To request (RSS feed address - text):[=0x000A=][=0x0009=]mark the file of RSS Responses as not ready to read;[=0x000A=][=0x0009=]write the RSS feed address to the file of RSS Requests.[=0x000A=][=0x000A=]Newsroom is a room. [=0x0022=]This is the secret nerve-centre of FNN, the Flathead News Network.[=0x0022=][=0x000A=][=0x000A=]The BBC button is in the Newsroom. Instead of pushing the BBC button: say [=0x0022=]Bong![=0x0022=]; request [=0x0022=]newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml[=0x0022=].[=0x000A=][=0x000A=]The NASA button is in the Newsroom. Instead of pushing the NASA button: say [=0x0022=]Bang![=0x0022=]; request [=0x0022=]www.nasa.gov/rss/breaking_news.rss[=0x0022=].[=0x000A=][=0x000A=]The WHO button is in the Newsroom. Instead of pushing the WHO button: say [=0x0022=]Bing![=0x0022=]; request [=0x0022=]http://www.doctorwhonews.net[=0x0022=].[=0x000A=][=0x000A=]A screen is in the Newsroom.[=0x000A=][=0x000A=]Instead of examining the screen:[=0x000A=][=0x0009=]if ready to read the file of RSS Responses, say [=0x0022=]From the screen you read:[line break][text of the file of RSS Responses][=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]The screen remains blank for now.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Flathead News Network&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Bay Leaves and Honey Wine" -->
+        <!-- SEARCH SECTION "Example 473" -->
+        <!-- SEARCH SORT "003-473-000-000" -->
+        <p> </p>
+        <p>The map-maker can be used in quite versatile ways, in short; though the default is a schematic line-and-box affair, that is hardly the only option. While the EPS created is not always the result of our dreams, Inform usually can be made to do most of the hard and boring part, leaving the author to do only a bit of aesthetic touchup.</p>
+        <p>In many previous examples, we have sent hapless deities wandering around a map of Greece; we might like to chart that for ourselves, in a semi-realistic fashion. So:</p>
+        <!-- START CODE "code2489" -->
+        <blockquote class="extract-inform7"><a id="code2489"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Bay Leaves and Honey Wine[=0x0022=][=0x000A=][=0x000A=]Corinth is a room. Athens is east of Corinth. Epidaurus is southeast of Corinth and east of Mycenae. Mycenae is south of Corinth. Olympia is west of Mycenae. Argos is south of Mycenae. Thebes is northwest of Athens. Pylos is south of Olympia. Sparta is east of Pylos and south of Argos. Delphi is northwest of Thebes.[=0x000A=][=0x000A=]Index map with an EPS file and[=0x000A=][=0x0009=]room-size set to 8,[=0x000A=][=0x0009=]map-outline set to off,[=0x000A=][=0x0009=]room-name-offset set to 40[=0x0026=]-40,[=0x000A=][=0x0009=]room-outline set to off,[=0x000A=][=0x0009=]room-colour set to [=0x0022=]White[=0x0022=],[=0x000A=][=0x0009=]route-colour set to [=0x0022=]White[=0x0022=],[=0x000A=][=0x0009=]room-name-colour set to [=0x0022=]White[=0x0022=],[=0x000A=][=0x0009=]room-name-length set to 25,[=0x000A=][=0x0009=]room-shape set to [=0x0022=]circle[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Bay Leaves and Honey Wine&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Requests</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;rssrequest&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Corinth</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Athens</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corinth</span><span class="plain-syntax">. </span><span class="identifier-syntax">Epidaurus</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">southeast</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corinth</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mycenae</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mycenae</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Corinth</span><span class="plain-syntax">. </span><span class="identifier-syntax">Olympia</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">west</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mycenae</span><span class="plain-syntax">. </span><span class="identifier-syntax">Argos</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mycenae</span><span class="plain-syntax">. </span><span class="identifier-syntax">Thebes</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Athens</span><span class="plain-syntax">. </span><span class="identifier-syntax">Pylos</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olympia</span><span class="plain-syntax">. </span><span class="identifier-syntax">Sparta</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">east</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pylos</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">south</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Argos</span><span class="plain-syntax">. </span><span class="identifier-syntax">Delphi</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">northwest</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Thebes</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Responses</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">owned</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">project</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;RSS-SCRIPT&quot;</span><span class="syntaxplain">) </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;rssreply&quot;</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Index</span><span class="plain-syntax"> </span><span class="identifier-syntax">map</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">EPS</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">8</span><span class="plain-syntax">,</span>
         <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">request</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">feed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">text</span><span class="syntaxplain">):</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">map</span><span class="plain-syntax">-</span><span class="identifier-syntax">outline</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">,</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">mark</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Responses</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ready</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">read</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">name</span><span class="plain-syntax">-</span><span class="identifier-syntax">offset</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">40</span><span class="plain-syntax">&amp;-40,</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">write</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">feed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">address</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Requests</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">outline</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">off</span><span class="plain-syntax">,</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;White&quot;</span><span class="plain-syntax">,</span>
         <br>
-        <span class="syntaxidentifier">Newsroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;This is the secret nerve-centre of FNN, the Flathead News Network.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">route</span><span class="plain-syntax">-</span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;White&quot;</span><span class="plain-syntax">,</span>
         <br>
-
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">name</span><span class="plain-syntax">-</span><span class="identifier-syntax">colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;White&quot;</span><span class="plain-syntax">,</span>
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">BBC</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Newsroom</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">BBC</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bong!&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">request</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;newsrss.bbc.co.uk/rss/newsonline_uk_edition/front_page/rss.xml&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">name</span><span class="plain-syntax">-</span><span class="identifier-syntax">length</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">25</span><span class="plain-syntax">,</span>
         <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">NASA</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Newsroom</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">NASA</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bang!&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">request</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;www.nasa.gov/rss/breaking_news.rss&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHO</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Newsroom</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">WHO</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Bing!&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">request</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;http://www.doctorwhonews.net&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">screen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Newsroom</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">screen</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ready</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">read</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">RSS</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Responses</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;From the screen you read:</span><span class="syntaxextract">[line break][text of the file of RSS Responses]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;The screen remains blank for now.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">room</span><span class="plain-syntax">-</span><span class="identifier-syntax">shape</span><span class="plain-syntax"> </span><span class="identifier-syntax">set</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;circle&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>As far as the story file is concerned, then, it sends a request down the communication line by writing the chosen RSS feed to the file named &quot;rssrequest&quot;, and expects a reply to come back down the line by being written to the file &quot;rssreply&quot;. However, the story file needs to expect that this might take some time. (Maybe forever, if there is no program responding, or if the Internet connection is not working.) The story file marks the &quot;rssreply&quot; file as not ready before it makes a request; if it subsequently finds that the file is now ready, that must mean that the other program has done the honours, and that all is well. In the mean time, &quot;The screen remains blank for now.&quot;</p>
-        <p>Now for the RSS-script program. The following provides a crude but workable program suitable for running as a Perl script on a system which provides the standard Internet fetching program &quot;curl&quot;: Mac OS X, for instance. (If you have OS X, you can paste the following into a (Unix-format) text file called &quot;rss-script.pl&quot;, place it in your home folder, open the Terminal utility, type &quot;perl rss-script.pl&quot;, and then hide the Terminal window again.)</p>
-        <div class="extract-perl">
-            <pre><code class="language-perl">for (;;) { # repeat forever:<br>    system(&quot;sleep 1&quot;); # wait 1 second<br>    open REQUEST, &quot;rssrequest.glkdata&quot; or next;<br>    # the request file has been detected:<br>    $header_line = &lt;REQUEST&gt;; # the header line<br>    $rss_feed = &lt;REQUEST&gt;; # the actual content - the RSS feed URL<br>    close REQUEST;<br>    if ($header_line =~ m/^\*/) { # if the request file is marked ready<br>        $rss = system(&quot;curl $rss_feed &gt;rawrss.txt&quot;); # download the RSS feed<br>        # read the RSS XML into a single Perl string:<br>        open RAWRSS, &quot;rawrss.txt&quot; or next;<br>        $raw = &quot;&quot;;<br>        while ($nl = &lt;RAWRSS&gt;) {<br>            $raw = $raw.&quot; &quot;.$nl;<br>        }<br>        close RAWRSS;<br>        # look for the title and description of the first item:<br>        if ($raw =~ m/\&lt;item\&gt;\&lt;title.*?\&gt;(.*?)\&lt;\/title\&gt;.*?\&lt;description.*?\&gt;(.*?)\&lt;\/description\&gt;/) {<br>            # write the reply:<br>            open REPLY, &quot;&gt;rssreply.glkdata&quot; or next;<br>            print REPLY &quot;* //RSS-SCRIPT// rssreply\n&quot;, $1, &quot;\n&quot;, $2, &quot;\n&quot;;<br>            close REPLY;<br>            # request safely dealt with, so we can remove it:<br>            system(&quot;rm 'rssrequest.glkdata'&quot;);<br>        }<br>    }<br>}<br></code></pre></div>
+        <!-- END CODE -->
+        <p>This produces a line-and-dot map, where the names of rooms do not appear inside the city-circles, but rather (thanks to <code class="inlinesourcetext">room-name-offset</code>) off to one side. We specify a long room-name-length because we want all the names of the cities spelled out in full; and we make all the elements white because we intend to place them over a black background layer.</p>
+        <p>We can then superimpose this on a vector map of Greece and tweak the exact positions of cities a little by hand (in Adobe Illustrator, as it happens, but other programs would also allow this level of editing). The result:</p>
+        <p><img src="doc_images/Greece.jpg" alt="Greece" /></p>
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_25_15.html>Section 25.15: Exchanging files with other programs</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_29_23.html>Section 29.23: Titling and abbreviation</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

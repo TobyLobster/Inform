@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.8: Extensions including other extensions</span></title>
+    <title><span class="markdowncontent">Section 29.8: Cover art</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_7.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.8: Extensions including other extensions</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.8: Cover art</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_9.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,63 +2212,47 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.8: Extensions including other extensions</span></h3>
-            <p></p>
-            <p>Extensions can themselves contain <code class="inlinesourcetext">Include...</code> sentences asking for other extensions to be included.</p>
-            <p>For example, suppose <code class="inlinesourcetext">Ducking Action</code> requires <code class="inlinesourcetext">Crossbow Bolts by Jane Mallard</code>. The obvious thing is to write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxplain">...</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Cover art" -->
+            <!-- SEARCH SECTION "29.8" -->
+            <!-- SEARCH SORT "001-029-008-000" -->
+            <h3><span>Section 29.8: Cover art</span></h3>
+            <p>    </p>
+            <p>Accompanying files are not the only things which can be included in a <code class="inlinesourcetext">release along with</code> sentence: for instance, we could</p>
+            <!-- START CODE "code1802" -->
+            <blockquote class="extract-inform7"><a id="code1802"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">art</span><span class="plain-syntax"> (</span><span class="string-syntax">&quot;A stone gargoyle&quot;</span><span class="plain-syntax">), </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio magazine&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Collegio.pdf&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">file</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;The mating call of the green wyvern&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mating Wyverns.mp3&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>And indeed if we are very confident that <code class="inlinesourcetext">Ducking Action</code> can work with any version of <code class="inlinesourcetext">Crossbow Bolts</code> which has ever existed, or is likely to exist, then that is fine. But suppose <code class="inlinesourcetext">Ducking Action</code> will only work with version 8. Then it can begin like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>Cover art can not only be used to advertise a work of IF, it is also displayed to players by certain interpreters, such as Zoom or Spatterlight for OS X, or Windows Frotz for Windows. It is also used on the IFDB (<a href="https://ifdb.org">ifdb.org</a>), and by browsing applications. If Zoom is installed, then on Mac OS X Leopard, the Finder shows cover art directly:</p>
+            <p><img src="doc_images/coverflow.png" alt="coverflow" /></p>
+            <p>Cover art for a work should be prepared in either JPEG (<code class="inlinesourcetext">.jpg</code>) or PNG (<code class="inlinesourcetext">.png</code>) format, and we recommend that it should be square, like a music album cover. Programs which notice the cover art for a work of IF are likely to scale this up or down as convenient for their own display purposes, but it would be helpful to provide the original art at 960 by 960 resolution. The cover art must not be smaller than 120 pixels in either dimension.</p>
+            <p>To provide cover art, we should create an image file called Cover.jpg, or else Cover.png, and place it in the project's .materials folder. For instance, we might have:</p>
+            <!-- START CODE "code1803" -->
+            <blockquote class="extract-inform7"><a id="code1803"></a><span class="indexdullblue"><span class="identifier-syntax">Works</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Progress</span>
             <br>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Magician</span><span class="plain-syntax">.</span><span class="identifier-syntax">inform</span>
             <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Magician</span><span class="plain-syntax">.</span><span class="identifier-syntax">materials</span>
             <br>
-
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Collegio</span><span class="plain-syntax">.</span><span class="identifier-syntax">pdf</span>
             <br>
-            <span class="syntaxplain">...</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Cover</span><span class="plain-syntax">.</span><span class="identifier-syntax">jpg</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Mating</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wyverns</span><span class="plain-syntax">.</span><span class="identifier-syntax">mp3</span>
             </span></blockquote>
-            <p>If an extension does include other extensions, it is good style to place the <code class="inlinesourcetext">Include...</code> sentence(s) as early as possible after the introductory sentence. The build manager inside Inform, a component called <code class="inlinecode">inbuild</code>, can spot such a requirement wherever it occurs, but human readers often fail to notice them if they're not at the top of the file.</p>
-            <p>An inclusion like this is sometimes called a <em>dependency</em>, because <code class="inlinesourcetext">Ducking Action</code> now depends on <code class="inlinesourcetext">Crossbow Bolts</code> in order to work. Following the semantic versioning standard, Inform will then try to include any version of <code class="inlinesourcetext">Crossbow Bolts</code> which is <em>compatible</em> with version 8: so it will accept version 8, or 8.0.3, or 8.1, and so on, but not version 9 or above.</p>
-            <p>That seems rather strict, but it's a consequence of the semver rules. If Jane Mallard has bumped her major version number to 9, that's a signal that her extension has broken its existing compatibility by changing how things behave in an important way.</p>
-            <p>This underlines the moral that semver works best when everybody does it: if Jane has simply bumped 8 to 9 after a slight and unimportant change, she may be causing unnecessary work for other people. Peter Drake would have to change the above <code class="inlinesourcetext">Include</code> line, for example, in <code class="inlinesourcetext">Ducking Action</code>.</p>
-            <p>It sometimes happens that the same project asks to <code class="inlinesourcetext">Include</code> the same extension multiple times. For example, if the project <code class="inlinesourcetext">Lily Pond</code> contains <code class="inlinesourcetext">Include</code> lines for both <code class="inlinesourcetext">Ducking Action</code> and <code class="inlinesourcetext">Crossbow Bolts</code>, and <code class="inlinesourcetext">Ducking Action</code> also requests <code class="inlinesourcetext">Crossbow Bolts</code>, that means it has been requested twice.</p>
-            <p>This is fine if the version numbers in the requests can be reconciled, but sometimes they can't. For example, this pair is compatible:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>(supposing that, as in the previous examples, <code class="inlinesourcetext">Collegio.pdf</code> and <code class="inlinesourcetext">Mating Wyverns.mp3</code> are the filenames of two feelies that accompany the release).</p>
+            <p>The text in brackets after the release instruction...</p>
+            <!-- START CODE "code1804" -->
+            <blockquote class="extract-inform7"><a id="code1804"></a><span class="indexdullblue"><span class="identifier-syntax">Release</span><span class="plain-syntax"> </span><span class="identifier-syntax">along</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">cover</span><span class="plain-syntax"> </span><span class="identifier-syntax">art</span><span class="plain-syntax"> (</span><span class="string-syntax">&quot;A cathedral at sunset.&quot;</span><span class="plain-syntax">).</span>
             </span></blockquote>
-            <p>And so is this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain">.2.4 </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">8</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>But this pair is not:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">9</span><span class="syntaxplain">.5 </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">version</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">.3 </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Crossbow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Bolts</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jane</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mallard</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>because all versions compatible with 9.5 have major version number 9, and all versions compatible with 10.3 have major version number 10. So it is not possible to satisfy both, and Inform will produce a problem message.</p>
+            <!-- END CODE -->
+            <p>...is provided for the benefit of blind or partially sighted users, and should be brief.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_7.html"><span class="markdowncontent">Section 29.7: Version numbering</span></a> &bull; <a href="WI_29_9.html"><span class="markdowncontent">Section 29.9: Extension rubrics</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_7.html"><span class="markdowncontent">Section 29.7: The Joy of Feelies</span></a> &bull; <a href="WI_29_9.html"><span class="markdowncontent">Section 29.9: An introductory booklet and postcard</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

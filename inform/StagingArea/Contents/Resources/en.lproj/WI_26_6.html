@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 26.6: Adding new testing verbs and Release for Testing</span></title>
+    <title><span class="markdowncontent">Section 26.6: Suspending text input while handling events</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_26_5.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.6: Adding new testing verbs and Release for Testing</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 26.6: Suspending text input while handling events</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_7.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,72 +2212,64 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 26.6: Adding new testing verbs and Release for Testing</span></h3>
-            <p>   </p>
-            <p>As we saw in the chapter on [Source Text], we can mark some of our source text so that it will not be included in a finished story. This means that we can add special testing commands available to the author but not available to our eventual players. This is a good way to add our own suite of testing verbs to a story beyond the <code class="inlinesourcetext">Test me with...</code> features already described.</p>
-            <p>Here are some types of testing verbs that can be useful to add:</p>
-            <p>Chapter jumps. We might create test commands that took us to a later stage of the story (perhaps doing more setup than <code class="inlinesourcetext">Test me...</code> alone can handle).</p>
-            <p>Status information. We might create a test command that would show us status information beyond what's covered in the Standard Rules. For instance, if we had a story that heavily modeled the moods of other characters and we wanted to be able to check those moods at any time, we might add a <code class="inlinetranscriptcommand">showmood</code> command that would tell us about a character's emotional state.</p>
-            <p>Puzzle satisfaction lists. Some simulation-rich stories offer puzzles that can be solved in a variety of ways: for instance, a sealed glass box that can be smashed with any object that has been marked with the properties <code class="inlinesourcetext">hard</code> and <code class="inlinesourcetext">heavy</code>. Later, we might want to be able to check which in-story objects would work as a solution to this puzzle, so we might create a command like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hammers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;list hammers&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hammers</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hammers</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;These things can break the glass: </span><span class="syntaxextract">[line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">item</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">portable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">heavy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">things</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[item][line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-            </span></blockquote>
-            <p>so that we can review that there are enough objects available and that the list doesn't include anything it shouldn't. In a small story this kind of thing is pretty easy to keep track of in the author's head. Large stories can contain  thousands of objects, however, at which point it becomes valuable to have an automated method of verification.</p>
-            <p>Just occasionally, we might also want to build a version of a story that will allow beta-testers access to the debugging commands. This is especially relevant for long stories: if we're testing a story with a lot of playtime and the testers have already thoroughly reviewed the first portion of the story, we might want to let them have access to testing commands that fast-forward to later sections.</p>
-            <p>To do this, we can use the Release for Testing feature. Release for testing builds a version of the story that <em>does</em> include testing commands and any sections labelled <code class="inlinesourcetext">Not for release</code>.</p>
-            <p>To sum up these three methods for compiling:</p>
-            <table>
-            <thead>
-            <tr>
-            <th>Compile how?</th>
-            <th><code class="inlinesourcetext">for release only</code> sections</th>
-            <th><code class="inlinesourcetext">not for release</code> sections</th>
-            <th>testing verbs</th>
-            <th>Writes to <code class="inlinesourcetext">Release</code></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-            <td>Go button</td>
-            <td>no</td>
-            <td>yes</td>
-            <td>yes</td>
-            <td>no</td>
-            </tr>
-            <tr>
-            <td>Release button</td>
-            <td>yes</td>
-            <td>no</td>
-            <td>no</td>
-            <td>yes</td>
-            </tr>
-            <tr>
-            <td>Release for testing menu item</td>
-            <td>no</td>
-            <td>yes</td>
-            <td>yes</td>
-            <td>yes</td>
-            </tr>
-            </tbody>
-            </table>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Suspending text input while handling events" -->
+            <!-- SEARCH SECTION "26.6" -->
+            <!-- SEARCH SORT "001-026-006-000" -->
+            <h3><span>Section 26.6: Suspending text input while handling events</span></h3>
+            <p></p>
+            <p>Sometimes when a Glk event arrives we will want to respond. But how can we do that if we're currently waiting for the player to submit line input? We cannot simply print text; the interpreter may even crash if we try.</p>
+            <p>The Glk interface allows us to instead <em>suspend</em> text input. We can then output whatever we like, before we resume text input.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn475" -->
+                <p class="defnprototype"><a id="defn475"></a>suspend text input</p>
+                <!-- END PHRASE -->
+                <p>Suspends any text input in the currently active window. The phrase option <code class="inlinesourcetext">without input echoing</code> can be used to prevent the partially typed input from being printed into the window.</p>
+                <blockquote class="alertcaution">
+                <p class="alertheading">⚠ Caution</p>
+                <p>By default if we suspend line input then whatever the player has already typed will remain visible. Altering that can produce quite a messy transcript. It is to avoid this that the <code class="inlinesourcetext">without input echoing</code> option is provided here, but note that a special use option must also be enabled for this to work properly:</p>
+                <!-- START CODE "code1747" -->
+                <blockquote class="extract-inform7"><a id="code1747"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">manual</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax"> </span><span class="identifier-syntax">input</span><span class="plain-syntax"> </span><span class="identifier-syntax">echoing</span><span class="plain-syntax">.</span>
+                </span></blockquote>
+                <!-- END CODE -->
+                </blockquote>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn476" -->
+                <p class="defnprototype"><a id="defn476"></a>suspend text input in (IO window)</p>
+                <!-- END PHRASE -->
+                <p>Suspends any text input in the specified window. Again, this supports the <code class="inlinesourcetext">without input echoing</code> phrase option.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn477" -->
+                <p class="defnprototype"><a id="defn477"></a>resume text input</p>
+                <!-- END PHRASE -->
+                <p>If text input in the currently active window was suspended, this resumes it. If not, this does nothing.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn478" -->
+                <p class="defnprototype"><a id="defn478"></a>resume text input in (IO window)</p>
+                <!-- END PHRASE -->
+                <p>If text input in the given window was suspended, this resumes it. If not, this does nothing.</p>
+            </div>
+            <p>Suspended character input is simple enough, but what about line input: what happens to what the player has already typed? This can be accessed and even changed, provided input is suspended:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn479" -->
+                <p class="defnprototype"><a id="defn479"></a>current line input of (IO window) ... text</p>
+                <!-- END PHRASE -->
+                <p>Extracts the current line input of a suspended Glk window and returns it to the player.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn480" -->
+                <p class="defnprototype"><a id="defn480"></a>set the current line input of (IO window) to (text)</p>
+                <!-- END PHRASE -->
+                <p>Updates the current line input of a suspended IO window. A run-time problem is issued if the window has either never requested line input, or is currently not suspended.</p>
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_26_5.html"><span class="markdowncontent">Section 26.5: Low-level testing commands</span></a> &bull; <a href="WI_26_7.html"><span class="markdowncontent">Section 26.7: Testing for thoroughness</span></a></em></p>
+        <p><em> &bull; <a href="WI_26_5.html"><span class="markdowncontent">Section 26.5: New types of hyperlink</span></a> &bull; <a href="WI_26_7.html"><span class="markdowncontent">Section 26.7: Other Glk event types</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

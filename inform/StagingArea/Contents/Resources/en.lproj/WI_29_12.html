@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.12: Extensions which vary with use</span></title>
+    <title><span class="markdowncontent">Section 29.12: Using Inform with Vorple</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_11.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.12: Extensions which vary with use</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.12: Using Inform with Vorple</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_13.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,128 +2212,19 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.12: Extensions which vary with use</span></h3>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Using Inform with Vorple" -->
+            <!-- SEARCH SECTION "29.12" -->
+            <!-- SEARCH SORT "001-029-012-000" -->
+            <h3><span>Section 29.12: Using Inform with Vorple</span></h3>
             <p>  </p>
-            <p>We have already seen that it is possible for headings in the source text to be marked <code class="inlinesourcetext">(for release only)</code> or <code class="inlinesourcetext">(not for release)</code>. This provides what, in other programming languages, is sometimes called &quot;conditional compilation&quot;. The program can come out in two different ways, depending on whether the user is making a regular compilation, or a final release one. And the difference is whether the material under these headings is included in the program or not.</p>
-            <p><code class="inlinesourcetext">(for release only)</code> and <code class="inlinesourcetext">(not for release)</code> are not the only markers like this which can be placed on a heading. Suppose we write out our example extension like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Version</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Peter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drake</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section on reporting (for 32-bit only)</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Velocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">m</span><span class="syntaxplain">/</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">velocity</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.04 </span><span class="syntaxidentifier">m</span><span class="syntaxplain">/</span><span class="syntaxidentifier">s</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">15</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck! Your head moves at </span><span class="syntaxextract">[V times R]</span><span class="syntaxstring">!&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section on reporting (for 16-bit only)</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck!&quot;</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>The practical effect is that on a 16-bit platform we get this content:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck!&quot;</span>
-            </span></blockquote>
-            <p>Whereas on a 32-bit platform we get this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Velocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">1</span><span class="syntaxplain">.0 </span><span class="syntaxidentifier">m</span><span class="syntaxplain">/</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">velocity</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">V</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.04 </span><span class="syntaxidentifier">m</span><span class="syntaxplain">/</span><span class="syntaxidentifier">s</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">15</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck! Your head moves at </span><span class="syntaxextract">[V times R]</span><span class="syntaxstring">!&quot;</span>
-            </span></blockquote>
-            <p>And therefore if we duck on Glulx, we see something like <code class="inlinetranscript">You duck! Your head moves at 0.32 m/s!</code>, whereas on Z, we just get <code class="inlinetranscript">You duck!</code>.</p>
-            <p>Two further features like this are provided to recognise that extensions might need to interact with each other. When <code class="inlinesourcetext">Ducking Action</code> is included in a project, quite likely other extensions are included in it, too. We can't know in advance what all of those will be. But let's suppose that <code class="inlinesourcetext">Ducking Action</code> can't work in the same story as an extension that we know is popular. We could then make part of <code class="inlinesourcetext">Ducking Action</code> read differently in that situation. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2a (for use with Locksmith by Emily Short)</span>
-            </span></blockquote>
-            <p>specifies that everything under this heading (and its subheadings, if any) will be ignored unless the extension <code class="inlinesourcetext">Locksmith by Emily Short</code> is included as well. Conversely,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2b (for use without Locksmith by Emily Short)</span>
-            </span></blockquote>
-            <p>will be ignored unless <code class="inlinesourcetext">Locksmith</code> <em>isn't</em> included. This allows an extension to give two variations on the same material – one if <code class="inlinesourcetext">Locksmith</code> is present, the other if not. This feature is probably best used in a positive way. For example, maybe <code class="inlinesourcetext">Ducking Action</code> can make ducking through doorways even more cool in projects which have <code class="inlinesourcetext">Locksmith</code> included too.</p>
-            <p>The final way to use &quot;conditional compilation&quot; on headings is best avoided unless absolutely necessary. It's best explained by example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 6 - Hacked locking (in place of Section 1 - Regular locking in Locksmith by Emily Short)</span>
-            </span></blockquote>
-            <p>If <code class="inlinesourcetext">Ducking Action</code> contains this section heading, then the material underneath it is spliced in to <code class="inlinesourcetext">Locksmith</code> in place of whatever <code class="inlinesourcetext">Locksmith</code> had put under the heading <code class="inlinesourcetext">Section 1 - Regular locking</code>. Here are some disclaimers:</p>
-            <ol>
-            <li>
-            <p>Above all, this is a potentially treacherous feature. Authors need to be vigilant to each other's changes if this is used. (What if Emily Short renames her sections, or moves material around between sections?)</p>
-            </li>
-            <li>
-            <p>If there should be two or more headings of the same name in the given extension, the first is the one replaced.</p>
-            </li>
-            <li>
-            <p>If two or more headings attempt to replace the same heading in the given extension, the final attempt in source text order is the one which succeeds.</p>
-            </li>
-            <li>
-            <p>Heading dependencies like the above are scanned in a top-down way. Thus, if we have:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Chapter 2a (for use with Locksmith by Emily Short)</span>
-            <br>
-
-            <br>
-            <span class="syntaxcomment">[...]</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section 1 - Hacked marbles (in place of Section 4 in Marbles by Peter Wong)</span>
-            <br>
-
-            <br>
-            <span class="syntaxcomment">[...]</span>
-            </span></blockquote>
-            <p>and we don't include <code class="inlinesourcetext">Locksmith</code>, then the replacement of <code class="inlinesourcetext">Section 4</code> of <code class="inlinesourcetext">Marbles</code> is not made, because <code class="inlinesourcetext">Section 1 – Hacked marbles</code> is subordinate to the <code class="inlinesourcetext">Chapter 2a</code> heading which we've told Inform to ignore.</p>
-            </li>
-            <li>
-            <p>If the name of the heading to replace contains the word <code class="inlinesourcetext">in</code>, it's a good idea to use quotation marks for clarity:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section - Hacked questions (in place of &quot;Section 4 - Phrase used to ask questions in closed mode&quot; in Questions by Michael Callaghan)</span>
-            </span></blockquote>
-            </li>
-            <li>
-            <p>It bears saying again: use this feature only when really necessary.</p>
-            </li>
-            </ol>
+            <p>&quot;Vorple&quot; is an innovative system by Juhana Leinonen for allowing web-based Inform stories to make use of web controls and other gadgets. Using Vorple, a story can in principle have an entirely different user interface, and can make much better use of CSS styling, interface to Javascript libraries, and so on.</p>
+            <p>Vorple has seen rapid development. In its early days it was included as part of the Inform app, but it has now evolved into a dynamic project which is better served by the <a href="https://vorple-if.com/">Vorple website</a>.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_11.html"><span class="markdowncontent">Section 29.11: Compatibility with story file formats</span></a> &bull; <a href="WI_29_13.html"><span class="markdowncontent">Section 29.13: Extensions in the Index</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_11.html"><span class="markdowncontent">Section 29.11: A playable web page</span></a> &bull; <a href="WI_29_13.html"><span class="markdowncontent">Section 29.13: Website templates</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

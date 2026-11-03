@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,9 +2212,15 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Preface" -->
+            <!-- SEARCH SECTION "1.1" -->
+            <!-- SEARCH SORT "001-001-001-000" -->
             <h2><span>Chapter 1: Welcome to Inform</span></h2>
             <h3><span>Section 1.1: Preface</span></h3>
-            <p></p>
+            <p>
+
+            </p>
             <p>Welcome to Inform, a design system for interactive fiction based on natural language.</p>
             <p>Interactive fiction is a literary form which involves programming a computer so that it presents a reader with a text which can be explored. Inform aims to make the burden of learning to program such texts as light as possible. It is a tool for writers intrigued by computing, and computer programmers intrigued by writing. Perhaps these are not so very different pursuits, in their rewards and pleasures.</p>
             <blockquote>
@@ -2156,60 +2247,53 @@
                 <div class="exampleleft">
                     <span id=eg2><a style="text-decoration: none" href="eg_2.html"><span class="extensionexampleletter">2</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_2.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 3</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Displaying the card suits from our deck of cards with red and black coloured unicode symbols.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_2.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mimicry</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">People who must be greeted before conversation can begin.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg2><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg2><a style="text-decoration: none" href="RB_7_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg3><span class="extensionexampleletter">3</span></span></div>
+                    <span id=eg3><a style="text-decoration: none" href="eg_3.html"><span class="extensionexampleletter">3</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_3.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"></span></span></a></div>
+                    <a style="text-decoration: none" href="eg_3.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dearth and the Maiden</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Our heroine, fallen among gentleman highwaymen, is restrained by her own modesty and seemliness.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg3><a style="text-decoration: none" href="RB_5_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg4><span class="extensionexampleletter">4</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_4.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"></span></span></a></div>
+                    <a style="text-decoration: none" href="eg_4.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disaster</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Suspend and resume text input.</span></span></a></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg5><span class="extensionexampleletter">5</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_5.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"></span></span></a></div>
+                    <a style="text-decoration: none" href="eg_5.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Plumber</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Use coloured text to display some pixel art.</span></span></a></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg6><span class="extensionexampleletter">6</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_6.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"></span></span></a></div>
+                    <a style="text-decoration: none" href="eg_6.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Too Much Status</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Use custom status window column definitions.</span></span></a></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg7><span class="extensionexampleletter">7</span></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_7.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"></span></span></a></div>
+                    <a style="text-decoration: none" href="eg_7.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Keyboard checker</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Receive single key presses.</span></span></a></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg8><a style="text-decoration: none" href="eg_8.html"><span class="extensionexampleletter">8</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_8.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Modern Conveniences</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Exemplifying the kind of source we might use in writing extensions for kitchen and bathroom appliances.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg8><a style="text-decoration: none" href="RB_8_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_1_2.html"><span class="markdowncontent">Section 1.2: Acknowledgements</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

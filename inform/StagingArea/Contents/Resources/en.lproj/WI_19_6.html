@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,74 +2212,84 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The text token" -->
+            <!-- SEARCH SECTION "19.6" -->
+            <!-- SEARCH SORT "001-019-006-000" -->
             <h3><span>Section 19.6: The text token</span></h3>
             <p>     </p>
             <p>In the previous section, we saw that <code class="inlinesourcetext">&quot;[number]&quot;</code> matches any number, and so on for many other kinds of value. So it's natural to wonder: how about text?</p>
             <p>The answer is that there is indeed <code class="inlinesourcetext">&quot;[text]&quot;</code> token, but that it does <em>not</em> produce a text value, despite the name. Instead, it produces a value which represents a so-called <em>snippet</em> of a full command. For example, if the player types <code class="inlinetranscriptcommand">ask sybil about helen of troy</code>, the <code class="inlinesourcetext">&quot;[text]&quot;</code> token in the grammar for the <code class="inlinetranscriptcommand">ask</code> command produces the snippet <code class="inlinetranscriptcommand">helen of troy</code>.</p>
             <p>What can we do with that? In effect the command is only partially parsed: this snippet of the final three words is being left to us to parse later.</p>
             <p>Here is an example of an action applying to a <code class="inlinesourcetext">topic</code>:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The Enigmatic Void is a room.[=0x000A=][=0x000A=]Getting help about is an action applying to one topic.[=0x000A=][=0x000A=]Understand [=0x0022=]help on [text][=0x0022=] as getting help about.[=0x000A=][=0x000A=]Carry out getting help about:[=0x000A=][=0x0009=]showme the topic understood.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Enigmatic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Void</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1236" -->
+            <blockquote class="extract-inform7"><a id="code1236"></a><a class="actionlink" href="javascript:pasteCode('The Enigmatic Void is a room.[=0x000A=][=0x000A=]Getting help about is an action applying to one topic.[=0x000A=][=0x000A=]Understand [=0x0022=]help on [text][=0x0022=] as getting help about.[=0x000A=][=0x000A=]Carry out getting help about:[=0x000A=][=0x0009=]showme the topic understood.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Enigmatic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Void</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Getting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Getting</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">topic</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;help on </span><span class="syntaxextract">[text]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">getting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;help on [text]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">getting</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">getting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">getting</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">topic</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The word <code class="inlinesourcetext">topic</code> here is used rather loosely, but is traditional in interactive fiction. If we try the above example, we might see:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract">HELP ON SPACE TIME CONTINUUM</span><br><span class="syntaxidentifier">&quot;topic understood&quot; = snippet: SPACE TIME CONTINUUM</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt;HELP ON SPACE TIME CONTINUUM<br>&quot;topic understood&quot; = snippet: SPACE TIME CONTINUUM<br></code></pre></div>
             <p>What happens here is that a special variable called <code class="inlinesourcetext">topic understood</code> is set equal to the unparsed snippet of the player's command. And this is not a <code class="inlinesourcetext">text</code> value: it is a <code class="inlinesourcetext">snippet</code> value. If we want to turn it into a text, we can do so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">getting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">help</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1237" -->
+            <blockquote class="extract-inform7"><a id="code1237"></a><span class="indexdullblue"><span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">getting</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[topic understood]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[topic understood]&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...would instead result in:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract">HELP ON SPACE TIME CONTINUUM</span><br><span class="syntaxidentifier">&quot;T&quot; = text: SPACE TIME CONTINUUM</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt;HELP ON SPACE TIME CONTINUUM<br>&quot;T&quot; = text: SPACE TIME CONTINUUM<br></code></pre></div>
             <p>So if we wanted to, we could then poke our way through the text character-by-character, and so on. But in fact it's generally annoying to have to do that, which is why Inform gives us the snippet value instead. The snippet is better because we can use the command parser to analyse it further. This is often done with tables of possibilities: see <a href="WI_18_13.html" title="Section 18.13: Topic columns">Topic columns</a> for worked examples of that.</p>
             <p>The fact that <code class="inlinesourcetext">&quot;[text]&quot;</code> can match anything means that it's difficult to tell which version of a command was intended if they disagree only from a <code class="inlinesourcetext">&quot;[text]&quot;</code> onwards. For example, given:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Yelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifically</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">topic</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1238" -->
+            <blockquote class="extract-inform7"><a id="code1238"></a><span class="indexdullblue"><span class="identifier-syntax">Yelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifically</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">topic</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;yell </span><span class="syntaxextract">[text]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yelling</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifically</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;yell [text]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">yelling</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifically</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;yell </span><span class="syntaxextract">[text]</span><span class="syntaxstring"> at/to </span><span class="syntaxextract">[someone]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">answering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nouns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reversed</span><span class="syntaxplain">).</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;yell [text] at/to [someone]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>How can Inform know which action to cause if given the command <code class="inlinetranscriptcommand">yell gibberish at maureen</code>? Is this an instruction to yell <code class="inlinetranscriptcommand">gibberish at maureen</code>, or to yell <code class="inlinetranscriptcommand">gibberish</code> at the luckless Maureen? Inform will usually try the second possibility first, as being the more specific, but there is some risk that the command <code class="inlinetranscriptcommand">yell huzzah</code> may <em>also</em> trigger the second possibility, because of a feature of the command parser called &quot;autocompletion&quot;. If Maureen is the only person present, the parser may decide that <code class="inlinetranscriptcommand">yell huzzah</code> was intended for her ears, and read it as if <code class="inlinetranscriptcommand">yell huzzah at maureen</code> had been the full command.</p>
             <p>All of this is to say: it's best to avoid situations where <code class="inlinesourcetext">&quot;[text]&quot;</code> can appear both inside a command and at the end of a command, when the first word is the same.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg328><a style="text-decoration: none" href="eg_328.html"><span class="extensionexampleletter">328</span></a></span></div>
+                    <span id=eg325><a style="text-decoration: none" href="eg_325.html"><span class="extensionexampleletter">325</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_328.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ish.</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_325.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ish.</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A (very) simple <code class="inlinetranscriptcommand">help</code> command, using tokens to accept and interpret the player's  text whatever it might be.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg328><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg325><a style="text-decoration: none" href="RB_11_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg329><a style="text-decoration: none" href="eg_329.html"><span class="extensionexampleletter">329</span></a></span></div>
+                    <span id=eg326><a style="text-decoration: none" href="eg_326.html"><span class="extensionexampleletter">326</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_329.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nameless</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_326.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Nameless</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">ASKing someone about an object rather than about a topic.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg329><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg326><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_5.html"><span class="markdowncontent">Section 19.5: Actions applying to kinds of value</span></a> &bull; <a href="WI_19_7.html"><span class="markdowncontent">Section 19.7: Scope</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

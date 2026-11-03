@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,60 +2212,66 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Examining" -->
+            <!-- SEARCH SECTION "6.5" -->
+            <!-- SEARCH SORT "002-006-005-000" -->
             <h3><span>Section 6.5: Examining</span></h3>
             <p>
             By default, examining an object shows its description, and–for devices–tells us whether the object is switched on or switched off.</p>
             <p>This kind of additional information is not always what we want, so if we have a device whose on/off status we want to conceal, we may write</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examine</span><span class="syntaxplain"> </span><span class="syntaxidentifier">devices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rulebook</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2091" -->
+            <blockquote class="extract-inform7"><a id="code2091"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">examine</span><span class="plain-syntax"> </span><span class="identifier-syntax">devices</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">listed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">rulebook</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>On the other hand, there are times when we may want to add a similar line or two to the descriptions of other kinds of objects. <a href="eg_366.html">Crusoe</a> allows us to append an <code class="inlinetranscript">It is charred.</code> sentence to the end of descriptions of things we have burned in the fire. Since it works by introducing a <code class="inlinesourcetext">printing the description</code> activity, Crusoe is also a good example to start from if we want to introduce more complex, flexible descriptions of items throughout our story.</p>
-            <p><a href="eg_50.html">Odin</a> rewrites the <code class="inlinetranscript">You see nothing special...</code> line with other text of our own, for items that otherwise do not have a description.</p>
-            <p>Finally, we may want to look at multiple things at once. <a href="eg_324.html">The Left Hand of Autumn</a> demonstrates how we might provide a different response for <code class="inlinetranscriptcommand">examine paintings</code> than for examining each individually; <a href="eg_74.html">Beekeeper's Apprentice</a> provides a <code class="inlinetranscriptcommand">search</code> command that will show the descriptions of all the scenery in the current location.</p>
+            <!-- END CODE -->
+            <p>On the other hand, there are times when we may want to add a similar line or two to the descriptions of other kinds of objects. <a href="eg_363.html">Crusoe</a> allows us to append an <code class="inlinetranscript">It is charred.</code> sentence to the end of descriptions of things we have burned in the fire. Since it works by introducing a <code class="inlinesourcetext">printing the description</code> activity, Crusoe is also a good example to start from if we want to introduce more complex, flexible descriptions of items throughout our story.</p>
+            <p><a href="eg_49.html">Odin</a> rewrites the <code class="inlinetranscript">You see nothing special...</code> line with other text of our own, for items that otherwise do not have a description.</p>
+            <p>Finally, we may want to look at multiple things at once. <a href="eg_321.html">The Left Hand of Autumn</a> demonstrates how we might provide a different response for <code class="inlinetranscriptcommand">examine paintings</code> than for examining each individually; <a href="eg_73.html">Beekeeper's Apprentice</a> provides a <code class="inlinetranscriptcommand">search</code> command that will show the descriptions of all the scenery in the current location.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_6_15.html" title="Section 6.15: Actions on Multiple Objects">Actions on Multiple Objects</a> for an alternative <code class="inlinetranscriptcommand">examine all</code> command.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg50><a style="text-decoration: none" href="eg_50.html"><span class="extensionexampleletter">50</span></a></span></div>
+                    <span id=eg49><a style="text-decoration: none" href="eg_49.html"><span class="extensionexampleletter">49</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_50.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odin</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_49.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odin</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing &quot;You see nothing special...&quot; with a different default message for looking at something nondescript.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg50><a style="text-decoration: none" href="WI_4_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg49><a style="text-decoration: none" href="WI_4_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg74><a style="text-decoration: none" href="eg_74.html"><span class="extensionexampleletter">74</span></a></span></div>
+                    <span id=eg73><a style="text-decoration: none" href="eg_73.html"><span class="extensionexampleletter">73</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_74.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beekeeper's Apprentice</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_73.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Beekeeper's Apprentice</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making the <code class="inlinetranscriptcommand">search</code> command examine all the scenery in the current location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg74><a style="text-decoration: none" href="WI_5_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg73><a style="text-decoration: none" href="WI_5_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg366><a style="text-decoration: none" href="eg_366.html"><span class="extensionexampleletter">366</span></a></span></div>
+                    <span id=eg363><a style="text-decoration: none" href="eg_363.html"><span class="extensionexampleletter">363</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_366.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Crusoe</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_363.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Crusoe</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Adding a &quot;printing the description of something&quot; activity.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg366><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg363><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg324><a style="text-decoration: none" href="eg_324.html"><span class="extensionexampleletter">324</span></a></span></div>
+                    <span id=eg321><a style="text-decoration: none" href="eg_321.html"><span class="extensionexampleletter">321</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_324.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Left Hand of Autumn</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_321.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Left Hand of Autumn</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The possibility of using a [things] token opens up some interesting complications, because we may want actions on multiple items to be reported differently from actions on just one. Here we look at how to make a multiple examination command that describes groups in special ways.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg324><a style="text-decoration: none" href="WI_19_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg321><a style="text-decoration: none" href="WI_19_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_4.html"><span class="markdowncontent">Section 6.4: Looking</span></a> &bull; <a href="RB_6_6.html"><span class="markdowncontent">Section 6.6: Looking Under and Hiding</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

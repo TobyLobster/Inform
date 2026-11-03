@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,26 +2212,32 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Flashbacks" -->
+            <!-- SEARCH SECTION "4.5" -->
+            <!-- SEARCH SORT "002-004-005-000" -->
             <h3><span>Section 4.5: Flashbacks</span></h3>
             <p> 
             The viewpoint character may often need to remember events long past. The easiest way to do this is with a cut-scene, in which at some relevant point we pause the story and print a long passage of text describing the memory. Because large amounts of text can be hard for the player to take in, we may want to include some pauses in the presentation of this material; this facility is provided by the <code class="inlinesourcetext">Basic Screen Effects by Emily Short</code> extension, and might work something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Basic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Screen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Effects</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Emily</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Short</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2052" -->
+            <blockquote class="extract-inform7"><a id="code2052"></a><span class="indexdullblue"><span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Basic</span><span class="plain-syntax"> </span><span class="identifier-syntax">Screen</span><span class="plain-syntax"> </span><span class="identifier-syntax">Effects</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Emily</span><span class="plain-syntax"> </span><span class="identifier-syntax">Short</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">examining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photograph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">first</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">photograph</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">first</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;This reminds you of the summer of '69...&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;This reminds you of the summer of '69...&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">wait</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">wait</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;... flashback content...&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;... flashback content...&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">wait</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">any</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">wait</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">key</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The <code class="inlinesourcetext">pause the game</code> phrase in the same extension offers a more dramatic pause that also clears the screen before printing new text.</p>
             <p>Cut-scenes are easy to implement but should be used sparingly, since players often get impatient with long uninteractive passages. A slightly more deluxe implementation might insert an interactive scene that simply happens to be set in the past, before going on with another scene set <code class="inlinesourcetext">now</code>; and, indeed, some IF abandons the idea of <code class="inlinesourcetext">now</code> entirely, presenting pieces in a non-chronological order and letting the player work out how the sequence works together.</p>
-            <p>The most challenging case to implement (though still not very hard) is the one where we remove the player from one scenario, let them play through a flashback with past possessions and clothing, and then restore them to the same situation they left, with all of the same possessions and clothing. <a href="eg_171.html">Pine 3</a> shows how to do this: the code to change the player's status is isolated at the end of the example, and might fruitfully be reused.  <a href="eg_173.html">Pine 4</a> expands on the same idea by adding another flashback scene, demonstrating one that can be visited repeatedly and one that can be seen only once.</p>
+            <p>The most challenging case to implement (though still not very hard) is the one where we remove the player from one scenario, let them play through a flashback with past possessions and clothing, and then restore them to the same situation they left, with all of the same possessions and clothing. <a href="eg_168.html">Pine 3</a> shows how to do this: the code to change the player's status is isolated at the end of the example, and might fruitfully be reused.  <a href="eg_170.html">Pine 4</a> expands on the same idea by adding another flashback scene, demonstrating one that can be visited repeatedly and one that can be seen only once.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_4_4.html" title="Section 4.4: Scene Changes">Scene Changes</a> for more uses of stripping and restoring the player.</li>
@@ -2155,27 +2246,27 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg171><a style="text-decoration: none" href="eg_171.html"><span class="extensionexampleletter">171</span></a></span></div>
+                    <span id=eg168><a style="text-decoration: none" href="eg_168.html"><span class="extensionexampleletter">168</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_171.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 3</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_168.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 3</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Pine: Allowing the player to visit aspects of the past in memory and describe these events to the princess, as a break from the marriage-proposal scene.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg171><a style="text-decoration: none" href="WI_10_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg168><a style="text-decoration: none" href="WI_10_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg173><a style="text-decoration: none" href="eg_173.html"><span class="extensionexampleletter">173</span></a></span></div>
+                    <span id=eg170><a style="text-decoration: none" href="eg_170.html"><span class="extensionexampleletter">170</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_173.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 4</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_170.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pine 4</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Pine: Adding a flashback scene that, instead of repeating endlessly, repeats only until the Princess has understood the point.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg173><a style="text-decoration: none" href="WI_10_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg170><a style="text-decoration: none" href="WI_10_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_4.html"><span class="markdowncontent">Section 4.4: Scene Changes</span></a> &bull; <a href="RB_4_6.html"><span class="markdowncontent">Section 4.6: Plot Management</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

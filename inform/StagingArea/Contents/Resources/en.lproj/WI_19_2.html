@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,57 +2212,71 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New commands for old grammar" -->
+            <!-- SEARCH SECTION "19.2" -->
+            <!-- SEARCH SORT "001-019-002-000" -->
             <h3><span>Section 19.2: New commands for old grammar</span></h3>
-            <p>          </p>
+            <p>           </p>
             <p>In the photography example, we are providing entirely new grammar for an action  not ordinarily built in to Inform. But we often want simply to provide alternative grammar for existing actions, or even to put new interpretations on commands that Inform already recognises. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;deposit </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> in </span><span class="syntaxextract">[an open container]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inserting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1221" -->
+            <blockquote class="extract-inform7"><a id="code1221"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;deposit [something] in [an open container]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">inserting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The inserting action is built in to Inform, but the command <code class="inlinetranscriptcommand">deposit</code> is not, so this is created as new. It is occasionally useful to put a twist on this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;fill </span><span class="syntaxextract">[an open container]</span><span class="syntaxstring"> with </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inserting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">into</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nouns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reversed</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code1222" -->
+            <blockquote class="extract-inform7"><a id="code1222"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;fill [an open container] with [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">inserting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">into</span><span class="plain-syntax"> (</span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">nouns</span><span class="plain-syntax"> </span><span class="identifier-syntax">reversed</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The clause <code class="inlinesourcetext">(with nouns reversed)</code> tells Inform to exchange the two nouns parsed, which is necessary because the inserting action expects the noun to be the item and the second noun to be the container, not vice versa.</p>
             <p>The following example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;access </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">opening</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1223" -->
+            <blockquote class="extract-inform7"><a id="code1223"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;access [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">opening</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might look as if it makes <code class="inlinetranscriptcommand">access</code> behave just like &quot;open&quot; when the player types it, but that's not so: <code class="inlinetranscriptcommand">open</code> can also be used in constructions like &quot;open the door with the brass key&quot;, in which case it is understood as the unlocking action. We could add another line to make <code class="inlinetranscriptcommand">access</code> behave this way too, but if what we really want is to make <code class="inlinetranscriptcommand">access</code> behave just like <code class="inlinetranscriptcommand">open</code>, it's easier simply to say so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;access&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;open&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1224" -->
+            <blockquote class="extract-inform7"><a id="code1224"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;access&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;open&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is very useful when adding a new command which needs synonyms:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">commands</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;snap&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;picture&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;photograph&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1225" -->
+            <blockquote class="extract-inform7"><a id="code1225"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">commands</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;snap&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;picture&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;photograph&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>We can check the current stock of commands by looking at the table in the Actions index: for instance, before making <code class="inlinetranscriptcommand">snap</code> synonymous with <code class="inlinetranscriptcommand">photograph</code>, it might be wise to check that it is not already defined as a command for breaking something.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg318><a style="text-decoration: none" href="eg_318.html"><span class="extensionexampleletter">318</span></a></span></div>
+                    <span id=eg315><a style="text-decoration: none" href="eg_315.html"><span class="extensionexampleletter">315</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_318.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpaca Farm</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_315.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpaca Farm</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A generic <code class="inlinetranscriptcommand">use</code> action which behaves sensibly with a range of different objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg318><a style="text-decoration: none" href="RB_6_17.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg315><a style="text-decoration: none" href="RB_6_17.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg319><a style="text-decoration: none" href="eg_319.html"><span class="extensionexampleletter">319</span></a></span></div>
+                    <span id=eg316><a style="text-decoration: none" href="eg_316.html"><span class="extensionexampleletter">316</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_319.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anchorite</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_316.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anchorite</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">By default, Inform understands <code class="inlinetranscriptcommand">get off</code>, <code class="inlinetranscriptcommand">get up</code>, or <code class="inlinetranscriptcommand">get out</code> when the player is sitting or standing on an enterable object. We might also want to add <code class="inlinetranscriptcommand">get down</code> and <code class="inlinetranscriptcommand">down</code> as exit commands, though.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg319><a style="text-decoration: none" href="RB_6_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg316><a style="text-decoration: none" href="RB_6_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg320><a style="text-decoration: none" href="eg_320.html"><span class="extensionexampleletter">320</span></a></span></div>
+                    <span id=eg317><a style="text-decoration: none" href="eg_317.html"><span class="extensionexampleletter">317</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_320.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloak of Darkness</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_317.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloak of Darkness</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Implementation of &quot;Cloak of Darkness&quot;, a simple example game that for years has been used to demonstrate the features of IF languages.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg320><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg317><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_1.html"><span class="markdowncontent">Chapter 19: Understanding</span></a> &bull; <a href="WI_19_3.html"><span class="markdowncontent">Section 19.3: Overriding existing commands</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

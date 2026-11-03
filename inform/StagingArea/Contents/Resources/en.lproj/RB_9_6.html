@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,90 +2212,100 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Reading Matter" -->
+            <!-- SEARCH SECTION "9.6" -->
+            <!-- SEARCH SORT "002-009-006-000" -->
             <h3><span>Section 9.6: Reading Matter</span></h3>
             <p> 
             Many things can be read, from warning notices to encyclopaedias, and a range of techniques is needed to provide them because the quantity of text, and how it presents itself, can vary so much. With a small amount of very large type, the player should not need any command at all to read the text:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">road</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Junction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">road</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;A road sign points north: 'Weston on the Green - 6'.&quot;</span>
+            <!-- START CODE "code2125" -->
+            <blockquote class="extract-inform7"><a id="code2125"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">road</span><span class="plain-syntax"> </span><span class="identifier-syntax">sign</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Junction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">road</span><span class="plain-syntax"> </span><span class="identifier-syntax">sign</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A road sign points north: 'Weston on the Green - 6'.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If the print is smaller, or the object portable, the player will expect to use the <code class="inlinetranscriptcommand">examine</code> command:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">business</span><span class="syntaxplain"> </span><span class="syntaxidentifier">card</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Junction</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'Peter de Sèvres: consultant mnemonicist.'&quot;</span>
+            <!-- START CODE "code2126" -->
+            <blockquote class="extract-inform7"><a id="code2126"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">business</span><span class="plain-syntax"> </span><span class="identifier-syntax">card</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Junction</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;'Peter de Sèvres: consultant mnemonicist.'&quot;</span>
             </span></blockquote>
-            <p>But if the object is a leaflet, say, <code class="inlinetranscriptcommand">examine</code> should only describe the cover: <code class="inlinetranscriptcommand">read</code> would be the command a player would expect to use to get at the text itself. Inform normally defines <code class="inlinetranscriptcommand">read</code> to be the same command as <code class="inlinetranscriptcommand">examine</code>, which is good for things like the business card, but counter-productive here. <a href="eg_321.html">The Trouble with Printing</a> shows how to separate these two commands, allowing any thing to have a property called its <code class="inlinesourcetext">printing</code> for text produced by <code class="inlinetranscriptcommand">read</code>, which will be different from its <code class="inlinesourcetext">description</code>, the text produced by <code class="inlinetranscriptcommand">examine</code>.</p>
-            <p>If the object is a lengthy diary, say, nobody would read it from cover to cover in a single IF turn. We might then want to allow the player to turn the pages one by one, with commands like <code class="inlinetranscriptcommand">read page 4 in diary</code> or <code class="inlinetranscriptcommand">read the next page</code>: see <a href="eg_332.html">Pages</a>.</p>
-            <p>If the object is an encyclopaedic reference work, the player would consult named entries: see <a href="eg_100.html">Costa Rican Ornithology</a>, which allows commands like <code class="inlinetranscriptcommand">look up quetzal in guide</code>.</p>
-            <p>Still larger sources of text often occur in IF: libraries or bookshelves, where many books are found together, and it is clumsy to write them as many individual items. One approach is to simulate an entire bookshelf with a single thing: see <a href="eg_353.html">Bibliophilia</a>. (This is much like looking up topics in a single book, except that each topic is a book in itself.) Another is to provide each book as an individual item, but have them automatically join together into a single portable collection: see <a href="eg_364.html">AARP-Gnosis</a>.</p>
+            <!-- END CODE -->
+            <p>But if the object is a leaflet, say, <code class="inlinetranscriptcommand">examine</code> should only describe the cover: <code class="inlinetranscriptcommand">read</code> would be the command a player would expect to use to get at the text itself. Inform normally defines <code class="inlinetranscriptcommand">read</code> to be the same command as <code class="inlinetranscriptcommand">examine</code>, which is good for things like the business card, but counter-productive here. <a href="eg_318.html">The Trouble with Printing</a> shows how to separate these two commands, allowing any thing to have a property called its <code class="inlinesourcetext">printing</code> for text produced by <code class="inlinetranscriptcommand">read</code>, which will be different from its <code class="inlinesourcetext">description</code>, the text produced by <code class="inlinetranscriptcommand">examine</code>.</p>
+            <p>If the object is a lengthy diary, say, nobody would read it from cover to cover in a single IF turn. We might then want to allow the player to turn the pages one by one, with commands like <code class="inlinetranscriptcommand">read page 4 in diary</code> or <code class="inlinetranscriptcommand">read the next page</code>: see <a href="eg_329.html">Pages</a>.</p>
+            <p>If the object is an encyclopaedic reference work, the player would consult named entries: see <a href="eg_99.html">Costa Rican Ornithology</a>, which allows commands like <code class="inlinetranscriptcommand">look up quetzal in guide</code>.</p>
+            <p>Still larger sources of text often occur in IF: libraries or bookshelves, where many books are found together, and it is clumsy to write them as many individual items. One approach is to simulate an entire bookshelf with a single thing: see <a href="eg_350.html">Bibliophilia</a>. (This is much like looking up topics in a single book, except that each topic is a book in itself.) Another is to provide each book as an individual item, but have them automatically join together into a single portable collection: see <a href="eg_361.html">AARP-Gnosis</a>.</p>
             <p>Signs, leaflets and encyclopaedias, being printed, have a wording which will never change during play. But sometimes the player reads something which acts of its own accord. Text substitutions are usually all that is needed to achieve this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">computer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">display</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Giant green digits read: </span><span class="syntaxextract">[the time of day]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code2127" -->
+            <blockquote class="extract-inform7"><a id="code2127"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">computer</span><span class="plain-syntax"> </span><span class="identifier-syntax">display</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">on</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Giant green digits read: [the time of day].&quot;</span>
             </span></blockquote>
-            <p>This is easy because we know all the variations we want. But what if we want the player to write their own text, for instance, adding to a diary? This is trickier, because it means storing text as the player typed it, and replaying it later. (And suppose the player types reams and reams of text, not just a few words as we might have hoped?) <a href="eg_471.html">The Fourth Body</a> and <a href="eg_472.html">The Fifth Body</a> show how to use an external file–a multimedia trick requiring features only available if the project is set to the Glulx story file format–to handle even the most difficult cases.</p>
+            <!-- END CODE -->
+            <p>This is easy because we know all the variations we want. But what if we want the player to write their own text, for instance, adding to a diary? This is trickier, because it means storing text as the player typed it, and replaying it later. (And suppose the player types reams and reams of text, not just a few words as we might have hoped?) <a href="eg_469.html">The Fourth Body</a> and <a href="eg_470.html">The Fifth Body</a> show how to use an external file–a multimedia trick requiring features only available if the project is set to the Glulx story file format–to handle even the most difficult cases.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg332><a style="text-decoration: none" href="eg_332.html"><span class="extensionexampleletter">332</span></a></span></div>
+                    <span id=eg329><a style="text-decoration: none" href="eg_329.html"><span class="extensionexampleletter">329</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_332.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pages</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_329.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Pages</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A book with pages that can be read by number (as in &quot;READ PAGE 3 IN...&quot;) and which accepts relative page references as well (such as &quot;read the last page of...&quot;, &quot;read the next page&quot;, and so on).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg332><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg329><a style="text-decoration: none" href="WI_19_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg471><a style="text-decoration: none" href="eg_471.html"><span class="extensionexampleletter">471</span></a></span></div>
+                    <span id=eg469><a style="text-decoration: none" href="eg_469.html"><span class="extensionexampleletter">469</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_471.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fourth Body</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_469.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fourth Body</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Notebooks in which the player can record assorted notes throughout play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg471><a style="text-decoration: none" href="WI_25_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg469><a style="text-decoration: none" href="WI_27_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg321><a style="text-decoration: none" href="eg_321.html"><span class="extensionexampleletter">321</span></a></span></div>
+                    <span id=eg318><a style="text-decoration: none" href="eg_318.html"><span class="extensionexampleletter">318</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_321.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Trouble with Printing</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_318.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Trouble with Printing</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making a <code class="inlinetranscriptcommand">read</code> command, distinct from <code class="inlinetranscriptcommand">examine</code>, for legible objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg321><a style="text-decoration: none" href="WI_19_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg318><a style="text-decoration: none" href="WI_19_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg364><a style="text-decoration: none" href="eg_364.html"><span class="extensionexampleletter">364</span></a></span></div>
+                    <span id=eg361><a style="text-decoration: none" href="eg_361.html"><span class="extensionexampleletter">361</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_364.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">AARP-Gnosis</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_361.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">AARP-Gnosis</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An Encyclopedia set which treats volumes in the same place as a single object, but can also be split up.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg364><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg361><a style="text-decoration: none" href="WI_20_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg353><a style="text-decoration: none" href="eg_353.html"><span class="extensionexampleletter">353</span></a></span></div>
+                    <span id=eg350><a style="text-decoration: none" href="eg_350.html"><span class="extensionexampleletter">350</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_353.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bibliophilia</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_350.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bibliophilia</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A bookshelf with a number of books, where the player's command to examine something will be interpreted as an attempt to look up titles if the bookshelf is present, but otherwise given the usual response.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg353><a style="text-decoration: none" href="WI_19_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg350><a style="text-decoration: none" href="WI_19_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg472><a style="text-decoration: none" href="eg_472.html"><span class="extensionexampleletter">472</span></a></span></div>
+                    <span id=eg470><a style="text-decoration: none" href="eg_470.html"><span class="extensionexampleletter">470</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_472.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fifth Body</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_470.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Fifth Body</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An expansion on the notebook, allowing the player somewhat more room in which to type their recorded remark.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg472><a style="text-decoration: none" href="WI_25_14.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg470><a style="text-decoration: none" href="WI_27_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg100><a style="text-decoration: none" href="eg_100.html"><span class="extensionexampleletter">100</span></a></span></div>
+                    <span id=eg99><a style="text-decoration: none" href="eg_99.html"><span class="extensionexampleletter">99</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_100.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Costa Rican Ornithology</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_99.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Costa Rican Ornithology</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A fully-implemented book, answering questions from a table of data, and responding to failed consultation with a custom message such as <code class="inlinetranscript">You flip through the Guide to Central American Birds, but find no reference to penguins.</code></span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg100><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg99><a style="text-decoration: none" href="WI_7_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_9_5.html"><span class="markdowncontent">Section 9.5: Dice and Playing Cards</span></a> &bull; <a href="RB_9_7.html"><span class="markdowncontent">Section 9.7: Painting and Labelling Devices</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

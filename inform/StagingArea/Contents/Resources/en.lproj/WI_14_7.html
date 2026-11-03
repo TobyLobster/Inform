@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,52 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Relations in groups" -->
+            <!-- SEARCH SECTION "14.7" -->
+            <!-- SEARCH SORT "001-014-007-000" -->
             <h3><span>Section 14.7: Relations in groups</span></h3>
-            <p>     </p>
+            <p>      </p>
             <p>Finally, there is a kind of relation which binds even more strongly.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Nationality</span><span class="syntaxplain"> </span><span class="syntaxidentifier">relates</span><span class="syntaxplain"> </span><span class="syntaxidentifier">people</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">each</span><span class="syntaxplain"> </span><span class="syntaxidentifier">other</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">groups</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code893" -->
+            <blockquote class="extract-inform7"><a id="code893"></a><span class="indexdullblue"><span class="identifier-syntax">Nationality</span><span class="plain-syntax"> </span><span class="identifier-syntax">relates</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">each</span><span class="plain-syntax"> </span><span class="identifier-syntax">other</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">groups</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is a kind of relation which divides people up: we might wish to have all the Icelandic people related to each other, all the Peruvians to each other, and so on. If there were a Pacific island called Informia with one inhabitant, then that person would be related only to himself. As time goes by, we could imagine people emigrating, and so on, so that these groupings would switch: perhaps everyone would leave Belgium and, for a while, there would be no Belgian nationals at all.</p>
             <p>The testing command <code class="inlinetranscriptcommand">relations</code> prints out the current state of all the relations created in the source code. For instance:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> RELATIONS</span><br><span class="syntaxidentifier">Overlooking relates various rooms to various rooms:</span><br><span class="syntaxidentifier">    The Pub  &gt;=&gt;  the Garden</span><br><span class="syntaxidentifier">    The Garden  &gt;=&gt;  the Shrubbery</span><br><span class="syntaxidentifier">    The Shrubbery  &gt;=&gt;  the Sundial Plot</span><br><span class="syntaxidentifier">Friendship relates people to each other:</span><br><span class="syntaxidentifier">    Mr Wickham  &lt;=&gt;  Sophie</span><br><span class="syntaxidentifier">    Charlotte  &lt;=&gt;  Sophie</span><br><span class="syntaxidentifier">Marriage relates one person to another:</span><br><span class="syntaxidentifier">    Mr Wickham  ==  Sophie</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; RELATIONS<br>Overlooking relates various rooms to various rooms:<br>    The Pub  &gt;=&gt;  the Garden<br>    The Garden  &gt;=&gt;  the Shrubbery<br>    The Shrubbery  &gt;=&gt;  the Sundial Plot<br>Friendship relates people to each other:<br>    Mr Wickham  &lt;=&gt;  Sophie<br>    Charlotte  &lt;=&gt;  Sophie<br>Marriage relates one person to another:<br>    Mr Wickham  ==  Sophie<br></code></pre></div>
             <p>That can produce a lot of output. To see only a single relation, or to see it at some intermediate point in a calculation, there's also a testing phrase:</p>
             <div class="definition">
-                <p class="defnprototype">show relation (relation of values to values)</p>
+                <!-- START PHRASE "defn193" -->
+                <p class="defnprototype"><a id="defn193"></a>show relation (relation of values to values)</p>
+                <!-- END PHRASE -->
                 <p>This phrase is for testing purposes only. It shows the current state of the named relation, that is, it shows which values relate to which other ones, where it's possible to do this in any sensible way.</p>
             </div>
             <p>But this is a phrase – not a typed command.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg248><a style="text-decoration: none" href="eg_248.html"><span class="extensionexampleletter">248</span></a></span></div>
+                    <span id=eg245><a style="text-decoration: none" href="eg_245.html"><span class="extensionexampleletter">245</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_248.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Transmutations</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_245.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Transmutations</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A machine that turns objects into other, similar objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg248><a style="text-decoration: none" href="RB_10_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg245><a style="text-decoration: none" href="RB_10_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg249><a style="text-decoration: none" href="eg_249.html"><span class="extensionexampleletter">249</span></a></span></div>
+                    <span id=eg246><a style="text-decoration: none" href="eg_246.html"><span class="extensionexampleletter">246</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_249.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Otranto</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_246.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Otranto</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A kind of rope which can be tied to objects and used to anchor the player or drag items from room to room.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg249><a style="text-decoration: none" href="RB_10_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg246><a style="text-decoration: none" href="RB_10_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_14_6.html"><span class="markdowncontent">Section 14.6: Making symmetric relations</span></a> &bull; <a href="WI_14_8.html"><span class="markdowncontent">Section 14.8: The built-in verbs and their meanings</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

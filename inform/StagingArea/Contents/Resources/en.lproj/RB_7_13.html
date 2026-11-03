@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,83 +2212,87 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Travelling Characters" -->
+            <!-- SEARCH SECTION "7.13" -->
+            <!-- SEARCH SORT "002-007-013-000" -->
             <h3><span>Section 7.13: Travelling Characters</span></h3>
             <p>
-            There are a number of ways we can make characters navigate our map. We might reasonably want them to approach and follow the player (as in <a href="eg_48.html">Van Helsing</a>); or to allow the player to follow characters who have left the room (as in <a href="eg_331.html">Actaeon</a>).</p>
-            <p>Characters who are less interested in the player will more likely follow their own courses around the available geography, however. A character may move randomly from room to room, as demonstrated in <a href="eg_84.html">Mistress of Animals</a>; they may follow a path that we have specifically written in advance, as <a href="eg_302.html">Odyssey</a> shows; or, most elegantly, the story may use the &quot;best route&quot; calculation to find the best possible way to a given target room, as seen in <a href="eg_207.html">Latris Theon</a>.</p>
+            There are a number of ways we can make characters navigate our map. We might reasonably want them to approach and follow the player (as in <a href="eg_47.html">Van Helsing</a>); or to allow the player to follow characters who have left the room (as in <a href="eg_328.html">Actaeon</a>).</p>
+            <p>Characters who are less interested in the player will more likely follow their own courses around the available geography, however. A character may move randomly from room to room, as demonstrated in <a href="eg_83.html">Mistress of Animals</a>; they may follow a path that we have specifically written in advance, as <a href="eg_299.html">Odyssey</a> shows; or, most elegantly, the story may use the &quot;best route&quot; calculation to find the best possible way to a given target room, as seen in <a href="eg_204.html">Latris Theon</a>.</p>
             <p>This final method is arguably the neatest solution to character movement, allowing for characters to act in sophisticated ways; if we incorporate the Locksmith extension, other characters will even unlock and open doors that are in their way. The chief catch is that it should not be used too profligately with large numbers of characters, since on slow machines the processing power required to plan all their travel will make a noticeable difference to the running speed of the story.</p>
             <p>All the same, the constraints are not so severe as to preclude having a moderate number of route-finding characters all wandering around at once. This does introduce a new problem, however: movement descriptions can become hard to follow if every turn produces long reams of reports such as</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Joe enters the room from the south.</span><br><span class="syntaxidentifier">Lawrence opens the gate.</span><br><span class="syntaxidentifier">Lawrence departs to the west.</span><br><span class="syntaxidentifier">Lucy comes in from above.</span><br><span class="syntaxidentifier">Ted enters the room from the south.</span><br><span class="syntaxidentifier">Bill departs to the west.</span><br></code></pre></div>
-            <p><a href="eg_430.html">Patient Zero</a> tackles this problem by calculating all of the character movement without printing any text; it then combines similar or related events into coherent paragraphs, as in</p>
+                <pre><code class="language-transcript">Joe enters the room from the south.<br>Lawrence opens the gate.<br>Lawrence departs to the west.<br>Lucy comes in from above.<br>Ted enters the room from the south.<br>Bill departs to the west.<br></code></pre></div>
+            <p><a href="eg_427.html">Patient Zero</a> tackles this problem by calculating all of the character movement without printing any text; it then combines similar or related events into coherent paragraphs, as in</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Rhoda and Antony walk into the Post Office. Rhoda could have been rolling in chocolate and Antony looks as though dipped in french vanilla.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Rhoda and Antony walk into the Post Office. Rhoda could have been rolling in chocolate and Antony looks as though dipped in french vanilla.<br></code></pre></div>
             <p>or</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Antony opens the iron gate. He goes through.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Antony opens the iron gate. He goes through.<br></code></pre></div>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_5.html" title="Section 3.5: Doors, Staircases, and Bridges">Doors, Staircases, and Bridges</a> for some technical details of allowing other characters to interact with doors when they're in rooms that don't contain the player.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg84><a style="text-decoration: none" href="eg_84.html"><span class="extensionexampleletter">84</span></a></span></div>
+                    <span id=eg83><a style="text-decoration: none" href="eg_83.html"><span class="extensionexampleletter">83</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_84.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mistress of Animals</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_83.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Mistress of Animals</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A person who moves randomly between rooms of the map.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg84><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg83><a style="text-decoration: none" href="WI_6_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg331><a style="text-decoration: none" href="eg_331.html"><span class="extensionexampleletter">331</span></a></span></div>
+                    <span id=eg328><a style="text-decoration: none" href="eg_328.html"><span class="extensionexampleletter">328</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_331.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actaeon</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_328.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actaeon</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">follow</code> command allowing the player to pursue a person who has just left the room.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg331><a style="text-decoration: none" href="WI_19_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg328><a style="text-decoration: none" href="WI_19_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg302><a style="text-decoration: none" href="eg_302.html"><span class="extensionexampleletter">302</span></a></span></div>
+                    <span id=eg299><a style="text-decoration: none" href="eg_299.html"><span class="extensionexampleletter">299</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_302.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odyssey</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_299.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Odyssey</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A person who follows a path predetermined and stored in a table, and who can be delayed if the player tries to interact with her.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg302><a style="text-decoration: none" href="WI_18_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg299><a style="text-decoration: none" href="WI_18_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg48><a style="text-decoration: none" href="eg_48.html"><span class="extensionexampleletter">48</span></a></span></div>
+                    <span id=eg47><a style="text-decoration: none" href="eg_47.html"><span class="extensionexampleletter">47</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_48.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Van Helsing</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_47.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Van Helsing</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A character who approaches the player, then follows them from room to room.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg48><a style="text-decoration: none" href="WI_3_26.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg47><a style="text-decoration: none" href="WI_3_26.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg207><a style="text-decoration: none" href="eg_207.html"><span class="extensionexampleletter">207</span></a></span></div>
+                    <span id=eg204><a style="text-decoration: none" href="eg_204.html"><span class="extensionexampleletter">204</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_207.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Latris Theon</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_204.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Latris Theon</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A person who can accept instructions to go to new destinations and move towards them according to the most reasonable path.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg207><a style="text-decoration: none" href="WI_13_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg204><a style="text-decoration: none" href="WI_13_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg430><a style="text-decoration: none" href="eg_430.html"><span class="extensionexampleletter">430</span></a></span></div>
+                    <span id=eg427><a style="text-decoration: none" href="eg_427.html"><span class="extensionexampleletter">427</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_430.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Patient Zero</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_427.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Patient Zero</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">People who wander around the map performing various errands, and in the process spread a disease which only the player can eradicate.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg430><a style="text-decoration: none" href="WI_21_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg427><a style="text-decoration: none" href="WI_21_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_12.html"><span class="markdowncontent">Section 7.12: Characters Following a Script</span></a> &bull; <a href="RB_7_14.html"><span class="markdowncontent">Section 7.14: Obedient Characters</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

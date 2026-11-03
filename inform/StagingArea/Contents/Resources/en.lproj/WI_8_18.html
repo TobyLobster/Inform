@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,92 +2212,122 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Randomness" -->
+            <!-- SEARCH SECTION "8.18" -->
+            <!-- SEARCH SORT "001-008-018-000" -->
             <h3><span>Section 8.18: Randomness</span></h3>
             <p>   </p>
             <p>Sometimes we want to introduce random behaviour into play. We usually do this by generating random values, and then acting differently depending on what they are. The following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">5</span>
+            <!-- START CODE "code504" -->
+            <blockquote class="extract-inform7"><a id="code504"></a><span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">5</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces, as it suggests, a random number drawn from the choices 2, 3, 4 or 5, each of which is equally likely to come up. In fact, this isn't limited to numbers:</p>
             <div class="definition">
-                <p class="defnprototype">a random (name of kind) between (arithmetic value) and (arithmetic value) ... value</p>
-                <p class="defnprototype">a random (name of kind) from (arithmetic value) to (arithmetic value) ... value</p>
-                <p class="defnprototype">a random (name of kind) between (enumerated value) and (enumerated value) ... value</p>
-                <p class="defnprototype">a random (name of kind) from (enumerated value) to (enumerated value) ... value</p>
+                <!-- START PHRASE "defn93" -->
+                <p class="defnprototype"><a id="defn93"></a>a random (name of kind) between (arithmetic value) and (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn94" -->
+                <p class="defnprototype"><a id="defn94"></a>a random (name of kind) from (arithmetic value) to (arithmetic value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn95" -->
+                <p class="defnprototype"><a id="defn95"></a>a random (name of kind) between (enumerated value) and (enumerated value) ... value</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn96" -->
+                <p class="defnprototype"><a id="defn96"></a>a random (name of kind) from (enumerated value) to (enumerated value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces a uniformly random value in the range given. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">99</span>
+                <!-- START CODE "code505" -->
+                <blockquote class="extract-inform7"><a id="code505"></a><span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">10</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">99</span>
                 <br>
-                <span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">:31 </span><span class="syntaxidentifier">PM</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">:57 </span><span class="syntaxidentifier">PM</span>
+                <span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">:31 </span><span class="identifier-syntax">PM</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">:57 </span><span class="identifier-syntax">PM</span>
                 <br>
-                <span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">period</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">6</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hour</span><span class="syntaxplain"> </span><span class="syntaxconstant">25</span><span class="syntaxplain"> </span><span class="syntaxidentifier">minutes</span>
+                <span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">period</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">6</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">hour</span><span class="plain-syntax"> </span><span class="constant-syntax">25</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>If we make a new kind of value:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cloud</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pattern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cloud</span><span class="syntaxplain"> </span><span class="syntaxidentifier">patterns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cumulus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">altocumulus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">cumulonimbus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">stratus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">cirrus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">nimbus</span><span class="syntaxplain">, </span><span class="syntaxidentifier">nimbostratus</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code506" -->
+                <blockquote class="extract-inform7"><a id="code506"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">cloud</span><span class="plain-syntax"> </span><span class="identifier-syntax">pattern</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cloud</span><span class="plain-syntax"> </span><span class="identifier-syntax">patterns</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">cumulus</span><span class="plain-syntax">, </span><span class="identifier-syntax">altocumulus</span><span class="plain-syntax">, </span><span class="identifier-syntax">cumulonimbus</span><span class="plain-syntax">, </span><span class="identifier-syntax">stratus</span><span class="plain-syntax">, </span><span class="identifier-syntax">cirrus</span><span class="plain-syntax">, </span><span class="identifier-syntax">nimbus</span><span class="plain-syntax">, </span><span class="identifier-syntax">nimbostratus</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then we can also take random values from it:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cloud</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pattern</span><span class="syntaxplain"> </span><span class="syntaxidentifier">between</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stratus</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nimbus</span>
+                <!-- START CODE "code507" -->
+                <blockquote class="extract-inform7"><a id="code507"></a><span class="indexdullblue"><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">cloud</span><span class="plain-syntax"> </span><span class="identifier-syntax">pattern</span><span class="plain-syntax"> </span><span class="identifier-syntax">between</span><span class="plain-syntax"> </span><span class="identifier-syntax">stratus</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">nimbus</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>which has three possible outcomes, all equally likely.</p>
             </div>
             <p>We can also use random conditions:</p>
             <div class="definition">
-                <p class="defnprototype">if a random chance of (number) in (number) succeeds:</p>
+                <!-- START PHRASE "defn97" -->
+                <p class="defnprototype"><a id="defn97"></a>if a random chance of (number) in (number) succeeds:</p>
+                <!-- END PHRASE -->
                 <p>This condition is true X/Yths of the time, where X and Y are the numbers. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code508" -->
+                <blockquote class="extract-inform7"><a id="code508"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">chance</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Here is a rule which applies only 15% of the time:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">waiting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chance</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">15</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">: ...</span>
+                <!-- START CODE "code509" -->
+                <blockquote class="extract-inform7"><a id="code509"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">chance</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="constant-syntax">15</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="constant-syntax">100</span><span class="plain-syntax"> </span><span class="identifier-syntax">succeeds</span><span class="plain-syntax">: ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Testing IF which makes random choices can be rather frustrating, because a problem showing up on one attempt may not show up on another. We can get around this by making use of the fact that computers do not actually generate true randomness, but instead make a sequence of apparently random numbers by applying a complicated formula to each one in order to make the next. The starting point is a number called the &quot;seed&quot;, because the next choice grows out of it.</p>
             <div class="definition">
-                <p class="defnprototype">seed the random-number generator with (number)</p>
+                <!-- START PHRASE "defn98" -->
+                <p class="defnprototype"><a id="defn98"></a>seed the random-number generator with (number)</p>
+                <!-- END PHRASE -->
                 <p>This phrase changes the seed number as specified. Any random numbers generated after that depend only on the seed. Example: the following sentence will &quot;fix&quot; the process of generating these random numbers so that they are not random at all – the same sequence of random numbers will be produced on each run.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">, </span><span class="syntaxidentifier">seed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain">-</span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">generator</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxconstant">1234</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code510" -->
+                <blockquote class="extract-inform7"><a id="code510"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">, </span><span class="identifier-syntax">seed</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax">-</span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">generator</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="constant-syntax">1234</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>The seed value <code class="inlinesourcetext">1234</code> can be anything positive; a different sequence of random numbers will be produced for each different seed value. A seed value of 0 restores the RNG to properly random behaviour again.</p>
             </div>
             <p>Alternatively, it's possible the &quot;fix&quot; the RNG by clicking the &quot;Make random outcomes predictable when testing&quot; option on the Settings panel. This makes the behaviour predictable whenever the story is played within Inform, but (unlike the rule above) has no effect on the story file once released.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg135><a style="text-decoration: none" href="eg_135.html"><span class="extensionexampleletter">135</span></a></span></div>
+                    <span id=eg132><a style="text-decoration: none" href="eg_132.html"><span class="extensionexampleletter">132</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_135.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Do Pass Go</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_132.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Do Pass Go</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A pair of dice which can be rolled, and are described with their current total when not carried, and have individual scores when examined.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg135><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg132><a style="text-decoration: none" href="RB_9_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg136><a style="text-decoration: none" href="eg_136.html"><span class="extensionexampleletter">136</span></a></span></div>
+                    <span id=eg133><a style="text-decoration: none" href="eg_133.html"><span class="extensionexampleletter">133</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_136.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 1</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_133.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Very simple randomised combat in which characters hit one another for a randomised amount of damage.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg136><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg133><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg137><a style="text-decoration: none" href="eg_137.html"><span class="extensionexampleletter">137</span></a></span></div>
+                    <span id=eg134><a style="text-decoration: none" href="eg_134.html"><span class="extensionexampleletter">134</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_137.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Weathering</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_134.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Weathering</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The automatic weather station atop Mt. Pisgah shows randomly fluctuating temperature, pressure and cloud cover.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg137><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg134><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg138><a style="text-decoration: none" href="eg_138.html"><span class="extensionexampleletter">138</span></a></span></div>
+                    <span id=eg135><a style="text-decoration: none" href="eg_135.html"><span class="extensionexampleletter">135</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_138.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Uptown Girls</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_135.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Uptown Girls</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A stream of random pedestrians who go by the player.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg138><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg135><a style="text-decoration: none" href="RB_3_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_8_17.html"><span class="markdowncontent">Section 8.17: Looking at containment by hand</span></a> &bull; <a href="WI_8_19.html"><span class="markdowncontent">Section 8.19: Random choices of things</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

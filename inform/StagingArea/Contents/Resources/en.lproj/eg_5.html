@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,19 +2193,76 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
                 <span id=eg5><span class="extensionexampleletter">5</span></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent"></span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent"></span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Plumber</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Use coloured text to display some pixel art.</span></span></div>
         </div>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Plumber" -->
+        <!-- SEARCH SECTION "Example 5" -->
+        <!-- SEARCH SORT "003-005-000-000" -->
+        <p></p>
+        <p>With a combination fixed letter spacing, reverse mode (which makes the foreground colour be shown as the background), and a few colours, we can display some pixel art. We also use the &quot;basic white&quot; colour, for the background.</p>
+        <!-- START CODE "code2854" -->
+        <blockquote class="extract-inform7"><a id="code2854"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Plumber[=0x0022=][=0x000A=][=0x000A=]Hat is always #EF3D23.[=0x000A=]Hair is always #AE812E.[=0x000A=]Skin is always #F9A344.[=0x000A=]Pixel is always [=0x0022=]  [=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=][fixed letter spacing][reverse mode][basic white letters][line break][=0x000A=][=0x0009=][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break][=0x000A=][=0x0009=][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][line break][=0x000A=][=0x0009=][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][hair letters][pixel][skin letters][pixel][basic white letters][pixel][pixel][pixel][line break][=0x000A=][=0x0009=][pixel][hair letters][pixel][pixel][skin letters][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][basic white letters][pixel][line break][=0x000A=][=0x0009=][pixel][hair letters][pixel][pixel][skin letters][pixel][hair letters][pixel][pixel][skin letters][pixel][pixel][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][basic white letters][line break][=0x000A=][=0x0009=][pixel][hair letters][pixel][pixel][pixel][skin letters][pixel][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][line break][=0x000A=][=0x0009=][pixel][pixel][pixel][skin letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break][=0x000A=][=0x0009=][pixel][pixel][hair letters][pixel][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break][=0x000A=][=0x0009=][pixel][hair letters][pixel][pixel][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][pixel][basic white letters][pixel][line break][=0x000A=][=0x0009=][hair letters][pixel][pixel][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][line break][=0x000A=][=0x0009=][skin letters][pixel][pixel][pixel][hair letters][pixel][hat letters][pixel][skin letters][pixel][hat letters][pixel][pixel][skin letters][pixel][hat letters][pixel][hair letters][pixel][skin letters][pixel][pixel][basic white letters][line break][=0x000A=][=0x0009=][skin letters][pixel][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][pixel][basic white letters][line break][=0x000A=][=0x0009=][skin letters][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][basic white letters][line break][=0x000A=][=0x0009=][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][basic white letters][pixel][hat letters][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][line break][=0x000A=][=0x0009=][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][basic white letters][line break][=0x000A=][=0x0009=][hair letters][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][pixel][default colours][reverse mode off][variable letter spacing][paragraph break][=0x0022=];[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Plumber&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Hat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">always</span><span class="plain-syntax"> #</span><span class="identifier-syntax">EF3D23</span><span class="plain-syntax">.</span>
+        <br>
+        <span class="identifier-syntax">Hair</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">always</span><span class="plain-syntax"> #</span><span class="identifier-syntax">AE812E</span><span class="plain-syntax">.</span>
+        <br>
+        <span class="identifier-syntax">Skin</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">always</span><span class="plain-syntax"> #</span><span class="identifier-syntax">F9A344</span><span class="plain-syntax">.</span>
+        <br>
+        <span class="identifier-syntax">Pixel</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">always</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;  &quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[fixed letter spacing][reverse mode][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][hair letters][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][hair letters][pixel][skin letters][pixel][basic white letters][pixel][pixel][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][hair letters][pixel][pixel][skin letters][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][basic white letters][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][hair letters][pixel][pixel][skin letters][pixel][hair letters][pixel][pixel][skin letters][pixel][pixel][pixel][hair letters][pixel][skin letters][pixel][pixel][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][hair letters][pixel][pixel][pixel][skin letters][pixel][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][pixel][skin letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][hair letters][pixel][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][hair letters][pixel][pixel][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][hat letters][pixel][hair letters][pixel][pixel][pixel][basic white letters][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[hair letters][pixel][pixel][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[skin letters][pixel][pixel][pixel][hair letters][pixel][hat letters][pixel][skin letters][pixel][hat letters][pixel][pixel][skin letters][pixel][hat letters][pixel][hair letters][pixel][skin letters][pixel][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[skin letters][pixel][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[skin letters][pixel][pixel][pixel][hat letters][pixel][pixel][pixel][pixel][pixel][pixel][pixel][pixel][skin letters][pixel][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][pixel][hat letters][pixel][pixel][pixel][pixel][basic white letters][pixel][hat letters][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][basic white letters][pixel][basic white letters][line break]</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="string-syntax">[hair letters][pixel][pixel][pixel][pixel][pixel][basic white letters][pixel][pixel][pixel][hair letters][pixel][pixel][pixel][pixel][pixel][default colours][reverse mode off][variable letter spacing][paragraph break]&quot;</span><span class="plain-syntax">;</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
     <p><em></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

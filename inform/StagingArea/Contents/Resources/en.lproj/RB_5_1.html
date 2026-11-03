@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,53 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The Human Body" -->
+            <!-- SEARCH SECTION "5.1" -->
+            <!-- SEARCH SORT "002-005-001-000" -->
             <h2><span>Chapter 5: The Viewpoint Character</span></h2>
             <h3><span>Section 5.1: The Human Body</span></h3>
             <p>
             By default, Inform gives the player character (and every other person) a simple unitary body, one without hands or feet or any other defined parts. In many games this is adequate; but in others it is not enough, and we may want to endow all people with some more specific physical features, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">face</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">face</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2053" -->
+            <blockquote class="extract-inform7"><a id="code2053"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">face</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">face</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">every</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>Once we've done this, we may invite ambiguities if the player types <code class="inlinetranscriptcommand">look at face</code>; it is this challenge that is addressed in <a href="eg_64.html">The Night Before</a>.</p>
-            <p><a href="eg_275.html">rBGH</a> gives the player a random height and then uses this to determine how the room should be described around them.</p>
-            <p><a href="eg_425.html">Slouching</a> lets the player (and other characters as well) take different sitting, standing, and lying down positions.</p>
+            <!-- END CODE -->
+            <p>Once we've done this, we may invite ambiguities if the player types <code class="inlinetranscriptcommand">look at face</code>; it is this challenge that is addressed in <a href="eg_63.html">The Night Before</a>.</p>
+            <p><a href="eg_272.html">rBGH</a> gives the player a random height and then uses this to determine how the room should be described around them.</p>
+            <p><a href="eg_422.html">Slouching</a> lets the player (and other characters as well) take different sitting, standing, and lying down positions.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg275><a style="text-decoration: none" href="eg_275.html"><span class="extensionexampleletter">275</span></a></span></div>
+                    <span id=eg272><a style="text-decoration: none" href="eg_272.html"><span class="extensionexampleletter">272</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_275.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">rBGH</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_272.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">rBGH</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The player character's height is selected randomly at the start of play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg275><a style="text-decoration: none" href="WI_16_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg272><a style="text-decoration: none" href="WI_16_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg425><a style="text-decoration: none" href="eg_425.html"><span class="extensionexampleletter">425</span></a></span></div>
+                    <span id=eg422><a style="text-decoration: none" href="eg_422.html"><span class="extensionexampleletter">422</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_425.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Slouching</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_422.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Slouching</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A system of postures allowing the player and other characters to sit, stand, or lie down explicitly or implicitly on a variety of enterable supporters or containers, or in location.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg425><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg422><a style="text-decoration: none" href="WI_21_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg64><a style="text-decoration: none" href="eg_64.html"><span class="extensionexampleletter">64</span></a></span></div>
+                    <span id=eg63><a style="text-decoration: none" href="eg_63.html"><span class="extensionexampleletter">63</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_64.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Night Before</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_63.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Night Before</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Instructing Inform to prefer different interpretations of <code class="inlinetranscriptcommand">examine nose</code>, depending on whether the player is alone, in company, or with Rudolph the Red-nosed Reindeer.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg64><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg63><a style="text-decoration: none" href="WI_4_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_6.html"><span class="markdowncontent">Section 4.6: Plot Management</span></a> &bull; <a href="RB_5_2.html"><span class="markdowncontent">Section 5.2: Traits Determined By the Player</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Scope" -->
+            <!-- SEARCH SECTION "19.7" -->
+            <!-- SEARCH SORT "001-019-007-000" -->
             <h3><span>Section 19.7: Scope</span></h3>
             <p>          </p>
             <p>At first sight, the command parser seems like a component of Inform which ought to look at the words typed, and find a meaning in them, without knowing anything about the state of the story. Suppose the player is in Piccadilly Circus and types <code class="inlinetranscriptcommand">take crown jewels</code>, even though the crown jewels are locked up miles away in the Tower of London. Shouldn't the parser recognise that? It seems like a clearly expressed wish. Of course, the resulting <code class="inlinesourcetext">taking the Crown Jewels</code> action should not be allowed to happen, but that's an issue for the rules about taking to sort out. It shouldn't be the <em>parser</em> which decides what is and is not allowed to happen.</p>
@@ -2143,42 +2232,44 @@
             <p>Most authors can forget about scope almost all of the time, and just let the parser do its thing. But every so often, it's useful to be able to tinker with what is, and is not, in scope. A good way to get a sense of this is to wander around any story with much to it and type the debugging command <code class="inlinetranscriptcommand">scope</code> from time to time, which will list what's in scope to the player at any given point. (In principle, scope applies to anybody, even though other characters do not get to type commands. In a game where the player is Sherlock Holmes, Professor Moriarty will have a scope of his own. Most of the time these will be different.)</p>
             <p>So, then, tokens like <code class="inlinesourcetext">&quot;[something&quot;]</code> or <code class="inlinesourcetext">&quot;[someone]&quot;</code> or even <code class="inlinesourcetext">&quot;[an open door]&quot;</code> only match the names of objects which are in scope. (See the section on <a href="WI_19_4.html" title="Section 19.4: Standard tokens of grammar">Standard tokens of grammar</a>.)</p>
             <p>But we do sometimes want to enable commands to mention things from far away, or which are even out of play altogether. The simplest way to do that is to use <code class="inlinesourcetext">any</code>. For example, the following gives the player the ability to walk between rooms without giving explicit directions of movement.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1239" -->
+            <blockquote class="extract-inform7"><a id="code1239"></a><span class="indexdullblue"><span class="identifier-syntax">Going</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You walk to </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">move</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You walk to [the noun].&quot;</span><span class="plain-syntax">; </span><span class="identifier-syntax">move</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;go to </span><span class="syntaxextract">[any adjacent visited room]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">going</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;go to [any adjacent visited room]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">going</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In a finished work, we would want <code class="inlinetranscriptcommand">go to</code> to produce helpful errors if non-adjacent but visited rooms were named, and so on, but the important point here is that <code class="inlinesourcetext">any</code> has placed certain room names in scope, something which ordinarily never happens.</p>
             <p>As might be expected, <code class="inlinesourcetext">&quot;[anything]&quot;</code> means the same as <code class="inlinesourcetext">&quot;[any thing]&quot;</code> (and because of that is required to match a <code class="inlinesourcetext">thing</code>, unlike <code class="inlinesourcetext">&quot;[something]&quot;</code>, which can match any object); <code class="inlinesourcetext">&quot;[anybody]&quot;</code> and <code class="inlinesourcetext">&quot;[anyone]&quot;</code> mean the same as <code class="inlinesourcetext">&quot;[any person]&quot;</code>; and <code class="inlinesourcetext">&quot;[anywhere]&quot;</code> means the same as <code class="inlinesourcetext">&quot;[any room]&quot;</code>.</p>
             <p>So, then, <code class="inlinesourcetext">any</code> allows scope restrictions to be completely bypassed. We can also modify scope in more nuanced ways with the <a href="WI_20_31.html" title="Section 20.31: Deciding the scope of something">Deciding the scope of something</a> activity. But supposing we don't do that, what exactly <em>is</em> in scope for a given actor? That's the subject of the next section.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg330><a style="text-decoration: none" href="eg_330.html"><span class="extensionexampleletter">330</span></a></span></div>
+                    <span id=eg327><a style="text-decoration: none" href="eg_327.html"><span class="extensionexampleletter">327</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_330.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One of Those Mornings</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_327.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">One of Those Mornings</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">find</code> command that allows the player to find a lost object anywhere</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg330><a style="text-decoration: none" href="RB_5_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg327><a style="text-decoration: none" href="RB_5_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg331><a style="text-decoration: none" href="eg_331.html"><span class="extensionexampleletter">331</span></a></span></div>
+                    <span id=eg328><a style="text-decoration: none" href="eg_328.html"><span class="extensionexampleletter">328</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_331.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actaeon</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_328.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actaeon</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">follow</code> command allowing the player to pursue a person who has just left the room.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg331><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg328><a style="text-decoration: none" href="RB_7_13.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_6.html"><span class="markdowncontent">Section 19.6: The text token</span></a> &bull; <a href="WI_19_8.html"><span class="markdowncontent">Section 19.8: Formal definition of scope</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

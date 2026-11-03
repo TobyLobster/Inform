@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,162 +2193,171 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg190><a style="text-decoration: none" href="WI_11_14.html"><span class="extensionexampleletter">190</span></a></span></div>
+                <span id=eg190><a style="text-decoration: none" href="WI_12_5.html"><span class="extensionexampleletter">190</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Testing Pure Choice</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Modifying the offering activity so that it follows a test script rather than stopping to ask for player input.</span></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Proposal</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Asking the player a yes/no question which they must answer, and another which they may answer or not as they choose.</span></span></div>
             <div class="exampleright">
-                <span id=eg190><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg190><a style="text-decoration: none" href="RB_7_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>Most Inform examples contain a <code class="inlinesourcetext">Test me with &quot;...&quot;</code> sentence, giving a sequence of commands which can be automatically typed in for testing purposes.</p>
-        <p>And that works fine for dialogue-heavy stories too, <em>provided</em> there is a first turn on which the player can type <code class="inlinetranscriptcommand">test me</code>. In a story where dialogue takes over the entire narrative, and no regular commands are ever accepted, that's impossible.</p>
-        <p>So the following use of the <code class="inlinesourcetext">offering ...</code> activity neatly gets around that. It's just like the standard version of the activity, except that if there are numbers in the <code class="inlinesourcetext">testing choices list</code>, it pulls them out one by one and enters them rather than ask the player.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Testing Pure Choice[=0x0022=][=0x000A=][=0x000A=]Section 1 - The testing mechanism[=0x000A=][=0x000A=]The testing choices list is a list of numbers that varies.[=0x000A=][=0x000A=]For offering a list of dialogue choices (called L)[=0x000A=][=0x0009=](this is the niftier offering dialogue choices rule):[=0x000A=][=0x0009=]let N be 0;[=0x000A=][=0x0009=]repeat with C running through L:[=0x000A=][=0x0009=][=0x0009=]increase N by 1;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]([N]) [textual content of C][line break][=0x0022=];[=0x000A=][=0x0009=]say conditional paragraph break;[=0x000A=][=0x0009=]let M be a number;[=0x000A=][=0x0009=]if the testing choices list is non-empty:[=0x000A=][=0x0009=][=0x0009=]now M is entry 1 of the testing choices list;[=0x000A=][=0x0009=][=0x0009=]remove entry 1 from the testing choices list;[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](automatically choosing option [M] for test purposes)[line break][=0x0022=];[=0x000A=][=0x0009=]otherwise:[=0x000A=][=0x0009=][=0x0009=]now M is a number chosen by the player from 1 to N;[=0x000A=][=0x0009=]set the dialogue selection value to M;[=0x000A=][=0x0009=]say [=0x0022=][bold type][textual content of entry M of L][roman type][paragraph break][=0x0022=].[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Howdy![=0x0022=];[=0x000A=][=0x0009=]now the testing choices list is { 1, 2, 1 }.[=0x000A=][=0x000A=]Section 2 - The play (dialogue)[=0x000A=][=0x000A=](This is the starting beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]Here we might place our opening narration.[=0x000A=][=0x000A=]We could go on for several paragraphs, if we like. There[=0x0027=]s no need to make them separate lines of narration if we do not want to.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I get the general idea.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]Good.[=0x0022=] [=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Cool. Now show me something else.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]This text is only shown because of the choice you just made. But in a moment, we[=0x0027=]ll rejoin the same storyline as though you[=0x0027=]d made the opposite decision. Right about... NOW.[=0x0022=] [=0x000A=][=0x000A=]Narration: [=0x0022=]Speaking of choices, the following two won[=0x0027=]t make any difference at all. The player[=0x0027=]s decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]I will remember this.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]I will forget this almost immediately.[=0x0022=][=0x000A=][=0x000A=]Narration: [=0x0022=]Here, by contrast...[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]This branch is actually significant.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the lefthand beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]As is this one.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the righthand beat[=0x000A=][=0x0009=][=0x0009=][=0x000A=](This is the lefthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the left door.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=][=0x000A=](This is the righthand beat.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.[=0x0022=][=0x000A=][=0x000A=]-[=0x003E=] end the story finally[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Testing Pure Choice&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Proposal" -->
+        <!-- SEARCH SECTION "Example 190" -->
+        <!-- SEARCH SORT "003-190-000-000" -->
+        <p> </p>
+        <p>Suppose we want to ask the player a question where they might say yes or no in response. There are two possible forms of this: the modal question where the player must pick one to proceed, and the non-modal question where they might also type other verbs.</p>
+        <!-- START CODE "code3187" -->
+        <blockquote class="extract-inform7"><a id="code3187"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Proposal[=0x0022=][=0x000A=][=0x000A=]The story genre is [=0x0022=]A Worked Example about Yes/No Questions[=0x0022=].[=0x000A=][=0x000A=]Section 1 - Asking a Modal Yes/No Question[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]say [=0x0022=]Do you like Mr Spruce? [=0x0022=];[=0x000A=][=0x0009=]if player consents, now Spruce is handsome;[=0x000A=][=0x0009=]otherwise now Spruce is ugly;[=0x000A=][=0x0009=]say paragraph break.[=0x000A=][=0x000A=]{**}Section 2 - Mr Spruce[=0x0027=]s Non-Modal Question[=0x000A=][=0x000A=]Use full-length room descriptions.[=0x000A=][=0x000A=]The Conservatory is a room. [=0x0022=]You are in a room full of plants.[=0x0022=][=0x000A=][=0x000A=]Mr Spruce is a man in the Conservatory. Mr Spruce can be apprehensive or calm. Mr Spruce is calm. Mr Spruce can be handsome or ugly.[=0x000A=][=0x000A=]At 9:02 AM: say [=0x0022=]Mr Spruce flings himself to his knees and implores you to become his lawfully wedded wife.[=0x0022=];[=0x000A=][=0x0009=]now Mr Spruce is apprehensive;[=0x000A=][=0x0009=]Mr Spruce gives up in two minutes from now.[=0x000A=][=0x000A=]At the time when Mr Spruce gives up:[=0x000A=][=0x0009=]say [=0x0022=]Mr Spruce sighs heavily, seeing that you don[=0x0027=]t intend to reply. [=0x0027=]Never mind, my dear, I[=0x0027=]ll ask later. Perhaps I should have spoken to your Papa first... yes, a gently-bred female... no wonder...[=0x0027=][=0x0022=];[=0x000A=][=0x0009=]now Mr Spruce is calm;[=0x000A=][=0x0009=]Mr Spruce departs in one minute from now.[=0x000A=][=0x000A=]At the time when Mr Spruce departs:[=0x000A=][=0x0009=]if the player can see Mr Spruce, say [=0x0022=]Mr Spruce takes his leave of you.[=0x0022=];[=0x000A=][=0x0009=]otherwise say [=0x0022=]Mr Spruce pokes his head in to say that he is leaving.[=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Well, that is over...[=0x0022=][=0x000A=][=0x000A=]Instead of saying yes in the presence of an ugly apprehensive Mr Spruce:[=0x000A=][=0x0009=]now Mr Spruce is calm;[=0x000A=][=0x0009=]say [=0x0022=]Remembering what your mother said to you about the stock exchange and Dear Papa, you close your eyes and accept Mr Spruce.[=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Alas for your maiden hopes.[=0x0022=][=0x000A=][=0x000A=]Instead of saying yes in the presence of a handsome apprehensive Mr Spruce:[=0x000A=][=0x0009=]now Mr Spruce is calm;[=0x000A=][=0x0009=]say [=0x0022=]You are silent with delight for a moment before you say yes, yes![=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]How Genevieve Stubbs will cry![=0x0022=][=0x000A=][=0x000A=]Instead of saying no in the presence of an ugly apprehensive Mr Spruce:[=0x000A=][=0x0009=]now Mr Spruce is calm;[=0x000A=][=0x0009=]say [=0x0022=]Gently you inform Mr Spruce that it is impossible. He seems less deflated than you had expected.[=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]Odd, that...[=0x0022=][=0x000A=][=0x000A=]Instead of saying no in the presence of a handsome apprehensive Mr Spruce:[=0x000A=][=0x0009=]now Mr Spruce is calm;[=0x000A=][=0x0009=]say [=0x0022=]You lower your eyes and refuse petulantly, hoping to stir him to a more ardent repetition of these same requests. But then -- alack! -- he says [=0x0027=]I see how it is![=0x0027=] in a strangled voice, and strides from the room![=0x0022=];[=0x000A=][=0x0009=]end the story saying [=0x0022=]A fatal error![=0x0022=][=0x000A=][=0x000A=]Instead of answering Mr Spruce that [=0x0022=]no[=0x0022=], try saying no.[=0x000A=][=0x000A=]Instead of answering Mr Spruce that [=0x0022=]yes[=0x0022=], try saying yes.[=0x000A=][=0x000A=]Instead of asking Mr Spruce to try saying yes, try saying yes.[=0x000A=][=0x000A=]Instead of asking Mr Spruce to try saying no, try saying no.[=0x000A=][=0x000A=]Instead of saying sorry, try saying no.[=0x000A=][=0x000A=]Instead of asking Mr Spruce to try saying sorry, try saying no.[=0x000A=][=0x000A=]Instead of answering Mr Spruce that [=0x0022=]sorry[=0x0022=], try saying no.[=0x000A=][=0x000A=]Test me with [=0x0022=]z / z / z / yes[=0x0022=].[=0x000A=][=0x000A=]Test more with [=0x0022=]z / z / z / no[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Proposal&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - The testing mechanism</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">genre</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A Worked Example about Yes/No Questions&quot;</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Modal</span><span class="plain-syntax"> </span><span class="identifier-syntax">Yes</span><span class="plain-syntax">/</span><span class="identifier-syntax">No</span><span class="plain-syntax"> </span><span class="identifier-syntax">Question</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">For</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">)</span>
+        <span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">niftier</span><span class="syntaxplain"> </span><span class="syntaxidentifier">offering</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain">):</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Do you like Mr Spruce? &quot;</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">consents</span><span class="plain-syntax">, </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">C</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain">:</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">paragraph</span><span class="plain-syntax"> </span><span class="identifier-syntax">break</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(</span><span class="syntaxextract">[N]</span><span class="syntaxstring">) </span><span class="syntaxextract">[textual content of C][line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conditional</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paragraph</span><span class="syntaxplain"> </span><span class="syntaxidentifier">break</span><span class="syntaxplain">;</span>
+        <span class="plain-syntax">{**}</span><span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">Non</span><span class="plain-syntax">-</span><span class="identifier-syntax">Modal</span><span class="plain-syntax"> </span><span class="identifier-syntax">Question</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">non</span><span class="syntaxplain">-</span><span class="syntaxidentifier">empty</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">full</span><span class="plain-syntax">-</span><span class="identifier-syntax">length</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax"> </span><span class="identifier-syntax">descriptions</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">remove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">entry</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Conservatory</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;You are in a room full of plants.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(automatically choosing option </span><span class="syntaxextract">[M]</span><span class="syntaxstring"> for test purposes)</span><span class="syntaxextract">[line break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
+        <span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Conservatory</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">. </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">chosen</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">N</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">set</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">selection</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">M</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="constant-syntax">9</span><span class="plain-syntax">:02 </span><span class="identifier-syntax">AM</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mr Spruce flings himself to his knees and implores you to become his lawfully wedded wife.&quot;</span><span class="plain-syntax">;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[bold type][textual content of entry M of L][roman type][paragraph break]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">gives</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">two</span><span class="plain-syntax"> </span><span class="identifier-syntax">minutes</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">now</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">gives</span><span class="plain-syntax"> </span><span class="identifier-syntax">up</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mr Spruce sighs heavily, seeing that you don't intend to reply. 'Never mind, my dear, I'll ask later. Perhaps I should have spoken to your Papa first... yes, a gently-bred female... no wonder...'&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">departs</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">minute</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">now</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">departs</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mr Spruce takes his leave of you.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Mr Spruce pokes his head in to say that he is leaving.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Well, that is over...&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Remembering what your mother said to you about the stock exchange and Dear Papa, you close your eyes and accept Mr Spruce.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Alas for your maiden hopes.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You are silent with delight for a moment before you say yes, yes!&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;How Genevieve Stubbs will cry!&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">ugly</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Gently you inform Mr Spruce that it is impossible. He seems less deflated than you had expected.&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Odd, that...&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">handsome</span><span class="plain-syntax"> </span><span class="identifier-syntax">apprehensive</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You lower your eyes and refuse petulantly, hoping to stir him to a more ardent repetition of these same requests. But then -- alack! -- he says 'I see how it is!' in a strangled voice, and strides from the room!&quot;</span><span class="plain-syntax">;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;A fatal error!&quot;</span>
         </span></blockquote>
-        <p>So we just need to set the list up. We want to make a test-run of &quot;Pure Choice&quot; in which the player selects 1, then 2, then 1, so:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+        <!-- END CODE -->
+        <p>And since the player might <code class="inlinetranscriptcommand">say yes to spruce</code>, we had better reroute the relevant options:</p>
+        <!-- START CODE "code3188" -->
+        <blockquote class="extract-inform7"><a id="code3188"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;no&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Howdy!&quot;</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choices</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> { </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxconstant">2</span><span class="syntaxplain">, </span><span class="syntaxconstant">1</span><span class="syntaxplain"> }.</span>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;yes&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">sorry</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">asking</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">sorry</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">answering</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Spruce</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sorry&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">try</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;z / z / z / yes&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;z / z / z / no&quot;</span><span class="plain-syntax">.</span>
         </span></blockquote>
-        <p>Everything else here is the same as for the &quot;Pure Choice&quot; example:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxheading">Section 2 - The play (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the starting beat.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Here we might place our opening narration.</span>
-        <br>
-
-        <br>
-        <span class="syntaxstring">We could go on for several paragraphs, if we like. There's no need to make them separate lines of narration if we do not want to.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I get the general idea.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Good.&quot;</span><span class="syntaxplain"> </span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Cool. Now show me something else.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;This text is only shown because of the choice you just made. But in a moment, we'll rejoin the same storyline as though you'd made the opposite decision. Right about... NOW.&quot;</span><span class="syntaxplain"> </span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Speaking of choices, the following two won't make any difference at all. The player's decision will immediately rejoin, leaving them only with the recollection of having made a choice in the first place.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I will remember this.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;I will forget this almost immediately.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Here, by contrast...&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;This branch is actually significant.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the lefthand beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;As is this one.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; perform the righthand beat</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxfunction">(This is the lefthand beat.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You have passed through the left door.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">-&gt; end the story finally</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the righthand beat.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You have passed through the right door. The narrative has branched, and it will not rejoin; your decision was permanent.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">-&gt; end the story finally</span>
-        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_14.html>Section 11.14: Managing dialogue choices</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_12_5.html>Section 12.5: Conditions and questions</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

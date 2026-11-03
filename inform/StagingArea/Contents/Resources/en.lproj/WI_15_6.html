@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,59 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adapting demonstratives and possessives" -->
+            <!-- SEARCH SECTION "15.6" -->
+            <!-- SEARCH SORT "001-015-006-000" -->
             <h3><span>Section 15.6: Adapting demonstratives and possessives</span></h3>
             <p>         </p>
             <p>Consider the following message: how might we make this adaptive?</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> MEASURE TOP SHELF</span><br><span class="syntaxidentifier">You really are not tall enough to reach that.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; MEASURE TOP SHELF<br>You really are not tall enough to reach that.<br></code></pre></div>
             <p>The verbal part is easy enough, but <code class="inlinetranscript">that</code> needs a new feature.</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]</span><span class="syntaxstring"> really </span><span class="syntaxextract">[are not]</span><span class="syntaxstring"> tall enough to reach </span><span class="syntaxextract">[regarding the noun][those]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code972" -->
+            <blockquote class="extract-inform7"><a id="code972"></a><span class="indexdullblue"><span class="string-syntax">&quot;[We] really [are not] tall enough to reach [regarding the noun][those].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This could then adapt to, say,</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> MEASURE JAM TARTS</span><br><span class="syntaxidentifier">He really was not tall enough to reach those.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; MEASURE JAM TARTS<br>He really was not tall enough to reach those.<br></code></pre></div>
             <p>Notice that it's &quot;[regarding the noun][those]&quot;, not just <code class="inlinesourcetext">&quot;[those]&quot;</code>. If we wrote <code class="inlinesourcetext">&quot;[those]&quot;</code>, Inform would make it agree with the player, who was printed earlier in the sentence by the <code class="inlinesourcetext">&quot;[We]&quot;</code>.</p>
             <p>Lastly, how about:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> PUT TEAPOT IN MOUSEHOLE</span><br><span class="syntaxidentifier">The teapot's height is just too great.</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; PUT TEAPOT IN MOUSEHOLE<br>The teapot's height is just too great.<br></code></pre></div>
             <p>This time we want:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[regarding the noun][Possessive]</span><span class="syntaxstring"> height </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> just too great.&quot;</span>
+            <!-- START CODE "code973" -->
+            <blockquote class="extract-inform7"><a id="code973"></a><span class="indexdullblue"><span class="string-syntax">&quot;[regarding the noun][Possessive] height [are] just too great.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which might adapt to, say,</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Our height is just too great.</span><br><span class="syntaxidentifier">Alice's height will be just too great.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Our height is just too great.<br>Alice's height will be just too great.<br></code></pre></div>
             <p>Actually, <code class="inlinesourcetext">&quot;[regarding ...]&quot;</code> can be used for a description of possibly many items, too. For example:</p>
             <p>Every turn when the player carries something:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Every possession is a worry. I wonder if </span><span class="syntaxextract">[regarding things carried by the player][they]</span><span class="syntaxstring"> still </span><span class="syntaxextract">[look]</span><span class="syntaxstring"> okay in your pocket?&quot;</span>
+            <!-- START CODE "code974" -->
+            <blockquote class="extract-inform7"><a id="code974"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Every possession is a worry. I wonder if [regarding things carried by the player][they] still [look] okay in your pocket?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So if the player carries just a single coin, say, this automatically becomes:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Every possession is a worry. I wonder if it still looks okay in your pocket?</span><br></code></pre></div>
+                <pre><code class="language-transcript">Every possession is a worry. I wonder if it still looks okay in your pocket?<br></code></pre></div>
             <p>but if the player carries a pair of scissors (a single plural-named item) or a coin and an iPhone, it becomes:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Every possession is a worry. I wonder if they still look okay in your pocket?</span><br></code></pre></div>
+                <pre><code class="language-transcript">Every possession is a worry. I wonder if they still look okay in your pocket?<br></code></pre></div>
             <p>Once again these text substitutions are available in capitalised and uncapitalised forms:</p>
             <ul>
             <li><code class="inlinesourcetext">&quot;[Those]&quot;</code> or <code class="inlinesourcetext">&quot;[those]&quot;</code></li>
             <li><code class="inlinesourcetext">&quot;[Possessive]&quot;</code> or <code class="inlinesourcetext">&quot;[possessive]&quot;</code></li>
             </ul>
             <p>In fact <code class="inlinesourcetext">&quot;[Those]&quot;</code> and <code class="inlinesourcetext">&quot;[those]&quot;</code> do subtly different things, besides the capital letter, because <code class="inlinesourcetext">&quot;[Those]&quot;</code> expects to be the subject of the sentence and <code class="inlinesourcetext">&quot;[those]&quot;</code> the object, and this makes a difference if the noun in question is a person. If the noun is an odious person called Tilly then</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[regarding the noun][Those]</span><span class="syntaxstring"> is unacceptable.&quot;</span>
+            <!-- START CODE "code975" -->
+            <blockquote class="extract-inform7"><a id="code975"></a><span class="indexdullblue"><span class="string-syntax">&quot;[regarding the noun][Those] is unacceptable.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;You've never liked </span><span class="syntaxextract">[regarding the noun][those]</span><span class="syntaxstring">.&quot;</span>
+            <span class="string-syntax">&quot;You've never liked [regarding the noun][those].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would come out as <code class="inlinetranscript">She is unacceptable</code> – so <code class="inlinesourcetext">&quot;[Those]&quot;</code> becomes <code class="inlinetranscript">She</code> – but <code class="inlinetranscript">You've never liked her</code> – so <code class="inlinesourcetext">&quot;[those]&quot;</code> becomes <code class="inlinetranscript">her</code>. If we need these in different cases, we can explicitly ask for that:</p>
             <ul>
             <li><code class="inlinesourcetext">&quot;[those in the nominative]&quot;</code></li>
@@ -2175,18 +2272,18 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg270><a style="text-decoration: none" href="eg_270.html"><span class="extensionexampleletter">270</span></a></span></div>
+                    <span id=eg267><a style="text-decoration: none" href="eg_267.html"><span class="extensionexampleletter">267</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_270.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_267.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Olfactory Settings</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Some adaptive text for smelling the flowers, or indeed, anything else.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg270><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg267><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_5.html"><span class="markdowncontent">Section 15.5: Adapting text referring to other things</span></a> &bull; <a href="WI_15_7.html"><span class="markdowncontent">Section 15.7: Can, could, may, might, must, should, would</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

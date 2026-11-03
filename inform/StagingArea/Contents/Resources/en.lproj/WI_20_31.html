@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,100 +2212,118 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Deciding the scope of something" -->
+            <!-- SEARCH SECTION "20.31" -->
+            <!-- SEARCH SORT "001-020-031-000" -->
             <h3><span>Section 20.31: Deciding the scope of something</span></h3>
             <p>     </p>
             <p><strong>1. When it happens.</strong> &quot;Scope&quot; is a term of art in interactive fiction programming: it roughly means &quot;what is nearby&quot;. See <a href="WI_19_7.html" title="Section 19.7: Scope">Scope</a> for more. The command parser uses scope to decide which names of things to react to, and scope is also used to determine the <code class="inlinesourcetext">visibility relation</code>, the <code class="inlinesourcetext">audibility relation</code>, and the <code class="inlinesourcetext">touchability relation</code>, and whether or not an action is happening <code class="inlinesourcetext">in the presence of</code> something or somebody.</p>
             <p><strong>2. The default behaviour.</strong> For efficiency reasons, the <code class="inlinesourcetext">for</code> rules for this activity start out empty. Assuming no <code class="inlinesourcetext">for</code> rule intervenes, what happens in that the algorithm described in <a href="WI_19_8.html" title="Section 19.8: Formal definition of scope">Formal definition of scope</a> takes effect. But put briefly, the scope for someone consists of everything in the same place as them, unless it is dark or there is some opaque barrier in between.</p>
             <p><strong>3. Examples.</strong> (a) We very rarely want to forbid the player to refer to things close at hand, but often want to allow references to distant ones. For instance, a mirage of something which is not present at all:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Shrine</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1395" -->
+            <blockquote class="extract-inform7"><a id="code1395"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">deciding</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shrine</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">holy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grail</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">holy</span><span class="plain-syntax"> </span><span class="identifier-syntax">grail</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Two different phrases enable us to place unusual items in scope:</p>
             <div class="definition">
-                <p class="defnprototype">place (object) in scope</p>
+                <!-- START PHRASE "defn314" -->
+                <p class="defnprototype"><a id="defn314"></a>place (object) in scope</p>
+                <!-- END PHRASE -->
                 <p>This phrase should only be used in rules for the <code class="inlinesourcetext">deciding the scope of...</code> activity. It places the given object in scope, making it accessible to the player's commands, regardless of where it is in the model world. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">distant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">volcano</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1396" -->
+                <blockquote class="extract-inform7"><a id="code1396"></a><span class="indexdullblue"><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">distant</span><span class="plain-syntax"> </span><span class="identifier-syntax">volcano</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lacquered</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">, </span><span class="syntaxidentifier">but</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">its</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lacquered</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">, </span><span class="identifier-syntax">but</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">its</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Ordinarily if something is placed in scope, then so are its parts and (in the case of a supporter or a transparent or open container) its contents; using the <code class="inlinesourcetext">but not its contents</code> option we can place just the box itself in scope.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">place the/-- contents of (object) in scope</p>
+                <!-- START PHRASE "defn315" -->
+                <p class="defnprototype"><a id="defn315"></a>place the/-- contents of (object) in scope</p>
+                <!-- END PHRASE -->
                 <p>This phrase should only be used in rules for the <code class="inlinesourcetext">deciding the scope of...</code> activity. It places the things inside or on top of the given object in scope, making them accessible to the player's commands, but it does nothing to place the object itself in scope. (It might of course be in scope anyway, and if it is then this phrase won't remove it.) Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lacquered</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code1397" -->
+                <blockquote class="extract-inform7"><a id="code1397"></a><span class="indexdullblue"><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lacquered</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Marbled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Steps</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marbled</span><span class="plain-syntax"> </span><span class="identifier-syntax">Steps</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Note that the object in question can be a room, as in this second example.</p>
             </div>
             <p>(b) Another useful device is to be able to see, but not touch, another room:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('The Cloakroom is a room. [=0x0022=]This is just a cloakroom, but through a vague, misty mirror-window you can make out the Beyond.[=0x0022=] After looking in the Cloakroom, say [=0x0022=]In the mirror you can see [list of things in the Beyond].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player while the location is the Cloakroom: place the Beyond in scope.[=0x000A=][=0x000A=]The Beyond is a room. Johnny Depp is a man in the Beyond.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cloakroom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;This is just a cloakroom, but through a vague, misty mirror-window you can make out the Beyond.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">looking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cloakroom</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;In the mirror you can see </span><span class="syntaxextract">[list of things in the Beyond]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code1398" -->
+            <blockquote class="extract-inform7"><a id="code1398"></a><a class="actionlink" href="javascript:pasteCode('The Cloakroom is a room. [=0x0022=]This is just a cloakroom, but through a vague, misty mirror-window you can make out the Beyond.[=0x0022=] After looking in the Cloakroom, say [=0x0022=]In the mirror you can see [list of things in the Beyond].[=0x0022=][=0x000A=][=0x000A=]After deciding the scope of the player while the location is the Cloakroom: place the Beyond in scope.[=0x000A=][=0x000A=]The Beyond is a room. Johnny Depp is a man in the Beyond.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cloakroom</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;This is just a cloakroom, but through a vague, misty mirror-window you can make out the Beyond.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">looking</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cloakroom</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;In the mirror you can see [list of things in the Beyond].&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cloakroom</span><span class="syntaxplain">: </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beyond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">deciding</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cloakroom</span><span class="plain-syntax">: </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beyond</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beyond</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Johnny</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Depp</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Beyond</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beyond</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Johnny</span><span class="plain-syntax"> </span><span class="identifier-syntax">Depp</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Beyond</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(This must, however, also be a mirage, as at time of writing Mr Depp is alive and as well as can be expected following the reviews of <em>Charlie and the Chocolate Factory</em>.) Note that <code class="inlinesourcetext">place the Ballroom in scope</code> doesn't just allow the player to talk about the dancers, the chamber musicians and so forth, also allows, say, <code class="inlinetranscriptcommand">examine ballroom</code>. To get one but not the other, use <code class="inlinesourcetext">place the contents of the Ballroom in scope</code> or <code class="inlinesourcetext">place the Ballroom in scope, but not its contents</code>.</p>
             <p>(c) In darkness, the scope of someone is ordinarily restricted to their possessions (and body), but we can override that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">deciding</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">darkness</span><span class="syntaxplain">: </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">location</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scope</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1399" -->
+            <blockquote class="extract-inform7"><a id="code1399"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">deciding</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">darkness</span><span class="plain-syntax">: </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">location</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">scope</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><strong>4. A note about actions.</strong> This activity takes place during the process of understanding the player's command, when the action that will take place is not fully known. So if the player types <code class="inlinetranscriptcommand">take shoebox</code>, this activity would happen when <code class="inlinetranscriptcommand">shoebox</code> is being examined for meaning. Inform knows the action it would be taking if the current line of command grammar were to be accepted, but it does not yet know to what objects that command would be applied. That means attaching a proviso like <code class="inlinesourcetext">... while taking a container</code> to a rule for this activity will cause the rule to have no effect – whereas <code class="inlinesourcetext">... while taking</code> would be fine.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg389><a style="text-decoration: none" href="eg_389.html"><span class="extensionexampleletter">389</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_389.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Four Stars 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Using &quot;deciding the scope&quot; to change the content of lists such as &quot;the list of audible things which can be touched by the player&quot;.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg389><a style="text-decoration: none" href="RB_3_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg390><a style="text-decoration: none" href="eg_390.html"><span class="extensionexampleletter">390</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_390.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peeled</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Two different approaches to adjusting what the player can interact with, compared.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg390><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg391><a style="text-decoration: none" href="eg_391.html"><span class="extensionexampleletter">391</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_391.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ginger Beer</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A portable magic telescope which allows the player to view items in another room of their choice.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg391><a style="text-decoration: none" href="RB_9_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg392><a style="text-decoration: none" href="eg_392.html"><span class="extensionexampleletter">392</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_392.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Four Stars 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Using &quot;deciding the scope&quot; to change the content of lists such as &quot;the list of audible things which can be touched by the player&quot;.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_392.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rock Garden</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A simple open landscape where the player can see between rooms and will automatically move to touch things in distant rooms.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg392><a style="text-decoration: none" href="RB_3_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg392><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg393><a style="text-decoration: none" href="eg_393.html"><span class="extensionexampleletter">393</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_393.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peeled</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Two different approaches to adjusting what the player can interact with, compared.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg393><a style="text-decoration: none" href="RB_3_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg394><a style="text-decoration: none" href="eg_394.html"><span class="extensionexampleletter">394</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_394.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ginger Beer</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A portable magic telescope which allows the player to view items in another room of their choice.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg394><a style="text-decoration: none" href="RB_9_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg395><a style="text-decoration: none" href="eg_395.html"><span class="extensionexampleletter">395</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_395.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Rock Garden</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A simple open landscape where the player can see between rooms and will automatically move to touch things in distant rooms.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg395><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg396><a style="text-decoration: none" href="eg_396.html"><span class="extensionexampleletter">396</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_396.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stately Gardens</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_393.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Stately Gardens</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An open landscape where the player can see landmarks in nearby areas, with somewhat more complex room descriptions than the previous example, and in which we also account for size differences between things seen at a distance.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg396><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg393><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_30.html"><span class="markdowncontent">Section 20.30: Offering something</span></a> &bull; <a href="WI_20_32.html"><span class="markdowncontent">Section 20.32: Clarifying the parser's choice of something</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

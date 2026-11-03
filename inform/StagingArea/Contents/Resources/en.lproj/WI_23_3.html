@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,60 +2212,80 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Saying lists of values" -->
+            <!-- SEARCH SECTION "23.3" -->
+            <!-- SEARCH SORT "001-023-003-000" -->
             <h3><span>Section 23.3: Saying lists of values</span></h3>
             <p>      </p>
             <p>Any list L can be said, provided that its contents can be said. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {2, </span><span class="syntaxconstant">3</span><span class="syntaxplain">, </span><span class="syntaxconstant">5</span><span class="syntaxplain">, </span><span class="syntaxconstant">7</span><span class="syntaxplain">, </span><span class="syntaxconstant">11</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1596" -->
+            <blockquote class="extract-inform7"><a id="code1596"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L1</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {2, </span><span class="constant-syntax">3</span><span class="plain-syntax">, </span><span class="constant-syntax">5</span><span class="plain-syntax">, </span><span class="constant-syntax">7</span><span class="plain-syntax">, </span><span class="constant-syntax">11</span><span class="plain-syntax">};</span>
             <br>
-            <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L1</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">L1</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces the text <code class="inlinetranscript">2, 3, 5, 7 and 11</code> – unless we have <code class="inlinesourcetext">Use serial comma.</code> set, in which case a comma appears after the 7. We also have the option of using the more formal notation:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(list of values) in brace notation]&quot;</p>
+                <!-- START PHRASE "defn384" -->
+                <p class="defnprototype"><a id="defn384"></a>say &quot;[(list of values) in brace notation]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces the list in the form of <code class="inlinesourcetext">{</code>, then a comma-separated list, and then <code class="inlinesourcetext">}</code>, which looks less like an English sentence but more mathematical. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[list of people in brace notation]</span><span class="syntaxstring">&quot;</span>
+                <!-- START CODE "code1597" -->
+                <blockquote class="extract-inform7"><a id="code1597"></a><span class="indexdullblue"><span class="string-syntax">&quot;[list of people in brace notation]&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>might produce <code class="inlinetranscript">{ yourself, Mr Darcy, Flashman }</code>.</p>
             </div>
             <p>If we say a list of lists, then the individual entry lists are always printed in brace notation: the ordinary sentence way would be incomprehensible.</p>
             <p>Of course, the values in <code class="inlinesourcetext">L1</code> are written out in number form because <code class="inlinesourcetext">L1</code> is a list of numbers: we could alternatively try</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piano</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">music</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stand</span><span class="syntaxplain">};</span>
+            <!-- START CODE "code1598" -->
+            <blockquote class="extract-inform7"><a id="code1598"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L2</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {</span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">piano</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">music</span><span class="plain-syntax"> </span><span class="identifier-syntax">stand</span><span class="plain-syntax">};</span>
             <br>
-            <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L2</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">L2</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which produces <code class="inlinetranscript">piano and music stand</code>. Lists of objects can be said in two additional ways:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(list of objects) with definite articles]&quot;</p>
+                <!-- START PHRASE "defn385" -->
+                <p class="defnprototype"><a id="defn385"></a>say &quot;[(list of objects) with definite articles]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the list in sentence form, adding the appropriate definite articles. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piano</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">music</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stand</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1599" -->
+                <blockquote class="extract-inform7"><a id="code1599"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {</span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">piano</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">music</span><span class="plain-syntax"> </span><span class="identifier-syntax">stand</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[L with definite articles]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[L with definite articles]&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>says <code class="inlinetranscript">the piano and the music stand</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[(list of objects) with indefinite articles]&quot;</p>
+                <!-- START PHRASE "defn386" -->
+                <p class="defnprototype"><a id="defn386"></a>say &quot;[(list of objects) with indefinite articles]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution writes out the list in sentence form, adding the appropriate indefinite articles. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> {</span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piano</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">music</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stand</span><span class="syntaxplain">};</span>
+                <!-- START CODE "code1600" -->
+                <blockquote class="extract-inform7"><a id="code1600"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> {</span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">piano</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">music</span><span class="plain-syntax"> </span><span class="identifier-syntax">stand</span><span class="plain-syntax">};</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[L with definite articles]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[L with definite articles]&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>says <code class="inlinetranscript">a piano and a music stand</code>.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg453><a style="text-decoration: none" href="eg_453.html"><span class="extensionexampleletter">453</span></a></span></div>
+                    <span id=eg450><a style="text-decoration: none" href="eg_450.html"><span class="extensionexampleletter">450</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_453.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Oyster Wide Shut</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_450.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Oyster Wide Shut</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Replacing Inform's default printing of properties such as &quot;(closed)&quot;, &quot;(open and providing light)&quot;, etc., with our own, more flexible variation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg453><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg450><a style="text-decoration: none" href="RB_6_7.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_23_2.html"><span class="markdowncontent">Section 23.2: Constant lists</span></a> &bull; <a href="WI_23_4.html"><span class="markdowncontent">Section 23.4: Testing and iterating over lists</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

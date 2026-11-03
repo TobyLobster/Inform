@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,47 +2212,61 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "New value properties" -->
+            <!-- SEARCH SECTION "4.9" -->
+            <!-- SEARCH SORT "001-004-009-000" -->
             <h3><span>Section 4.9: New value properties</span></h3>
             <p>        </p>
             <p>So much for either/or properties. Now we move on to properties which have values attached. The same principles apply, but the wording is different. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">some</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">river</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">river</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a faint whispering of running water&quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tortuous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Alcove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">river</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a gurgle of running water&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code167" -->
+            <blockquote class="extract-inform7"><a id="code167"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">dead</span><span class="plain-syntax"> </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">river</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">river</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dead</span><span class="plain-syntax"> </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a faint whispering of running water&quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tortuous</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alcove</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">river</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a gurgle of running water&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The property <code class="inlinesourcetext">river sound</code> is now applicable only to <code class="inlinesourcetext">dead ends</code>, so we would not be allowed to talk about <code class="inlinesourcetext">the river sound of the Savannah</code>, say. Moreover, it's required to hold a piece of <code class="inlinesourcetext">text</code>. If we tried the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">river</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tortuous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Alcove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code168" -->
+            <blockquote class="extract-inform7"><a id="code168"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">river</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tortuous</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alcove</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...then Inform would object, because the number 7 is the wrong kind of value to go into the <code class="inlinesourcetext">river sound</code> property. If we need a numerical property, we can try this instead:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rating</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Tortuous</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Alcove</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">difficulty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rating</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code169" -->
+            <blockquote class="extract-inform7"><a id="code169"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">dead</span><span class="plain-syntax"> </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">difficulty</span><span class="plain-syntax"> </span><span class="identifier-syntax">rating</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tortuous</span><span class="plain-syntax"> </span><span class="identifier-syntax">Alcove</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">difficulty</span><span class="plain-syntax"> </span><span class="identifier-syntax">rating</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Suppose that we were to add:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Exquisitely</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Narrow</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Defile</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code170" -->
+            <blockquote class="extract-inform7"><a id="code170"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Exquisitely</span><span class="plain-syntax"> </span><span class="identifier-syntax">Narrow</span><span class="plain-syntax"> </span><span class="identifier-syntax">Defile</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dead</span><span class="plain-syntax"> </span><span class="identifier-syntax">end</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The Defile must have a <code class="inlinesourcetext">river sound</code>, of course, because we said that every <code class="inlinesourcetext">dead end</code> would have one. We haven't said what that sound will be, but Inform can work it out, because we did say this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">river</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sound</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">end</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">usually</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;a faint whispering of running water&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code171" -->
+            <blockquote class="extract-inform7"><a id="code171"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">river</span><span class="plain-syntax"> </span><span class="identifier-syntax">sound</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dead</span><span class="plain-syntax"> </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;a faint whispering of running water&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>If there are no instructions at all about the value of a property, Inform fills in the default value of the appropriate kind – in this case, it would be a blank <code class="inlinesourcetext">text</code>. (A table of the kinds which can be used for properties, and their default values, can be found in the Kinds index.)</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg53><a style="text-decoration: none" href="eg_53.html"><span class="extensionexampleletter">53</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_53.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Would you...?</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding new properties to objects, and checking for their presence.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg53><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg54><a style="text-decoration: none" href="eg_54.html"><span class="extensionexampleletter">54</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_54.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Would you...?</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding new properties to objects, and checking for their presence.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg54><a style="text-decoration: none" href="RB_9_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg55><a style="text-decoration: none" href="eg_55.html"><span class="extensionexampleletter">55</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_55.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Straw Boater</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_54.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Straw Boater</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using text properties that apply only to some things and are not defined for others.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg55><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg54><a style="text-decoration: none" href="RB_8_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_4_8.html"><span class="markdowncontent">Section 4.8: New either/or properties</span></a> &bull; <a href="WI_4_10.html"><span class="markdowncontent">Section 4.10: Using new kinds of value in properties</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

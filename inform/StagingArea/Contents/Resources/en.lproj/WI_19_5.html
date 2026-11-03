@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,59 +2212,71 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Actions applying to kinds of value" -->
+            <!-- SEARCH SECTION "19.5" -->
+            <!-- SEARCH SORT "001-019-005-000" -->
             <h3><span>Section 19.5: Actions applying to kinds of value</span></h3>
             <p>      </p>
             <p>Almost all actions apply to things: the player picks them up, pushes them, looks at them and so on. We only occasionally need to recognise other kinds of value, but when we do, we can. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Adjusting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1232" -->
+            <blockquote class="extract-inform7"><a id="code1232"></a><span class="indexdullblue"><span class="identifier-syntax">Adjusting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;adjust </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> to </span><span class="syntaxextract">[a number]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjusting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;adjust [something] to [a number]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjusting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The substitution <code class="inlinesourcetext">&quot;[a number]&quot;</code> matches any number (actually any whole number that is not too large) typed by the player. Inform checks the various kinds being used to make sure that everything matches, so, for instance, this would be disallowed:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;adjust </span><span class="syntaxextract">[something]</span><span class="syntaxstring"> to </span><span class="syntaxextract">[something]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">adjusting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1233" -->
+            <blockquote class="extract-inform7"><a id="code1233"></a><span class="indexdullblue"><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;adjust [something] to [something]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjusting</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because this grammar line would produce two things, not one thing and one number, which is what we said <code class="inlinesourcetext">adjusting it to</code> needs.</p>
             <p>Not every kind can be understood, but many can, including those we create ourselves. For example, if we define:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">State</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Solid</span><span class="syntaxplain">, </span><span class="syntaxidentifier">liquid</span><span class="syntaxplain">, </span><span class="syntaxidentifier">gas</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plasma</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">states</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1234" -->
+            <blockquote class="extract-inform7"><a id="code1234"></a><span class="indexdullblue"><span class="identifier-syntax">State</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">Solid</span><span class="plain-syntax">, </span><span class="identifier-syntax">liquid</span><span class="plain-syntax">, </span><span class="identifier-syntax">gas</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">plasma</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">states</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then we can define an action <code class="inlinesourcetext">applying to one state</code>, say, and then the token <code class="inlinesourcetext">&quot;[a state]&quot;</code> would recognise <code class="inlinetranscriptcommand">solid</code>, <code class="inlinetranscriptcommand">liquid</code>, <code class="inlinetranscriptcommand">gas</code> or <code class="inlinetranscriptcommand">plasma</code> but no other words. Similarly for:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxconstant">10</span><span class="syntaxidentifier">kg</span><span class="syntaxplain"> </span><span class="syntaxidentifier">specifies</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">weight</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1235" -->
+            <blockquote class="extract-inform7"><a id="code1235"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="constant-syntax">10</span><span class="identifier-syntax">kg</span><span class="plain-syntax"> </span><span class="identifier-syntax">specifies</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">weight</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which would enable <code class="inlinesourcetext">&quot;[a weight]&quot;</code> to match <code class="inlinetranscriptcommand">27kg</code>, for example.</p>
             <p>The issue of &quot;scope&quot; does not arise for values which are not objects. Scope is all about where things are in the physical world, but the number 17, or for that matter the possibility of being a gas, makes equal sense everywhere. So although it's quite legal to write <code class="inlinesourcetext">&quot;[any number]&quot;</code>, using the <code class="inlinesourcetext">any</code> to mean anywhere, the effect is exactly the same as writing just <code class="inlinesourcetext">&quot;[a number]&quot;</code>.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg325><a style="text-decoration: none" href="eg_325.html"><span class="extensionexampleletter">325</span></a></span></div>
+                    <span id=eg322><a style="text-decoration: none" href="eg_322.html"><span class="extensionexampleletter">322</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_325.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safety</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_322.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Safety</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A safe whose dial can be turned with <code class="inlinetranscriptcommand">spin safe to</code> 1131, and which will open only with the correct combination.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg325><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg322><a style="text-decoration: none" href="RB_9_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg326><a style="text-decoration: none" href="eg_326.html"><span class="extensionexampleletter">326</span></a></span></div>
+                    <span id=eg323><a style="text-decoration: none" href="eg_323.html"><span class="extensionexampleletter">323</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_326.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tom's Midnight Garden</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_323.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tom's Midnight Garden</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A clock kind that can be set to any time using &quot;the time understood&quot;; may be turned on and off; and will advance itself only when running. Time on the face is also reported differently depending on whether the clock is analog or digital.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg326><a style="text-decoration: none" href="RB_9_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg323><a style="text-decoration: none" href="RB_9_11.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg327><a style="text-decoration: none" href="eg_327.html"><span class="extensionexampleletter">327</span></a></span></div>
+                    <span id=eg324><a style="text-decoration: none" href="eg_324.html"><span class="extensionexampleletter">324</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_327.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ibid.</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_324.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ibid.</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A system which allows the author to assign footnotes to descriptions, and permits the player to retrieve them again by number, using <code class="inlinesourcetext">the number understood</code>. Footnotes will automatically number themselves, according to the order in which the player discovers them.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg327><a style="text-decoration: none" href="RB_12_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg324><a style="text-decoration: none" href="RB_12_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_19_4.html"><span class="markdowncontent">Section 19.4: Standard tokens of grammar</span></a> &bull; <a href="WI_19_6.html"><span class="markdowncontent">Section 19.6: The text token</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

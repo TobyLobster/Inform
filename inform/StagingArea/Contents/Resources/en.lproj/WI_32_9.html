@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.9: Neptune and other base kinds</span></title>
+    <title><span class="markdowncontent">Section 32.9: Links and cross-references</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_8.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.9: Neptune and other base kinds</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.9: Links and cross-references</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_10.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,61 +2212,39 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.9: Neptune and other base kinds</span></h3>
-            <h4><span>Oddball kinds</span></h4>
-            <p>We have seen examples of new base kinds created which conform to <code class="inlinecode">ENUMERATED_VALUE_TY</code> and <code class="inlinecode">ARITHMETIC_VALUE_TY</code>, but not everything does. If we have a kind which has a scatter of values, perhaps unlimited in extent, and where arithmetic makes no sense, then neither of these models would work. For example, <code class="inlinesourcetext">action name</code> is a kind which has a finite set of possible values, but those values are not predictable and can't exchange; and it makes no sense to add or subtract them.</p>
-            <p>Such kinds should given one of the following conformances:</p>
-            <ul>
-            <li>
-            <p><code class="inlinecode">conforms-to: UNDERSTANDABLE_VALUE_TY</code> if we can give them both a <code class="inlinecode">understand-function</code> and a <code class="inlinecode">say-function</code>;</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">conforms-to: SAYABLE_VALUE_TY</code> if we can give them a <code class="inlinecode">say-function</code> but not a <code class="inlinecode">understand-function</code>;</p>
-            </li>
-            <li>
-            <p><code class="inlinecode">conforms-to: STORED_VALUE_TY</code> if not even that.</p>
-            </li>
-            </ul>
-            <p>For example, <code class="inlinesourcetext">action name</code>, which is defined by a Neptune file in <code class="inlinecode">WorldModelKit</code>, conforms to <code class="inlinecode">SAYABLE_VALUE_TY</code>. This is why action names can be said, but cannot be understood in players' commands.</p>
-            <p>As it happens, <code class="inlinesourcetext">action name</code> is an example of a kind which, even though it doesn't conform to <code class="inlinecode">ENUMERATED_VALUE_TY</code>, <em>does</em> have a finite range of values. We want Inform to be able to take advantage of this, because that means that <code class="inlinesourcetext">number of action names</code>, <code class="inlinesourcetext">list of action names</code> and so on can work. The Neptune file defining <code class="inlinesourcetext">action name</code> therefore contains this unlovely line:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Links and cross-references" -->
+            <!-- SEARCH SECTION "32.9" -->
+            <!-- SEARCH SORT "001-032-009-000" -->
+            <h3><span>Section 32.9: Links and cross-references</span></h3>
+            <p> </p>
+            <p>The standard Markdown syntax <code class="inlinecode">[Label]</code> or <code class="inlinecode">[this is a link][Label]</code> makes a link where the destination is referred to by a label, rather than given explicitly. In traditional Markdown, that label can then be <em>defined</em> like so:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">loop-domain-schema: for (*2=0,*1=ActionNumberIndexed(*2): *2&lt;AD_RECORDS: *2++,*1=ActionNumberIndexed(*2))</span><br></code></pre></div>
-            <p>This is essentially a prototype of how to write a loop over all valid values of <code class="inlinesourcetext">action name</code>, written in what is nearly I6 notation, except that <code class="inlinecode">*1</code> and <code class="inlinecode">*2</code> represent two loop variables available to manage the iteration, with the actual value stored in <code class="inlinecode">*1</code>. What the above means is that Inform can access the valid values of <code class="inlinesourcetext">action name</code> as</p>
+                <pre><code class="language-code">See [CommonMark] for more on this.<br><br>[CommonMark]: https://commonmark.org &quot;The CommonMark specification&quot;<br></code></pre></div>
+            <p>And this would work fine in Inform's Markdown too, but it's not very helpful
+            when what we want is to make an internal cross-reference. Suppose we want a
+            link to Chapter 2 of the current document: we can't say what the URL for that
+            is because we don't know exactly how Inform will choose to store the HTML.</p>
+            <p>Because of that, the dictionary of labels for links is pre-populated by Inform
+            so that it automatically contains the names of all Chapters and Sections in
+            the current document, and also all Examples. So for example:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">ActionNumberIndexed(0)</span><br><span class="syntaxidentifier">ActionNumberIndexed(1)</span><br><span class="syntaxidentifier">ActionNumberIndexed(2)</span><br><span class="syntaxidentifier">...</span><br><span class="syntaxidentifier">ActionNumberIndexed(AD_RECORDS - 1)</span><br></code></pre></div>
-            <p>where <code class="inlinecode">ActionNumberIndexed</code> is a function (compiled as it happens by the Inform compiler directly), and <code class="inlinecode">AD_RECORDS</code> is a constant. But the details are unimportant: the point is that any kind can be given its own mechanism for looping through values. For example,</p>
+                <pre><code class="language-code">See [Perforations] and also [Embossing]. The example [The Red Mercury]<br>shows how to implement Austrian rarities.<br></code></pre></div>
+            <p>...would all work automatically provided that the extension documentation
+            contains a chapter called &quot;Perforations&quot;, a section called &quot;Embossing&quot; and
+            an example &quot;The Red Mercury&quot;.</p>
+            <p>For accessibility reasons, we recommend that all links be written directly, that is, where the link text is the same as the destination label, like this:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">loop-domain-schema: for (*2=1,*1=ArrayOfGadgetValues--&gt;*2: *2&lt;=ArrayOfGadgetValues--&gt;0: *2++,*1=ArrayOfGadgetValues--&gt;*2)</span><br></code></pre></div>
-            <p>would go through the values stored in an I6 table array like this one:</p>
+                <pre><code class="language-code">See the example [The Red Mercury] for how to implement Austrian rarities.<br></code></pre></div>
+            <p>rather than:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Array ArrayOfGadgetValues --&gt; 5 10 20 30 40 50;</span><br></code></pre></div>
-            <p>But of course if the values were really so regular, then this would also do it:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">loop-domain-schema: for (*1 = 10: *1 &lt;= 50: *1 = *1 + 10)</span><br></code></pre></div>
-            <h4><span>Kinds of object</span></h4>
-            <p>In general, Neptune cannot define kinds of object.</p>
-            <p>But it does support one feature allowing those to be tweaked, though the feature is intentionally limited and should be used as little as possible. Suppose, for nefarious reasons of our own, we need to assign virtual machine attributes or properties — these do not quite correspond to Inform properties, but the concepts all overlap — to objects at run-time; but we don't want the Inform compiler to do this higher up, through assertions in the source text in the regular way. Inform used to have a crude feature which looked like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> (-</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">enterable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">supporter</span><span class="syntaxplain">,</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">max_capacity</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">,</span>
-            <br>
-            <span class="syntaxplain">-) </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rideable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">animal</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>That is no longer allowed. All forms of <code class="inlinesourcetext">Include (- ... -)</code> are on the way out (kits are a better solution all round), but this one has already gone.</p>
-            <p>But its functionality can be replicated by placing this declaration in a Neptune file in the kit in question:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">properties of rideable animal {</span><br><span class="syntaxidentifier">    attribute: enterable</span><br><span class="syntaxidentifier">    attribute: supporter</span><br><span class="syntaxidentifier">    property: max_capacity = 10</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>Note that the kind named must be a valid kind of <code class="inlinesourcetext">object</code> (though it can be one with no instances), and can give the name either in the singular or the plural. Inside this declaration, only the following are allowed:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">    attribute: ATTRIBUTENAME</span><br><span class="syntaxidentifier">    attribute: ~ATTRIBUTENAME</span><br><span class="syntaxidentifier">    property: PROPERTYNAME</span><br><span class="syntaxidentifier">    property: PROPERTYNAME = NUMBER</span><br></code></pre></div>
-            <p>The syntax <code class="inlinecode">~ATTRIBUTENAME</code> means the attribute is set to <code class="inlinecode">false</code>, not <code class="inlinecode">true</code>; this is traditional Inform 6 notation. The short form <code class="inlinecode">property: PROPERTYNAME</code> means <code class="inlinecode">property: PROPERTYNAME = 0</code>.</p>
+                <pre><code class="language-code">See the example [of rarities](The Red Mercury) for more on Austria.<br></code></pre></div>
+            <p>because although this would work fine for sighted users, displaying &quot;See the example of rarities for more on Austria&quot; but with the words &quot;of rarities&quot; linked, screen-readers display such links in a confusing way.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_8.html"><span class="markdowncontent">Section 32.8: Neptune and arithmetic kinds</span></a> &bull; <a href="WI_32_10.html"><span class="markdowncontent">Section 32.10: Pointer-value kinds</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_8.html"><span class="markdowncontent">Section 32.8: Lists and to-do items</span></a> &bull; <a href="WI_32_10.html"><span class="markdowncontent">Section 32.10: Images in documentation</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

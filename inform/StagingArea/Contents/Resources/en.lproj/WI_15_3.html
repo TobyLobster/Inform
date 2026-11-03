@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,66 +2212,78 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "More on adapting verbs" -->
+            <!-- SEARCH SECTION "15.3" -->
+            <!-- SEARCH SORT "001-015-003-000" -->
             <h3><span>Section 15.3: More on adapting verbs</span></h3>
             <p>     </p>
             <p>If we need an adaptive message with a verb which doesn't belong to Inform's built-in set, all we need do is define it. In the previous chapter, <a href="WI_14_1.html" title="Chapter 14: Relations">Relations</a> we defined verbs by giving them meanings, but in fact that's optional. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">retrofit</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code962" -->
+            <blockquote class="extract-inform7"><a id="code962"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">retrofit</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">verb</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>defines a verb without telling Inform what it means. Inform will throw a Problem message if we try to write text like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Flash</span><span class="syntaxplain"> </span><span class="syntaxidentifier">retrofits</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meteor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beam</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code963" -->
+            <blockquote class="extract-inform7"><a id="code963"></a><span class="indexdullblue"><span class="identifier-syntax">Flash</span><span class="plain-syntax"> </span><span class="identifier-syntax">retrofits</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">meteor</span><span class="plain-syntax"> </span><span class="identifier-syntax">beam</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>because, after all, it doesn't know what <code class="inlinesourcetext">retrofit</code> means. But it does still know how to print it, so this works:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[retrofit]</span><span class="syntaxstring"> the Mecha-Mole.&quot;</span>
+            <!-- START CODE "code964" -->
+            <blockquote class="extract-inform7"><a id="code964"></a><span class="indexdullblue"><span class="string-syntax">&quot;[The actor] [retrofit] the Mecha-Mole.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which might come out as <code class="inlinetranscript">Dale retrofits the Mecha-Mole</code>, or <code class="inlinetranscript">Barin's archers retrofitted the Mecha-Mole</code>, and so on.</p>
             <p>This is especially neat for writing a single response to an action which works regardless of who the actor was. For example, the Standard Rules include:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The actor]</span><span class="syntaxstring"> </span><span class="syntaxextract">[put]</span><span class="syntaxstring"> </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring"> on </span><span class="syntaxextract">[the second noun]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code965" -->
+            <blockquote class="extract-inform7"><a id="code965"></a><span class="indexdullblue"><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The actor] [put] [the noun] on [the second noun].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And this can make either:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">You put the Bill-signing pen on the table.</span><br><span class="syntaxidentifier">President Obama puts the Bill-signing pen on the table.</span><br></code></pre></div>
+                <pre><code class="language-transcript">You put the Bill-signing pen on the table.<br>President Obama puts the Bill-signing pen on the table.<br></code></pre></div>
             <p>Only a single-word verb can be used for adaptive text. If we create the verb <code class="inlinesourcetext">to run amok in</code>, then <code class="inlinesourcetext">&quot;[The noun] [run amok in] the Furnace Room.&quot;</code> will not be allowed. The trick would be to create <code class="inlinesourcetext">To run is a verb.</code>, and then use <code class="inlinesourcetext">&quot;[The noun] [run] amok in the Furnace Room.&quot;</code></p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg263><a style="text-decoration: none" href="eg_263.html"><span class="extensionexampleletter">263</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_263.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fun with Participles</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating dynamic room descriptions that contain sentences such as &quot;Clark is here, wasting time&quot; or &quot;Clark is here, looking around&quot; depending on Clark's idle activity.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg263><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg264><a style="text-decoration: none" href="eg_264.html"><span class="extensionexampleletter">264</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_264.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to display some randomised variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg264><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg265><a style="text-decoration: none" href="eg_265.html"><span class="extensionexampleletter">265</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_265.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">This builds on the Variety example to add responses such as &quot;You are now carrying the fedora&quot; that describe relations that result from a given verb, as alternate responses.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg265><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg266><a style="text-decoration: none" href="eg_266.html"><span class="extensionexampleletter">266</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_266.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fun with Participles</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Creating dynamic room descriptions that contain sentences such as &quot;Clark is here, wasting time&quot; or &quot;Clark is here, looking around&quot; depending on Clark's idle activity.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_266.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Narrative Register</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg266><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg267><a style="text-decoration: none" href="eg_267.html"><span class="extensionexampleletter">267</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_267.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to display some randomised variety. We could do this by laboriously rewriting all of the response texts, but this example demonstrates an alternative.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg267><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg268><a style="text-decoration: none" href="eg_268.html"><span class="extensionexampleletter">268</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_268.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Variety 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">This builds on the Variety example to add responses such as &quot;You are now carrying the fedora&quot; that describe relations that result from a given verb, as alternate responses.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg268><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg269><a style="text-decoration: none" href="eg_269.html"><span class="extensionexampleletter">269</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_269.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Narrative Register</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Suppose we want all of our action responses to vary depending on some alterable quality of the narrator, so that sometimes they're slangy, sometimes pompous or archaic.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg269><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_2.html"><span class="markdowncontent">Section 15.2: Adaptive text</span></a> &bull; <a href="WI_15_4.html"><span class="markdowncontent">Section 15.4: Adapting text about the player</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

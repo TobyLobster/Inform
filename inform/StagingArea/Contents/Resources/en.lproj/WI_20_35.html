@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,138 +2212,176 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Reading a command" -->
+            <!-- SEARCH SECTION "20.35" -->
+            <!-- SEARCH SORT "001-020-035-000" -->
             <h3><span>Section 20.35: Reading a command</span></h3>
-            <p>         </p>
+            <p>           </p>
             <p><strong>1. When it happens.</strong> When reading a command from the keyboard.</p>
             <p><strong>2. The default behaviour.</strong> Print the prompt text; wait for the player to type something and press return. Reject an entirely blank line, and treat a command beginning <code class="inlinetranscriptcommand">oops</code> as a correction to the previous one. This is a fairly complicated business, so it is probably best not to change the <code class="inlinesourcetext">for</code> rules for this activity: <code class="inlinesourcetext">before</code>, and especially <code class="inlinesourcetext">after</code>, are another matter. (Note, however, that if Inform does reject a blank line and ask for another then this all happens inside the <code class="inlinesourcetext">for</code> rules: no <code class="inlinesourcetext">after</code> occurs after the blank line, nor does a <code class="inlinesourcetext">before</code> happen before the second attempt by the player. It is all a single round of the activity, not two.)</p>
             <p><strong>3. Examples.</strong> (a) To lead absolute beginners in gently:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(This is your chance to say what the protagonist should do next. After the '&gt;', try typing 'take inventory'.)&quot;</span>
+            <!-- START CODE "code1405" -->
+            <blockquote class="extract-inform7"><a id="code1405"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">count</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;(This is your chance to say what the protagonist should do next. After the '&gt;', try typing 'take inventory'.)&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(b) The following responds politely but firmly if the player tries to type <code class="inlinetranscriptcommand">please look</code>, say, instead of just <code class="inlinetranscriptcommand">look</code>:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Please do not say please.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1406" -->
+            <blockquote class="extract-inform7"><a id="code1406"></a><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]Please do not say please.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]reject the player[=0x0027=]s command.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;please&quot;</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;please&quot;</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Please do not say please.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Please do not say please.&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">reject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">reject</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>To explain. Fragments of what the player has typed are called snippets: <code class="inlinesourcetext">the player's command</code> is the entire thing. We can test if a snippet matches a given pattern like so:</p>
             <div class="definition">
-                <p class="defnprototype">if (snippet) matches (topic):</p>
+                <!-- START PHRASE "defn316" -->
+                <p class="defnprototype"><a id="defn316"></a>if (snippet) matches (topic):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the given snippet exactly matches the specification. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;room </span><span class="syntaxextract">[number]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1407" -->
+                <blockquote class="extract-inform7"><a id="code1407"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;room [number]&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>will be true if the command is <code class="inlinetranscriptcommand">room 101</code>, but not if it's <code class="inlinetranscriptcommand">explore room 7</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (snippet) does not match (topic):</p>
+                <!-- START PHRASE "defn317" -->
+                <p class="defnprototype"><a id="defn317"></a>if (snippet) does not match (topic):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the given snippet does not exactly match the specification.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (snippet) includes (topic):</p>
+                <!-- START PHRASE "defn318" -->
+                <p class="defnprototype"><a id="defn318"></a>if (snippet) includes (topic):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the given snippet includes words matching the specification, either at the beginning, in the middle, or at the end. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;room </span><span class="syntaxextract">[number]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">, ...</span>
+                <!-- START CODE "code1408" -->
+                <blockquote class="extract-inform7"><a id="code1408"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;room [number]&quot;</span><span class="plain-syntax">, ...</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>will be true if the command is <code class="inlinetranscriptcommand">room 101</code>, <code class="inlinetranscriptcommand">explore room 7</code>, or <code class="inlinetranscriptcommand">room 22 ahoy</code>, but not if it's <code class="inlinetranscriptcommand">visit room gamma 7</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">if (snippet) does not include (topic):</p>
+                <!-- START PHRASE "defn319" -->
+                <p class="defnprototype"><a id="defn319"></a>if (snippet) does not include (topic):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the given snippet does not include any run of words which matches the specification.</p>
             </div>
             <p>Lastly, we took drastic action with another new phrase:</p>
             <div class="definition">
-                <p class="defnprototype">reject the/-- player's command</p>
+                <!-- START PHRASE "defn320" -->
+                <p class="defnprototype"><a id="defn320"></a>reject the/-- player's command</p>
+                <!-- END PHRASE -->
                 <p>This phrase should be used only in rules for the <code class="inlinesourcetext">reading a command</code> activity. It tells Inform not to bother analysing the text further, but to go back to the keyboard. (No time passes; no turn elapses; nothing happens in the simulated world.)</p>
             </div>
             <p>(c) An improved version takes commands like <code class="inlinetranscriptcommand">please drop the coin</code> and strips <code class="inlinetranscriptcommand">please</code> from them, but then allows them to proceed normally:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Quelle politesse! But no need to say please.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]cut the matched text.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1409" -->
+            <blockquote class="extract-inform7"><a id="code1409"></a><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command includes [=0x0022=]please[=0x0022=]:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=](Quelle politesse! But no need to say please.)[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]cut the matched text.[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;please&quot;</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;please&quot;</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;(Quelle politesse! But no need to say please.)&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;(Quelle politesse! But no need to say please.)&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">cut</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">cut</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Matched text</code> is a snippet containing the words which matched against the pattern in the most recent <code class="inlinesourcetext">includes</code> condition, so in this case it contains just the single word <code class="inlinetranscriptcommand">please</code>. Two phrases allow snippets to be altered:</p>
             <div class="definition">
-                <p class="defnprototype">replace (snippet) with (text)</p>
+                <!-- START PHRASE "defn321" -->
+                <p class="defnprototype"><a id="defn321"></a>replace (snippet) with (text)</p>
+                <!-- END PHRASE -->
                 <p>This phrase should be used only in <code class="inlinesourcetext">after</code> rules for the <code class="inlinesourcetext">reading a command</code> activity; it replaces the snippet of command, usually the <code class="inlinesourcetext">matched text</code> found immediately before, with the given text. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;room </span><span class="syntaxextract">[number]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1410" -->
+                <blockquote class="extract-inform7"><a id="code1410"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;room [number]&quot;</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">replace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;office&quot;</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;office&quot;</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">cut (snippet)</p>
+                <!-- START PHRASE "defn322" -->
+                <p class="defnprototype"><a id="defn322"></a>cut (snippet)</p>
+                <!-- END PHRASE -->
                 <p>This phrase should be used only in <code class="inlinesourcetext">after</code> rules for the <code class="inlinesourcetext">reading a command</code> activity; it removes the snippet of command. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">includes</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;or else&quot;</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1411" -->
+                <blockquote class="extract-inform7"><a id="code1411"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">includes</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;or else&quot;</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">cut</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matched</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">cut</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">matched</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Note that <code class="inlinesourcetext">replace</code> and <code class="inlinesourcetext">cut</code> can only be used in <code class="inlinesourcetext">after reading a command</code> rules: not when an action has been chosen and has gone ahead into its rulebooks. Once the <code class="inlinesourcetext">reading a command</code> activity has finished, the command is final.</p>
             <p>(d) To make the word <code class="inlinetranscriptcommand">grab</code> an abbreviation for <code class="inlinetranscriptcommand">take all</code>:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=]grab[=0x0022=], replace the player[=0x0027=]s command with [=0x0022=]take all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code1412" -->
+            <blockquote class="extract-inform7"><a id="code1412"></a><a class="actionlink" href="javascript:pasteCode('After reading a command:[=0x000A=][=0x0009=]if the player[=0x0027=]s command matches [=0x0022=]grab[=0x0022=], replace the player[=0x0027=]s command with [=0x0022=]take all[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;grab&quot;</span><span class="syntaxplain">, </span><span class="syntaxidentifier">replace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;take all&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;grab&quot;</span><span class="plain-syntax">, </span><span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;take all&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(<code class="inlinesourcetext">Snippet</code> is actually a kind of value, so we could say <code class="inlinesourcetext">&quot;Ah, you typed '[the player's command]'!&quot;</code> or some such if we liked. But in practice only three snippets are likely to be useful: the two mentioned above, <code class="inlinesourcetext">player's command</code> and <code class="inlinesourcetext">matched text</code>, and the <code class="inlinesourcetext">topic understood</code>, used when matching the <code class="inlinesourcetext">&quot;[text]&quot;</code> token in command grammar.)</p>
             <p>(e) Finally, we can make still more detailed alterations to the text of the command using the techniques presented in the chapter on <a href="WI_22_1.html" title="Chapter 22: Advanced Text">Advanced Text</a>. For instance:</p>
             <div class="definition">
-                <p class="defnprototype">change the text of the/-- player's command to (text)</p>
+                <!-- START PHRASE "defn323" -->
+                <p class="defnprototype"><a id="defn323"></a>change the text of the/-- player's command to (text)</p>
+                <!-- END PHRASE -->
                 <p>This phrase should be used only in <code class="inlinesourcetext">after</code> rules for the <code class="inlinesourcetext">reading a command</code> activity; it replaces the current command text entirely. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">reading</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain">:</span>
+                <!-- START CODE "code1413" -->
+                <blockquote class="extract-inform7"><a id="code1413"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">reading</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax">:</span>
                 <br>
-                <span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[the player's command]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[the player's command]&quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">replace</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">regular</span><span class="syntaxplain"> </span><span class="syntaxidentifier">expression</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;\p&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">replace</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">regular</span><span class="plain-syntax"> </span><span class="identifier-syntax">expression</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;\p&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;&quot;</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">change</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">text</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">'</span><span class="syntaxidentifier">s</span><span class="syntaxplain"> </span><span class="syntaxidentifier">command</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">change</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">'</span><span class="identifier-syntax">s</span><span class="plain-syntax"> </span><span class="identifier-syntax">command</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This converts the player's command to text, which is then manipulated by searching for any punctuation mark and replacing it with blank text (that is, deleted), and then put back again as the new command.</p>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg399><a style="text-decoration: none" href="eg_399.html"><span class="extensionexampleletter">399</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_399.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloves</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Accepting adverbs anywhere in a command, registering what the player typed but then cutting them out before interpreting the command.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg399><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg400><a style="text-decoration: none" href="eg_400.html"><span class="extensionexampleletter">400</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_400.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fragment of a Greek Tragedy</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Responding to the player's input based on keywords only, and overriding the original parser entirely.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg400><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg401><a style="text-decoration: none" href="eg_401.html"><span class="extensionexampleletter">401</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_401.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">North by Northwest</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating additional compass directions between those that already exist (for instance, <code class="inlinetranscriptcommand">nnw</code>) -- and dealing with an awkwardness that arises when the player tries to type <code class="inlinetranscriptcommand">north-northwest</code>. The example demonstrates a way around the default nine-character limit on parsed words.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg401><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg402><a style="text-decoration: none" href="eg_402.html"><span class="extensionexampleletter">402</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_402.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cloves</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Accepting adverbs anywhere in a command, registering what the player typed but then cutting them out before interpreting the command.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg402><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg403><a style="text-decoration: none" href="eg_403.html"><span class="extensionexampleletter">403</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_403.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fragment of a Greek Tragedy</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Responding to the player's input based on keywords only, and overriding the original parser entirely.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg403><a style="text-decoration: none" href="RB_6_18.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg404><a style="text-decoration: none" href="eg_404.html"><span class="extensionexampleletter">404</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_404.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">North by Northwest</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Creating additional compass directions between those that already exist (for instance, <code class="inlinetranscriptcommand">nnw</code>) -- and dealing with an awkwardness that arises when the player tries to type <code class="inlinetranscriptcommand">north-northwest</code>. The example demonstrates a way around the default nine-character limit on parsed words.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg404><a style="text-decoration: none" href="RB_2_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg405><a style="text-decoration: none" href="eg_405.html"><span class="extensionexampleletter">405</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_405.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Complimentary Peanuts</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_402.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Complimentary Peanuts</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A character who responds to keywords in the player's instructions and remarks, even if there are other words included.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg405><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg402><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_34.html"><span class="markdowncontent">Section 20.34: Supplying a missing noun/second noun</span></a> &bull; <a href="WI_20_36.html"><span class="markdowncontent">Section 20.36: Implicitly taking something</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

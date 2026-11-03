@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.2: Adding a kit to an extension</span></title>
+    <title><span class="markdowncontent">Section 32.2: Headings and organisation</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.2: Adding a kit to an extension</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.2: Headings and organisation</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,65 +2212,34 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.2: Adding a kit to an extension</span></h3>
-            <p>Suppose the extension <code class="inlinesourcetext">Roots of Equations by Peter Drake</code> wants to perform some mathematical algorithms which will be coded in I6. We will do this by placing the I6 material in <code class="inlinecode">RootsOfEquationsKit</code>, which will live inside the extension like so:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Headings and organisation" -->
+            <!-- SEARCH SECTION "32.2" -->
+            <!-- SEARCH SORT "001-032-002-000" -->
+            <h3><span>Section 32.2: Headings and organisation</span></h3>
+            <p> </p>
+            <p>The Markdown notation for headings looks like so:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Ducking Action-v1.i7xd</span><br><span class="syntaxidentifier">    extension_metadata.json</span><br><span class="syntaxidentifier">    Materials</span><br><span class="syntaxidentifier">        Inter</span><br><span class="syntaxidentifier">            RootsOfEquationsKit</span><br><span class="syntaxidentifier">                ...</span><br><span class="syntaxidentifier">    Source</span><br><span class="syntaxidentifier">        Ducking Action.i7x</span><br></code></pre></div>
-            <p>All kits have to have names ending in <code class="inlinesourcetext">Kit</code>, and by convention if an extension contains a single kit then its name is the extension title in camel-casing with the spaces removed and <code class="inlinesourcetext">Kit</code> suffixed. So <code class="inlinesourcetext">Roots of Equations</code> becomes <code class="inlinecode">RootsOfEquationsKit</code>.</p>
-            <p>Note that kits live inside the <code class="inlinesourcetext">Inter</code> subdirectory of the <code class="inlinesourcetext">Materials</code> directory private to the extension. See <a href="WI_29_14.html" title="Section 29.14: Images and other resources">Images and other resources</a> for more on <code class="inlinesourcetext">Materials</code>, which can also include all manner of other good things.</p>
-            <p><code class="inlinecode">RootsOfEquationsKit</code> is itself a directory, which looks like this:</p>
+                <pre><code class="language-code"># Chapter Heading<br><br>## Section heading<br><br>### Subheading within a section<br></code></pre></div>
+            <p>Technically there can be up to six <code class="inlinecode">#</code> characters, for progressively less important headings, but for Inform documentation we stop at three.</p>
+            <p>By default, Inform places each chapter on its own web page. Small extensions with little to document therefore often use only section headings, and then all of the documentation fits on a single page.</p>
+            <p>By convention, the first section heading is an introduction, like so:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">RootsOfEquationsKit</span><br><span class="syntaxidentifier">    Contents.w</span><br><span class="syntaxidentifier">    kit_metadata.json</span><br><span class="syntaxidentifier">    Sections</span><br><span class="syntaxidentifier">        Roots.w</span><br></code></pre></div>
-            <p>The actual I6 source for the kit code is in the file <code class="inlinesourcetext">Roots.w</code>, but before we can get to that, we have to do some book-keeping.</p>
-            <ol>
-            <li>
-            <p>The <code class="inlinesourcetext">Contents.w</code> file doesn't look very interesting at first because there's only one source file, <code class="inlinesourcetext">Roots.w</code>, so this is currently like a contents page for a book with only one chapter:</p>
+                <pre><code class="language-code">### Introduction<br><br>The &quot;Philately&quot; extension provides ways to manage stamp collections.<br>Contact stampbuff1837@gmail.com with any bug reports.<br><br>_Compatibility_. Although &quot;Philately&quot; is compatible with either<br>the Z-machine or Glulx settings, it can only display stamp images<br>under Glulx.<br></code></pre></div>
+            <p>Customarily, the introduction ends with a note on compatibility if there's anything like that which the user should know.</p>
+            <p>Chapter and Section headings can also be written with &quot;setext underlining&quot;, or in the traditional Inform extension notation. So the following are all equivalent:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Title: RootsOfEquationsKit</span><br><span class="syntaxidentifier">Author: Peter Drake</span><br><span class="syntaxidentifier">Purpose: Some Newton-Raphson approximation functions.</span><br><span class="syntaxidentifier">Language: Inform 6</span><br><br><span class="syntaxidentifier">Sections</span><br><span class="syntaxidentifier">    Roots</span><br></code></pre></div>
-            </li>
-            <li>
-            <p>There must also be a <code class="inlinesourcetext">kit_metadata.json</code> file:</p>
+                <pre><code class="language-code"># Perforations<br><br>Perforations<br>============<br><br>Chapter: Perforations<br></code></pre></div>
+            <p>And similarly:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;RootsOfEquationsKit&quot;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>This should look very similar to the <code class="inlinesourcetext">extension_metadata.json</code> file found in extensions, and indeed it has a great deal in common, though as we shall see it can be considerably extended.</p>
-            <p>Although it's legal for a kit's metadata to supply a <code class="inlinesourcetext">&quot;version&quot;</code>, there is no need. A kit which is being distributed inside an extension has a public-facing version of its own: its functionality is part of the extension's offer to the world, so it is all under the wrapper extension's version number.</p>
-            </li>
-            </ol>
-            <p>Why are there two files like this, not one, given that both are basically descriptions of what the kit is? One answer is that they actually serve different purposes: <code class="inlinesourcetext">Contents.w</code> describes the <em>source code</em> for the kit, whereas <code class="inlinesourcetext">kit_metadata.json</code> describes the resulting compiled kit.</p>
-            <p>The other is that kits are designed to be compatible with the <code class="inlinecode">inweb</code> system for &quot;literate programming&quot;. This is how it is that annotated forms of the source for <code class="inlinecode">BasicInformKit</code> and <code class="inlinecode">WorldModelKit</code>, for example, are hosted at the Inform source code website.</p>
-            <p>So-called <em>section files</em> also have a marked-up format suitable for <code class="inlinecode">inweb</code>. (The <code class="inlinecode">.w</code> at the end of the two filenames <code class="inlinecode">Contents.w</code> and <code class="inlinecode">Roots.w</code> means &quot;web&quot;.)</p>
-            <p>Here is a minimal but legal form for <code class="inlinecode">Roots.w</code>:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Roots</span><br><br><span class="syntaxidentifier">Some functions for finding roots of polynomials by Newton-Raphson approximation.</span><br><br><span class="syntaxidentifier">@ Just one placeholder for now:</span><br><br><span class="syntaxidentifier">=</span><br><span class="syntaxidentifier">[ EvaluatePolynomial f x;</span><br><span class="syntaxidentifier">    print &quot;Not implemented yet.^&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>Web files begin with a line giving the title of the section — here, <code class="inlinecode">Root</code> — then skip a line, and give a sentence or two describing the content in slightly more detail. After that, they are a sequence of &quot;paragraphs&quot;. Each paragraph begins with an <code class="inlinecode">@</code> character on the left margin. There's then space for some commentary about what is coming up: authors usually use this space to document calling conventions for functions, or say why they work they way they do.</p>
-            <p>There is then a line with an <code class="inlinecode">=</code> character on the left margin. After that, the rest of the paragraph is I6 code. So the actual content of the above section, once all the annotations are peeled off, is just this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ EvaluatePolynomial f x;</span><br><span class="syntaxidentifier">    print &quot;Not implemented yet.^&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>In other words, the kit — which is now complete — provides just a single function.</p>
-            <p>We can now use it. As established, <code class="inlinecode">RootsOfEquationsKit</code> is sitting inside the extension <code class="inlinesourcetext">Roots of Equations by Peter Drake</code>. We call this the <em>wrapper extension</em> for the kit. That extension might now contain this phrase definition:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">evaluation</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">polynomial</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain">) </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">x</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">real</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">EvaluatePolynomial</span><span class="syntaxplain">({</span><span class="syntaxidentifier">polynomial</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">x</span><span class="syntaxplain">})) -).</span>
-            </span></blockquote>
-            <p>If we then run a test project which includes the extension, and if we are looking carefully, we might notice this message scroll by on the console:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">(Building RootsOfEquationsKit for architecture 16)</span><br><span class="syntaxidentifier">(Building RootsOfEquationsKit for architecture 16d)</span><br><span class="syntaxidentifier">(Building RootsOfEquationsKit for architecture 32)</span><br><span class="syntaxidentifier">(Building RootsOfEquationsKit for architecture 32d)</span><br></code></pre></div>
-            <p>This is because Inform can only use <code class="inlinecode">RootsOfEquationsKit</code> once it has been built (i.e., compiled): and since Inform could see the source code for the kit, it went ahead and built the thing. Inform builds kits only when necessary. If the timestamp on the source code files is later than that of the built form of the kit, then Inform assumes the source code has been changed since the last time the kit was built, so it rebuilds. Otherwise, if the kit source remains unchanged, Inform won't build the kit again.</p>
-            <p>In fact, it builds the kit not once but four times, once for each possible architecture the kit will run on. (Once built, a kit is what is sometimes called a &quot;fat binary&quot;, in that it contains multiple different compiled versions in one.) <code class="inlinecode">16</code> and <code class="inlinecode">32</code> refer to the 16-bit and 32-bit versions used on Z-machine and Glulx respectively, and <code class="inlinecode">16d</code> and <code class="inlinecode">32d</code> the same but with debugging features enabled — in effect, not-for-release features. By default, in the app, a project will use the <code class="inlinecode">32d</code> architecture, and then when released, the <code class="inlinecode">32</code> architecture. Inform handles all of this automatically.</p>
-            <p>If we look back at the directory, we see that more files have appeared:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">RootsOfEquationsKit</span><br><span class="syntaxidentifier">    arch-16.interb</span><br><span class="syntaxidentifier">    arch-16d.interb</span><br><span class="syntaxidentifier">    arch-32.interb</span><br><span class="syntaxidentifier">    arch-32d.interb</span><br><span class="syntaxidentifier">    Contents.w</span><br><span class="syntaxidentifier">    kit_metadata.json</span><br><span class="syntaxidentifier">    Sections</span><br><span class="syntaxidentifier">        Roots.w</span><br></code></pre></div>
-            <p>The <code class="inlinecode">.interb</code> filename endings mean &quot;Inter binary code&quot;, and there's one for each architecture.</p>
-            <p>Something else happened on that first run: the <code class="inlinesourcetext">extension_metadata.json</code> file for the wrapper extension was quietly rewritten. It now includes a <em>dependency</em> of the extension on the kit:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">{</span><br><span class="syntaxidentifier">    &quot;is&quot;: {</span><br><span class="syntaxidentifier">        &quot;type&quot;: &quot;extension&quot;,</span><br><span class="syntaxidentifier">        &quot;title&quot;: &quot;Roots of Equations&quot;,</span><br><span class="syntaxidentifier">        &quot;author&quot;: &quot;Peter Drake&quot;,</span><br><span class="syntaxidentifier">        &quot;version&quot;: &quot;1&quot;</span><br><span class="syntaxidentifier">    },</span><br><span class="syntaxidentifier">    &quot;needs&quot;: [ {</span><br><span class="syntaxidentifier">        &quot;need&quot;: {</span><br><span class="syntaxidentifier">            &quot;type&quot;: &quot;kit&quot;,</span><br><span class="syntaxidentifier">            &quot;title&quot;: &quot;RootsOfEquationsKit&quot;</span><br><span class="syntaxidentifier">        }</span><br><span class="syntaxidentifier">    } ]</span><br><span class="syntaxidentifier">}</span><br></code></pre></div>
-            <p>This tracking goes on automatically and authors can usually just let it happen all by itself, but if we decided against the kit after all and removed it from the extension, then this dependency would have to be removed from <code class="inlinesourcetext">extension_metadata.json</code> before the extension would work again.</p>
-            <p>The full set of features of <code class="inlinecode">inweb</code> is extensive and this is not the place to go into that. In brief, though, kit section files like <code class="inlinecode">Roots.w</code> can't use any of the interesting tangling features (such as <code class="inlinecode">@d</code>, or <code class="inlinecode">@&lt; ... &gt;@</code>); but they can use all the weaving features. Inform users don't need to have <code class="inlinecode">inweb</code> in order to write or use kits, and don't need to understand what the last sentence said.</p>
+                <pre><code class="language-code">## Embossing<br><br>Embossing<br>---------<br><br>Section: Embossing<br></code></pre></div>
+            <p>But as style guidance, we now prefer <code class="inlinecode">#</code> and <code class="inlinecode">##</code>.</p>
+            <p>A small technical caveat: Inform-flavoured Markdown does not allow level 1 (Chapter) or level 2 (Section) headings to be used inside block quotes or list items. This is because it seems madness to break the page at those positions; CommonMark does allow this, but it's hard to imagine why.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_1.html"><span class="markdowncontent">Chapter 32: Kits</span></a> &bull; <a href="WI_32_3.html"><span class="markdowncontent">Section 32.3: Compatibility of kits</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_1.html"><span class="markdowncontent">Chapter 32: Extension Documentation and Testing</span></a> &bull; <a href="WI_32_3.html"><span class="markdowncontent">Section 32.3: Textual effects and short code samples</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

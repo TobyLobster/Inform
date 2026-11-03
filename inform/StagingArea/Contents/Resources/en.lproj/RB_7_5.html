@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,88 +2212,94 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Combat and Death" -->
+            <!-- SEARCH SECTION "7.5" -->
+            <!-- SEARCH SORT "002-007-005-000" -->
             <h3><span>Section 7.5: Combat and Death</span></h3>
             <p> 
             Not all characters are friendly, and there are times when we may want to include a fight sequence. There are a number of ways to approach this, depending on whether we want to offer the player a random outcome, a predetermined one, or a combat sequence that depends partly on strategy or on having the proper equipment.</p>
-            <p><a href="eg_136.html">Lanista 1</a> demonstrates randomised combat in the style of a role-playing game. The player has a partially random chance of doing any given amount of damage; both the player and their opponent have hit points, and whichever one runs out first dies. <a href="eg_322.html">Lanista 2</a> continues this idea, but includes weapons that affect the amount of of damage done. <a href="eg_213.html">Red Cross</a> by itself implements a command that we might use to find out how strong characters are at the moment.</p>
+            <p><a href="eg_133.html">Lanista 1</a> demonstrates randomised combat in the style of a role-playing game. The player has a partially random chance of doing any given amount of damage; both the player and their opponent have hit points, and whichever one runs out first dies. <a href="eg_319.html">Lanista 2</a> continues this idea, but includes weapons that affect the amount of of damage done. <a href="eg_210.html">Red Cross</a> by itself implements a command that we might use to find out how strong characters are at the moment.</p>
             <p>A word of warning about designing such sequences: a player who gets a roll they don't like always has the option of <code class="inlinetranscriptcommand">undo</code>-ing a turn and re-rolling. This means that they can always win a random battle sooner or later; bad luck only means that it takes them longer (so they get more bored and irritated as they play through). It is possible to turn off <code class="inlinetranscriptcommand">undo</code> implementation with</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Use</span><span class="syntaxplain"> </span><span class="syntaxidentifier">UNDO</span><span class="syntaxplain"> </span><span class="syntaxidentifier">prevention</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2108" -->
+            <blockquote class="extract-inform7"><a id="code2108"></a><span class="indexdullblue"><span class="identifier-syntax">Use</span><span class="plain-syntax"> </span><span class="identifier-syntax">UNDO</span><span class="plain-syntax"> </span><span class="identifier-syntax">prevention</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...but there is a good chance that this will irritate players in itself. Role-playing-style combat scenarios need careful design, lest they actively make a story less fun.</p>
-            <p>In a slightly more realistic setting, combat leaves physical remains behind, unless we're wielding some kind of futuristic weapon that evaporates our opponents entirely: <a href="eg_223.html">Puff of Orange Smoke</a> demonstrates characters who leave corpses behind when they die, while <a href="eg_133.html">Technological Terror</a> more tamely explodes robots into numerous component parts.</p>
-            <p>Finally, we can imagine some scenarios in which, instead of allowing characters to strike at each other for random damage, we want to introduce an element of strategy. <a href="eg_119.html">Don Pedro's Revenge</a> shows the rudiments of a system in which the characters can make different kinds of attack depending on where they are in a room filled with perches, barrels, and other swashbuckler props.</p>
+            <p>In a slightly more realistic setting, combat leaves physical remains behind, unless we're wielding some kind of futuristic weapon that evaporates our opponents entirely: <a href="eg_220.html">Puff of Orange Smoke</a> demonstrates characters who leave corpses behind when they die, while <a href="eg_130.html">Technological Terror</a> more tamely explodes robots into numerous component parts.</p>
+            <p>Finally, we can imagine some scenarios in which, instead of allowing characters to strike at each other for random damage, we want to introduce an element of strategy. <a href="eg_116.html">Don Pedro's Revenge</a> shows the rudiments of a system in which the characters can make different kinds of attack depending on where they are in a room filled with perches, barrels, and other swashbuckler props.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_11_2.html" title="Section 11.2: Saving and Undoing">Saving and Undoing</a> for more discussion of handling random behaviour in games.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg136><a style="text-decoration: none" href="eg_136.html"><span class="extensionexampleletter">136</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_136.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 1</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Very simple randomised combat in which characters hit one another for a randomised amount of damage.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg136><a style="text-decoration: none" href="WI_8_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg213><a style="text-decoration: none" href="eg_213.html"><span class="extensionexampleletter">213</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_213.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Red Cross</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">diagnose</code> command which allows the player to check on the health of someone.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg213><a style="text-decoration: none" href="WI_13_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg322><a style="text-decoration: none" href="eg_322.html"><span class="extensionexampleletter">322</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_322.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Randomised combat in which the damage done depends on what weapons the characters are wielding, and in which an <code class="inlinetranscriptcommand">attack it with</code> action is created to replace regular attacking. Also folds a new <code class="inlinetranscriptcommand">diagnose</code> command into the system.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg322><a style="text-decoration: none" href="WI_19_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg223><a style="text-decoration: none" href="eg_223.html"><span class="extensionexampleletter">223</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_223.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Puff of Orange Smoke</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A system in which every character has a body, which is left behind when the person dies; attempts to do something to the body are redirected to the person while the person is alive.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg223><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg188><a style="text-decoration: none" href="eg_188.html"><span class="extensionexampleletter">188</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_188.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shelob's Little Sister</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a combat scene where the player's success depends on their stats.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg188><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg119><a style="text-decoration: none" href="eg_119.html"><span class="extensionexampleletter">119</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_119.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Don Pedro's Revenge</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Combat scenario in which the player's footing and position changes from move to move, and the command prompt also changes to reflect that.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg119><a style="text-decoration: none" href="WI_8_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
                     <span id=eg133><a style="text-decoration: none" href="eg_133.html"><span class="extensionexampleletter">133</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_133.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Technological Terror</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_133.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 1</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Very simple randomised combat in which characters hit one another for a randomised amount of damage.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg133><a style="text-decoration: none" href="WI_8_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg210><a style="text-decoration: none" href="eg_210.html"><span class="extensionexampleletter">210</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_210.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Red Cross</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">diagnose</code> command which allows the player to check on the health of someone.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg210><a style="text-decoration: none" href="WI_13_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg319><a style="text-decoration: none" href="eg_319.html"><span class="extensionexampleletter">319</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_319.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lanista 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Randomised combat in which the damage done depends on what weapons the characters are wielding, and in which an <code class="inlinetranscriptcommand">attack it with</code> action is created to replace regular attacking. Also folds a new <code class="inlinetranscriptcommand">diagnose</code> command into the system.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg319><a style="text-decoration: none" href="WI_19_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg220><a style="text-decoration: none" href="eg_220.html"><span class="extensionexampleletter">220</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_220.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Puff of Orange Smoke</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A system in which every character has a body, which is left behind when the person dies; attempts to do something to the body are redirected to the person while the person is alive.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg220><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg185><a style="text-decoration: none" href="eg_185.html"><span class="extensionexampleletter">185</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_185.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shelob's Little Sister</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a combat scene where the player's success depends on their stats.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg185><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg116><a style="text-decoration: none" href="eg_116.html"><span class="extensionexampleletter">116</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_116.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Don Pedro's Revenge</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Combat scenario in which the player's footing and position changes from move to move, and the command prompt also changes to reflect that.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg116><a style="text-decoration: none" href="WI_8_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg130><a style="text-decoration: none" href="eg_130.html"><span class="extensionexampleletter">130</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_130.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Technological Terror</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A ray gun which destroys objects, leaving their component parts behind.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg133><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg130><a style="text-decoration: none" href="WI_8_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_7_4.html"><span class="markdowncontent">Section 7.4: Barter and Exchange</span></a> &bull; <a href="RB_7_6.html"><span class="markdowncontent">Section 7.6: Getting Started with Conversation</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

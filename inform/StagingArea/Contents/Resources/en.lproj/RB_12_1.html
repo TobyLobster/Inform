@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,23 +2212,32 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Typography" -->
+            <!-- SEARCH SECTION "12.1" -->
+            <!-- SEARCH SORT "002-012-001-000" -->
             <h2><span>Chapter 12: Typography, Layout, and Multimedia Effects</span></h2>
             <h3><span>Section 12.1: Typography</span></h3>
-            <p>     
-            Story files produced by Inform tend not to contain elaborate typographical effects. They would only distract. Like a novel, a classic work of IF is best presented in an elegant but unobtrusive font. Inform does, however, provide for italic and bold-face, and also for a typewriter-style fixed pitch of lettering:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;This is an </span><span class="syntaxextract">[italic type]</span><span class="syntaxstring">italicised</span><span class="syntaxextract">[roman type]</span><span class="syntaxstring"> word.&quot;</span>
+            <p>
+                </p>
+            <p>Story files produced by Inform tend not to contain elaborate typographical effects. They would only distract. Like a novel, a classic work of IF is best presented in an elegant but unobtrusive font. Inform does, however, provide for italic and bold-face, and also for a typewriter-style fixed pitch of lettering:</p>
+            <!-- START CODE "code2143" -->
+            <blockquote class="extract-inform7"><a id="code2143"></a><span class="indexdullblue"><span class="string-syntax">&quot;This is an [italic type]italicised[roman type] word.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;This is an </span><span class="syntaxextract">[bold type]</span><span class="syntaxstring">emboldened</span><span class="syntaxextract">[roman type]</span><span class="syntaxstring"> word.&quot;</span>
+            <span class="string-syntax">&quot;This is an [bold type]emboldened[roman type] word.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;This is a </span><span class="syntaxextract">[fixed letter spacing]</span><span class="syntaxstring">typewritten</span><span class="syntaxextract">[variable letter spacing]</span><span class="syntaxstring"> word.&quot;</span>
+            <span class="string-syntax">&quot;This is a [fixed letter spacing]typewritten[variable letter spacing] word.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Authors making very frequent use of these might like to borrow the briefer definitions in <a href="eg_479.html">Chanel Version 1</a>.</p>
             <p>A very wide range of letter-forms is normally available (and even more in quoted text), so that the writer seldom needs to not worry whether, say, a sentence like</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ticket</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Troms</span><span class="syntaxplain">ø </span><span class="syntaxidentifier">via</span><span class="syntaxplain"> Ø</span><span class="syntaxidentifier">stfold</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> Í</span><span class="syntaxidentifier">slendingab</span><span class="syntaxplain">ó</span><span class="syntaxidentifier">k</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2144" -->
+            <blockquote class="extract-inform7"><a id="code2144"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">ticket</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">Troms</span><span class="plain-syntax">ø </span><span class="identifier-syntax">via</span><span class="plain-syntax"> Ø</span><span class="identifier-syntax">stfold</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> Í</span><span class="identifier-syntax">slendingab</span><span class="plain-syntax">ó</span><span class="identifier-syntax">k</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>will work. <a href="eg_76.html">The Über-complète clavier</a> is an exhaustive test of such exotica.</p>
-            <p>Coloured type is trickier, and its availability depends on the story file format. For a Z-machine story, <a href="eg_75.html">Garibaldi 2</a> demonstrates this.</p>
-            <p>Finally, <a href="eg_2.html">Tilt 3</a> combines unusual letterforms (suit symbols) with red and black colours to render hands of cards typographically.</p>
+            <!-- END CODE -->
+            <p>will work. <a href="eg_75.html">The Über-complète clavier</a> is an exhaustive test of such exotica.</p>
+            <p>Coloured type is trickier, and its availability depends on the story file format. For a Z-machine story, <a href="eg_74.html">Garibaldi 2</a> demonstrates this.</p>
+            <p>Finally, <a href="eg_476.html">Tilt 3</a> combines unusual letterforms (suit symbols) with red and black colours to render hands of cards typographically.</p>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg479><a style="text-decoration: none" href="eg_479.html"><span class="extensionexampleletter">479</span></a></span></div>
@@ -2151,38 +2245,40 @@
                     <a style="text-decoration: none" href="eg_479.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Chanel Version 1</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Making paired italic and boldface tags like those used by HTML for web pages.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg479><a style="text-decoration: none" href="WI_31_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg479><a style="text-decoration: none" href="WI_33_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg74><a style="text-decoration: none" href="eg_74.html"><span class="extensionexampleletter">74</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_74.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding coloured text to the example of door-status readouts.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg74><a style="text-decoration: none" href="WI_5_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg476><a style="text-decoration: none" href="eg_476.html"><span class="extensionexampleletter">476</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_476.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 3</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Displaying the card suits from our deck of cards with red and black coloured unicode symbols.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg476><a style="text-decoration: none" href="WI_31_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg75><a style="text-decoration: none" href="eg_75.html"><span class="extensionexampleletter">75</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_75.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Garibaldi 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding coloured text to the example of door-status readouts.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg75><a style="text-decoration: none" href="WI_5_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg2><span class="extensionexampleletter">2</span></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_2.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tilt 3</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Displaying the card suits from our deck of cards with red and black coloured unicode symbols.</span></span></a></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg76><a style="text-decoration: none" href="eg_76.html"><span class="extensionexampleletter">76</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_76.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Über-complète clavier</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_75.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Über-complète clavier</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">This example provides a fairly stringent test of exotic lettering.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg76><a style="text-decoration: none" href="WI_5_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg75><a style="text-decoration: none" href="WI_5_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_11_6.html"><span class="markdowncontent">Section 11.6: Ending The Story</span></a> &bull; <a href="RB_12_2.html"><span class="markdowncontent">Section 12.2: The Status Line</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

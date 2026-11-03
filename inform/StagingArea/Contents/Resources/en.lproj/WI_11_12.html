@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,7 +2212,18 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dialogue choices" -->
+            <!-- SEARCH SECTION "11.12" -->
+            <!-- SEARCH SORT "001-011-012-000" -->
             <h3><span>Section 11.12: Dialogue choices</span></h3>
+            <p> 
+
+             
+
+
+               
+               </p>
             <p>As we've seen, then, a dialogue choice is written as a paragraph beginning with <code class="inlinesourcetext">--</code>. Much like dialogue lines, dialogue choices can have optional annotations given to them between round brackets. But if we forget about those, the possible ways to write a choice are:</p>
             <table>
             <thead>
@@ -2186,43 +2282,51 @@
             <p>All of these were covered in <a href="WI_11_11.html" title="Section 11.11: Decision points">Decision points</a>, so that just leaves the optional details placed in brackets. The conventions are just like those for dialogue lines:</p>
             <h4><span>The name</span></h4>
             <p>Just as every beat is a value of the kind <code class="inlinesourcetext">dialogue beat</code>, and every line is a value of the kind <code class="inlinesourcetext">dialogue line</code>, so every option is a value of the kind <code class="inlinesourcetext">dialogue choice</code>. These are usually nameless, but can be given names, which would allow the source text to manipulate them. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- (</span><span class="syntaxidentifier">this</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desperate</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choice</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Run for it in blind hope&quot;</span>
+            <!-- START CODE "code700" -->
+            <blockquote class="extract-inform7"><a id="code700"></a><span class="indexdullblue"><span class="plain-syntax">-- (</span><span class="identifier-syntax">this</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">desperate</span><span class="plain-syntax"> </span><span class="identifier-syntax">choice</span><span class="plain-syntax">) </span><span class="string-syntax">&quot;Run for it in blind hope&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The name has to end with <code class="inlinesourcetext">choice</code>, and has to be unique: two different choices cannot have the same name.</p>
             <h4><span>Conditions on a choice</span></h4>
             <p><code class="inlinesourcetext">if</code> or <code class="inlinesourcetext">unless</code> plus any Inform condition imposes a condition for the choice to be available.</p>
             <p>It's sometimes worth bearing in mind that this just might make <em>all</em> of the options unavailable. Consider this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Great</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Hall</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Duck!&quot;</span>
+            <!-- START CODE "code701" -->
+            <blockquote class="extract-inform7"><a id="code701"></a><span class="indexdullblue"><span class="plain-syntax">-- (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Great</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hall</span><span class="plain-syntax">) </span><span class="string-syntax">&quot;Duck!&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You duck.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You duck.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">see</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lake</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Swim for it!&quot;</span>
+            <span class="plain-syntax">-- (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">see</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lake</span><span class="plain-syntax">) </span><span class="string-syntax">&quot;Swim for it!&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You swim.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Narration</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;You swim.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>What if the player is neither in the Great Hall, nor in sight of the Lake? The answer is that the decision vanishes entirely, and the player is not even aware that there might have been one.</p>
             <p>When placing conditions on choices, this can be a very useful phrase to know:</p>
             <div class="definition">
-                <p class="defnprototype">current choice list ... list of dialogue choices</p>
+                <!-- START PHRASE "defn144" -->
+                <p class="defnprototype"><a id="defn144"></a>current choice list ... list of dialogue choices</p>
+                <!-- END PHRASE -->
                 <p>This phrase can only sensibly be used when testing conditions applied to dialogue choices: it produces the list of those available <em>so far</em>. That can be used to make later choices only available if earlier ones aren't, or similar effects.</p>
             </div>
             <p>For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Hurl myself at the window.&quot;</span>
+            <!-- START CODE "code702" -->
+            <blockquote class="extract-inform7"><a id="code702"></a><span class="indexdullblue"><span class="plain-syntax">-- </span><span class="string-syntax">&quot;Hurl myself at the window.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Tunnel through the wall.&quot;</span>
+            <span class="plain-syntax">-- </span><span class="string-syntax">&quot;Tunnel through the wall.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxplain">-- (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">choice</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain">; </span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;Admit to being out of ideas.&quot;</span>
+            <span class="plain-syntax">-- (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">choice</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax">; </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">) </span><span class="string-syntax">&quot;Admit to being out of ideas.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The first time this decision is performed, two options will be available — the first two. The player will choose one. If the decision is performed again, the player will be offered the one not chosen earlier. Should the decision ever come up again, the new option <code class="inlinesourcetext">&quot;Admit to being out of ideas.&quot;</code> will be offered instead.</p>
             <h4><span>Properties of a choice</span></h4>
             <p>Exactly as for beats and lines, a <code class="inlinesourcetext">dialogue choice</code> can have these either-or properties:</p>
@@ -2235,11 +2339,11 @@
             than once in the same play-through?</p>
             </li>
             </ul>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_11.html"><span class="markdowncontent">Section 11.11: Decision points</span></a> &bull; <a href="WI_11_13.html"><span class="markdowncontent">Section 11.13: Flow markers</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

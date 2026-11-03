@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.2: How IF views pictures</span></title>
+    <title><span class="markdowncontent">Section 25.2: Glulx features and Glk features</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_25_1.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.2: How IF views pictures</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.2: Glulx features and Glk features</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_3.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,17 +2212,107 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.2: How IF views pictures</span></h3>
-            <p></p>
-            <p>Looking around a bookshop, perhaps half of all the books published have illustrations. The proportion may be lower for novels, but if we count maps or other occasional diagrams, even the fiction section turns out to be surprisingly pictorial. Illustrations do not suit every book, but they are an option we would like to have available.</p>
-            <p>In the cultural history of IF, graphics in text adventures have sometimes been looked at with suspicion. Mostly this is because attempts in the 1980s were not very successful, because computer graphics were so poor then (by modern standards). It may be that some people also felt that the takeover of computer games by graphical interfaces was the death knell of IF. But pictures are now rendered in superb quality by computers, and the death of IF turned out to be an exaggeration, so it is time to move on.</p>
-            <p>Whether to have illustrations ought to be an artistic choice, like whether to include a romantic sub-plot or how much of the back story is revealed. But there are practical considerations too. The most successful illustrated books are those whose pictures are well-chosen, have a sense of design to them, and above all are consistent. Consider how much worse off <em>Winnie the Pooh</em> would have been if a selection of random teddy-bear drawings had been used, instead of E. H. Shepherd's beautifully conceived world; or a cookery book in which the recipes are all photographed at different distances and light levels. IF writers  may want to look for collaborators with a visual eye, just as most novelists do not draw their own illustrations.</p>
-            <p>Another consideration is that displaying images is more complicated for computers than displaying text. Not all devices can show pictures (consider handheld gadgets) and if they do, they may use different colour ranges or resolutions. So IF with pictures is always just a bit less portable than IF without, and because of that we must next look again at IF story file formats.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Glulx features and Glk features" -->
+            <!-- SEARCH SECTION "25.2" -->
+            <!-- SEARCH SORT "001-025-002-000" -->
+            <h3><span>Section 25.2: Glulx features and Glk features</span></h3>
+            <p>A recurring issue throughout these three chapters is that not every feature of Glk is available on every Glulx interpreter.</p>
+            <p>For some authors this may not be a concern: if a story is intended to run only on a website, then its author can choose exactly which Glulx interpreter will run it, and will therefore know in advance what will and will not work.</p>
+            <blockquote class="alertimportant">
+            <p class="alertheading">☞ Important</p>
+            <p>With that said, note that the Story pane in the Inform app is also a Glulx interpreter, and — not being web-based — has different capabilities than website interpreters. Because of that, testing some Glk features intended for web use can only really be done by releasing a project to a website and then trying it out in a web browser.</p>
+            </blockquote>
+            <p>If a story is released not as part of a website but as a downloadable story file for use on many platforms, then the author will have to think: what if, say, pictures or coloured text are not available? One solution is to provide alternatives:</p>
+            <!-- START CODE "code1716" -->
+            <blockquote class="extract-inform7"><a id="code1716"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="identifier-syntax">emphasise</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">text</span><span class="plain-syntax">):</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">formatting</span><span class="plain-syntax"> </span><span class="identifier-syntax">feature</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">supported</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[basic red letters][T][default colours]&quot;</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">otherwise</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[bold type][T][roman type]&quot;</span><span class="plain-syntax">.</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Or there is always the more draconian solution:</p>
+            <!-- START CODE "code1717" -->
+            <blockquote class="extract-inform7"><a id="code1717"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">unicode</span><span class="plain-syntax"> </span><span class="identifier-syntax">feature</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">unsupported</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;This interpreter does not support Unicode.&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>As this suggests, when a project is running on Glulx, Inform knows the names of various possible features, and can test whether they are <code class="inlinesourcetext">supported</code> or <code class="inlinesourcetext">unsupported</code>. These features are divided into two sets:</p>
+            <ul>
+            <li>
+            <p>Features of the Glulx virtual machine itself belong to the kind <code class="inlinesourcetext">glulx feature</code>, and</p>
+            </li>
+            <li>
+            <p>Features of the Glk input/output system used by Glulx belong to the kind <code class="inlinesourcetext">glk feature</code>.</p>
+            </li>
+            </ul>
+            <p>For example, <code class="inlinesourcetext">double precision real numbers feature</code> is a <code class="inlinesourcetext">glulx feature</code>, since computation is all done inside the VM itself, whereas the <code class="inlinesourcetext">sound volume feature</code> is a <code class="inlinesourcetext">glk feature</code>, since sound effects are a form of output.</p>
+            <p>Giving a full list of these features here would not be very enlightening, but the curious could always try running this to find out:</p>
+            <!-- START CODE "code1718" -->
+            <blockquote class="extract-inform7"><a id="code1718"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Good news about the VM: [list of supported glulx features].&quot;</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bad news: [list of unsupported glulx features].&quot;</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;And on the I/O front, good news: [list of supported glk features].&quot;</span><span class="plain-syntax">;</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Bad news: [list of unsupported glk features].&quot;</span><span class="plain-syntax">;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <blockquote class="alerttip">
+            <p class="alertheading">☂ Tip</p>
+            <p>The test made by <code class="inlinesourcetext">supported</code> is very rapid, so there need not be any performance concerns over performing it frequently. Nothing is really gained by storing the result in a variable to avoid having to test a second time, and indeed that might not be a good idea, because the abilities of the interpreter might change during play (and particularly after restoring a game).</p>
+            </blockquote>
+            <p>It is also possible to access three version numbers:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn426" -->
+                <p class="defnprototype"><a id="defn426"></a>glulx version number ... version number</p>
+                <!-- END PHRASE -->
+                <p>The version of the Glulx interpreter which the story is running in. This is a phrase, not a variable: it cannot be set by the story. On the other hand, it can conceivably change, if a story is saved mid-play on one platform and then restored on another.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn427" -->
+                <p class="defnprototype"><a id="defn427"></a>glk version number ... version number</p>
+                <!-- END PHRASE -->
+                <p>The version of the Glk interface used by the interpreter. This is a phrase, not a variable: it cannot be set by the story. On the other hand, it can conceivably change, if a story is saved mid-play on one platform and then restored on another.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn428" -->
+                <p class="defnprototype"><a id="defn428"></a>interpreter version number ... version number</p>
+                <!-- END PHRASE -->
+                <p>The version of the interpreter itself which the story is running in. This is a phrase, not a variable: it cannot be set by the story. On the other hand, it can conceivably change, if a story is saved mid-play on one platform and then restored on another. Interpreter version numbers do not correspond to anything in the Glulx specification, and each interpreter uses its own numbering system.</p>
+            </div>
+            <p>When Inform stories on Glulx respond to the command <code class="inlinetranscriptcommand">version</code>, they normally produce a chubby banner of text like so:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">Exemplum<br>An Interactive Fiction<br>Release 1 / Serial number 260419 / Inform 7 v10.2.0+6X97 / D<br>Identification number: A7A885DC-1187-4D85-9550-F2DC02B2BD90<br>Interpreter version 0.6.0 / VM 3.1.3<br></code></pre></div>
+            <p>So on that day, the story was running with <code class="inlinesourcetext">interpreter version number</code> equal to <code class="inlinesourcetext">v0.6.0</code>, and <code class="inlinesourcetext">glulx version number</code> equal to <code class="inlinesourcetext">v3.1.3</code>.</p>
+            <blockquote class="alerttip">
+            <p class="alertheading">☂ Tip</p>
+            <p>On the whole, it is better not to use these version numbers. For example, real-number arithmetic only arrived in Glulx v3.1.2. But this test:</p>
+            <!-- START CODE "code1719" -->
+            <blockquote class="extract-inform7"><a id="code1719"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">glulx</span><span class="plain-syntax"> </span><span class="identifier-syntax">version</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">least</span><span class="plain-syntax"> </span><span class="identifier-syntax">v3</span><span class="plain-syntax">.1.2:</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>is not telling us whether we can safely use real numbers: we might be on a current interpreter which has opted out of that feature, or is on hardware making it impossible to provide. The safe way is:</p>
+            <!-- START CODE "code1720" -->
+            <blockquote class="extract-inform7"><a id="code1720"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">real</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> </span><span class="identifier-syntax">feature</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">supported</span><span class="plain-syntax">:</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_1.html"><span class="markdowncontent">Chapter 25: Figures, Sounds and Files</span></a> &bull; <a href="WI_25_3.html"><span class="markdowncontent">Section 25.3: Virtual machines and story file formats</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_1.html"><span class="markdowncontent">Chapter 25: Screen and Keyboard</span></a> &bull; <a href="WI_25_3.html"><span class="markdowncontent">Section 25.3: Basic text formatting</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

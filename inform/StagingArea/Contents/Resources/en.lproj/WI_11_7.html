@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,80 +2212,110 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Managing dialogue beats" -->
+            <!-- SEARCH SECTION "11.7" -->
+            <!-- SEARCH SORT "001-011-007-000" -->
             <h3><span>Section 11.7: Managing dialogue beats</span></h3>
+            <p>
+
+
+               
+               
+               
+               
+             
+             
+
+
+            </p>
             <p>There are many ways to manage dialogue. At one extreme we can put the dialogue director into active mode, and let the automatics do everything, so that conversation happens whenever appropriate in the course of play. Or we can keep it passive, but then run the entire story as one big script of dialogue.</p>
             <p>If we don't want either of those, though, and want a turn-based story in which there's just occasional dialogue which we will control explicitly as the author, Inform provides an extensive set of phrases to help with that. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Just Idol Talk&quot;</span>
+            <!-- START CODE "code641" -->
+            <blockquote class="extract-inform7"><a id="code641"></a><span class="indexdullblue"><span class="string-syntax">&quot;Just Idol Talk&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">green</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">here</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Jade</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">here</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Smith</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">man</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Jade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Temple</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Louisiana</span><span class="plain-syntax"> </span><span class="identifier-syntax">Smith</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">man</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Jade</span><span class="plain-syntax"> </span><span class="identifier-syntax">Temple</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">warning</span><span class="syntaxplain">-</span><span class="syntaxidentifier">off</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxheading">Section of conversation (dialogue)</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">warning</span><span class="plain-syntax">-</span><span class="identifier-syntax">off</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(About the green idol. This is the warning-off beat.)</span>
+            <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversation</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Don't touch that thing, kid.&quot;</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">warning</span><span class="plain-syntax">-</span><span class="identifier-syntax">off</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Louisiana</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Don't touch that thing, kid.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The important point there was the <code class="inlinesourcetext">perform</code> phrase:</p>
             <div class="definition">
-                <p class="defnprototype">perform (a dialogue beat)</p>
+                <!-- START PHRASE "defn132" -->
+                <p class="defnprototype"><a id="defn132"></a>perform (a dialogue beat)</p>
+                <!-- END PHRASE -->
                 <p>Immediately perform the given beat of dialogue, regardless of any restrictions placed on it by its cue paragraph, or whether it has been performed before.</p>
             </div>
             <p>What's good about <code class="inlinesourcetext">perform</code> is that it's simple to predict: it does exactly what it's told to do. Unfortunately, that's often not really what we want. For example, what happens if the player tries taking the idol twice?</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET IDOL</span><br><span class="syntaxidentifier">Louisiana: &quot;Don't touch that thing, kid.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET IDOL</span><br><br><span class="syntaxelement">&gt;</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; GET IDOL<br>Louisiana: &quot;Don't touch that thing, kid.&quot;<br><br>&gt; GET IDOL<br><br>&gt;<br></code></pre></div>
             <p>This is very unsatisfactory. What happened here is that the warning-off beat was indeed performed a second time, but because its only line had been performed already, that line was skipped. So nothing was done at all, and yet the action stopped. We could in fact make Louisiana willing to repeat himself:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the green idol. This is the warning-off beat.)</span>
+            <!-- START CODE "code642" -->
+            <blockquote class="extract-inform7"><a id="code642"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">green</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">warning</span><span class="plain-syntax">-</span><span class="identifier-syntax">off</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Louisiana</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Don't touch that thing, kid.&quot;</span>
+            <span class="identifier-syntax">Louisiana</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Don't touch that thing, kid.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But is this very much better?</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET IDOL</span><br><span class="syntaxidentifier">Louisiana: &quot;Don't touch that thing, kid.&quot;</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET IDOL</span><br><span class="syntaxidentifier">Louisiana: &quot;Don't touch that thing, kid.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; GET IDOL<br>Louisiana: &quot;Don't touch that thing, kid.&quot;<br><br>&gt; GET IDOL<br>Louisiana: &quot;Don't touch that thing, kid.&quot;<br></code></pre></div>
             <p>So this is a more nuanced way to write it:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code643" -->
+            <blockquote class="extract-inform7"><a id="code643"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">intervenes</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax"> </span><span class="identifier-syntax">intervenes</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">stop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The key phrase here is:</p>
             <div class="definition">
-                <p class="defnprototype">if dialog/dialogue about (an object) intervenes</p>
+                <!-- START PHRASE "defn133" -->
+                <p class="defnprototype"><a id="defn133"></a>if dialog/dialogue about (an object) intervenes</p>
+                <!-- END PHRASE -->
                 <p>Tries to perform dialogue about the given conversational subject, and has the result <code class="inlinesourcetext">true</code> if such a beat has successfully been performed, and <code class="inlinesourcetext">false</code> if no good beat could be found. All conditions on the beat must have been met, and it must either have been <code class="inlinesourcetext">unperformed</code> or else <code class="inlinesourcetext">recurring</code>.</p>
             </div>
             <p>This is a sort of compromise between telling the director exactly what to do, and letting the director do as it pleases. We're giving it permission to try to start a conversation about a given subject — in this case, the idol — but on the understanding that it may well not find anything to say. That's why this is framed as an <code class="inlinesourcetext">if...</code> condition.</p>
             <p>A modest variation:</p>
             <div class="definition">
-                <p class="defnprototype">if dialog/dialogue about (an object) led by (an object) intervenes</p>
+                <!-- START PHRASE "defn134" -->
+                <p class="defnprototype"><a id="defn134"></a>if dialog/dialogue about (an object) led by (an object) intervenes</p>
+                <!-- END PHRASE -->
                 <p>Tries to perform dialogue about the given conversational subject, and has the result <code class="inlinesourcetext">true</code> if such a beat has successfully been performed, and <code class="inlinesourcetext">false</code> if no suitable beat could be found. If there's a choice of beats available, the director will prefer one in which the first speaker is the person <code class="inlinesourcetext">led by</code>. But if no such beat can be found, it will still perform some other beat provided at least the subject can be matched.</p>
             </div>
             <p>This, then, would give Louisiana first chance to react if multiple people might want to speak:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code644" -->
+            <blockquote class="extract-inform7"><a id="code644"></a><span class="indexdullblue"><span class="identifier-syntax">Check</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">about</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idol</span><span class="syntaxplain"> </span><span class="syntaxidentifier">led</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Louisiana</span><span class="syntaxplain"> </span><span class="syntaxidentifier">intervenes</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">idol</span><span class="plain-syntax"> </span><span class="identifier-syntax">led</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Louisiana</span><span class="plain-syntax"> </span><span class="identifier-syntax">intervenes</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">stop</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">stop</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As has already been said, <code class="inlinesourcetext">dialogue beat</code> is a kind, and each different beat declared in the source text is a value of this kind: that's how <code class="inlinesourcetext">perform</code> works, applied to any <code class="inlinesourcetext">dialogue beat</code> value. We've also seen that dialogue beats have four either-or properties available to them:</p>
             <ul>
             <li>
@@ -2217,20 +2332,26 @@
             </li>
             </ul>
             <p>Being properties, these can all be changed during play:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conference</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code645" -->
+            <blockquote class="extract-inform7"><a id="code645"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">conference</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">alarm</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">spontaneous</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fire</span><span class="plain-syntax"> </span><span class="identifier-syntax">alarm</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">spontaneous</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>New properties for dialogue beats can also be created:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">can</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">testing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">only</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">meant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">production</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code646" -->
+            <blockquote class="extract-inform7"><a id="code646"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">meant</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">production</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Which enables beats to be tagged in arbitrary ways:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(Testing only.)</span>
+            <!-- START CODE "code647" -->
+            <blockquote class="extract-inform7"><a id="code647"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">Testing</span><span class="plain-syntax"> </span><span class="identifier-syntax">only</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Sorry to break the fourth wall, but will this program ever work?&quot;</span>
+            <span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Sorry to break the fourth wall, but will this program ever work?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>In addition, the following adjectives can be tested at run-time:</p>
             <ul>
             <li>
@@ -2247,15 +2368,21 @@
             </ul>
             <p>The following phrases are available:</p>
             <div class="definition">
-                <p class="defnprototype">list of speakers required by (a dialogue beat) ... list of objects</p>
+                <!-- START PHRASE "defn135" -->
+                <p class="defnprototype"><a id="defn135"></a>list of speakers required by (a dialogue beat) ... list of objects</p>
+                <!-- END PHRASE -->
                 <p>Results in the set of speakers required to be present for the beat to be performed.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">first speaker of (a dialogue beat) ... object</p>
+                <!-- START PHRASE "defn136" -->
+                <p class="defnprototype"><a id="defn136"></a>first speaker of (a dialogue beat) ... object</p>
+                <!-- END PHRASE -->
                 <p>The first specific person who speaks a line in the beat. Note that this may be <code class="inlinesourcetext">nothing</code>, if the beat contains only narration, or is vague about who speaks the lines.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">showme the beat structure of (a dialogue beat)</p>
+                <!-- START PHRASE "defn137" -->
+                <p class="defnprototype"><a id="defn137"></a>showme the beat structure of (a dialogue beat)</p>
+                <!-- END PHRASE -->
                 <p>For debugging. In effect, beats are miniature programs, but can be quite intricate: this prints a listing.</p>
             </div>
             <p>The following relations are also sometimes useful:</p>
@@ -2274,103 +2401,125 @@
             <p>So, for example, <code class="inlinesourcetext">the warning-off beat is about the green idol</code> throughout play of the little example above, whereas <code class="inlinesourcetext">the warning-off beat is performable to the player</code> only up to the point where is is first performed: since it's not a <code class="inlinesourcetext">recurring</code> beat, it then isn't performable again.</p>
             <p>Note that the command parser is able to recognise dialogue beat names, and of
             course actions can be set up for them. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Performing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">world</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">one</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code648" -->
+            <blockquote class="extract-inform7"><a id="code648"></a><span class="indexdullblue"><span class="identifier-syntax">Performing</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">world</span><span class="plain-syntax"> </span><span class="identifier-syntax">applying</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Carry</span><span class="syntaxplain"> </span><span class="syntaxidentifier">out</span><span class="syntaxplain"> </span><span class="syntaxidentifier">performing</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">performing</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[the dialogue beat understood]</span><span class="syntaxstring"> requires </span><span class="syntaxextract">[list of speakers required by the dialogue beat understood]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[the dialogue beat understood] requires [list of speakers required by the dialogue beat understood].&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">repeat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">running</span><span class="syntaxplain"> </span><span class="syntaxidentifier">through</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lines</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">through</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">lines</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">:</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unperformed</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">unperformed</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain"> </span><span class="syntaxidentifier">understood</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">understood</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;perform </span><span class="syntaxextract">[dialogue beat]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">performing</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;perform [dialogue beat]&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">performing</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>So, for example, <code class="inlinetranscriptcommand">perform warning-off beat</code> would run through it as if for the first time.</p>
             <p>The above phrases all work in both passive and active mode. In active mode, much depends on the list of live conversational subjects, so Inform also provides some phrases for examining and tinkering with that list — though in practice its automatic management is often fine.</p>
             <div class="definition">
-                <p class="defnprototype">make (an object) a live conversational subject</p>
+                <!-- START PHRASE "defn138" -->
+                <p class="defnprototype"><a id="defn138"></a>make (an object) a live conversational subject</p>
+                <!-- END PHRASE -->
                 <p>Add this to become the frontmost member of the list of live conversational subjects tracked by the dialogue director.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">make (an object) a dead conversational subject</p>
+                <!-- START PHRASE "defn139" -->
+                <p class="defnprototype"><a id="defn139"></a>make (an object) a dead conversational subject</p>
+                <!-- END PHRASE -->
                 <p>Remove this from the list of live conversational subjects tracked by the dialogue director.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">clear conversational subjects</p>
+                <!-- START PHRASE "defn140" -->
+                <p class="defnprototype"><a id="defn140"></a>clear conversational subjects</p>
+                <!-- END PHRASE -->
                 <p>Empty the list of live conversational subjects tracked by the dialogue director.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">live conversational subject list ... list of objects</p>
+                <!-- START PHRASE "defn141" -->
+                <p class="defnprototype"><a id="defn141"></a>live conversational subject list ... list of objects</p>
+                <!-- END PHRASE -->
                 <p>Returns the dialogue director's list of live conversational subjects.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">alter the live conversational subject list to (list of objects)</p>
+                <!-- START PHRASE "defn142" -->
+                <p class="defnprototype"><a id="defn142"></a>alter the live conversational subject list to (list of objects)</p>
+                <!-- END PHRASE -->
                 <p>Sets the dialogue director's list of live conversational subjects to an arbitrary collection.</p>
             </div>
             <p>These phrases are useful when something sudden and unexpected happens, which would obviously grab everyone's attention:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">At</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain">:10 </span><span class="syntaxidentifier">pm</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code649" -->
+            <blockquote class="extract-inform7"><a id="code649"></a><span class="indexdullblue"><span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="constant-syntax">11</span><span class="plain-syntax">:10 </span><span class="identifier-syntax">pm</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">elephant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Drawing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Room</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">elephant</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Drawing</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;An elephant crashes in through the French windows!&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;An elephant crashes in through the French windows!&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">clear</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conversational</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subjects</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">clear</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subjects</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">elephant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">live</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conversational</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">elephant</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">live</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subject</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And these phrases can also be used to strengthen the automatic list management performed above. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">T</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">) </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">performing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dialogue</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code650" -->
+            <blockquote class="extract-inform7"><a id="code650"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> (</span><span class="identifier-syntax">T</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">) </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">performing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">make</span><span class="syntaxplain"> </span><span class="syntaxidentifier">T</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">live</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conversational</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">T</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">live</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subject</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>With such a rule in force, performing this line:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;The castles in </span><span class="syntaxextract">[Barcelona]</span><span class="syntaxstring"> are warmer at night.&quot;</span>
+            <!-- START CODE "code651" -->
+            <blockquote class="extract-inform7"><a id="code651"></a><span class="indexdullblue"><span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;The castles in [Barcelona] are warmer at night.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would automatically make Barcelona a live subject.</p>
             <p>Emptying the list regularly is one way to be especially sure that no residual
             topics linger impossibly long: say, if the story jumps from the night before to
             next morning. For example, we might want this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code652" -->
+            <blockquote class="extract-inform7"><a id="code652"></a><span class="indexdullblue"><span class="identifier-syntax">When</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">clear</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conversational</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subjects</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">clear</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subjects</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>One way to watch how the list is managed in practice is to add a rule like so, just for testing purposes:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Every</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turn</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code653" -->
+            <blockquote class="extract-inform7"><a id="code653"></a><span class="indexdullblue"><span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">live</span><span class="syntaxplain"> </span><span class="syntaxidentifier">conversational</span><span class="syntaxplain"> </span><span class="syntaxidentifier">subject</span><span class="syntaxplain"> </span><span class="syntaxidentifier">list</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">live</span><span class="plain-syntax"> </span><span class="identifier-syntax">conversational</span><span class="plain-syntax"> </span><span class="identifier-syntax">subject</span><span class="plain-syntax"> </span><span class="identifier-syntax">list</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg183><a style="text-decoration: none" href="eg_183.html"><span class="extensionexampleletter">183</span></a></span></div>
+                    <span id=eg180><a style="text-decoration: none" href="eg_180.html"><span class="extensionexampleletter">180</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_183.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">More Idol Talk</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_180.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">More Idol Talk</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Modifying the <code class="inlinetranscriptcommand">talk about</code> command so that it offers a choice of conversational gambits.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg183><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg180><a style="text-decoration: none" href="RB_7_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg184><a style="text-decoration: none" href="eg_184.html"><span class="extensionexampleletter">184</span></a></span></div>
+                    <span id=eg181><a style="text-decoration: none" href="eg_181.html"><span class="extensionexampleletter">181</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_184.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skills Test</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_181.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Skills Test</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The judges of Masterchef comment on the player's attempt to cook John Dory.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg184><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg181><a style="text-decoration: none" href="RB_7_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_6.html"><span class="markdowncontent">Section 11.6: Entrances and exits</span></a> &bull; <a href="WI_11_8.html"><span class="markdowncontent">Section 11.8: About about</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

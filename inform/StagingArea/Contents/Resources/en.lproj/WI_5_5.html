@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,67 +2212,93 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Text with lists" -->
+            <!-- SEARCH SECTION "5.5" -->
+            <!-- SEARCH SORT "001-005-005-000" -->
             <h3><span>Section 5.5: Text with lists</span></h3>
             <p>           </p>
             <p>We often want running text to include lists of items.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn21" -->
+                <p class="defnprototype"><a id="defn21"></a>say &quot;[list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Mr Darcy glares proudly at you. He is wearing </span><span class="syntaxextract">[list of things worn by Darcy]</span><span class="syntaxstring"> and carrying </span><span class="syntaxextract">[list of things carried by Darcy]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code259" -->
+                <blockquote class="extract-inform7"><a id="code259"></a><span class="indexdullblue"><span class="string-syntax">&quot;Mr Darcy glares proudly at you. He is wearing [list of things worn by Darcy] and carrying [list of things carried by Darcy].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>And, if this were from a dramatisation of the novel by Miss Fielding rather than Miss Austen, we might find:</p>
                 <p>```transcript``
                 Mr Darcy glares proudly at you. He is wearing a pair of Newcastle United boxer shorts and carrying a self-help book.</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue">
+                <!-- START CODE "code260" -->
+                <blockquote class="extract-inform7"><a id="code260"></a><span class="indexdullblue">
                 <br>
-                <span class="syntaxidentifier">If</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">description</span><span class="syntaxplain"> </span><span class="syntaxidentifier">matches</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain"> – </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">instance</span><span class="syntaxplain">, </span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Darcy</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">empty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hands</span><span class="syntaxplain"> – </span><span class="syntaxidentifier">then</span><span class="syntaxplain"> ``</span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">`` </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printed</span><span class="syntaxplain">.</span>
+                <span class="identifier-syntax">If</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">matches</span><span class="plain-syntax"> </span><span class="identifier-syntax">nothing</span><span class="plain-syntax"> – </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">instance</span><span class="plain-syntax">, </span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Darcy</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">empty</span><span class="plain-syntax"> </span><span class="identifier-syntax">hands</span><span class="plain-syntax"> – </span><span class="identifier-syntax">then</span><span class="plain-syntax"> ``</span><span class="identifier-syntax">nothing</span><span class="plain-syntax">`` </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>As with all lists in Inform, the serial comma is only used if the &quot;Use serial comma.&quot; option is in force. So by default we would get &quot;a fishing pole, a hook and a sinker&quot;, rather than &quot;a fishing pole, a hook, and a sinker&quot;.</p>
             <p>We then need variations to add indefinite or definite articles, and to capitalise the first item. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Mr Darcy impatiently bundles </span><span class="syntaxextract">[the list of things carried by Darcy]</span><span class="syntaxstring"> into your hands and stomps out.&quot;</span>
+            <!-- START CODE "code261" -->
+            <blockquote class="extract-inform7"><a id="code261"></a><span class="indexdullblue"><span class="string-syntax">&quot;Mr Darcy impatiently bundles [the list of things carried by Darcy] into your hands and stomps out.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>might result in</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Mr Darcy impatiently bundles the self-help book and the Christmas card into your hands and stomps out.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Mr Darcy impatiently bundles the self-help book and the Christmas card into your hands and stomps out.<br></code></pre></div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[a list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn22" -->
+                <p class="defnprototype"><a id="defn22"></a>say &quot;[a list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its indefinite article. Example:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">a maritime bill of lading, some hemp rope and Falconer's Naval Dictionary</span><br></code></pre></div>
+                    <pre><code class="language-transcript">a maritime bill of lading, some hemp rope and Falconer's Naval Dictionary<br></code></pre></div>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[A list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn23" -->
+                <p class="defnprototype"><a id="defn23"></a>say &quot;[A list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its indefinite article, and the first is capitalised, so that it can be used at the beginning of a sentence. Example:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">A maritime bill of lading, some hemp rope and Falconer's Naval Dictionary</span><br></code></pre></div>
+                    <pre><code class="language-transcript">A maritime bill of lading, some hemp rope and Falconer's Naval Dictionary<br></code></pre></div>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[the list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn24" -->
+                <p class="defnprototype"><a id="defn24"></a>say &quot;[the list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its definite article. Example:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">the maritime bill of lading, the hemp rope and Falconer's Naval Dictionary</span><br></code></pre></div>
+                    <pre><code class="language-transcript">the maritime bill of lading, the hemp rope and Falconer's Naval Dictionary<br></code></pre></div>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[The list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn25" -->
+                <p class="defnprototype"><a id="defn25"></a>say &quot;[The list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its definite article, and the first is capitalised, so that it can be used at the beginning of a sentence. Example:</p>
                 <div class="extract-transcript">
-                    <pre><code class="language-transcript"><span class="syntaxidentifier">The maritime bill of lading, the hemp rope and Falconer's Naval Dictionary</span><br></code></pre></div>
+                    <pre><code class="language-transcript">The maritime bill of lading, the hemp rope and Falconer's Naval Dictionary<br></code></pre></div>
             </div>
             <p>So much for articles. A more insidious problem comes with something like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The places you can go are </span><span class="syntaxextract">[list of rooms]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code262" -->
+            <blockquote class="extract-inform7"><a id="code262"></a><span class="indexdullblue"><span class="string-syntax">&quot;The places you can go are [list of rooms].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The trouble is that the list may end up either singular or plural. We might be expecting something like:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The places you can go are Old Bailey, Bridget's Flat and TV Centre.</span><br></code></pre></div>
+                <pre><code class="language-transcript">The places you can go are Old Bailey, Bridget's Flat and TV Centre.<br></code></pre></div>
             <p>But if there is only one room, then the result might be:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The places you can go are Bridget's Flat.</span><br></code></pre></div>
+                <pre><code class="language-transcript">The places you can go are Bridget's Flat.<br></code></pre></div>
             <p>which is wrong. We can get around this with careful wording and a slightly different substitution:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Nearby </span><span class="syntaxextract">[is-are list of rooms]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code263" -->
+            <blockquote class="extract-inform7"><a id="code263"></a><span class="indexdullblue"><span class="string-syntax">&quot;Nearby [is-are list of rooms].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <div class="definition">
-                <p class="defnprototype">say &quot;[is-are list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn26" -->
+                <p class="defnprototype"><a id="defn26"></a>say &quot;[is-are list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. The whole list starts with &quot;is&quot; (if there's one item or none) or &quot;are&quot; (more than one). Examples:</p>
                 <ul>
                 <li><code class="inlinetranscript">is marlin-spike</code></li>
@@ -2195,7 +2306,9 @@
                 </ul>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[is-are a list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn27" -->
+                <p class="defnprototype"><a id="defn27"></a>say &quot;[is-are a list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its indefinite article, and the whole list starts with <code class="inlinetranscript">is</code> (if there's one item or none) or <code class="inlinetranscript">are</code> (more than one). Examples:</p>
                 <ul>
                 <li><code class="inlinetranscript">is a marlin-spike</code></li>
@@ -2203,7 +2316,9 @@
                 </ul>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[is-are the list of (description of objects)]&quot;</p>
+                <!-- START PHRASE "defn28" -->
+                <p class="defnprototype"><a id="defn28"></a>say &quot;[is-are the list of (description of objects)]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description. Each item is prefaced by its definite article, and the whole list starts with <code class="inlinetranscript">is</code> (if there's one item or none) or <code class="inlinetranscript">are</code> (more than one). Examples:</p>
                 <ul>
                 <li><code class="inlinetranscript">is the marlin-spike</code></li>
@@ -2211,32 +2326,34 @@
                 </ul>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[a list of (description of objects) including contents]&quot;</p>
+                <!-- START PHRASE "defn29" -->
+                <p class="defnprototype"><a id="defn29"></a>say &quot;[a list of (description of objects) including contents]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces a list, in sentence form, of everything matching the description, noting any contents in brackets. This is really intended only to be used by the Standard Rules.</p>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg66><a style="text-decoration: none" href="eg_66.html"><span class="extensionexampleletter">66</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_66.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Control Center</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Objects which automatically include a description of their component parts whenever they are examined.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg66><a style="text-decoration: none" href="RB_9_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg67><a style="text-decoration: none" href="eg_67.html"><span class="extensionexampleletter">67</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_67.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Control Center</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Objects which automatically include a description of their component parts whenever they are examined.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg67><a style="text-decoration: none" href="RB_9_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg68><a style="text-decoration: none" href="eg_68.html"><span class="extensionexampleletter">68</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_68.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tiny Garden</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_67.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Tiny Garden</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A lawn made up of several rooms, with part of the description written automatically.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg68><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg67><a style="text-decoration: none" href="RB_3_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_4.html"><span class="markdowncontent">Section 5.4: Text with numbers</span></a> &bull; <a href="WI_5_6.html"><span class="markdowncontent">Section 5.6: Text with variations</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

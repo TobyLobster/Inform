@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,133 +2212,181 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Stored actions" -->
+            <!-- SEARCH SECTION "13.20" -->
+            <!-- SEARCH SORT "001-013-020-000" -->
             <h3><span>Section 13.20: Stored actions</span></h3>
             <p>    </p>
             <p>As we have seen, to describe an action fully takes a complicated little bundle of information – we need to know what is to be done, who will do it, and what it will be done to. There are times when we would like to remember an action and look back on it later (perhaps many turns later, after many other actions have taken effect) – but this is not easy to do with only the techniques we have seen so far. There are quite a few cases to get right, and it would be easy to not store quite enough of the details.</p>
             <p>Fortunately, Inform provides a kind of value called <code class="inlinesourcetext">action</code> which can do all of this automatically. (In older versions of Inform this was called <code class="inlinesourcetext">stored action</code>, but the word <code class="inlinesourcetext">stored</code> is now unnecessary, and makes no difference.) As with most other kinds of value, actions can be held in variables, <code class="inlinesourcetext">let</code> values, properties or table columns. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code860" -->
+            <blockquote class="extract-inform7"><a id="code860"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">that</span><span class="plain-syntax"> </span><span class="identifier-syntax">varies</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>creates a variable called <code class="inlinesourcetext">the best idea yet</code> which holds an action.</p>
             <p>This will normally be created holding the default value – the player waiting. We really only have two ways to make more interesting actions. One is by typing them out explicitly, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code861" -->
+            <blockquote class="extract-inform7"><a id="code861"></a><span class="indexdullblue"><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here <code class="inlinesourcetext">pushing the button</code> is a constant of the kind <code class="inlinesourcetext">action</code>, so it goes into happily into <code class="inlinesourcetext">best idea yet</code> in the same way that a number like 3 could go into a number that varies. The action must be specific in every respect, so <code class="inlinesourcetext">taking something</code> or <code class="inlinesourcetext">doing something</code> will not work – <code class="inlinesourcetext">taking something</code> is really a general description of many possible actions, not an action in its own right.</p>
             <p>The other way to produce a useful action is:</p>
             <div class="definition">
-                <p class="defnprototype">current action ... action</p>
+                <!-- START PHRASE "defn186" -->
+                <p class="defnprototype"><a id="defn186"></a>current action ... action</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the action currently being processed as a value – it literally stores the action, and remembers, if necessary, the exact wording of the player's command at the time it was stored – so that even actions arising from commands like <code class="inlinetranscriptcommand">look up x100 in the code book</code> can be stored faithfully. Examples:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">present</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whim</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code862" -->
+                <blockquote class="extract-inform7"><a id="code862"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">present</span><span class="plain-syntax"> </span><span class="identifier-syntax">whim</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax">;</span>
                 <br>
-                <span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;How you would like to be </span><span class="syntaxextract">[current action]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+                <span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;How you would like to be [current action].&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This only makes sense if an action is currently going on, so it shouldn't be used in <code class="inlinesourcetext">every turn</code> rules, for instance.</p>
             </div>
             <p>So much for making actions: now for making use of them. The first obvious idea is to store up an action for several turns and then have it take effect later. That's easily done: just as we can <code class="inlinesourcetext">try</code> any action written out explicitly, so we can also try a stored one. The phrase to do this has exactly the same wording either way, since it does the same thing either way.</p>
             <p>But actions can still be useful even if we never intend to try them. For one thing, we can say them, and this produces a fairly natural description of what the action is:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">presence</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bearded</span><span class="syntaxplain"> </span><span class="syntaxidentifier">psychiatrist</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;'Zo, the subject vishes to engage in </span><span class="syntaxextract">[the current action]</span><span class="syntaxstring">. Zis is very interesting.'&quot;</span>
+            <!-- START CODE "code863" -->
+            <blockquote class="extract-inform7"><a id="code863"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">presence</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bearded</span><span class="plain-syntax"> </span><span class="identifier-syntax">psychiatrist</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;'Zo, the subject vishes to engage in [the current action]. Zis is very interesting.'&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>will produce text such as:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;Zo, the subject vishes to engage in rubbing the fireman's pole. Zis is very interesting.&quot;</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;Zo, the subject vishes to engage in rubbing the fireman's pole. Zis is very interesting.&quot;<br></code></pre></div>
             <p>One of Inform's most convenient features is its ability to test if the action being processed matches vague or complicated descriptions of whole classes of actions. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code864" -->
+            <blockquote class="extract-inform7"><a id="code864"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>works even though <code class="inlinesourcetext">taking something</code> is not a single action; it's a description which could apply to many different actions (taking a box, taking a ball, and so on). What Inform tests is whether the <code class="inlinesourcetext">best idea yet</code> value, a single action, fits this description or not. We can be even vaguer:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">lever</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code865" -->
+            <blockquote class="extract-inform7"><a id="code865"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">doing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">lever</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Just occasionally, this can lead to ambiguities. For instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code866" -->
+            <blockquote class="extract-inform7"><a id="code866"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>fails because Inform thinks <code class="inlinesourcetext">wearing</code> is meant in the sense of the current action having clothes on, so it produces a problem message. To avoid this, simply write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">wearing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code867" -->
+            <blockquote class="extract-inform7"><a id="code867"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">trying</span><span class="plain-syntax"> </span><span class="identifier-syntax">wearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which can't be misunderstood. Something else to be aware of is that the terms <code class="inlinesourcetext">actor</code>, <code class="inlinesourcetext">noun</code> and so on will refer to that action: for instance, in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">, ...</span>
+            <!-- START CODE "code868" -->
+            <blockquote class="extract-inform7"><a id="code868"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">, ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">noun</code> here refers to the noun in <code class="inlinesourcetext">best idea yet</code>, not to its meaning outside of this phrase (if indeed it has such a meaning).</p>
             <p>When dealing with actions, we sometimes want to know what they are dealing with. We can extract this information using the following phrases:</p>
             <div class="definition">
-                <p class="defnprototype">action name part of (action) ... action name</p>
+                <!-- START PHRASE "defn187" -->
+                <p class="defnprototype"><a id="defn187"></a>action name part of (action) ... action name</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the action name part of an action. Example: suppose the current actor is Algy, who is throwing the brick at Biggles. Then</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">throwing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">it</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span>
+                <!-- START CODE "code869" -->
+                <blockquote class="extract-inform7"><a id="code869"></a><span class="indexdullblue"><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> = </span><span class="identifier-syntax">throwing</span><span class="plain-syntax"> </span><span class="identifier-syntax">it</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">noun part of (action) ... object</p>
+                <!-- START PHRASE "defn188" -->
+                <p class="defnprototype"><a id="defn188"></a>noun part of (action) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the (first) noun of an action. Example: suppose the current actor is Algy, who is throwing the brick at Biggles. Then</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">brick</span>
+                <!-- START CODE "code870" -->
+                <blockquote class="extract-inform7"><a id="code870"></a><span class="indexdullblue"><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> = </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">brick</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>If the noun is something other than an object, this produces just <code class="inlinesourcetext">nothing</code>, the non-object.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">second noun part of (action) ... object</p>
+                <!-- START PHRASE "defn189" -->
+                <p class="defnprototype"><a id="defn189"></a>second noun part of (action) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the second noun of an action. Example: suppose the current actor is Algy, who is throwing the brick at Biggles. Then</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">second</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">Biggles</span>
+                <!-- START CODE "code871" -->
+                <blockquote class="extract-inform7"><a id="code871"></a><span class="indexdullblue"><span class="identifier-syntax">second</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> = </span><span class="identifier-syntax">Biggles</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>If the second noun is something other than an object (for instance for the command <code class="inlinetranscriptcommand">set dial to 3417</code> it would be the number 3417), this produces just <code class="inlinesourcetext">nothing</code>, the non-object.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">actor part of (action) ... object</p>
+                <!-- START PHRASE "defn190" -->
+                <p class="defnprototype"><a id="defn190"></a>actor part of (action) ... object</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the person who would be carrying out the action if it were being tried. Example: suppose the current actor is Algy, who is throwing the brick at Biggles. Then</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">actor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">part</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> = </span><span class="syntaxidentifier">Algy</span>
+                <!-- START CODE "code872" -->
+                <blockquote class="extract-inform7"><a id="code872"></a><span class="indexdullblue"><span class="identifier-syntax">actor</span><span class="plain-syntax"> </span><span class="identifier-syntax">part</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> = </span><span class="identifier-syntax">Algy</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>The following phrase is a convenient shorthand form:</p>
             <div class="definition">
-                <p class="defnprototype">if (action) involves (object):</p>
+                <!-- START PHRASE "defn191" -->
+                <p class="defnprototype"><a id="defn191"></a>if (action) involves (object):</p>
+                <!-- END PHRASE -->
                 <p>This condition is true if the object appears as any of the actor, the noun or the second noun in the action. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">current</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">involves</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Algy</span>
+                <!-- START CODE "code873" -->
+                <blockquote class="extract-inform7"><a id="code873"></a><span class="indexdullblue"><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">current</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">involves</span><span class="plain-syntax"> </span><span class="identifier-syntax">Algy</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>would be true for <code class="inlinesourcetext">give revolver to Algy</code>, <code class="inlinesourcetext">Algy trying flying the Sopwith Camel</code>, <code class="inlinesourcetext">examine Algy</code> and so on, but false for <code class="inlinesourcetext">asking Raymond about secret airfield</code>.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">action of (an action) ... action</p>
+                <!-- START PHRASE "defn192" -->
+                <p class="defnprototype"><a id="defn192"></a>action of (an action) ... action</p>
+                <!-- END PHRASE -->
                 <p>This phrase is now seldom needed. It produces a literally typed action as a value. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">best</span><span class="syntaxplain"> </span><span class="syntaxidentifier">idea</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yet</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">button</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code874" -->
+                <blockquote class="extract-inform7"><a id="code874"></a><span class="indexdullblue"><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">best</span><span class="plain-syntax"> </span><span class="identifier-syntax">idea</span><span class="plain-syntax"> </span><span class="identifier-syntax">yet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">action</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">button</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Nowadays in most contexts we can just type <code class="inlinesourcetext">pushing the button</code> as a value, and that will work fine, so this phrase is retained only to keep old code working.</p>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg238><a style="text-decoration: none" href="eg_238.html"><span class="extensionexampleletter">238</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_238.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bosch</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Creating a list of actions that will earn the player points, and using this both to change the score and to give <code class="inlinetranscriptcommand">full score</code> reports.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg238><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg239><a style="text-decoration: none" href="eg_239.html"><span class="extensionexampleletter">239</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_239.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cactus Will Outlive Us All</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">For every character besides the player, there is an action that will cause that character to wither right up and die.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg239><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg240><a style="text-decoration: none" href="eg_240.html"><span class="extensionexampleletter">240</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_240.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actor's Studio</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A video camera that records actions performed in its presence, and plays them back with time-stamps.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg240><a style="text-decoration: none" href="RB_9_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg241><a style="text-decoration: none" href="eg_241.html"><span class="extensionexampleletter">241</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_241.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bosch</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Creating a list of actions that will earn the player points, and using this both to change the score and to give <code class="inlinetranscriptcommand">full score</code> reports.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg241><a style="text-decoration: none" href="RB_11_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg242><a style="text-decoration: none" href="eg_242.html"><span class="extensionexampleletter">242</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_242.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cactus Will Outlive Us All</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">For every character besides the player, there is an action that will cause that character to wither right up and die.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg242><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg243><a style="text-decoration: none" href="eg_243.html"><span class="extensionexampleletter">243</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_243.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Actor's Studio</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A video camera that records actions performed in its presence, and plays them back with time-stamps.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg243><a style="text-decoration: none" href="RB_9_12.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg244><a style="text-decoration: none" href="eg_244.html"><span class="extensionexampleletter">244</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_244.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anteaters</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_241.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Anteaters</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The player carries a gizmo that is able to record actions performed by the player, then force them to repeat those actions when the gizmo is dropped. This includes storing actions that apply to topics, as in <code class="inlinetranscriptcommand">look up anteater colonies in the guide</code>.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg244><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg241><a style="text-decoration: none" href="RB_6_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_19.html"><span class="markdowncontent">Section 13.19: Changing visibility</span></a> &bull; <a href="WI_13_21.html"><span class="markdowncontent">Section 13.21: Guidelines on how to write rules about actions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

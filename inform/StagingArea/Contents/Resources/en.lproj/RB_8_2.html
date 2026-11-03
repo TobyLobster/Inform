@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,59 +2212,63 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Ships, Trains and Elevators" -->
+            <!-- SEARCH SECTION "8.2" -->
+            <!-- SEARCH SORT "002-008-002-000" -->
             <h3><span>Section 8.2: Ships, Trains and Elevators</span></h3>
             <p>
             This section covers vehicles whose interior consists of at least one entire room. Moving into this room constitutes boarding: there is then some pause while it travels: moving out again disembarks at a different location. The only complication arising is how the player controls the journey (by talking to someone? by pressing buttons? by steering?).</p>
-            <p><a href="eg_16.html">The Unbuttoned Elevator Affair</a> provides the simplest possible whole-room vehicle, which ferries between two fixed points. If you are at one of these, it must be the other one you want to get to, so there is no need for controls.</p>
-            <p><a href="eg_299.html">Dubai</a> is a much more elaborate elevator, with many possible destinations, chosen using buttons inside the elevator.</p>
-            <p><a href="eg_150.html">Empire</a> simulates a train journey. Here there are no controls as such, but the train passes through a sequence of stops spaced apart in time, so the player chooses an exit by getting out at the right moment.</p>
-            <p>On a very large, slowish craft such as a cruise liner, we are not so much travelling in a vehicle: it's more as if we are visiting a whole building, which becomes our world for the (probably long) duration of the journey. The liner steers around in long, slow curves, changing its orientation in the water, so that (if we think of &quot;north&quot; as a strictly magnetic matter, anyway) north is constantly rotating: something we don't notice on board because our own reference points, provided by the ship itself, stay fixed relative to ourselves. Because of this, some ships in IF are navigated using <code class="inlinetranscriptcommand">fore</code>, <code class="inlinetranscriptcommand">aft</code>, <code class="inlinetranscriptcommand">port</code> and <code class="inlinetranscriptcommand">starboard</code> directions rather than <code class="inlinetranscriptcommand">north</code>, <code class="inlinetranscriptcommand">east</code>, <code class="inlinetranscriptcommand">south</code> and <code class="inlinetranscriptcommand">west</code>: see <a href="eg_46.html">Fore</a>.</p>
-            <p>Aviation can be handled in much the same way, but it does have a technical language all its own: see <a href="eg_295.html">Hello Shanwick</a> for the aviation alphabet and for giving tail numbers to planes.</p>
+            <p><a href="eg_15.html">The Unbuttoned Elevator Affair</a> provides the simplest possible whole-room vehicle, which ferries between two fixed points. If you are at one of these, it must be the other one you want to get to, so there is no need for controls.</p>
+            <p><a href="eg_296.html">Dubai</a> is a much more elaborate elevator, with many possible destinations, chosen using buttons inside the elevator.</p>
+            <p><a href="eg_147.html">Empire</a> simulates a train journey. Here there are no controls as such, but the train passes through a sequence of stops spaced apart in time, so the player chooses an exit by getting out at the right moment.</p>
+            <p>On a very large, slowish craft such as a cruise liner, we are not so much travelling in a vehicle: it's more as if we are visiting a whole building, which becomes our world for the (probably long) duration of the journey. The liner steers around in long, slow curves, changing its orientation in the water, so that (if we think of &quot;north&quot; as a strictly magnetic matter, anyway) north is constantly rotating: something we don't notice on board because our own reference points, provided by the ship itself, stay fixed relative to ourselves. Because of this, some ships in IF are navigated using <code class="inlinetranscriptcommand">fore</code>, <code class="inlinetranscriptcommand">aft</code>, <code class="inlinetranscriptcommand">port</code> and <code class="inlinetranscriptcommand">starboard</code> directions rather than <code class="inlinetranscriptcommand">north</code>, <code class="inlinetranscriptcommand">east</code>, <code class="inlinetranscriptcommand">south</code> and <code class="inlinetranscriptcommand">west</code>: see <a href="eg_45.html">Fore</a>.</p>
+            <p>Aviation can be handled in much the same way, but it does have a technical language all its own: see <a href="eg_292.html">Hello Shanwick</a> for the aviation alphabet and for giving tail numbers to planes.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_8_1.html" title="Section 8.1: Bicycles, Cars and Boats">Bicycles, Cars and Boats</a> for smaller conveyances.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg16><a style="text-decoration: none" href="eg_16.html"><span class="extensionexampleletter">16</span></a></span></div>
+                    <span id=eg15><a style="text-decoration: none" href="eg_15.html"><span class="extensionexampleletter">15</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_16.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Unbuttoned Elevator Affair</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_15.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Unbuttoned Elevator Affair</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A simple elevator connecting two floors which is operated simply by walking in and out, and has no buttons or fancy doors.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg16><a style="text-decoration: none" href="WI_3_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg15><a style="text-decoration: none" href="WI_3_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg150><a style="text-decoration: none" href="eg_150.html"><span class="extensionexampleletter">150</span></a></span></div>
+                    <span id=eg147><a style="text-decoration: none" href="eg_147.html"><span class="extensionexampleletter">147</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_150.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Empire</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_147.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Empire</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A train which follows a schedule, stopping at a number of different locations.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg150><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg147><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg299><a style="text-decoration: none" href="eg_299.html"><span class="extensionexampleletter">299</span></a></span></div>
+                    <span id=eg296><a style="text-decoration: none" href="eg_296.html"><span class="extensionexampleletter">296</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_299.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dubai</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_296.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dubai</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An elevator which connects any of 27 floors in a luxury hotel.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg299><a style="text-decoration: none" href="WI_18_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg296><a style="text-decoration: none" href="WI_18_3.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg46><a style="text-decoration: none" href="eg_46.html"><span class="extensionexampleletter">46</span></a></span></div>
+                    <span id=eg45><a style="text-decoration: none" href="eg_45.html"><span class="extensionexampleletter">45</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_46.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fore</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_45.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fore</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Understand &quot;fore&quot;, &quot;aft&quot;, &quot;port&quot;, and &quot;starboard&quot;, but only when the player is on a vessel.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg46><a style="text-decoration: none" href="WI_3_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg45><a style="text-decoration: none" href="WI_3_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_8_1.html"><span class="markdowncontent">Chapter 8: Vehicles, Animals and Furniture</span></a> &bull; <a href="RB_8_3.html"><span class="markdowncontent">Section 8.3: Animals</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

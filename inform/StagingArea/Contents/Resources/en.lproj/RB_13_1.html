@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,44 +2212,48 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Testing" -->
+            <!-- SEARCH SECTION "13.1" -->
+            <!-- SEARCH SORT "002-013-001-000" -->
             <h2><span>Chapter 13: Testing and Publishing</span></h2>
             <h3><span>Section 13.1: Testing</span></h3>
             <p>     
             There are no recipes for testing, alas, although most experienced IF authors have their preferred ways of going about it. Briefly: the best advice is to build and maintain a Skein which holds complete play-throughs of the piece, so that it is easy to check with a single click that all is still well; to have beta-testers who play through (substantial) drafts and send back their transcripts of play, along with suggestions; and to listen to these suggestions, and treat the beta-testers as editors rather than galley slaves.</p>
-            <p><a href="eg_443.html">Alpha</a> shows a way to gracefully accept beta-testers' annotations without advancing time in the story.</p>
-            <p>Most large works of IF have historically provided secret commands for testing and debugging–commands removed (or sometimes accidentally not) in the final released product. Inform does this automatically: the commands <code class="inlinetranscriptcommand">showme</code>, <code class="inlinetranscriptcommand">actions</code> and <code class="inlinetranscriptcommand">scenes</code> are always present except in a released story file. It also allows us to write passages of source text which apply only for the testing phase, so that we can define new testing commands, or other checks that all is well: <a href="eg_9.html">Bic</a> demonstrates this, and is also useful in its own right.</p>
+            <p><a href="eg_440.html">Alpha</a> shows a way to gracefully accept beta-testers' annotations without advancing time in the story.</p>
+            <p>Most large works of IF have historically provided secret commands for testing and debugging–commands removed (or sometimes accidentally not) in the final released product. Inform does this automatically: the commands <code class="inlinetranscriptcommand">showme</code>, <code class="inlinetranscriptcommand">actions</code> and <code class="inlinetranscriptcommand">scenes</code> are always present except in a released story file. It also allows us to write passages of source text which apply only for the testing phase, so that we can define new testing commands, or other checks that all is well: <a href="eg_8.html">Bic</a> demonstrates this, and is also useful in its own right.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg443><a style="text-decoration: none" href="eg_443.html"><span class="extensionexampleletter">443</span></a></span></div>
+                    <span id=eg440><a style="text-decoration: none" href="eg_440.html"><span class="extensionexampleletter">440</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_443.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpha</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_440.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpha</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a beta-testing command that matches any line starting with punctuation.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg443><a style="text-decoration: none" href="WI_22_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg440><a style="text-decoration: none" href="WI_22_5.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg9><a style="text-decoration: none" href="eg_9.html"><span class="extensionexampleletter">9</span></a></span></div>
+                    <span id=eg8><a style="text-decoration: none" href="eg_8.html"><span class="extensionexampleletter">8</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_9.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bic</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_8.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Bic</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Testing to make sure that all objects have been given descriptions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg9><a style="text-decoration: none" href="WI_3_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg8><a style="text-decoration: none" href="WI_3_1.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg289><a style="text-decoration: none" href="eg_289.html"><span class="extensionexampleletter">289</span></a></span></div>
+                    <span id=eg286><a style="text-decoration: none" href="eg_286.html"><span class="extensionexampleletter">286</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_289.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peek</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_286.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Peek</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A debugging command for examining the contents of memory.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg289><a style="text-decoration: none" href="WI_16_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg286><a style="text-decoration: none" href="WI_16_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_12_5.html"><span class="markdowncontent">Section 12.5: Glulx Multimedia Effects</span></a> &bull; <a href="RB_13_2.html"><span class="markdowncontent">Section 13.2: Publishing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

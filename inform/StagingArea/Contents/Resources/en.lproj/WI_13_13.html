@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,41 +2212,47 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Report rules for actions by other people" -->
+            <!-- SEARCH SECTION "13.13" -->
+            <!-- SEARCH SORT "001-013-013-000" -->
             <h3><span>Section 13.13: Report rules for actions by other people</span></h3>
             <p>   </p>
             <p>Report rules for the player's actions are easy to write, and for many actions, they are not much harder for other people either:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Click!&quot;</span>
+            <!-- START CODE "code846" -->
+            <blockquote class="extract-inform7"><a id="code846"></a><span class="indexdullblue"><span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Click!&quot;</span>
             <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">photographing</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Click! </span><span class="syntaxextract">[The person asked]</span><span class="syntaxstring"> takes a snapshot of </span><span class="syntaxextract">[the noun]</span><span class="syntaxstring">.&quot;</span>
+            <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">photographing</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Click! [The person asked] takes a snapshot of [the noun].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But once other people are involved, we have to go to some trouble to get all of the possibilities right. Here is a case which did not immediately occur to the author of the <code class="inlinesourcetext">going</code> action, for instance:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> GET IN CAGE</span><br><span class="syntaxidentifier">You get into the cage.</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> CLARK, GET IN AUTOMOBILE</span><br><span class="syntaxidentifier">Clark Gable gets into the automobile.</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> CLARK, PUSH CAGE WEST</span><br><span class="syntaxidentifier">Clark Gable goes west in the automobile, pushing the cage in front, and you along too.</span><br><br><span class="syntaxidentifier">**The Lot** (in the cage)</span><br><span class="syntaxidentifier">In the Lot you can see an automobile (in which is Clark Gable).</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; GET IN CAGE<br>You get into the cage.<br>&gt; CLARK, GET IN AUTOMOBILE<br>Clark Gable gets into the automobile.<br>&gt; CLARK, PUSH CAGE WEST<br>Clark Gable goes west in the automobile, pushing the cage in front, and you along too.<br><br>**The Lot** (in the cage)<br>In the Lot you can see an automobile (in which is Clark Gable).<br></code></pre></div>
             <p>We said before that report rules are skipped if the action is running <code class="inlinesourcetext">silently</code>, or if the action is one that the player does not witness. But that is also a tricky concept. Inform's doctrine is that you witness an action if you can see any of the actor, the noun or the second noun at either the beginning or the end of the action; except that being able to see a backdrop does not count. Thus if Clark Gable, in Beverly Hills, photographs the Hollywood sign then we do not witness this from Sunset Boulevard merely because we, too, can see the Hollywood sign.</p>
             <p>While the report rules for actions by the player must actually report something, report rules for other people's actions are under no such obligation. For instance, if Clark unlocks a door from the other side to the player, then this counts as an action that the player witnesses – and after all, it could be argued that the player should hear the key turning in the lock – but in fact the standard rules for reporting locking choose to say nothing.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg230><a style="text-decoration: none" href="eg_230.html"><span class="extensionexampleletter">230</span></a></span></div>
+                    <span id=eg227><a style="text-decoration: none" href="eg_227.html"><span class="extensionexampleletter">227</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_230.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Man of Steel Excuses Himself</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_227.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Man of Steel Excuses Himself</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Elaborating the report rules to be more interesting than &quot;Clark goes west.&quot;</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg230><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg227><a style="text-decoration: none" href="RB_7_15.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg231><a style="text-decoration: none" href="eg_231.html"><span class="extensionexampleletter">231</span></a></span></div>
+                    <span id=eg228><a style="text-decoration: none" href="eg_228.html"><span class="extensionexampleletter">228</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_231.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fate Steps In</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_228.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Fate Steps In</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Fate entity which attempts to make things happen, by hook or by crook, including taking preliminary actions to set the player up a bit.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg231><a style="text-decoration: none" href="RB_4_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg228><a style="text-decoration: none" href="RB_4_6.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_13_12.html"><span class="markdowncontent">Section 13.12: Check rules for actions by other people</span></a> &bull; <a href="WI_13_14.html"><span class="markdowncontent">Section 13.14: Actions for any actor</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

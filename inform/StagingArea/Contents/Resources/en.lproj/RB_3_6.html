@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,69 +2212,75 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Windows" -->
+            <!-- SEARCH SECTION "3.6" -->
+            <!-- SEARCH SORT "002-003-006-000" -->
             <h3><span>Section 3.6: Windows</span></h3>
             <p>
             Calvin Coolidge once described windows as &quot;rectangles of glass.&quot; For us, they have two purposes: first, they offer a view of landscape beyond. In the simplest case the view is of an area which will not be interacted with in play, and therefore does not need to adapt to whatever may have changed there:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">window</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Turret</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Through the window you see miles and miles of unbroken forest, turning from green to flame in the hard early autumn.&quot;</span>
+            <!-- START CODE "code2047" -->
+            <blockquote class="extract-inform7"><a id="code2047"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Turret</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Through the window you see miles and miles of unbroken forest, turning from green to flame in the hard early autumn.&quot;</span>
             </span></blockquote>
-            <p>More interesting is to adapt the view a little to provide a changing picture: a forest may not change much, but a street scene will. <a href="eg_300.html">Port Royal 4</a> allows us to glimpse random passers-by.</p>
-            <p>The trickiest kind of window allows the player to see another room which can also be encountered in play, and to interact with what is there. <a href="eg_239.html">Dinner is Served</a> presents a shop window, allowing people to see inside from the street, and even to reach through.</p>
-            <p><a href="eg_122.html">Vitrine</a> handles the complication of a window misting up to become opaque, and thus temporarily hiding its view.</p>
-            <p>Second, windows provide openings in walls and can act as conduits. <a href="eg_27.html">Escape</a> shows how a <code class="inlinesourcetext">door</code> in the Inform sense can become a window. <a href="eg_203.html">A Haughty Spirit</a> provides a general kind of window for jumping down out of: ideal for escapers from Colditz-like castles.</p>
+            <!-- END CODE -->
+            <p>More interesting is to adapt the view a little to provide a changing picture: a forest may not change much, but a street scene will. <a href="eg_297.html">Port Royal 4</a> allows us to glimpse random passers-by.</p>
+            <p>The trickiest kind of window allows the player to see another room which can also be encountered in play, and to interact with what is there. <a href="eg_236.html">Dinner is Served</a> presents a shop window, allowing people to see inside from the street, and even to reach through.</p>
+            <p><a href="eg_119.html">Vitrine</a> handles the complication of a window misting up to become opaque, and thus temporarily hiding its view.</p>
+            <p>Second, windows provide openings in walls and can act as conduits. <a href="eg_26.html">Escape</a> shows how a <code class="inlinesourcetext">door</code> in the Inform sense can become a window. <a href="eg_200.html">A Haughty Spirit</a> provides a general kind of window for jumping down out of: ideal for escapers from Colditz-like castles.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_3_5.html" title="Section 3.5: Doors, Staircases, and Bridges">Doors, Staircases, and Bridges</a> for a door which can be partially seen through.</li>
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg122><a style="text-decoration: none" href="eg_122.html"><span class="extensionexampleletter">122</span></a></span></div>
+                    <span id=eg119><a style="text-decoration: none" href="eg_119.html"><span class="extensionexampleletter">119</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_122.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vitrine</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_119.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Vitrine</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">An electrochromic window that becomes transparent or opaque depending on whether it is currently turned on.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg122><a style="text-decoration: none" href="WI_8_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg119><a style="text-decoration: none" href="WI_8_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg239><a style="text-decoration: none" href="eg_239.html"><span class="extensionexampleletter">239</span></a></span></div>
+                    <span id=eg236><a style="text-decoration: none" href="eg_236.html"><span class="extensionexampleletter">236</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_239.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dinner is Served</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_236.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Dinner is Served</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A window between two locations. When the window is open, the player can reach through into the other location; when it isn't, access is barred.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg239><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg236><a style="text-decoration: none" href="WI_13_18.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg27><a style="text-decoration: none" href="eg_27.html"><span class="extensionexampleletter">27</span></a></span></div>
+                    <span id=eg26><a style="text-decoration: none" href="eg_26.html"><span class="extensionexampleletter">26</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_27.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_26.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Escape</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Window that can be climbed through or looked through.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg27><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg26><a style="text-decoration: none" href="WI_3_12.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg300><a style="text-decoration: none" href="eg_300.html"><span class="extensionexampleletter">300</span></a></span></div>
+                    <span id=eg297><a style="text-decoration: none" href="eg_297.html"><span class="extensionexampleletter">297</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_300.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 4</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_297.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Port Royal 4</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A cell window through which the player can see people who were in Port Royal in the current year of game-time.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg300><a style="text-decoration: none" href="WI_18_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg297><a style="text-decoration: none" href="WI_18_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg203><a style="text-decoration: none" href="eg_203.html"><span class="extensionexampleletter">203</span></a></span></div>
+                    <span id=eg200><a style="text-decoration: none" href="eg_200.html"><span class="extensionexampleletter">200</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_203.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Haughty Spirit</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_200.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">A Haughty Spirit</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Windows overlooking lower spaces which will prevent the player from climbing through if the lower space is too far below.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg203><a style="text-decoration: none" href="WI_12_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg200><a style="text-decoration: none" href="WI_12_17.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_3_5.html"><span class="markdowncontent">Section 3.5: Doors, Staircases, and Bridges</span></a> &bull; <a href="RB_3_7.html"><span class="markdowncontent">Section 3.7: Lighting</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

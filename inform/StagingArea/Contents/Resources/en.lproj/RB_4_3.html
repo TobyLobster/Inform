@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,18 +2212,24 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Event Scheduling" -->
+            <!-- SEARCH SECTION "4.3" -->
+            <!-- SEARCH SORT "002-004-003-000" -->
             <h3><span>Section 4.3: Event Scheduling</span></h3>
             <p>
-            We can use a schedule of events to give some life to our environment: if we have a town setting, for instance, it makes sense for shops and libraries to open and close at set times; this is just what we find in <a href="eg_147.html">IPA</a>.</p>
-            <p><a href="eg_383.html">Air Conditioning is Standard</a> has characters who follow a timed schedule of events to interact with each other, while the player mostly wanders around missing out on the action. (Sometimes life is like that.) The same effects could have been achieved with scenes instead of clock times, but there are occasions when we do want to plan our characters' behaviour to the minute rather than waiting for the player to be in the right place to observe it: in a murder mystery or a time-travel story, the exact timings might be quite significant.</p>
+            We can use a schedule of events to give some life to our environment: if we have a town setting, for instance, it makes sense for shops and libraries to open and close at set times; this is just what we find in <a href="eg_144.html">IPA</a>.</p>
+            <p><a href="eg_380.html">Air Conditioning is Standard</a> has characters who follow a timed schedule of events to interact with each other, while the player mostly wanders around missing out on the action. (Sometimes life is like that.) The same effects could have been achieved with scenes instead of clock times, but there are occasions when we do want to plan our characters' behaviour to the minute rather than waiting for the player to be in the right place to observe it: in a murder mystery or a time-travel story, the exact timings might be quite significant.</p>
             <p>We may also want to add events to the schedule during play, as in</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pushing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">egg</span><span class="syntaxplain">-</span><span class="syntaxidentifier">timer</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;It begins to mark time.&quot;</span><span class="syntaxplain">; </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">egg</span><span class="syntaxplain">-</span><span class="syntaxidentifier">timer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clucks</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">four</span><span class="syntaxplain"> </span><span class="syntaxidentifier">turns</span><span class="syntaxplain"> </span><span class="syntaxidentifier">from</span><span class="syntaxplain"> </span><span class="syntaxidentifier">now</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code2051" -->
+            <blockquote class="extract-inform7"><a id="code2051"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">pushing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">egg</span><span class="plain-syntax">-</span><span class="identifier-syntax">timer</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It begins to mark time.&quot;</span><span class="plain-syntax">; </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">egg</span><span class="plain-syntax">-</span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">clucks</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">four</span><span class="plain-syntax"> </span><span class="identifier-syntax">turns</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="identifier-syntax">now</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">At</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">time</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">egg</span><span class="syntaxplain">-</span><span class="syntaxidentifier">timer</span><span class="syntaxplain"> </span><span class="syntaxidentifier">clucks</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Cluck! Cluck! Cluck! says the egg-timer.&quot;</span>
+            <span class="identifier-syntax">At</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">egg</span><span class="plain-syntax">-</span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">clucks</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Cluck! Cluck! Cluck! says the egg-timer.&quot;</span>
             </span></blockquote>
-            <p>Similarly, we can schedule things during play to happen at a specific time of day, as shown in <a href="eg_152.html">Hour of the Wren</a>.</p>
+            <!-- END CODE -->
+            <p>Similarly, we can schedule things during play to happen at a specific time of day, as shown in <a href="eg_149.html">Hour of the Wren</a>.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_4_4.html" title="Section 4.4: Scene Changes">Scene Changes</a> for more things that arrive at pre-determined times.</li>
@@ -2146,36 +2237,36 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg147><a style="text-decoration: none" href="eg_147.html"><span class="extensionexampleletter">147</span></a></span></div>
+                    <span id=eg144><a style="text-decoration: none" href="eg_144.html"><span class="extensionexampleletter">144</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_147.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">IPA</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_144.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">IPA</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Shops which each have opening and closing hours, so that it is impossible to go in at the wrong times, and the player is kicked out if they overstay their welcome.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg147><a style="text-decoration: none" href="WI_9_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg144><a style="text-decoration: none" href="WI_9_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg152><a style="text-decoration: none" href="eg_152.html"><span class="extensionexampleletter">152</span></a></span></div>
+                    <span id=eg149><a style="text-decoration: none" href="eg_149.html"><span class="extensionexampleletter">149</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_152.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hour of the Wren</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_149.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Hour of the Wren</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Allowing the player to make an appointment, which is then kept.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg152><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg149><a style="text-decoration: none" href="WI_9_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg383><a style="text-decoration: none" href="eg_383.html"><span class="extensionexampleletter">383</span></a></span></div>
+                    <span id=eg380><a style="text-decoration: none" href="eg_380.html"><span class="extensionexampleletter">380</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_383.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Air Conditioning is Standard</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_380.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Air Conditioning is Standard</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Uses <code class="inlinesourcetext">writing a paragraph about</code> to make person and object descriptions that vary considerably depending on what else is going on in the room, including some randomised NPC interactions with objects or with each other.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg383><a style="text-decoration: none" href="WI_20_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg380><a style="text-decoration: none" href="WI_20_24.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_4_2.html"><span class="markdowncontent">Section 4.2: Scripted Scenes</span></a> &bull; <a href="RB_4_4.html"><span class="markdowncontent">Section 4.4: Scene Changes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

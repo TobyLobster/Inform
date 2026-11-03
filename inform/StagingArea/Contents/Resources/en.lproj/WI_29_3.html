@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 29.3: Title and authorship</span></title>
+    <title><span class="markdowncontent">Section 29.3: Genres</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_29_2.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.3: Title and authorship</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 29.3: Genres</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_29_4.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,49 +2212,26 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 29.3: Title and authorship</span></h3>
-            <p> </p>
-            <p>In this chapter, we'll take on the role of Peter Drake, an Inform author who wants to package up the following minimal piece of design as an extension:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Ducking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;duck&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">.</span>
-            <br>
-
-            <br>
-            <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ducking</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You duck!&quot;</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Genres" -->
+            <!-- SEARCH SECTION "29.3" -->
+            <!-- SEARCH SORT "001-029-003-000" -->
+            <h3><span>Section 29.3: Genres</span></h3>
+            <p></p>
+            <p>The <code class="inlinesourcetext">story genre</code> is not used in the banner at all, and exists purely to help librarians. If it is at all possible to do so, authors are asked to use one of the following standard categories:</p>
+            <!-- START CODE "code1796" -->
+            <blockquote class="extract-inform7"><a id="code1796"></a><span class="indexdullblue"><span class="identifier-syntax">Comedy</span><span class="plain-syntax">, </span><span class="identifier-syntax">Erotica</span><span class="plain-syntax">, </span><span class="identifier-syntax">Fairy</span><span class="plain-syntax"> </span><span class="identifier-syntax">Tale</span><span class="plain-syntax">, </span><span class="identifier-syntax">Fantasy</span><span class="plain-syntax">, </span><span class="identifier-syntax">Fiction</span><span class="plain-syntax">, </span><span class="identifier-syntax">Historical</span><span class="plain-syntax">, </span><span class="identifier-syntax">Horror</span><span class="plain-syntax">, </span><span class="identifier-syntax">Mystery</span><span class="plain-syntax">, </span><span class="identifier-syntax">Non</span><span class="plain-syntax">-</span><span class="identifier-syntax">Fiction</span><span class="plain-syntax">, </span><span class="identifier-syntax">Other</span><span class="plain-syntax">, </span><span class="identifier-syntax">Romance</span><span class="plain-syntax">, </span><span class="identifier-syntax">Science</span><span class="plain-syntax"> </span><span class="identifier-syntax">Fiction</span><span class="plain-syntax">, </span><span class="identifier-syntax">Surreal</span>
             </span></blockquote>
-            <p>Of course this is far too small to be worth making an extension of, but it will serve as an example. It's typical of extensions in that it adds something to the usual Inform stock of actions or phrases, but doesn't create any rooms or things. It could in principle be included in all kinds of different stories, to give them a ducking action.</p>
-            <p>The first task is to work out a name for the extension, which is a combination of title and author name. Here are some considerations:</p>
-            <ol>
-            <li>
-            <p>The name of an extension, and of an author, should be written in using upper case on the first letter in each word. For example <code class="inlinesourcetext">Points Of View by Dino Di Maggio</code> is allowed, but note that it is <code class="inlinesourcetext">Of</code> not <code class="inlinesourcetext">of</code> and <code class="inlinesourcetext">Di</code> not <code class="inlinesourcetext">di</code>. (Having a definite rule about upper and lower case minimises problems on machines where filenames are read with case sensitivity.)</p>
-            </li>
-            <li>
-            <p>However, author names can include upper-case letters within words, so for example <code class="inlinesourcetext">Scrooge McDuck</code> is a valid author name.</p>
-            </li>
-            <li>
-            <p>Where possible, accented or unusual letters should be avoided in titles and author names, but they can in principle use any of the standard ISO Latin-1 characters. <code class="inlinesourcetext">Étude Pour La Fênetre by Françoise Gauß</code> is legal.</p>
-            </li>
-            <li>
-            <p>The title must not start with <code class="inlinesourcetext">The</code>, nor contain the words <code class="inlinesourcetext">by</code> or <code class="inlinesourcetext">version</code>, nor contain punctuation. Thus <code class="inlinesourcetext">The Stock Market</code> is illegal, but <code class="inlinesourcetext">Stocks And Shares</code> is fine. The title must not exceed 50 characters in length, including any spaces between words.</p>
-            </li>
-            <li>
-            <p>Titles should aim to give a straightforward description of the function of the extension, rather than cryptic allusions or puns. Because extensions are identified by title and author name in combination, there is no need to worry about making the title so distinctive that nobody else would ever use it. It causes no problems if John Smith and Mary Brown each write extensions called <code class="inlinesourcetext">Following People</code>, because one is <code class="inlinesourcetext">Following People by John Smith</code> and the other <code class="inlinesourcetext">Following People by Mary Brown</code>.</p>
-            </li>
-            <li>
-            <p>The author name must not start with <code class="inlinesourcetext">The</code>, nor contain the words <code class="inlinesourcetext">by</code>, <code class="inlinesourcetext">and</code> or <code class="inlinesourcetext">version</code>, nor contain punctuation, and must not be the word <code class="inlinesourcetext">Reserved</code>. Thus, <code class="inlinesourcetext">John X. Doe</code> is illegal, but <code class="inlinesourcetext">John X Doe</code> is fine; <code class="inlinesourcetext">The Edge</code> is illegal, but <code class="inlinesourcetext">Megan Thee Stallion</code> is fine. The author name must not exceed 50 characters in length, including any spaces between words.</p>
-            </li>
-            <li>
-            <p>Whenever possible, authors should use real names rather than cryptic handles like <code class="inlinesourcetext">Ifguy</code>, and to use genteel, plausible pseudonyms like <code class="inlinesourcetext">Emily Short</code> rather than, say, <code class="inlinesourcetext">Drooling Zombie</code>.</p>
-            </li>
-            <li>
-            <p>Authors should try to use the same author's name for all their own extensions, and (it should go without saying) should not masquerade as anybody else.</p>
-            </li>
-            </ol>
-            <p>For our example extension, rule (5) suggests we should call it just &quot;ducking action&quot;, since that's what it provides. Rule (1) says we should capitalise to <code class="inlinesourcetext">Ducking Action</code>, and that's clearly okay under rule (4), since it's much shorter than 50 characters and contains none of the forbidden words. The author name is easy too: <code class="inlinesourcetext">Peter Drake</code>. So the example extension will be called <code class="inlinesourcetext">Ducking Action by Peter Drake</code>.</p>
+            <!-- END CODE -->
+            <p>These categories are based on those currently used by bookshops, but a few notes may be helpful. &quot;Fiction&quot; is intended for works whose essential purpose is literary, in a way which trumps any subject they happen to have: if Julian Barnes writes a mystery, for instance, a bookshop will shelve it with modern novels rather than in the detective stories section, whereas P. D. James's Adam Dalgliesh mysteries will end up filed with detective fiction even though she has appreciable claims to be an important novelist.</p>
+            <p>&quot;Comedy&quot; is used rather than &quot;humour&quot; to avoid the clash of spellings with &quot;humor&quot;. This genre includes parodies.</p>
+            <p>&quot;Non-Fiction&quot; would be used for a work of IF which is essentially a presentation, perhaps in a novel interactive format, of true information. A meticulous simulation of the Great Exhibition of 1851, for instance, might qualify.</p>
+            <p>The distinction between &quot;Surreal&quot; and &quot;Other&quot; is that &quot;Surreal&quot; works contain at least some semblance of narrative, whereas &quot;Other&quot; is intended for works which &quot;abuse&quot; the format to present some entirely different sort of game – Tetris, say, or Minesweeper.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_29_2.html"><span class="markdowncontent">Section 29.2: Review of how extensions are used</span></a> &bull; <a href="WI_29_4.html"><span class="markdowncontent">Section 29.4: Creating a new extension</span></a></em></p>
+        <p><em> &bull; <a href="WI_29_2.html"><span class="markdowncontent">Section 29.2: Bibliographic data</span></a> &bull; <a href="WI_29_4.html"><span class="markdowncontent">Section 29.4: The Library Card</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

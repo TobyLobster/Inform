@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Chapter 26: Testing and Debugging</span></title>
+    <title><span class="markdowncontent">Chapter 26: Events and Hyperlinks</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,16 +2193,15 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
                 <tr>
                     <td class="midnightbannerleftcell">
-                        <a href="WI_25_15.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
+                        <a href="WI_25_7.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 26: Testing and Debugging</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 26: Events and Hyperlinks</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_26_2.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,51 +2212,123 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h2><span>Chapter 26: Testing and Debugging</span></h2>
-            <h3><span>Section 26.1: A recap on TEST and showme</span></h3>
-            <p>  </p>
-            <p>Testing the story is such a basic part of writing it that we have already seen small tests many times in this manual.</p>
-            <p>In particular, the <code class="inlinetranscriptcommand">test</code> command is invaluable. This needs the source text to have set up a script already, say like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dinner</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;eat bread / eat soup / eat butter&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Ship</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cafeteria</span><span class="syntaxplain">.</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Glk events" -->
+            <!-- SEARCH SECTION "26.1" -->
+            <!-- SEARCH SORT "001-026-001-000" -->
+            <h2><span>Chapter 26: Events and Hyperlinks</span></h2>
+            <h3><span>Section 26.1: Glk events</span></h3>
+            <p>An Inform story is always in control of what it outputs. It decides what to say, and when to say it. Input is not as predictable. Somewhere outside of the story is a player, pressing keys or clicking on links.</p>
+            <p>The Glk input/output system handles those situations as <em>events</em>. Events are values, of the kind <code class="inlinesourcetext">Glk event</code>: and being values, they can be put into variables, they can have phrases or rulebooks act on them, and so on. Events come in quite a variety, but are sorted out by type:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn457" -->
+                <p class="defnprototype"><a id="defn457"></a>type of (glk event) ... glk event type</p>
+                <!-- END PHRASE -->
+                <p>Every <code class="inlinesourcetext">glk event</code> falls into one of (currently) 10 types, which are the possible values of <code class="inlinesourcetext">glk event type</code>.</p>
+            </div>
+            <p>Besides having a type, events usually have details attached. For example, if <code class="inlinesourcetext">E</code> is the event arising when the player presses the X key, then <code class="inlinesourcetext">type of E</code> will be  <code class="inlinesourcetext">character event</code>, and <code class="inlinesourcetext">character value of E</code> will be the Unicode character for X.</p>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>Events can really only be handled by the phrases appropriate for their type. For example, taking <code class="inlinesourcetext">character value of</code> what turns out to be a <code class="inlinesourcetext">volume event</code> would make no sense. But Inform would compile this happily enough: it wouldn't go wrong until run-time, when a run-time problem would result.</p>
+            </blockquote>
+            <p>Here is the complete list of event types:</p>
+            <table>
+            <thead>
+            <tr>
+            <th>Value of <code class="inlinesourcetext">glk event type</code></th>
+            <th>Meaning</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><code class="inlinesourcetext">null event</code></td>
+            <td>Nothing happening.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">character event</code></td>
+            <td>A key has been typed.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">line event</code></td>
+            <td>A line of text ending with a RETURN or ENTER has been typed.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">hyperlink event</code></td>
+            <td>A web-style link has been selected.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">mouse event</code></td>
+            <td>A mouse has been clicked, or a touch-screen touched.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">screen resize event</code></td>
+            <td>The screen has been resized.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">graphics window lost event</code></td>
+            <td>A graphic window needs redrawing from scratch.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">timer event</code></td>
+            <td>A timer has run out.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">sound notification event</code></td>
+            <td>A sound effect has finished playing.</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">volume event</code></td>
+            <td>A change in sound volume has completed.</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>Note that some of these are our own fault, so to speak. If we set a timer to run for, say, ten seconds, it will in due course lead to a <code class="inlinesourcetext">timer event</code>.</p>
+            <p>The story deals with Glk events using the <code class="inlinesourcetext">glk event handling rulebook</code>, which is a <code class="inlinesourcetext">glk event type based rulebook</code>. This rulebook has a variable called <code class="inlinesourcetext">event</code>, which contains the full details within it, and has the kind <code class="inlinesourcetext">glk event</code>.</p>
+            <p>The story can react to Glk events as they arise by providing rules for this rulebook. For example, this logs each event as it comes in:</p>
+            <!-- START CODE "code1726" -->
+            <blockquote class="extract-inform7"><a id="code1726"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Newsflash: [event].&quot;</span>
             </span></blockquote>
-            <p>And then <code class="inlinetranscriptcommand">test dinner</code> will shift the player to the Ship Cafeteria and run through the three typed commands <code class="inlinetranscriptcommand">eat bread</code>, <code class="inlinetranscriptcommand">eat soup</code> and <code class="inlinetranscriptcommand">eat butter</code> in turn.</p>
-            <p>Something else already seen is the ability to have phrases or rules log the current value of something into the transcript of the story. Many of the most annoying bugs come about because we're making some assumptions about what's true in the story world that differ from Inform's assumptions. When that happens, we may need to add something to the source to check that the variables are set to what we think, that certain parts of the source are being reached, and so on.</p>
-            <p>For instance, suppose we have a phrase like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keys</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">timid</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You're still missing a lot of keys, bucko!&quot;</span>
-            </span></blockquote>
-            <p>Now, we expect this to print something, but perhaps it's not doing so when we had anticipated that it would. At some point when we think the <code class="inlinesourcetext">count</code> is greater than 2 and the player is <code class="inlinesourcetext">timid</code>, at least one of those things is not true. An easy way to check up on this is to add a showme line to the source, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">key</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">keys</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">carried</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">or</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">timid</span><span class="syntaxplain">;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">count</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">timid</span><span class="syntaxplain">:</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You're still missing a lot of keys, bucko!&quot;</span>
-            </span></blockquote>
-            <p>and this will then check the relevant number and print it to screen when this phrase is called, like so</p>
+            <!-- END CODE -->
+            <p>Exactly what events come in may depend on which Glk interpreter is running the story, and what capabilities it has. For example, on the MacOS Inform app the first event logged when the story starts up is:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;count&quot; = number: 1</span><br><span class="syntaxidentifier">&quot;whether or not the player is timid&quot; = truth state: true</span><br></code></pre></div>
-            <p>In this case, it looks as if there's no problem over timidity, but that the <code class="inlinesourcetext">count</code> is not high enough to trigger the text, so we can concentrate on working out why that might be. Maybe we didn't correctly define something as a <code class="inlinesourcetext">key</code>, for instance.</p>
-            <h4><span>See Also</span></h4>
-            <ul>
-            <li><a href="WI_2_8.html" title="Section 2.8: The TEST command">The TEST command</a> for the full story on this.</li>
-            <li><a href="WI_12_4.html" title="Section 12.4: The showme phrase">The showme phrase</a> for more on <code class="inlinesourcetext">showme</code>.</li>
-            </ul>
+                <pre><code class="language-transcript">    Newsflash: screen resize event.<br></code></pre></div>
+            <p>But on the Parchment website interpreter, we find:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">    Newsflash: graphics window lost event.<br>    Newsflash: screen resize event.<br>    Newsflash: graphics window lost event.<br></code></pre></div>
+            <p>So it may be advisable to remember that no two implementations of Glk are exactly the same, and no two environments for the story have exactly the same capacities. Typed commands do produce the same event on all platforms, though:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; WAIT<br>Newsflash: line event (&quot;wait&quot;) in the main window.<br>Time passes.<br>&gt; LOOK<br>Newsflash: line event (&quot;look&quot;) in the main window.<br></code></pre></div>
+            <p>The Newsflash rule ran twice there, once after each typed command, with two different values of <code class="inlinesourcetext">event</code>. But though they were different values of the <code class="inlinesourcetext">glk event</code> kind, they both had the same type, <code class="inlinesourcetext">line event</code>.</p>
+            <p>Event types are useful because most of the time we want to write a rule applying to all events of a given type. This is why the rulebook is based on <code class="inlinesourcetext">glk event type</code> and not <code class="inlinesourcetext">glk event</code>. So, for instance:</p>
+            <!-- START CODE "code1727" -->
+            <blockquote class="extract-inform7"><a id="code1727"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">timer</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax">:</span>
+            <br>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Time out! [event].&quot;</span>
+            </span></blockquote>
+            <!-- END CODE -->
+            <p>Events of different event types work differently, and have to be handled in different ways. The next few sections cover how to handle particular event types, but there is one more phrase which can usefully be applied to glk events of several different types. What these have in common is that they take place in or on a given window.</p>
+            <p>Inform provides the adjective <code class="inlinesourcetext">windowed</code> to determine whether a <code class="inlinesourcetext">glk event</code> (or a <code class="inlinesourcetext">glk event type</code>) is associated with a window: at present the windowed events are the character events, line events, hyperlink events and mouse events.</p>
+            <div class="definition">
+                <!-- START PHRASE "defn458" -->
+                <p class="defnprototype"><a id="defn458"></a>window of (glk event) ... IO window</p>
+                <!-- END PHRASE -->
+                <p>For a windowed event, this gives the window where the event is taking place. If used on events which are not windowed, a run-time problem is issued. So for example, the following uses the phrase safely:</p>
+                <!-- START CODE "code1728" -->
+                <blockquote class="extract-inform7"><a id="code1728"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">handling</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">windowed</span><span class="plain-syntax"> </span><span class="identifier-syntax">glk</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">type</span><span class="plain-syntax">:</span>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">window</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">event</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">status</span><span class="plain-syntax"> </span><span class="identifier-syntax">line</span><span class="plain-syntax">:</span>
+                <br>
+                &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Status line update! [event].&quot;</span>
+                </span></blockquote>
+                <!-- END CODE -->
+            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_15.html"><span class="markdowncontent">Section 25.15: Exchanging files with other programs</span></a> &bull; <a href="WI_26_2.html"><span class="markdowncontent">Section 26.2: Checking against the Index</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_7.html"><span class="markdowncontent">Section 25.7: Pausing for keystrokes or commands</span></a> &bull; <a href="WI_26_2.html"><span class="markdowncontent">Section 26.2: Character and line events</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

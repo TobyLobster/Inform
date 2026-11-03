@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,51 +2212,61 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Grouping together something" -->
+            <!-- SEARCH SECTION "20.14" -->
+            <!-- SEARCH SORT "001-020-014-000" -->
             <h3><span>Section 20.14: Grouping together something</span></h3>
             <p>  </p>
             <p><strong>1. When it happens.</strong> Only while listing contents, and only when a collection of items to be grouped together is reached. This in turn happens only if a <code class="inlinesourcetext">before listing contents</code> rule has chosen it (see previous section). The first item in the group is the one to which the activity formally applies.</p>
             <p>The variable <code class="inlinesourcetext">listing group size</code> usually gives the number of items grouped together in this way, but care is needed if the <code class="inlinesourcetext">something</code> covers multiple groups, because then this will all be working on a list of groups, not of items. For example, in a <code class="inlinesourcetext">grouping together things</code> rule, where <code class="inlinesourcetext">things</code> is such a broad description that it can apply to multiple kinds of thing all appearing in the list, the list-maker is likely to set <code class="inlinesourcetext">listing group size</code> to the number of groups. If the list contains five men and six women, for example, <code class="inlinesourcetext">listing group size</code> might be 2 rather than 11.</p>
             <p><strong>2. The default behaviour.</strong> The items grouped together are printed in an English phrase, such as <code class="inlinetranscript">egg, chicken and farmer</code>. In particular, they are not split onto separate lines even if the rest of the list is. (See previous section.)</p>
             <p><strong>3. Examples.</strong> (a) Here are Scrabble pieces which are described as <code class="inlinetranscript">the tile W from a Scrabble set</code> or similar outside of lists, but which, when they turn up together in lists, are rolled together into <code class="inlinetranscript">the tiles A, B and D from a Scrabble set</code>.</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('A Scrabble piece is a kind of thing. The X, the Y and the Z are Scrabble pieces.[=0x000A=][=0x000A=]Before listing contents: group Scrabble pieces together.[=0x000A=][=0x000A=]Before printing the name of a Scrabble piece while not grouping together, say [=0x0022=]tile [=0x0022=]. After printing the name of a Scrabble piece while not grouping together, say [=0x0022=] from a Scrabble set[=0x0022=].[=0x000A=][=0x000A=]Before grouping together Scrabble pieces, say [=0x0022=]the tiles [=0x0022=]. After grouping together Scrabble pieces, say [=0x0022=] from a Scrabble set[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1355" -->
+            <blockquote class="extract-inform7"><a id="code1355"></a><a class="actionlink" href="javascript:pasteCode('A Scrabble piece is a kind of thing. The X, the Y and the Z are Scrabble pieces.[=0x000A=][=0x000A=]Before listing contents: group Scrabble pieces together.[=0x000A=][=0x000A=]Before printing the name of a Scrabble piece while not grouping together, say [=0x0022=]tile [=0x0022=]. After printing the name of a Scrabble piece while not grouping together, say [=0x0022=] from a Scrabble set[=0x0022=].[=0x000A=][=0x000A=]Before grouping together Scrabble pieces, say [=0x0022=]the tiles [=0x0022=]. After grouping together Scrabble pieces, say [=0x0022=] from a Scrabble set[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">piece</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain">: </span><span class="syntaxidentifier">group</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax">: </span><span class="identifier-syntax">group</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;tile &quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">not</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; from a Scrabble set&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">piece</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;tile &quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">piece</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">not</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot; from a Scrabble set&quot;</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;the tiles &quot;</span><span class="syntaxplain">. </span><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot; from a Scrabble set&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;the tiles &quot;</span><span class="plain-syntax">. </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot; from a Scrabble set&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(b) Maybe we only want an abbreviated form when there are five or more tiles in one place:</p>
-            <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('A Scrabble piece is a kind of thing. The X, the W, the F, the Y and the Z are Scrabble pieces in the Lounge.[=0x000A=][=0x000A=]Before listing contents: group Scrabble pieces together.[=0x000A=][=0x000A=]Before grouping together Scrabble pieces when the listing group size is greater than 4:[=0x000A=][=0x0009=]say [=0x0022=]some [listing group size in words] tiles ([=0x0022=].[=0x000A=]After grouping together Scrabble pieces when the listing group size is greater than 4:[=0x000A=][=0x0009=]say [=0x0022=]) from a Scrabble set[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">piece</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">thing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">X</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">W</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">F</span><span class="syntaxplain">, </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Z</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Lounge</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1356" -->
+            <blockquote class="extract-inform7"><a id="code1356"></a><a class="actionlink" href="javascript:pasteCode('A Scrabble piece is a kind of thing. The X, the W, the F, the Y and the Z are Scrabble pieces in the Lounge.[=0x000A=][=0x000A=]Before listing contents: group Scrabble pieces together.[=0x000A=][=0x000A=]Before grouping together Scrabble pieces when the listing group size is greater than 4:[=0x000A=][=0x0009=]say [=0x0022=]some [listing group size in words] tiles ([=0x0022=].[=0x000A=]After grouping together Scrabble pieces when the listing group size is greater than 4:[=0x000A=][=0x0009=]say [=0x0022=]) from a Scrabble set[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">piece</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">X</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">W</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">F</span><span class="plain-syntax">, </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Y</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Z</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Lounge</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain">: </span><span class="syntaxidentifier">group</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax">: </span><span class="identifier-syntax">group</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">group</span><span class="syntaxplain"> </span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax"> </span><span class="identifier-syntax">group</span><span class="plain-syntax"> </span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;some </span><span class="syntaxextract">[listing group size in words]</span><span class="syntaxstring"> tiles (&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;some [listing group size in words] tiles (&quot;</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Scrabble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pieces</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">group</span><span class="syntaxplain"> </span><span class="syntaxidentifier">size</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax"> </span><span class="identifier-syntax">Scrabble</span><span class="plain-syntax"> </span><span class="identifier-syntax">pieces</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax"> </span><span class="identifier-syntax">group</span><span class="plain-syntax"> </span><span class="identifier-syntax">size</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">greater</span><span class="plain-syntax"> </span><span class="identifier-syntax">than</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;) from a Scrabble set&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;) from a Scrabble set&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>(c) We can throw out all pretence at listing and say whatever we like, in fact:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">contents</span><span class="syntaxplain"> </span><span class="syntaxidentifier">while</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">inventory</span><span class="syntaxplain">: </span><span class="syntaxidentifier">group</span><span class="syntaxplain"> </span><span class="syntaxidentifier">utensils</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grouping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">together</span><span class="syntaxplain"> </span><span class="syntaxidentifier">utensils</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;the usual utensils&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code1357" -->
+            <blockquote class="extract-inform7"><a id="code1357"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">listing</span><span class="plain-syntax"> </span><span class="identifier-syntax">contents</span><span class="plain-syntax"> </span><span class="identifier-syntax">while</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">inventory</span><span class="plain-syntax">: </span><span class="identifier-syntax">group</span><span class="plain-syntax"> </span><span class="identifier-syntax">utensils</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax">. </span><span class="identifier-syntax">Rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">for</span><span class="plain-syntax"> </span><span class="identifier-syntax">grouping</span><span class="plain-syntax"> </span><span class="identifier-syntax">together</span><span class="plain-syntax"> </span><span class="identifier-syntax">utensils</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;the usual utensils&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_20_13.html"><span class="markdowncontent">Section 20.13: Listing contents of something</span></a> &bull; <a href="WI_20_15.html"><span class="markdowncontent">Section 20.15: Issuing the response text of something</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

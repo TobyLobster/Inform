@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,16 +2212,24 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Adapting contractions" -->
+            <!-- SEARCH SECTION "15.8" -->
+            <!-- SEARCH SORT "001-015-008-000" -->
             <h3><span>Section 15.8: Adapting contractions</span></h3>
             <p>               </p>
             <p>Contractions usually take the form of part of a word being missed out and replaced by an apostrophe. We've already seen <code class="inlinesourcetext">&quot;[can't]&quot;</code>, <code class="inlinesourcetext">&quot;[couldn't]&quot;</code>, <code class="inlinesourcetext">&quot;[mayn't]&quot;</code>, <code class="inlinesourcetext">&quot;[mightn't]&quot;</code>, <code class="inlinesourcetext">&quot;[mustn't]&quot;</code>, <code class="inlinesourcetext">&quot;[shouldn't]&quot;</code> and <code class="inlinesourcetext">&quot;[wouldn't]&quot;</code>, for example. But Inform supports other contractions, too, as follows.</p>
             <p>The English verbs &quot;to be&quot; and &quot;to have&quot; are unique in having contracted forms, which we can write <code class="inlinesourcetext">&quot;['re]&quot;</code> and <code class="inlinesourcetext">&quot;['ve]&quot;</code>, like this:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[We]['ve]</span><span class="syntaxstring"> got rhythm. </span><span class="syntaxextract">[We]['re]</span><span class="syntaxstring"> cool.&quot;</span>
+            <!-- START CODE "code980" -->
+            <blockquote class="extract-inform7"><a id="code980"></a><span class="indexdullblue"><span class="string-syntax">&quot;[We]['ve] got rhythm. [We]['re] cool.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which might produce, say, <code class="inlinetranscript">I've got rhythm. I'm cool.</code>, or <code class="inlinetranscript">He'll have rhythm. He'll be cool.</code>, or <code class="inlinetranscript">You had got rhythm. You were cool.</code> (The contractions don't appear in the past tense; but the spacing fixes itself automatically.)</p>
             <p>The Standard Rules often use a special text substitution for responses like this one:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[They're]</span><span class="syntaxstring"> hardly portable.&quot;</span>
+            <!-- START CODE "code981" -->
+            <blockquote class="extract-inform7"><a id="code981"></a><span class="indexdullblue"><span class="string-syntax">&quot;[They're] hardly portable.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is exactly like <code class="inlinesourcetext">&quot;[Those]['re] hardly portable&quot;</code> except that if the plural is needed, Inform prints <code class="inlinetranscript">They're hardly portable</code> rather than the correct, but not quite idiomatic, <code class="inlinetranscript">Those're hardly portable</code>. (If we wrote <code class="inlinesourcetext">&quot;[They]['re] ...&quot;</code>, that would get the plural form right, but then the singular would be <code class="inlinetranscript">It's hardly portable</code> not <code class="inlinetranscript">That's hardly portable</code>.)</p>
             <p>Only a few English verbs have contracted negative forms, beyond those already mentioned. Inform knows these informal forms:</p>
             <ul>
@@ -2146,18 +2239,20 @@
             <li><code class="inlinesourcetext">&quot;[won't]&quot;</code></li>
             </ul>
             <p>For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">taking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code982" -->
+            <blockquote class="extract-inform7"><a id="code982"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">taking</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[The noun]</span><span class="syntaxstring"> </span><span class="syntaxextract">[are]</span><span class="syntaxstring"> pinned down by Dr Zarkov's force field. </span><span class="syntaxextract">[They]</span><span class="syntaxstring"> </span><span class="syntaxextract">[aren't]</span><span class="syntaxstring"> free to move. </span><span class="syntaxextract">[They]</span><span class="syntaxstring"> </span><span class="syntaxextract">[can't]</span><span class="syntaxstring"> move. </span><span class="syntaxextract">[They]</span><span class="syntaxstring"> </span><span class="syntaxextract">[won't]</span><span class="syntaxstring"> move. </span><span class="syntaxextract">[They]</span><span class="syntaxstring"> </span><span class="syntaxextract">[haven't]</span><span class="syntaxstring"> a chance to move. Anyhow, </span><span class="syntaxextract">[they]</span><span class="syntaxstring"> </span><span class="syntaxextract">[don't]</span><span class="syntaxstring"> move.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The noun] [are] pinned down by Dr Zarkov's force field. [They] [aren't] free to move. [They] [can't] move. [They] [won't] move. [They] [haven't] a chance to move. Anyhow, [they] [don't] move.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>can produce variations like these:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">The condensers are pinned down by Dr Zarkov's force field. They aren't free to move. They can't move. They won't move. They haven't a chance to move. Anyhow, they don't move.</span><br><br><span class="syntaxidentifier">You were pinned down by Dr Zarkov's force field. You weren't free to move. You couldn't move. You wouldn't move. You hadn't a chance to move. Anyhow, you didn't move.</span><br></code></pre></div>
+                <pre><code class="language-transcript">The condensers are pinned down by Dr Zarkov's force field. They aren't free to move. They can't move. They won't move. They haven't a chance to move. Anyhow, they don't move.<br><br>You were pinned down by Dr Zarkov's force field. You weren't free to move. You couldn't move. You wouldn't move. You hadn't a chance to move. Anyhow, you didn't move.<br></code></pre></div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_15_7.html"><span class="markdowncontent">Section 15.7: Can, could, may, might, must, should, would</span></a> &bull; <a href="WI_15_9.html"><span class="markdowncontent">Section 15.9: Verbs as values</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,65 +2212,87 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The value after and the value before" -->
+            <!-- SEARCH SECTION "12.18" -->
+            <!-- SEARCH SORT "001-012-018-000" -->
             <h3><span>Section 12.18: The value after and the value before</span></h3>
             <p>    </p>
             <p>A point which has come up several times in recent chapters is that enumerated kinds of value have a natural ordering. For example, if we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code804" -->
+            <blockquote class="extract-inform7"><a id="code804"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...then we not only have seven possible values, we have put them into a sequence, in order of their naming. We can't perform arithmetic on colours, of course, but we can perform comparisons on them. Thus <code class="inlinesourcetext">red &lt; yellow</code> is true, while <code class="inlinesourcetext">green &gt;= violet</code> is not. (More on comparisons in the chapter on <a href="WI_16_1.html" title="Chapter 16: Quantities and Equations">Quantities and Equations</a>, which also covers arithmetic.)</p>
             <p>It's also sometimes useful to get at the sequence directly. First, the two ends:</p>
             <div class="definition">
-                <p class="defnprototype">first value of (name of kind) ... value</p>
+                <!-- START PHRASE "defn177" -->
+                <p class="defnprototype"><a id="defn177"></a>first value of (name of kind) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the first-created value of the given kind, which should be an enumeration. Example: if we have</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code805" -->
+                <blockquote class="extract-inform7"><a id="code805"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then <code class="inlinesourcetext">first value of colour</code> is red.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">last value of (name of kind) ... value</p>
+                <!-- START PHRASE "defn178" -->
+                <p class="defnprototype"><a id="defn178"></a>last value of (name of kind) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the last-created value of the given kind, which should be an enumeration. Example: if we have</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code806" -->
+                <blockquote class="extract-inform7"><a id="code806"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then <code class="inlinesourcetext">last value of colour</code> is violet.</p>
             </div>
             <p>And now how to step forward and back:</p>
             <div class="definition">
-                <p class="defnprototype">(name of kind) after (enumerated value) ... value</p>
+                <!-- START PHRASE "defn179" -->
+                <p class="defnprototype"><a id="defn179"></a>(name of kind) after (enumerated value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the next-created value of the given kind, which should be an enumeration. Example: if we have</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code807" -->
+                <blockquote class="extract-inform7"><a id="code807"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then <code class="inlinesourcetext">colour after orange</code> is yellow.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">(name of kind) before (enumerated value) ... value</p>
+                <!-- START PHRASE "defn180" -->
+                <p class="defnprototype"><a id="defn180"></a>(name of kind) before (enumerated value) ... value</p>
+                <!-- END PHRASE -->
                 <p>This phrase produces the previous-created value of the given kind, which should be an enumeration. Example: if we have</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Colour</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">kind</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">value</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">colours</span><span class="syntaxplain"> </span><span class="syntaxidentifier">are</span><span class="syntaxplain"> </span><span class="syntaxidentifier">red</span><span class="syntaxplain">, </span><span class="syntaxidentifier">orange</span><span class="syntaxplain">, </span><span class="syntaxidentifier">yellow</span><span class="syntaxplain">, </span><span class="syntaxidentifier">green</span><span class="syntaxplain">, </span><span class="syntaxidentifier">blue</span><span class="syntaxplain">, </span><span class="syntaxidentifier">indigo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">violet</span><span class="syntaxplain">.</span>
+                <!-- START CODE "code808" -->
+                <blockquote class="extract-inform7"><a id="code808"></a><span class="indexdullblue"><span class="identifier-syntax">Colour</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">colours</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">red</span><span class="plain-syntax">, </span><span class="identifier-syntax">orange</span><span class="plain-syntax">, </span><span class="identifier-syntax">yellow</span><span class="plain-syntax">, </span><span class="identifier-syntax">green</span><span class="plain-syntax">, </span><span class="identifier-syntax">blue</span><span class="plain-syntax">, </span><span class="identifier-syntax">indigo</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">violet</span><span class="plain-syntax">.</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>then <code class="inlinesourcetext">colour before blue</code> is green.</p>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg204><a style="text-decoration: none" href="eg_204.html"><span class="extensionexampleletter">204</span></a></span></div>
+                    <span id=eg201><a style="text-decoration: none" href="eg_201.html"><span class="extensionexampleletter">201</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_204.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entropy</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_201.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entropy</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">All objects in the game have a heat, but if not kept insulated they will tend toward room temperature (and at a somewhat exaggerated rate).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg204><a style="text-decoration: none" href="RB_10_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg201><a style="text-decoration: none" href="RB_10_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg205><a style="text-decoration: none" href="eg_205.html"><span class="extensionexampleletter">205</span></a></span></div>
+                    <span id=eg202><a style="text-decoration: none" href="eg_202.html"><span class="extensionexampleletter">202</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_205.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Hang of Thursdays</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_202.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Hang of Thursdays</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Turns take a quarter day each, and the game rotates through the days of the week.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg205><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg202><a style="text-decoration: none" href="RB_4_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_17.html"><span class="markdowncontent">Section 12.17: Phrases to decide other things</span></a> &bull; <a href="WI_13_1.html"><span class="markdowncontent">Chapter 13: Advanced Actions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

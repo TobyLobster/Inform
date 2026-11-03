@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,166 +2212,225 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Dialogue beats and their cues" -->
+            <!-- SEARCH SECTION "11.3" -->
+            <!-- SEARCH SORT "001-011-003-000" -->
             <h3><span>Section 11.3: Dialogue beats and their cues</span></h3>
+            <p>
+             
+             
+             
+
+
+             
+             
+              
+              
+             
+                
+             
+              
+             
+               
+               
+               
+               </p>
             <p>Each beat begins with a cue paragraph, which must be placed in round brackets. These usually contain a single sentence, but can have more, so long as it all remains a single paragraph. Such sentences must end with full stops, placed inside the brackets. So this is correct:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the paranormal.)</span>
+            <!-- START CODE "code611" -->
+            <blockquote class="extract-inform7"><a id="code611"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">paranormal</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>But this is not:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxplain">(</span><span class="syntaxidentifier">About</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">paranormal</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code612" -->
+            <blockquote class="extract-inform7"><a id="code612"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">paranormal</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As a more extensive, and valid, example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the Ghost. After the haunting beat. If the Ghost is in Elsinore.</span>
+            <!-- START CODE "code613" -->
+            <blockquote class="extract-inform7"><a id="code613"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ghost</span><span class="plain-syntax">. </span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">haunting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">. </span><span class="identifier-syntax">If</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ghost</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Elsinore</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxfunction">Recurring. This is the Marcellus gets anxious beat.)</span>
+            <span class="identifier-syntax">Recurring</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">gets</span><span class="plain-syntax"> </span><span class="identifier-syntax">anxious</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>And semicolons can also be used instead of full stops, if we want to. This doesn't change the meaning. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(After the haunting beat; about the paranormal; recurring.)</span>
+            <!-- START CODE "code614" -->
+            <blockquote class="extract-inform7"><a id="code614"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">haunting</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">; </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">paranormal</span><span class="plain-syntax">; </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As these example cues suggest, the cue can do a lot, but the main idea is to say under what circumstances the beat should be performed.</p>
             <h4><span>Naming a beat</span></h4>
             <p>Inform has a built-in kind of value called <code class="inlinesourcetext">dialogue beat</code>, and each beat declared in the source text corresponds to a value of this kind. Beats are by default nameless, since authors mostly don't need to refer to them as values. But there are times when we do want that, so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(This is the Marcellus gets anxious beat.)</span>
+            <!-- START CODE "code615" -->
+            <blockquote class="extract-inform7"><a id="code615"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">gets</span><span class="plain-syntax"> </span><span class="identifier-syntax">anxious</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here, the beat for which this is the cue will have the value <code class="inlinesourcetext">Marcellus gets anxious beat</code>. The name has to end with the word <code class="inlinesourcetext">beat</code>. As we shall see, this enables rules or phrases in regular sections of the source text to ask, say, <code class="inlinesourcetext">if the Marcellus gets anxious beat is unperformed</code>, or to say <code class="inlinesourcetext">perform the Marcellus gets anxious beat</code>.</p>
             <p>The name <code class="inlinesourcetext">starting beat</code> is reserved. If a beat is given this name, then
             it is performed at the start of play, as in the Elsinore haunting dialogue with which this chapter began. Names of beats have to be unique, so it follows that there can only be one starting beat.</p>
             <h4><span>Making a beat its own scene</span></h4>
             <p>If a cue says that it is not just a beat, but also a scene, like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(This is the fire drill scene.)</span>
+            <!-- START CODE "code616" -->
+            <blockquote class="extract-inform7"><a id="code616"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fire</span><span class="plain-syntax"> </span><span class="identifier-syntax">drill</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then <em>two</em> values are created: a beat called <code class="inlinesourcetext">fire drill beat</code>, and also a scene called <code class="inlinesourcetext">fire drill scene</code>. These values have different kinds — <code class="inlinesourcetext">dialogue beat</code> and <code class="inlinesourcetext">scene</code> respectively — but their fates are tied together. The scene automatically starts and ends when the beat begins and ends its performance, and vice versa. That is, if some other condition causes the scene to end while the performance of the beat is still mid-way, then the performance stops right there.</p>
             <p>This enables Inform's powerful scene-plotting machinery to mesh well with its dialogue engine. For example, <code class="inlinesourcetext">When the fire drill scene begins: ...</code> rules can be written, which will fire when the performance of the beat begins.</p>
             <h4><span>Making a beat <code class="inlinesourcetext">about</code> something</span></h4>
             <p><code class="inlinesourcetext">About</code> clauses tell Inform what a beat is talking about. As we'll see in the next section, Inform is always tracking what people are discussing: it is maintaining a set of live conversational subjects. It can only do this if beats (and sometimes lines as well) are marked up to show what they are about. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the ghost and the Battlements.)</span>
+            <!-- START CODE "code617" -->
+            <blockquote class="extract-inform7"><a id="code617"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ghost</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Battlements</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;The battlements of Elsinore have been lately haunted, 'tis true.&quot;</span>
+            <span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;The battlements of Elsinore have been lately haunted, 'tis true.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>At its simplest, an about sentence is the word <code class="inlinesourcetext">about</code> followed by
             a list of one or more issues being discussed — in this example, two. These have to be descriptions of objects, so a beat cannot be <code class="inlinesourcetext">about 102</code>, for example, or <code class="inlinesourcetext">about 10:13 pm</code>, because numbers and times are not objects. On the other hand, they do not need to be specific names. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About any dark room.)</span>
+            <!-- START CODE "code618" -->
+            <blockquote class="extract-inform7"><a id="code618"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">any</span><span class="plain-syntax"> </span><span class="identifier-syntax">dark</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bernardo</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Every dark place in this castle is filled with footsteps.&quot;</span>
+            <span class="identifier-syntax">Bernardo</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Every dark place in this castle is filled with footsteps.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <h4><span>Restricting the availability of a beat</span></h4>
             <p><code class="inlinesourcetext">If</code> and <code class="inlinesourcetext">unless</code> conditions in the cue for a beat make it performable only when the given condition is met, or not met. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(If Denmark is rotten.)</span>
+            <!-- START CODE "code619" -->
+            <blockquote class="extract-inform7"><a id="code619"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">If</span><span class="plain-syntax"> </span><span class="identifier-syntax">Denmark</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">rotten</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(Unless Hamlet has the skull.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">Unless</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hamlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">skull</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Note that this imposes <em>extra</em> conditions which the beat has to meet in order to be performed: it may still not be performed for other reasons. For example,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the Gravedigger; unless Hamlet has the skull.)</span>
+            <!-- START CODE "code620" -->
+            <blockquote class="extract-inform7"><a id="code620"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gravedigger</span><span class="plain-syntax">; </span><span class="identifier-syntax">unless</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hamlet</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">skull</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>introduces a beat which will only be performed if the Gravedigger is being discussed, <em>and</em> Hamlet does not have the skull.</p>
             <h4><span>The after, before, later, next, and immediately after clauses for a cue</span></h4>
             <p>These say that the new beat can be performed only when another beat has already
             been performed at some point in the past; or, has not. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(After the Marcellus gets anxious beat.)</span>
+            <!-- START CODE "code621" -->
+            <blockquote class="extract-inform7"><a id="code621"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">gets</span><span class="plain-syntax"> </span><span class="identifier-syntax">anxious</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is equivalent, in fact, to writing the condition sentence:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(If the Marcellus gets anxious beat is performed.)</span>
+            <!-- START CODE "code622" -->
+            <blockquote class="extract-inform7"><a id="code622"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">If</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">gets</span><span class="plain-syntax"> </span><span class="identifier-syntax">anxious</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">performed</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...but is simpler to read and understand. Similarly:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(Before the Marcellus gets anxious beat.)</span>
+            <!-- START CODE "code623" -->
+            <blockquote class="extract-inform7"><a id="code623"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marcellus</span><span class="plain-syntax"> </span><span class="identifier-syntax">gets</span><span class="plain-syntax"> </span><span class="identifier-syntax">anxious</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The special one-word sentence <code class="inlinesourcetext">Later</code> can only be used on the second or subsequent beats in a dialogue section, and means the same as <code class="inlinesourcetext">after</code> applied to the previous beat in that section. Thus</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About fish.)</span>
+            <!-- START CODE "code624" -->
+            <blockquote class="extract-inform7"><a id="code624"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">fish</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(Later; about chips.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">Later</span><span class="plain-syntax">; </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">chips</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>means the same thing as</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About fish. This is the fishmonger beat.)</span>
+            <!-- START CODE "code625" -->
+            <blockquote class="extract-inform7"><a id="code625"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">fish</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fishmonger</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(After the fishmonger beat; about chips.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">fishmonger</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">; </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">chips</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxplain">...</span>
+            <span class="plain-syntax">...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p><code class="inlinesourcetext">Immediately after</code> is equivalent to <code class="inlinesourcetext">after</code>, except that it allows the beat to be performed only the very next turn after the named beat was performed. The one-word <code class="inlinesourcetext">Next</code> is the corresponding version of <code class="inlinesourcetext">Later</code>, applying <code class="inlinesourcetext">immediately after</code> to the previous beat. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About Pygmalion and mentioning Cyprus.)</span>
+            <!-- START CODE "code626" -->
+            <blockquote class="extract-inform7"><a id="code626"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">Pygmalion</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">mentioning</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cyprus</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Galatea</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I haven't seen him around since I left Cyprus.&quot;</span>
+            <span class="identifier-syntax">Galatea</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;I haven't seen him around since I left Cyprus.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(Next, about Cyprus.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">Next</span><span class="plain-syntax">, </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cyprus</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Do you think he's still there?&quot;</span>
+            <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Do you think he's still there?&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Galatea</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Maybe! I don't yet have a good understanding of object permanence!&quot;</span>
+            <span class="identifier-syntax">Galatea</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Maybe! I don't yet have a good understanding of object permanence!&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxfunction">(About Cyprus.)</span>
+            <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cyprus</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Did you like Cyprus?&quot;</span>
+            <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Did you like Cyprus?&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Galatea</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Yes, it was great, if you don't mind the weather.&quot;</span>
+            <span class="identifier-syntax">Galatea</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Yes, it was great, if you don't mind the weather.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The effect here is that we'd see</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> ASK GALATEA ABOUT PYGMALION</span><br><span class="syntaxidentifier">Galatea: I haven't seen him around since I left Cyprus.</span><br><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> ASK HER ABOUT CYPRUS</span><br><span class="syntaxidentifier">Player: Do you think he's still there?</span><br><br><span class="syntaxidentifier">Galatea: Maybe! I don't yet have a good understanding of object permanence!</span><br></code></pre></div>
+                <pre><code class="language-transcript">&gt; ASK GALATEA ABOUT PYGMALION<br>Galatea: I haven't seen him around since I left Cyprus.<br><br>&gt; ASK HER ABOUT CYPRUS<br>Player: Do you think he's still there?<br><br>Galatea: Maybe! I don't yet have a good understanding of object permanence!<br></code></pre></div>
             <p><code class="inlinesourcetext">Immediately before</code> is, of course, impossible to arrange, so Inform doesn't provide that syntax.</p>
             <h4><span>Who is required to be present for a beat</span></h4>
             <p>Consider this beat:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the Zeppelin.)</span>
+            <!-- START CODE "code627" -->
+            <blockquote class="extract-inform7"><a id="code627"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zeppelin</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Hans</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;See our prodigious rate of climb, Ludwig!&quot;</span>
+            <span class="identifier-syntax">Hans</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;See our prodigious rate of climb, Ludwig!&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Ludwig</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Jawohl, Hans.&quot;</span>
+            <span class="identifier-syntax">Ludwig</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Jawohl, Hans.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>There would not be much point in performing this beat unless Ludwig and Hans
             were within earshot of the player, because none of the lines could actually
             be spoken, and so it would complete silently.</p>
             <p>Because of that, each beat has a list of <em>required speakers</em>. If the source text explicitly says that the beat needs to be performed, then it will be performed whether or not the required speakers are present, but if Inform is making its own decision to perform the beat (or not), then it will always look to make sure the required speakers are at hand. (More exactly, if the player <code class="inlinesourcetext">can hear</code> them, a test performed with the <code class="inlinesourcetext">audibility relation</code>). By default, the required speakers are all those whose names explicitly appear as speakers of lines within the beat: so in the case of the beat above, that will be Hans and Ludwig.</p>
             <p>But if that is not what the author wants, the cue can be more explicit:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(About the Zeppelin; requiring Hans.)</span>
+            <!-- START CODE "code628" -->
+            <blockquote class="extract-inform7"><a id="code628"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Zeppelin</span><span class="plain-syntax">; </span><span class="identifier-syntax">requiring</span><span class="plain-syntax"> </span><span class="identifier-syntax">Hans</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Hans</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;What a prodigious rate of climb!&quot;</span>
+            <span class="identifier-syntax">Hans</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;What a prodigious rate of climb!&quot;</span>
             <br>
 
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Ludwig</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Jawohl, Hans.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Ludwig</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Jawohl, Hans.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform might now choose to perform this beat even if Ludwig is not there, though of course Hans would then receive no reply to his remark.</p>
             <h4><span>Giving a beat properties</span></h4>
             <p>As was mentioned above, each beat is a value of the <code class="inlinesourcetext">dialogue beat</code> kind. That kind has several either-or properties. If the name of such a property is included in the cue, then the beat gets the property in question.</p>
@@ -2311,24 +2455,28 @@
             </li>
             </ul>
             <p>By default, at the start of play, all beats are <code class="inlinesourcetext">unperformed</code>, <code class="inlinesourcetext">non-recurring</code>, <code class="inlinesourcetext">voluntary</code> and <code class="inlinesourcetext">unspontaneous</code>. But this is easy to change:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(Spontaneous; recurring.)</span>
+            <!-- START CODE "code629" -->
+            <blockquote class="extract-inform7"><a id="code629"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">Spontaneous</span><span class="plain-syntax">; </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bridget</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Are we nearly there yet?&quot;</span>
+            <span class="identifier-syntax">Bridget</span><span class="plain-syntax"> (</span><span class="identifier-syntax">recurring</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Are we nearly there yet?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>As a special case, a beat can also be described as <code class="inlinesourcetext">fully recurring</code>. This makes not only the beat <code class="inlinesourcetext">recurring</code>, but also all the lines and choices which belong to it. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxfunction">(Spontaneous; fully recurring.)</span>
+            <!-- START CODE "code630" -->
+            <blockquote class="extract-inform7"><a id="code630"></a><span class="indexdullblue"><span class="plain-syntax">(</span><span class="identifier-syntax">Spontaneous</span><span class="plain-syntax">; </span><span class="identifier-syntax">fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">.)</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">Bridget</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Are we nearly there yet?&quot;</span>
+            <span class="identifier-syntax">Bridget</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;Are we nearly there yet?&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_11_2.html"><span class="markdowncontent">Section 11.2: Dialogue sections</span></a> &bull; <a href="WI_11_4.html"><span class="markdowncontent">Section 11.4: When the director is passive</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,42 +2212,52 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "More general linkages" -->
+            <!-- SEARCH SECTION "10.6" -->
+            <!-- SEARCH SORT "001-010-006-000" -->
             <h3><span>Section 10.6: More general linkages</span></h3>
             <p>   </p>
             <p>We are allowed to link the beginning or end of any scene to the beginning or end of any other scene. So, for instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Luggage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trouble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Luggage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trouble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code588" -->
+            <blockquote class="extract-inform7"><a id="code588"></a><span class="indexdullblue"><span class="identifier-syntax">Luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">Trouble</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax">. </span><span class="identifier-syntax">Luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">Trouble</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Thus the two scenes run concurrently, at least for a while. We can also add that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Luggage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Trouble</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Brief</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Encounter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ends</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code589" -->
+            <blockquote class="extract-inform7"><a id="code589"></a><span class="indexdullblue"><span class="identifier-syntax">Luggage</span><span class="plain-syntax"> </span><span class="identifier-syntax">Trouble</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">Brief</span><span class="plain-syntax"> </span><span class="identifier-syntax">Encounter</span><span class="plain-syntax"> </span><span class="identifier-syntax">ends</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This can be useful when a large, complicated scene really contains several smaller sub-scenes.</p>
             <p>A special exceptional case is that we can have any scene or scenes starting right at the outset:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Railway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meeting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scene</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Railway</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Meeting</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain"> </span><span class="syntaxidentifier">when</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code590" -->
+            <blockquote class="extract-inform7"><a id="code590"></a><span class="indexdullblue"><span class="identifier-syntax">Railway</span><span class="plain-syntax"> </span><span class="identifier-syntax">Meeting</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">scene</span><span class="plain-syntax">. </span><span class="identifier-syntax">Railway</span><span class="plain-syntax"> </span><span class="identifier-syntax">Meeting</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">play</span><span class="plain-syntax"> </span><span class="identifier-syntax">begins</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>When play ends, of course, all scenes end, so there is no need to say that.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg168><a style="text-decoration: none" href="eg_168.html"><span class="extensionexampleletter">168</span></a></span></div>
+                    <span id=eg165><a style="text-decoration: none" href="eg_165.html"><span class="extensionexampleletter">165</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_168.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Prague Job</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_165.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Prague Job</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Scenes used to provide pacing while the player goes through their possessions.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg168><a style="text-decoration: none" href="RB_4_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg165><a style="text-decoration: none" href="RB_4_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg169><a style="text-decoration: none" href="eg_169.html"><span class="extensionexampleletter">169</span></a></span></div>
+                    <span id=eg166><a style="text-decoration: none" href="eg_166.html"><span class="extensionexampleletter">166</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_169.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrevaux</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_166.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Entrevaux</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Organising the game by scenes, where each scene has a location and prop lists so that it can be set up automatically.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg169><a style="text-decoration: none" href="RB_4_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg166><a style="text-decoration: none" href="RB_4_4.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_10_5.html"><span class="markdowncontent">Section 10.5: Linking scenes together</span></a> &bull; <a href="WI_10_7.html"><span class="markdowncontent">Section 10.7: Multiple beginnings and repeats</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Chapter 25: Figures, Sounds and Files</span></title>
+    <title><span class="markdowncontent">Chapter 25: Screen and Keyboard</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_24_10.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 25: Figures, Sounds and Files</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 25: Screen and Keyboard</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_2.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,16 +2212,28 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h2><span>Chapter 25: Figures, Sounds and Files</span></h2>
-            <h3><span>Section 25.1: Beyond text</span></h3>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Virtual machines, story files, and I/O" -->
+            <!-- SEARCH SECTION "25.1" -->
+            <!-- SEARCH SORT "001-025-001-000" -->
+            <h2><span>Chapter 25: Screen and Keyboard</span></h2>
+            <h3><span>Section 25.1: Virtual machines, story files, and I/O</span></h3>
             <p>  </p>
-            <p>In this chapter, we explore a number of ways to go beyond the traditional text-only, one-story-file-only model for IF.</p>
-            <p>These relatively exotic features are more demanding of the interpreter which a player uses than a plain text story file would be. They can only be used if the project is being compiled to the Glulx story file format (see the Settings panel for the project), and even then, the player will need to have a good Glulx interpreter – one which is reasonably up to date and well-written, that is – to be sure of everything working as intended.</p>
+            <p>The many chapters so far in this book have talked about creating an interactive fiction as if it lived in an abstract world of its own. The inner life of the story takes place in that same abstract world whatever needs to be done, whether that's working out how the characters move around in a murder mystery, or sorting lists of numbers. As for how the story communicates with the outside world, there has only been the ability to <code class="inlinesourcetext">say</code> text, and in some mysterious way to receive commands.</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; EXAMINE LAMP<br>It's a typical Linux-Apache-MySQL-Perl server dating from the late 1990s.<br></code></pre></div>
+            <p>Up to now, that has been the only sort of <em>input/output</em>, or <em>I/O</em>, available. The typed command was input, and the reply back was output. The player might not have a traditional keyboard or screen at all, and could be using anything from a palm-sized phone to a Braille display the size of a loom — and yet it is as if the story plays out on an old teletype machine, where text is chattered out and then pauses for typed commands.</p>
+            <p>Many classic interactive fictions have been written that way, like dialogues with a typewriter, but finding creative new styles of interaction is just as much part of the art form. To make those possible, authors need further ways for an Inform story to interact with the outside world. Not just by text, but images, sound effects, and music. Not just keyboard input, but mouse clicks. Not just scrolling text, but a screen divided up into windows.</p>
+            <p>Different hardware handles all of that quite differently. But clearly it would be impractical for Inform, when the user clicks the Release button, to produce thousands of variant programs, one for each sort of computer a player might want to use. What Inform does instead is to generate a <em>story file</em>. A story file is a program, but for a <em>virtual machine</em>, or VM.</p>
+            <p>The VM is an idealised computer. It has no physical existence. In effect, it is the abstract world mentioned above. But a wide range of real-world computers can be made to behave like this imaginary one using an app called an <em>interpreter</em> — one which can play any Inform story file. Or, more commonly nowadays, Inform releases a website, which contains both the story file and the interpreter all bundled up within it: and once this is hosted online, anybody with a modern web browser can play. So by producing programs for the VM, Inform can make stories which can be played almost anywhere.</p>
+            <p>Another advantage of the VM is that those story files have only very limited access to the computers they run on. They can show an image, or play music, but not rummage through the user's file system looking for crypto wallets: they cannot steal credentials, or vandalise. Because of that, story files belong in the &quot;mostly harmless&quot; category of files – like images – rather than the &quot;how far do you trust this person?&quot; category – like apps. When running on web browsers, they are safer still.</p>
+            <p>The two VMs which Inform can work with are called the Z-machine and Glulx. The Settings panel of an Inform project allows authors to choose between these, but the default nowaways is Glulx, which is much the more capable. Glulx removes many size limits: stories can be have more text, numbers can be larger, and so on. Inform takes advantage of that automatically. But Glulx also offers another sort of extra capacity: it gives story files more access to hardware features beyond the printing and typing of text, through its system for input/output, which is called Glk.</p>
+            <p>This chapter, and the next two, are about how Inform authors can access these hardware features in a safe and portable way. Most of those will be for Glulx only, but some simpler features (such as boldface lettering) will work on the Z-machine too.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_24_10.html"><span class="markdowncontent">Section 24.10: Ambiguities</span></a> &bull; <a href="WI_25_2.html"><span class="markdowncontent">Section 25.2: How IF views pictures</span></a></em></p>
+        <p><em> &bull; <a href="WI_24_10.html"><span class="markdowncontent">Section 24.10: Ambiguities</span></a> &bull; <a href="WI_25_2.html"><span class="markdowncontent">Section 25.2: Glulx features and Glk features</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

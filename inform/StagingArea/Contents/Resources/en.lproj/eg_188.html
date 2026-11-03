@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,156 +2193,82 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg188><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleletter">188</span></a></span></div>
+                <span id=eg188><a style="text-decoration: none" href="WI_12_3.html"><span class="extensionexampleletter">188</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Shelob's Little Sister</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">Using the dialogue system to write a combat scene where the player's success depends on their stats.</span></span></div>
+                <span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ahem</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">Writing a phrase, with several variant forms, whose function is to follow a rule several times.</span></span></div>
             <div class="exampleright">
-                <span id=eg188><a style="text-decoration: none" href="RB_7_5.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span id=eg188><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
         </div>
-        <p>The dialogue system can be used to quickly mock up all sorts of behaviour flows, even ones that don't really have anything to do with conversation.</p>
-        <p>For instance, if we wanted to mock up some very simple combat, we could express that within a single dialogue beat, which we then re-enter again and again until the combat is concluded. This is marked <code class="inlinesourcetext">fully recurring</code> to ensure that its options remain available no matter how many times they are encountered.</p>
-        <p>Here we've handled player interaction as an explicit choice system. It would be equally possible to associate these choices with parser-based actions if we wanted to. The use of explicit choices, however, also lets us signal to the player what their odds of success are currently. The more practice they have against the spider, the more likely they are to succeed in an attack; the more wounded they become, the harder it will be to escape her lair.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Shelob[=0x0027=]s Little Sister[=0x0022=][=0x000A=][=0x000A=]Section 1 - Immediate context[=0x000A=][=0x000A=]When play begins:[=0x000A=][=0x0009=]now the left hand status line is [=0x0022=]Ferocity: [ferocity of the player][=0x0022=];[=0x000A=][=0x0009=]now the right hand status line is [=0x0022=]Wounds: [damage of the player][=0x0022=][=0x000A=][=0x0009=][=0x000A=]Section 2 - Stats[=0x000A=][=0x000A=]A person has a number called ferocity. The ferocity of the player is 10.[=0x000A=]A person has a number called damage. The damage of the player is 0.[=0x000A=][=0x000A=]To decide whether we pass a ferocity check of (target - a number):[=0x000A=][=0x0009=]let roll be a random number between 1 and the ferocity of the player;[=0x000A=][=0x0009=]unless roll is greater than target:[=0x000A=][=0x0009=][=0x0009=]decide no;[=0x000A=][=0x0009=]decide yes.[=0x000A=][=0x0009=][=0x000A=]To say ferocity odds on (N - a number):[=0x000A=][=0x0009=]let high be 100 * (ferocity of the player - N);[=0x000A=][=0x0009=]let percentage be high / ferocity of the player;[=0x000A=][=0x0009=]say [=0x0022=][italic type](odds: [unless the ferocity of the player is greater than N]0%, but you might learn something[else][percentage]%[end if])[roman type][=0x0022=][=0x000A=][=0x0009=] [=0x000A=]To say escape verb:[=0x000A=][=0x0009=]if damage of the player is:[=0x000A=][=0x0009=][=0x0009=]-- 0:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Run[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]-- 1:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Walk[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]-- 2:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Limp[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]-- otherwise:[=0x000A=][=0x0009=][=0x0009=][=0x0009=]say [=0x0022=]Crawl[=0x0022=].[=0x000A=][=0x000A=]Section 3 - Combat! (dialogue)[=0x000A=][=0x000A=](This is the starting beat. Fully recurring.)[=0x000A=][=0x000A=]Narration: [=0x0022=]You are doing battle with a ferocious arachnid. Its eyes gleam at you menacingly.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Attack the spider [ferocity odds on 11][=0x0022=][=0x000A=][=0x000A=][=0x0009=][=0x0009=]Narration (if we pass a ferocity check of 11): [=0x0022=]You attack the spider and defeat it![=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration (now the damage of the player is the damage of the player plus 1): [=0x0022=]You attack the spider, and fail to pierce its exoskeleton. It wounds you in return.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x0009=]Narration (if the damage of the player is greater than 7): [=0x0022=]Alas, your body is unable to tolerate any more harm.[=0x0022=][=0x0009=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]You have expired in the spider[=0x0027=]s lair[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration (now the ferocity of the player is the ferocity of the player plus 1): [=0x0022=]Despite your pain, you are increasingly determined to win.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x003C=]-[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- (recurring) [=0x0022=][escape verb] away [ferocity odds on damage of the player][=0x0022=][=0x000A=][=0x000A=][=0x0009=][=0x0009=]Narration (if we pass a ferocity check of damage of the player): [=0x0022=]You make a run for it, and get away![=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x0009=]-[=0x003E=] stop[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]You try to dodge the spider and entirely fail. At least you don[=0x0027=]t take any damage.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=][=0x003C=]-[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Shelob's Little Sister&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 1 - Immediate context</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">When</span><span class="syntaxplain"> </span><span class="syntaxidentifier">play</span><span class="syntaxplain"> </span><span class="syntaxidentifier">begins</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">left</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Ferocity: </span><span class="syntaxextract">[ferocity of the player]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">right</span><span class="syntaxplain"> </span><span class="syntaxidentifier">hand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">status</span><span class="syntaxplain"> </span><span class="syntaxidentifier">line</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Wounds: </span><span class="syntaxextract">[damage of the player]</span><span class="syntaxstring">&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxheading">Section 2 - Stats</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">10</span><span class="syntaxplain">.</span>
-        <br>
-        <span class="syntaxidentifier">A</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">has</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">called</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain">. </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxconstant">0</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">whether</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">target</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roll</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">random</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">between</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain"> </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">unless</span><span class="syntaxplain"> </span><span class="syntaxidentifier">roll</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxidentifier">target</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">no</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">yes</span><span class="syntaxplain">.</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">odds</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">N</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">high</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxconstant">100</span><span class="syntaxplain"> * (</span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">N</span><span class="syntaxplain">);</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">percentage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">high</span><span class="syntaxplain"> / </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[italic type]</span><span class="syntaxstring">(odds: </span><span class="syntaxextract">[unless the ferocity of the player is greater than N]</span><span class="syntaxstring">0%, but you might learn something</span><span class="syntaxextract">[else][percentage]</span><span class="syntaxstring">%</span><span class="syntaxextract">[end if]</span><span class="syntaxstring">)</span><span class="syntaxextract">[roman type]</span><span class="syntaxstring">&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxidentifier">escape</span><span class="syntaxplain"> </span><span class="syntaxidentifier">verb</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxconstant">0</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Run&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxconstant">1</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Walk&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxconstant">2</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Limp&quot;</span><span class="syntaxplain">;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxidentifier">otherwise</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Crawl&quot;</span><span class="syntaxplain">.</span>
-        <br>
-
-        <br>
-        <span class="syntaxheading">Section 3 - Combat! (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(This is the starting beat. Fully recurring.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You are doing battle with a ferocious arachnid. Its eyes gleam at you menacingly.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Attack the spider </span><span class="syntaxextract">[ferocity odds on 11]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxconstant">11</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You attack the spider and defeat it!&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You attack the spider, and fail to pierce its exoskeleton. It wounds you in return.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">greater</span><span class="syntaxplain"> </span><span class="syntaxidentifier">than</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Alas, your body is unable to tolerate any more harm.&quot;</span><span class="syntaxplain">				</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; end the story saying &quot;You have expired in the spider's lair&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain"> </span><span class="syntaxidentifier">plus</span><span class="syntaxplain"> </span><span class="syntaxconstant">1</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;Despite your pain, you are increasingly determined to win.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- (</span><span class="syntaxidentifier">recurring</span><span class="syntaxplain">) </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[escape verb]</span><span class="syntaxstring"> away </span><span class="syntaxextract">[ferocity odds on damage of the player]</span><span class="syntaxstring">&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">we</span><span class="syntaxplain"> </span><span class="syntaxidentifier">pass</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">ferocity</span><span class="syntaxplain"> </span><span class="syntaxidentifier">check</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">damage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">player</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You make a run for it, and get away!&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">-&gt; stop</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You try to dodge the spider and entirely fail. At least you don't take any damage.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxfunction">&lt;-</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "Ahem" -->
+        <!-- SEARCH SECTION "Example 188" -->
+        <!-- SEARCH SORT "003-188-000-000" -->
+        <p> </p>
+        <p>As we see in the example here, it is possible to use slashed variations in more than one place in a phrase, and to offer a number of separate forms. The main rule of thumb to remember is that value inputs for the phrase should always be separated by some text; so</p>
+        <!-- START CODE "code3371" -->
+        <blockquote class="extract-inform7"><a id="code3371"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">do</span><span class="plain-syntax">/</span><span class="identifier-syntax">follow</span><span class="plain-syntax"> (</span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">) </span><span class="identifier-syntax">exactly</span><span class="plain-syntax">/</span><span class="identifier-syntax">precisely</span><span class="plain-syntax">/</span><span class="identifier-syntax">just</span><span class="plain-syntax">/-- (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">time</span><span class="plain-syntax">/</span><span class="identifier-syntax">times</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">....</span>
         </span></blockquote>
+        <!-- END CODE -->
+        <p>would cause a problem when we tried to call it with</p>
+        <!-- START CODE "code3372" -->
+        <blockquote class="extract-inform7"><a id="code3372"></a><span class="indexdullblue"><span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">throat</span><span class="plain-syntax">-</span><span class="identifier-syntax">clearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <p>In general, we probably don't need to make our phrase definitions quite so flexible as this, but it's a good idea to account for &quot;a&quot; vs. &quot;the&quot;, and for the possibility of using singular and plural forms, especially when writing extensions or other source to be shared.</p>
+        <!-- START CODE "code3373" -->
+        <blockquote class="extract-inform7"><a id="code3373"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Ahem[=0x0022=][=0x000A=][=0x000A=]To do/follow (chosen rule - a rule) exactly/precisely/just (N - a number) time/times:[=0x000A=][=0x0009=]repeat with index running from 1 to N:[=0x000A=][=0x0009=][=0x0009=]follow chosen rule.[=0x000A=][=0x000A=]This is the throat-clearing rule:[=0x000A=][=0x0009=]say [=0x0022=][=0x0027=]Ahem,[=0x0027=] says [a random visible person who is not the player].[=0x0022=][=0x000A=][=0x000A=]After waiting:[=0x000A=][=0x0009=]do the throat-clearing rule just one time.[=0x000A=][=0x000A=]Instead of listening:[=0x000A=][=0x0009=]follow the throat-clearing rule precisely three times.[=0x000A=][=0x000A=]Instead of smelling:[=0x000A=][=0x0009=]follow the throat-clearing rule exactly 2 times.[=0x000A=][=0x000A=]Chateau Marmont is a room. Tom, Jack, Zsa-Zsa, and Wilma-Faye are people in the Chateau. Zsa-Zsa and Wilma-Faye are women.[=0x000A=][=0x000A=]Test me with [=0x0022=]wait / smell / listen[=0x0022=].[=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Ahem&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">do</span><span class="plain-syntax">/</span><span class="identifier-syntax">follow</span><span class="plain-syntax"> (</span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">) </span><span class="identifier-syntax">exactly</span><span class="plain-syntax">/</span><span class="identifier-syntax">precisely</span><span class="plain-syntax">/</span><span class="identifier-syntax">just</span><span class="plain-syntax"> (</span><span class="identifier-syntax">N</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">time</span><span class="plain-syntax">/</span><span class="identifier-syntax">times</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">repeat</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">index</span><span class="plain-syntax"> </span><span class="identifier-syntax">running</span><span class="plain-syntax"> </span><span class="identifier-syntax">from</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="identifier-syntax">N</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">chosen</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">throat</span><span class="plain-syntax">-</span><span class="identifier-syntax">clearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;'Ahem,' says [a random visible person who is not the player].&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">waiting</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">do</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">throat</span><span class="plain-syntax">-</span><span class="identifier-syntax">clearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">just</span><span class="plain-syntax"> </span><span class="identifier-syntax">one</span><span class="plain-syntax"> </span><span class="identifier-syntax">time</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">listening</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">throat</span><span class="plain-syntax">-</span><span class="identifier-syntax">clearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">precisely</span><span class="plain-syntax"> </span><span class="identifier-syntax">three</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">smelling</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">follow</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">throat</span><span class="plain-syntax">-</span><span class="identifier-syntax">clearing</span><span class="plain-syntax"> </span><span class="identifier-syntax">rule</span><span class="plain-syntax"> </span><span class="identifier-syntax">exactly</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> </span><span class="identifier-syntax">times</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Chateau</span><span class="plain-syntax"> </span><span class="identifier-syntax">Marmont</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">Tom</span><span class="plain-syntax">, </span><span class="identifier-syntax">Jack</span><span class="plain-syntax">, </span><span class="identifier-syntax">Zsa</span><span class="plain-syntax">-</span><span class="identifier-syntax">Zsa</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wilma</span><span class="plain-syntax">-</span><span class="identifier-syntax">Faye</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">people</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Chateau</span><span class="plain-syntax">. </span><span class="identifier-syntax">Zsa</span><span class="plain-syntax">-</span><span class="identifier-syntax">Zsa</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Wilma</span><span class="plain-syntax">-</span><span class="identifier-syntax">Faye</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">women</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;wait / smell / listen&quot;</span><span class="plain-syntax">.</span>
+        </span></blockquote>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_13.html>Section 11.13: Flow markers</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_12_3.html>Section 12.3: Pattern matching</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

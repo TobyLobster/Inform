@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,66 +2212,70 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Clarification and Correction" -->
+            <!-- SEARCH SECTION "6.17" -->
+            <!-- SEARCH SORT "002-006-017-000" -->
             <h3><span>Section 6.17: Clarification and Correction</span></h3>
             <p> 
             Some commands and some objects raise special challenges when it comes to working out the player's intention.</p>
-            <p>Sometimes this can be done with good rules about the assumptions Inform should make. <a href="eg_318.html">Alpaca Farm</a> demonstrates a <code class="inlinetranscriptcommand">use</code> command, always a challenge because <code class="inlinetranscriptcommand">use</code> can mean very different actions with different items.</p>
-            <p>There are also times when we need to ask the player for more information. <a href="eg_397.html">Apples</a> demonstrates how sensibly to use properties to disambiguate between similar objects, while <a href="eg_399.html">Walls and Noses</a> rephrases the disambiguation question when special objects are involved: examining one of the walls of the room will make the story ask <code class="inlinetranscript">In which direction?</code> and <code class="inlinetranscriptcommand">examine nose</code> will lead to <code class="inlinetranscript">Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?</code></p>
+            <p>Sometimes this can be done with good rules about the assumptions Inform should make. <a href="eg_315.html">Alpaca Farm</a> demonstrates a <code class="inlinetranscriptcommand">use</code> command, always a challenge because <code class="inlinetranscriptcommand">use</code> can mean very different actions with different items.</p>
+            <p>There are also times when we need to ask the player for more information. <a href="eg_394.html">Apples</a> demonstrates how sensibly to use properties to disambiguate between similar objects, while <a href="eg_396.html">Walls and Noses</a> rephrases the disambiguation question when special objects are involved: examining one of the walls of the room will make the story ask <code class="inlinetranscript">In which direction?</code> and <code class="inlinetranscriptcommand">examine nose</code> will lead to <code class="inlinetranscript">Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?</code></p>
             <p>At other times, the player types something that is wrong in a predictable way: for instance, we might want to remove all the <code class="inlinetranscriptcommand">with...</code> phrases from commands like</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxelement">&gt;</span><span class="syntaxextract"> HIT DOOR WITH FIST</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> KICK DRAGON WITH FOOT</span><br><span class="syntaxelement">&gt;</span><span class="syntaxextract"> LOOK WEST WITH EYES</span><br></code></pre></div>
-            <p>and merely parse the remainder of the command. (That last command may be unlikely, but novice players do quite often type commands that refer unnecessarily to body parts.) <a href="eg_452.html">Cave-troll</a> demonstrates how.</p>
-            <p><a href="eg_409.html">WXPQ</a> demonstrates how to modify the error message the parser gives in response to a command it doesn't understand; this particular example focuses on the <code class="inlinetranscript">That noun doesn't make sense in this context</code> message that arises from using the <code class="inlinesourcetext">&quot;[any thing]&quot;</code> or <code class="inlinesourcetext">&quot;[any room]&quot;</code> tokens, but the techniques could be adapted to handling other parser errors as well.</p>
+                <pre><code class="language-transcript">&gt; HIT DOOR WITH FIST<br>&gt; KICK DRAGON WITH FOOT<br>&gt; LOOK WEST WITH EYES<br></code></pre></div>
+            <p>and merely parse the remainder of the command. (That last command may be unlikely, but novice players do quite often type commands that refer unnecessarily to body parts.) <a href="eg_449.html">Cave-troll</a> demonstrates how.</p>
+            <p><a href="eg_406.html">WXPQ</a> demonstrates how to modify the error message the parser gives in response to a command it doesn't understand; this particular example focuses on the <code class="inlinetranscript">That noun doesn't make sense in this context</code> message that arises from using the <code class="inlinesourcetext">&quot;[any thing]&quot;</code> or <code class="inlinesourcetext">&quot;[any room]&quot;</code> tokens, but the techniques could be adapted to handling other parser errors as well.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg318><a style="text-decoration: none" href="eg_318.html"><span class="extensionexampleletter">318</span></a></span></div>
+                    <span id=eg315><a style="text-decoration: none" href="eg_315.html"><span class="extensionexampleletter">315</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_318.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpaca Farm</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_315.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Alpaca Farm</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A generic <code class="inlinetranscriptcommand">use</code> action which behaves sensibly with a range of different objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg318><a style="text-decoration: none" href="WI_19_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg315><a style="text-decoration: none" href="WI_19_2.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg397><a style="text-decoration: none" href="eg_397.html"><span class="extensionexampleletter">397</span></a></span></div>
+                    <span id=eg394><a style="text-decoration: none" href="eg_394.html"><span class="extensionexampleletter">394</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_397.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Apples</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_394.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Apples</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Prompting the player on how to disambiguate otherwise similar objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg397><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg394><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg409><a style="text-decoration: none" href="eg_409.html"><span class="extensionexampleletter">409</span></a></span></div>
+                    <span id=eg406><a style="text-decoration: none" href="eg_406.html"><span class="extensionexampleletter">406</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_409.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">WXPQ</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_406.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">WXPQ</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating a more sensible parser error than &quot;that noun did not make sense in this context&quot;.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg409><a style="text-decoration: none" href="WI_20_37.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg406><a style="text-decoration: none" href="WI_20_37.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg452><a style="text-decoration: none" href="eg_452.html"><span class="extensionexampleletter">452</span></a></span></div>
+                    <span id=eg449><a style="text-decoration: none" href="eg_449.html"><span class="extensionexampleletter">449</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_452.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cave-troll</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_449.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Cave-troll</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Determining that the command the player typed is invalid, editing it, and re-examining it to see whether it now reads correctly.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg452><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg449><a style="text-decoration: none" href="WI_22_7.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg399><a style="text-decoration: none" href="eg_399.html"><span class="extensionexampleletter">399</span></a></span></div>
+                    <span id=eg396><a style="text-decoration: none" href="eg_396.html"><span class="extensionexampleletter">396</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_399.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Walls and Noses</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_396.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Walls and Noses</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Responding to <code class="inlinetranscriptcommand">examine wall</code> with &quot;In which direction?&quot;, and to <code class="inlinetranscriptcommand">examine nose</code> with &quot;Whose nose do you mean, Frederica's, Betty's, Wilma's or your own?&quot;</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg399><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg396><a style="text-decoration: none" href="WI_20_33.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_16.html"><span class="markdowncontent">Section 6.16: Alternate Default Messages</span></a> &bull; <a href="RB_6_18.html"><span class="markdowncontent">Section 6.18: Alternatives To Standard Parsing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

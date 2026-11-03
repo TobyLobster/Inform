@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,45 +2212,53 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Scenery" -->
+            <!-- SEARCH SECTION "3.8" -->
+            <!-- SEARCH SORT "001-003-008-000" -->
             <h3><span>Section 3.8: Scenery</span></h3>
             <p>       </p>
             <p>As we have just seen, making something <code class="inlinesourcetext">fixed in place</code> will prevent it from being picked up or moved. But it remains substantial enough to be described in its own paragraph of text when the player visits its location. This can be unfortunate if it has also been described already in the body of the main description for that location. For instance, if we wrote:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Orchard</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxstring">&quot;Within this quadrille of pear trees, a single gnarled old oak remains as a memory of centuries past.&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gnarled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">old</span><span class="syntaxplain"> </span><span class="syntaxidentifier">oak</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tree</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Orchard</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code74" -->
+            <blockquote class="extract-inform7"><a id="code74"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Orchard</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Within this quadrille of pear trees, a single gnarled old oak remains as a memory of centuries past.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">gnarled</span><span class="plain-syntax"> </span><span class="identifier-syntax">old</span><span class="plain-syntax"> </span><span class="identifier-syntax">oak</span><span class="plain-syntax"> </span><span class="identifier-syntax">tree</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Orchard</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This would end up describing the oak twice, once in the paragraph about the Orchard, then again in a list of things within it:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Orchard</span><br><span class="syntaxidentifier">Within this quadrille of pear trees, a single gnarled old oak remains as a memory of centuries past.</span><br><br><span class="syntaxidentifier">You can see a gnarled old oak tree here.</span><br></code></pre></div>
+                <pre><code class="language-transcript">Orchard<br>Within this quadrille of pear trees, a single gnarled old oak remains as a memory of centuries past.<br><br>You can see a gnarled old oak tree here.<br></code></pre></div>
             <p>We avoid this by making it <code class="inlinesourcetext">scenery</code> instead of <code class="inlinesourcetext">fixed in place</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">gnarled</span><span class="syntaxplain"> </span><span class="syntaxidentifier">old</span><span class="syntaxplain"> </span><span class="syntaxidentifier">oak</span><span class="syntaxplain"> </span><span class="syntaxidentifier">tree</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">scenery</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Orchard</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code75" -->
+            <blockquote class="extract-inform7"><a id="code75"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">gnarled</span><span class="plain-syntax"> </span><span class="identifier-syntax">old</span><span class="plain-syntax"> </span><span class="identifier-syntax">oak</span><span class="plain-syntax"> </span><span class="identifier-syntax">tree</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Orchard</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Any <code class="inlinesourcetext">thing</code> can be <code class="inlinesourcetext">scenery</code>, and this does not bar it from playing a part in the story: it simply means that it will be immobile and that it will not be described independently of its room. Being immobile, scenery should not be used for <code class="inlinesourcetext">portable</code> objects that are meant to be left out of the room description.</p>
             <p>If a <code class="inlinesourcetext">supporter</code> is <code class="inlinesourcetext">scenery</code>, it may still be mentioned in the room description after all, but only as part of a paragraph about other items, such as</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">On the teak table are a candlestick and a copy of the Financial Times.</span><br></code></pre></div>
+                <pre><code class="language-transcript">On the teak table are a candlestick and a copy of the Financial Times.<br></code></pre></div>
             <p>If the player takes the candlestick and the Times, the teak table will disappear from mention. (<code class="inlinesourcetext">Scenery containers</code> do not behave in this way: their contents are assumed to be less immediately visible, and will be mentioned only if the player looks inside them.)</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg20><a style="text-decoration: none" href="eg_20.html"><span class="extensionexampleletter">20</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_20.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 2</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: creating some of the objects in the cabin's description.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg20><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg21><a style="text-decoration: none" href="eg_21.html"><span class="extensionexampleletter">21</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_21.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Disenchantment Bay 2</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Disenchantment Bay: creating some of the objects in the cabin's description.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg21><a style="text-decoration: none" href="RB_1_3.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg22><a style="text-decoration: none" href="eg_22.html"><span class="extensionexampleletter">22</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_22.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Replanting</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_21.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Replanting</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Changing the response when the player tries to take something that is scenery.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg22><a style="text-decoration: none" href="RB_6_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg21><a style="text-decoration: none" href="RB_6_8.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_3_7.html"><span class="markdowncontent">Section 3.7: Properties depend on kind</span></a> &bull; <a href="WI_3_9.html"><span class="markdowncontent">Section 3.9: Backdrops</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

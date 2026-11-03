@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 28.5: IFDB: The Interactive Fiction Database</span></title>
+    <title><span class="markdowncontent">Section 28.5: Low-level testing commands</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_28_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 28.5: IFDB: The Interactive Fiction Database</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 28.5: Low-level testing commands</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_28_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,23 +2212,28 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 28.5: IFDB: The Interactive Fiction Database</span></h3>
-            <p>   </p>
-            <p>Once the story file has a home online, and a URL (that is, a web address) at which it can be found, it needs to be registered with the <a href="https://ifdb.org">Interactive Fiction Database</a> (IFDB). Just as the IF Archive is a repository for stories themselves, IFDB is a database containing information about them – titles, authors, locations, solutions, reviews, recommendation lists and more.</p>
-            <p>The name IFDB echoes the Internet Movie Database (IMDB), but in some ways it is also like the iTunes Music Store. For one thing, it's a shop-window for what's new, with cover art to catch the eye. For another, IFDB serves as a portal for players to try games directly in their browser. Promoting IF is all about pulling in impulse players – people who are passingly interested, but might not try the story if there is any significant work involved in setting it up. This is what IFDB is all about.</p>
-            <p>IFDB is community-editable, like Wikipedia, though editors are required to create an account and log in first – this is free, of course. A standard form is provided for creating a new record (accessible by selecting the option to add a story listing). More or less the same information that appears on Inform's library card in the Contents index needs to be copied over: there's space for the author name, story title, genre, and so on. IFDB will also ask for an IFID, a code identifying the story uniquely. Inform generates one of these automatically for each project, and it, too, is on the Library Card. It can always be found by typing <code class="inlinetranscriptcommand">version</code> into the compiled story and looking at the line that says</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Low-level testing commands" -->
+            <!-- SEARCH SECTION "28.5" -->
+            <!-- SEARCH SORT "001-028-005-000" -->
+            <h3><span>Section 28.5: Low-level testing commands</span></h3>
+            <p>             </p>
+            <p>The remaining commands are for expert users only, and are very miscellaneous.</p>
+            <p><code class="inlinetranscriptcommand">random</code> sets the random number generator to a predictable seed. If we include this in a test command, it will guarantee that the subsequent behaviour of the story is consistent across multiple playthroughs, which is helpful if we're trying to test something to do with, say, randomly wandering non-player characters.</p>
+            <p><code class="inlinetranscriptcommand">verify</code> checks that the story file is intact rather than damaged, but it is hard to think of an occasion when this would be likely to arise within the Inform application. The command is a holdover from a time when data transfer was much slower and more error-prone, and it was plausible to have a story file of just a few hundred KB corrupted during transmission.</p>
+            <p><code class="inlinetranscriptcommand">showtree</code> creates a list of object containment. It is similar to <code class="inlinetranscriptcommand">showme</code>, but less elegant and thorough. (At one time, this command was <code class="inlinetranscriptcommand">tree</code>, but that proved to be too ambiguous a word to use for a debugging command.)</p>
+            <p><code class="inlinetranscriptcommand">scope</code> lists the objects that are currently in scope for the player, which is to say, things that could be referred to when we're typing a typical command. Thus:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">Identification number: //[some letters and numbers]//</span><br></code></pre></div>
-            <p>The part between the // marks is the IFID. If there's cover art, that can also be uploaded, and good cover art makes a big difference to shop-window-appeal.</p>
-            <p>The download link should give the most stable URL available. If you have not yet uploaded your story to the IF Archive, you may do so by selecting the &quot;Upload it to the IF Archive&quot; link instead of pressing the &quot;Add a Link&quot; button. The benefits of submitting your story to the IF Archive in this manner are two-fold. One, IFDB will fill in much of the information required by the IF Archive for you. Two, the link to your story will not appear until the IF Archive maintainers move it to its permanent home in the archive, at which point the download link will be automatically updated and presented on the story page.</p>
-            <p>If you choose to upload your story file to the IF Archive independent of IFDB, then once the story file is safely up at its permanent home on the IF Archive, that is an ideal address to quote here. Otherwise, the URL of the work's own website is best. (Note that the IFDB entry can always be edited later, if the URL moves.)</p>
-            <p>Commercial works which aren't available as free downloads can be registered on IFDB just the same, and this is almost certainly a good idea.</p>
-            <p>Some awards for interactive fiction, such as the annual XYZZY Awards, require a game to have an IFDB entry as an eligibility requirement.</p>
+                <pre><code class="language-transcript">Bar<br>You can see a table here.<br><br>&gt; SCOPE<br>1: yourself (574631)<br>2: a table (574759)<br></code></pre></div>
+            <p>The bracketed numbers are object IDs for these objects, which can distinguish items with identical names. It is likely that the output of this will not be terribly interesting or different from checking <code class="inlinetranscriptcommand">showme</code>, except in cases where the author is deliberately changing the scope to be something other than <code class="inlinesourcetext">the set of things that are visible in the room with the player right now</code>. This usually involves the <code class="inlinesourcetext">Deciding the scope of something</code> activity (see the chapter on <a href="WI_20_1.html" title="Chapter 20: Activities">Activities</a>).</p>
+            <p><code class="inlinetranscriptcommand">showheap</code> shows how many bytes are currently free. This can sometimes to be helpful to tell when memory is slowly leaking due to a bug.</p>
+            <p><code class="inlinetranscriptcommand">showverb [verb]</code> lists the Understand information associated with a particular verb: for example, <code class="inlinetranscriptcommand">showverb take</code>. Similar information, in a vastly more palatable form, is available in Index / Actions / Commands, so the one time <code class="inlinetranscriptcommand">showverb</code> becomes useful is when Inform is considering the understand lines in the wrong order and producing a result we didn't want: <code class="inlinetranscriptcommand">showverb</code> will show us the order in which the lines are being assessed. The challenge will then be to add conditions to the <code class="inlinesourcetext">Understand</code> lines to move them into the correct order.</p>
+            <p>Finally, <code class="inlinetranscriptcommand">trace</code> (and its more advanced stages <code class="inlinetranscriptcommand">trace 2</code>, <code class="inlinetranscriptcommand">trace 3</code> and so on up to <code class="inlinetranscriptcommand">trace 6</code>) will reveal things, more things than we ever wanted to know, about the assumptions being made by the command parser when it takes in a command. In practice this information is almost never useful to an Inform author.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_28_4.html"><span class="markdowncontent">Section 28.4: The IF Archive</span></a> &bull; <a href="WI_28_6.html"><span class="markdowncontent">Section 28.6: Competitions, Exhibitions, and Jams</span></a></em></p>
+        <p><em> &bull; <a href="WI_28_4.html"><span class="markdowncontent">Section 28.4: Testing commands for cheating</span></a> &bull; <a href="WI_28_6.html"><span class="markdowncontent">Section 28.6: Adding new testing verbs and Release for Testing</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

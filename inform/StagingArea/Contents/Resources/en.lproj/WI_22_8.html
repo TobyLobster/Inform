@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,6 +2212,10 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Summary of regular expression notation" -->
+            <!-- SEARCH SECTION "22.8" -->
+            <!-- SEARCH SORT "001-022-008-000" -->
             <h3><span>Section 22.8: Summary of regular expression notation</span></h3>
             <p>   </p>
             <table>
@@ -2150,76 +2239,76 @@
             <td>Matches (accepting no text) only at the end of the text</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\b</code></td>
-            <td>Word boundary: matches at either end of text or between a <code class="inlinesourcetext">\w</code> and a <code class="inlinesourcetext">\W</code></td>
+            <td><code class="inlinesourcetext">\\b</code></td>
+            <td>Word boundary: matches at either end of text or between a <code class="inlinesourcetext">\\w</code> and a <code class="inlinesourcetext">\\W</code></td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\B</code></td>
-            <td>Matches anywhere where <code class="inlinesourcetext">\b</code> does not match</td>
+            <td><code class="inlinesourcetext">\\B</code></td>
+            <td>Matches anywhere where <code class="inlinesourcetext">\\b</code> does not match</td>
             </tr>
             <tr>
             <td></td>
             <td><strong>Backslashed character classes</strong></td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\</code>_char_</td>
+            <td><code class="inlinesourcetext">\\</code><em>char</em></td>
             <td>If <em>char</em> is other than <code class="inlinesourcetext">a</code>-<code class="inlinesourcetext">z</code>, <code class="inlinesourcetext">A</code>-<code class="inlinesourcetext">Z</code>, <code class="inlinesourcetext">0</code>-<code class="inlinesourcetext">9</code> or space, matches that literal character</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\n</code></td>
+            <td><code class="inlinesourcetext">\\n</code></td>
             <td>Matches literal line break character</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\t</code></td>
+            <td><code class="inlinesourcetext">\\t</code></td>
             <td>Matches literal tab character (but use this only with external files)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\d</code></td>
+            <td><code class="inlinesourcetext">\\d</code></td>
             <td>Matches any single digit</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\l</code></td>
+            <td><code class="inlinesourcetext">\\l</code></td>
             <td>Matches any lower case letter (by Unicode 4.0.0 definition)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\p</code></td>
+            <td><code class="inlinesourcetext">\\p</code></td>
             <td>Matches any single punctuation mark: <code class="inlinesourcetext">. , ! ? - / &quot; : ; ( ) [ ] { }</code></td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\s</code></td>
+            <td><code class="inlinesourcetext">\\s</code></td>
             <td>Matches any single spacing character (space, line break, tab)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\u</code></td>
+            <td><code class="inlinesourcetext">\\u</code></td>
             <td>Matches any upper case letter (by Unicode 4.0.0 definition)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\w</code></td>
-            <td>Matches any single word character (neither <code class="inlinesourcetext">\p</code> nor <code class="inlinesourcetext">\s</code>)</td>
+            <td><code class="inlinesourcetext">\\w</code></td>
+            <td>Matches any single word character (neither <code class="inlinesourcetext">\\p</code> nor <code class="inlinesourcetext">\\s</code>)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\D</code></td>
+            <td><code class="inlinesourcetext">\\D</code></td>
             <td>Matches any single non-digit</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\L</code></td>
+            <td><code class="inlinesourcetext">\\L</code></td>
             <td>Matches any non-lower-case-letter</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\P</code></td>
+            <td><code class="inlinesourcetext">\\P</code></td>
             <td>Matches any single non-punctuation-mark</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\S</code></td>
+            <td><code class="inlinesourcetext">\\S</code></td>
             <td>Matches any single non-spacing-character</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\U</code></td>
+            <td><code class="inlinesourcetext">\\U</code></td>
             <td>Matches any non-upper-case-letter</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\W</code></td>
-            <td>Matches any single non-word-character (i.e., matches either <code class="inlinesourcetext">\p</code> or <code class="inlinesourcetext">\s</code>)</td>
+            <td><code class="inlinesourcetext">\\W</code></td>
+            <td>Matches any single non-word-character (i.e., matches either <code class="inlinesourcetext">\\p</code> or <code class="inlinesourcetext">\\s</code>)</td>
             </tr>
             <tr>
             <td></td>
@@ -2250,7 +2339,7 @@
             <td>Starting with <code class="inlinesourcetext">&gt;</code> means that a literal close angle bracket is included</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\</code></td>
+            <td><code class="inlinesourcetext">\\</code></td>
             <td>Backslash has the same meaning as for backslashed character classes: see above</td>
             </tr>
             <tr>
@@ -2258,8 +2347,8 @@
             <td><strong>Structural</strong></td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">|</code></td>
-            <td>Divides alternatives: <code class="inlinesourcetext">fish|fowl</code> matches either</td>
+            <td><code class="inlinesourcetext">\|</code></td>
+            <td>Divides alternatives: <code class="inlinesourcetext">fish\|fowl</code> matches either</td>
             </tr>
             <tr>
             <td><code class="inlinesourcetext">(?i)</code></td>
@@ -2279,7 +2368,7 @@
             </tr>
             <tr>
             <td><code class="inlinesourcetext">...*</code></td>
-            <td>Matches &quot;...&quot; 0 or more times: e.g. <code class="inlinesourcetext">s*</code> matches an optional run of space</td>
+            <td>Matches &quot;...&quot; 0 or more times: e.g. <code class="inlinesourcetext">\s*</code> matches an optional run of space</td>
             </tr>
             <tr>
             <td><code class="inlinesourcetext">...+</code></td>
@@ -2310,12 +2399,12 @@
             <td>Groups part of the expression together: matches if the interior matches</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\1</code></td>
+            <td><code class="inlinesourcetext">\\1</code></td>
             <td>Matches the contents of the 1st subexpression reading left to right</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\2</code></td>
-            <td>Matches the contents of the 2nd, and so on up to <code class="inlinesourcetext">\9</code> (but no further)</td>
+            <td><code class="inlinesourcetext">\\2</code></td>
+            <td>Matches the contents of the 2nd, and so on up to <code class="inlinesourcetext">\\9</code> (but no further)</td>
             </tr>
             <tr>
             <td></td>
@@ -2347,18 +2436,18 @@
             </tr>
             <tr>
             <td><code class="inlinesourcetext">(?(1)...)</code></td>
-            <td>Conditional: if <code class="inlinesourcetext">\1</code> has matched by now, require that &quot;...&quot; be matched</td>
+            <td>Conditional: if <code class="inlinesourcetext">\\1</code> has matched by now, require that &quot;...&quot; be matched</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">(?(1)...|...)</code></td>
-            <td>Conditional: ditto, but if <code class="inlinesourcetext">\1</code> has not matched, require the second part</td>
+            <td><code class="inlinesourcetext">(?(1)...\|...)</code></td>
+            <td>Conditional: ditto, but if <code class="inlinesourcetext">\\1</code> has not matched, require the second part</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">(?(?=...)...|...)</code></td>
+            <td><code class="inlinesourcetext">(?(?=...)...\|...)</code></td>
             <td>Conditional with lookahead as its condition for which to match</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">(?(?&lt;=...)...|...)</code></td>
+            <td><code class="inlinesourcetext">(?(?&lt;=...)...\|...)</code></td>
             <td>Conditional with lookbehind as its condition for which to match</td>
             </tr>
             <tr>
@@ -2366,44 +2455,44 @@
             <td><strong>In replacement text</strong></td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\char</code></td>
+            <td><code class="inlinesourcetext">\\char</code></td>
             <td>If char is other than <code class="inlinesourcetext">a</code>-<code class="inlinesourcetext">z</code>, <code class="inlinesourcetext">A</code>-<code class="inlinesourcetext">Z</code>, <code class="inlinesourcetext">0</code>-<code class="inlinesourcetext">9</code> or space, expands to that literal char</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\n</code></td>
+            <td><code class="inlinesourcetext">\\n</code></td>
             <td>Expands to a line break character</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\t</code></td>
+            <td><code class="inlinesourcetext">\\t</code></td>
             <td>Expands to a tab character (but use this only with external files)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\0</code></td>
+            <td><code class="inlinesourcetext">\\0</code></td>
             <td>Expands to the full text matched</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\1</code></td>
+            <td><code class="inlinesourcetext">\\1</code></td>
             <td>Expands to whatever the 1st bracketed subexpression matched</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\2</code></td>
-            <td>Expands to whatever the 2nd matched, and so on up to <code class="inlinesourcetext">\9</code> (but no further)</td>
+            <td><code class="inlinesourcetext">\\2</code></td>
+            <td>Expands to whatever the 2nd matched, and so on up to <code class="inlinesourcetext">\\9</code> (but no further)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\l0</code></td>
-            <td>Expands to 0 converted to lower case (and so on for <code class="inlinesourcetext">\l1</code> to <code class="inlinesourcetext">\l9</code>)</td>
+            <td><code class="inlinesourcetext">\\l0</code></td>
+            <td>Expands to \0 converted to lower case (and so on for <code class="inlinesourcetext">\\l1</code> to <code class="inlinesourcetext">\\l9</code>)</td>
             </tr>
             <tr>
-            <td><code class="inlinesourcetext">\u0</code></td>
-            <td>Expands to 0 converted to upper case (and so on for <code class="inlinesourcetext">\u1</code> to <code class="inlinesourcetext">\u9</code>)</td>
+            <td><code class="inlinesourcetext">\\u0</code></td>
+            <td>Expands to \0 converted to upper case (and so on for <code class="inlinesourcetext">\\u1</code> to <code class="inlinesourcetext">\\u9</code>)</td>
             </tr>
             </tbody>
             </table>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_22_7.html"><span class="markdowncontent">Section 22.7: Replacements</span></a> &bull; <a href="WI_23_1.html"><span class="markdowncontent">Chapter 23: Lists</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

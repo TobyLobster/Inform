@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,12 +2212,16 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Glass and Other Damage-Prone Substances" -->
+            <!-- SEARCH SECTION "10.4" -->
+            <!-- SEARCH SORT "002-010-004-000" -->
             <h3><span>Section 10.4: Glass and Other Damage-Prone Substances</span></h3>
             <p>
             Just as Inform normally assumes everything is solid, it also assumes that these solid objects will not buckle, crack, break or deform under pressure, and cannot be fragmented. But breakability adds realism, and breakage need not be negative: sometimes we want the player to break her way in to something.</p>
-            <p>In IF the word <code class="inlinetranscriptcommand">drop</code> is more often used to mean &quot;put down&quot; or &quot;leave behind&quot; than &quot;let go from a height&quot;: so it is perhaps unfair that in <a href="eg_103.html">Ming Vase</a> something fragile, when dropped, shatters (into nothing). In <a href="eg_129.html">Spring Cleaning</a>, fragile objects must be explicitly attacked by the player in order to break, and although they leave no tangible debris behind, their loss is at least remembered. <a href="eg_432.html">Kyoto</a> provides a general-purpose model for things being thrown at other things, with consequences including things moving (even between rooms) as well as breaking each other.</p>
-            <p>Debris from breakages is to be avoided if possible because it means keeping track of increasing numbers of objects. But we can increase realism by allowing something to have a visibly <code class="inlinesourcetext">broken</code> state, which it changes to when it breaks, rather than simply vanishing. <a href="eg_344.html">Terracottissima</a> provides for <code class="inlinesourcetext">broken</code> and <code class="inlinesourcetext">unbroken</code> flowerpots in this way.</p>
-            <p>Since <code class="inlinesourcetext">part of</code> allows us to have two objects joined together into what the player sees as one, it also gives us a natural seam which allows the whole to be broken back down into its component parts, and this is the neatest way of providing a breakage into pieces. <a href="eg_217.html">Paddington</a> demonstrates a cutting action which allows component parts to be cut away from their holders but will only make small surface gashes in any individual thing: so the player can cut something up, but only into the pieces we specifically choose to allow. Cutting also forces an opening into containers.</p>
+            <p>In IF the word <code class="inlinetranscriptcommand">drop</code> is more often used to mean &quot;put down&quot; or &quot;leave behind&quot; than &quot;let go from a height&quot;: so it is perhaps unfair that in <a href="eg_102.html">Ming Vase</a> something fragile, when dropped, shatters (into nothing). In <a href="eg_126.html">Spring Cleaning</a>, fragile objects must be explicitly attacked by the player in order to break, and although they leave no tangible debris behind, their loss is at least remembered. <a href="eg_429.html">Kyoto</a> provides a general-purpose model for things being thrown at other things, with consequences including things moving (even between rooms) as well as breaking each other.</p>
+            <p>Debris from breakages is to be avoided if possible because it means keeping track of increasing numbers of objects. But we can increase realism by allowing something to have a visibly <code class="inlinesourcetext">broken</code> state, which it changes to when it breaks, rather than simply vanishing. <a href="eg_341.html">Terracottissima</a> provides for <code class="inlinesourcetext">broken</code> and <code class="inlinesourcetext">unbroken</code> flowerpots in this way.</p>
+            <p>Since <code class="inlinesourcetext">part of</code> allows us to have two objects joined together into what the player sees as one, it also gives us a natural seam which allows the whole to be broken back down into its component parts, and this is the neatest way of providing a breakage into pieces. <a href="eg_214.html">Paddington</a> demonstrates a cutting action which allows component parts to be cut away from their holders but will only make small surface gashes in any individual thing: so the player can cut something up, but only into the pieces we specifically choose to allow. Cutting also forces an opening into containers.</p>
             <h4><span>See Also</span></h4>
             <ul>
             <li><a href="RB_7_5.html" title="Section 7.5: Combat and Death">Combat and Death</a> for a robot that breaks into its component limbs when shot with a blaster.</li>
@@ -2142,54 +2231,54 @@
             </ul>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg103><a style="text-decoration: none" href="eg_103.html"><span class="extensionexampleletter">103</span></a></span></div>
+                    <span id=eg102><a style="text-decoration: none" href="eg_102.html"><span class="extensionexampleletter">102</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_103.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ming Vase</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_102.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ming Vase</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">attack</code> or <code class="inlinetranscriptcommand">drop</code> break and remove fragile items from play.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg103><a style="text-decoration: none" href="WI_7_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg102><a style="text-decoration: none" href="WI_7_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg129><a style="text-decoration: none" href="eg_129.html"><span class="extensionexampleletter">129</span></a></span></div>
+                    <span id=eg126><a style="text-decoration: none" href="eg_126.html"><span class="extensionexampleletter">126</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_129.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Spring Cleaning</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_126.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Spring Cleaning</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A character who sulks over objects that the player has broken (and which are now off-stage).</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg129><a style="text-decoration: none" href="WI_8_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg126><a style="text-decoration: none" href="WI_8_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg432><a style="text-decoration: none" href="eg_432.html"><span class="extensionexampleletter">432</span></a></span></div>
+                    <span id=eg429><a style="text-decoration: none" href="eg_429.html"><span class="extensionexampleletter">429</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_432.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Kyoto</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_429.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Kyoto</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Expanding the effects of the <code class="inlinetranscriptcommand">throw something at</code> something command so that objects do make contact with one another.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg432><a style="text-decoration: none" href="WI_21_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg429><a style="text-decoration: none" href="WI_21_11.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg217><a style="text-decoration: none" href="eg_217.html"><span class="extensionexampleletter">217</span></a></span></div>
+                    <span id=eg214><a style="text-decoration: none" href="eg_214.html"><span class="extensionexampleletter">214</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_217.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Paddington</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_214.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Paddington</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">A <code class="inlinetranscriptcommand">cut [something] with [something]</code> command which acts differently on different types of objects.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg217><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg214><a style="text-decoration: none" href="WI_13_9.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg344><a style="text-decoration: none" href="eg_344.html"><span class="extensionexampleletter">344</span></a></span></div>
+                    <span id=eg341><a style="text-decoration: none" href="eg_341.html"><span class="extensionexampleletter">341</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_344.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_341.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Terracottissima</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">The flowerpots once again, but this time arranged so that after the first breakage all undamaged pots are said to be <code class="inlinesourcetext">unbroken</code>, to distinguish them from the others.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg344><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg341><a style="text-decoration: none" href="WI_19_16.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_10_3.html"><span class="markdowncontent">Section 10.3: Dispensers and Supplies of Small Objects</span></a> &bull; <a href="RB_10_5.html"><span class="markdowncontent">Section 10.5: Volume, Height, Weight</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

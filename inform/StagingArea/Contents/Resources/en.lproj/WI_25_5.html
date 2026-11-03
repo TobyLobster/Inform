@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 25.5: Declaring and previewing the figures</span></title>
+    <title><span class="markdowncontent">Section 25.5: The main screen and the status window</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_25_4.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.5: Declaring and previewing the figures</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 25.5: The main screen and the status window</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_25_6.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,22 +2212,87 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 25.5: Declaring and previewing the figures</span></h3>
-            <p>     </p>
-            <p>Inside Inform, the source text for a project always tries to avoid talking about filenames – we need a better way to refer to the individual figures.</p>
-            <p>We do this by declaring each figure with a sentence like the following examples:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Figure</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Woodlands</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Woodlands.png&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Figure</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">file</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Red Admiral Butterfly.png&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>Figure names can consist of any text provided that text starts with the word <code class="inlinesourcetext">Figure</code>. So <code class="inlinesourcetext">Figure 3 – Woodlands</code>, for instance, or even <code class="inlinesourcetext">Figure W</code> would have been just as good as <code class="inlinesourcetext">Figure of Woodlands</code>. Books tend to number figures, but then, in a book the order in which they appear is known in advance – which might not be true in IF.</p>
-            <p>The file names must be exactly those used in the Figures folder. We need not declare every image kept there, but those we don't declare – remember Blackberry.jpg? – cannot be displayed.</p>
-            <p>We can preview the stock of figures by going to the table of figures in the Contents index for a project (once the project has been built, that is, so that its index is up to date). This preview shows thumbnail forms of the pictures, the names, the formats and the image sizes in pixels. A warning triangle is shown for any images in the wrong format, or which are missing from the Figures folder.</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "The main screen and the status window" -->
+            <!-- SEARCH SECTION "25.5" -->
+            <!-- SEARCH SORT "001-025-005-000" -->
+            <h3><span>Section 25.5: The main screen and the status window</span></h3>
+            <p>For Inform, the <em>screen</em> is the rectangular area in which an Inform story can display text or pictures. That rectangle is unlikely to be the whole physical screen which the user can see: maybe it's the Story panel in the Inform app, or a portion of a browser tab, or the play area in an IF app like Spatterlight, or even a tab in a Unix terminal app, partying like it's 1979.</p>
+            <p>In short, the <em>screen</em> is a rectangular space we can use. We cannot control its size, and must live within what we're given. That size might change at any time during play, for example if the player drags the corner of a browser window to resize it.</p>
+            <p>What we can control is how the screen is divided up into panels called <em>windows</em>. These are not quite like the windows which Mac or Windows users are accustomed to. They do not necessarily have visible boundaries, and if two windows have positions which overlap, one has to be entirely inside the other.</p>
+            <p>For many decades the conventional layout of an IF work has had just two windows:</p>
+            <ul>
+            <li>
+            <p>A main screen area in which commands are typed, and replies scroll upwards.</p>
+            </li>
+            <li>
+            <p>A short status window on top, often drawn in contrasting colours, which holds some state-of-play information — a score, or a location, for example. This occupies a fixed position and does not scroll away. Since it is often just one line high, it is sometimes called the status line. This one does not receive keystrokes: it's for output only.</p>
+            </li>
+            </ul>
+            <p>That main window/status window arrangement is the screen layout used by default in Inform stories. Running on the Z-machine, it's almost the only layout possible, and although Glulx can support much more complicated setups, many Glulx stories continue to use it too. On both VMs, the following phrases can be used:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn440" -->
+                <p class="defnprototype"><a id="defn440"></a>clear the screen</p>
+                <!-- END PHRASE -->
+                <p>This phrase clears both the main window and the status window (and, if a boxed quotation is being displayed currently, that as well). On Glulx, it is possible to create multi-window layouts with additional elements (e.g., graphical panels): those would not be cleared, so this phrase is best thought of as clearing the main textual part of the play area.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn441" -->
+                <p class="defnprototype"><a id="defn441"></a>the screen height ... number</p>
+                <!-- END PHRASE -->
+                <p>The height of the screen in characters, that is, in lines of text. This includes the status line or lines. On Glulx, properly speaking, it's the height of the main window plus that of the status window. In the default page layout, this is the same thing, but it would be possible to construct more elaborate multi-window layouts (for example where a graphics area is above the text) where <code class="inlinesourcetext">the screen height</code> is measuring the height of the main textual part of the play area.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn442" -->
+                <p class="defnprototype"><a id="defn442"></a>the screen width ... number</p>
+                <!-- END PHRASE -->
+                <p>The width of the status window in characters. Since the status window almost always runs across the whole width of the textual play area, this is in effect the screen width.</p>
+                <blockquote class="alertimportant">
+                <p class="alertheading">☞ Important</p>
+                <p>The reason that this phrase measures the status window, not the main window, is that the status window has a grid format in which all characters have equal width; in the main window, proportional text is usually used, so that a run of 100 letter <code class="inlinesourcetext">i</code>s might be the same width as 50 letter <code class="inlinesourcetext">w</code>s. In short, this can be used as an exact measurement when preparing material to be displayed on the status window, but is only a rough approximation of what fits below it.</p>
+                </blockquote>
+            </div>
+            <p></p>
+            <p>The default Inform usage for the status window is to have just a status line, that is, a single line at the top of the screen. This is generally used for the location, perhaps with a score or time of day: the variables <code class="inlinesourcetext">left hand status line</code> and <code class="inlinesourcetext">right hand status line</code> allow the content to be changed, since one is printed left-aligned in this line, and the other right-aligned.</p>
+            <p>But more elaborate arrangements are possible. The window can have additional rows, and/or can accommodate a third, centred, column, using the following:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn443" -->
+                <p class="defnprototype"><a id="defn443"></a>draw the status window with (table name)</p>
+                <!-- END PHRASE -->
+                <p>This phrase is intended for use within a rule for the <code class="inlinesourcetext">constructing the status line</code> activity, and redraws the status window using the contents of a table. The table can have any number of rows, and the status window will adjust its height accordingly — though of course players on smaller devices may not be pleased by a huge status window consuming their limited screen space. The table should have one to three columns:</p>
+                <ul>
+                <li>If the table has 1 column, material in it is centred.</li>
+                <li>If the table has 2 columns, column 1 is left-aligned and column 2 is right-aligned.</li>
+                <li>If the table has 3 columns, they are left-aligned, centred, and right-aligned respectively.</li>
+                </ul>
+                <p>The contents of the table can be changed during play. Note that blank entries count as if they were empty text, i.e., they leave a blank area in the status window; in particular, a blank row in the table makes a blank line in the status window.</p>
+                <blockquote class="alertwarning">
+                <p class="alertheading">⚠ Warning</p>
+                <p>On a narrow screen, it's possible for these columns to overlap each other, especially if all three columns are used.</p>
+                </blockquote>
+            </div>
+            <p>The table-based phrase above is convenient, but not compulsory, and the following low-level phrases may be useful in rules for the <code class="inlinesourcetext">constructing the status line</code> activity (see <a href="WI_20_23.html" title="Section 20.23: Constructing the status line">Constructing the status line</a>) which go their own way:</p>
+            <div class="definition">
+                <!-- START PHRASE "defn444" -->
+                <p class="defnprototype"><a id="defn444"></a>set the status window to (number) row/rows</p>
+                <!-- END PHRASE -->
+                <p>Sets the status window to be this many rows high.</p>
+            </div>
+            <div class="definition">
+                <!-- START PHRASE "defn445" -->
+                <p class="defnprototype"><a id="defn445"></a>move the status window cursor to row (number) and column (number)</p>
+                <!-- END PHRASE -->
+                <p>Moves the cursor to the specified row and column number. Note that these begin with 1; the top left is (1, 1).</p>
+            </div>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>While the descriptions of the phrases above refer to the main window, what they really mean by that is the &quot;active window&quot;, that is, the one to which text is normally being output. In Inform's normal setup, that is always the main window, but some extensions allow this to be changed.</p>
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_25_4.html"><span class="markdowncontent">Section 25.4: Gathering the figures</span></a> &bull; <a href="WI_25_6.html"><span class="markdowncontent">Section 25.6: Displaying the figures</span></a></em></p>
+        <p><em> &bull; <a href="WI_25_4.html"><span class="markdowncontent">Section 25.4: Coloured text</span></a> &bull; <a href="WI_25_6.html"><span class="markdowncontent">Section 25.6: Dividing the screen into windows</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

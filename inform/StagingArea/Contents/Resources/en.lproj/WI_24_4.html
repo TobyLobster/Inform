@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,45 +2212,57 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Default values for phrase kinds" -->
+            <!-- SEARCH SECTION "24.4" -->
+            <!-- SEARCH SORT "001-024-004-000" -->
             <h3><span>Section 24.4: Default values for phrase kinds</span></h3>
             <p>  </p>
             <p>The default value for <code class="inlinesourcetext">phrase K -&gt; nothing</code> is a phrase which does nothing. For example, if we write:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> -&gt; </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1684" -->
+            <blockquote class="extract-inform7"><a id="code1684"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> -&gt; </span><span class="identifier-syntax">nothing</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then S is created holding the default <code class="inlinesourcetext">phrase numbers -&gt; nothing</code>, and if we then try it out with:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">apply</span><span class="syntaxplain"> </span><span class="syntaxidentifier">S</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">17</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1685" -->
+            <blockquote class="extract-inform7"><a id="code1685"></a><span class="indexdullblue"><span class="identifier-syntax">apply</span><span class="plain-syntax"> </span><span class="identifier-syntax">S</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">17</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>we will indeed find that nothing happens.</p>
             <p>The default value for <code class="inlinesourcetext">phrase K -&gt; L</code> is a phrase which, no matter what value of <code class="inlinesourcetext">K</code> it applies to, always produces the default value of <code class="inlinesourcetext">L</code>. (It's a sort of equivalent of the zero function in mathematics – indeed that's exactly what it is, if <code class="inlinesourcetext">L</code> is <code class="inlinesourcetext">number</code>.) So:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> -&gt; </span><span class="syntaxidentifier">times</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code1686" -->
+            <blockquote class="extract-inform7"><a id="code1686"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">Q</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> -&gt; </span><span class="identifier-syntax">times</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">Q</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">4</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">Q</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">4</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Q</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> -7;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">Q</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> -7;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;q&quot; = phrase number -&gt; time: default value of phrase number -&gt; time</span><br><span class="syntaxidentifier">&quot;q applied to 4&quot; = time: 9:00 am</span><br><span class="syntaxidentifier">&quot;q applied to -7&quot; = time: 9:00 am</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;q&quot; = phrase number -&gt; time: default value of phrase number -&gt; time<br>&quot;q applied to 4&quot; = time: 9:00 am<br>&quot;q applied to -7&quot; = time: 9:00 am<br></code></pre></div>
             <p>Here <code class="inlinesourcetext">Q</code> is set to the default phrase because we didn't give it any other value; it has the name we might expect (<code class="inlinesourcetext">default value of phrase number -&gt; time</code>) and it works as advertised, producing <code class="inlinesourcetext">9:00 am</code> no matter what number is fed in.</p>
             <p>More ambitiously, and supposing that we have a kind called <code class="inlinesourcetext">colour</code> whose first possible value is <code class="inlinesourcetext">red</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">let</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">be</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> -&gt; (</span><span class="syntaxidentifier">phrase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">numbers</span><span class="syntaxplain"> -&gt; </span><span class="syntaxidentifier">colours</span><span class="syntaxplain">);</span>
+            <!-- START CODE "code1687" -->
+            <blockquote class="extract-inform7"><a id="code1687"></a><span class="indexdullblue"><span class="identifier-syntax">let</span><span class="plain-syntax"> </span><span class="identifier-syntax">R</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> -&gt; (</span><span class="identifier-syntax">phrase</span><span class="plain-syntax"> </span><span class="identifier-syntax">numbers</span><span class="plain-syntax"> -&gt; </span><span class="identifier-syntax">colours</span><span class="plain-syntax">);</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">R</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> </span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> </span><span class="identifier-syntax">R</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">showme</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">R</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">3</span><span class="syntaxplain">) </span><span class="syntaxidentifier">applied</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxconstant">2</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">showme</span><span class="plain-syntax"> (</span><span class="identifier-syntax">R</span><span class="plain-syntax"> </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax">) </span><span class="identifier-syntax">applied</span><span class="plain-syntax"> </span><span class="identifier-syntax">to</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces:</p>
             <div class="extract-transcript">
-                <pre><code class="language-transcript"><span class="syntaxidentifier">&quot;r&quot; = phrase number -&gt; (phrase number -&gt; colour): default value of phrase</span><br><span class="syntaxidentifier">number -&gt; (phrase number -&gt; colour)</span><br><span class="syntaxidentifier">&quot;r applied to 3&quot; = phrase number -&gt; colour: default value of phrase number</span><br><span class="syntaxidentifier">-&gt; colour</span><br><span class="syntaxidentifier">&quot;( r applied to 3 ) applied to 2&quot; = colour: red</span><br></code></pre></div>
+                <pre><code class="language-transcript">&quot;r&quot; = phrase number -&gt; (phrase number -&gt; colour): default value of phrase<br>number -&gt; (phrase number -&gt; colour)<br>&quot;r applied to 3&quot; = phrase number -&gt; colour: default value of phrase number<br>-&gt; colour<br>&quot;( r applied to 3 ) applied to 2&quot; = colour: red<br></code></pre></div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_24_3.html"><span class="markdowncontent">Section 24.3: Phrases as values</span></a> &bull; <a href="WI_24_5.html"><span class="markdowncontent">Section 24.5: Map, filter and reduce</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

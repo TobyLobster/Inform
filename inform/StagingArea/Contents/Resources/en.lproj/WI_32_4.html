@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 32.4: Run-time representations of Inform constructs</span></title>
+    <title><span class="markdowncontent">Section 32.4: Longer code samples</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_32_3.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.4: Run-time representations of Inform constructs</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 32.4: Longer code samples</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_32_5.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,113 +2212,75 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 32.4: Run-time representations of Inform constructs</span></h3>
-            <p>Functions in kits frequently receive values passed to them from Inform source text. Some of those values are straightforward to deal with: a <code class="inlinesourcetext">number</code> value in source text behaves exactly as integers do in I6, for example. But others are not so easy to understand. If Inform passes an I6 function a <code class="inlinesourcetext">text</code>, or a <code class="inlinesourcetext">rule</code>, for example, what are we getting, and how can we deal with it?</p>
-            <h4><span>Text constants</span></h4>
-            <p>Values of the Inform kind <code class="inlinesourcetext">text</code> are <em>not</em> the same as text constants in the I6 sense. This function may look plausible, but it does not return a valid Inform <code class="inlinesourcetext">text</code>:</p>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Longer code samples" -->
+            <!-- SEARCH SECTION "32.4" -->
+            <!-- SEARCH SORT "001-032-004-000" -->
+            <h3><span>Section 32.4: Longer code samples</span></h3>
+            <p> 
+             </p>
+            <p>Inform documentation tends to be broken up with examples of source text, and this can be done very simply, by indenting the material one tab stop from the margin. (Or, equivalently, by four spaces.)</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ RedOrBlue N;</span><br><span class="syntaxidentifier">    if (N % 2 == 0) return &quot;Red&quot;;</span><br><span class="syntaxidentifier">    return &quot;Blue&quot;;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>This, however, does:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Array RED_TEXT --&gt; PACKED_TEXT_STORAGE &quot;Red&quot;;</span><br><span class="syntaxidentifier">Array BLUE_TEXT --&gt; PACKED_TEXT_STORAGE &quot;Blue&quot;;</span><br><span class="syntaxidentifier">[ RedOrBlue N;</span><br><span class="syntaxidentifier">    if (N % 2 == 0) return RED_TEXT;</span><br><span class="syntaxidentifier">    return BLUE_TEXT;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p><code class="inlinecode">BasicInformKit</code> already defines <code class="inlinecode">EMPTY_TEXT_VALUE</code>, which is a valid constant <code class="inlinesourcetext">text</code> holding no characters.</p>
-            <p>These arrays are because <code class="inlinesourcetext">text</code> values are actually pointers to two-word blocks of memory, in which the first word defines one of a number of possible representations of the text, and the second gives details. See the source code for <code class="inlinecode">BasicInformKit</code> for the gory details.</p>
-            <h4><span>List constants, stored action constants, and more</span></h4>
-            <p>While it is possible to write similar array declarations to simulate constant lists, this is not recommended; their run-time representation may change in future. Similarly for other complex kinds: it is better to find a way to define constant values of those kinds in Inform source text (for example in an extension) and then pass those values down to the kit code for usage.</p>
-            <h4><span>Variables</span></h4>
-            <p> </p>
-            <p>We can create a valid Inform variable by providing an I6 global variable to store the contents. (Not all Inform variables are stored this way: some are stored in array entries, or on a stack. Those other ways, we cannot imitate.)</p>
-            <p>The extension which wraps the kit will need to define a name:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bounty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Spade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+                <pre><code class="language-code">Individual stamps can be declared, and given prices:<br><br>    The Harding Memorial 1923 Issue is a stamp. &quot;Issued less than a<br>    month after President Warren H. Harding died in office on 2 August<br>    1923, this US 2 cents issue featured an unusual black border.&quot;<br><br>    The price of the Harding Memorial is $25.50.<br><br>Note that the `monetary value` kind can hold prices of only up to around<br>23 million dollars, but as of 2023 that should be enough. The highest<br>sale price in history for a single stamp is $9480000, paid in 2014 for<br>the only existing British Guiana 1c magenta, and it then depreciated<br>to $8307000 when sold again in 2021.<br></code></pre></div>
+            <p>This produces:</p>
+            <blockquote>
+            <p>Individual stamps can be declared, and given prices:</p>
+            <!-- START CODE "code1921" -->
+            <blockquote class="extract-inform7"><a id="code1921"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Harding</span><span class="plain-syntax"> </span><span class="identifier-syntax">Memorial</span><span class="plain-syntax"> </span><span class="constant-syntax">1923</span><span class="plain-syntax"> </span><span class="identifier-syntax">Issue</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">stamp</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;Issued less than a month after President Warren H. Harding died in office on 2 August 1923, this US 2 cents issue featured an unusual black border.&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bounty</span><span class="syntaxplain"> </span><span class="syntaxidentifier">on</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Spade</span><span class="syntaxplain"> </span><span class="syntaxidentifier">variable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Spade_bounty&quot;</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">price</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Harding</span><span class="plain-syntax"> </span><span class="identifier-syntax">Memorial</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> $25.50.</span>
             </span></blockquote>
-            <p>In effect, this makes a promise, and the kit has to keep the promise, which it can do very easily:</p>
+            <!-- END CODE -->
+            <p>Note that the <code class="inlinesourcetext">monetary value</code> kind can hold prices of only up to around 23 million dollars, but as of 2023 that should be enough. The highest sale price in history for a single stamp is $9480000, paid in 2014 for the only existing British Guiana 1c magenta, and it then depreciated to $8307000 when sold again in 2021.</p>
+            </blockquote>
+            <p>If the opening line of the quoted passage begins with a <code class="inlinecode">&gt;</code> character and then what looks like a command, Inform will guess that it's a transcript instead. And therefore this:</p>
             <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Global Spade_bounty = 0;</span><br></code></pre></div>
-            <p>Note that the kit has the responsibility of seeing that the value in this variable is always valid for the kind it is supposed to have — but in this case, that's <code class="inlinesourcetext">number</code>, which is easy enough.</p>
-            <h4><span>Rules and responses</span></h4>
-            <p> </p>
-            <p>At run-time, a rule is represented by a function which must do one of three things:</p>
-            <ul>
-            <li>
-            <p>return <code class="inlinecode">false</code> to make no decision;</p>
-            </li>
-            <li>
-            <p>call <code class="inlinecode">RulebookSucceeds()</code> and then return <code class="inlinecode">true</code> to succeed; or</p>
-            </li>
-            <li>
-            <p>call <code class="inlinecode">RulebookFails()</code> and then return <code class="inlinecode">true</code> to fail.</p>
-            </li>
-            </ul>
-            <p>If the rule is for a rulebook which produces a value then it must pass the outcome value as a parameter if it succeeds:</p>
-            <ul>
-            <li>call <code class="inlinecode">RulebookSucceeds(V)</code> and then return <code class="inlinecode">true</code> to succeed with value <code class="inlinesourcetext">V</code>.</li>
-            </ul>
-            <p>We can create a rule from a kit by writing such a function, and by giving it a name, and perhaps filing it in a rulebook, in the extension which wraps the kit:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blossom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;BLOSSOM_R&quot;</span><span class="syntaxplain">.</span>
+                <pre><code class="language-code">We want to penalise players not taking this seriously, so:<br><br>    &gt; LICK STAMP<br>    You seriously degrade the value of this $174.90 Weimar republic issue.<br></code></pre></div>
+            <p>comes out as:</p>
+            <blockquote>
+            <p>We want to penalise players not taking this seriously, so:</p>
+            <div class="extract-transcript">
+                <pre><code class="language-transcript">&gt; LICK STAMP<br>You seriously degrade the value of this $174.90 Weimar republic issue.<br></code></pre></div>
+            </blockquote>
+            <p>An alternative Markdown syntax makes it possible to specify exactly what sort of syntax-colouring should be used, like so:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">This is some JSON:<br><br>``` code<br>{<br>    &quot;is&quot;: {<br>        &quot;type&quot;: &quot;extension&quot;,<br>        &quot;title&quot;: &quot;Philately&quot;,<br>        &quot;author&quot;: &quot;Peter Drake&quot;,<br>        &quot;version&quot;: &quot;1&quot;<br>    }<br>}<br>```<br></code></pre></div>
+            <p>Note the use of three backticks before and after the block of whatever the sample is, and the presence of the word <code class="inlinecode">code</code>. Inform also supports <code class="inlinecode">inform</code> (meaning the same thing as <code class="inlinecode">inform7</code>), <code class="inlinecode">inform6</code>, <code class="inlinecode">transcript</code> and <code class="inlinecode">plain</code> (no colouring at all). For example, this is syntax-coloured as Inform 6 code:</p>
+            <div class="extract-inform6">
+                <pre><code class="language-inform6"><span class="plain-syntax">[ </span><span class="identifier-syntax">DisplayStamp</span><span class="plain-syntax"> </span><span class="identifier-syntax">st</span><span class="plain-syntax"> </span><span class="identifier-syntax">perf_flag</span><span class="plain-syntax">;</span><br><span class="plain-syntax">    ...</span><br><span class="plain-syntax">];</span><br></code></pre></div>
+            <p>When an Inform source text code sample is marked with the special notation <code class="inlinecode">{*}</code>, this is displayed with a &quot;paste me into the app&quot; button attached in place of these symbols. For example:</p>
+            <div class="extract-code">
+                <pre><code class="language-code">To set the scene:<br><br>    {*}    &quot;Definitely Unhinged&quot;<br><br>    Include Philately by Stanley Gibbons.<br><br>    The British Museum Stamps Room is a room. The cabinet is a closed openable<br>    container in the Stamps Room.<br><br>And so on:<br><br>    {**}The Saxony 1856 is a stamp in the cabinet. &quot;A forgery by Jean de Spirati!<br>    Priceless.&quot;<br></code></pre></div>
+            <p>Here the <code class="inlinecode">{**}</code> notation means that the sample continues the previous one, and that a single paste button in the <code class="inlinecode">{*}</code> position collects all of this text together into a single run. So for example:</p>
+            <blockquote>
+            <p>To set the scene:</p>
+            <!-- START CODE "code1922" -->
+            <blockquote class="extract-inform7"><a id="code1922"></a><a class="actionlink" href="javascript:pasteCode(' [=0x0022=]Definitely Unhinged[=0x0022=][=0x000A=][=0x000A=]Include Philately by Stanley Gibbons.[=0x000A=][=0x000A=]The British Museum Stamps Room is a room. The cabinet is a closed openable[=0x000A=]container in the Stamps Room.[=0x000A=][=0x000A=]The Saxony 1856 is a stamp in the cabinet. [=0x0022=]A forgery by Jean de Spirati! Priceless.[=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;Definitely Unhinged&quot;</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blossom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">listed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">horticulture</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rules</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>The rule function can then go into the kit:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ BLOSSOM_R;</span><br><span class="syntaxidentifier">    if (real_location hasnt light) { RulebookSucceeds(); rtrue; }</span><br><span class="syntaxidentifier">    rfalse;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>And now <code class="inlinesourcetext">blossom rule</code> is a value of the kind <code class="inlinesourcetext">rule</code> in Inform source text, while <code class="inlinecode">BLOSSOM_R</code> can validly refer to it from I6 code and, in particular, elsewhere in the kit.</p>
-            <p>If the rule is going to print anything, it should ideally do so using Inform's system of responses. These responses must be defined in the wrapper extension:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">blossom</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;BLOSSOM_R&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span>
+            <span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Philately</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stanley</span><span class="plain-syntax"> </span><span class="identifier-syntax">Gibbons</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxstring">&quot;The garden is in blossom.&quot;</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">A</span><span class="syntaxplain">),</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxstring">&quot;The garden is gloomily barren.&quot;</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">B</span><span class="syntaxplain">).</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">British</span><span class="plain-syntax"> </span><span class="identifier-syntax">Museum</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stamps</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cabinet</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span>
+            <br>
+            <span class="identifier-syntax">container</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stamps</span><span class="plain-syntax"> </span><span class="identifier-syntax">Room</span><span class="plain-syntax">.</span>
             </span></blockquote>
-            <p>What then happens is that the Inform compiler creates a function <code class="inlinecode">BLOSSOM_RM</code> (i.e., with the same name as the rule but with <code class="inlinecode">M</code> appended) which can print a response on demand:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ BLOSSOM_R;</span><br><span class="syntaxidentifier">    if (real_location hasnt light) {</span><br><span class="syntaxidentifier">        BLOSSOM_RM('A');</span><br><span class="syntaxidentifier">        RulebookSucceeds(); rtrue;</span><br><span class="syntaxidentifier">    }</span><br><span class="syntaxidentifier">    BLOSSOM_RM('B');</span><br><span class="syntaxidentifier">    rfalse;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
-            <p>If the rule is to be used in a rulebook based on a value, or more often an action, then it will need to be able to access that so-called &quot;basis&quot;.</p>
-            <ul>
-            <li>
-            <p>For action-based rules, it should look at the I6 global variables <code class="inlinecode">actor</code>, <code class="inlinecode">noun</code> and <code class="inlinecode">second</code>.</p>
-            </li>
-            <li>
-            <p>For value-based rules, it should look at the I6 global variable <code class="inlinecode">parameter_object</code>, which despite its name is not necessarily an object: it will be a value of whatever kind the rulebook is based on.</p>
-            </li>
-            </ul>
-            <h4><span>Rulebooks</span></h4>
-            <p>A rulebook is, like a rule, a function, and it has the same calling conventions. (In fact, a <code class="inlinesourcetext">rulebook</code> value is always a valid <code class="inlinesourcetext">rule</code> value at run-time.) Rulebooks can only be created by Inform source text: so if a kit needs a rulebook, it should be created in the wrapper extension.</p>
-            <h4><span>Objects and kinds of object</span></h4>
-            <p>At runtime, an Inform object is represented by a value <code class="inlinecode">ofclass Object</code> in the I6 sense, and the absence of an object is represented by the I6 constant <code class="inlinecode">nothing</code>. A kind of object is represented by a value <code class="inlinecode">ofclass Class</code>.</p>
-            <p>However, not every value <code class="inlinecode">ofclass Object</code> is valid as an <code class="inlinesourcetext">object</code> in Inform. <code class="inlinecode">WorldModelKit</code> continues, for historical reasons, to define two pseudo-object values <code class="inlinecode">thedark</code> and <code class="inlinecode">compass</code>: these are <code class="inlinecode">ofclass Object</code> in I6, but must not be stored in <code class="inlinesourcetext">object</code> variables in Inform.</p>
-            <p>Objects and kinds of object can only be created by Inform source text: so if a kit needs these, they should be created in the wrapper extension. I6 code like this:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Object oddity &quot;an oddity&quot;;</span><br></code></pre></div>
-            <p>simply creates another pseudo-object like <code class="inlinecode">thedark</code>, which is not an <code class="inlinesourcetext">object</code> in the Inform 7 sense.</p>
-            <h4><span>Properties</span></h4>
-            <p>Although it is possible for kits to define Inform properties, this is no longer recommended. It's better to define them in the wrapper extension, and then simply make their names available to the kit code using <code class="inlinesourcetext">accessible to Inter as</code>. See <a href="WI_31_10.html" title="Section 31.10: Inform values from I6">Inform values from I6</a>.</p>
-            <h4><span>Actions</span></h4>
-            <p>Values of the kind <code class="inlinesourcetext">action</code>, such as <code class="inlinesourcetext">taking action</code> or <code class="inlinesourcetext">looking</code>, are represented in the natural way as I6 action values.</p>
-            <p>Kits can create their own actions, and also give them the equivalent of <code class="inlinesourcetext">Understand</code> grammar. For example, <code class="inlinecode">WorldModelKit</code> provides a handful of debugging commands this way:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">Verb meta 'showheap'</span><br><span class="syntaxidentifier">    *                                           -&gt; ShowHeap;</span><br></code></pre></div>
-            <p>This creates an action out of world called <code class="inlinecode">##ShowHeap</code>. <code class="inlinecode">WorldModelKit</code> then provides a function called <code class="inlinecode">ShowHeapSub</code> to implement the action. None of this is visible at the Inform 7 level. While kits <em>can</em> do this, they probably shouldn't. It's better to define actions in the wrapper extension.</p>
-            <p>I6 also has a concept of &quot;fake actions&quot;. Inform 7 does not, and kits should create no further fake actions.</p>
-            <h4><span>Command grammar tokens</span></h4>
-            <p> </p>
-            <p><code class="inlinesourcetext">Understand</code> tokens of command grammar are represented as functions which are, in the traditional Inform 6 sense, &quot;general parsing routines&quot; or GPRs. (Consult the DM4 for details.)</p>
-            <p>To create one with a kit, the wrapper extension should give it a name:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxidentifier">token</span><span class="syntaxplain"> </span><span class="syntaxidentifier">squiggle</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">defined</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Inter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;SQUIGGLE_TOKEN&quot;</span><span class="syntaxplain">.</span>
+            <!-- END CODE -->
+            <p>And so on:</p>
+            <!-- START CODE "code1923" -->
+            <blockquote class="extract-inform7"><a id="code1923"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">Saxony</span><span class="plain-syntax"> </span><span class="constant-syntax">1856</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">stamp</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cabinet</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A forgery by Jean de Spirati! Priceless.&quot;</span>
             </span></blockquote>
-            <p>The kit should then define the necessary function:</p>
-            <div class="extract-code">
-                <pre><code class="language-code"><span class="syntaxidentifier">[ SQUIGGLE_TOKEN;</span><br><span class="syntaxidentifier">    if (NextWordStopped() == '$$') return GPR_PREPOSITION;</span><br><span class="syntaxidentifier">    return GPR_FAIL;</span><br><span class="syntaxidentifier">];</span><br></code></pre></div>
+            <!-- END CODE -->
+            </blockquote>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_32_3.html"><span class="markdowncontent">Section 32.3: Compatibility of kits</span></a> &bull; <a href="WI_32_5.html"><span class="markdowncontent">Section 32.5: Assigning use options to kits</span></a></em></p>
+        <p><em> &bull; <a href="WI_32_3.html"><span class="markdowncontent">Section 32.3: Textual effects and short code samples</span></a> &bull; <a href="WI_32_5.html"><span class="markdowncontent">Section 32.5: Block quotations and phrase boxes</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

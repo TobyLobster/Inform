@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Section 31.13: Inclusions of I6 code</span></title>
+    <title><span class="markdowncontent">Section 31.13: Extensions in the Index</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_31_12.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.13: Inclusions of I6 code</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Section 31.13: Extensions in the Index</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_31_14.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,64 +2212,80 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h3><span>Section 31.13: Inclusions of I6 code</span></h3>
-            <p></p>
-            <p>With some reluctance, we now need to come to an entirely new sentence meaning: <code class="inlinesourcetext">Include (- ... -)</code>, which allows the user to insert whole I6 &quot;directives&quot; into a story. When defining phrases with <code class="inlinesourcetext">(-</code> and <code class="inlinesourcetext">-)</code>, we were only contributing small fragments of functions: but now we can write entire functions, variables and so forth.</p>
-            <p>Why the reluctance? The answer is that, where possible, it's always best to separate out Inform source text from any low-level I6 material. Any large quantities of I6 are much better placed in a kit: see the final chapter, <a href="WI_32_1.html" title="Chapter 32: Kits">Kits</a>. So, for example, the source text for the <code class="inlinesourcetext">Standard Rules</code> and <code class="inlinesourcetext">Basic Inform</code> extensions do not make a single use of <code class="inlinesourcetext">Include (- ... -)</code>. Although they need a great deal of Inter code to back them up, all of that is in <code class="inlinecode">BasicInformKit</code>, <code class="inlinecode">WorldModelKit</code> and so on.</p>
-            <p>With that said, here for example is a directive which creates an I6 function:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> (-</span>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Extensions in the Index" -->
+            <!-- SEARCH SECTION "31.13" -->
+            <!-- SEARCH SORT "001-031-013-000" -->
+            <h3><span>Section 31.13: Extensions in the Index</span></h3>
+            <p>          </p>
+            <p>As soon as a project has successfully been translated, its Index is brought up to date: pages of the index record all the kinds and what they are for, all the phrases which can be used, and so on. Any kind or phrase created in an extension is automatically included. The extension's presence in the project is itself recorded – the Contents index for any project contains a brief list of all extensions used in that project, along with their authors and version numbers.</p>
+            <p>All of that is automatic, but there are two ways in which an extension can help matters by improving the way its contents are indexed.</p>
+            <h4><span>Providing a specification for each kind</span></h4>
+            <p>The Kinds index aims to give the reader a brief note of what each kind is intended for. For example, <code class="inlinesourcetext">text</code> is briefly explained as:</p>
+            <blockquote>
+            <p>Some text in double quotation marks, perhaps with substitutions written in square brackets.</p>
+            </blockquote>
+            <p>This is called the <em>specification</em> of the kind. Inform allows any kind defined in the source text to be given a specification like this. For example:</p>
+            <!-- START CODE "code1878" -->
+            <blockquote class="extract-inform7"><a id="code1878"></a><span class="indexdullblue"><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">low</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">.</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxcomment">[ FauxMultiply a b;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxcomment">return a*b;</span>
-            <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxcomment">]</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxplain">-).</span>
+            <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">specification</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">low</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Represents a door which a person can normally only walk through while ducking.&quot;</span>
             </span></blockquote>
-            <p>And that could then be used like so:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">decide</span><span class="syntaxplain"> </span><span class="syntaxidentifier">which</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">faux</span><span class="syntaxplain"> </span><span class="syntaxidentifier">multiplication</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">X</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">and</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">Y</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">number</span><span class="syntaxplain">):</span>
+            <!-- END CODE -->
+            <p><code class="inlinesourcetext">Specification</code> is a sort of pseudo-property, which does not really exist. Like the rubric to an extension (see <a href="WI_31_9.html" title="Section 31.9: Extension rubrics">Extension rubrics</a>), this text never appears in the story as played, and is not in fact compiled. It is used only in the Index.</p>
+            <h4><span>Grouping phrases together under sensible heading names</span></h4>
+            <p>Some extensions provide hardly any phrases, or none at all, but others provide many. (<code class="inlinesourcetext">Basic Inform</code> defines hundreds.) The Phrasebook in the Index will, by default, simply lump these all together, which isn't easy for users to browse.</p>
+            <p>However, if the phrases are defined under different headings, then those headings will be used in the index, too.</p>
+            <!-- START CODE "code1879" -->
+            <blockquote class="extract-inform7"><a id="code1879"></a><span class="indexdullblue"><span class="identifier-syntax">Section</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Head</span><span class="plain-syntax"> </span><span class="identifier-syntax">motion</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">(- (</span><span class="syntaxidentifier">FauxMultiply</span><span class="syntaxplain">({</span><span class="syntaxidentifier">X</span><span class="syntaxplain">}, {</span><span class="syntaxidentifier">Y</span><span class="syntaxplain">})) -).</span>
+
+            <br>
+            <span class="comment-syntax">[Some &quot;To ...&quot; phrases here]</span>
+            <br>
+
+            <br>
+            <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">more</span><span class="plain-syntax"> </span><span class="identifier-syntax">phrases</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Door</span><span class="plain-syntax"> </span><span class="identifier-syntax">clearance</span>
+            <br>
+
+            <br>
+            <span class="comment-syntax">[Some more &quot;To ...&quot; phrases here]</span>
             </span></blockquote>
-            <p>Inclusions like this can also use <code class="inlinesourcetext">(+</code> and <code class="inlinesourcetext">+)</code> — see <a href="WI_31_10.html" title="Section 31.10: Inform values from I6">Inform values from I6</a> for those — but the use of these is strongly discouraged, and subject to a number of hazards.</p>
-            <p>There was no problem creating a new function called <code class="inlinesourcetext">FauxMultiply</code>, but what if we tried to create, say, <code class="inlinesourcetext">SquareRoot</code>? We would then run into trouble because there is already a function of that name in <code class="inlinecode">BasicInformKit</code>. So we would get a problem message about the name clash.</p>
-            <p>But what if the name clash was not an accident at all, and what we actually wanted to give our own definition of <code class="inlinesourcetext">SquareRoot</code>, to be used instead of the one in BasicInformKit? This is also possible:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> (-</span>
+            <!-- END CODE -->
+            <p>These batches of phrases would then be listed in the index under <code class="inlinetranscript">Head motion</code> and <code class="inlinetranscript">Door clearance</code> respectively.</p>
+            <ol>
+            <li>
+            <p>Inform looks for a hyphen in the heading and then uses any text which follows the hyphen.</p>
+            </li>
+            <li>
+            <p>If there is no hyphen, the entire heading text is used.</p>
+            </li>
+            <li>
+            <p>If an extension contains no headings, all its phrases are indexed simply as &quot;Miscellaneous&quot;.</p>
+            </li>
+            </ol>
+            <p>If there are, say, only five or fewer phrases, then this is not worth the trouble, but otherwise it probably is.</p>
+            <p>And the same is true for action definitions, and how they are listed in the Actions index; but once again, this is probably not worth the trouble if the extension contains only five actions or fewer.</p>
+            <h4><span>Hiding material from the index</span></h4>
+            <p>Finally, any phrase or variable defined immediately under a heading whose name ends in the word <code class="inlinesourcetext">unindexed</code> will be omitted from the Phrasebook or Contents index respectively. (That <em>won't</em> apply to definitions under subheadings of the heading.) For example:</p>
+            <!-- START CODE "code1880" -->
+            <blockquote class="extract-inform7"><a id="code1880"></a><span class="indexdullblue"><span class="identifier-syntax">Chapter</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Implementation</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Unindexed</span>
             <br>
-            <span class="syntaxcomment">[ SquareRoot num;</span>
+
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxcomment">&quot;Nobody cares about square roots, son.&quot;;</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">secretly</span><span class="plain-syntax"> </span><span class="identifier-syntax">adjust</span><span class="plain-syntax"> </span><span class="identifier-syntax">all</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax"> </span><span class="identifier-syntax">heights</span><span class="plain-syntax">:</span>
             <br>
-            <span class="syntaxcomment">]</span><span class="syntaxplain">;</span>
-            <br>
-            <span class="syntaxplain">-) </span><span class="syntaxidentifier">replacing</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;SquareRoot&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">...</span>
             </span></blockquote>
-            <p>And now whenever square roots are calculated, this snarky text will be printed, and the result will always be rather meaningless (since this I6 routine always returns 1). Unless one is very careful, the result of replacing kit definitions can be absolute chaos.</p>
-            <h4><span>Historical note</span></h4>
-            <p>Between about 2010 and 2021, kits did not exist, but there were &quot;template files&quot; which served roughly then same purpose. These had names like <code class="inlinesourcetext">Relations.i6t</code> or <code class="inlinesourcetext">Mathematics.i6t</code> and were internally divided into named subsections; and Inform supported syntax like the following:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> (- ... -) </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Relations.i6t&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> (- ... -) </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Relations.i6t&quot;</span><span class="syntaxplain">.</span>
-            <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> (- ... -) </span><span class="syntaxidentifier">after</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Symmetric One To One Relations&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Relations.i6t&quot;</span><span class="syntaxplain">.</span>
-            </span></blockquote>
-            <p>to allow new material to be placed at oddball positions in the final code. There is now no need to worry about the placement of code – Inform's final code generator manages things so that code-ordering issues do not arise; as a result, the <code class="inlinesourcetext">before</code> and <code class="inlinesourcetext">after</code> options are now unnecessary. For now, Inform ignores these usages, and just disregards the <code class="inlinesourcetext">before...</code> or <code class="inlinesourcetext">after...</code> parts. But in some later version of Inform they will begin to cause problem messages, so writers of extensions using these syntaxes should now please remove them.</p>
-            <p>The <code class="inlinesourcetext">instead of</code> option now cannot work at all, and throws a problem message. The new way to substitute a fresh definition of something built-in is to use the <code class="inlinesourcetext">replacing</code> notation described above.</p>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg481><a style="text-decoration: none" href="eg_481.html"><span class="extensionexampleletter">481</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_481.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Corner of No and Where</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A status line which has only the name of the location, centered.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg481><a style="text-decoration: none" href="RB_12_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
+            <!-- END CODE -->
+            <p>This is intended so that technical apparatus used only inside the extensions can be concealed from the outside user's immediate view. Inform as it is presently constituted does not allow extensions to make fully private definitions, but this feature at least allows them to make unadvertised ones.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
-        <p><em> &bull; <a href="WI_31_12.html"><span class="markdowncontent">Section 31.12: Phrase options from I6</span></a> &bull; <a href="WI_31_14.html"><span class="markdowncontent">Section 31.14: How I6 differs from Inform 6</span></a></em></p>
+        <p><em> &bull; <a href="WI_31_12.html"><span class="markdowncontent">Section 31.12: Extensions which vary with use</span></a> &bull; <a href="WI_31_14.html"><span class="markdowncontent">Section 31.14: Images and other resources</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

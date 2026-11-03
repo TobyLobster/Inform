@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,58 +2212,222 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Unicode characters" -->
+            <!-- SEARCH SECTION "5.11" -->
+            <!-- SEARCH SORT "001-005-011-000" -->
             <h3><span>Section 5.11: Unicode characters</span></h3>
             <p> </p>
             <p>As we have seen, Inform allows us to type a wide range of characters into the source text, although the more exotic ones may only appear inside quotation marks. But they become more and more difficult to type as they become more obscure. Inform therefore allows us to describe a letter using a text substitution rather than typing it directly.</p>
             <p>Unicode characters can be named (or numbered) directly in text. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[unicode U+0141]</span><span class="syntaxstring">odz Churchyard&quot;</span>
+            <!-- START CODE "code296" -->
+            <blockquote class="extract-inform7"><a id="code296"></a><span class="indexdullblue"><span class="string-syntax">&quot;[unicode U+0141]odz Churchyard&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>produces a Polish slashed L, that is, prints as <code class="inlinetranscript">Łodz Churchyard</code>. The notation <code class="inlinesourcetext">unicode U+0141</code> uses hexadecimal digits, and actually refers to the character whose number is 321, because 321 in base 16 is 141. (Inform would also have accepted <code class="inlinesourcetext">unicode 321</code> in decimal, but it's far more usual for Unicode to be quoted in hexadecimal.)</p>
             <p>Characters can also be named as well as numbered:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[unicode Latin capital letter L with stroke]</span><span class="syntaxstring">odz Churchyard&quot;</span>
+            <!-- START CODE "code297" -->
+            <blockquote class="extract-inform7"><a id="code297"></a><span class="indexdullblue"><span class="string-syntax">&quot;[unicode Latin capital letter L with stroke]odz Churchyard&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The Unicode standard assigns character numbers to essentially every marking used in text from any human language: its full range is enormous.</p>
             <p>This means, for instance, that we can write text such as:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Dr Zarkov unveils the new </span><span class="syntaxextract">[unicode Hebrew letter alef]</span><span class="syntaxstring"> Nought drive.&quot;</span>
+            <!-- START CODE "code298" -->
+            <blockquote class="extract-inform7"><a id="code298"></a><span class="indexdullblue"><span class="string-syntax">&quot;Dr Zarkov unveils the new [unicode Hebrew letter alef] Nought drive.&quot;</span>
             <br>
-            <span class="syntaxstring">&quot;Omar plays 4</span><span class="syntaxextract">[unicode black spade suit]</span><span class="syntaxstring"> with an air of triumph.&quot;</span>
+            <span class="string-syntax">&quot;Omar plays 4[unicode black spade suit] with an air of triumph.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Admittedly, character names can get a little verbose:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[unicode Greek small letter omega with psili and perispomeni and ypogegrammeni]</span><span class="syntaxstring">&quot;</span>
+            <!-- START CODE "code299" -->
+            <blockquote class="extract-inform7"><a id="code299"></a><span class="indexdullblue"><span class="string-syntax">&quot;[unicode Greek small letter omega with psili and perispomeni and ypogegrammeni]&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Occasionally, the presence of words like &quot;with&quot; in the names of Unicode characters can cause ambiguities — for example, in this sentence:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secret</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unicode</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Latin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">capital</span><span class="syntaxplain"> </span><span class="syntaxidentifier">letter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stroke</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code300" -->
+            <blockquote class="extract-inform7"><a id="code300"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">secret</span><span class="plain-syntax"> </span><span class="identifier-syntax">sign</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">unicode</span><span class="plain-syntax"> </span><span class="identifier-syntax">Latin</span><span class="plain-syntax"> </span><span class="identifier-syntax">capital</span><span class="plain-syntax"> </span><span class="identifier-syntax">letter</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">stroke</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This can be avoided by using brackets around the name, to make clear how the sentence should be read:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secret</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unicode</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">Latin</span><span class="syntaxplain"> </span><span class="syntaxidentifier">capital</span><span class="syntaxplain"> </span><span class="syntaxidentifier">letter</span><span class="syntaxplain"> </span><span class="syntaxidentifier">L</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxidentifier">stroke</span><span class="syntaxplain">).</span>
+            <!-- START CODE "code301" -->
+            <blockquote class="extract-inform7"><a id="code301"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">secret</span><span class="plain-syntax"> </span><span class="identifier-syntax">sign</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">unicode</span><span class="plain-syntax"> (</span><span class="identifier-syntax">Latin</span><span class="plain-syntax"> </span><span class="identifier-syntax">capital</span><span class="plain-syntax"> </span><span class="identifier-syntax">letter</span><span class="plain-syntax"> </span><span class="identifier-syntax">L</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="identifier-syntax">stroke</span><span class="plain-syntax">).</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Inform can &quot;only&quot; handle codes in the range <code class="inlinesourcetext">unicode U+20</code> to <code class="inlinesourcetext">unicode U+1FFFF</code>, that is, 32 to 131071 in decimal, and note that if the project Settings are to compile to the Z-machine, this range stops at <code class="inlinesourcetext">unicode U+FFFF</code>: thus many emoji characters – say, <code class="inlinesourcetext">unicode fish cake with swirl design</code> – can only be used if the story will compile to Glulx or another modern target. But by default, stories are compiled the modern way, so this should not be a problem in practice.</p>
             <p>There are far too many possible names to list here: formally, any character name in the Basic Multilingual Plane or the Supplementary Multilingual Plane of version 15.0.0 of the Unicode standard can be used.</p>
             <p>Still another alternative is to write <code class="inlinesourcetext">unicode &quot;C&quot;</code>: this is no use inside a text substitution because the double-quotation marks can't be used there, but something like:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">secret</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sign</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">initially</span><span class="syntaxplain"> </span><span class="syntaxidentifier">unicode</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;☣&quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code302" -->
+            <blockquote class="extract-inform7"><a id="code302"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">secret</span><span class="plain-syntax"> </span><span class="identifier-syntax">sign</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">initially</span><span class="plain-syntax"> </span><span class="identifier-syntax">unicode</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;☣&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>...will work fine. <code class="inlinesourcetext">unicode &quot;☣&quot;</code>, <code class="inlinesourcetext">unicode U+2623</code>, <code class="inlinesourcetext">unicode 9763</code> and <code class="inlinesourcetext">unicode Biohazard Sign</code> are all ways to write the same value, which has the kind <code class="inlinesourcetext">unicode character</code>.</p>
-            <p>But before getting carried away, we should remember the hazards: Inform allows us to type, say, <code class="inlinesourcetext">unicode Saturn</code> (an astrological sign) but it appears only as a black square if the resulting story is played using a font which lacks the relevant sign. (Another issue is that the fixed letter spacing font, such as used in the status line, may not contain all the characters that the font of the main text contains.) To write something with truly outré characters is therefore a little chancy.</p>
+            <blockquote class="alertcaution">
+            <p class="alertheading">⚠ Caution</p>
+            <p>Before getting carried away, we should remember the hazards: Inform allows us to type, say, <code class="inlinesourcetext">unicode Saturn</code> (an astrological sign) but it appears only as a black square if the resulting story is played using a font which lacks the relevant sign. (Another issue is that the fixed letter spacing font, such as used in the status line, may not contain all the characters that the font of the main text contains.) To write something with truly outré characters is therefore a little chancy.</p>
+            </blockquote>
+            <p>Inform also sometimes deals with Unicode characters when reading the keyboard. If the player types an <code class="inlinesourcetext">A</code>, that comes back as its everyday Unicode value, 65, or <code class="inlinesourcetext">Unicode &quot;A&quot;</code>. But what if the player types the f3 function key, or the page down button? Inform then needs codes to represent those not-really-a-character-at-all characters, and the codes it uses are as follows:</p>
+            <table>
+            <thead>
+            <tr>
+            <th>Inform name</th>
+            <th>Unicode value</th>
+            <th>Notes</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+            <td><code class="inlinesourcetext">delete key</code></td>
+            <td><code class="inlinesourcetext">unicode U+0008</code></td>
+            <td>Some people call this &quot;backspace&quot;, Inform does not</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">tab key</code></td>
+            <td><code class="inlinesourcetext">unicode U+0009</code></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">return key</code></td>
+            <td><code class="inlinesourcetext">unicode U+000A</code></td>
+            <td>Some people call this &quot;enter&quot;, Inform does not</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">escape key</code></td>
+            <td><code class="inlinesourcetext">unicode U+001B</code></td>
+            <td></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">left key</code></td>
+            <td><code class="inlinesourcetext">unicode U+2190</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode leftwards arrow</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">right key</code></td>
+            <td><code class="inlinesourcetext">unicode U+2192</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode rightwards arrow</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">up key</code></td>
+            <td><code class="inlinesourcetext">unicode U+2191</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode upwards arrow</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">down key</code></td>
+            <td><code class="inlinesourcetext">unicode U+2193</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode downwards arrow</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">home key</code></td>
+            <td><code class="inlinesourcetext">unicode U+21F1</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode north west arrow to corner</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">end key</code></td>
+            <td><code class="inlinesourcetext">unicode U+21F2</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode south east arrow to corner</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">page up key</code></td>
+            <td><code class="inlinesourcetext">unicode U+21DE</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode upwards arrow with double stroke</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">page down key</code></td>
+            <td><code class="inlinesourcetext">unicode U+21DF</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode downwards arrow with double stroke</code></td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f1 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF01</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f2 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF02</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f3 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF03</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f4 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF04</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f5 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF05</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f6 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF06</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f7 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF07</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f8 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF08</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f9 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF09</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f10 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF0A</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f11 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF0B</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">f12 key</code></td>
+            <td><code class="inlinesourcetext">unicode U+EF0C</code></td>
+            <td>This is in the Unicode Private Use area</td>
+            </tr>
+            <tr>
+            <td><code class="inlinesourcetext">unknown key</code></td>
+            <td><code class="inlinesourcetext">unicode U+FFFD</code></td>
+            <td>Same as <code class="inlinesourcetext">unicode replacement character</code>: used only for damaged or unreadable input</td>
+            </tr>
+            </tbody>
+            </table>
+            <p>Some of these characters (in particular delete, tab, escape, the function keys and the unknown key value) can only safely be used for input, not output. If said, they are likely to print back as nothing at all, or a square, or question mark. Others can in principle be printed back, but probably not in a useful way. <code class="inlinesourcetext">say unicode left key</code> does not move the cursor backwards on the screen: if it does anything, it draws a small leftward arrow. All in all, these named values are best used for input, not output.</p>
+            <blockquote class="alertimportant">
+            <p class="alertheading">☞ Important</p>
             <p>At one time, Inform could only use named Unicode values in a story which had first included an extension:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Unicode</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Character</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Names</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Graham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nelson</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code303" -->
+            <blockquote class="extract-inform7"><a id="code303"></a><span class="indexdullblue"><span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Unicode</span><span class="plain-syntax"> </span><span class="identifier-syntax">Character</span><span class="plain-syntax"> </span><span class="identifier-syntax">Names</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Graham</span><span class="plain-syntax"> </span><span class="identifier-syntax">Nelson</span><span class="plain-syntax">.</span>
             <br>
-            <span class="syntaxidentifier">Include</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Unicode</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Full</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Character</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Names</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Graham</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Nelson</span><span class="syntaxplain">.</span>
+            <span class="identifier-syntax">Include</span><span class="plain-syntax"> </span><span class="identifier-syntax">Unicode</span><span class="plain-syntax"> </span><span class="identifier-syntax">Full</span><span class="plain-syntax"> </span><span class="identifier-syntax">Character</span><span class="plain-syntax"> </span><span class="identifier-syntax">Names</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">Graham</span><span class="plain-syntax"> </span><span class="identifier-syntax">Nelson</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This is no longer the case: no such inclusion need now be made, and indeed, those extensions have been removed from Inform as redundant.</p>
+            </blockquote>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg76><a style="text-decoration: none" href="eg_76.html"><span class="extensionexampleletter">76</span></a></span></div>
+                    <span id=eg75><a style="text-decoration: none" href="eg_75.html"><span class="extensionexampleletter">75</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_76.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Über-complète clavier</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_75.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Über-complète clavier</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">This example provides a fairly stringent test of exotic lettering.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg76><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg75><a style="text-decoration: none" href="RB_12_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_10.html"><span class="markdowncontent">Section 5.10: Accented letters</span></a> &bull; <a href="WI_5_12.html"><span class="markdowncontent">Section 5.12: Displaying quotations</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

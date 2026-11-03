@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><span class="markdowncontent">Chapter 6: Descriptions</span></title>
+    <title><span class="markdowncontent">Chapter 6: Generalisations</span></title>
     <style type="text/css">
         <!--
         :root {
@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2116,7 +2201,7 @@
                         <a href="WI_5_13.html" class="standardlink"><img alt="Hookleft.png" src="inform:/doc_images/Hookleft.png" id="hookleft"></a>
                     </td>
                     <td class="midnightbannercentrecell">
-                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 6: Descriptions</span></span></a>
+                        <a href="index.html" class="standardlink"><span class="midnightbannertext"><span class="markdowncontent">Chapter 6: Generalisations</span></span></a>
                     </td>
                     <td class="midnightbannerrightcell">
                         <a href="index.html" class="standardlink"><img alt="Hookup.png" src="inform:/doc_images/Hookup.png" id="hookup"></a><a href="WI_6_2.html" class="standardlink"><img alt="Hookright.png" src="inform:/doc_images/Hookright.png" id="hookright"></a>
@@ -2127,37 +2212,54 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
-            <h2><span>Chapter 6: Descriptions</span></h2>
-            <h3><span>Section 6.1: What are descriptions?</span></h3>
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Giving general descriptions" -->
+            <!-- SEARCH SECTION "6.1" -->
+            <!-- SEARCH SORT "001-006-001-000" -->
+            <h2><span>Chapter 6: Generalisations</span></h2>
+            <h3><span>Section 6.1: Giving general descriptions</span></h3>
             <p>   </p>
-            <p>It is in describing circumstances that Inform really capitalises on the concise, expressive power of natural language, and this chapter brings together the facts about <em>descriptions</em>.</p>
+            <p>One of the reasons natural languages like English are so concise and expressive is that they can describe things in so many ways. As well as being literal about exactly what we mean — &quot;the Z-ray beam locator&quot; — we can be vague, and talk about &quot;a switched on device in the Laboratory&quot;, or for that matter just &quot;a device&quot;. We can even talk about &quot;three devices&quot;. People who study languages call these &quot;noun phrases&quot;, but Inform calls them <em>descriptions</em>. They allow us to give general instructions in a highly flexible way.</p>
+            <p>Note that this is a quite different meaning of the word from the <code class="inlinesourcetext">description</code> property of a thing. This chapter is all about how we describe values when we're writing source text, not about how the story describes things to the eventual player when it runs.</p>
             <p>The simplest descriptions consist of a noun alone. Some refer to single things (<code class="inlinesourcetext">lantern</code>, or <code class="inlinesourcetext">wine cask</code>), others to kinds of thing (<code class="inlinesourcetext">dead end</code> or <code class="inlinesourcetext">container</code>). But we have also seen adjectives alone:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">oaken</span><span class="syntaxplain"> </span><span class="syntaxidentifier">desk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fixed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">place</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code307" -->
+            <blockquote class="extract-inform7"><a id="code307"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">oaken</span><span class="plain-syntax"> </span><span class="identifier-syntax">desk</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">fixed</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">place</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>Here, <code class="inlinesourcetext">fixed in place</code> is a description which, to Inform's simple-minded grammar, is a single adjective. And of course adjectives and nouns can be combined:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">cargo</span><span class="syntaxplain"> </span><span class="syntaxidentifier">trunk</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code308" -->
+            <blockquote class="extract-inform7"><a id="code308"></a><span class="indexdullblue"><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">cargo</span><span class="plain-syntax"> </span><span class="identifier-syntax">trunk</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>The description <code class="inlinesourcetext">openable container</code> consists of the noun <code class="inlinesourcetext">container</code>, meaning a kind of thing, and the adjective <code class="inlinesourcetext">openable</code>, which means one of the two possible states of an either/or property held by that thing.</p>
             <p>As the next chapter, <a href="WI_7_1.html" title="Chapter 7: Basic Actions">Basic Actions</a> will show, rules also make great use of descriptions:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">throwing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">at</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain"> </span><span class="syntaxidentifier">openable</span><span class="syntaxplain"> </span><span class="syntaxidentifier">door</span><span class="syntaxplain">, </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Or you could just use the handle like anyone else, of course.&quot;</span>
+            <!-- START CODE "code309" -->
+            <blockquote class="extract-inform7"><a id="code309"></a><span class="indexdullblue"><span class="identifier-syntax">Instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">throwing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">at</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax"> </span><span class="identifier-syntax">openable</span><span class="plain-syntax"> </span><span class="identifier-syntax">door</span><span class="plain-syntax">, </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Or you could just use the handle like anyone else, of course.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>That time, <code class="inlinesourcetext">something</code> and <code class="inlinesourcetext">closed openable door</code> were both descriptions. We have already seen a text substitution for saying the list of everything matching a given description, as in this example, where the description is <code class="inlinesourcetext">things in the basket</code>:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;You look down at </span><span class="syntaxextract">[the list of things in the basket]</span><span class="syntaxstring">.&quot;</span>
+            <!-- START CODE "code310" -->
+            <blockquote class="extract-inform7"><a id="code310"></a><span class="indexdullblue"><span class="string-syntax">&quot;You look down at [the list of things in the basket].&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>It's also sometimes convenient to count the number of eligible values:</p>
             <div class="definition">
-                <p class="defnprototype">number of (description of values) ... number</p>
+                <!-- START PHRASE "defn65" -->
+                <p class="defnprototype"><a id="defn65"></a>number of (description of values) ... number</p>
+                <!-- END PHRASE -->
                 <p>This phrase counts the number of values matching the description, which may of course be 0. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">number</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">doors</span>
+                <!-- START CODE "code311" -->
+                <blockquote class="extract-inform7"><a id="code311"></a><span class="indexdullblue"><span class="identifier-syntax">number</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">doors</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>produces the number of doors, anywhere in the model world, which are currently open. A Problem message is produced if the number is potentially infinite, or impractical to count: for instance, Inform rejects <code class="inlinesourcetext">number of odd numbers</code>.</p>
             </div>
             <p>It is because descriptions are so widely useful that they deserve a chapter of their own, and this is it.</p>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_13.html"><span class="markdowncontent">Section 5.13: Making new substitutions</span></a> &bull; <a href="WI_6_2.html"><span class="markdowncontent">Section 6.2: Adjectives and nouns</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

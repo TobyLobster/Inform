@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,118 +2212,172 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Text with random alternatives" -->
+            <!-- SEARCH SECTION "5.7" -->
+            <!-- SEARCH SORT "001-005-007-000" -->
             <h3><span>Section 5.7: Text with random alternatives</span></h3>
             <p>  </p>
             <p>Sometimes we would like to provide a little quirky variation in text, especially in messages which will be seen often. We can achieve this with the <code class="inlinesourcetext">[one of]... [or] ... [or] ...</code> construction.</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[one of]&quot;</p>
+                <!-- START PHRASE "defn38" -->
+                <p class="defnprototype"><a id="defn38"></a>say &quot;[one of]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text. It's used only for a side-effect: it switches between a number of alternative texts, which follow it and are divided by <code class="inlinesourcetext">&quot;[or]&quot;</code> substitutions, according to a strategy given in a closing substitution. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;You flip the coin. </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Heads</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Tails</span><span class="syntaxextract">[purely at random]</span><span class="syntaxstring">!&quot;</span>
+                <!-- START CODE "code272" -->
+                <blockquote class="extract-inform7"><a id="code272"></a><span class="indexdullblue"><span class="string-syntax">&quot;You flip the coin. [one of]Heads[or]Tails[purely at random]!&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Here there are just two alternatives, and the choice made is random. Exactly half of the time the text will be printed as <code class="inlinetranscript">You flip the coin. Heads!</code>; and the other half, <code class="inlinetranscript">You flip the coin. Tails!</code>. But as with tossing coins, nothing's to stop the same outcome coming up time after time just by luck.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[or]&quot;</p>
+                <!-- START PHRASE "defn39" -->
+                <p class="defnprototype"><a id="defn39"></a>say &quot;[or]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only in a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It divides alternative wordings. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;You flip the coin. </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Heads</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Tails</span><span class="syntaxextract">[purely at random]</span><span class="syntaxstring">!&quot;</span>
+                <!-- START CODE "code273" -->
+                <blockquote class="extract-inform7"><a id="code273"></a><span class="indexdullblue"><span class="string-syntax">&quot;You flip the coin. [one of]Heads[or]Tails[purely at random]!&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>There are seven possible endings, each making the choice of which text to follow in a different way:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[purely at random]&quot;</p>
+                <!-- START PHRASE "defn40" -->
+                <p class="defnprototype"><a id="defn40"></a>say &quot;[purely at random]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are chosen uniformly randomly.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[then purely at random]&quot;</p>
+                <!-- START PHRASE "defn41" -->
+                <p class="defnprototype"><a id="defn41"></a>say &quot;[then purely at random]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are chosen in sequence until all have been seen, but that after that they are chosen uniformly randomly.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[at random]&quot;</p>
+                <!-- START PHRASE "defn42" -->
+                <p class="defnprototype"><a id="defn42"></a>say &quot;[at random]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are chosen at random <em>except that the same choice cannot come up twice running</em>. This is useful to avoid the deadening effect of repeating the exact same message. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The light changes randomly again; now it's </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">green</span><span class="syntaxextract">[or]</span><span class="syntaxstring">amber</span><span class="syntaxextract">[or]</span><span class="syntaxstring">red</span><span class="syntaxextract">[at random]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code274" -->
+                <blockquote class="extract-inform7"><a id="code274"></a><span class="indexdullblue"><span class="string-syntax">&quot;The light changes randomly again; now it's [one of]green[or]amber[or]red[at random].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Here we can safely say the light &quot;changes&quot;, because the new colour cannot be the same as the one printed the last time.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[then at random]&quot;</p>
+                <!-- START PHRASE "defn43" -->
+                <p class="defnprototype"><a id="defn43"></a>say &quot;[then at random]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are chosen in sequence until all have been seen, and then after that, at random except that the same choice cannot come up twice running. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Maybe the murderer is </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Colonel Mustard</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Professor Plum</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Cardinal Cerise</span><span class="syntaxextract">[then at random]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code275" -->
+                <blockquote class="extract-inform7"><a id="code275"></a><span class="indexdullblue"><span class="string-syntax">&quot;Maybe the murderer is [one of]Colonel Mustard[or]Professor Plum[or]Cardinal Cerise[then at random].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[sticky random]&quot;</p>
+                <!-- START PHRASE "defn44" -->
+                <p class="defnprototype"><a id="defn44"></a>say &quot;[sticky random]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that a random choice is made the first time the text is printed, but that it sticks from there on. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The newspaper headline is: </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">War Casualties</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Terrorists</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Banks</span><span class="syntaxextract">[sticky random]</span><span class="syntaxstring"> </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Continue To Expand</span><span class="syntaxextract">[or]</span><span class="syntaxstring">Lose Out</span><span class="syntaxextract">[sticky random]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code276" -->
+                <blockquote class="extract-inform7"><a id="code276"></a><span class="indexdullblue"><span class="string-syntax">&quot;The newspaper headline is: [one of]War Casualties[or]Terrorists[or]Banks[sticky random] [one of]Continue To Expand[or]Lose Out[sticky random].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>Although the newspaper headline will change with each playing, it will not alter during play.</p>
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[as decreasingly likely outcomes]&quot;</p>
+                <!-- START PHRASE "defn45" -->
+                <p class="defnprototype"><a id="defn45"></a>say &quot;[as decreasingly likely outcomes]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are chosen at random, except that the first is most likely to be chosen, the second is next most likely, and so on down to the rarest at the end. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;Zorro strides by, </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">looking purposeful</span><span class="syntaxextract">[or]</span><span class="syntaxstring">grim-faced</span><span class="syntaxextract">[or]</span><span class="syntaxstring">deep in thought</span><span class="syntaxextract">[or]</span><span class="syntaxstring">suppressing a yawn</span><span class="syntaxextract">[or]</span><span class="syntaxstring">scratching his ribs</span><span class="syntaxextract">[or]</span><span class="syntaxstring">trying to conceal that he has cut himself shaving</span><span class="syntaxextract">[as decreasingly likely outcomes]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code277" -->
+                <blockquote class="extract-inform7"><a id="code277"></a><span class="indexdullblue"><span class="string-syntax">&quot;Zorro strides by, [one of]looking purposeful[or]grim-faced[or]deep in thought[or]suppressing a yawn[or]scratching his ribs[or]trying to conceal that he has cut himself shaving[as decreasingly likely outcomes].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>There are six outcomes here: the first is six times as likely as the last, and those in between are similarly scaled, so Zorro cuts himself shaving only once in 21 tries, while he looks purposeful almost a third of the time.</p>
             </div>
             <p>But suppose we want to tuck some useful information in these messages, and we want to be sure that the player will see it. Because all of the above options involve randomness, it's possible that an unlucky player might miss a clue placed into only one variant of the message. One fix for this is to make sure that everything turns up sooner or later:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[in random order]&quot;</p>
+                <!-- START PHRASE "defn46" -->
+                <p class="defnprototype"><a id="defn46"></a>say &quot;[in random order]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. A random order is chosen for the alternative passages of text, and they are used in that order as the text is printed again and again. When one random cycle finishes, a new one begins. The effect is somewhat like the &quot;shuffle album&quot; feature in a music-playing app. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;You dip into the chapter on </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">freshwater fish</span><span class="syntaxextract">[or]</span><span class="syntaxstring">hairless mammals</span><span class="syntaxextract">[or]</span><span class="syntaxstring">extinct birds</span><span class="syntaxextract">[or]</span><span class="syntaxstring">amphibians such as the black salamander</span><span class="syntaxextract">[in random order]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code278" -->
+                <blockquote class="extract-inform7"><a id="code278"></a><span class="indexdullblue"><span class="string-syntax">&quot;You dip into the chapter on [one of]freshwater fish[or]hairless mammals[or]extinct birds[or]amphibians such as the black salamander[in random order].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>One small restriction: if there are more than 32 variations, purely random choices will be printed, and there will be no guarantee that repeats are prevented.</p>
             </div>
             <p>Another fix is to avoid randomness altogether:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[cycling]&quot;</p>
+                <!-- START PHRASE "defn47" -->
+                <p class="defnprototype"><a id="defn47"></a>say &quot;[cycling]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are used one at a time, in turn: after the last one is reached, we start again from the first. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The pundits discuss </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">the weather</span><span class="syntaxextract">[or]</span><span class="syntaxstring">world events</span><span class="syntaxextract">[or]</span><span class="syntaxstring">celebrity gossip</span><span class="syntaxextract">[cycling]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code279" -->
+                <blockquote class="extract-inform7"><a id="code279"></a><span class="indexdullblue"><span class="string-syntax">&quot;The pundits discuss [one of]the weather[or]world events[or]celebrity gossip[cycling].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <div class="definition">
-                <p class="defnprototype">say &quot;[stopping]&quot;</p>
+                <!-- START PHRASE "defn48" -->
+                <p class="defnprototype"><a id="defn48"></a>say &quot;[stopping]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This text substitution produces no text, and can be used only to end a <code class="inlinesourcetext">&quot;[one of]...&quot;</code> construction. It indicates that the alternatives are used one at a time, in turn: once the last one is reached, it's used forever after. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;</span><span class="syntaxextract">[one of]</span><span class="syntaxstring">The phone rings</span><span class="syntaxextract">[or]</span><span class="syntaxstring">The phone rings a second time</span><span class="syntaxextract">[or]</span><span class="syntaxstring">The phone rings again</span><span class="syntaxextract">[stopping]</span><span class="syntaxstring">.&quot;</span>
+                <!-- START CODE "code280" -->
+                <blockquote class="extract-inform7"><a id="code280"></a><span class="indexdullblue"><span class="string-syntax">&quot;[one of]The phone rings[or]The phone rings a second time[or]The phone rings again[stopping].&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
             </div>
             <p>Finally, here's a convenient shorthand for one of the commonest things needed:</p>
             <div class="definition">
-                <p class="defnprototype">say &quot;[first time]&quot;</p>
-                <p class="defnprototype">say &quot;[only]&quot;</p>
+                <!-- START PHRASE "defn49" -->
+                <p class="defnprototype"><a id="defn49"></a>say &quot;[first time]&quot;</p>
+                <!-- END PHRASE -->
+                <!-- START PHRASE "defn50" -->
+                <p class="defnprototype"><a id="defn50"></a>say &quot;[only]&quot;</p>
+                <!-- END PHRASE -->
                 <p>This pair of text substitutions causes whatever is between them to be printed only the first time the text is printed. Example:</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The screen door squeaks loudly as when you open it. </span><span class="syntaxextract">[first time]</span><span class="syntaxstring">Well, you'll get used to it eventually. </span><span class="syntaxextract">[only]</span><span class="syntaxstring">&quot;</span>
+                <!-- START CODE "code281" -->
+                <blockquote class="extract-inform7"><a id="code281"></a><span class="indexdullblue"><span class="string-syntax">&quot;The screen door squeaks loudly as when you open it. [first time]Well, you'll get used to it eventually. [only]&quot;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>This is exactly equivalent to</p>
-                <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxstring">&quot;The screen door squeaks loudly as when you open it. </span><span class="syntaxextract">[one of]</span><span class="syntaxstring">Well, you'll get used to it eventually. </span><span class="syntaxextract">[or][stopping]</span><span class="syntaxstring">&quot;</span><span class="syntaxplain">;</span>
+                <!-- START CODE "code282" -->
+                <blockquote class="extract-inform7"><a id="code282"></a><span class="indexdullblue"><span class="string-syntax">&quot;The screen door squeaks loudly as when you open it. [one of]Well, you'll get used to it eventually. [or][stopping]&quot;</span><span class="plain-syntax">;</span>
                 </span></blockquote>
+                <!-- END CODE -->
                 <p>but easier to read.</p>
             </div>
             <p>Something to watch out for is that texts are sometimes being printed internally for purposes other than actual output which the player can see, and this is particularly true of names. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">Before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">printing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">name</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">traffic</span><span class="syntaxplain"> </span><span class="syntaxidentifier">signal</span><span class="syntaxplain">: </span><span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;</span><span class="syntaxextract">[one of]</span><span class="syntaxstring">green</span><span class="syntaxextract">[or]</span><span class="syntaxstring">amber</span><span class="syntaxextract">[or]</span><span class="syntaxstring">red</span><span class="syntaxextract">[cycling]</span><span class="syntaxstring"> &quot;</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code283" -->
+            <blockquote class="extract-inform7"><a id="code283"></a><span class="indexdullblue"><span class="identifier-syntax">Before</span><span class="plain-syntax"> </span><span class="identifier-syntax">printing</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">traffic</span><span class="plain-syntax"> </span><span class="identifier-syntax">signal</span><span class="plain-syntax">: </span><span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[one of]green[or]amber[or]red[cycling] &quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This looks good for some purposes, but may not cycle in the sequence expected, and can result in incorrect indefinite articles being printed – <code class="inlinetranscript">an red traffic signal</code>, for example. What's happening is that the name is being printed internally to see whether it begins with a vowel; that prints <code class="inlinetranscript">amber traffic signal</code>, but invisibly to us, and since this does begin with a vowel, <code class="inlinetranscript">an</code> is visibly printed; then the name is visibly printed, but now it has changed to <code class="inlinetranscript">red traffic signal</code>, and so the result on screen is <code class="inlinetranscript">an red traffic signal</code>. There are many ways to avoid this (for example, to give the traffic signal a state which changes every turn, not every time the name is printed), but it's a trap to look out for.</p>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg71><a style="text-decoration: none" href="eg_71.html"><span class="extensionexampleletter">71</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_71.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Radio Daze</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">A radio that produces a cycle of output using varying text.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg71><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+            </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg72><a style="text-decoration: none" href="eg_72.html"><span class="extensionexampleletter">72</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_72.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Radio Daze</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">A radio that produces a cycle of output using varying text.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg72><a style="text-decoration: none" href="RB_9_9.html"><span class="extensionexampleseealso">RB</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg73><a style="text-decoration: none" href="eg_73.html"><span class="extensionexampleletter">73</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_73.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Camp Bethel</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_72.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Camp Bethel</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Creating characters who change their behaviour from turn to turn, and a survey of other common uses for alternative texts.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg73><a style="text-decoration: none" href="RB_7_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg72><a style="text-decoration: none" href="RB_7_2.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_5_6.html"><span class="markdowncontent">Section 5.6: Text with variations</span></a> &bull; <a href="WI_5_8.html"><span class="markdowncontent">Section 5.8: Line breaks and paragraph breaks</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

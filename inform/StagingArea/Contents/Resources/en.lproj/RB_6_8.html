@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,92 +2212,96 @@
     </div>
     <div class="duplexrightpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Taking, Dropping, Inserting and Putting" -->
+            <!-- SEARCH SECTION "6.8" -->
+            <!-- SEARCH SORT "002-006-008-000" -->
             <h3><span>Section 6.8: Taking, Dropping, Inserting and Putting</span></h3>
             <p> 
-            We may want to change the default refusal message when the player tries to pick up scenery: <a href="eg_22.html">Replanting</a> demonstrates this case simply.</p>
-            <p><a href="eg_221.html">Removal</a> modifies responses to successful <code class="inlinetranscriptcommand">take</code> commands, with the effect that when the player picks up an item, they get a response such as <code class="inlinetranscript">You take the book from the shelf.</code></p>
-            <p><a href="eg_224.html">Croft</a> modifies the <code class="inlinetranscriptcommand">drop</code> command, so that objects dropped on specific surfaces get reported in a special way. <a href="eg_245.html">Celadon</a> allows the player to drop even objects they are carrying indirectly, for instance on a tray or in a sack.</p>
-            <p><a href="eg_96.html">Morning After</a> introduces a simple rule that changes the behaviour of the whole story: whenever the player takes an item they haven't already looked at, they automatically examine it. This picks up the pace of exploration passages where the player is likely to be collecting a large number of objects.</p>
-            <p>When objects are moved, there are sometimes other actions associated with that which we want to happen as well; see <a href="eg_92.html">Democratic Process</a> for a demonstration of forcing a player to vote before a ballot is placed in a machine.</p>
-            <p><a href="eg_93.html">Sand</a> shows how to extend the ordinary command grammar of Inform to allow multiple objects to be inserted or placed in a single command.</p>
+            We may want to change the default refusal message when the player tries to pick up scenery: <a href="eg_21.html">Replanting</a> demonstrates this case simply.</p>
+            <p><a href="eg_218.html">Removal</a> modifies responses to successful <code class="inlinetranscriptcommand">take</code> commands, with the effect that when the player picks up an item, they get a response such as <code class="inlinetranscript">You take the book from the shelf.</code></p>
+            <p><a href="eg_221.html">Croft</a> modifies the <code class="inlinetranscriptcommand">drop</code> command, so that objects dropped on specific surfaces get reported in a special way. <a href="eg_242.html">Celadon</a> allows the player to drop even objects they are carrying indirectly, for instance on a tray or in a sack.</p>
+            <p><a href="eg_95.html">Morning After</a> introduces a simple rule that changes the behaviour of the whole story: whenever the player takes an item they haven't already looked at, they automatically examine it. This picks up the pace of exploration passages where the player is likely to be collecting a large number of objects.</p>
+            <p>When objects are moved, there are sometimes other actions associated with that which we want to happen as well; see <a href="eg_91.html">Democratic Process</a> for a demonstration of forcing a player to vote before a ballot is placed in a machine.</p>
+            <p><a href="eg_92.html">Sand</a> shows how to extend the ordinary command grammar of Inform to allow multiple objects to be inserted or placed in a single command.</p>
             <p>Taking also happens as a result of other commands. Such takes can be made unnecessary by turning off the <code class="inlinesourcetext">carrying requirements rule</code> under particular circumstances, or presented differently using the implicitly taking activity.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg245><a style="text-decoration: none" href="eg_245.html"><span class="extensionexampleletter">245</span></a></span></div>
+                    <span id=eg242><a style="text-decoration: none" href="eg_242.html"><span class="extensionexampleletter">242</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_245.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Celadon</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_242.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Celadon</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the enclosure relation to let the player drop things which they only indirectly carry.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg245><a style="text-decoration: none" href="WI_14_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg242><a style="text-decoration: none" href="WI_14_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg96><a style="text-decoration: none" href="eg_96.html"><span class="extensionexampleletter">96</span></a></span></div>
+                    <span id=eg95><a style="text-decoration: none" href="eg_95.html"><span class="extensionexampleletter">95</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_96.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Morning After</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_95.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Morning After</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">When the player picks something up which they haven't already examined, the object is described.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg96><a style="text-decoration: none" href="WI_7_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg95><a style="text-decoration: none" href="WI_7_6.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg218><a style="text-decoration: none" href="eg_218.html"><span class="extensionexampleletter">218</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_218.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Removal</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">take</code> expanded to give responses such as &quot;You take the book from the shelf.&quot; or &quot;You pick up the toy from the ground.&quot;</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg218><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+            </div>
+            <div class="examplebox">
+                <div class="exampleleft">
+                    <span id=eg21><a style="text-decoration: none" href="eg_21.html"><span class="extensionexampleletter">21</span></a></span></div>
+                <div class="examplemiddle">
+                    <a style="text-decoration: none" href="eg_21.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Replanting</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Changing the response when the player tries to take something that is scenery.</span></span></a></div>
+                <div class="exampleright">
+                    <span id=eg21><a style="text-decoration: none" href="WI_3_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg221><a style="text-decoration: none" href="eg_221.html"><span class="extensionexampleletter">221</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_221.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Removal</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent"><code class="inlinetranscriptcommand">take</code> expanded to give responses such as &quot;You take the book from the shelf.&quot; or &quot;You pick up the toy from the ground.&quot;</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_221.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Croft</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Adding special reporting and handling for objects dropped when the player is on a supporter, and special entering rules for moving from one supporter to another.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg221><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg22><a style="text-decoration: none" href="eg_22.html"><span class="extensionexampleletter">22</span></a></span></div>
+                    <span id=eg91><a style="text-decoration: none" href="eg_91.html"><span class="extensionexampleletter">91</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_22.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Replanting</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Changing the response when the player tries to take something that is scenery.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_91.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Democratic Process</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Making something happen automatically before an item is put into a box.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg22><a style="text-decoration: none" href="WI_3_8.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg91><a style="text-decoration: none" href="WI_7_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg224><a style="text-decoration: none" href="eg_224.html"><span class="extensionexampleletter">224</span></a></span></div>
+                    <span id=eg405><a style="text-decoration: none" href="eg_405.html"><span class="extensionexampleletter">405</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_224.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Croft</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Adding special reporting and handling for objects dropped when the player is on a supporter, and special entering rules for moving from one supporter to another.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_405.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lollipop Guild</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Overriding the rules to allow the player to show something to another character without first taking it.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg224><a style="text-decoration: none" href="WI_13_10.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
+                    <span id=eg405><a style="text-decoration: none" href="WI_20_36.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
                     <span id=eg92><a style="text-decoration: none" href="eg_92.html"><span class="extensionexampleletter">92</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_92.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Democratic Process</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Making something happen automatically before an item is put into a box.</span></span></a></div>
+                    <a style="text-decoration: none" href="eg_92.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sand</span></span></b><br>
+                    <span class="exampledescription"><span class="markdowncontent">Extend <code class="inlinetranscriptcommand">put</code> and <code class="inlinetranscriptcommand">insert</code> handling to cases where multiple objects are intended at once.</span></span></a></div>
                 <div class="exampleright">
                     <span id=eg92><a style="text-decoration: none" href="WI_7_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
             </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg408><a style="text-decoration: none" href="eg_408.html"><span class="extensionexampleletter">408</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_408.html"><span class="examplestars">★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Lollipop Guild</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Overriding the rules to allow the player to show something to another character without first taking it.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg408><a style="text-decoration: none" href="WI_20_36.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
-            <div class="examplebox">
-                <div class="exampleleft">
-                    <span id=eg93><a style="text-decoration: none" href="eg_93.html"><span class="extensionexampleletter">93</span></a></span></div>
-                <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_93.html"><span class="examplestars">★★★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Sand</span></span></b><br>
-                    <span class="exampledescription"><span class="markdowncontent">Extend <code class="inlinetranscriptcommand">put</code> and <code class="inlinetranscriptcommand">insert</code> handling to cases where multiple objects are intended at once.</span></span></a></div>
-                <div class="exampleright">
-                    <span id=eg93><a style="text-decoration: none" href="WI_7_4.html"><span class="extensionexampleseealso">WWI</span></a></span></div>
-            </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="RB_6_7.html"><span class="markdowncontent">Section 6.7: Inventory</span></a> &bull; <a href="RB_6_9.html"><span class="markdowncontent">Section 6.9: Going, Pushing Things in Directions</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

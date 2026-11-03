@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,137 +2193,240 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="markdowncontent">
         <div class="examplebox">
             <div class="exampleleft">
-                <span id=eg186><a style="text-decoration: none" href="WI_11_11.html"><span class="extensionexampleletter">186</span></a></span></div>
+                <span id=eg186><a style="text-decoration: none" href="WI_11_13.html"><span class="extensionexampleletter">186</span></a></span></div>
             <div class="examplemiddle">
-                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Swift Persuasion</span></span></b><br>
-                <span class="exampledescription"><span class="markdowncontent">We combine persuasion rules with the dialogue system so that the character who is asked to do a task can require something of the player in turn.</span></span></div>
-            <div class="exampleright">
-                <span id=eg186><a style="text-decoration: none" href="RB_7_14.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                <span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">The Customer Is Always Right</span></span></b><br>
+                <span class="exampledescription"><span class="markdowncontent">A character who changes her responses to dialogue gambits depending on her emotional state.</span></span></div>
         </div>
-        <p>Sometimes characters are easily persuaded to do things and sometimes they aren't. But we might want sometimes to place conditions on their cooperation.</p>
-        <p>In this example, we give the player a menu option choice that they have to resolve — and which in turn will determine whether the other character does as they're asked.</p>
-        <blockquote class="extract-inform7"><a class="actionlink" href="javascript:pasteCode('[=0x0022=]Swift Persuasion[=0x0022=][=0x000A=][=0x000A=]Section 1 - Scenario[=0x000A=][=0x000A=]Backstage is a room. Taylor is a woman in Backstage.[=0x000A=][=0x000A=]Singing is an action applying to nothing. Understand [=0x0022=]sing[=0x0022=] as singing.[=0x000A=][=0x000A=]Report singing:[=0x000A=][=0x0009=]say [=0x0022=]You sing a rousing rendition of Yankee Doodle Dandy. For some reason it[=0x0027=]s the only song whose lyrics you can fully remember right now.[=0x0022=][=0x000A=][=0x000A=]Report Taylor singing:[=0x000A=][=0x0009=]say [=0x0022=]Taylor launches into [=0x0027=]Electric Touch.[=0x0027=][=0x0022=][=0x000A=][=0x000A=]Bargaining success is a truth state that varies.[=0x000A=][=0x000A=]Persuasion rule for asking someone to try singing:  [=0x000A=][=0x0009=]now bargaining success is false;[=0x000A=][=0x0009=]perform the suggestion beat;[=0x000A=][=0x0009=]if bargaining success is false:[=0x000A=][=0x0009=][=0x0009=]say [=0x0022=]So much for that.[=0x0022=];[=0x000A=][=0x0009=][=0x0009=]persuasion fails;[=0x000A=][=0x0009=]persuasion succeeds.[=0x000A=][=0x0009=][=0x000A=]Test me with [=0x0022=]taylor, sing / 1 / taylor, sing / 2[=0x0022=].[=0x000A=][=0x000A=]Section 2 - Persuasion text (dialogue)[=0x000A=][=0x000A=](Fully recurring. This is the suggestion beat.)[=0x000A=][=0x000A=]Player (to person asked; without speaking): [=0x0022=]You ask Taylor to sing your favorite song, the one that was unaccountably left off tonight[=0x0027=]s set list. Just one verse would do.[=0x0022=][=0x000A=][=0x000A=]The person asked: [=0x0022=]I[=0x0027=]ll consider your request, but only if you sing something first.[=0x0022=] [=0x000A=][=0x000A=]Player: [=0x0022=]You can[=0x0027=]t be serious.[=0x0022=][=0x000A=][=0x000A=]The person asked: [=0x0022=]I absolutely am. I want to see what you[=0x0027=]ve got.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- [=0x0022=]Okay.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player (without speaking; before singing; now bargaining success is true): [=0x0022=]You nod anxiously, aware of all the other VIP ticket holders standing around and poised to judge you.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Taylor: [=0x0022=]Little shaky on the intro, but not bad. I[=0x0027=]d say you[=0x0027=]ve earned your piece. Wouldn[=0x0027=]t you?[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Narration: [=0x0022=]She turns to the other fans expectantly, and they cheer.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- [=0x0022=]Definitely not.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=]No, the deal is off.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]The person asked: [=0x0022=]Then I can[=0x0027=]t help you.[=0x0022=] [=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="syntaxstring">&quot;Swift Persuasion&quot;</span>
+        <!-- CONTENT BEGINS -->
+        <!-- SEARCH TITLE "The Customer Is Always Right" -->
+        <!-- SEARCH SECTION "Example 186" -->
+        <!-- SEARCH SORT "003-186-000-000" -->
+        <p> </p>
+        <p>When it's performing beats, the dialogue system will play the first line of dialogue it can, and it will continue performing lines until it reaches the end of the beat, a decision to take, or a flow marker using <code class="inlinesourcetext">-&gt;</code> or <code class="inlinesourcetext">&lt;-</code>.</p>
+        <p>That means that, if we like, we can pack in quite a bit of conditional logic about how a character responds to our input.</p>
+        <p>In this example, we use that functionality to write a scene about asking a character for a job. We set the <code class="inlinesourcetext">help wanted beat</code> to <code class="inlinesourcetext">fully recurring</code> — meaning that the player can go through this beat multiple times. Then we set up the character's response so that she will first check whether she has already formed a positive or negative impression about us. If she has, she'll give a definite answer, ending the interaction. If she hasn't made up her mind, she'll instead put off answering the question, and the scene will continue.</p>
+        <!-- START CODE "code2828" -->
+        <blockquote class="extract-inform7"><a id="code2828"></a><a class="actionlink" href="javascript:pasteCode('[=0x0022=]The Customer Is Always Right[=0x0022=][=0x000A=][=0x000A=]Chapter 1 - Setting and Character[=0x000A=][=0x000A=]Section 1 - Basics[=0x000A=][=0x000A=]Ye Olde Stationery Shoppe is a room. [=0x0022=]A sign propped in the window reads [=0x0027=]Help wanted[=0x0027=], which is why you are here. The inside of the Shoppe does not really speak of active trade: dusty piles of carbon paper, manual cash register, ink ribbons for a type of printer not sold since 1982. But perhaps they take the Olde seriously.[=0x0022=][=0x000A=][=0x000A=]Cratchett is a woman in Ye Olde Stationery Shoppe. [=0x0022=]At the back of the Shoppe is a woman in a polyester apron and a name badge that just reads [=0x0027=]Cratchett[=0x0027=].[=0x0022=][=0x000A=][=0x000A=]Some piles of carbon paper, a manual cash register, and some ink ribbons are scenery in the Shoppe.[=0x000A=][=0x000A=]The description of the dusty piles is [=0x0022=]Handy if you need to write something in triplicate on a typewriter. You do not own a typewriter.[=0x0022=][=0x000A=][=0x000A=]The description of the cash register is [=0x0022=]It goes [=0x0027=]ping![=0x0027=] every time someone opens the cash drawer.[=0x0022=][=0x000A=][=0x000A=]The description of the ink ribbons is [=0x0022=]Quaint relics of the dot matrix era.[=0x0022=][=0x000A=][=0x000A=]Report someone rubbing something:[=0x000A=][=0x0009=]say [=0x0022=][The actor] runs a dustcloth over the surface of [the noun]. This has clearly not happened in quite some time.[=0x0022=] instead.[=0x000A=][=0x000A=]Section 2 - Emotions[=0x000A=][=0x000A=]An emotion is a kind of value. The emotions are annoyed, pleased, and calm. A person has an emotion. A person is usually calm.[=0x000A=][=0x000A=]A person has some text called the emotional rationalisation.[=0x000A=][=0x000A=]Chapter 2 - Dialogue[=0x000A=][=0x000A=]Section 1 - Concepts[=0x000A=][=0x000A=]Employment is a concept. Understand [=0x0022=]work[=0x0022=] or [=0x0022=]job[=0x0022=] or [=0x0022=]help[=0x0022=] or [=0x0022=]help wanted[=0x0022=] or [=0x0022=]sign[=0x0022=] as employment. The printed name of employment is [=0x0022=]employment[=0x0022=].[=0x000A=][=0x000A=]A concept can be used or unused. A concept is usually unused.[=0x000A=][=0x000A=]Carry out talking about a concept:[=0x000A=][=0x0009=]now the noun is used.[=0x000A=][=0x000A=]Test me with [=0x0022=]talk about employment / yes / yes / talk about employment[=0x0022=].[=0x000A=][=0x000A=]Section 2 - Flow[=0x000A=][=0x000A=]Every turn when the help wanted beat is performed:[=0x000A=][=0x0009=]make the dialogue director active.[=0x000A=][=0x000A=]Section 3 - Queries and answers (dialogue)[=0x000A=][=0x000A=](About employment. Fully recurring. This is the help wanted beat.)[=0x000A=][=0x000A=]Player: [=0x0022=][one of][=0x0027=]Say, are you hiring?[=0x0027=] you ask, as casually as you can manage.[or][=0x0027=]So about the job,[=0x0027=] you try again.[or]You bring the conversation laboriously back around to the question of whether there[=0x0027=]s any work available for you.[stopping][=0x0022=][=0x000A=][=0x000A=]Cratchett (if Cratchett is pleased): [=0x0022=][=0x0027=][emotional rationalisation of Cratchett] So we[=0x0027=]ll see how it goes. Three months probation,[=0x0027=] she adds.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] end the story finally saying [=0x0022=]Success, after a fashion[=0x0022=][=0x000A=][=0x000A=]Cratchett (if Cratchett is annoyed): [=0x0022=][=0x0027=]I[=0x0027=]m not hiring you,[=0x0027=] she snaps. [=0x0027=][emotional rationalisation of Cratchett][=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]-[=0x003E=] end the story saying [=0x0022=]No great loss, if the hourly rates around here are also from 1982[=0x0022=][=0x000A=][=0x000A=]Cratchett: [=0x0022=][one of][=0x0027=]Hm,[=0x0027=] she says. [=0x0027=]Let[=0x0027=]s talk a bit more and then I[=0x0027=]ll decide.[=0x0027=][or][=0x0027=]I don[=0x0027=]t know yet,[=0x0027=] she says.[or][=0x0027=]I[=0x0027=]m not done with this interview,[=0x0027=] she remarks.[or]She indicates she still hasn[=0x0027=]t learned everything she wants to know about you.[stopping][=0x0022=][=0x000A=][=0x000A=][=0x000A=](About employment.)[=0x000A=][=0x000A=]Cratchett (after rubbing a random scenery thing): [=0x0022=][=0x0027=]Have you done much retail work before?[=0x0027=] she asks.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- instead of saying yes[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=][=0x0027=]As a matter of fact, I have. My résumé does mention–[=0x0027=][=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Cratchett: [=0x0022=][=0x0027=]Probably some low-traffic luxury boutique,[=0x0027=] she grumbles, though you didn[=0x0027=]t specify.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- instead of saying no[=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=][=0x0027=]No, this is an exciting new growth opportunity for me,[=0x0027=] you say gamely.[=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- otherwise[=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player (without speaking): [=0x0022=]Your lack of response tips off Cratchett that you are a stranger to the retail arts.[=0x0022=][=0x000A=][=0x000A=]Cratchett (after examining the player): [=0x0022=][=0x0027=]It[=0x0027=]s not easy, making sure the customer always gets what they want. Or that they always think they[=0x0027=]re getting what they want. [=0x000A=][=0x000A=][=0x0027=]That[=0x0027=]s what we strive for here. The customer thinks we think they[=0x0027=]re always right. Even when they[=0x0027=]re not right and we don[=0x0027=]t think they[=0x0027=]re right and we[=0x0027=]re not actually giving them what they want. I trust that[=0x0027=]s clear.[=0x0027=][=0x0022=][=0x000A=][=0x000A=][=0x0009=]-- instead of saying yes[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=][=0x0027=]Crystal,[=0x0027=] you say.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Cratchett (without speaking; now Cratchett is pleased; now the emotional rationalisation of Cratchett is [=0x0022=]You[=0x0027=]re not entirely stupid.[=0x0022=]): [=0x0022=]Her expression says she was hoping that was too difficult a concept for you to follow, but she feels some grudging respect.[=0x0022=][=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- instead of saying no[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player: [=0x0022=][=0x0027=]...not really,[=0x0027=] you admit.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the disappointed Cratchett beat[=0x000A=][=0x0009=][=0x000A=][=0x0009=]-- otherwise[=0x000A=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]Player (without speaking): [=0x0022=]You don[=0x0027=]t commit yourself either way on whether Cratchett is clear.[=0x0022=][=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x0009=]-[=0x003E=] perform the disappointed Cratchett beat[=0x000A=][=0x0009=][=0x0009=][=0x000A=][=0x0009=][=0x000A=](This is the disappointed Cratchett beat.)[=0x000A=][=0x000A=]Cratchett (now Cratchett is annoyed; now the emotional rationalisation of Cratchett is [=0x0022=]You can[=0x0027=]t follow a simple explanation, and what am I supposed to do with someone like that?[=0x0022=]): [=0x0022=][=0x0027=]Run over it a few times in your head,[=0x0027=] she says. [=0x0027=]Maybe you[=0x0027=]ll get there in the end.[=0x0027=][=0x0022=][=0x000A=]')"><span class="actionbutton">paste</span></a>&nbsp;<span class="indexdullblue"><span class="string-syntax">&quot;The Customer Is Always Right&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 1 - Scenario</span>
+        <span class="identifier-syntax">Chapter</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Setting</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">Character</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Backstage</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">room</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Taylor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">woman</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Backstage</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Basics</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Singing</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">action</span><span class="syntaxplain"> </span><span class="syntaxidentifier">applying</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">nothing</span><span class="syntaxplain">. </span><span class="syntaxidentifier">Understand</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;sing&quot;</span><span class="syntaxplain"> </span><span class="syntaxidentifier">as</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">Ye</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olde</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stationery</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shoppe</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">room</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;A sign propped in the window reads 'Help wanted', which is why you are here. The inside of the Shoppe does not really speak of active trade: dusty piles of carbon paper, manual cash register, ink ribbons for a type of printer not sold since 1982. But perhaps they take the Olde seriously.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You sing a rousing rendition of Yankee Doodle Dandy. For some reason it's the only song whose lyrics you can fully remember right now.&quot;</span>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">woman</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">Ye</span><span class="plain-syntax"> </span><span class="identifier-syntax">Olde</span><span class="plain-syntax"> </span><span class="identifier-syntax">Stationery</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shoppe</span><span class="plain-syntax">. </span><span class="string-syntax">&quot;At the back of the Shoppe is a woman in a polyester apron and a name badge that just reads 'Cratchett'.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Report</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Taylor</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain">:</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;Taylor launches into 'Electric Touch.'&quot;</span>
+        <span class="identifier-syntax">Some</span><span class="plain-syntax"> </span><span class="identifier-syntax">piles</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">carbon</span><span class="plain-syntax"> </span><span class="identifier-syntax">paper</span><span class="plain-syntax">, </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">manual</span><span class="plain-syntax"> </span><span class="identifier-syntax">cash</span><span class="plain-syntax"> </span><span class="identifier-syntax">register</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">ink</span><span class="plain-syntax"> </span><span class="identifier-syntax">ribbons</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Shoppe</span><span class="plain-syntax">.</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Bargaining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">success</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">truth</span><span class="syntaxplain"> </span><span class="syntaxidentifier">state</span><span class="syntaxplain"> </span><span class="syntaxidentifier">that</span><span class="syntaxplain"> </span><span class="syntaxidentifier">varies</span><span class="syntaxplain">.</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dusty</span><span class="plain-syntax"> </span><span class="identifier-syntax">piles</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Handy if you need to write something in triplicate on a typewriter. You do not own a typewriter.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxidentifier">Persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">rule</span><span class="syntaxplain"> </span><span class="syntaxidentifier">for</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asking</span><span class="syntaxplain"> </span><span class="syntaxidentifier">someone</span><span class="syntaxplain"> </span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">try</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain">:  </span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">cash</span><span class="plain-syntax"> </span><span class="identifier-syntax">register</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;It goes 'ping!' every time someone opens the cash drawer.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bargaining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">success</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">false</span><span class="syntaxplain">;</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">perform</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">suggestion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">beat</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">description</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">ink</span><span class="plain-syntax"> </span><span class="identifier-syntax">ribbons</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Quaint relics of the dot matrix era.&quot;</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">if</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bargaining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">success</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">false</span><span class="syntaxplain">:</span>
+
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;So much for that.&quot;</span><span class="syntaxplain">;</span>
+        <span class="identifier-syntax">Report</span><span class="plain-syntax"> </span><span class="identifier-syntax">someone</span><span class="plain-syntax"> </span><span class="identifier-syntax">rubbing</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax">:</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">fails</span><span class="syntaxplain">;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;[The actor] runs a dustcloth over the surface of [the noun]. This has clearly not happened in quite some time.&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">instead</span><span class="plain-syntax">.</span>
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">persuasion</span><span class="syntaxplain"> </span><span class="syntaxidentifier">succeeds</span><span class="syntaxplain">.</span>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Emotions</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">An</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotion</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">kind</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">value</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotions</span><span class="plain-syntax"> </span><span class="identifier-syntax">are</span><span class="plain-syntax"> </span><span class="identifier-syntax">annoyed</span><span class="plain-syntax">, </span><span class="identifier-syntax">pleased</span><span class="plain-syntax">, </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotion</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">calm</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">person</span><span class="plain-syntax"> </span><span class="identifier-syntax">has</span><span class="plain-syntax"> </span><span class="identifier-syntax">some</span><span class="plain-syntax"> </span><span class="identifier-syntax">text</span><span class="plain-syntax"> </span><span class="identifier-syntax">called</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotional</span><span class="plain-syntax"> </span><span class="identifier-syntax">rationalisation</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Chapter</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Dialogue</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">1</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Concepts</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Employment</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">. </span><span class="identifier-syntax">Understand</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;work&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;job&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;help&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;help wanted&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;sign&quot;</span><span class="plain-syntax"> </span><span class="identifier-syntax">as</span><span class="plain-syntax"> </span><span class="identifier-syntax">employment</span><span class="plain-syntax">. </span><span class="identifier-syntax">The</span><span class="plain-syntax"> </span><span class="identifier-syntax">printed</span><span class="plain-syntax"> </span><span class="identifier-syntax">name</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">employment</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;employment&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">can</span><span class="plain-syntax"> </span><span class="identifier-syntax">be</span><span class="plain-syntax"> </span><span class="identifier-syntax">used</span><span class="plain-syntax"> </span><span class="identifier-syntax">or</span><span class="plain-syntax"> </span><span class="identifier-syntax">unused</span><span class="plain-syntax">. </span><span class="identifier-syntax">A</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">usually</span><span class="plain-syntax"> </span><span class="identifier-syntax">unused</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Carry</span><span class="plain-syntax"> </span><span class="identifier-syntax">out</span><span class="plain-syntax"> </span><span class="identifier-syntax">talking</span><span class="plain-syntax"> </span><span class="identifier-syntax">about</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">concept</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">used</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Test</span><span class="plain-syntax"> </span><span class="identifier-syntax">me</span><span class="plain-syntax"> </span><span class="identifier-syntax">with</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;talk about employment / yes / yes / talk about employment&quot;</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">2</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Flow</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Every</span><span class="plain-syntax"> </span><span class="identifier-syntax">turn</span><span class="plain-syntax"> </span><span class="identifier-syntax">when</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">wanted</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">performed</span><span class="plain-syntax">:</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">make</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">dialogue</span><span class="plain-syntax"> </span><span class="identifier-syntax">director</span><span class="plain-syntax"> </span><span class="identifier-syntax">active</span><span class="plain-syntax">.</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Section</span><span class="plain-syntax"> </span><span class="constant-syntax">3</span><span class="plain-syntax"> - </span><span class="identifier-syntax">Queries</span><span class="plain-syntax"> </span><span class="identifier-syntax">and</span><span class="plain-syntax"> </span><span class="identifier-syntax">answers</span><span class="plain-syntax"> (</span><span class="identifier-syntax">dialogue</span><span class="plain-syntax">)</span>
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">employment</span><span class="plain-syntax">. </span><span class="identifier-syntax">Fully</span><span class="plain-syntax"> </span><span class="identifier-syntax">recurring</span><span class="plain-syntax">. </span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">help</span><span class="plain-syntax"> </span><span class="identifier-syntax">wanted</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;[one of]'Say, are you hiring?' you ask, as casually as you can manage.[or]'So about the job,' you try again.[or]You bring the conversation laboriously back around to the question of whether there's any work available for you.[stopping]&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">pleased</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'[emotional rationalisation of Cratchett] So we'll see how it goes. Three months probation,' she adds.&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">finally</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;Success, after a fashion&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">if</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">annoyed</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'I'm not hiring you,' she snaps. '[emotional rationalisation of Cratchett]'&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">end</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">story</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;No great loss, if the hourly rates around here are also from 1982&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;[one of]'Hm,' she says. 'Let's talk a bit more and then I'll decide.'[or]'I don't know yet,' she says.[or]'I'm not done with this interview,' she remarks.[or]She indicates she still hasn't learned everything she wants to know about you.[stopping]&quot;</span>
+        <br>
+
+        <br>
+
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">About</span><span class="plain-syntax"> </span><span class="identifier-syntax">employment</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">rubbing</span><span class="plain-syntax"> </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">random</span><span class="plain-syntax"> </span><span class="identifier-syntax">scenery</span><span class="plain-syntax"> </span><span class="identifier-syntax">thing</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'Have you done much retail work before?' she asks.&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;'As a matter of fact, I have. My résumé does mention–'&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        <span class="syntaxidentifier">Test</span><span class="syntaxplain"> </span><span class="syntaxidentifier">me</span><span class="syntaxplain"> </span><span class="syntaxidentifier">with</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;taylor, sing / 1 / taylor, sing / 2&quot;</span><span class="syntaxplain">.</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Cratchett</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;'Probably some low-traffic luxury boutique,' she grumbles, though you didn't specify.&quot;</span>
         <br>
 
         <br>
-        <span class="syntaxheading">Section 2 - Persuasion text (dialogue)</span>
-        <br>
-
-        <br>
-        <span class="syntaxfunction">(Fully recurring. This is the suggestion beat.)</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">to</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">; </span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You ask Taylor to sing your favorite song, the one that was unaccountably left off tonight's set list. Just one verse would do.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I'll consider your request, but only if you sing something first.&quot;</span><span class="syntaxplain"> </span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;You can't be serious.&quot;</span>
-        <br>
-
-        <br>
-        <span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I absolutely am. I want to see what you've got.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Okay.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">without</span><span class="syntaxplain"> </span><span class="syntaxidentifier">speaking</span><span class="syntaxplain">; </span><span class="syntaxidentifier">before</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain">; </span><span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bargaining</span><span class="syntaxplain"> </span><span class="syntaxidentifier">success</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">true</span><span class="syntaxplain">): </span><span class="syntaxstring">&quot;You nod anxiously, aware of all the other VIP ticket holders standing around and poised to judge you.&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Taylor</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Little shaky on the intro, but not bad. I'd say you've earned your piece. Wouldn't you?&quot;</span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Narration</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;She turns to the other fans expectantly, and they cheer.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxstring">&quot;Definitely not.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;'No, this is an exciting new growth opportunity for me,' you say gamely.&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">otherwise</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Your lack of response tips off Cratchett that you are a stranger to the retail arts.&quot;</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">after</span><span class="plain-syntax"> </span><span class="identifier-syntax">examining</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">player</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'It's not easy, making sure the customer always gets what they want. Or that they always think they're getting what they want. </span>
+        <br>
+
+        <br>
+        <span class="string-syntax">'That's what we strive for here. The customer thinks we think they're always right. Even when they're not right and we don't think they're right and we're not actually giving them what they want. I trust that's clear.'&quot;</span>
+        <br>
+
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">yes</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">Player</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;No, the deal is off.&quot;</span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;'Crystal,' you say.&quot;</span>
         <br>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;Then I can't help you.&quot;</span><span class="syntaxplain"> </span>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">pleased</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotional</span><span class="plain-syntax"> </span><span class="identifier-syntax">rationalisation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You're not entirely stupid.&quot;</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;Her expression says she was hoping that was too difficult a concept for you to follow, but she feels some grudging respect.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">instead</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">saying</span><span class="plain-syntax"> </span><span class="identifier-syntax">no</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax">: </span><span class="string-syntax">&quot;'...not really,' you admit.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">disappointed</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-- </span><span class="identifier-syntax">otherwise</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">Player</span><span class="plain-syntax"> (</span><span class="identifier-syntax">without</span><span class="plain-syntax"> </span><span class="identifier-syntax">speaking</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;You don't commit yourself either way on whether Cratchett is clear.&quot;</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="plain-syntax">-&gt; </span><span class="identifier-syntax">perform</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">disappointed</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span>
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <br>
+        <span class="plain-syntax">(</span><span class="identifier-syntax">This</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">disappointed</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">beat</span><span class="plain-syntax">.)</span>
+        <br>
+
+        <br>
+        <span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> (</span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">annoyed</span><span class="plain-syntax">; </span><span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">emotional</span><span class="plain-syntax"> </span><span class="identifier-syntax">rationalisation</span><span class="plain-syntax"> </span><span class="identifier-syntax">of</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cratchett</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You can't follow a simple explanation, and what am I supposed to do with someone like that?&quot;</span><span class="plain-syntax">): </span><span class="string-syntax">&quot;'Run over it a few times in your head,' she says. 'Maybe you'll get there in the end.'&quot;</span>
         </span></blockquote>
-        <p>Note that this method would not work if the choice relied on parsed input. We could imagine giving the player a choice like:</p>
-        <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">The</span><span class="syntaxplain"> </span><span class="syntaxidentifier">person</span><span class="syntaxplain"> </span><span class="syntaxidentifier">asked</span><span class="syntaxplain">: </span><span class="syntaxstring">&quot;I absolutely am. I want to see what you've got.&quot;</span>
-        <br>
-
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">-- </span><span class="syntaxidentifier">instead</span><span class="syntaxplain"> </span><span class="syntaxidentifier">of</span><span class="syntaxplain"> </span><span class="syntaxidentifier">singing</span><span class="syntaxplain"> </span>
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;
-        <br>
-        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxplain">...</span>
-        </span></blockquote>
-        <p>and allowing the player to type SING (or not) as their next turn. The problem there, however, is that the interaction stretches over multiple turns. The system will print Taylor's request to the player, but it will then return to the persuasion rule in progress (and conclude that the player didn't succeed at the bargain) before it ever has a chance to see whether we sang or not.</p>
+        <!-- END CODE -->
+        <!-- CONTENT ENDS -->
     </div>
     <hr>
-    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_11.html>Section 11.11: Decision points</a></em></p>
+    <p><em>This example is drawn from <a style="text-decoration: none" href=WI_11_13.html>Section 11.13: Flow markers</a></em></p>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>

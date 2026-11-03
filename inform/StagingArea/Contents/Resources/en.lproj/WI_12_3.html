@@ -135,6 +135,12 @@
             --example-cartouche-label-colour: #000000;
             --example-cartouche-label-background-colour: #C0C0C0;
         	--example-cartouche-star-colour: #DFB700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
         }
 
         @media (prefers-color-scheme: dark) {
@@ -255,6 +261,12 @@
             --example-cartouche-label-colour: #ffffff;
             --example-cartouche-label-background-colour: #FF2020;
         	--example-cartouche-star-colour: #FFD700;
+
+        	--gh-alert-note-colour: #0e6ad1;
+        	--gh-alert-tip-colour: #1a8130;
+        	--gh-alert-important-colour: #8253dd;
+        	--gh-alert-warning-colour: #9a6903;
+        	--gh-alert-caution-colour: #ce2528;
            }
         }
 
@@ -835,6 +847,56 @@
         .markdowncontent table th, .markdowncontent table td {
         	padding: 4px 10px;
         	border: 1px solid var(--light-border-colour);
+        }
+
+        .markdowncontent blockquote.alertnote {
+        	border-left: 3px solid var(--gh-alert-note-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertnote p.alertheading {
+        	color: var(--gh-alert-note-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alerttip {
+        	border-left: 3px solid var(--gh-alert-tip-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alerttip p.alertheading {
+        	color: var(--gh-alert-tip-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertimportant {
+        	border-left: 3px solid var(--gh-alert-important-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertimportant p.alertheading {
+        	color: var(--gh-alert-important-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertwarning {
+        	border-left: 3px solid var(--gh-alert-warning-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertwarning p.alertheading {
+        	color: var(--gh-alert-warning-colour);
+            font-weight: bold;
+        }
+
+        .markdowncontent blockquote.alertcaution {
+        	border-left: 3px solid var(--gh-alert-caution-colour);
+        	margin: 0.4em 20px;
+        	padding: 0em 10px;
+        }
+        .markdowncontent blockquote.alertcaution p.alertheading {
+        	color: var(--gh-alert-caution-colour);
+            font-weight: bold;
         }
 
         /* Used in syntax-colouring for extension documentation */
@@ -1869,6 +1931,30 @@
         	font-style: italic;
         }
 
+        div.generalindex span.indexcue {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexcuebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
+        div.generalindex span.indexperfnote {
+        	color: var(--documentation-index-a-colour);
+            font-family: var(--informcode-fontfamily);
+        	font-size: 0.9em;
+        }
+
+        div.generalindex span.indexperfnotebracketed {
+        	color: var(--documentation-index-b-colour);
+            font-family: var(--informdefault-fontfamily);
+        	font-style: italic;
+        }
+
         div.generalindex span.indexcommand {
         	color: var(--documentation-index-c-colour);
         	font-family: var(--informcommand-fontfamily);
@@ -2107,7 +2193,6 @@
     </script>
 </head>
 <body>
-    <!--CONTENT BEGINS-->
     <div class="bookheader">
         <div class="midnight">
             <table class="fullwidth midnightblack">
@@ -2127,107 +2212,139 @@
     </div>
     <div class="duplexleftpage">
         <div class="markdowncontent">
+            <!-- CONTENT BEGINS -->
+            <!-- SEARCH TITLE "Pattern matching" -->
+            <!-- SEARCH SECTION "12.3" -->
+            <!-- SEARCH SORT "001-012-003-000" -->
             <h3><span>Section 12.3: Pattern matching</span></h3>
-            <p>           </p>
+            <p>       
+             
+             </p>
             <p>In this section, let's make the following new phrase:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">admire</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">item</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">object</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code720" -->
+            <blockquote class="extract-inform7"><a id="code720"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">admire</span><span class="plain-syntax"> (</span><span class="identifier-syntax">item</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">object</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You take a long look at </span><span class="syntaxextract">[item]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You take a long look at [item].&quot;</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>This does very little, of course, but it does allow the wording to be different each time the phrase is used:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">diamonds</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code721" -->
+            <blockquote class="extract-inform7"><a id="code721"></a><span class="indexdullblue"><span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">diamonds</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Mr</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Cogito</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="identifier-syntax">Mr</span><span class="plain-syntax"> </span><span class="identifier-syntax">Cogito</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">honey</span><span class="syntaxplain"> </span><span class="syntaxidentifier">sandwich</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">honey</span><span class="plain-syntax"> </span><span class="identifier-syntax">sandwich</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and our single definition covers all of these possibilities. The bracketed part of the definition, <code class="inlinesourcetext">(item – an object)</code>, tells Inform to expect an object in that position, and Inform enforces this carefully. So this definition might tell Inform what <code class="inlinesourcetext">admire the barricade</code> means, but not what</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;blue cheese&quot;</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code722" -->
+            <blockquote class="extract-inform7"><a id="code722"></a><span class="indexdullblue"><span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;blue cheese&quot;</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxconstant">63</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="constant-syntax">63</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>mean. Unless some other definition sorts the matter out, Inform will reply to uses like this with a Problem message:</p>
             <div class="extract-problems">
                 <blockquote>**Problem.** You wrote 'admire 63' ![Reveal](doc_images/Reveal.png), but '63' has the wrong kind of value: a number rather than an object.
                 </blockquote>
             </div>
             <p>The object does not need to be named literally, but can be anything which works out to be an object: for instance,</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">After</span><span class="syntaxplain"> </span><span class="syntaxidentifier">dropping</span><span class="syntaxplain"> </span><span class="syntaxidentifier">something</span><span class="syntaxplain"> </span><span class="syntaxidentifier">in</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Auction</span><span class="syntaxplain"> </span><span class="syntaxidentifier">House</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code723" -->
+            <blockquote class="extract-inform7"><a id="code723"></a><span class="indexdullblue"><span class="identifier-syntax">After</span><span class="plain-syntax"> </span><span class="identifier-syntax">dropping</span><span class="plain-syntax"> </span><span class="identifier-syntax">something</span><span class="plain-syntax"> </span><span class="identifier-syntax">in</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Auction</span><span class="plain-syntax"> </span><span class="identifier-syntax">House</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">admire</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">noun</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">admire</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">noun</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which Inform allows because <code class="inlinesourcetext">noun</code>, here, is a name for the object which is being acted on.</p>
             <p>Inform decides which definition to apply in a process called &quot;pattern matching&quot;. The bracketed part of the example definition has the form <code class="inlinesourcetext">(name – description)</code>. The definition only applies if the text being matched refers to a value which fits the description – for instance, the diamonds agreed with <code class="inlinesourcetext">object</code>, but 63 did not. If the definition does apply, then the Inform works through the rest of the phrase using <code class="inlinesourcetext">name</code> to mean whatever value matched. For example:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slam</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shut</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">box</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">an</span><span class="syntaxplain"> </span><span class="syntaxidentifier">open</span><span class="syntaxplain"> </span><span class="syntaxidentifier">container</span><span class="syntaxplain">):</span>
+            <!-- START CODE "code724" -->
+            <blockquote class="extract-inform7"><a id="code724"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">slam</span><span class="plain-syntax"> </span><span class="identifier-syntax">shut</span><span class="plain-syntax"> (</span><span class="identifier-syntax">box</span><span class="plain-syntax"> - </span><span class="identifier-syntax">an</span><span class="plain-syntax"> </span><span class="identifier-syntax">open</span><span class="plain-syntax"> </span><span class="identifier-syntax">container</span><span class="plain-syntax">):</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;With great panache, you slam shut </span><span class="syntaxextract">[the box]</span><span class="syntaxstring">.&quot;</span><span class="syntaxplain">;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;With great panache, you slam shut [the box].&quot;</span><span class="plain-syntax">;</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">now</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">box</span><span class="syntaxplain"> </span><span class="syntaxidentifier">is</span><span class="syntaxplain"> </span><span class="syntaxidentifier">closed</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">now</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">box</span><span class="plain-syntax"> </span><span class="identifier-syntax">is</span><span class="plain-syntax"> </span><span class="identifier-syntax">closed</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>When this phrase is followed, <code class="inlinesourcetext">box</code> means whatever open container the pattern-matcher found when it was called for. For example, if Inform reads</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">slam</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shut</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dutch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">armoire</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code725" -->
+            <blockquote class="extract-inform7"><a id="code725"></a><span class="indexdullblue"><span class="identifier-syntax">slam</span><span class="plain-syntax"> </span><span class="identifier-syntax">shut</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dutch</span><span class="plain-syntax"> </span><span class="identifier-syntax">armoire</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>then it acts on this by following the definition of <code class="inlinesourcetext">slam shut ...</code>, using the Dutch armoire object as the value of <code class="inlinesourcetext">box</code>, so it prints:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">With</span><span class="syntaxplain"> </span><span class="syntaxidentifier">great</span><span class="syntaxplain"> </span><span class="syntaxidentifier">panache</span><span class="syntaxplain">, </span><span class="syntaxidentifier">you</span><span class="syntaxplain"> </span><span class="syntaxidentifier">slam</span><span class="syntaxplain"> </span><span class="syntaxidentifier">shut</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">Dutch</span><span class="syntaxplain"> </span><span class="syntaxidentifier">armoire</span><span class="syntaxplain">.</span>
+            <!-- START CODE "code726" -->
+            <blockquote class="extract-inform7"><a id="code726"></a><span class="indexdullblue"><span class="identifier-syntax">With</span><span class="plain-syntax"> </span><span class="identifier-syntax">great</span><span class="plain-syntax"> </span><span class="identifier-syntax">panache</span><span class="plain-syntax">, </span><span class="identifier-syntax">you</span><span class="plain-syntax"> </span><span class="identifier-syntax">slam</span><span class="plain-syntax"> </span><span class="identifier-syntax">shut</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">Dutch</span><span class="plain-syntax"> </span><span class="identifier-syntax">armoire</span><span class="plain-syntax">.</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>and renders it closed.</p>
             <p>The description given in a definition can even be a single, specific value. For instance, we could define:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">points</span><span class="syntaxplain">:</span>
+            <!-- START CODE "code727" -->
+            <blockquote class="extract-inform7"><a id="code727"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">points</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">increase</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">score</span><span class="syntaxplain"> </span><span class="syntaxidentifier">by</span><span class="syntaxplain"> </span><span class="syntaxidentifier">the</span><span class="syntaxplain"> </span><span class="syntaxidentifier">bonus</span><span class="syntaxplain">.</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">increase</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">score</span><span class="plain-syntax"> </span><span class="identifier-syntax">by</span><span class="plain-syntax"> </span><span class="identifier-syntax">the</span><span class="plain-syntax"> </span><span class="identifier-syntax">bonus</span><span class="plain-syntax">.</span>
             <br>
 
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxconstant">7</span><span class="syntaxplain">) </span><span class="syntaxidentifier">points</span><span class="syntaxplain">:</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="constant-syntax">7</span><span class="plain-syntax">) </span><span class="identifier-syntax">points</span><span class="plain-syntax">:</span>
             <br>
-            &nbsp;&nbsp;&nbsp;&nbsp;<span class="syntaxidentifier">say</span><span class="syntaxplain"> </span><span class="syntaxstring">&quot;You shiver uncontrollably.&quot;</span>
+            &nbsp;&nbsp;&nbsp;&nbsp;<span class="identifier-syntax">say</span><span class="plain-syntax"> </span><span class="string-syntax">&quot;You shiver uncontrollably.&quot;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>which would withhold this unlucky bounty. That would mean that:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">grant</span><span class="syntaxplain"> </span><span class="syntaxconstant">7</span><span class="syntaxplain"> </span><span class="syntaxidentifier">points</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code728" -->
+            <blockquote class="extract-inform7"><a id="code728"></a><span class="indexdullblue"><span class="identifier-syntax">grant</span><span class="plain-syntax"> </span><span class="constant-syntax">7</span><span class="plain-syntax"> </span><span class="identifier-syntax">points</span><span class="plain-syntax">;</span>
             <br>
-            <span class="syntaxidentifier">grant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">seven</span><span class="syntaxplain"> </span><span class="syntaxidentifier">points</span><span class="syntaxplain">;</span>
+            <span class="identifier-syntax">grant</span><span class="plain-syntax"> </span><span class="identifier-syntax">seven</span><span class="plain-syntax"> </span><span class="identifier-syntax">points</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would each produce uncontrollable shivers, because Inform uses the definition applying to the number 7; but</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">grant</span><span class="syntaxplain"> </span><span class="syntaxidentifier">six</span><span class="syntaxplain"> </span><span class="syntaxidentifier">points</span><span class="syntaxplain">;</span>
+            <!-- START CODE "code729" -->
+            <blockquote class="extract-inform7"><a id="code729"></a><span class="indexdullblue"><span class="identifier-syntax">grant</span><span class="plain-syntax"> </span><span class="identifier-syntax">six</span><span class="plain-syntax"> </span><span class="identifier-syntax">points</span><span class="plain-syntax">;</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>would increase the score by 6. In general Inform always follows the principle that more specific definitions take priority over more general ones. So although the definitions:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">points</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code730" -->
+            <blockquote class="extract-inform7"><a id="code730"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">points</span><span class="plain-syntax">: ...</span>
             <br>
-            <span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxconstant">7</span><span class="syntaxplain">) </span><span class="syntaxidentifier">points</span><span class="syntaxplain">: ...</span>
+            <span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="constant-syntax">7</span><span class="plain-syntax">) </span><span class="identifier-syntax">points</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>both apply to the case of <code class="inlinesourcetext">grant 7 points</code>, Inform uses the second, because it's the more specific of the two possibilities.</p>
             <p>Sometimes it will not be possible to tell if the value supplied meets the requirements until the story is actually playing. If, at run-time, no definition fits some phrase which has to be carried out, a run-time problem message is produced.</p>
             <p>Finally, and more straightforwardly, we can specify variations in wording using slashes between alternative words in a <code class="inlinesourcetext">To ...</code> definition. For instance:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">point</span><span class="syntaxplain">/</span><span class="syntaxidentifier">points</span><span class="syntaxplain">: ...</span>
+            <!-- START CODE "code731" -->
+            <blockquote class="extract-inform7"><a id="code731"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">point</span><span class="plain-syntax">/</span><span class="identifier-syntax">points</span><span class="plain-syntax">: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>allows the final word to be either <code class="inlinesourcetext">point</code> or <code class="inlinesourcetext">points</code>. Slashes like this can only be used with literal words, not bracketed values, and give alternative forms only of a single word at a time; the alternative <code class="inlinesourcetext">--</code> means &quot;no word at all&quot;, and thus makes it optional:</p>
-            <blockquote class="extract-inform7"><span class="indexdullblue"><span class="syntaxidentifier">To</span><span class="syntaxplain"> </span><span class="syntaxidentifier">grant</span><span class="syntaxplain"> (</span><span class="syntaxidentifier">bonus</span><span class="syntaxplain"> - </span><span class="syntaxidentifier">a</span><span class="syntaxplain"> </span><span class="syntaxidentifier">number</span><span class="syntaxplain">) </span><span class="syntaxidentifier">point</span><span class="syntaxplain">/</span><span class="syntaxidentifier">points</span><span class="syntaxplain">/--: ...</span>
+            <!-- START CODE "code732" -->
+            <blockquote class="extract-inform7"><a id="code732"></a><span class="indexdullblue"><span class="identifier-syntax">To</span><span class="plain-syntax"> </span><span class="identifier-syntax">grant</span><span class="plain-syntax"> (</span><span class="identifier-syntax">bonus</span><span class="plain-syntax"> - </span><span class="identifier-syntax">a</span><span class="plain-syntax"> </span><span class="identifier-syntax">number</span><span class="plain-syntax">) </span><span class="identifier-syntax">point</span><span class="plain-syntax">/</span><span class="identifier-syntax">points</span><span class="plain-syntax">/--: ...</span>
             </span></blockquote>
+            <!-- END CODE -->
             <p>makes <code class="inlinesourcetext">grant 3</code> do the same as <code class="inlinesourcetext">grant 3 points</code>.</p>
             <p>If we need more variation than that, we should make more than one definition.</p>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg191><a style="text-decoration: none" href="eg_191.html"><span class="extensionexampleletter">191</span></a></span></div>
+                    <span id=eg188><a style="text-decoration: none" href="eg_188.html"><span class="extensionexampleletter">188</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_191.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ahem</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_188.html"><span class="examplestars">★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ahem</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Writing a phrase, with several variant forms, whose function is to follow a rule several times.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg191><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg188><a style="text-decoration: none" href="RB_2_1.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
             <div class="examplebox">
                 <div class="exampleleft">
-                    <span id=eg192><a style="text-decoration: none" href="eg_192.html"><span class="extensionexampleletter">192</span></a></span></div>
+                    <span id=eg189><a style="text-decoration: none" href="eg_189.html"><span class="extensionexampleletter">189</span></a></span></div>
                 <div class="examplemiddle">
-                    <a style="text-decoration: none" href="eg_192.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ferragamo Again</span></span></b><br>
+                    <a style="text-decoration: none" href="eg_189.html"><span class="examplestars">★★</span>&nbsp; <b><span class="exampleword">&nbsp;Example&nbsp;</span><span class="examplename"><span class="markdowncontent">Ferragamo Again</span></span></b><br>
                     <span class="exampledescription"><span class="markdowncontent">Using the same phrase to produce different results with different characters.</span></span></a></div>
                 <div class="exampleright">
-                    <span id=eg192><a style="text-decoration: none" href="RB_7_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
+                    <span id=eg189><a style="text-decoration: none" href="RB_7_10.html"><span class="extensionexampleseealso">RB</span></a></span></div>
             </div>
+            <!-- CONTENT ENDS -->
         </div>
         <hr>
         <p><em> &bull; <a href="WI_12_2.html"><span class="markdowncontent">Section 12.2: The phrasebook</span></a> &bull; <a href="WI_12_4.html"><span class="markdowncontent">Section 12.4: The showme phrase</span></a></em></p>
     </div>
 
-    <!--CONTENT ENDS-->
 </body>
 </html>
