@@ -212,6 +212,10 @@ echo Remove resource fork and other metadata - done
 # Copy all resources from the StagingArea to the target build Inform.app
 #
 echo Copy resources from StagingArea - start
+
+# Remove the app's Internal folder first, because the copy doesn't remove files that Inform Core
+# no longer has, and Inform finds anything left there (such as old kits) when compiling a project.
+rm -rf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal"
 cp -rf ${STAGING_AREA} ${INFORM_APP_DIR}/Inform.app
 
 # Make the kit binaries newer than their sources, or compiling a project tries to rebuild the kits
