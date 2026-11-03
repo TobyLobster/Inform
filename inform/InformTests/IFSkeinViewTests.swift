@@ -118,6 +118,35 @@ final class IFSkeinViewTests: XCTestCase {
         }
     }
 
+    /// The lines between knots.
+    private func lineViews(_ skeinView: IFSkeinView) -> [NSView] {
+        return skeinView.subviews.filter { NSStringFromClass(type(of: $0)).hasSuffix("IFSkeinLinkView") }
+    }
+
+    /// Each line runs from the top of a knot up to the knot above it, from the first time the skein is laid out.
+    func testLinesPointToTheKnotAbove() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        for name in ["a", "b", "c"] {
+            var item: IFSkeinItem = skein.rootItem
+            for i in 1...2 {
+                item = item.addChild(IFSkeinItem(skein: skein, command: "\(name)\(i)"))
+            }
+        }
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let lines = lineViews(skeinView)
+        XCTAssertEqual(lines.count, 6)
+        for line in lines {
+            let layer = try XCTUnwrap(line.layer)
+            let angle = line.frameRotation * .pi / 180
+            let start = layer.position
+            let end = NSPoint(x: start.x + layer.bounds.width * cos(angle), y: start.y + layer.bounds.width * sin(angle))
+            XCTAssertLessThan(end.y, start.y)
+            XCTAssertTrue(knotViews(skeinView).contains { $0.frame.insetBy(dx: -3, dy: -3).contains(end) }, "\(end)")
+        }
+    }
+
     /// Selecting a thread makes the levels taller and so the lines between knots longer. Each line has to be
     /// drawn again at its new length, or its layer keeps the shorter line and the knots look disconnected.
     func testLinesRedrawWhenTheirLengthChanges() {

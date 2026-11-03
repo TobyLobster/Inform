@@ -226,11 +226,9 @@ static const CGFloat  kPositionEpsilon            = 0.01f;
                                       NSMidY(parentRect) );
     NSPoint finalDelta = NSMakePoint( finalTo.x - finalFrom.x, finalTo.y - finalFrom.y );
     CGFloat   finalLength       = round(sqrt((finalDelta.x * finalDelta.x) + (finalDelta.y * finalDelta.y)));
+    // Used for frameRotation, which is in the superview's coordinates whatever the layer's geometry.
+    // (A new link's layer isn't geometryFlipped yet, so adjusting for that mirrored new links.)
     CGFloat   finalAngleRadians = atan2(finalDelta.y, finalDelta.x);
-
-    if( !linkView.layer.geometryFlipped ) {
-        finalAngleRadians = -finalAngleRadians;
-    }
 
     // Adjust final points from centre of line to edge of view (by moving a short distance along the normal).
     if( finalLength > 0.001f ) {
