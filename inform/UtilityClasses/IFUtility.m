@@ -771,7 +771,15 @@ CGFloat easeOutCubic(CGFloat t) {
 }
 
 + (NSString*) coreBuildVersion {
-    return [IFUtility localizedString: @"Build Version"];
+    // The build takes this from the app's ni (see compiler_injection.sh)
+    static NSString* version = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSString* path = [[NSBundle mainBundle] pathForResource: @"InformCoreVersion" ofType: @"txt"];
+        version = [[NSString stringWithContentsOfFile: path encoding: NSUTF8StringEncoding error: nil]
+                      stringByTrimmingCharactersInSet: [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    });
+    return version;
 }
 
 +(NSString*) majorMinor: (NSString*) version {

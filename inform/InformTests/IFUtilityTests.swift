@@ -88,6 +88,22 @@ final class IFUtilityTests: XCTestCase {
 
     // MARK: - Language versions
 
+    func testCoreBuildVersionIsTheVersionOfTheAppsCompiler() throws {
+        let version: String = IFUtility.coreBuildVersion
+        XCTAssertNotNil(version.range(of: #"^\d+\.\d+\.\d+$"#, options: .regularExpression), version)
+        XCTAssertTrue(IFUtility.path(forCompiler: "****").hasSuffix("/MacOS/ni"))
+
+        let ni = Process()
+        ni.executableURL = URL(fileURLWithPath: IFUtility.path(forCompiler: "****"))
+        ni.arguments = ["-version"]
+        let output = Pipe()
+        ni.standardOutput = output
+        try ni.run()
+        let reported = String(decoding: output.fileHandleForReading.readDataToEndOfFile(), as: UTF8.self)
+        ni.waitUntilExit()
+        XCTAssertTrue(reported.hasPrefix("inform7 version \(version)"), reported)
+    }
+
     func testLanguageVersion10_1UsesTheCurrentCompiler() {
         // The app has no retrospective build of 10.1 (TobyLobster/Inform#42)
         XCTAssertTrue(IFUtility.isLatestMajorMinorCompilerVersion("10.1"))

@@ -153,5 +153,4 @@ set_in_plist_file("inform/Inform-inherit.entitlements", "com.apple.security.app-
 set_in_plist_file("inform/Inform-Info.plist",           "CFBundleVersion", app_version_build_number)
 set_in_plist_file("inform/Inform-Info.plist",           "CFBundleShortVersionString", app_version_number)
 replace_in_strings_file("inform/Resources/en.lproj/InfoPlist.strings", "CFBundleGetInfoString", "Inform version " + full_version)
-replace_in_strings_file("inform/Resources/en.lproj/Localizable.strings", '"Build Version"', inform_source_version)
 

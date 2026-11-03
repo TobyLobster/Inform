@@ -58,7 +58,7 @@ static CGFloat gapBetweenWelcomeImageAndText = 10.0f;
         delegate = nil;
         _isExtensionProject = NO;
 
-        NSString* buildString  = [NSString stringWithFormat: [IFUtility localizedString: @"Build %@"], [IFUtility localizedString: @"Build Version"]];
+        NSString* buildString  = [NSString stringWithFormat: [IFUtility localizedString: @"Build %@"], [IFUtility coreBuildVersion]];
         NSString* informString = [IFUtility localizedString: @"Inform"];
         informImage = [NSImage imageNamed: @"Blob-Logo"];
 

@@ -225,6 +225,15 @@ cp -rf ${STAGING_AREA} ${INFORM_APP_DIR}/Inform.app
 KIT_BINARY_TIME=$(date -v+1S +%Y%m%d%H%M.%S)
 find "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal" -name "*.interb" -exec touch -t ${KIT_BINARY_TIME} {} +
 
+# Record the version of Inform Core in the app (such as 10.2.0), taken from its ni. The app shows it
+# in the toolbar, and uses it to choose the compiler for a project's language version.
+INFORM_CORE_VERSION=$("${INFORM_APP_DIR}/Inform.app/Contents/MacOS/ni" -version | sed -n "s/^inform7 version \([0-9.]*\).*/\1/p")
+if [ -z "${INFORM_CORE_VERSION}" ]; then
+    echo "error: Couldn't read the version of Inform Core from ni"
+    exit 1
+fi
+printf "%s" "${INFORM_CORE_VERSION}" > "${INFORM_APP_DIR}/Inform.app/Contents/Resources/InformCoreVersion.txt"
+
 # Add symbolic links to the I6T folder
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L02/I6T"
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L38/I6T"
