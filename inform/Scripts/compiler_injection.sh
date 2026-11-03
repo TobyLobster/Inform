@@ -214,6 +214,13 @@ echo Remove resource fork and other metadata - done
 echo Copy resources from StagingArea - start
 cp -rf ${STAGING_AREA} ${INFORM_APP_DIR}/Inform.app
 
+# Make the kit binaries newer than their sources, or compiling a project tries to rebuild the kits
+# inside the app, which fails where the app can't be written (signed, or sandboxed). Inform Core
+# doesn't protect kits inside its extensions from being rebuilt, and the copy above gives their
+# sources and binaries the same timestamps.
+KIT_BINARY_TIME=$(date -v+1S +%Y%m%d%H%M.%S)
+find "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal" -name "*.interb" -exec touch -t ${KIT_BINARY_TIME} {} +
+
 # Add symbolic links to the I6T folder
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L02/I6T"
 #ln -sf "${INFORM_APP_DIR}/Inform.app/Contents/Resources/Internal/I6T"       "${INFORM_APP_DIR}/Inform.app/Contents/Resources/retrospective/6L38/I6T"
