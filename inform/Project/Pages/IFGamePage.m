@@ -35,7 +35,7 @@
 - (void)drawRect:(NSRect)dirtyRect {
     // When the game is not running, show this view (semi transparent white) over the top.
     [[NSColor colorWithDeviceRed: 1.0 green: 1.0 blue: 1.0 alpha: 0.5] setFill];
-    NSRectFill(dirtyRect);
+    NSRectFill(NSIntersectionRect(dirtyRect, self.bounds));
     [super drawRect:dirtyRect];
 }
 @end

@@ -129,7 +129,7 @@
 - (void)drawRect:(NSRect)rect {
     // Draw the background
     [backgroundColour set];
-    NSRectFill(rect);
+    NSRectFill(NSIntersectionRect(rect, self.bounds));
 
     // Draw the message, if any
     if (message) {
