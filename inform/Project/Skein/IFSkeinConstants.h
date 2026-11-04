@@ -88,6 +88,10 @@ static const NSTimeInterval kSkeinAnimationArrowFadeIn        =   0.2  * kSkeinA
 static const NSTimeInterval kSkeinAnimationArrowFadeOut       =   0.01 * kSkeinAnimationMultiplier;
 static const NSTimeInterval kSkeinAnimationItemFadeIn         =   0.2  * kSkeinAnimationMultiplier;
 
+#pragma mark Mouse handling
+/// How far (in points) the mouse moves with the button down before a click on an item becomes a drag
+static const CGFloat kSkeinItemDragThreshold           =   5.0f;
+
 #pragma mark Derived constants
 static const CGFloat kSkeinLeftBorder   = kSkeinBorder;
 static const CGFloat kSkeinRightBorder  = kSkeinBorder;

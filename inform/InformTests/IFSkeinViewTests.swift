@@ -166,6 +166,27 @@ final class IFSkeinViewTests: XCTestCase {
         }
     }
 
+    /// A click on a knot that moves the mouse slightly is still a click, rather than the start of a drag.
+    /// (Only the small movement is tested: a drag would start a real drag session on the screen.)
+    func testSmallMovementDoesNotDragAKnot() throws {
+        let skein: IFSkein = IFSkein(project: nil)
+        let item = addThread(to: skein.rootItem, skein: skein, count: 2)
+        let (window, skeinView) = makeSkeinView(skein)
+        defer { window.close() }
+
+        let knot = try XCTUnwrap(knotViews(skeinView).first { $0.value(forKeyPath: "layoutItem.item") as? IFSkeinItem === item })
+        let centre = knot.convert(NSPoint(x: knot.bounds.midX, y: knot.bounds.midY), to: nil)
+        func event(_ type: NSEvent.EventType, at point: NSPoint) throws -> NSEvent {
+            return try XCTUnwrap(NSEvent.mouseEvent(with: type, location: point, modifierFlags: [], timestamp: 0,
+                                                    windowNumber: window.windowNumber, context: nil,
+                                                    eventNumber: 0, clickCount: 1, pressure: 1))
+        }
+
+        knot.mouseDown(with: try event(.leftMouseDown, at: centre))
+        knot.mouseDragged(with: try event(.leftMouseDragged, at: NSPoint(x: centre.x + 2, y: centre.y + 2)))
+        XCTAssertNil(skein.draggingItem)
+    }
+
     /// Laying the skein out again, as happens after every edit, keeps the scroll position.
     func testLayoutKeepsTheScrollPosition() throws {
         let skein: IFSkein = IFSkein(project: nil)

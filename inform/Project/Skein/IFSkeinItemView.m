@@ -111,6 +111,7 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 
     // Dragging
     BOOL             dragCanMove;
+    NSPoint          mouseDownLocation;
 }
 
 @synthesize layoutItem;
@@ -720,6 +721,12 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
     }
 }
 
+- (void) mouseDown: (NSEvent*) event {
+    // Remember where the click started, so that a small movement isn't taken for a drag
+    mouseDownLocation = event.locationInWindow;
+    [super mouseDown: event];
+}
+
 - (void) mouseUp: (NSEvent*) event {
     if( ( insideMenuArea ) && [self.skeinView hasMenu: layoutItem.item] ) {
         NSMenu* menu = [self.skeinView menuForItem: layoutItem.item];
@@ -760,6 +767,12 @@ static NSDictionary* itemTextRootUnselectedAttributes   = nil;
 - (void) mouseDragged: (NSEvent*) event {
     if( ![self canDragItem] ) {
         [super mouseDragged: event];
+        return;
+    }
+
+    // Wait until the mouse has moved far enough, so that a click that moves slightly is still a click
+    NSPoint location = event.locationInWindow;
+    if( hypot(location.x - mouseDownLocation.x, location.y - mouseDownLocation.y) < kSkeinItemDragThreshold ) {
         return;
     }
 
