@@ -10,6 +10,8 @@
 
 #import "IFSetting.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// The Z-Machine (or glulx) version settings
 ///
@@ -18,3 +20,5 @@
 @property (atomic) BOOL createBlorbForRelease;
 
 @end
+
+NS_ASSUME_NONNULL_END

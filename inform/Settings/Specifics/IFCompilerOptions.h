@@ -10,9 +10,13 @@
 
 #import "IFSetting.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// The version of the compiler to use (and whether or not to pre-process with NI)
 ///
 @interface IFCompilerOptions : IFSetting
 
 @end
+
+NS_ASSUME_NONNULL_END

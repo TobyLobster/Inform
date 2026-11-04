@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Variant of ZoomCollapsableView. Used to display the set of settings views.
 ///
@@ -26,3 +28,5 @@
 - (void) rearrangeSubviews;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -36,10 +36,10 @@ extern NSString* const IFSettingCreateBlorb;
 @property (atomic, readonly, copy) NSString *title;		// (OVERRIDE) Retrieves the title for these settings
 
 // Setting/retrieving the model
-/// The compiler settings object that this setting will use
-@property (atomic, weak) IFCompilerSettings *compilerSettings;
-/// Retrieves the settings dictionary for this object
-- (nullable NSMutableDictionary*) dictionary;
+/// The compiler settings object that this setting will use (\c nil until one is set, and once it has gone)
+@property (atomic, weak, nullable) IFCompilerSettings *compilerSettings;
+/// Retrieves the settings dictionary for this object (\c nil if there are no compiler settings)
+- (nullable NSMutableDictionary<NSString*, id>*) dictionary;
 
 // Communicating with the IFCompilerSettings object
 /// (OVERRIDE) Sets values in the compiler settings (or the dictionary) from the current UI choices
@@ -55,10 +55,10 @@ extern NSString* const IFSettingCreateBlorb;
 
 // Saving settings
 /// Retrieves the Plist dictionary for this setting
-@property (atomic, readonly, copy, nullable) NSDictionary *plistEntries;
-/// Updates the values for this setting from a Plist dictionary
+@property (atomic, readonly, copy, nullable) NSDictionary<NSString*, id> *plistEntries;
+/// Updates the values for this setting from a Plist dictionary (\c nil if the Plist has none for it)
 - (void) updateSettings: (IFCompilerSettings*) settings
-	   withPlistEntries: (NSDictionary*) entries;
+	   withPlistEntries: (nullable NSDictionary<NSString*, id>*) entries;
 
 @end
 

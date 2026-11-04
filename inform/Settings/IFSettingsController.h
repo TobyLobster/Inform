@@ -12,6 +12,8 @@
 @class IFCompilerSettings;
 #import "IFSetting.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Class used to manage a set of IFSettings
 ///
@@ -22,18 +24,18 @@
 + (void) addStandardSettingsClass: (Class) settingClass;
 
 /// Makes an array of settings objects using the classes added by addStandardSettingsClass:
-+ (NSMutableArray*) makeStandardSettings;
++ (NSMutableArray<IFSetting*>*) makeStandardSettings;
 
 // User interface
-/// Change/retrieve the settings view
-@property (nonatomic, strong) IBOutlet IFSettingsView *settingsView;
+/// Change/retrieve the settings view (\c nil until one is set)
+@property (nonatomic, strong, nullable) IBOutlet IFSettingsView *settingsView;
 
-/// Called when a setting changes
-- (IBAction) settingsHaveChanged: (id) sender;
+/// Called when a setting changes (\c sender is the IFSetting that changed; anything else, or \c nil, means all of them)
+- (IBAction) settingsHaveChanged: (nullable id) sender;
 
 // Model
-/// The compiler settings object that contains the settings data
-@property (nonatomic, strong) IBOutlet IFCompilerSettings *compilerSettings;
+/// The compiler settings object that contains the settings data (\c nil until one is set)
+@property (nonatomic, strong, nullable) IBOutlet IFCompilerSettings *compilerSettings;
 
 /// Gets every setting view to update its settings
 - (void) updateAllSettings;
@@ -43,3 +45,5 @@
 - (void) addSettingsObject: (IFSetting*) setting;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -10,6 +10,8 @@
 
 #import "IFSetting.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// Some miscellaneous Inform 6 settings
 ///
@@ -20,3 +22,5 @@
 @property (atomic) BOOL debug;
 
 @end
+
+NS_ASSUME_NONNULL_END

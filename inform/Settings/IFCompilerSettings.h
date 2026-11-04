@@ -10,6 +10,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 // The settings keys
 extern NSString* const IFSettingZCodeVersion; // default is 5, 256 = GLULX
 
@@ -44,8 +46,8 @@ extern NSString* const IFCompilerNaturalInform;
 
 /// The paths to Inform 6 libraries
 @property (class, atomic, readonly, copy) NSArray<NSString*> *inform6LibraryPaths;
-/// Path to an Inform 6 library with a specific name
-+ (NSString*) pathForLibrary: (NSString*) library;
+/// Path to an Inform 6 library with a specific name. \c nil if there isn't one.
++ (nullable NSString*) pathForLibrary: (NSString*) library;
 /// Set of available Inform 6 library
 @property (class, atomic, readonly, copy) NSArray<NSString*> *availableLibraries;
 
@@ -62,7 +64,8 @@ extern NSString* const IFCompilerNaturalInform;
 @property (atomic) BOOL basicInform;
 @property (atomic) BOOL testingTabHelpShown;
 @property (atomic) int  testingTabShownCount;
-@property (atomic) NSString * compilerVersion;
+/// The Inform 7 compiler version ("" if none is set). Setting \c nil clears it.
+@property (atomic, null_resettable) NSString * compilerVersion;
 
 
 @property (atomic, readwrite, setter=setZCodeVersion:) int zcodeVersion;
@@ -75,11 +78,11 @@ extern NSString* const IFCompilerNaturalInform;
 
 // Generic settings (IFSetting)
 /// Sets the set of IFSetting objects to use
-- (void)      setGenericSettings: (NSArray*) genericSettings;
+- (void)      setGenericSettings: (NSArray<IFSetting*>*) genericSettings;
 /// Gets the dictionary for a given IFSetting class
-- (NSMutableDictionary*) dictionaryForClass: (Class) cls;
-/// Gets the implementation of a given IFSetting class within this object
-- (IFSetting*) settingForClass: (Class) cls;
+- (NSMutableDictionary<NSString*, id>*) dictionaryForClass: (Class) cls;
+/// Gets the implementation of a given IFSetting class within this object. \c nil if there isn't one.
+- (nullable IFSetting*) settingForClass: (Class) cls;
 
 // Getting command line arguments, etc
 /// Retrieves the command line arguments to pass to the Inform 6 compiler
@@ -87,13 +90,13 @@ extern NSString* const IFCompilerNaturalInform;
 /// Retrieves the command line arguments to pass to the Inform 6 compiler. If \c release is YES, debugging options are turned off
 - (NSArray<NSString*>*) commandLineArgumentsForRelease: (BOOL) release
                                             forTesting: (BOOL) testing;
-/// Retrieves the path to the Inform 6 compiler that should be used
-@property (atomic, readonly, copy) NSString *inform6CompilerToUse;
+/// Retrieves the path to the Inform 6 compiler that should be used (nil if it can't be found)
+@property (atomic, readonly, copy, nullable) NSString *inform6CompilerToUse;
 /// Retrieves a list of supported Z-Machine versions for the Inform 6 compiler that should be used
 @property (atomic, readonly, copy) NSArray<NSNumber*> *supportedZMachines;
 
-/// Retrieves the path to the Natural Inform compiler to use (nil if ni shouldn't be used)
-@property (atomic, readonly, copy) NSString *naturalInformCompilerToUse;
+/// Retrieves the path to the Natural Inform compiler to use (nil if ni shouldn't be used, or can't be found)
+@property (atomic, readonly, copy, nullable) NSString *naturalInformCompilerToUse;
 /// Retrieves the command line arguments to use with the NI compiler
 @property (atomic, readonly, copy) NSArray<NSString*> *naturalInformCommandLineArguments;
 
@@ -102,11 +105,13 @@ extern NSString* const IFCompilerNaturalInform;
 - (void)	reloadAllSettings;
 /// Reloads the settings for a specific generic settings class from the original Plist values
 - (void)	reloadSettingsForClass: (NSString*) class;
-/// Generates a plist from the current settings
-@property (atomic, readonly, copy) NSData *currentPlist;
+/// Generates a plist from the current settings (nil if they can't be written as one)
+@property (atomic, readonly, copy, nullable) NSData *currentPlist;
 /// Restores the settings from a Plist file
 - (BOOL)    restoreSettingsFromPlist: (NSData*) plist;
 
 - (BOOL) isNaturalInformCompilerPathValid;
 
 @end
+
+NS_ASSUME_NONNULL_END
