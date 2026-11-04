@@ -143,6 +143,9 @@ Started November 2026, on the `extensions` branch. This is a living document: up
 ### Phase 5 – Swift, and separating logic from UI (goal 5)
 
 - First add nullability and generics annotations to the Objective-C headers.
+    - The rule: everything is non-null unless the implementation can return or accept nil, including when a file or resource might not be found or a string might not parse. Callers that pass nil count too. Each batch is checked with a build, the unit tests, and the analyser's nullability checks.
+    - Order, bottom-up: utilities and categories; then the model (skein, syntax, settings, extensions, project and compiler); then the controllers, pages and views.
+    - [x] Utilities and categories (4 November 2026, 06335e3a): `IFUtility`, the `NSString`, `NSAttributedString` and `NSBundle` categories, `IFViewAnimator`, `IFNotifyingWindow` and `IFSemVer`. Found on the way: a yes/no alert with no window (Delete Theme, overwriting a project) is run as a modal and then shown again as a sheet, so its delegate may be called twice. Also, `attributedStringWithFontSize:` is unused.
 - Classes that are already separate from the UI: add tests, then convert one-to-one, bottom-up (utilities and categories, then model classes).
 - Big controllers (`IFProjectController`, `IFCompilerController`, `IFSourcePage`, …): move one coherent piece of logic at a time into a new Swift class with no AppKit, with unit tests (for example a build pipeline that runs compile, inform6, blorb and tests). Once a controller is mostly UI, convert the rest one-to-one.
 - Replace RegexKitLite with `NSRegularExpression`.
