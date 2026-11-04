@@ -295,8 +295,9 @@
 -(NSString*) loadUUID {
     NSFileWrapper* uuidWrapper = bundleDirectory.fileWrappers[@"uuid.txt"];
     if (uuidWrapper != nil && uuidWrapper.regularFileContents != nil) {
-
-        NSString* uuidString = [NSString stringWithUTF8String:uuidWrapper.regularFileContents.bytes];
+        // The file's contents don't end with a NUL, so they can't be read as a C string
+        NSString* uuidString = [[NSString alloc] initWithData: uuidWrapper.regularFileContents
+                                                     encoding: NSUTF8StringEncoding];
         return uuidString;
     }
     return nil;
