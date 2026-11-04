@@ -8,6 +8,8 @@
 
 #import <AppKit/AppKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 // Highlight array contains entries of type NSArray
 //   Each entry contains (line, style) as NSNumbers
@@ -28,8 +30,10 @@
 @interface NSObject(IFSourceFileViewDelegate)
 
 /// User clicked on the top tear
-- (void) sourceFileShowPreviousSection: (id) sender;
+- (void) sourceFileShowPreviousSection: (nullable id) sender;
 /// User clicked on the bottom tear
-- (void) sourceFileShowNextSection: (id) sender;
+- (void) sourceFileShowNextSection: (nullable id) sender;
 
 @end
+
+NS_ASSUME_NONNULL_END

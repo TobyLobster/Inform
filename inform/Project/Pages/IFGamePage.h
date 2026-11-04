@@ -10,6 +10,8 @@
 #import <ZoomView/ZoomViewProtocols.h>
 #import "IFPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class GlkView;
 @class IFSkeinView;
 @class IFSkeinItem;
@@ -24,28 +26,28 @@
 
 #pragma mark - Properties
 /// The zoom view associated with the currently running game (\c nil if a GLK game is running)
-@property (atomic, readonly, strong) ZoomView *   zoomView;
-/// The glk view associated with the currently running game (if applicable)
-@property (atomic, readonly, strong) GlkView *    glkView;
+@property (atomic, readonly, strong, nullable) ZoomView *   zoomView;
+/// The glk view associated with the currently running game (\c nil if a Z-Machine game is running)
+@property (atomic, readonly, strong, nullable) GlkView *    glkView;
 /// \c YES if a game is running
-@property (atomic, readonly)         BOOL         isRunningGame;
+@property (atomic, readonly)                   BOOL         isRunningGame;
 
-@property (atomic, readonly)         BOOL         disableLogo;
+@property (atomic, readonly)                   BOOL         disableLogo;
 
 #pragma mark - Methods
-- (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProjectController: (nullable IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
 
 /// Notify that the next game run should be run with debugging on (breakpoints will be set)
 - (void) activateDebug;
 /// Sets the skein item to run to as soon as the game has started
-- (void) setPointToRunTo: (IFSkeinItem*) item;
+- (void) setPointToRunTo: (nullable IFSkeinItem*) item;
 /// Sets whether or not a 'test me' command should be generated (provided that there is no 'point to run to')
 - (void) setTestMe: (BOOL) willTestMe;
 /// Sets the list of commands to run, in the order they are typed (assuming there's no point to run to, and no testMe)
-- (void) setTestCommands: (NSArray*) testCommands;
+- (void) setTestCommands: (nullable NSArray<NSString*>*) testCommands;
 /// An input source that types the test commands in order, for either kind of game, or \c nil if there are none.
 /// The commands are cleared, so they are only typed once.
-- (id<ZoomViewInputSource>) takeTestCommands;
+- (nullable id<ZoomViewInputSource>) takeTestCommands;
 /// Do we want to switch to the game page?
 - (void) setSwitchToPage: (BOOL) switchToPage;
 /// Do we have test commands?
@@ -59,3 +61,5 @@
 - (void) pauseRunningGame;
 
 @end
+
+NS_ASSUME_NONNULL_END

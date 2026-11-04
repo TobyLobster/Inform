@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 ///
 /// A cell that can be placed on the left or right of the IFPageBarView.
@@ -18,7 +20,7 @@
 @interface IFPageBarCell : NSActionCell
 
 /// Gets the identifier for this cell
-@property (atomic, strong) id identifier;
+@property (atomic, strong, nullable) id identifier;
 
 /// Sets the key equivalent for this cell
 - (void) setKeyEquivalent: (NSString*) keyEquivalent;
@@ -33,14 +35,14 @@
 /// Request to run the pop-up
 - (void) showPopupAtPoint: (NSPoint) pointInWindow;
 /// The pop-up menu
-- (void) setMenu: (NSMenu*) menu;
+- (void) setMenu: (nullable NSMenu*) menu;
 
 /// Acting as part of a radio group
 @property (atomic) int radioGroup;
 
 // Acting as a tab (you'll need to implement another control to make this work)
 /// The view to display for this item
-@property (atomic, strong) NSView *view;
+@property (atomic, strong, nullable) NSView *view;
 
 @end
 
@@ -53,3 +55,5 @@
 - (void) setIsRight: (BOOL) isRight;
 
 @end
+
+NS_ASSUME_NONNULL_END

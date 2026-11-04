@@ -10,6 +10,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(int, IFIndexTabType) {
     IFIndexWelcome      = 1,
 	IFIndexContents     = 2,
@@ -39,8 +41,10 @@ typedef NS_ENUM(int, IFIndexTabType) {
 /// Chooses a specific tab
 - (void) switchToTab: (int) tabIdentifier;
 /// Switches to the page specified by the given cell
-- (IBAction) switchToCell: (id) sender;
+- (IBAction) switchToCell: (nullable id) sender;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

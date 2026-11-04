@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFPageBarCell;
 
 ///
@@ -18,7 +20,7 @@
 #pragma mark - Drawing
 
 /// The unselected background image
-+ (NSImage*) normalImage;
++ (nullable NSImage*) normalImage;
 
 /// Draws (part of) the background image for this bar
 + (void) drawOverlay: (NSColor*) overlay
@@ -31,18 +33,20 @@
 /// Sets whether or not this page bar accepts keyboard input
 - (void) setIsActive: (BOOL) isActive;
 
-/// Sets the set of cells displayed on the left
-- (void) setLeftCells: (NSArray*) leftCells;
-/// Sets the set of cells displayed on the right
-- (void) setRightCells: (NSArray*) rightCells;
+/// Sets the set of cells displayed on the left (nil for none)
+- (void) setLeftCells: (nullable NSArray<NSCell*>*) leftCells;
+/// Sets the set of cells displayed on the right (nil for none)
+- (void) setRightCells: (nullable NSArray<NSCell*>*) rightCells;
 
 /// Forces the cells to be measured and laid out appropriately for this control
 - (void) layoutCells;
 
 /// Last cell that was tracked by this control (eg, because the user clicked on it)
-@property (atomic, readonly, weak) NSCell *lastTrackedCell;
+@property (atomic, readonly, weak, nullable) NSCell *lastTrackedCell;
 /// Sets the state for the specified cell (deals with radio group changes: probably only useful for IFPageBarCell)
 - (void) setState: (int) state
 		  forCell: (IFPageBarCell*) cell;
 
 @end
+
+NS_ASSUME_NONNULL_END

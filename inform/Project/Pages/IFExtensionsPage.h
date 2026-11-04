@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// The 'extensions' page
 ///
@@ -19,10 +21,10 @@
 - (void) openURL: (NSURL*) url;
 
 /// Opens the home page
-- (IBAction) showHome: (id) sender;
+- (IBAction) showHome: (nullable id) sender;
 
 /// Show the public library
-- (void) showPublicLibrary: (id) sender;
+- (void) showPublicLibrary: (nullable id) sender;
 
 - (void) extensionUpdated:(NSString*) javascriptId;
 
@@ -30,3 +32,5 @@
                                   withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -8,9 +8,12 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProject;
 @class IFProjectController;
 @class IFProjectPane;
+@class IFPageBarCell;
 
 #pragma mark Page notifications
 
@@ -36,24 +39,20 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 @interface IFPage : NSObject
 
 /// The project controller that 'owns' this page
-@property (atomic, readonly, weak) IFProjectController* parent;
+@property (atomic, readonly, weak, nullable) IFProjectController* parent;
 /// The pane that is opposite to this one (or nil)
-@property (atomic, readwrite, weak) IFProjectPane* otherPane;
+@property (atomic, readwrite, weak, nullable) IFProjectPane* otherPane;
 /// The pane for this page
-@property (atomic, readwrite, weak) IFProjectPane* thisPane;
+@property (atomic, readwrite, weak, nullable) IFProjectPane* thisPane;
 /// The view to display for this page
 @property (nonatomic, readonly, strong) IBOutlet NSView* view;
 
 
 #pragma mark - Initialising
 - (instancetype) initWithNibName: (NSString*) nib
-               projectController: (IFProjectController*) controller;
+               projectController: (nullable IFProjectController*) controller;
 /// The history recorder for this item [NOT RETAINED]
-@property (atomic, readwrite, weak) id<IFHistoryRecorder> recorder;
-/// Sets the pane that this page is contained within
-- (void) setThisPane: (IFProjectPane*) thisPane;
-/// Sets the pane to be considered 'opposite' to this one
-- (void) setOtherPane: (IFProjectPane*) otherPane;
+@property (atomic, readwrite, weak, nullable) id<IFHistoryRecorder> recorder;
 /// Called when the owning object has finished with this object
 - (void) finished;
 
@@ -64,14 +63,14 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 - (void) switchToPage;
 /// Request that the UI switches to displaying a specific page
 - (void) switchToPageWithIdentifier: (NSString*) identifier
-						   fromPage: (NSString*) oldIdentifier;
+						   fromPage: (nullable NSString*) oldIdentifier;
 /// Called when this page becomes active
 - (void) didSwitchToPage;
 /// Called when this page is no longer active
 - (void) didSwitchAwayFromPage;
 
-/// Returns a proxy object that can be used to record history actions
-@property (atomic, readonly, strong) id history;
+/// Returns a proxy object that can be used to record history actions (nil if there's no recorder)
+@property (atomic, readonly, strong, nullable) id history;
 
 #pragma mark - Page properties
 /// The name of the tab this page appears under
@@ -87,10 +86,12 @@ extern NSNotificationName const IFUpdatePageBarCellsNotification;
 
 #pragma mark - Dealing with the page bar
 /// The cells to put on the page bar for this item
-@property (atomic, readonly, copy) NSArray *toolbarCells;
+@property (atomic, readonly, copy) NSArray<IFPageBarCell*> *toolbarCells;
 /// Call to cause the set of cells being displayed in the toolbar to be updated
 - (void) toolbarCellsHaveUpdated;
 
 - (void) willClose;
 
 @end
+
+NS_ASSUME_NONNULL_END

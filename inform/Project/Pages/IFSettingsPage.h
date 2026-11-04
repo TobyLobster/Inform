@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSettingsController;
 
 ///
@@ -26,3 +28,5 @@
 @property (atomic, strong) IBOutlet IFSettingsController*  settingsController;
 
 @end
+
+NS_ASSUME_NONNULL_END

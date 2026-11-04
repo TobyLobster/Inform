@@ -10,6 +10,8 @@
 #import "IFPage.h"
 #import <WebKit/WebKit.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkeinView;
 
 ///
@@ -27,3 +29,5 @@
 -(BOOL) selectSkeinItemWithNodeId:(unsigned long) skeinItemNodeId;
 
 @end
+
+NS_ASSUME_NONNULL_END

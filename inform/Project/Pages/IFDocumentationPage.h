@@ -10,6 +10,8 @@
 #import <Cocoa/Cocoa.h>
 #import "IFPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 ///
 /// The 'documentation' page
 ///
@@ -19,9 +21,11 @@
 /// Tells the documentation view to open a specific URL
 - (void) openURL: (NSURL*) url;
 /// Opens the table of contents
-- (IBAction) showToc: (id) sender;
+- (IBAction) showToc: (nullable id) sender;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller
                                   withPane: (IFProjectPane*) pane NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

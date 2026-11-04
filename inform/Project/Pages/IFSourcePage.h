@@ -11,15 +11,17 @@
 #import "IFPage.h"
 #import "IFHeaderPage.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFIntelFile;
 
 @protocol IFSourceNavigation <NSObject>
 
 #pragma mark Navigating through sections
 /// User clicked on the top tear
-- (void) sourceFileShowPreviousSection: (id) sender;
+- (void) sourceFileShowPreviousSection: (nullable id) sender;
 /// User clicked on the bottom tear
-- (void) sourceFileShowNextSection: (id) sender;
+- (void) sourceFileShowNextSection: (nullable id) sender;
 
 @end
 
@@ -50,11 +52,11 @@
 - (void) pasteSourceCode: (NSString*) sourceCode;
 
 /// Shows the source file with the given filename in the view
-- (void) showSourceFile: (NSString*) file;
+- (void) showSourceFile: (nullable NSString*) file;
 /// Returns the unprocessed name of the currently open file (currentFile is usually more appropriate than this)
-@property (atomic, readonly, copy) NSString *openSourceFilepath;
+@property (atomic, readonly, copy, nullable) NSString *openSourceFilepath;
 /// Returns the currently displayed filename
-@property (atomic, readonly, copy) NSString *currentFile;
+@property (atomic, readonly, copy, nullable) NSString *currentFile;
 /// Returns the line the cursor is currently on
 @property (atomic, readonly) int currentLine;
 
@@ -64,25 +66,27 @@
 - (void) updateHighlightedLines;
 
 /// The active IntelFile object for the current view (ie, the object that's dealing with auto-tabs, the dynamic index, etc)
-@property (atomic, readonly, strong) IFIntelFile *currentIntelligence;
+@property (atomic, readonly, strong, nullable) IFIntelFile *currentIntelligence;
 
 /// Sets check-as-you-type on or off
 - (void) setSpellChecking: (BOOL) checkSpelling;
 
 #pragma mark - The header page
-- (IBAction) showHeaderPage: (id) sender;
-- (IBAction) hideHeaderPage: (id) sender;
-- (IBAction) toggleHeaderPage: (id) sender;
+- (IBAction) showHeaderPage: (nullable id) sender;
+- (IBAction) hideHeaderPage: (nullable id) sender;
+- (IBAction) toggleHeaderPage: (nullable id) sender;
 
 /// Shows the section containing the beginning of the selection
-- (IBAction) showCurrentSectionOnly: (id) sender;
+- (IBAction) showCurrentSectionOnly: (nullable id) sender;
 /// Decreases the number of headings displayed around the cursor
-- (IBAction) showFewerHeadings: (id) sender;
+- (IBAction) showFewerHeadings: (nullable id) sender;
 /// Increases the number of headings displayed around the cursor
-- (IBAction) showMoreHeadings: (id) sender;
+- (IBAction) showMoreHeadings: (nullable id) sender;
 /// Displays the entire source code, keeping the cursor in the same position
-- (IBAction) showEntireSource: (id) sender;
+- (IBAction) showEntireSource: (nullable id) sender;
 
 - (instancetype) initWithProjectController: (IFProjectController*) controller NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END
