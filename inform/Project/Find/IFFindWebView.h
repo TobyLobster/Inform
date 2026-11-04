@@ -15,13 +15,4 @@
 /// WKWebView category that implements the find controller delegate functions
 ///
 @interface WKWebView(IFFindWebView) <IFFindDelegate>
-
-- (void) findNextMatch: (NSString*) match
-                ofType: (IFFindType) type
-     completionHandler: (void (^)(bool result))completionHandler;
-
-- (void) findPreviousMatch: (NSString*) match
-                    ofType: (IFFindType) type
-         completionHandler: (void (^)(bool result))completionHandler;
-
 @end

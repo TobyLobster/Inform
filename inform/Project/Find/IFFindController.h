@@ -48,13 +48,13 @@
 
 // Basic interface (all searchable objects must implement this)
 /// Request to find the next match
-- (BOOL) findNextMatch:	(NSString*) match
+- (void) findNextMatch:	(NSString*) match
 				ofType: (IFFindType) type
      completionHandler: (void (^)(bool result))completionHandler;
 @optional
 
 /// Request to find the previous match
-- (BOOL) findPreviousMatch: (NSString*) match
+- (void) findPreviousMatch: (NSString*) match
 					ofType: (IFFindType) type
          completionHandler: (void (^)(bool result))completionHandler;
 
