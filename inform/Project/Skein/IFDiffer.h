@@ -7,6 +7,8 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 typedef NS_ENUM(int, EFormOfEdit) {
     DELETE_EDIT           = -1,
     PRESERVE_EDIT         =  0,
@@ -29,12 +31,14 @@ typedef NS_ENUM(int, EFormOfEdit) {
 // *******************************************************************************************
 @interface IFDiffer : NSObject
 
-@property (atomic) NSString*       ideal;
-@property (atomic) NSString*       actual;
-@property (atomic) NSMutableArray* differences;
+@property (atomic, nullable) NSString*       ideal;
+@property (atomic, nullable) NSString*       actual;
+@property (atomic) NSMutableArray<IFDiffEdit*>* differences;
 
 
--(BOOL) diffIdeal: (NSString*) theIdeal
-           actual: (NSString*) theActual;
+-(BOOL) diffIdeal: (nullable NSString*) theIdeal
+           actual: (nullable NSString*) theActual;
 
 @end
+
+NS_ASSUME_NONNULL_END

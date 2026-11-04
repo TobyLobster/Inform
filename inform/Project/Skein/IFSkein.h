@@ -10,6 +10,8 @@
 
 @class IFSkeinItem;
 
+NS_ASSUME_NONNULL_BEGIN
+
 extern NSString* const IFSkeinChangedNotification;
 extern NSString* const IFSkeinReplacedNotification;
 extern NSString* const IFSkeinChangedAnimateKey;
@@ -29,16 +31,16 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 // Retrieving the root / active / selected skein item
 @property (atomic, readonly, strong)  IFSkeinItem * rootItem;
-@property (atomic, strong)            IFSkeinItem * activeItem;
-@property (atomic, strong)            IFSkeinItem * winningItem;
+@property (atomic, strong, nullable)  IFSkeinItem * activeItem;
+@property (atomic, strong, nullable)  IFSkeinItem * winningItem;
 @property (atomic)                    BOOL          skeinChanged;
 
 
 // Get the list of commands previously executed
-@property (atomic, readonly, strong)  NSMutableArray* previousCommands;
+@property (atomic, readonly, strong)  NSMutableArray<NSString*>* previousCommands;
 
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithProject:(IFProject*) theProject NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithProject:(nullable IFProject*) theProject NS_DESIGNATED_INITIALIZER;
 
 // Acting as an output receiver
 - (void) inputCommand:   (NSString*) command;
@@ -48,7 +50,7 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 - (void) interpreterRestart;
 - (void) interpreterStop;
 
-- (BOOL) isTheWinningItem: (IFSkeinItem *) item;
+- (BOOL) isTheWinningItem: (nullable IFSkeinItem *) item;
 
 // Dirty flags
 /// Does the skein need laying out?
@@ -65,29 +67,29 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 
 
 // Creating an input receiver
-+ (id<ZoomViewInputSource>) inputSourceFromSkeinItem: (IFSkeinItem*) item1
-                                              toItem: (IFSkeinItem*) item2;
++ (nullable id<ZoomViewInputSource>) inputSourceFromSkeinItem: (nullable IFSkeinItem*) item1
+                                                       toItem: (nullable IFSkeinItem*) item2;
 
 
 // Converting to strings / other file formats
-- (NSString*) transcriptToPoint: (IFSkeinItem*) item;
+- (NSString*) transcriptToPoint: (nullable IFSkeinItem*) item;
 
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *nodeToReport;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) IFSkeinItem *nodeToReport;
 @property (NS_NONATOMIC_IOSONLY, readonly, copy) NSString *reportStateForSkein;
 
 // Dragging
 /// Current item being dragged
-@property (atomic) IFSkeinItem*   draggingItem;
+@property (atomic, nullable) IFSkeinItem*   draggingItem;
 /// Used to animate after dragging
 @property (atomic) BOOL           draggingSourceNeedsUpdating;
 
 // Undo helpers
-- (void) setParentOf:                   (IFSkeinItem*) item parent:         (IFSkeinItem*) newParent;
+- (void) setParentOf:                   (IFSkeinItem*) item parent:         (nullable IFSkeinItem*) newParent;
 - (void) removeFromChildrenArrayOf:     (IFSkeinItem*) item itemToRemove:   (IFSkeinItem*) itemToRemove;
 - (void) addToChildrenArrayOf:          (IFSkeinItem*) item itemToAdd:      (IFSkeinItem*) itemToAdd;
-- (void) setCommandOf:                  (IFSkeinItem*) item command:        (NSString*) newCommand;
-- (void) setIdealOf:                    (IFSkeinItem*) item ideal:          (NSString*) newIdeal;
-- (void) setActualOf:                   (IFSkeinItem*) item actual:         (NSString*) newActual;
+- (void) setCommandOf:                  (IFSkeinItem*) item command:        (nullable NSString*) newCommand;
+- (void) setIdealOf:                    (IFSkeinItem*) item ideal:          (nullable NSString*) newIdeal;
+- (void) setActualOf:                   (IFSkeinItem*) item actual:         (nullable NSString*) newActual;
 - (void) setIsTestSubItemWithNSNumberOf:(IFSkeinItem*) item isTestSubItemWithNSNumber: (NSNumber*)newIsTestSubItem;
 
 @end
@@ -103,3 +105,5 @@ extern NSString* const IFSkeinSelectionChangedItemKey;
 - (BOOL)        parseXmlData: (NSData*) data;
 
 @end
+
+NS_ASSUME_NONNULL_END

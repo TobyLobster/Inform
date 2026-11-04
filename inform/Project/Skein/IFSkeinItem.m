@@ -32,9 +32,7 @@ NSString* const IFSkeinItemPboardType = @"com.inform7.IFSkeinItemPboardType";
 - (instancetype) init {
     self = [super init];
     if(self) {
-        _diffCachedResult = NULL;
         differencesHash = 0;
-        _children = NULL;
         // I don't think we use this init...
         assert(false);
     }

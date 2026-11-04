@@ -11,6 +11,8 @@
 @class IFDiffer;
 @class IFSkein;
 
+NS_ASSUME_NONNULL_BEGIN
+
 /// Paseboard type for drag and drop
 extern NSString* const IFSkeinItemPboardType;
 
@@ -22,17 +24,17 @@ extern NSString* const IFSkeinItemPboardType;
 
 #pragma mark - Initialization
 - (instancetype) init NS_UNAVAILABLE NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithSkein:(IFSkein*) skein command: (NSString*) com NS_DESIGNATED_INITIALIZER;
--(instancetype) initWithCoder: (NSCoder *) decoder NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithSkein:(nullable IFSkein*) skein command: (nullable NSString*) com NS_DESIGNATED_INITIALIZER;
+-(nullable instancetype) initWithCoder: (NSCoder *) decoder NS_DESIGNATED_INITIALIZER;
 
 #pragma mark - Properties
 @property (atomic, readonly)          unsigned long   uniqueId;
-@property (atomic, strong)            IFSkein *       skein;
-@property (nonatomic, weak)           IFSkeinItem *   parent;
+@property (atomic, strong, nullable)  IFSkein *       skein;
+@property (nonatomic, weak, nullable) IFSkeinItem *   parent;
 @property (atomic, readonly, copy)    NSArray<IFSkeinItem*> *       children;
-@property (nonatomic, copy)           NSString *      command;        // Command
-@property (nonatomic, copy)           NSString *      actual;         // Latest actual output from the game
-@property (nonatomic, copy)           NSString *      ideal;          // The ideal version of the output
+@property (nonatomic, copy, null_resettable) NSString * command;        // Command
+@property (nonatomic, copy, null_resettable) NSString * actual;         // Latest actual output from the game
+@property (nonatomic, copy, null_resettable) NSString * ideal;          // The ideal version of the output
 @property (nonatomic)                 BOOL            isTestSubItem;  // Is node a result of a "test me" style command?
 @property (atomic)                    IFDiffer*       diffCachedResult;       // Differences
 
@@ -40,15 +42,15 @@ extern NSString* const IFSkeinItemPboardType;
 
 #pragma mark - Methods
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) IFSkeinItem *rootItem;
--(BOOL)             hasDescendant: (IFSkeinItem*) child;                                    // Recursive
-- (IFSkeinItem*)    childWithCommand: (NSString*) com isTestSubItem:(BOOL) isTestSubItem;   // Not recursive
-@property (NS_NONATOMIC_IOSONLY, readonly, copy) NSArray<IFSkeinItem *> *nonTestChildren;
+-(BOOL)             hasDescendant: (nullable IFSkeinItem*) child;                                    // Recursive
+- (nullable IFSkeinItem*) childWithCommand: (NSString*) com isTestSubItem:(BOOL) isTestSubItem;   // Not recursive
+@property (NS_NONATOMIC_IOSONLY, readonly, copy, nullable) NSArray<IFSkeinItem *> *nonTestChildren;
 
 -(IFSkeinItem*)     addChild: (IFSkeinItem*) childItem;
 -(void)             removeFromParent;
 
 +(BOOL)             isTestCommand:(NSString*) command;
--(IFSkeinItem*)     findItemWithNodeId: (unsigned long) skeinNodeId;
+-(nullable IFSkeinItem*) findItemWithNodeId: (unsigned long) skeinNodeId;
 
 #pragma mark - Undo helpers
 -(void)             removeFromChildrenArray: (IFSkeinItem*) itemToRemove;
@@ -56,8 +58,8 @@ extern NSString* const IFSkeinItemPboardType;
 -(void)             setIsTestSubItemWithNSNumber: (NSNumber*)newIsTestSubItem;
 
 #pragma mark - Handling prompts
-+(NSString*) promptForString: (NSString*) string;
-+(NSString*) stringByRemovingPrompt: (NSString*) string;
++(NSString*) promptForString: (nullable NSString*) string;
++(NSString*) stringByRemovingPrompt: (nullable NSString*) string;
 
 #pragma mark - Differences
 @property (NS_NONATOMIC_IOSONLY, readonly, strong) IFDiffer *differences;
@@ -80,3 +82,5 @@ extern NSString* const IFSkeinItemPboardType;
 -(void) forceCommandSizeChangeRecursively;
 
 @end
+
+NS_ASSUME_NONNULL_END
