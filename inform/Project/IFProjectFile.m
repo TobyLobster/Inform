@@ -134,6 +134,10 @@
 		if (settingsFile == nil) {
 			return nil;
 		}
+		if (!settingsFile.regularFile) {
+			// A folder has no settings to read
+			return [[IFCompilerSettings alloc] init];
+		}
 
 		NSData* settingsData = settingsFile.regularFileContents;
         NSError* error;
@@ -156,8 +160,11 @@
 	} else {
 		// New-style loading
 		IFCompilerSettings* newSettings = [[IFCompilerSettings alloc] init];
-		
-		[newSettings restoreSettingsFromPlist: settingsFile.regularFileContents];
+
+		// A folder has no settings to read
+		if (settingsFile.regularFile) {
+			[newSettings restoreSettingsFromPlist: settingsFile.regularFileContents];
+		}
 		
 		return newSettings;
 	}
