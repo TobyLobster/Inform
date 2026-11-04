@@ -20,4 +20,16 @@ final class IFProjectFileTests: XCTestCase {
 
         XCTAssertEqual(projectFile.loadUUID, uuid)
     }
+
+    /// Reloading the Source folder when it's missing on disk leaves the project without one.
+    func testReplacingTheSourceFolderWithNothingRemovesIt() throws {
+        let source = FileWrapper(directoryWithFileWrappers: [:])
+        source.preferredFilename = "Source"
+        let project = FileWrapper(directoryWithFileWrappers: ["Source": source])
+        let projectFile = try XCTUnwrap(IFProjectFile(fileWrapper: project))
+
+        projectFile.replaceSourceDirectoryWrapper(nil)
+
+        XCTAssertNil(project.fileWrappers?["Source"])
+    }
 }

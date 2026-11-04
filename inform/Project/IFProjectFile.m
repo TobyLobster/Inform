@@ -310,7 +310,9 @@
 -(void) replaceSourceDirectoryWrapper: (NSFileWrapper*) newWrapper {
     // Replace the source file wrapper
     [bundleDirectory removeFileWrapper: bundleDirectory.fileWrappers[@"Source"]];
-    [bundleDirectory addFileWrapper: newWrapper];
+    if( newWrapper != nil ) {
+        [bundleDirectory addFileWrapper: newWrapper];
+    }
 }
 
 -(void) replaceIndexDirectoryWrapper: (NSFileWrapper*) newWrapper {
