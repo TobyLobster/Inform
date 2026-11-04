@@ -23,6 +23,8 @@
 - (void) doCopyProject: (NSURL*) source
                     to: (NSURL*) destination;
 
+/// Shows the About panel, including the Inform compiler version
+- (IBAction) showAbout: (id) sender;
 /// Shows the preferences window
 - (IBAction) showPreferences: (id) sender;
 /// Displays an error about not being able to show help yet

@@ -547,6 +547,15 @@ static NSRunLoop* mainRunLoop = nil;
 
 #pragma mark - Some misc actions
 
+- (IBAction) showAbout: (id) sender {
+	NSString* bundleVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleVersion"];
+	NSString* informVersion = [IFUtility coreBuildVersion];
+	NSDictionary* options = @{
+		NSAboutPanelOptionVersion: [NSString stringWithFormat: @"%@, Inform %@", bundleVersion, informVersion],
+	};
+	[NSApp orderFrontStandardAboutPanelWithOptions: options];
+}
+
 - (IBAction) showPreferences: (id) sender {
 #if defined(DEBUG_EXPORT_HELP_IMAGES)
     [IFSkeinItemView exportHelpImages];
