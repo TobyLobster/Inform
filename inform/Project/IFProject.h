@@ -12,7 +12,6 @@
 @class IFCompiler;
 @class IFCompilerSettings;
 @class IFProjectFile;
-@class IFIndexFile;
 @class IFInTest;
 @class IFInBuild;
 @class IFSyntaxTypes;
@@ -40,7 +39,6 @@
 
 // 'Subsidiary' files
 @property (atomic, readonly, copy)    NSTextStorage *       notes;
-@property (atomic, readonly, strong)  IFIndexFile *         indexFile;
 @property (atomic, readonly, strong)  IFSkein *             currentSkein;
 @property (atomic, readonly, strong)  NSMutableArray *      skeins;
 
@@ -74,7 +72,6 @@
 - (void) openMaterials;
 
 #pragma mark - Loading, saving and clean up
-- (void) reloadIndexFile;
 - (void) reloadIndexDirectory;
 - (void) reloadDirectory;
 - (void) reloadSourceDirectory;

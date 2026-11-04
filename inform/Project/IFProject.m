@@ -23,7 +23,6 @@
 #import "IFInTest.h"
 #import "IFInBuild.h"
 #import "IFProjectFile.h"
-#import "IFIndexFile.h"
 #import "IFSkein.h"
 #import "IFSkeinItem.h"
 
@@ -39,7 +38,6 @@
     NSString*               mainSource;
 
     NSTextStorage*          notes;
-    IFIndexFile*            indexFile;
 
     BOOL                    editingExtension;
     BOOL                    singleFile;
@@ -145,10 +143,6 @@
 
 - (NSURL*) indexDirectoryURL {
     return [self.fileURL URLByAppendingPathComponent: @"Index"];
-}
-
-- (NSURL*) indexHeadingsFileURL {
-    return [self.indexDirectoryURL URLByAppendingPathComponent: @"Headings.xml"];
 }
 
 - (NSURL*) settingsFileURL {
@@ -681,9 +675,6 @@
     // Load UUID, if present
     uuid = projectFile.loadUUID;
 
-    // Load the index file (if present)
-    [self reloadIndexFile];
-
     [self breakpointsHaveChanged];
     return YES;
 }
@@ -1145,20 +1136,6 @@
 
 - (NSTextStorage*) notes {
 	return notes;
-}
-
-#pragma mark - The index file
-
-@synthesize indexFile;
-
-- (void) reloadIndexFile {
-	if (singleFile) return; // Nothing to do
-    NSError *err;
-
-	indexFile = [[IFIndexFile alloc] initWithContentsOfURL: self.indexHeadingsFileURL error: &err];
-    if (!indexFile) {
-        NSLog(@"IFIndexFile: found no data: %@", err);
-    }
 }
 
 - (void) reloadIndexDirectory {

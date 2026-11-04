@@ -1110,9 +1110,6 @@ static CGFloat const      minDividerWidth     = 75.0f;
         [pane.indexPage updateIndexView];
     }
 
-    // Reload the index file
-    [self.document reloadIndexFile];
-
     // Make a report if there was an error while compiling a test case
     NSURL* reportURL = nil;
     if( self.currentlyTesting ) {
