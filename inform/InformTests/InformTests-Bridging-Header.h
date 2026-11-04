@@ -23,4 +23,6 @@
 #import "IFWebViewHelper.h"
 #import "IFRuntimeErrorParser.h"
 #import "IFCompilerSettings.h"
+#import "IFNaturalIntel.h"
+#import "IFSourceSharedActions.h"
 #import "IFGamePage.h"

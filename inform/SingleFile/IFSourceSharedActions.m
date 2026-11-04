@@ -221,9 +221,13 @@
 		int sectionNumber = words.count>1 ? [words[1] intValue] : 0;
 		
 		if (sectionNumber > 0) {
-			// This looks like something we can renumber... Get the preceding number
-			int lastLineNumber = [lineInfo[1] intValue];
-			NSArray* lastWords = [[IFSyntaxManager textForLineWithStorage: storage lineNumber: lastLineNumber] componentsSeparatedByString: @" "];
+			// This looks like something we can renumber... Get the preceding number (none for the first section)
+			NSUInteger lastLineNumber = [lineInfo[1] unsignedIntegerValue];
+			NSString* lastLine = @"";
+			if (lastLineNumber != NSNotFound) {
+				lastLine = [IFSyntaxManager textForLineWithStorage: storage lineNumber: (int) lastLineNumber];
+			}
+			NSArray* lastWords = [lastLine componentsSeparatedByString: @" "];
 
 			int lastSectionNumber = lastWords.count>1?[lastWords[1] intValue]:0;
 			

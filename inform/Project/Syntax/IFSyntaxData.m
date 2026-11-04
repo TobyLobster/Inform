@@ -1607,7 +1607,7 @@ static inline BOOL IsLineEnd(unichar c) {
 }
 
 - (NSString*) textForLine: (int) lineNumber {
-	if (lineNumber >= nLines) return @"";
+	if (lineNumber < 0 || lineNumber >= nLines) return @"";
 	
 	// Get the start/end of the line
 	NSInteger lineStart = lineStarts[lineNumber];
