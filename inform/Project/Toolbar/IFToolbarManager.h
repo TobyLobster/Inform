@@ -27,7 +27,7 @@
 /// Array of availabale test cases
 @property (atomic, readonly, strong)  NSArray*        testCases;
 
-@property (atomic, readonly, strong)  IFProjectController* projectController;
+@property (atomic, readonly, weak)    IFProjectController* projectController;
 
 // Progress
 - (void) updateProgress;
