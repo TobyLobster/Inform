@@ -18,3 +18,5 @@
 #import "IFPreferences.h"
 #import "IFSyntaxManager.h"
 #import "IFProject.h"
+#import "IFProjectController.h"
+#import "IFWebViewHelper.h"

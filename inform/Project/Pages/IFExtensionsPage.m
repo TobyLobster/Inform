@@ -160,11 +160,7 @@
     if (![urlString isEqualToString:[IFUtility publicLibraryURL].absoluteString]) {
         if (project.useNewExtensions) {
             // If the file doesn't exist, then show a default error page
-            NSString* path = [NSBundle mainBundle].resourcePath;
-            path = [IFUtility pathForInformInternalAppSupport:@""];
-            path = [path stringByAppendingPathComponent: @"HTML"];
-            path = [path stringByAppendingPathComponent: @"NoExtensions.html"];
-            url = [NSURL fileURLWithPath: path];
+            url = [NSURL URLWithString: @"inform:/NoExtensions.html"];
         }
     }
 
