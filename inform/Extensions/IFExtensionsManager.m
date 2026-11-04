@@ -904,10 +904,13 @@ didReceiveResponse: (NSURLResponse *)response
     if( [extensionString.lowercaseString startsWith:@"version "] ) {
         NSRange versionRange = [extensionString rangeOfString: @" of "
                                                       options: NSCaseInsensitiveSearch];
-        versionName     = [extensionString substringToIndex:   versionRange.location];
-        
-        // Remove the version
-        extensionString = [extensionString substringFromIndex: versionRange.location + versionRange.length];
+        // Without an ' of ', 'Version' is part of the title
+        if (versionRange.location != NSNotFound) {
+            versionName     = [extensionString substringToIndex:   versionRange.location];
+
+            // Remove the version
+            extensionString = [extensionString substringFromIndex: versionRange.location + versionRange.length];
+        }
     }
 
     // Find title name
@@ -916,7 +919,7 @@ didReceiveResponse: (NSURLResponse *)response
         NSRange byPosition = [extensionString rangeOfString: @" by "
                                                     options: NSCaseInsensitiveSearch];
         // Must have a ' by '
-        if (byPosition.location == NSNotFound) return NO;
+        if (byPosition.location == NSNotFound) return IFExtensionNotValid;
 
         titleName = [extensionString substringToIndex: byPosition.location];
 
