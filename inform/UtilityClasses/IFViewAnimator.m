@@ -113,7 +113,9 @@
 		frame.size = originalView.frame.size;
 
 		originalView.frame = frame;
-		[originalSuperview addSubview: originalView];
+		if (originalView.superview != originalSuperview) {
+			[originalSuperview addSubview: originalView];
+		}
 		[originalView setNeedsDisplay: YES];
         [originalView.window makeFirstResponder:originalFocusView];
 		[IFViewAnimator trackView: originalView];
@@ -166,9 +168,6 @@
 	finishedObject = whenFinished;
 	finishedMessage	= finMessage;
 
-	// Create the final image
-	endImage = [[self class] cacheView: view];
-
 	// Replace the specified view with the animating view (ie, this view)
 	originalView = view;
 	originalFrame = view.frame;
@@ -177,6 +176,17 @@
 	[IFViewAnimator detrackView: originalView];
 	self.frame = originalFrame;
 	[originalSuperview addSubview: self];
+
+	// Put the view back in the window, underneath this one, before taking its
+	// picture, so that it's laid out and drawn in the window. A view drawn while
+	// it was out of the window could be shown in the wrong place once it was
+	// back (source text too low, under a blank band, until it was redrawn).
+	[originalSuperview addSubview: originalView
+					   positioned: NSWindowBelow
+					   relativeTo: self];
+
+	// Create the final image
+	endImage = [[self class] cacheView: view];
 
 	// Run the transition using CoreAnimation
 	[self runAnimationWithStyle: style];
