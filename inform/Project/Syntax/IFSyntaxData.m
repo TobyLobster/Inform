@@ -858,12 +858,18 @@
         style = [self styleAtIndex: range.location
                     effectiveRange: &styleRange];
 
+        // The run of this style can extend past either end of the range we were asked
+        // to update, across line boundaries. Never touch text outside the range: those
+        // lines were not re-highlighted, and -setAttributes: would wipe their paragraph
+        // style (including any elastic tab stops) while lineStyles[] still records it.
+        styleRange = NSIntersectionRange(styleRange, range);
+
         // Get the style attributes
         NSDictionary* styleAttributes = [highlighter attributesForStyle: style];
         [_textStorage setAttributes: styleAttributes range:styleRange];
         [_textStorage fixFontAttributeInRange: styleRange];
 
-        NSAssert((styleRange.location + styleRange.length) <= [_textStorage length], @"Help!");
+        NSAssert((styleRange.location + styleRange.length) <= _textStorage.length, @"Help!");
         
         NSUInteger nextStart = styleRange.location + styleRange.length;
         NSInteger consumed  = nextStart - range.location;
@@ -875,13 +881,13 @@
     }
 
 #if HighlighterDebug
-    [_textStorage enumerateAttributesInRange:NSMakeRange(0, [_textStorage length])
+    [_textStorage enumerateAttributesInRange:NSMakeRange(0, _textStorage.length)
                                      options:(NSAttributedStringEnumerationOptions)0
                                   usingBlock:^(NSDictionary* attrs, NSRange aRange, BOOL *stop) {
         //NSLog(@"attrs = %@ ***** range=%d length %d end=%d string length=%d *****",
         //      attrs, aRange.location, aRange.length, aRange.location + aRange.length, [self length]);
 
-        NSAssert((aRange.location + aRange.length) <= [_textStorage length], @"Help!!!!");
+        NSAssert((aRange.location + aRange.length) <= _textStorage.length, @"Help!!!!");
     }];
 #endif
 }
@@ -958,6 +964,19 @@ static inline BOOL IsWhitespace(unichar c) {
 	return [substring caseInsensitiveCompare: keyword]==NSOrderedSame;
 }
 
+
+///
+/// Apply the paragraph style recorded in lineStyles[] for the given line to the text.
+///
+- (void) applyLineStyleForLine: (int) line {
+    NSUInteger firstChar = lineStarts[line];
+    NSUInteger lastChar  = (line+1) < nLines ? lineStarts[line+1] : _textStorage.length;
+    NSRange    lineRange = NSMakeRange(firstChar, lastChar-firstChar);
+
+    [_textStorage addAttributes: lineStyles[line]
+                          range: lineRange];
+    [_textStorage fixFontAttributeInRange: lineRange];
+}
 
 ///
 /// Actually performing highlighting
@@ -1063,42 +1082,18 @@ static inline BOOL IsWhitespace(unichar c) {
 								   intoData: intelData];
 		}
 
-		// Add a paragraph indentation style based on the number of tab stops
+        // Reset this line's paragraph style to the default (non-elastic) one.
+        //
+        // lineStyles[] is the record of which paragraph style each line of the text is
+        // supposed to carry. Every edited line starts from the default here; Phase Two
+        // applies it to the text, and Phase Three replaces it with an elastic one for
+        // lines that turn out to be part of a table. Lines that are not edited keep
+        // whatever they already have, in both lineStyles[] and the text.
         NSDictionary* newStyle	= [self paragraphStyleForTabStops: numTabStops];
-        BOOL styleChanged = NO;
-
-        if (lineStyles.count <= line) {
-            // Add a new style if it's needed for this line
-            styleChanged = YES;
-            for (;lineStyles.count <= line;) {
-                [lineStyles addObject: newStyle];
-            }
-        } else {
-            // If we have not already laid this bit out using elastic tabs...
-            if ( !NSLocationInRange(firstChar, previousElasticRange) ) {
-                // Update the paragraph indentation style
-                NSDictionary*       lastStyle		= lineStyles[line];
-                NSParagraphStyle*   paraStyle		= lastStyle[NSParagraphStyleAttributeName];
-                NSParagraphStyle*	newParaStyle	= newStyle[NSParagraphStyleAttributeName];
-
-                styleChanged = paraStyle.headIndent != newParaStyle.headIndent;
-                styleChanged |= forceUpdateTabs;
-
-                if (styleChanged) {
-                    // Update the dictionary for the new line style
-                    NSMutableDictionary* newLineStyle = [newStyle mutableCopy];
-                    newLineStyle[NSParagraphStyleAttributeName] = newParaStyle;
-                    lineStyles[line] = newLineStyle;
-                }
-            }
+        while (lineStyles.count <= line) {
+            [lineStyles addObject: newStyle];
         }
-
-        if (styleChanged) {
-            // Add the actual attributes for the paragraph indentation on the line
-            [_textStorage addAttributes: newStyle
-                                  range: NSMakeRange(firstChar, lastChar-firstChar)];
-            [_textStorage fixFontAttributeInRange: NSMakeRange(firstChar, lastChar-firstChar)];
-        }
+        lineStyles[line] = newStyle;
 
 		// Store the current state on the stack
 		[syntaxStack addObject:
@@ -1138,85 +1133,100 @@ static inline BOOL IsWhitespace(unichar c) {
 
     [self updateHighlightingForAttributedStringInRange: NSMakeRange(firstRangeChar, lastRangeChar-firstRangeChar)];
 
+    // The call above uses -setAttributes:, which replaces *every* attribute on the edited
+    // lines, including the paragraph style (the highlighter's attribute dictionaries carry
+    // one with fixed tab stops). Put each line's own paragraph style back, so that the
+    // text agrees with lineStyles[] again. Without this, an edited table row silently lost
+    // its elastic tab stops here while lineStyles[] still claimed it had them, and Phase
+    // Three then skipped the row as "already up to date" (issue #50).
+    for (line = firstLine; line <= lastLine; line++) {
+        [self applyLineStyleForLine: line];
+    }
+
     //
     // Phase Three: Add elastic tabs
     //
     if ( [IFPreferences sharedPreferences].elasticTabs ) {
-        for (line=firstLine; line<=lastLine; line++) {
+        // Look one line either side of the edited lines as well. An edit can change the
+        // layout of a table that it is not (or is no longer) part of: deleting a table's
+        // last row, removing the tab from a row so that it leaves the table, or splitting
+        // a table in two. Checking an extra line is cheap when it is not in a table, and
+        // the comparison against lineStyles[] below skips any row whose stops are unchanged.
+        int firstTabLine = (firstLine > 0) ? firstLine - 1 : firstLine;
+        int lastTabLine  = (lastLine + 1 < nLines) ? lastLine + 1 : lastLine;
+        for (line=firstTabLine; line<=lastTabLine; line++) {
             // The range of characters on the line
             NSUInteger firstChar = lineStarts[line];
-            //unsigned  lastChar = (line+1) < nLines ? lineStarts[line+1] : [_textStorage length];
+            //unsigned  lastChar = (line+1) < nLines ? lineStarts[line+1] : _textStorage.length;
 
 			// Get the region affected by these elastic tabs
 			NSRange elasticRange = [self rangeOfElasticRegionAtIndex: firstChar];
 
-            // If we have an elastic range that we have not already dealt with...
+            // If this was not the same as the region just handled...
 			if (elasticRange.location != NSNotFound &&
-                elasticRange.location != previousElasticRange.location
-                && line < lineStyles.count) {
+                elasticRange.location != previousElasticRange.location) {
 				// This is now the last elastic range (prevents us from formatting the same region twice)
 				previousElasticRange = elasticRange;
 
-				// Fetch the current paragraph indentation style
-				NSParagraphStyle* currentPara = lineStyles[line][NSParagraphStyleAttributeName];
-
 				// Lay out the tabs properly
-				NSArray* newTabStops = [self elasticTabsInRegion: elasticRange];
-
-				// Compare new tabs with the old ones...
-				BOOL tabsIdentical = NO;
-				if (currentPara.tabStops.count == newTabStops.count) {
-					tabsIdentical = YES;
-					int x;
-					for (x=0; x<newTabStops.count; x++) {
-						if (![newTabStops[x] isEqual: currentPara.tabStops[x]]) {
-							tabsIdentical = NO;
-							break;
-						}
-					}
-				}
-
-                if( forceUpdateTabs ) {
-                    tabsIdentical = NO;
-                }
+				NSArray<NSTextTab*>* newTabStops = [self elasticTabsInRegion: elasticRange];
 
 				// Update the tabs over this region if necessary
-				if (!tabsIdentical) {
-					int firstElasticLine	= [self lineForIndex: elasticRange.location];
-					int lastElasticLine		= [self lineForIndex: elasticRange.location + elasticRange.length];
-					if (elasticRange.location + elasticRange.length >= _textStorage.length) lastElasticLine++;
+                int firstElasticLine	= [self lineForIndex: elasticRange.location];
+                int lastElasticLine		= [self lineForIndex: elasticRange.location + elasticRange.length];
+                if (elasticRange.location + elasticRange.length >= _textStorage.length) lastElasticLine++;
+                while (lastElasticLine >= lineStyles.count) {
+                    // Create a default line style for all unstyled lines,
+                    // in case stage 1 didn't get here (for example, if this
+                    // table runs past the edited region)
+                    [lineStyles addObject: [self paragraphStyleForTabStops: 0]];
+                }
+                for (int formatLine = firstElasticLine; formatLine < lastElasticLine; formatLine++) {
+                    // Skip lines that already carry these tab stops. lineStyles[] is
+                    // reliable here: Phase One reset every edited line to the default
+                    // style and Phase Two applied exactly that to the text, so a line
+                    // whose recorded stops match the new ones really does have them.
+                    // Edited lines never match (they hold the default), and if a
+                    // column width changed then no line in the region matches, so
+                    // the whole table is re-laid-out, as it must be.
+                    if (!forceUpdateTabs) {
+                        NSParagraphStyle* currentPara = lineStyles[formatLine][NSParagraphStyleAttributeName];
+                        NSArray<NSTextTab*>* currentTabs = currentPara.tabStops;
+                        if (newTabStops.count == currentTabs.count) {
+                            BOOL tabsIdentical = YES;
+                            for (NSUInteger i = 0; i < newTabStops.count; ++i) {
+                                if (newTabStops[i].location != currentTabs[i].location) {
+                                    tabsIdentical = NO;
+                                    break;
+                                }
+                            }
+                            if (tabsIdentical) {
+                                continue;
+                            }
+                        }
+                    }
 
-					int formatLine;
-					for (formatLine = firstElasticLine; formatLine < lastElasticLine; formatLine++) {
-						while (formatLine >= lineStyles.count) {
-							// Create a default line style for this line
-							[lineStyles addObject: [self paragraphStyleForTabStops: 0]];
-						}
+                    // Copy the styles for this line
+                    NSMutableDictionary*		style		= [lineStyles[formatLine] mutableCopy];
+                    NSMutableParagraphStyle*	paraStyle	= [style[NSParagraphStyleAttributeName] mutableCopy];
+                    if (!paraStyle) paraStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
 
-						// Copy the styles for this line
-						NSMutableDictionary*		style		= [lineStyles[formatLine] mutableCopy];
-						NSMutableParagraphStyle*	paraStyle	= [style[NSParagraphStyleAttributeName] mutableCopy];
-						if (!paraStyle) paraStyle = [[NSParagraphStyle defaultParagraphStyle] mutableCopy];
+                    // Update the paragraph style with the new tabstops
+                    paraStyle.tabStops = newTabStops;
+                    style[NSParagraphStyleAttributeName] = paraStyle;
 
-						// Update the paragraph style with the new tabstops
-						paraStyle.tabStops = newTabStops;
-						style[NSParagraphStyleAttributeName] = paraStyle;
-
-						// Replace the line style
-						lineStyles[formatLine] = style;
-
-						// Update tabs paragraph style for this line
-						NSUInteger formatFirstChar	= lineStarts[formatLine];
-						NSUInteger formatLastChar	= (formatLine+1<nLines)?lineStarts[formatLine+1]:_textStorage.length;
-
-						[_textStorage addAttributes: style
-                                              range: NSMakeRange(formatFirstChar, formatLastChar-formatFirstChar)];
-                        [_textStorage fixFontAttributeInRange: NSMakeRange(formatFirstChar, formatLastChar-formatFirstChar)];
-					}
-				}
+                    // Replace the line style, and apply it to the text
+                    lineStyles[formatLine] = style;
+                    [self applyLineStyleForLine: formatLine];
+                }
                 
                 // Record that we have changed this range of attributes
                 changedRange = NSUnionRange(changedRange, elasticRange);
+                
+                // Advance the enclosing loop to skip the lines we just laid out
+                if (line < lastElasticLine) {
+                    line = lastElasticLine - 1;
+                }
 			}
 		}
     }
@@ -1419,7 +1429,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	NSRange lastLine	= firstLine;
 
 	// Lines without tabs never use elastic tabs
-	if ([self isTabLess: firstLine]) return NSMakeRange(NSNotFound, NSNotFound);
+	if ([self isTabLess: firstLine]) return NSMakeRange(NSNotFound, 0);
 
     // Look backwards through the lines, looking for the first one without tabs
 	while (firstLine.location > 0) {
@@ -1452,7 +1462,7 @@ static inline BOOL IsLineEnd(unichar c) {
 	}
 
 	// By default, elastic tabs do not apply to a character range
-	return NSMakeRange(NSNotFound, NSNotFound);
+	return NSMakeRange(NSNotFound, 0);
 }
 
 // Given a character range, calculate the positions the 'elastic' tab stops should go at
