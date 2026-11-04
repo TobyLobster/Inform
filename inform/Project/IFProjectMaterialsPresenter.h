@@ -7,13 +7,18 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @interface IFProjectMaterialsPresenter : NSObject<NSFilePresenter>
 
-@property (atomic, readonly, copy)    NSURL *             presentedItemURL;
-@property (atomic, readonly, strong)  NSOperationQueue *  presentedItemOperationQueue;
-@property (atomic, readonly, copy)    NSURL *             primaryPresentedItemURL;
+// The URLs are nil if the project's URL isn't a file URL
+@property (atomic, readonly, copy, nullable)    NSURL *             presentedItemURL;
+@property (atomic, readonly, strong)            NSOperationQueue *  presentedItemOperationQueue;
+@property (atomic, readonly, copy, nullable)    NSURL *             primaryPresentedItemURL;
 
 - (instancetype) init NS_UNAVAILABLE;
-- (instancetype) initWithURL:(NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
+- (instancetype) initWithURL:(nullable NSURL*) mainURL NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

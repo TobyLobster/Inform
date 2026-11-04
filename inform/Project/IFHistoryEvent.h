@@ -8,6 +8,8 @@
 
 #import <Cocoa/Cocoa.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 
 //
 // This represents an event in the history of a project pane. (Ie, an action
@@ -25,8 +27,8 @@
 
 // Building the invocation
 
-/// The target for the proxy object
-@property (atomic, readwrite, strong) id target;
+/// The target for the proxy object; nil once the proxy has recorded an action
+@property (atomic, readwrite, strong, nullable) id target;
 /// The proxy object to use for this history item
 @property (atomic, readonly, strong) id proxy;
 
@@ -36,3 +38,5 @@
 - (void) replay;
 
 @end
+
+NS_ASSUME_NONNULL_END

@@ -9,6 +9,8 @@
 #import <Cocoa/Cocoa.h>
 #import <GlkView/GlkView.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFProject;
 
 ///
@@ -22,3 +24,5 @@
 - (instancetype) initWithProject: (IFProject*) project NS_DESIGNATED_INITIALIZER;
 
 @end
+
+NS_ASSUME_NONNULL_END

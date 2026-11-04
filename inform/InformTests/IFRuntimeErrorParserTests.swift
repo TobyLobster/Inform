@@ -14,11 +14,11 @@ final class IFRuntimeErrorParserTests: XCTestCase {
     private final class Recorder: NSObject, IFRuntimeErrorParserDelegate {
         var problems: [String] = []
 
-        func runtimeError(_ error: String!, inDirectory directory: String!) {
+        func runtimeError(_ error: String, inDirectory directory: String?) {
             if let directory {
-                problems.append("\(error ?? "nil") in \(directory)")
+                problems.append("\(error) in \(directory)")
             } else {
-                problems.append(error ?? "nil")
+                problems.append(error)
             }
         }
     }

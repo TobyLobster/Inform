@@ -11,6 +11,8 @@
 #import <GlkView/GlkAutomation.h>
 #import <ZoomView/ZoomView.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @protocol IFRuntimeErrorParserDelegate;
 
 ///
@@ -23,14 +25,17 @@
 /// Called by Zoom when output is generated
 - (void) outputText: (NSString*) outputText;
 /// Sets the delegate for this object. The delegate is not retained.
-@property (atomic, readwrite, weak) id<IFRuntimeErrorParserDelegate> delegate;
+@property (atomic, readwrite, weak, nullable) id<IFRuntimeErrorParserDelegate> delegate;
 
 @end
 
 @protocol IFRuntimeErrorParserDelegate<NSObject>
 @optional
 
-/// Called when a runtime problem occurs in the output
-- (void) runtimeError: (NSString*) error inDirectory: (NSString*) directory;
+/// Called when a runtime problem occurs in the output. The directory holding the problem's
+/// explanation is nil if the output doesn't give one.
+- (void) runtimeError: (NSString*) error inDirectory: (nullable NSString*) directory;
 
 @end
+
+NS_ASSUME_NONNULL_END

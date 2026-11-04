@@ -10,27 +10,31 @@
 
 #import <Foundation/Foundation.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class IFSkein;
 @class IFProject;
 @class IFCompilerSettings;
 
 @interface IFProjectFile : NSObject
 
-@property (atomic, strong)            IFCompilerSettings *    settings;
-@property (atomic, readonly, strong)  NSFileWrapper *         sourceDirectory;
-@property (atomic, readonly, strong)  NSFileWrapper *         syntaxDirectory;
-@property (atomic, readonly, copy)    NSTextStorage *         loadNotes;
-@property (atomic, readonly, copy)    NSMutableArray *        loadWatchpoints;
-@property (atomic, readonly, copy)    NSMutableArray *        loadBreakpoints;
-@property (atomic, readonly, copy)    NSString *              loadUUID;
-@property (atomic, copy)              NSString *              filename;
-@property (atomic, readonly)          BOOL                    write;
+// Each of these is nil if the project doesn't have it
+@property (atomic, strong, nullable)            IFCompilerSettings *    settings;
+@property (atomic, readonly, strong, nullable)  NSFileWrapper *         sourceDirectory;
+@property (atomic, readonly, strong, nullable)  NSFileWrapper *         syntaxDirectory;
+@property (atomic, readonly, copy, nullable)    NSTextStorage *         loadNotes;
+@property (atomic, readonly, copy, nullable)    NSMutableArray *        loadWatchpoints;
+@property (atomic, readonly, copy, nullable)    NSMutableArray *        loadBreakpoints;
+@property (atomic, readonly, copy, nullable)    NSString *              loadUUID;
+@property (atomic, copy, nullable)              NSString *              filename;
+@property (atomic, readonly)                    BOOL                    write;
 
 #pragma mark - New project creation
 
 - (instancetype) init NS_UNAVAILABLE;
 - (instancetype) initWithEmptyProject NS_DESIGNATED_INITIALIZER;
-- (instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper NS_DESIGNATED_INITIALIZER;
+/// nil if the file wrapper isn't a folder
+- (nullable instancetype) initWithFileWrapper: (NSFileWrapper*) fileWrapper NS_DESIGNATED_INITIALIZER;
 
 - (void) addSourceFile: (NSString*) filename;
 - (void) addSourceFile: (NSString*) filename
@@ -38,16 +42,16 @@
 - (void) clearIndex;
 
 // Read
--(void) loadIntoSkeins: (NSMutableArray *) skeins
+-(void) loadIntoSkeins: (NSMutableArray<IFSkein*> *) skeins
                project: (IFProject*) project
     isExtensionProject: (BOOL) isExtensionProject;
 
 // Write
 -(void) setPreferredFilename:(NSString*) name;
--(void) replaceSourceDirectoryWrapper:(NSFileWrapper*) newWrapper;
--(void) replaceIndexDirectoryWrapper: (NSFileWrapper*) newWrapper;
--(void) replaceWrapper: (NSFileWrapper*) newWrapper;
--(void) writeNotes:(NSData*) noteData;
+-(void) replaceSourceDirectoryWrapper:(nullable NSFileWrapper*) newWrapper;
+-(void) replaceIndexDirectoryWrapper: (nullable NSFileWrapper*) newWrapper;
+-(void) replaceWrapper: (nullable NSFileWrapper*) newWrapper;
+-(void) writeNotes:(nullable NSData*) noteData;
 -(void) writeSkeins: (NSArray<IFSkein*>*) skeins isExtensionProject: (BOOL) isExtensionProject;
 -(void) writeWatchpoints:(NSArray *) watchExpressions;
 -(void) writeBreakpoints:(NSArray *) breakpoints;
@@ -57,6 +61,8 @@
 
 
 - (void) DEBUGverifyWrapper;
-@property (NS_NONATOMIC_IOSONLY, readonly, strong) NSFileWrapper *buildWrapper;
+@property (NS_NONATOMIC_IOSONLY, readonly, strong, nullable) NSFileWrapper *buildWrapper;
 
 @end
+
+NS_ASSUME_NONNULL_END

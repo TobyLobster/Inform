@@ -15,7 +15,7 @@ final class IFProjectTests: XCTestCase {
         wrapper.filename = "story.ni"
         let project = IFProject()
         try project.read(from: wrapper, ofType: "org.inform-fiction.source.inform7")
-        let storage = try XCTUnwrap(project.sourceFiles["story.ni"] as? NSTextStorage)
+        let storage = try XCTUnwrap(project.sourceFiles?["story.ni"])
         IFSyntaxManager.unregisterTextStorage(storage)
         return storage.string
     }
@@ -31,7 +31,7 @@ final class IFProjectTests: XCTestCase {
         try Data(contents.utf8).write(to: sourceURL.appendingPathComponent("story.ni"))
 
         let project = try IFProject(contentsOf: projectURL, ofType: "org.inform-fiction.project")
-        let storage = try XCTUnwrap(project.sourceFiles["story.ni"] as? NSTextStorage)
+        let storage = try XCTUnwrap(project.sourceFiles?["story.ni"])
         IFSyntaxManager.unregisterTextStorage(storage)
         return storage.string
     }
