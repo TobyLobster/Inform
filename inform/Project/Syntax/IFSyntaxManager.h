@@ -59,6 +59,9 @@ NS_ASSUME_NONNULL_BEGIN
                forTextView: (NSTextView*) view;
 +(nullable NSTextStorage*) restrictedTextStorage: (NSTextStorage*) storage
                             forTextView: (NSTextView*) view;
+/// The registered text storage that a text view shows: its own, or the full text when the view is
+/// restricted to part of it. \c nil if neither is registered.
++(nullable NSTextStorage*) registeredStorageForTextView: (NSTextView*) view;
 
 //
 // Renumbering sections

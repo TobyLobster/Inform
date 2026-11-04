@@ -179,9 +179,10 @@
 - (void) renumberSectionsInDocument: (NSDocument*) document
                            textView: (NSTextView*) textView {
 
-	NSTextStorage* storage = (NSTextStorage*)textView.textStorage;
+	// The full text, even if the view only shows part of it
+	NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: textView];
 	
-	if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) {
+	if (storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil) {
         return;		// Also can't do this if we haven't actually gathered any data
     }
 
@@ -191,8 +192,10 @@
 	IFIntelFile*   intel   = [IFSyntaxManager intelligenceDataForStorage: storage];
 	IFIntelSymbol* section = intel.firstSymbol;
 
+	// The lines are replaced one at a time, not in one beginEditing/endEditing batch. A batch is
+	// reported as a single edit covering every renumbered line, which can straddle the start of a
+	// view restricted to one heading, and the restricted range can't be adjusted for that.
 	[undo beginUndoGrouping];
-	[storage beginEditing];
 	
 	// Collect the lines that need to be renumbered
 	NSMutableArray* linesToRenumber = [[NSMutableArray alloc] init];
@@ -251,7 +254,6 @@
 		}
 	}
 
-	[storage endEditing];
 	[undo endUndoGrouping];
 }
 

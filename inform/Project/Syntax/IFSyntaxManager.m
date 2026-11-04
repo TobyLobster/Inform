@@ -125,6 +125,24 @@ static NSMutableDictionary<NSValue*,IFSyntaxData*>* storages = nil;
     return [data restrictedTextStorageForTextView: view];
 }
 
++(NSTextStorage*) registeredStorageForTextView: (NSTextView*) view {
+    NSTextStorage* storage = view.textStorage;
+    if( storage == nil ) {
+        return nil;
+    }
+    if( [IFSyntaxManager isRegistered: storage] ) {
+        return storage;
+    }
+
+    // A view restricted to part of the text shows a copy of that part
+    for( IFSyntaxData* data in storages.allValues ) {
+        if( [data restrictedTextStorageForTextView: view] == storage ) {
+            return data.textStorage;
+        }
+    }
+    return nil;
+}
+
 //
 // Renumbering sections
 //

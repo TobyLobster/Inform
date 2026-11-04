@@ -135,8 +135,8 @@
 			return NO;
         }
 
-		NSTextStorage* storage = ((NSTextView*)responder).textStorage;
-		if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
+		NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: (NSTextView*)responder];
+		if (storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
 	}
 	
 	return YES;

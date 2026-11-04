@@ -540,9 +540,9 @@ static CGFloat const      minDividerWidth     = 75.0f;
         if (![self.window.firstResponder isKindOfClass: [NSTextView class]])
             return NO;
 
-        NSTextStorage* storage = (NSTextStorage*)((NSTextView*)self.window.firstResponder).textStorage;
+        NSTextStorage* storage = [IFSyntaxManager registeredStorageForTextView: (NSTextView*)self.window.firstResponder];
 
-        if ([IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
+        if (storage == nil || [IFSyntaxManager intelligenceDataForStorage: storage] == nil) return NO;
     }
 
     // Tabbing options
